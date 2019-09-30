@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>一次完整的网络通讯</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+.container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+	background-color:white;
+	border:#ccc 1px solid;
+	color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+	 background-color:white;
+	 border:#ccc 1px solid;
+	 color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:4em;
+}sub,sup{
+font-size:80%;
+color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<p><strong>1、在浏览器中输入www.baidu.com</strong></p>
+<p>这意味着浏览器要向百度发送一个网页数据包，要发送数据包，需要知道对方的IP地址，这里我们只知道网址为www.baidu.com,却不知道IP地址，此时应用层协议DNS协议会帮我们把网址解析为IP地址，此时会发送一个DNS数据包给DNS服务器，DNS服务器再做出响应来告诉我们百度的IP地址为220.181.111.147，这样我们就知道百度（我们需要通信的主机）的IP地址。</p>
+<p><strong>DNS查找过程如下：（参考来源：<a target="_blank" href="http://www.360doc.com/content/13/0527/17/11253639_288596772.shtml">DNS域名解析过程</a>）</strong><br />
+</p>
+<p><strong><img src="http://img.blog.csdn.net/20150707173633233" alt="" /><br />
+</strong></p>
+<p>第1步，<strong>浏览器会检查缓存中有没有这个域名对应的解析过的IP地址</strong>，如果缓存中有，这个解析过程就将结束。浏览器缓存域名也是有限制的，不仅浏览器缓存大小有限制，而且缓存的时间也有限制，通常情况下为几分钟到几小时不等，域名被缓存的时间限制可以通过TTL属性来设置。这个缓存时间太长和太短都不好，如果缓存时间太长，一旦域名被解析到的IP有变化，会导致被客户端缓存的域名无法解析到变化后的IP地址，以致该域名不能正常解析，这段时间内有可能会有一部分用户无法访问网站。如果时间设置太短，会导致用户每次访问网站都要重新解析一次域名。</p>
+
+
+
+<p>第2步，如果用户的浏览器缓存中没有，<strong>浏览器会查找<a href="http://lib.csdn.net/base/operatingsystem" title="操作系统知识库" target="_blank">操作系统</a>缓存中是否有这个域名对应的DNS解析结果。</strong>其实操作系统也会有一个域名解析的过程，在Windows中可以通过C:\Windows\System32\drivers\etc\hosts文件来设置，你可以将任何域名解析到任何能够访问的IP地址。如果你在这里指定了一个域名对应的IP地址，那么浏览器会首先使用这个IP地址。例如，我们在<a href="http://lib.csdn.net/base/softwaretest" title="软件测试知识库" target="_blank">测试</a>时可以将一个域名解析到一台测试服务器上，这样不用修改任何代码就能测试到单独服务器上的代码的业务逻辑是否正确。正是因为有这种本地DNS解析的规程，所以黑客就有可能通过修改你的域名解析来把特定的域名解析到它指定的IP地址上，导致这些域名被劫持。Windows 7中将hosts文件设置成了只读的，防止这个文件被轻易修改。</p>
+
+
+
+<p>前面这两个步骤都是在本机完成的。到这里还没有涉及真正的域名解析服务器，如果在本机中仍然无法完成域名的解析，就会真正请求域名服务器来解析这个域名了。</p>
+
+
+
+<p>第3步，如何、怎么知道域名服务器呢？在我们的网络配置中都会有&quot;DNS服务器地址&quot;这一项，这个地址就用于解决前面所说的如果两个过程无法解析时要怎么办，<strong>操作系统会把这个域名发送给这里设置的LDNS，也就是本地区的域名服务器。</strong>这个DNS通常都提供给你本地互联网接入的一个DNS解析服务，例如你是在学校接入互联网，那么你的DNS服务器肯定在你的学校，如果你是在一个小区接入互联网的，那这个DNS就是提供给你接入互联网的应用提供商，即电信或者联通，也就是通常所说的SPA，那么这个DNS通常也会在你所在城市的某个角落，通常不会很远。这个专门的域名解析服务器性能都会很好，它们一般都会缓存域名解析结果，当然缓存时间是受域名的失效时间控制的，一般缓存空间不是影响域名失效的主要因素。大约80%的域名解析都到这里就已经完成了，所以LDNS主要承担了域名的解析工作。</p>
+
+
+
+<p>第4步，如果LDNS仍然没有命中，就直接到Root Server域名服务器请求解析。</p>
+
+
+
+<p>第5步，根域名服务器返回给本地域名服务器一个所查询域的主域名服务器（gTLD Server）地址。gTLD是国际顶级域名服务器，如.com、.cn、.org等，全球只有13台左右。</p>
+
+
+
+<p>第6步，本地域名服务器（Local DNS Server）再向上一步返回的gTLD服务器发送请求。</p>
+
+
+
+<p>第7步，接受请求的gTLD服务器查找并返回此域名对应的Name Server域名服务器的地址，这个Name Server通常就是你注册的域名服务器，例如你在某个域名服务提供商申请的域名，那么这个域名解析任务就由这个域名提供商的服务器来完成。</p>
+
+
+
+<p>第8步，Name Server域名服务器会查询存储的域名和IP的映射关系表，正常情况下都根据域名得到目标IP记录，连同一个TTL值返回给DNS Server域名服务器。</p>
+
+
+
+<p>第9步，返回该域名对应的IP和TTL值，Local DNS Server会缓存这个域名和IP的对应关系，缓存的时间由TTL值控制。</p>
+
+
+
+<p>第10步，把解析的结果返回给用户，用户根据TTL值缓存在本地系统缓存中，域名解析过程结束。</p>
+
+
+
+<p>在实际的DNS解析过程中，可能还不止这10个步骤，如Name Server也可能有多级，或者有一个GTM来负载均衡控制，这都有可能会影响域名解析的过程。
+
+<p><strong>2、应用层：</strong></p>
+
+<p>浏览网页采用的是HTTP 协议，HTTP数据包会嵌入在TCP数据包中，此时我们发送的HTTP数据包内容为：<br />
+<p class="code2">GET http://www.baidu.com/ HTTP/1.1</p>
+<p class="code2">Accept: application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*</p>
+<p class="code2">Accept-Language: en-US</p>
+<p class="code2">User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; Zune 4.7; InfoPath.3; MS-RTC LM 8)</p>
+<p class="code2">Accept-Encoding: gzip, deflate, peerdist</p>
+<p class="code2">Proxy-Connection: Keep-Alive</p>
+<p class="code2">Host: www.baidu.com</p>
+<p class="code2">Cookie: BDSFRCVID=H1K_JgC2l434o0a3SlYrhIyDwFLxPM7C3J; </li>
+<p class="code2">X-P2P-PeerDist: Version=1.0</p>
+
+<p>用来看原始HTTP请求及其响应的工具很多。比较喜欢使用fiddler，当然也有像FireBug这样其他的工具。这些软件在网站优化时会帮上很大忙。
+
+
+<p>3、传输层：</strong></p>
+
+<p>TCP数据包需要设置端口，接收方（百度）的Http端口默认是80，本机的端口是一个1024-65535之间的随机整数，这里假设为1025，这样TCP数据包由标头（标识着发方和接收方的端口信息）+HTTP数据包，这样TCP数据包再嵌入IP数据包中在网络上传送</p>
+
+
+
+<p><strong>4、网络层：</strong></p>
+
+<p>IP数据包需要知道双方的IP地址，本机IP地址假定为192.168.1.5，接受方IP地址为220.181.111.147（百度），这样IP数据包由头部（IP地址信息）+TCP数据包，</p>
+
+
+
+
+
+<p><strong>5、数据链路层：</strong></p>
+
+<p>IP数据包嵌入到数据帧（以太网数据包）中，以太网数据包需要知道双方的MAC（物理地址），发送方为本机的网卡地址，接受方为网关192.168.1.1的MAC地址（通过ARP地址解析协议得到的）。这样数据帧由头部（MAC地址）+IP数据包组成。</p>
+<p><strong>ARP地址解析协议工作过程：</strong></p>
+
+<p>主机A的IP地址为192.168.1.1，MAC地址为0A-11-22-33-44-01；</p>
+<p>主机B的IP地址为192.168.1.2，MAC地址为0A-11-22-33-44-02；</p>
+<p>当主机A要与主机B通信时，地址解析协议可以将主机B的IP地址（192.168.1.2）解析成主机B的MAC地址，以下为工作流程：</p>
+<p>第1步：根据主机A上的路由表内容，IP确定用于访问主机B的转发IP地址是192.168.1.2。然后A主机在自己的本地ARP缓存中检查主机B的匹配MAC地址。</p>
+
+<p>第2步：如果主机A在ARP缓存中没有找到映射，它将询问192.168.1.2的硬件地址，从而将ARP请求帧广播到本地网络上的所有主机。源主机A的IP地址和MAC地址都包括在ARP请求中。本地网络上的每台主机都接收到ARP请求并且检查是否与自己的IP地址匹配。如果主机发现请求的IP地址与自己的IP地址不匹配，它将丢弃ARP请求。</p>
+
+<p>第3步：主机B确定ARP请求中的IP地址与自己的IP地址匹配，则将主机A的IP地址和MAC地址映射添加到本地ARP缓存中。</p>
+
+<p>第4步：主机B将包含其MAC地址的ARP回复消息直接发送回主机A。</p>
+
+<p>第5步：当主机A收到从主机B发来的ARP回复消息时，会用主机B的IP和MAC地址映射更新ARP缓存。本机缓存是有生存期的，生存期结束后，将再次重复上面的过程。主机B的MAC地址一旦确定，主机A就能向主机B发送IP通信了。</p>
+
+
+
+<p><strong>6、服务器处理请求</strong><br />
+    
+经过多个网关的转发到百度服务器220.181.111.147，中间通过各级物理层找到终端服务器IP，并请求对应端口服务，服务接收到发送过来的以太网数包据开始解析请求信息，从以太网数据包中提取IP数据包——  &gt;TCP数据包——&gt;HTTP数据包，并组装为有效数据交与对应线程池中分配的线程进行处理，在这个过程中，生成相应request、response对象。</p>
+<p>处理完毕后，将数据通过response对象内部的out给客户输出信息，输出信息也需要拼接HTTP协议头部分，标志out关闭后为断开连接（注意动态内容已经在服务器端被翻译为静态内容，到客户端全部是静态内容，JS动态组装不算），断开后，服务器端自动注销request、response对象，并将释放对应线程的使用标识（一般一个请求单独由一个线程处理，部分特殊情况有一个线程处理多个请求的情况）</p>
+
+
+
+<p><strong>7、服务器发回一个HTML响应</strong></p>
+<p>服务器生成并返回的响应：</p>
+
+<p class="code2">HTTP/1.1 200 OK</p>
+<p class="code2">Cache-Control: private, no-store, no-cache, must-revalidate, post-check=0,</p>
+<p class="code2">pre-check=0</p>
+<p class="code2">Expires: Sat, 01 Jan 2000 00:00:00 GMT</p>
+<p class="code2">P3P: CP=&quot;DSP LAW&quot;</p>
+<p class="code2">Pragma: no-cache</p>
+<p class="code2">Content-Encoding: gzip</p>
+<p class="code2">Content-Type: text/html; charset=utf-8</p>
+<p class="code2">X-Cnection: close</p>
+<p class="code2">Transfer-Encoding: chunked</p>
+<p class="code2">Date: Fri, 12 Feb 2010 09:05:55 GMT</p>
+
+<p>整个响应大小为35kB，其中大部分在整理后以blob类型传输。<br />
+<p>内容编码头告诉浏览器整个响应体用gzip<a href="http://lib.csdn.net/base/datastructure" title="算法与数据结构知识库" target="_blank">算法</a>进行压缩。解压blob块后，你可以看到如下期望的HTML：</p>
+
+<p class="code2">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;    </p>
+<p class="code2"> &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</p>
+<p class="code2"> &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;</p>
+<p class="code2"> lang=&quot;en&quot; id=&quot;facebook&quot; class=&quot; no_js&quot;&gt;</p>
+<p class="code2"> &lt;head&gt;</p>
+<p class="code2"> &lt;meta http-equiv=&quot;Content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</p>
+<p class="code2"> &lt;meta http-equiv=&quot;Content-language&quot; content=&quot;en&quot; /&gt;</p>
+<p class="code2"> ...</p>
+
+<p>关于压缩，头信息说明了是否缓存这个页面，如果缓存的话如何去做，有什么cookies要去设置（前面这个响应里没有这点）和隐私信息等等。<br />
+请注意报头中把Content-type设置为“text/html”。报头让浏览器将该响应内容以HTML形式呈现，而不是以文件形式下载它。浏览器会根据报头信息决定如何解释该响应，不过同时也会考虑像URL扩展内容等其他因素。<br />
+
+<p><strong>8、浏览器开始显示HTML</strong></p>
+<p>客户端接收到返回数据，去掉对应头信息，形成也可以被浏览器认识的页面HTML字符串信息，交与浏览器翻译为对应页面规则信息展示为界面内容。浏览器同样的过程读取到HTTP响应的内容（HTTP响应数据包），然后浏览器对接受到的HTML页面进行解析，把网页显示出来呈现给用户。</p>
+
+<p><strong>9、浏览器发送获取嵌入在HTML中的对象</strong></p>
+<p>在浏览器显示HTML时，它会注意到需要获取其他地址内容的标签。这时，浏览器会发送一个获取请求来重新获得这些文件。</p>
+
+<p>下面是几个我们访问facebook.com时需要重获取的几个URL：</p>
+
+
+<p>CSS 式样表</p>
+
+<p>http://static.ak.fbcdn.net/rsrc.php/z448Z/hash/2plh8s4n.css</p>
+
+<p>http://static.ak.fbcdn.net/rsrc.php/zANE1/hash/cvtutcee.css</p>
+
+<p>…</p>
+
+<p><a href="http://lib.csdn.net/base/javascript" title="JavaScript知识库" target="_blank">JavaScript</a> 文件</p>
+
+<p>http://static.ak.fbcdn.net/rsrc.php/zEMOA/hash/c8yzb6ub.js</p>
+
+<p>http://static.ak.fbcdn.net/rsrc.php/z6R9L/hash/cq2lgbs8.js</p>
+
+<p>…</p>
+
+<p>这些地址都要经历一个和HTML读取类似的过程。所以浏览器会在DNS中查找这些域名，发送请求，重定向等等...</p>
+
+<p>但不像动态页面那样，静态文件会允许浏览器对其进行缓存。有的文件可能会不需要与服务器通讯，而从缓存中直接读取。服务器的响应中包含了静态文件保存的期限 信息，所以浏览器知道要把它们缓存多长时间。还有，每个响应都可能包含像版本号一样工作的ETag头（被请求变量的实体值），如果浏览器观察到文件的版本 ETag信息已经存在，就马上停止这个文件的传输。</p>
+
+<p>试着猜猜看“fbcdn.net”在地址中代表什么？聪明的答案是&quot;Facebook内容分发网络&quot;。Facebook利用内容分发网络（CDN）分发像图片，CSS表和JavaScript文件这些静态文件。所以，这些文件会在全球很多CDN的数据中心中留下备份。</p>
+
+<p>静态内容往往代表站点的带宽大小，也能通过CDN轻松的复制。通常网站会使用第三方的CDN。例如，Facebook的静态文件由最大的CDN提供商Akamai来托管。</p>
+
+<p>举例来讲，当你试着ping static.ak.fbcdn.net的时候，可能会从某个akamai.net服务器上获得响应。有意思的是，当你同样再ping一次的时候，响应的服务器可能就不一样，这说明幕后的负载平衡开始起作用了。</p>
+
+<p><strong>10. 浏览器发送异步（AJAX）请求</strong></p>
+
+<p>在Web 2.0伟大精神的指引下，页面显示完成后客户端仍与服务器端保持着联系。</p>
+
+<p>以 Facebook聊天功能为例，它会持续与服务器保持联系来及时更新你那些亮亮灰灰的好友状态。为了更新这些头像亮着的好友状态，在浏览器中执行的 JavaScript代码会给服务器发送异步请求。这个异步请求发送给特定的地址，它是一个按照程式构造的获取或发送请求。还是在Facebook这个例 子中，客户端发送给http://www.facebook.com/ajax/chat/buddy_list.php一个发布请求来获取你好友里哪个 在线的状态信息。</p>
+
+
+
+<p>提起这个模式，就必须要讲讲&quot;AJAX&quot;-- “异步JavaScript 和 XML”，虽然服务器为什么用XML格式来进行响应也没有个一清二白的原因。再举个例子吧，对于异步请求，Facebook会返回一些JavaScript的代码片段。除了其他，fiddler这个工具能够让你看到浏览器发送的异步请求。事实上，你不仅可以被动的做为这些请求的看客，还能主动出击修改和重新发送它们。AJAX请求这么容易被蒙，可着实让那些计分的在线游戏开发者们郁闷的了。（当然，可别那样骗人家~）</p>
+
+<p>Facebook聊天功能提供了关于AJAX一个有意思的问题案例：把数据从服务器端推送到客户端。因为HTTP是一个请求-响应协议，所以聊天服务器不能把新消息发给客户。取而代之的是客户端不得不隔几秒就轮询下服务器端看自己有没有新消息。这些情况发生时长轮询是个减轻服务器负载挺有趣的技术。如果当被轮询时服务器没有新消息，它就不理这个客户端。而当尚未超时的情况下收到了该客户的新消息，服务器就会找到未完成的请求，把新消息做为响应返回给客户端。<br />参考来源：<a target="_blank" href="http://www.cnblogs.com/wenanry/archive/2010/02/25/1673368.html">当你输入一个网址的时候，实际会发生什么?</a>   <a target="_blank" href="http://www.cnblogs.com/zhili/archive/2012/08/11/NetWorkProgramming.html">[C#网络编程系列]专题一：网络协议简介</a></p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

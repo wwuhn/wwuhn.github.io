@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>中国辛德勒与河豚鱼计划</h3>
+
+<p>
+</p>
+
+<p>20余年前，在哈尔滨一个老式居民楼里住着一个孤寡老人。儒雅随和的他退休前曾经是黑龙江文史研究馆的一名职员，退休后的他衣食无着做了10年的打更人，却免费帮助上千名青年学生学习外语，他们当中有的当上了外语老师，有的考上了大学甚至硕士、博士毕业。
+</p>
+
+<p>这个身高近1.9米的老人，几十年来都喜欢吃馒头蘸牛奶，街坊邻居也都不知道这个老人之前做过什么。
+</p>
+
+<p>老人也不想提起，因为他的一生实在是太过复杂：他是唯一一个和希特勒吃饭的中国人，他是拯救1.2万犹太人的"大善人"，而与此同时他也是出卖抗日志士，为日本人做走狗的汉奸。
+</p>
+
+<p>他就是曾经的伪满洲国驻德外交官——王替夫。
+</p>
+
+<p>1911年，王替夫出生在吉林省的永吉县，他打小就表现出了惊人的外语天赋，到9岁那年就能流利的通读英文信件，因为父亲做生意经常跟俄国人接触，他又自学俄语，经过2年无师自通。
+</p>
+
+<p>他的父母为了生意，同时也为了儿子的教育，举家搬迁到了当时东北最繁华的城市——哈尔滨，并且安排王替夫进入东省特别区第二中学念书，14岁的王替夫以优异的成绩毕业进入了哈工大预科，3年后他根据自己的兴趣转入了东省特别区法政大学。
+</p>
+
+<p>在大学时期，王替夫已经成为了一个掌握日、俄、英、德四国语言的外语天才。不出意外的话，他很可能会在当时中华民国政府的外交部中谋一份好差事，然而时代却不允许他过着自己的"舒服日子"。
+</p>
+
+<p>1931年九一八事变，国势累卵之际东北军竟在张学良的指挥下，不开一枪一炮撤出了东北。可怜东北数千万生灵，就此被日本人奴役，成了亡国奴。
+</p>
+
+<p>王替夫不忍看到这样的场面发生，在学生群体中颇有号召力的他，自发的在学校里成立了爱国组织"反日会"并且担任会长的职位，他组织人上街募捐，筹集上万件服装和几万块大洋，而后亲自送到齐齐哈尔的马占山将军的手上。
+</p>
+
+<p>马占山热情的接待了这个爱国青年并拍了一张合照，这张照片随后被报纸刊登出，王替夫一时声名无两。
+</p>
+
+<p>当年11月，马占山将军在江桥一战打响了抗日战争的第一枪，却终因寡不敌众战败，齐齐哈尔被占领。次年2月，马占山无奈的投降日本人，并出任了伪满洲国军政部长，虽然被外界痛骂为汉奸走狗，但马占山却想方设法不在卖国条约上签字，于此同时还积极的筹备军械粮草，准备他日再战。
+</p>
+
+<p>在抗日英雄马占山都妥协的情况下，东北无数青年俊才为了自己的家庭、生计无奈投降了日本人，其中就包括曾经的爱国青年领袖王替夫。
+</p>
+
+<p>王替夫痛苦万分，在他看到一个个同伴被日本人抓走有去无回，他害怕了。曾经决定"宁可被枪毙，也不为日本人做事"的他想到养育自己的老父母，还有妻子儿女，他无奈的妥协了，成为了后来成立的伪满洲国的一名外交官。
+</p>
+
+<p>王替夫的父亲听后留下了泪水，他无奈的看着自己的儿子说："替夫，为父有一句话要告诉你，你是念过私塾的，要记住圣人说的话，要积善行德，永远都不要做伤天害理的事！"
+</p>
+
+<p>在某种程度上，作为外交官的王替夫确实做了非常伟大的善举，只不过那是对犹太人，而不是他的同胞。
+</p>
+
+<p>1932年12月，21岁的王替夫作为伪满洲国的外交官前往了苏联西伯利亚地区的赤塔市，尽管曾经的他是多么的不愿，但如今他已经成了一个名副其实的汉奸走狗。
+</p>
+
+<p>1938年，日军已经发动全面侵华1年多时间，27岁的王替夫的心情极度复杂，曾经和他合照的抗日英雄马占山将军重新到前线抗日，而自己在伪满洲国内的"官"却越当越大。
+</p>
+
+<p>他被派遣到了德国首都柏林，成为了伪满洲国驻德公使馆的一名书记官。这一次德国之行，他甚至见到了希特勒并与其共享晚餐，成了唯一一个亲眼和希特勒面对面谈话的中国人。
+</p>
+
+<p>此时的犹太人在欧洲的境遇每况愈下，在纳粹政府的种族灭绝、隔离政策下，犹太人的财产遭到了无情掠夺，生命也遭到了严重威胁。如果他们想要逃离欧洲，基本上只有两条路可以走：第一条路是借道西班牙、葡萄牙这两个中立国家，另一条路就是横穿整个苏联前往中国的伪满洲国地区，再南下到上海乘坐独轮前往美国。
+</p>
+
+<p>1939年春，伪满洲国驻德公使馆站了出来，给无数人签发了签证，尤其是一线的书记官王替夫，则几乎全权负责了这件事情的执行，他经常通宵达旦的给犹太人签署生命签证，前后约1年的时间里帮助1.2万名犹太人逃离纳粹的魔爪。理论上说，当时前往哈尔滨的犹太人的签证，上面几乎都签着王替夫的名字。
+</p>
+
+<p>此举毫无疑问是一个人类历史上不得多见的善举。
+</p>
+
+<p>然而王替夫此后回到国内却公然宣传纳粹暴行的"正确性"，同时支持日本的侵华举动，还出卖过抗日志士，是一个不折不扣的汉奸。
+</p>
+
+<p>他把那仅有的"善良"给了犹太人，却忘记给那些饱受侵略和奴役之苦的同胞。
+</p>
+
+<p>可能拯救犹太人会给他内心中的救赎，后人在解读这段历史的时候往往添油加醋，然而实际情况可能比我们想象的更为复杂，比如此事就有一个巨大的疑点：为什么日本作为德国的统一战线上的“战友”（后成为盟友），却放任伪满洲国外交官做这样的举动呢？
+</p>
+
+<p>王替夫在晚年的回忆录中写道："我于1939年春到1940年5月为德国犹太人办理出境签证，并非我的自发行为，而是履行公务。"而这个公务，实际上是日本人的一个巨大阴谋：河豚鱼计划。
+</p>
+
+<p>河豚鱼是一种具有毒性的鱼类，但其肉质却十分鲜美，在品尝河豚鱼之前必须要将其"毒素"取出。而日本人则将犹太人比喻为河豚鱼，认为犹太人是财富的象征，可以给出一定的方案笼络犹太人以促进日本的发展。
+</p>
+
+<p>1938年，日本内阁批准了4年前由日本企业家鲇川义介提出的"吸引5万德国犹太人来满洲国的计划"，在这个计划的大背景下，王替夫给犹太人签署签证的行为很难说的上是"善举"，就连他本人都说这是为日本人"服务"的行为。
+</p>
+
+<p>这些犹太人来到中国的东三省之后，他们时常和日本人勾结在一起，在日本人的允许之下修建起了大量的犹太社区和学校、医院、银行等设施，同时一部分犹太人曾经公开支持日本人建立"亚洲新秩序"，实际上就是支持日本人的"大东亚共荣圈"计划，而作为回报，部分犹太人能够主张在中国的东北建立一个国家安置犹太人，后来因为日德正式同盟的关系此事不了了之。
+</p>
+
+<p>然而有相当一部分犹太人并没有相信日本人的"诡计"，比如在哈尔滨经营糖厂的犹太人列夫·齐克曼（Lev Zikman)曾经在一封和友人的信件中表示："我认为犹太人去支持日本人是一种堕落的行为，日本和德国、意大利一样是一个真正的法西斯国家……我向你保证，我将全力以赴的反对你们的计划。"
+</p>
+
+<p>收到信件的美国犹太人领袖斯蒂芬·魏斯也深以为然，尽管日本人屡次伸出橄榄枝，但他却毫无所动。
+</p>
+
+<p>可能也正是因为"河豚鱼计划"的存在，王替夫并没有被以色列认可为"义人"，他给犹太人派发签证的行为显然幕后是由日本人主使。
+</p>
+
+<p>"义人"、"中国辛德勒"的名号则被颁给了中华民国驻维也纳的外交官何凤山，而王替夫则被人们扫进了"历史的垃圾堆"。
+</p>
+
+<p>1945年5月15日，35岁的王替夫被提拔为"国务院总务厅参事官"，并被溥仪召见，溥仪对他35岁就取得如此大的成就表示赞赏。
+</p>
+
+<p>短短3个月后日本就宣布投降，作为伪满大臣的王替夫自然成为了战犯，被关押在苏联的战犯集中营力长达12年的，回到国内后又屡经劫难，最终在1980年，69岁的他终于被允许在哈尔滨市区生活。
+</p>
+
+<p>此后，他参加了黑龙江文史研究馆，同时又当了10年打更人。尽管他拿着微薄的工资，他仍然免费的培训了上千名外交人才，其中有的学生在海外谋得了一份体面的工作，学生写信给自己的恩师王替夫，他展信阅毕泪流满面，他听说自己的家乡永吉县的校舍捐赠了200元钱，这几乎是他当时一个月的工资。
+</p>
+
+<p>晚年的他，似乎在为当年出卖自己的祖国赎罪，但这一切的一切都被掩埋在历史的长河中，变得不为人知起来。
+</p>
+
+<p>2001年，王替夫饱受争议的一生结束了，享年90岁。
+</p>
+
+<p>至今，凭借仅有的史料，我们也很难真正复刻他当时背叛祖国的心情，他当时给犹太人派发签证的心情。
+</p>
+
+<p>一生善恶是非难断，说的就是王替夫吧。
+</p>
+
+<p>参考资料：
+</p>
+
+<p>大话哈尔滨《王替夫：中国辛德勒》
+</p>
+
+<p>大话哈尔滨《是汉奸还是"辛德勒"》
+</p>
+
+<p>大地《埋名60年的中国"辛德勒"──中国"特殊功臣"王替夫鲜为人知的超级秘史和悲怆人生》
+</p>
+
+<p>档案春秋《伪满最后一位外交官王替夫沉浮录》
+</p>
+
+<p>档案天地《伪满外交官救助德国犹太人的历史秘密》
+</p>
+
+<p>春风文艺出版社《一个伪满外交官的人生告白》
+</p>
+
+
+
+<p style='float:right;'>本页共48段，3323个字符，9599 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>渐变色</title> 
+    </head> 
+    <body> 
+        <canvas id="canvas" width="200" height="100" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">Demo</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            function drawIt() {  
+                clearIt();  
+                /*  
+                 * context.createLinearGradient(xStart, yStart, xEnd, yEnd) - 创建线性渐变对象，并返回 CanvasGradient 类型的对象  
+                 *   xStart, yStart - 线性渐变对象的起始点坐标  
+                 *   xEnd, yEnd - 线性渐变对象的结束点坐标  
+                 *  
+                 * CanvasGradient.addColorStop(offset, color) - 新增一个渐变参考点  
+                 *   offset - 渐变参考点的位置，0.0 - 1.0 之间。起始点为 0，结束点为 1  
+                 *   color - 渐变参考点的颜色值   
+                 */  
+                var linearGradient = ctx.createLinearGradient(50, 0, 50, 100);  
+                linearGradient.addColorStop(0, "red");  
+                linearGradient.addColorStop(0.5, "green");  
+                linearGradient.addColorStop(1, "blue");  
+                ctx.beginPath();  
+                ctx.arc(50, 50, 50, 0, 2 * Math.PI, true);  
+                ctx.fillStyle = linearGradient;  
+                ctx.fill();  
+                /*  
+                 * context.createRadialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd) - 创建放射性渐变对象，并返回 CanvasGradient   
+                 *   xStart, yStart - 放射性渐变对象的开始圆的圆心坐标  
+                 *   radiusStart - 开始圆的半径  
+                 *   xEnd, yEnd - 放射性渐变对象的结束圆的圆心坐标  
+                 *   radiusEnd - 结束圆的半径  
+                 */  
+                var radialGradient = ctx.createRadialGradient(150, 50, 0, 150, 50, 50);  
+                radialGradient.addColorStop(0, "red");  
+                radialGradient.addColorStop(0.5, "green");  
+                radialGradient.addColorStop(1, "blue");  
+                ctx.beginPath();  
+                ctx.arc(150, 50, 50, 0, 2 * Math.PI, true);  
+                ctx.fillStyle = radialGradient;  
+                ctx.fill();  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 200, 100);  
+            }  
+        </script> 
+    </body> 
+    </html> 

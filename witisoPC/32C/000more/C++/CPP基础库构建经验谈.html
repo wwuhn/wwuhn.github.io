@@ -1,0 +1,582 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>CPP基础库构建经验谈</h3>
+
+<p>
+</p>
+
+<p>C++ 基础库构建的必要性
+</p>
+
+<p>所谓「工欲善其事，必先利其器」，对软件开发尤其是大型软件开发而言，打造一个团队或者公司级别的基础库，显得格外重要。复用作为软件开发最重要的原则之一，是人类能够从汇编代码进化到函数编程，再到面向对象编程背后的驱动思想。所谓的「不要重复制造轮子」，就是说我们要多复用现有代码。开源项目多了，代码复用成了习惯，那么巴别塔的构建就有了稳固的地基，伟大的建筑自然就可能在其上构建出来。
+</p>
+
+<p>C++编程｜C++基础库构建经验谈
+</p>
+
+<p>笔者主要的开发语言是 C++ ，在几家公司构建过基础代码库，也曾在之前参与过一个开源的 C++ 代码基础库的构建。本文就如何构建 C++ 基础代码，分享一些自己的经验，算是抛砖引玉。
+</p>
+
+<p>由于 C++ 标准发展相比 Java 较慢，很多人其实只是把 C++ 当成支持类的 C 语言 , 大大降低了 C++ 的威力，并且由于对 C++ STL 的陌生，C++ 标准库功能有限（尤其是 C++ 11 之前），各个团队经常喜欢维护自己的一套 C++ 程序，到了下一家公司，就拷贝过去这些基础代码。代码写得好也就罢了，写的糟糕那往往是噩梦的源头。
+</p>
+
+<p>几个项目里有很多私人的代码，一般就两三个文件，每个文件代码行数超过几千行。这些代码注释差，风格糟糕，缺乏测试，实现不够高效，并且经常实现和标准库类似的功能。最关键的是，这些代码里的函数或者类被使用到的其实非常有限，往往开发者只是想使用其中的一两个函数，就引入整个自己开发的 utility library , 导致其他同事阅读和维护的成本很高，要删除没有使用到的代码，无从入手，代价高昂，往往苦不堪言。
+</p>
+
+<p>假如有时间翻看 Chromium 项目的代码，会发现其基础库几乎无所不包。如果要构建一个 C++ 基础库，Chromium 项目的基础代码是一个非常好的参考。除标准库以外的 C++ 基础代码库，可能属 Boost 最为知名。Boost 里有各种用途的工具库，不过Boost 相当庞大，学习成本不低，并且代码库体积大，占空间，引入到代码仓库前务必三思。部分功能太过于酷炫，有时候在项目中使用 Boost ，会引入不必要的复杂度，增大团队的学习成本。要知道 C++ STL 熟悉的人都尚且少得可怜，总不能指望大家都熟悉 Boost 吧。
+</p>
+
+<p>笔者之前就曾经引入过 Boost ，很多时候往往是被逼无奈。比如早期 google grpc 还没有开源，那么只好选择 Facebook 开源的 thrift 了，但是 thrift 又使用到了 Boost ，只好引入 boost 到代码仓库中。 后来我们在迁移到 grpc 后，基本逐渐把 Boost 剔除出局了，当时团队突然感觉世界真美好——代码库小了，IDE 等构建代码索引也快了，尤其是终于没有大量代码和 STL 重复了，不用老师当时 namespace 冲突了。引入一个巨无霸，哪天谁使用很顺手，被越来越多地使用起来，到时候拦也拦不住，而 code reviewer 对这个基础库却比较陌生，那可能就要悲剧了，因为要么审查代码的人需要去需要各种库的使用，要么相关的代码只好跳过，不去 Review 。
+</p>
+
+<p>打造一个轻量级的，但是功能丰富，风格统一，测试充分，性能良好的基础库，对统一公司代码，使代码风格趋同，有着重要的作用。在我之前的实践中，我们一般会严格遵守 Google C++ Style，具体请参考相关文档。
+</p>
+
+<p>总体原则
+</p>
+
+<p>C++编程｜C++基础库构建经验谈
+</p>
+
+<p>基础库之所以是基础，是因为上层有大量代码会使用到，代码复用的价值能达到效益最大化，因此构建基础库也应该更加小心谨慎，追求质量和良好的设计。另外我列举几个指导性的原则：
+</p>
+
+<p>代码复用是第一原则。看到重复两三次的代码，就考虑重构。看到在几个不同的目录和模块中出现的相似代码，应该考虑放到基础库。基础代码可以是 base , util 等不同的目录。base 目录下放最高频的代码，util 目录放特定场景的基础代码。
+</p>
+
+<p>重视性能优化。优化一次，受益全部使用者。比如 tolower 这样的字符串大小写的函数，值得好好优化。计算文档 ID 的哈希函数，值得好好优化，因为对海量数据处理来说，这些函数可能每天被调用的次数在百亿以上的量级。
+</p>
+
+<p>保持高测试覆盖率。覆盖率高，保证代码质量，同时也是避免因为其他人修改基础代码引入一个 Bug ，而造成重大的影响。另外，单元测试往往也是很好的代码教程，方便别人通过测试代码了解代码如何使用。建议使用bazel + cc_test + gtest + gmock。
+</p>
+
+<p>改动基础代码需要小心。可以结合 bazel query 功能，提交代码前保证依赖到的 build targets 都能够顺利通过单元测试。
+</p>
+
+<p>不要为了写基础代码而写基础代码。只有有了需求，才有必要考虑实现。任何没有人使用，或者很少人使用的代码，都不应该过早放在基础库中。因为基础代码大家基本都会学习，如果因为基础代码过于庞大，很多人都花费不少的学习成本，整体耗费很惊人。
+</p>
+
+<p>基础代码最好有相应的 codelab 。有一些基础代码，相对比较复杂，比如网页解析之类的类库，可能接口繁多，不容易看头文件就了解到一些细节。有了 codelab ，新人等就比较方便学习。基础代码的写作者，写简单的codelab ，也能帮助自己推广基础库。
+</p>
+
+<p>要与时俱进、保持更新。跟进最新语言标准，保持和 STL 的良好关系。该推广 C++11，或者 C++ 14 等的时候，就应该推广，甚至重构相关的基础代码。比如我就重构过 callback , thread, mutex 等相关的基础代码，及时适应 C++ 语言的新发展。
+</p>
+
+<p>不要追求大而全。一开始就把 Boost 里的代码抄过来，或者是 Chromium 里的基础代码全复制过来，往往为自己将来删除代码埋下隐患。大而全的代码，一来学习成本高，二来编译慢，三来依赖复杂，当要移植到其它平台的时候，要做的工作量就会比较多。
+</p>
+
+<p>要执行严格的代码 。基础代码的修改权限最好严格控制，都有改动的时候，需要经过较为严格的代码审查，不仅需要关注功能，也需要关注性能。另外，在提交之前，需要保证有较为丰富的测试覆盖率。
+</p>
+
+<p>C++编程｜C++基础库构建经验谈
+</p>
+
+<p>以下谈谈本人研发中经常使用的一些基础功能，供各位参考。主要包括
+</p>
+
+<p>文件操作
+</p>
+
+<p>智能指针
+</p>
+
+<p>类注册器
+</p>
+
+<p>线程库
+</p>
+
+<p>Socket 封装
+</p>
+
+<p>HTTP 协议相关库
+</p>
+
+<p>字符串操作
+</p>
+
+<p>内存池
+</p>
+
+<p>回调函数
+</p>
+
+<p>有价值的宏
+</p>
+
+<p>高效的哈希函数
+</p>
+
+<p>常用的加密算法
+</p>
+
+<p>编码相关算法
+</p>
+
+<p>时间相关操作
+</p>
+
+<p>以下分别进行介绍。
+</p>
+
+<p>文件操作
+</p>
+
+<p>文件操作可能涉及到两类。
+</p>
+
+<p>一类是文件系统相关操作，比如目录的读取与遍历，文件属性获取，文件路径相关操作等。
+</p>
+
+<p>一类是文件读写相关操作。文件读写与定位等，一般会设计为不同的FileSystem , 比如 LocalFileSystem 和 HadoopFileSystem 等。提供一些轻量级的读取文件到字符串( std::string ReadFileToString )，写入字符串到文件中( WriteStringToFile )等工具函数，也有广泛的用户需求。最常见的可能是写单元测试的时候，读取某个测试文件，或者是一次性读取某个配置文件。再比如写个
+</p>
+
+<p>bool ReadFileToLines(const string& filename,
+</p>
+
+<p>vector<string>* lines);
+</p>
+
+<p>之类的函数，也是经常有需求的。
+</p>
+
+<p>当然配置文件的读取等，也是比较高频的，假如使用 .ini 文件，可以移植一个比较方面的 reader class 。当然很多时候可以使用 json , xml , protobuf text
+</p>
+
+<p>format 作为配置文件，直接读取进来就反序列化到 C++ 对象，方便后续操作。
+</p>
+
+<p>至于上升到数据库级别的文件操作，移植并封装几个 mysql , sqlite, leveldb 等class 就差不多了，这一类一般没太大必要放在 base 目录中，放到不同级别的 util 目录中可能比较合适。一般没有必要自己实现一个特殊的文件格式，手痒想重新造轮子的话，把代码提交到 exprimental 目录就行了。
+</p>
+
+<p>智能指针
+</p>
+
+<p>由于指针操作容易造成内存泄露（忘记释放，某个退出路径忘记释放等），重复删除等困扰大部分 C/C++ 程序员的问题，引入统一的智能指针，或者推广使用标准库中的智能指针，就显得很有必要了。假如编译工具能够自动检测单元测试中的内存泄露的话（这个使用 bazel 结合 Gperftools 是可以做到的，具体操作有机会专文另谈），可能就会发现，有大量的内存泄露问题，是因为在析构函数中没有释放一些内存。而这些对象可能生命周期几乎与进程相同，因此从来没人注意到内存泄露的存在。使用智能指针，将大大规避这类内存释放问题的发生。
+</p>
+
+<p>当然 C++ 11/14 引入了 unique_ptr , shared_ptr , wear_ptr 等各种不同的智能指针，基本上已经没有必要自己重复造轮子了。但是假如贵公司的编译器还没有跟上时代（这个原因众多，有时候很难如意），那么则不妨在代码基础库中引入智能指针的实现，不过记得加上特定的 namespace 保护，否则某一天要使用 C++ 标准库的里智能指针，将会发现各种编译问题。
+</p>
+
+<p>类注册器
+</p>
+
+<p>假如你意识到使用动态库的烦恼三千，或者是体会到只使用静态库斩断烦恼丝的干脆决绝，那么有一个类注册器，就显得具有战略意义了。一个类注册器，可以让你使用类名或者是绑定的类的“昵称”，来生成该类的对象（可以是每次创建新的，也可以是 singleton instance ）。这样的功能，假如配合上 google的 glags ，则会显得威力十足。配合上 gcc 的编译参数 --whole-archive，或者是 bazel 里的 alwayslink = True，恭喜，你往昔有关动态库的各种噩梦，从此就和你说拜拜了。
+</p>
+
+<p>类注册器的实现，可以参考 toft 项目，toft项目的主要实现者是陈峰，他也是前文介绍过的 blade 构建工具的主要作者。class_registry 的相关代码地址如下：
+</p>
+
+<p>https://github.com/chen3feng/toft/tree/master/base/class_registry
+</p>
+
+<p>线程库
+</p>
+
+<p>你说你从来没写过多线程程序？好吧，算你幸运，你可以跳过以下文字了。
+</p>
+
+<p>大部分后台程序，都是多线程在工作的，封装一个多线程库，会使得你的很多代码优雅美观很多，过多的 pthread 相关操作，不仅对维护人员的水平是个挑战，对代码的结构化也是一定程度上的破坏。
+</p>
+
+<p>引入一个封装优雅，功能完善的线程库，势在必行。
+</p>
+
+<p>当然 C++ 11 已经引入了 std::thread 和 std::mutex 相关的类，假如你的编译器支持 C++ 11 ，最好是直接使用 std::mutex。不过 C++ 11 暂时没有读写锁等，可以考虑暂时基于 pthread library 封装对应的 wrapper class 。
+</p>
+
+<p>Socket 封装
+</p>
+
+<p>网络通信无处不在，内部聊天工具，QQ，微信，飞信，文件传输，服务部署系统，p2p 系统，这一切都需要网络库。
+</p>
+
+<p>引入封装友好的网络库，对解决大部分事务而言已经足够，想想厚厚的一本
+</p>
+
+<p>《 Unix 网络编程》看完一遍需要多长时间吧。很大一部分的研发人员，并没有专门修过网络编程的课程，因此引入网络库，对降低学习成本，降低常见的误用，大有好处。
+</p>
+
+<p>比如简单的 sendn 功能的实现，不熟悉的朋友可能都不知道其中的坑。而如何你在基础库中实现了，这些坑使用者就可以少跳几次了。想学习怎么跳过这些坑的，阅读一些相关代码就行了。轮子没有必要重复造，跳过的坑也没有必要让其他同事再跳。
+</p>
+
+<p>HTTP 协议相关库
+</p>
+
+<p>抓取各种语料做个实验（这个随着及机器学习的一天天火热，需求越来越强），提供简单的 HTTP 服务器，做个公司内部的 go 服务（类似内网的 hao123 导航服务），还是为各个服务提供一些轻量级的 CGI 服务，都需要使用到 http server 或 http client , 对 HTTP 协议及 server / client 进行封装实现，对互联网公司尤其有必要。
+</p>
+
+<p>当然从头打造成本挺高的，有一些比较成熟的开源项目可以作为参考。比如wget，curl，libevent 等。
+</p>
+
+<p>字符串操作
+</p>
+
+<p>大家编程中最频繁处理的可能就是字符串了。C/C++ 语言的标准库固然提供了不少函数，不过总是有各种没那么高频的需求需要面对。比如字符串转大小写，更为灵活的字符串格式化，判断是否以某个字符串开始或者结束，字符串与数字的各种转换等，这些基础库中都没有很好的支持。
+</p>
+
+<p>对字符串操作提供必要的高层封装，可能是对整个公司代码库最有贡献的。假如我们进行统计，那么字符串处理相关的函数，在整个代码仓库中，使用频率应该是最高的。
+</p>
+
+<p>当然也可以考虑引入部分高效的字符串处理开源库，比如 stringencoders ，提高高频字符串操作的执行效率。专业的人干专业的事，这也是软件复用的核心理念。
+</p>
+
+<p>内存池
+</p>
+
+<p>引入内存池，更多的是考虑到性能提升。STL 也实现了自己的内存池，具体实现细节，可以参考侯捷的《 STL 源码剖析》。
+</p>
+
+<p>如果有没使用过 tcmalloc 的朋友，这里推荐了解下，tcmalloc 是谷歌的开源项目( Gperftools )，具体可以参考笔者另一篇谈及谷歌开源 C++ 项目的文章《Google 开源的几个 C++ 基础项目介绍》。对大部分的程序而言，链接上该库的收益，可能比自己实现一些内存池库的收益还大。
+</p>
+
+<p>官方提及的 tcmalloc 的实现动机如下：
+</p>
+
+<p>TCMalloc is faster than the glibc 2.3 malloc (available as a separate library called ptmalloc2) and other mallocs that I have tested. ptmalloc2 takes approximately 300 nanoseconds to execute a malloc/free pair on a 2.8 GHz P4 (for small objects). The TCMalloc implementation takes approximately 50 nanoseconds for the same operation pair. Speed is important for a malloc implementation because if malloc is not fast enough, application writers are inclined to write their own custom free lists on top of malloc. This can lead to extra complexity, and more memory usage unless the application writer is very careful to appropriately size the free lists and scavenge idle objects out of the free list
+</p>
+
+<p>gperftools 的项目地址如下：
+</p>
+
+<p>https://github.com/gperftools/gperftools
+</p>
+
+<p>回调函数
+</p>
+
+<p>在项目中，引入回调函数基础库，对统一代码风格有很大帮助。不少项目，函数指针定义散落各处，可读性不好，而如果引入统一的类，则会使得使用到函数指针的各个接口，显得统一和谐。
+</p>
+
+<p>当然可以使用 C++ 提供的 std::bind 来实现类似的功能。在我自己的团队中，也是慢慢迁移到 std::bind 。
+</p>
+
+<p>有价值的宏
+</p>
+
+<p>在代码中有太多的宏，可能会使得代码的可读性降低，但是引入适当数量的宏，则会带来很多的便利。比如求数组大小的宏( arraysize )，禁止拷贝赋值构造的宏( DISALLOW_COPY_AND_ASSIGN )等，看似微不足道，实则长久看会发挥重大作用。
+</p>
+
+<p>高效的哈希函数
+</p>
+
+<p>我们经常需要对 URL ，微博数据，手机短信等短文本求哈希值。MD5 之类的哈希效果虽然足够好，但是用在这里有点杀鸡用牛刀。我之前接触过一些别人写的代码，代码最终使用的是 uint64 , 但是计算的时候却使用 MD5 算法，使用高复杂度的算法，消费的却只是一部分产出（MD5 结果是 128 位）。比如搜索领域，根据 URL 计算文档 ID , 如果使用 MD5，则显然会在大量的程序中，多耗费不少CPU 。这些我曾经在面试问过不少面试者，他们来自不同的公司，但是使用的都是 MD5，存储却只有 8 个字节。
+</p>
+
+<p>算法大牛们，已经设计出了很多离散性足够好、性能表现卓越的哈希算法。比如 Murmur hash , City hash 等，移植一份高效的哈希算法，对频繁计算哈希值的场合，收效甚佳。
+</p>
+
+<p>常用的加密算法
+</p>
+
+<p>常用的加密／哈希算法也不少，比如 crc32, md5, sha1 等。在文件校验、网络数据包校验、文件签名、计算文档内容哈希等场合，都会使用到这些算法，因此移植一份经常有派上用场的时候。
+</p>
+
+<p>编码相关算法
+</p>
+
+<p>日常编程中经常碰到各种编码需求。比如 UrlEncode / UrlDecode, Html Escapse, Base64 编码，Hex 编码，这些都需要实现或移植相关的代码，使得相关的需求，可以通过简单的调用实现。
+</p>
+
+<p>时间相关操作
+</p>
+
+<p>时间相关的封装，比如封装一些类，将时间解析，时间格式化，各种时区转换，时间差，由日期构造时间值等进行封装，则可以节省大量时间相关的处理代码。
+</p>
+
+<p>另外还有时间字符串到时间值的转换，比如爬虫抓取回来的网页的发表时间，往往需要转换为标准时间，以参与排序等。
+</p>
+
+
+
+<p style='float:right;'>本页共96段，7405个字符，17411 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

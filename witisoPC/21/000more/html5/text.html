@@ -1,0 +1,89 @@
+!DOCTYPE HTML> 
+<html> 
+<head> 
+    <title>在 canvas 上呈现文本的 demo</title> 
+</head> 
+<body> 
+    <canvas id="canvas" width="600" height="600" style="background-color: rgb(222, 222, 222)"> 
+        您的浏览器不支持 canvas 标签  
+    </canvas> 
+    <br /> 
+    <button type="button" onclick="drawIt();">在画布上呈现一些文本</button> 
+    <button type="button" onclick="clearIt();">清除画布</button> 
+    <script type="text/javascript"> 
+        var canvas = document.getElementById('canvas');  
+        var ctx = canvas.getContext('2d');  
+        function drawIt() {  
+            clearIt();  
+            ctx.beginPath();  
+            ctx.moveTo(0, canvas.height / 2);  
+            ctx.lineTo(canvas.width, canvas.height / 2);  
+            ctx.moveTo(canvas.width / 2, 0);  
+            ctx.lineTo(canvas.width / 2, canvas.height);  
+            ctx.stroke();  
+            /*  
+             * context.font - 语法与 CSS 中的 font 属性相同，默认值为 10px sans-serif  
+             *  
+             * context.textAlign - 可能的值为：start, end, left, right, center；默认值为：start  
+             *  
+             * context.textBaseline - 可能的值为：top, hanging, middle, alphabetic, ideographic, bottom；默认值为：alphabetic  
+             */  
+            ctx.font = 'italic 24px 宋体';  
+            ctx.fillStyle = "blue";  
+            ctx.textBaseline = "top";  
+            // 不同 textAlign 的效果  
+            ctx.textAlign = "start";  
+            ctx.fillText("Horizontal", canvas.width / 2, 0);  
+            ctx.textAlign = "end";  
+            ctx.fillText("Horizontal", canvas.width / 2, 30);  
+            ctx.textAlign = "left";  
+            ctx.fillText("Horizontal", canvas.width / 2, 60);  
+            ctx.textAlign = "right";  
+            ctx.fillText("Horizontal", canvas.width / 2, 90);  
+            ctx.textAlign = "center";  
+            ctx.fillText("Horizontal", canvas.width / 2, 120);  
+            ctx.textAlign = "start";  
+            // 不同 textBaseline 的效果  
+            ctx.textBaseline = "top";  
+            ctx.fillText("Vertical", 0, canvas.height / 2);  
+            ctx.textBaseline = "hanging";  
+            ctx.fillText("Vertical", 100, canvas.height / 2);  
+            ctx.textBaseline = "middle";  
+            ctx.fillText("Vertical", 200, canvas.height / 2);  
+            ctx.textBaseline = "alphabetic";  
+            ctx.fillText("Vertical", 300, canvas.height / 2);  
+            ctx.textBaseline = "ideographic";  
+            ctx.fillText("Vertical", 400, canvas.height / 2);  
+            ctx.textBaseline = "bottom";  
+            ctx.fillText("Vertical", 500, canvas.height / 2);  
+            /*  
+             * context.strokeStyle - 调用 strokeText() 时字体的笔划颜色  
+             *  
+             * context.fillStyle - 调用 fillText() 时字体的填充颜色  
+             *  
+             * context.fillText(text, x, y [, maxWidth]) - 以填充的方式绘制文本内容  
+             *   text - 需要呈现的文本字符串  
+             *   x, y - 参考点坐标，textAlign 和 textBaseline 均会以此点为参考点  
+             *   maxWidth - 显示区域的最大长度，必要时会强制压缩文本的长度。可选参数  
+             *  
+             * context.strokeText(text, x, y [, maxWidth]) - 以笔划的方式绘制文本内容。参数说明同 fillText()  
+             */  
+            ctx.font = '64px 宋体';  
+            ctx.strokeStyle = 'blue';  
+            ctx.strokeText("strokeText", 0, 400);  
+            ctx.strokeText("strokeText", 0, 500, 100);  
+            /*  
+             * context.measureText(text) - 返回指定文本内容在当前上下文环境中的度量对象，即 TextMetrics 类型的对象  
+             * TextMetrics.width - TextMetrics 对象有一个名为 width 的只读属性，用于获取 TextMetrics 对象的长度值  
+             */  
+            var metrics = ctx.measureText("strokeText");  
+            alert(metrics.width);  
+        }  
+        function clearIt() {  
+            ctx.clearRect(0, 0, 600, 600);  
+            ctx.textAlign = "start";  
+            ctx.textBaseline = "alphabetic";  
+        }  
+    </script> 
+</body> 
+</html> 

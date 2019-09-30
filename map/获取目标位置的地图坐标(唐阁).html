@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>腾讯地图api获取坐标位置</title>
+<style>
+#btn {margin:10px 0;
+cursor:pointer;
+background: #0B7ECE;
+width: 80px; 
+color: #CFDDF1;
+font-size: 12px; 
+line-height: 25px; 
+margin: 0px 0; 
+text-align: center;}
+
+</style>
+<script charset="utf-8" src="http://api.map.soso.com/v1.0/main.js"></script>
+<script charset="utf-8" src="http://api.map.soso.com/doc/js/MarkerPicker.js"></script>
+<script type="text/javascript">
+function init() {
+	var markers = [];
+    var map = new soso.maps.Map(document.getElementById("map_container"), {
+        // 地图的中心地理坐标。
+        center: new soso.maps.LatLng(23.266634,113.240676)
+    });
+	//这里可以定义一个预设的标注比如 var point = ["39.894454","116.433952"];
+	 var point = ["23.266634","113.240676"];
+	if (typeof(point) !== 'undefined') {
+		map.moveTo(new soso.maps.LatLng(point[0],point[1]));
+		map.zoomTo(13);
+		var marker = new soso.maps.Marker({
+			position: (new soso.maps.LatLng(point[0],point[1])),
+			map: map
+		});
+		markers.push(marker);
+	}
+	
+	var stack=[];//声明一个数组，用来保存标注位置的坐标
+	var MarkerPicker=new soso.maps.MarkerPicker({
+		element:document.getElementById("btn"),
+		width:800,
+		height:600
+	});//创建MarkerPicker类的一个实例
+	MarkerPicker.setIcon("http://api.map.soso.com/doc/img/pin_3.png",[0,44],[39,39]);
+	//给MarkerPicker对象绑定mark事件
+	soso.maps.Event.addListener(MarkerPicker,"save",function(latlng){
+		stack.push(this.lat+","+this.lng);
+		document.getElementById("ditu").value=stack[0];
+		map.moveTo(new soso.maps.LatLng(this.lat, this.lng));
+		map.zoomTo(13);
+		clearOverlays(markers);
+		var marker = new soso.maps.Marker({
+			position: (new soso.maps.LatLng(this.lat, this.lng)),
+			map: map
+		});
+		markers.push(marker);
+		document.getElementById("m_con").innerHTML=stack.join("<br/>");
+	});
+}
+//清除地图上的marker
+function clearOverlays(overlays){
+    var overlay;
+    while(overlay = overlays.pop()){
+        overlay.setMap(null);
+    }
+}
+window.onload=init;
+</script>
+</head>
+<body>
+
+<div> <!-- style="width:620px;margin:0 auto;"-->
+
+	<div style="width:16%; float:left;">
+		<div class="m_title" style="height:168px; font-size:14px;">
+默认地图坐标点:<br />
+23.266634,113.240676<br />
+<br />
+操作流程:<br />
+(获取目标位置的地图坐标)<br />
+1 点击“标注位置“；<br />
+2 目标位置单击；<br />
+3 点击"保存"；<br />
+4 坐标数据即可显示在此下：<br />
+
+</div>
+		<div style="" id="m_con"></div>
+		
+	</div>
+	<form action="" method="post">
+			   
+		<div class="map_area" style="width:84%; float:left;">
+	
+		<!--<h4>地图:</h4>-->
+	
+		<div style="width:99%;height:650px;border:1px solid #ccc; position:relative;" id="map_container"></div>
+		<div style="position:absolute; top:0px; left:16%;" id="btn">标注位置</div>
+	
+		<input type="hidden" name="ditu" id="ditu" value="">
+	
+		
+		</div>
+		<div class="liubai" style="height:20px;"></div>
+				  
+	</form>
+
+</div>
+<div style="text-align:center;clear:both;">
+<!--<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+<script src="/follow.js" type="text/javascript"></script>-->
+</div>
+
+</body>
+</html>

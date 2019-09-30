@@ -1,0 +1,1371 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>中国象棋和国际象棋比较研究</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+</style>
+</head>
+
+<body> 
+<div id="container">
+  <!--
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />	
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+-->
+  <!--
+height="*\w*"
+width="*\w*"
+</p>
+<p>
+-->
+<p>目录</p>
+<dl>
+  <dd>概述</dd>
+  <dd>　　子力价值</dd>
+  <dd>　　棋子的作用和棋盘的阵形</dd>
+  <dd>　　特殊走法和特殊规则</dd>
+  <dd>　　开局</dd>
+  <dd>　　战术</dd>
+  <dd>　　中残局的策略</dd>
+</dl>
+<dl>
+<p><strong>摘要</strong></p>
+
+<p>很多棋迷同时擅长中国象棋和国际象棋，现在这样的棋迷队伍正日益壮大。中国象棋和国际象棋存在很多共同点，也存在很多区别，可能有人要问，两种棋的学习是相互妨碍的，还是相互独立的，还是相互促进的？本文的回答显然是相互促进的，为此，需要对中国象棋和国际象棋做系统的比较研究。比较研究的目的有两个，一是找出彼此技术上的共同点，使得学习上不要花费重复的精力，二是找出它们的重大区别，使得棋手在技术的掌握上不致于混淆，通过比较来加深印象，这样棋手会把技术上的特点会掌握得更好。</p>
+
+<p><strong>关键词</strong></p>
+
+<p>中国象棋、国际象棋、比较研究</p>
+
+<p><strong>一、概述</strong></p>
+
+<p><strong>1. </strong><strong>起源</strong></p>
+
+<p>中国象棋和国际象棋都形成于公元5世纪左右，从棋盘和棋子的结构上来看，两种棋的同源性是毋庸置疑的，目前比较权威的说法是象棋起源于印度，由印度传入中国。很多中国的学者持反对意见，因此考古学上对此研究得很多，分歧也很大。造成分歧的原因有两个，一是中外考古学的交流不够充分，二是中国人有希望象棋起源于中国的主观意愿。不管意见如何，都说明中国和西方很早就有文化交流，象棋的形成就是中西文化交流的产物。</p>
+
+<p><strong>2. </strong><strong>文化背景</strong></p>
+
+<p>象棋的每一种棋子走法都具有象征意义，它们或多或少体现了当时的社会价值，研究象棋文化背景的人很多，他们的意见是一致的，中国象棋更多地反映了几千年禁锢的封建制度，而国际象棋则反映了西方资本主义萌芽阶段的历史背景。(参考学术论文《<a href="http://www.xqbase.com/other/culture.htm" target="_blank">从国际象棋与中国象棋的异同看中西方文化的差异</a>》，武汉体育学院学报，第37卷，第5期，2003年9月)</p>
+
+<p><strong>3. </strong><strong>群众基础</strong></p>
+
+<p>由于中国象棋简单易学，以及中国人口众多，因此中国象棋的群众基础比国际象棋广泛。至于国际象棋在欧美的普及程度，比起中国象棋在中国的普及程度，肯定要差很多。因为就国际象棋的难度而言，要掌握这门棋必须经过比较正规的培训，但并不是每个人都有机会接受这种培训的，就像围棋在中国得不到很好的普及一样。</p>
+
+<p><strong>4. </strong><strong>社会价值</strong></p>
+
+<p>象棋的社会价值包括很多方面，它是一种娱乐方式，一种开发智力的游戏，它可以培养人们作出决策的能力，锻炼人们承受输赢的能力，等等。同时，象棋还具有其他作用，例如报纸上经常会刊登象棋的排局，排局的创作和解答过程就如同诗词的创作和欣赏过程，从这个意义上讲，象棋是一种艺术，在这一点上中国象棋表现得尤为突出。在电子时代，象棋成了人脑和电脑较量的平台，自从国际象棋棋王卡斯帕罗夫挑战IBM的“深蓝”以来，这样的活动就没有停止过，目的不在于让人脑和电脑比个高下，而是谋求其中的商业利益，从这个意义上讲，象棋又在参加社会经济活动，这一点国际象棋比中国象棋领先得多。</p>
+
+<p><strong>5. </strong><strong>研究目的</strong></p>
+
+<p>很多棋迷同时擅长中国象棋和国际象棋，现在这样的棋迷队伍正日益壮大。中国象棋和国际象棋存在很多共同点，也存在很多区别，可能有人要问，两种棋的学习是相互妨碍的，还是相互独立的，还是相互促进的？本文的回答显然是相互促进的，为此，需要对中国象棋和国际象棋做系统的比较研究。比较研究的目的有两个，一是找出彼此技术上的共同点，使得学习上不要花费重复的精力，二是找出它们的重大区别，使得棋手在技术的掌握上不致于混淆，通过比较来加深印象，这样棋手会把技术上的特点会掌握得更好。</p>
+</dl>
+<dl>
+  <div align="left">
+  <p><strong>二、子力价值</strong></p>
+  </div>
+  <div align="left">
+  
+  </div>
+<table id="tbrowser">
+        <tbody>
+          <tr>
+            <td align="center" colspan="2">棋子名称</td>
+            <td align="center" colspan="3">活动范围</td>
+            <td align="center" colspan="3">子力价值</td>
+          </tr>
+          <tr>
+            <td align="center">红</td>
+            <td align="center">黑</td>
+            <td align="center">中央</td>
+            <td align="center">边线</td>
+            <td align="center">角落</td>
+            <td align="center">开局</td>
+            <td align="center">中局</td>
+            <td align="center">残局</td>
+          </tr>
+          <tr>
+            <td align="center">帅</td>
+            <td align="center">将</td>
+            <td align="center">4</td>
+            <td align="center">3</td>
+            <td align="center">2</td>
+            <td align="center">-</td>
+            <td align="center">-</td>
+            <td align="center">-</td>
+          </tr>
+          <tr>
+            <td align="center">仕</td>
+            <td align="center">士</td>
+            <td align="center">4</td>
+            <td align="center">-</td>
+            <td align="center">1</td>
+            <td align="center">1</td>
+            <td align="center">2</td>
+            <td align="center">2</td>
+          </tr>
+          <tr>
+            <td align="center">相</td>
+            <td align="center">象</td>
+            <td align="center">4</td>
+            <td align="center">2</td>
+            <td align="center">-</td>
+            <td align="center">2</td>
+            <td align="center">2</td>
+            <td align="center">3</td>
+          </tr>
+          <tr>
+            <td align="center">马</td>
+            <td align="center">马</td>
+            <td align="center">8/6/4</td>
+            <td align="center">4/3</td>
+            <td align="center">2</td>
+            <td align="center">4</td>
+            <td align="center">5</td>
+            <td align="center">5</td>
+          </tr>
+          <tr>
+            <td align="center">车</td>
+            <td align="center">车</td>
+            <td align="center">17</td>
+            <td align="center">17</td>
+            <td align="center">17</td>
+            <td align="center">10</td>
+            <td align="center">10</td>
+            <td align="center">10</td>
+          </tr>
+          <tr>
+            <td align="center">炮</td>
+            <td align="center">炮</td>
+            <td align="center">17/13</td>
+            <td align="center">17/14</td>
+            <td align="center">17/15</td>
+            <td align="center">5</td>
+            <td align="center">5</td>
+            <td align="center">6</td>
+          </tr>
+          <tr>
+            <td align="center">兵</td>
+            <td align="center">卒</td>
+            <td align="center">1/3</td>
+            <td align="center">1/2</td>
+            <td align="center">1</td>
+            <td align="center">2</td>
+            <td align="center">1/3/5</td>
+            <td align="center">3/2/1</td>
+          </tr>
+        </tbody>
+      </table>
+  <p>为了作中国象棋和国际象棋子力价值比较的研究，首先列出两种象棋的子力价值。</p>
+
+
+<dl>
+  <div align="left">
+  <p>说明：</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>1. 活动范围</p>
+  </div>
+  <div align="left">
+  <p>(1) 活动范围的数值就是活动区域的大小，换句话说就是一个棋子最多有几种走法；</p>
+  </div>
+  <div align="left">
+  <p>(2) 马的活动范围在中央和次边线有所不同；</p>
+  </div>
+  <div align="left">
+  <p>(3) 炮的活动方式和攻击方式不同，所以活动范围和攻击范围不同；</p>
+  </div>
+  <div align="left">
+  <p>(4) 兵在过河前和过河后的活动范围不同。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>2. 开局的子力价值：开局的子力价值标志着开局时棋子发挥的作用，一般而言子力价值大的子应当尽快出动；</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>3. 中局的子力价值</p>
+  </div>
+  <div align="left">
+  <p>(1) 中局的子力价值就是兑子价值，当然，这种兑子价值并非是固定的；</p>
+  </div>
+  <div align="left">
+  <p>(2) 兵在过河前和过河后具有不同的兑子价值，进入九宫时价值最高；</p>
+  </div>
+  <div align="left">
+  <p>(3) 不同局面下子力价值会有所不同，例如在对方有双车的情况下，仕的价值明显比相的价值高，而对方有双炮的情况下，双相的价值明显比双仕高；</p>
+  </div>
+  <div align="left">
+  <p>(4) 中局时兵种的组合会产生不同的价值，例如双仕或双相的价值明显高于单仕相，马炮的价值略高于双马或双炮(当然这不是绝对的)，两兵联合的价值要比分开时高；</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>4. 残局的子力价值</p>
+  </div>
+  <div align="left">
+  <p>(1) 残局的胜负遵循“子力价值判断法则”，一般来说进攻方的子力价值(不包括仕相)总和大于防守方(包括仕相)，就可以取得胜利，当然这不是绝对的；</p>
+  </div>
+  <div align="left">
+  <p>(2) 兵的残局价值取决于兵的位置，底兵最低，其次是低兵(次底线和倒数第三线)，高兵(更高的位置)最高；</p>
+  </div>
+  <div align="left">
+  <p>(3) 作为进攻方，炮的价值还取决于是否有仕相，有仕相时才可以发挥自身价值，但计算价值时仕相并不算入其中，没有仕相时，炮的价值会大打折扣；</p>
+  </div>
+  <div align="left">
+  <p>(4) 跟“子力价值判断法则”相差较大的典型局面只有：单马(5分)不胜单相(3分)，其他局面如：单兵(3分)不胜单是仕(2分)等、三高兵(9分)胜仕相全(10分)等，偏差不会大于1点；</p>
+  </div>
+  <div align="left">
+  <p>(5) 进攻方能否取胜还取决于防守方棋子的位置，例如单车(10分)对双马(10分)或马双相(11分)，只有防守方棋子占据特殊位置时才可守和。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>对于国际象棋，类似的表格可以在任何基础教程上找到，这里就不再列出。国际象棋的兑子价值很好计算：后——9，车——5，相——3，马——3，兵——1。当然，这里有几点要注意：</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>1. 开局原则正好与中国象棋相反——先出动价值小的子，后出动价值大的子；</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>2. 考虑象的格子互补性——双相的价值比马象和双马高；</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>3. 残局时需要考虑兵的增值，增值因素有几个：(A) 是否通路兵，(B) 是否有根，(C) 离底线的距离，(D) 升变格，增值的最高价值是8；</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>4. 残局情况复杂，跟“子力价值判断法则”相差较远，例如：马相可胜单王，但双马只有在对方有一个高兵的情况下才可胜单王。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>下面就对中国象棋和国际象棋的棋子作比较：</p>
+  </div>
+  <div align="left">
+  <p>由于中国象棋和国际象棋只有车的走法完全一样，所以可以把车的价值定为相同的分值(10分)，这样就可以对中国象棋和国际象棋作比较。</p>
+  </div>
+</dl>
+<table id="tbrowser">
+  <tbody>
+    <tr>
+      <td align="center"><table id="tbrowser">
+        <tbody>
+          <tr>
+            <td align="center" rowspan="2" colspan="2">　</td>
+            <td align="center" colspan="2">中国象棋</td>
+            <td align="center" colspan="2">国际象棋</td>
+          </tr>
+          <tr>
+            <td align="center">价值</td>
+            <td align="center">数量</td>
+            <td align="center">价值</td>
+            <td align="center">数量</td>
+          </tr>
+          <tr>
+            <td align="center">　</td>
+            <td align="center">兵(卒)</td>
+            <td align="center">1</td>
+            <td align="center">5</td>
+            <td align="center">2</td>
+            <td align="center">8</td>
+          </tr>
+          <tr>
+            <td align="center" rowspan="2">守子</td>
+            <td align="center">仕(士)</td>
+            <td align="center">2</td>
+            <td align="center">2</td>
+            <td align="center">-</td>
+            <td align="center">-</td>
+          </tr>
+          <tr>
+            <td align="center">相(象)</td>
+            <td align="center">2</td>
+            <td align="center">2</td>
+            <td align="center">-</td>
+            <td align="center">-</td>
+          </tr>
+          <tr>
+            <td align="center" rowspan="3">轻子</td>
+            <td align="center">马</td>
+            <td align="center">5</td>
+            <td align="center">2</td>
+            <td align="center">6</td>
+            <td align="center">2</td>
+          </tr>
+          <tr>
+            <td align="center">炮</td>
+            <td align="center">5</td>
+            <td align="center">2</td>
+            <td align="center">-</td>
+            <td align="center">-</td>
+          </tr>
+          <tr>
+            <td align="center">象</td>
+            <td align="center">-</td>
+            <td align="center">-</td>
+            <td align="center">6</td>
+            <td align="center">2</td>
+          </tr>
+          <tr>
+            <td align="center" rowspan="2">重子</td>
+            <td align="center">车</td>
+            <td align="center">10</td>
+            <td align="center">2</td>
+            <td align="center">10</td>
+            <td align="center">2</td>
+          </tr>
+          <tr>
+            <td align="center">后</td>
+            <td align="center">-</td>
+            <td align="center">-</td>
+            <td align="center">18</td>
+            <td align="center">1</td>
+          </tr>
+          <tr>
+            <td align="center" colspan="2">总价值(双方)</td>
+            <td align="center">106</td>
+            <td align="center">32</td>
+            <td align="center">156</td>
+            <td align="center">32</td>
+          </tr>
+          <tr>
+            <td align="center" colspan="2">棋盘大小</td>
+            <td align="center" colspan="2">90</td>
+            <td align="center" colspan="2">64</td>
+          </tr>
+        </tbody>
+      </table>
+          <p>表二　中国象棋和国际象棋子力价值比较</p></td>
+    </tr>
+  </tbody>
+</table>
+<dl>
+  <div align="left">
+  <p>因此可以作出结论：中国象棋的棋盘比国际象棋大，但子力总价值却比国际象棋小，所以就“火力密度”(子力总价值和棋盘大小的比值)而言，国际象棋比中国象棋大一倍多。“火力密度”这个指标可以引出棋局的很多特征。</p>
+  </div>
+  <div align="left">
+  <p>火力密度小的战场很容易造成兵力的相互突破，这一特点形成了中国象棋的特征——在中局时很容易形成对攻的局面，甚至对杀。因此，中国象棋对杀法比较重视，棋局更多地在中局收场，进入残局的机会不多。</p>
+  </div>
+  <div align="left">
+  <p>火力密度大的战场很容易造成兵力的相互消耗，所以国际象棋的中局过程是频繁的子力交换过程，很容易进入残局。从这个意义上讲，国际象棋更重视子力的价值，这种价值通常会带入残局。另一方面，相对于杀法而言，残局的技术更加重要。</p>
+  </div>
+</dl>
+<dl>
+  <div align="left">
+  <p><strong>三、棋子的作用和棋盘的阵形</strong></p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>中国象棋和国际象棋的大多数子可以建立对应关系，这种对应关系可以根据棋子的作用来确定：帅(将)(中国象棋)——王(国际象棋)，马——马，车——车，炮——象(稍后解释为什么把炮和象对应起来)，兵(卒)——兵。在这些对应关系中，只有车的走法是完全一样的，其他棋子走法的差别形成了中国象棋和国际象棋阵形上的不同。这主要表现在以下几点：</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>1. 棋子的活动范围</p>
+  </div>
+  <div align="left">
+  <p>中国象棋的某些棋子占有固定的位置(称为“定域”)，这里特指是仕(士)相(象)和五个兵卒，这使得其他子力的活动也具有“定域”性。国际象棋则完全不同，任何棋子(除了小兵)都可以走遍棋盘的任何位置，所以子力的活动是“离域”的。在局面分析上，中国象棋更简明清晰，国际象棋更复杂，变数大。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>2. 线路和阵形</p>
+  </div>
+  <div align="left">
+  <p>中国象棋由于“定域”成分大，所以线路是天然形成的，利于长兵器车和炮的活动。利于炮发挥火力的线路是五路(中炮)和三七路(卒底炮、五七炮等)，利于车炮活动的线路是二八路(直车、进炮封车等)和四六路(也称肋道)(横车、仕角炮、五六炮等)。天然线路是双方争夺的焦点，包括直线和横线。国际象棋根本没有天然线路，所有的线路全部被兵阵所封闭，只有兵的兑换才会产生半开放线和开放线，所以线路是人为开辟的，要占领线路，首先要使用开线战术。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>3. 灵魂棋子</p>
+  </div>
+  <div align="left">
+  <p>行走方法和攻击方法不同的子称为灵魂棋子。众所周知，国际象棋的灵魂是兵，而中国象棋中这种提法却不多，但是无论开局、残局还是杀法，炮的用法之丰富是其他棋子无法比拟的，所以把炮称谓中国象棋的灵魂，这话一点也不过分。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>4. 棋盘的三维空间</p>
+  </div>
+  <div align="left">
+  <p>无论是中国象棋还是国际象棋，棋盘都是平面的，为什么称为“三维空间”呢？这是因为棋子的行走路线除了直线和横线以外，还有第三种方式。很显然，国际象棋的第三维是斜线，在兵形相对完整的情况下，斜线是首先考虑开发的线路，是国际象棋的大动脉。中国象棋则有三个独特的概念——马腿、象眼和炮架子，在短兵相接时，此三者必然主导着局势的发展，隐藏在纵横交错的格子中，很难理出头绪来，这就是中国象棋局势的复杂之处，也是中国象棋的乐趣所在。在国际象棋和中国象棋的“第三维”中，扮演重要角色的分别是象和炮，这两个子存在微妙的对应关系。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>5. 防御体系</p>
+  </div>
+  <div align="left">
+  <p>在中国象棋中，帅(将)依靠仕(士)和相(象)来保护，所以在开局的首尾阶段往往会支起仕(士)和相(象)，确保帅(将)的安全。国际象棋中，王车易位后王被换到g线，f g h三兵承担着保护王的作用，为确保兵形完整，g兵或h兵会挺起1格。</p>
+  </div>
+  <div align="left">
+  
+  </div>
+  <div align="left">
+  <p>6. 帅(将)或王的地位</p>
+  </div>
+  <div align="left">
+  <p>帅(将)或王是胜负的标志，有人认为帅(将)或王的作用仅仅是“不被将死”，其实这是很片面的。在国际象棋中，王的助攻作用非常明显，残局无不“御驾亲征”的，有人把王的助攻价值给予4分，优于象马而仅次于车，是很有道理的。中国象棋中帅(将)的魅力就逊色很多了，是“被软禁起来的傀儡”，除了助攻“对面笑杀”和“铁门栓杀”以外，就几乎没有进攻作用了。</p>
+  </div>
+</dl>
+<table id="tbrowser">
+  <tbody>
+    <tr>
+      <td align="center"><table id="tbrowser">
+        <tbody>
+          <tr>
+            <td>　</td>
+            <td><strong>中国象棋</strong></td>
+            <td><strong>国际象棋</strong></td>
+          </tr>
+          <tr>
+            <td><strong>棋子的活动范围</strong></td>
+            <td>定域的</td>
+            <td>离域的</td>
+          </tr>
+          <tr>
+            <td><strong>线路和阵形</strong></td>
+            <td>天然线路</td>
+            <td>从在兵阵中开辟线路</td>
+          </tr>
+          <tr>
+            <td><strong>灵魂棋子</strong></td>
+            <td>炮</td>
+            <td>兵</td>
+          </tr>
+          <tr>
+            <td><strong>棋盘三维空间</strong></td>
+            <td>马腿、象眼和炮架子</td>
+            <td>直线、横线和斜线</td>
+          </tr>
+          <tr>
+            <td><strong>防御体系</strong></td>
+            <td>仕(士)和相(象)</td>
+            <td>兵形</td>
+          </tr>
+          <tr>
+            <td><strong>帅(将)或王的地位</strong></td>
+            <td>被软禁起来的傀儡</td>
+            <td>可以御驾亲征</td>
+          </tr>
+        </tbody>
+      </table>
+          <p>表三　中国象棋和国际象棋走法和阵形特征</p></td>
+    </tr>
+  </tbody>
+</table>
+<dl>
+<p><strong>四、特殊走法和特殊规则</strong></p>
+
+<p>中国象棋和国际象棋的最大区别在于特殊走法和特殊规则。</p>
+<p>中国象棋中除了帅和将不能直接相对以外，没有其他特殊的走法。国际象棋则有三个特殊的走法——王车易位、吃过路兵和兵的升变，每一种特殊走法都有很多规定，在国际象棋的入门教程上都有介绍，例如“王车易位”在五种情况下是不能进行的，这里就不逐一阐述了。</p>
+<p>中国象棋的走法很简单，然而出现重复局面使棋局无法进行下去时，就需要用“规则”来解决问题，“长打”被判为禁手，不变作负，至于“长打”如何规定，规则上写得很烦琐。而国际象棋恰好相反，有非常复杂的特殊走法，但出现重复局面时却有非常简单的规则——不变作和。</p>
+<p>另有一个特殊的规则——出现无子可动的局面，这一点上中国象棋和国际象棋判断胜负的标准截然不同，前者称为“困毙”，无子可动一方判负，后者称为“逼和”，判双方和棋。在国际象棋中，“长打作和”和“逼和”两个规则看起来似乎很不合理，但是其中蕴涵着无穷的魅力，这使得劣势的一方可以用各种战术谋求和棋，这些战术统称为“谋和战术”，这就增加了国际象棋的趣味。</p>
+
+<p>现在就中国象棋中“长打作负”的原则作简单的说明。</p>
+<p>对于“长打”的定义，中国规则和亚洲规则不完全一样，以下几种“长打”在国内规则中是禁止着法，而在亚洲规则中却是允许着法：A. 长要杀；B. 长要抽吃；C. 多子长捉一真根子；D. 一将一捉；E. 分捉多子。</p>
+<p>从以上几例可以看出，中国规则的原则性比亚洲规则强，只要打的过程中存在得利的行为，例如要杀、要抽吃、多子捉一真根子，长打就算禁止着法。但是，亚洲规则的判断方法比中国规则简单，在没有裁判的网络对局中，计算机可以判断将、捉等直接攻击的着法，而对于要杀、要抽吃等间接攻击，计算机很难作出判断，因此在可行性上讲，亚洲规则比中国规则更合理。</p>
+<p>因此，在对局过程中，对局者必须对规则有所了解，了解程度包括以下几个层次：</p>
+<p>1. 熟悉规则上明确禁止的着法，避免不必要的判负；</p>
+<p>2. 熟悉规则上规定的不变作和的着法，避免在优势局面下被对手利用规则判和，例如兵和将长捉是允许着法(中国规则和亚洲规则都这样规定)，在遇到对手用兵长捉，并且自己局面占优时，必须主动变着，否则就会判和；</p>
+<p>3. 善于利用规则采取谋和战术，这是针对亚洲规则而言的。例如在局面处于劣势的情况下，要争取制造对手无法避免的长打，例如长杀、长要抽吃、一将一捉等，这和国际象棋中的谋和战术是类似的。</p>
+<p>4. 把握规则的操作办法，在规则允许的情况下通过长打来消耗步数，争取时间，这是针对快棋赛而言的。通常长打发生后，允许相同的局面重复三次，当出现第四次重复局面时，就由裁判来判负或判和。所以当自己时间紧张时，例如需要在30秒种内走完5步，就可以考虑制造长打，3次重复局面就消耗6个回合，这样就可以安全进入下一个计时段了。</p>
+</dl>
+<dir><br />
+<dl>
+<p><strong>五、开局</strong></p>
+
+<p>无论是中国象棋还是国际象棋，开局是棋手研究得最多的内容，和开局有关的著作在棋类书刊中的比例最大。</p>
+<p>无论开局体系有丰富，它们必然遵循某些局原则，这些原则包括：A. 子力出动顺序；B. 子力控制区域；C. 子力的协调与配合；D. 帅(将)或王的安全。</p>
+<p>比较中国象棋和国际象棋，两者的原则不是完全一样的。</p>
+<p>首先，子力出动顺序是两者最大的区别，中国象棋要求先出动重子，其原因就是两种棋的“火力密度”不同，中国象棋火力密度小，出动重子可以最及时地控制局面，达到先发制人的目的。而国际象棋正好相反，如果过早地出动重子，就可能把重子暴露在前线的火力下，反而陷于被动。</p>
+<p>其次，子力控制范围也有很大不同，中国象棋讲究占领通道，因为中国象棋的子力是“定域”的，有明显的可以占用的通道。而国际象棋由于“离域”和“兵阵”的特点，开局时线路模糊，所以区域的概念才显得突出，而中心区域则是整个棋盘的制高点，因此争夺中心就成了开局的焦点。</p>
+<p>至于子力的协调性与王的安全，原则性就不是很强了。过分讲究子力互保或兵形完整，会影响出子速度，失去战场或失去先手，对王的过分保护也一样。</p>
+<p>最后要指出的是，原则是有侧重。中国象棋更侧重于出子的速度，而国际象棋更侧重于子力的协调，特别是兵形的完整。看下面一个开局：</p>
+  <dd>　</dd>
+  <dd>
+    <table border="0">
+      <tbody>
+        <tr>
+          <td>1. 炮二平五</td>
+          <td>　</td>
+          <td>炮8平5</td>
+          <td>　</td>
+          <td>2. 炮五进四?</td>
+          <td>　</td>
+          <td>士4进5</td>
+        </tr>
+        <tr>
+          <td>3. 马二进三</td>
+          <td>　</td>
+          <td>马8进7</td>
+          <td>　</td>
+          <td>4. 炮五退二</td>
+          <td>　</td>
+          <td>车9平8</td>
+        </tr>
+      </tbody>
+    </table>
+  </dd>
+
+<p>红方炮轰中卒，造成强大的攻势，但是车没有及时占据直通道，造成失先。其原因就是红方第1、2、4回合花了3步棋，有效步数实际上是2步，相对黑方来说亏了一步。</p>
+<p>对国际象棋而言，出子速度的重要性就逊色很多，看下面一个开局：</p>
+  <dd>　</dd>
+  <dd>
+    <table border="0">
+      <tbody>
+        <tr>
+          <td>1. e2-e4</td>
+          <td>　</td>
+          <td>马g8-f6</td>
+          <td>　</td>
+          <td>2. e4-e5</td>
+          <td>　</td>
+          <td>马f6-d5</td>
+        </tr>
+        <tr>
+          <td>3. c2-c4</td>
+          <td>　</td>
+          <td>马d5-b6</td>
+          <td>　</td>
+          <td>4. d2-d4</td>
+          <td>　</td>
+          <td>d7-d6</td>
+        </tr>
+        <tr>
+          <td>5. f2-f4</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+        </tr>
+      </tbody>
+    </table>
+  </dd>
+
+<p>这是阿廖欣防御中的四兵变例，白兵挺进四个，并且控制中心，而黑只动了一个马和一个兵，而且位置也不好，然而不能就此说白方占了便宜，因为白方兵形不好，很容易受到反击。黑方连续三步跳马是用牺牲步数来破坏白方兵形，应该说是比较满意的。</p>
+<p>中国象棋的开局体系按照双方的阵形来命名，先手方的阵形通常以中炮为主，后手方常用阵形有：屏风马、反宫马、顺炮、半途列炮等。有时先手方放弃了中炮，则阵形会出现倒易，例如飞象转先手反宫马对左中炮等。要注意的是，出子的顺序对阵形的影响不大。例如以屏风马对中炮，通常先跳左马后跳右马，但也可以反过来跳，开局中异途同归的例子举不胜举。</p>
+<p>国际象棋的开局体系可以用“开局树”来分类。</p>
+</dl>
+<table id="tbrowser">
+  <tbody>
+    <tr>
+      <td align="center"><table border="0" cellspacing="1" bgcolor="#000000">
+        <tbody>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0"><strong>白</strong></td>
+            <td align="center" bgcolor="#E0E0E0"><strong>黑</strong></td>
+            <td align="center" bgcolor="#F0F0F0"><strong>白</strong></td>
+            <td align="center" bgcolor="#E0E0E0"><strong>黑</strong></td>
+            <td align="center" bgcolor="#F0F0F0"><strong>白</strong></td>
+            <td align="center" bgcolor="#E0E0E0"><strong>开局名称</strong></td>
+            <td align="center" bgcolor="#F0F0F0"><strong>命名方式</strong></td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">e4</td>
+            <td align="center" bgcolor="#E0E0E0">e5</td>
+            <td align="center" bgcolor="#F0F0F0">马f3</td>
+            <td align="center" bgcolor="#E0E0E0">马c6</td>
+            <td align="center" bgcolor="#F0F0F0">象c4</td>
+            <td align="center" bgcolor="#E0E0E0">意大利开局</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">象b5</td>
+            <td align="center" bgcolor="#E0E0E0">西班牙开局</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">d4</td>
+            <td align="center" bgcolor="#E0E0E0">苏格兰开局</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">马f6</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">俄罗斯防御</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">d6</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">菲利多尔防御</td>
+            <td align="center" bgcolor="#F0F0F0">人名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">f4</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">王翼弃兵开局</td>
+            <td align="center" bgcolor="#F0F0F0">着法</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">象c4</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">象开局</td>
+            <td align="center" bgcolor="#F0F0F0">着法</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">d5</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">斯堪的那维亚防御</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">c5</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">西西里防御</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">e6</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">法兰西防御</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">d6</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">乌菲姆采夫防御</td>
+            <td align="center" bgcolor="#F0F0F0">人名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">c6</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">卡罗-卡恩防御</td>
+            <td align="center" bgcolor="#F0F0F0">人名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">马f6</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">阿廖欣防御</td>
+            <td align="center" bgcolor="#F0F0F0">人名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">d4</td>
+            <td align="center" bgcolor="#E0E0E0">d5</td>
+            <td align="center" bgcolor="#F0F0F0">c4</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">后翼弃兵开局</td>
+            <td align="center" bgcolor="#F0F0F0">着法</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">e6</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">后兵开局</td>
+            <td align="center" bgcolor="#F0F0F0">着法</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">f5</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">荷兰防御</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">马f6</td>
+            <td align="center" bgcolor="#F0F0F0">……</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">演变为各种开局</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">c4</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">英格兰开局</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#F0F0F0">b4</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">　</td>
+            <td align="center" bgcolor="#F0F0F0">　</td>
+            <td align="center" bgcolor="#E0E0E0">波兰开局</td>
+            <td align="center" bgcolor="#F0F0F0">地名</td>
+          </tr>
+        </tbody>
+      </table>
+          <dl>
+          <p>表四　国际象棋的开局树</p>
+          </dl></td>
+    </tr>
+  </tbody>
+</table>
+<dl>
+<p>有几点需要注意：</p>
+<p>(1) 开局体系大都按照地名或人名来命名，这种命名方法严格地和出子顺序相关。有些开局有多种命名方式，例如俄罗斯防御也称彼得洛夫防御，乌菲姆采夫防御也称王翼堡垒象防御，等等。</p>
+<p>(2) 如果开局树的分支由白方选择，通常称为“开局”，如果由黑方选择，则称为“防御”，因此“开局”和“防御”可以互相演化，例如意大利开局之后黑方走马f6，则形成双马防御，这种演化不列入本表。</p>
+<p>(3) “开局树”并非绝对是树状的，但是异途同归开局很少，一般出现在非常用开局中，例如：白马f3，黑马c6，白e4，黑e5，结果演化为开放型开局。</p>
+<p>(4) 开放型开局的局面类似于中国象棋中的“斗炮局”，半开放型开局类似于“炮马争雄局”，封闭型开局类似于非中炮开局，特别指出，国际象棋不存在“不合理开局”，而中国象棋却有很多，如炮二进七。</p>
+
+<p>比较中国象棋的阵形和国际象棋的开局树，可以得到以下启示：</p>
+<p>中国象棋棋盘的火力密度小，子力活动相对定域，布阵时次序可以比较灵活，异途同归的情况比较多。因此，开局时要把握阵型上的大致特点，不拘泥于棋谱，随机应变。</p>
+<p>相反，国际象棋棋盘的火力密度大，子力活动是离域的，在布阵过程中就会出现短兵相接的局面，所以出子的顺序不能随意改变，背离棋谱的走法要非常小心，否则稍有不慎就会陷入被动。就这个意义而言，开局的复杂性在国际象棋上表现得淋漓尽致，在开局上可做的文章也极其丰富。</p>
+</dl>
+<dl>
+<p><strong>六、战术</strong></p>
+
+<p>战术就是兵法，适用于打仗的战术同样也适用于对弈，所以中国象棋和国际象棋的基本战术大致是相同的。常用战术有以下二十余种：</p>
+<p>(1) 兑子战术：通过兑子，达到争先、夺势、得子等积极目的或简化局势、化解攻势、谋求和棋等消极目的；</p>
+<p>(2) 弃子战术：通过弃子，达到争先、夺势、入局、作杀等目的；</p>
+<p>(3) 先弃后取战术：是兑子战术的一种复杂形式，在弃子和得回子的过程中可以更有效地达到目的；</p>
+<p>(4) 双重打击战术：所谓打击，就是将、要杀、捉、要抽吃等试图取胜或试图获利的手段。双重打击的范围很广，包括捉双、抽将等，是谋取子力优势的最常用的手段；</p>
+<p>(5) 闪击战术：这是闪开前子露出后子进行攻击的战术(在中国象棋中，马腿、象眼上的闪子也称闪击)，同时前子进行另一种形式的打击，如选位做杀、抽子、拦截等，是最典型的双重打击战术；</p>
+<p>(6) 借力战术：这种战术主要运用在中国象棋中，依靠长程子力，用闪将的办法调度子力，是一种特殊的闪击；</p>
+<p>(7) 顿挫战术：也称为“过门”，在着子次序上采用的强制性过渡着法(主要是捉、将、做杀等)，以赢得重要步数；</p>
+<p>(8) 腾挪战术：当自己有某个棋子挡住其他棋子的进攻路线时，可以采用强制性手段把该子移开，不损失步数，是顿挫战术的一种特殊运用；</p>
+<p>(9) 开线战术：这种战术主要运用在国际象棋中，通过兑换兵实现开放线路，打开局面；</p>
+<p>(10) 拦截战术：在对方存在攻击或潜在攻击的情况下，用自己的棋子拦截对方的攻击线路，如果与闪击战术配合使用，达到赢得重要步数的目的，则称为暂时性拦截，如果参与拦截的棋子由其他棋子保护，形成有效屏障，则称为永久性拦截；</p>
+<p>(11) 封锁和困子战术：封锁是指利用长程子力设置火力封锁线，使对方子力无法从一个区域进入另一个区域，困子是指用多个子力形成包围圈，把对方子力限制在很小的活动范围内；</p>
+<p>(12) 牵制战术：用长程子力间接威胁王、后、车等重要棋子，使当中的棋子无法离开线路，失去活动自由；</p>
+<p>(13) 迂回战术：子力调度时如果遇到对方的拦截或封锁，可以考虑用“迂回”的方法绕道而行，避开对方的封锁线，这种战术适用于中国象棋中马和兵的进攻，以及国际象棋中王的助攻；</p>
+<p>(14) 吸引和引离战术：吸引是指把对方子力引入自己的包围圈，对象通常是帅(将)或王，引离的对象是对方进攻或防守的关键棋子，通过调虎离山的办法让它脱离岗位，吸引和引离的目的不同，但强制性的手段是一样的；</p>
+<p>(15) 阻塞战术：用强制手段让对方子力调度到帅(将)或王周围，阻挡帅(将)或王的道路，这种战术通常是为实施闷杀而服务的；</p>
+<p>(16) 捣毁战术：用弃子等手段破坏帅(将)或王的防御体系，攻击对象通常是保护帅(将)的仕(士)相(象)或保护王的兵形，如果攻击对象是肩负防守重任的攻击性子力，那么这种捣毁战术也称为消除防御支柱战术；</p>
+<p>(17) 解将还将战术：同时运用闪将和垫将的手段，在应将的同时给对方将军，这种着法称为解将还将，它可以化解对方的抽将、做杀等威胁；</p>
+<p>(18) 谋和战术：在局面劣势的情况下谋求和局的战术，通常依靠兑子来实现，国际象棋中谋和战术还包括谋求长将或逼和，中国象棋中长降和长捉是禁止着法，但可以利用规则，制造规则允许的长要杀(亚洲规则允许)、长拦等不变作和的着法。</p>
+<p>以上战术尽管在中国象棋和国际象棋上都有运用，但是运用手段和侧重点是不同的，下面就列表加以说明。</p>
+</dl>
+<table id="tbrowser">
+  <tbody>
+    <tr>
+      <td align="center"><table id="tbrowser">
+        <tbody>
+          <tr>
+            <td align="center">战术</td>
+            <td align="center">中国象棋</td>
+            <td align="center">国际象棋</td>
+          </tr>
+          <tr>
+            <td align="center">借力战术</td>
+            <td align="center">做杀、排局中常见</td>
+            <td align="center">运用不多</td>
+          </tr>
+          <tr>
+            <td align="center">开线战术</td>
+            <td align="center">运用不多</td>
+            <td align="center">打破局面的常用战术</td>
+          </tr>
+          <tr>
+            <td align="center">迂回战术</td>
+            <td align="center">主要是马和兵的迂回</td>
+            <td align="center">主要是王的迂回</td>
+          </tr>
+          <tr>
+            <td align="center">捣毁战术</td>
+            <td align="center">破坏仕(士)相(象)</td>
+            <td align="center">破坏兵形</td>
+          </tr>
+          <tr>
+            <td align="center">谋和战术</td>
+            <td align="center">主要依靠兑子实现</td>
+            <td align="center">除兑子外，可谋求长将或逼和</td>
+          </tr>
+        </tbody>
+      </table>
+          <p>表五　中国象棋和国际象棋战术的区别</p></td>
+    </tr>
+  </tbody>
+</table>
+<dl>
+
+<p>事实上，战术的运用是相互组合、相互包容和相互连贯的，独立的战术是不存在的，所以战术不存在系统的分类，以上对各种战术的归纳并不是很全面的。在中局对抗的过程中，不要拘泥于某种特定的战术，关键在于随机应变，综合运用。</p>
+</dl>
+<dl>
+<p><strong>七、中残局的策略</strong></p>
+
+<p>前面已经提到，中国象棋和国际象棋在风格上区别明显，中国象棋在中局做杀的机会比较多，而且具有很多特定的杀法，号称“十八般武艺”，这些杀法是：A. 对面笑杀，B. 双车错，C. 双车胁仕杀，D. 挂角马-八角马杀，E. 卧槽马杀，F. 侧面虎杀，G.钓鱼马-列马车杀，H. 双马饮泉杀，I. 马后炮杀，J. 重炮杀，K. 天地炮杀，L. 闷杀，M. 双将杀，N. 铁门栓杀，O. 二鬼拍门杀，P. 大刀剜心杀，Q. 夹车炮杀，R. 三车闹仕杀。</p>
+<p>在国际象棋中，除了王在底线被闷杀外，几乎就找不出特定的杀法了，杀王的方法通常是构筑杀网，杀网可以是后、车、象等远程子力封锁的线路，也可以是由兵阵组成的包围圈，由于没有特别的定式，所以做杀的难度相当大，需要精确的计算和超人的胆识。</p>
+<p>针对中国象棋和国际象棋的不同特征，制定中残局策略时应该有不同的指导思想。中国象棋首先考虑把对方将死，因此在子力获得优势后，尽可能地为对手制造更多的麻烦，争取利用多子优势入局做杀，速战速决。国际象棋却截然不同，微弱的子力优势可以在残局中起到决定性作用，因此通过兑子来简化局势就成了首选。</p>
+
+<p>根据中国象棋速战速决的指导思想可以制定以下作战策略：</p>
+<p>(1) 中局的首选目标是把对方将死，实现这个目标要不惜一切代价；</p>
+<p>(2) 获得子力优势时，要尽可能地加强进攻，进一步扩大子力优势；</p>
+<p>(3) 在对方防守稳固，仕(士)相(象)不缺时，子力优势不足以取胜，要避免兑子；</p>
+<p>(4) 劣势一方可以通过兑子来谋求和局，甚至采用子力损失的兑子，例如车仕相全对车炮仕相全的残局，可以用车换炮谋和；</p>
+<p>(5) 局面僵持时可以考虑谋取多兵优势，多两个兵即为优势，多三个兵即为胜势；</p>
+<p>(6) 注意下列局势上的因素：A. 空头炮，B. 头炮和底炮，C. 帅(将)门(也称领空)，D. 三子归边，E. 窝心马，F. 缺仕(士)相(象)，这些因素有时比子力更重要。</p>
+<p>中国象棋的残局有很多类型，攻防技术各不相同，需要熟练掌握。简单残局的基本类型是：A. 兵类残局，B. 马类残局，C. 炮类残局，D. 炮兵和双炮类残局，E. 车类残局，F. 车兵和车炮类残局，复杂残局类型可以转化为这六个基本类型。</p>
+
+<p>国际象棋也有与其指导思想相应的作战策略：</p>
+<p>(1) 中局的首选目标是获得子力优势，即使一个兵的优势也不能放过，同时细心捕捉杀王的机会；</p>
+<p>(2) 获得子力优势时，要尽可能地走得稳健，把优势拖入残局；</p>
+<p>(3) 劣势一方要避免兑子，争取使局面复杂化，以便制造长将等谋和手段，这样可以让胜负充满变数；</p>
+<p>(4) 残局时首先考虑兵的因素，优势一方只要没有兵，取胜难度就会变得非常大；</p>
+<p>(5) 子力差别不大的情况下，充分考虑兵形和王的位置，尽量以完整的兵形和有利的占位进入残局；</p>
+<p>(6) 注意下列局势上的因素：A. 兵形及其所在的色格，B. 升变格，C. 永久格，D.象的色格，E. 王的位置，这些都是左右胜负的关键因素。</p>
+<p>国际象棋的残局类型丰富，主要有：</p>
+<p>A. 杀单王残局；</p>
+<p>B. 后、车对弱子残局；</p>
+<p>C. 兵对弱子残局；</p>
+<p>D. 兵残局；</p>
+<p>E. 更复杂的残局。</p>
+<p>对待每一种残局，不能象中国象棋一样分门别类地掌握，而是要贯穿残局的基本理论和基本技巧，这些理论和技巧包括：</p>
+<p>A. 兵的正方形法则；</p>
+<p>B. 兵的关键格理论；</p>
+<p>C. 对兵的入侵格理论；</p>
+<p>D. 对王技巧；</p>
+<p>E. 等着技巧；</p>
+<p>F. 马象控制格子的技巧；</p>
+<p>G. 兵的突破与反突破技巧。</p>
+
+<p>最后打个比方，无论是中国象棋还是国际象棋，都好比一场球赛，执红(执白)好比主队，执黑好比客队，如果两队实力接近，那么主队当然希望取胜，策略上应该以攻为主，先发制人，作为客队，首要目标是保平，所以策略上应该用稳健的打法，首先力保城门不失。</p>
+</dl>
+<dl>
+<p><strong>参考书目</strong></p>
+
+<p>1. 《象棋入门》(刘国斌等编著，蜀容棋艺出版社)</p>
+<p>2. 《国际象棋入门》(柳玉栋编著，人民体育出版社)</p>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+
+5 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+
+6
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+
+

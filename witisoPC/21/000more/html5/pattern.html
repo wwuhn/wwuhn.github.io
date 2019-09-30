@@ -1,0 +1,66 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>贴图的平铺模式</title> 
+    </head> 
+    <body> 
+        <canvas id="canvas" width="620" height="620" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">Demo</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            function drawIt() {  
+                clearIt();  
+                var img = new Image();  
+                img.onload = function () {  
+                    /*  
+                     * context.createPattern(image, repetitionStyle) - 指定贴图的平铺模式  
+                     *   image - 图像对象。除了支持 HTMLImageElement 外，还支持 HTMLCanvasElement 和 HTMLVideoElement  
+                     *   repetitionStyle - 平铺模式（无论任何平铺模式，首图均在画布的左上角）  
+                     *     no-repeat - 不平铺，只贴图一次，当然也是在画布的左上角  
+                     *     repeat-x - x 轴方向上平铺图片  
+                     *     repeat-y - y 轴方向上平铺图片  
+                     *     repeat - x 轴和 y 轴方向均平铺图片  
+                     */  
+     
+                    var pattern = ctx.createPattern(img, "no-repeat");  
+                    ctx.fillStyle = pattern;  
+                    ctx.strokeStyle = "blue";  
+                    ctx.beginPath();  
+                    ctx.rect(0, 0, 300, 300);  
+                    ctx.fill();  
+                    ctx.stroke();  
+                    pattern = ctx.createPattern(img, "repeat-x");  
+                    ctx.fillStyle = pattern;  
+                    ctx.strokeStyle = "blue";  
+                    ctx.beginPath();  
+                    ctx.rect(320, 0, 300, 300);  
+                    ctx.fill();  
+                    ctx.stroke();  
+                    pattern = ctx.createPattern(img, "repeat-y");  
+                    ctx.fillStyle = pattern;  
+                    ctx.strokeStyle = "blue";  
+                    ctx.beginPath();  
+                    ctx.rect(0, 320, 300, 300);  
+                    ctx.fill();  
+                    ctx.stroke();  
+                    pattern = ctx.createPattern(img, "repeat");  
+                    ctx.fillStyle = pattern;  
+                    ctx.strokeStyle = "blue";  
+                    ctx.beginPath();  
+                    ctx.rect(320, 320, 300, 300);  
+                    ctx.fill();  
+                    ctx.stroke();  
+                }  
+                img.src = "http://res2.windows.microsoft.com/resbox/en/Windows%207/main/4300ae64-546c-4bbe-9026-6779b3684fb9_0.png";  
+                // img.src = "http://www.cnblogs.com/assets/windows_logo.png";  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 620, 620);  
+            }  
+        </script> 
+    </body> 
+    </html> 

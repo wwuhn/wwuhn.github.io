@@ -1,0 +1,931 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+以CEdit为基类定义了一个CEditBox类
+<h4><p>构造函数</p></h4>
+
+<p>CEdit 构造一个CEdit控件对象</p>
+
+<p>Create 创建一个Windows编辑控件，并将其与CEdit对象连接。</p>
+
+<h4><p>属性</p></h4>
+
+<p>CanUndo 决定一个编辑控件操作是否能够被撤销</p>
+
+<p>GetLineCount 获得多行编辑控件中的行数</p>
+
+<p>GetModify 决定编辑控件的内容是否被修改</p>
+
+<p>SetModify 为编辑控件设置或清除修改标记</p>
+
+<p>GetRect 为编辑控件获取格式化的矩形</p>
+
+<p>GetHandle 获得为当前多行编辑控件分配的内存的句柄</p>
+
+<p>SetHandle 设置为多行编辑控件使用的本地内存的句柄</p>
+
+<p>SetMargins 为CEdit设置左边和右边的空白边界</p>
+
+<p>GetMargins 获得为CEdit设置左边和右边的空白边界</p>
+
+<p>SetLimitText 设置CEdit能够容纳的文本的最大量</p>
+
+<p>GetLimitText 获得CEdit能够容纳的文本的最大量</p>
+
+<p>PosFromChar 获得指定字符索引的左上角的坐标</p>
+
+<p>CharFromPos 获得最靠近指定位置的字符的行和字符索引</p>
+
+<p>GetLine 从编辑控件中获得一行文本</p>
+
+<p>GetPasswordChar 获得当用户输入文本时在编辑控件中显示的口令</p>
+
+<p>GetFirstVisibleLeLine 决定在编辑控件中最顶部的可视的行</p>
+
+<h4><p>操作</p></h4>
+
+<p>EmptyUndoBuffer 重新设置（清除）编辑控件的撤销标记</p>
+
+<p>FmtLines 设置在多行编辑控件中的软回车打开或关闭</p>
+
+<p>LimitText 用户在输入文本时的文本长度限制</p>
+
+<p>LineFromChar 获得包含指定字符索引的行的数目</p>
+
+<p>LineIndex 获得在多行编辑控件中的某行的字符索引</p>
+
+<p>LineLength 获得编辑控件中的行的长度</p>
+
+<p>LineScroll 在多行编辑控件中滚动文本</p>
+
+<p>ReplaceSel 用指定文本覆盖编辑控件中当前被选中的文本</p>
+
+<p>SetPasswordChar 设置或清除当用户输入文本时在编辑控件中显示的口令</p>
+
+<p>SetRect 设置多行编辑控件的带格式的矩形，并更新该控件</p>
+
+<p>SetRectNP 设置多行编辑控件的带格式的矩形，而不必重新绘制</p>
+
+<p>SetSel 在编辑控件中选定文本SetTabStops设置多行编辑控件的制表键停顿位</p>
+
+<p>SetReadOnly 为编辑控件设置只读状态</p>
+
+<h4><p>剪贴板操作</p></h4>
+
+<p>Undo 撤销上一次的编辑控件操作</p>
+
+<p>Clear 删除（清除）编辑控件中当前选中的文本</p>
+
+<p>Copy 将编辑控件中的当前选中文本以CF_TEXT格式拷贝到剪贴板中</p>
+
+<p>Cut 删除编辑控件中当前选中的文本，并将删除的文本以CF_TEXT格式拷贝到剪贴板中</p>
+
+<p>Paste 在当前光标位置插入剪贴板内的文本。只有在剪贴板数据为CF_TEXT格式时才进行插入</p>
+
+<h4><a href="https://blog.csdn.net/ccfxue/article/details/51087638">以CEdit为基类定义了一个CEditBox类</a></h4>
+<p>用VC++6.0编程的时候，文本编辑控件Edit Box是一个经常用到的控件。如果你是用它输入一些简单的文字、数字等信息，直接拿来用就可以了，但如果你用它制作大文本的编辑软件，就会觉得不好控制，许多功能无法实现，即便用CEditView，也只会生成一个类似于记事本的东西，再想加入些自己编写的功能也很困难。下面我以CEdit为基类定义了一个CEditBox类，加入了许多文本编辑时经常要用到的接口函数，用它来控制Edit Box控件就很容易制作出具有较强文本编辑功能的编辑软件了。</p>
+
+
+
+<p>在这个扩展类中主要增加了以下功能：</p>
+
+
+
+<p>① 增加控件的容量，使它能容纳大文本；</p>
+
+<p>② 可设置编辑控件文字颜色、背景色和字体；</p>
+
+<p>③ 对控件内的文本和选择文本的访问；</p>
+
+<p>④ 直接装入文件到控件和保存控件内容到文件；</p>
+
+<p>⑤ 自定义的右键菜单；</p>
+
+<p>⑥ 多重ReDo/UnDo功能。</p>
+
+
+
+<p>这些功能基本上都是独立的，实际使用时可根据需要选用所需功能。</p>
+
+
+
+<p>准备工作：用ClassWizard在工程中加入一个新类，基类选为CEdit，类名设置为CEditBox。</p>
+
+
+
+<h4><p>一、设置控件的容量：</p></h4>
+
+
+
+<p>EditBox控件默认情况下只能装入64K的文本，如果超出，多出部分会被自动截掉。利用CEdit类的SetLimitText()函数可重新设置控件容量。</p>
+
+
+
+<p>函数原型为：</p>
+
+
+
+<p>void SetLimitText(UINT nMax);</p>
+
+
+
+<p>参数为nMax为控件可接收的文本最大字节数。</p>
+
+
+
+<p>设置方法：用ClassWizard在CEditBox类中添加消息函数PreSubclassWindow()，把设置文本容量的语句放在里面即可。</p>
+
+
+
+<p></p>
+
+<pre>
+void CEditBox::PreSubclassWindow()
+{
+    SetLimitText( -1 );    //设置编辑控件可接收的最大字节数
+    CEdit::PreSubclassWindow();
+}
+</pre>
+
+
+
+<p>因为nMax为无符号整型，-1是把它设置为可以取到的最大值。你也可以根据需要设置控件的容量。</p>
+
+
+
+<p>注意：在不同操作系统下，控件可设置的最大容量也不同。如果是Windows98，这个值就是64K，无法再增大了，而在Windows2000和WindowsXP下这个值要大得多，才可以起到增加控件容量的目的。</p>
+
+
+
+<h4><p>二、设置编辑控件的前景色、背景色和字体：</p></h4>
+
+
+
+<p>在CEditBox的头文件中加入以下变量定义：</p>
+
+
+
+<pre>
+COLORREF m_ForeColor; 	//文本颜色
+COLORREF m_BackColor; 	//背景色
+CBrush m_BkBrush;   	//背景刷
+CFont* p_Font;			//字体指针
+int m_FontSize;  		//字体大小(1/10点)
+CString m_FontName;  	//字体名
+</pre>
+
+
+
+<p>在CEditBox的构造函数中设置它们的初值：</p>
+
+
+
+<pre>
+CEditBox::CEditBox()
+{
+    m_ForeColor = RGB(0,0,0);    //文字颜色（黑）
+    m_BackColor = RGB(255,255,255);    //文字背景色（白）
+    m_BkBrush.CreateSolidBrush(m_BackColor);   //背景刷
+    p_Font = NULL;  //字体指针
+}
+</pre>
+
+
+
+<p>在CEditBox的析构函数中回收创建的字体资源：</p>
+
+
+
+<pre>
+CEditBox::~CEditBox()
+{
+    if( p_Font )
+    delete p_Font;    //回收字体资源
+}
+</pre>
+
+
+
+<p>这里只设置了前景色和背景色的默认值，如果想设置默认字体，可在上面的PreSubclassWindow()函数中进行设置：</p>
+
+
+<pre>
+
+void CEditBox::PreSubclassWindow()
+{
+    SetLimitText( -1 );    //设置编辑控件可接收的最大字节数
+    
+    m_FontSize = 100;
+    m_FontName = _T("宋体");
+    p_Font = new CFont;    //生成字体对象
+    p_Font->CreatePointFont( m_FontSize, m_FontName );  //创建字体
+    SetFont( p_Font );     //设置控件默认字体
+
+    CEdit::PreSubclassWindow();
+}
+</pre>
+
+
+<p>  这里使用了比较简单的CreatePointFont()函数创建字体，它只需给出字体尺寸和字体名。如果想创建更复杂的字体，可以改用CreateFont()函数。本例中设置控件的初始字体为尺寸为100（0.1点）的“宋体”字。</p>
+
+
+
+<p> 如果你想用EditBox本身的默认字体作为初始字体，就不要在PreSubclassWindow()函数中加入这些语句。</p>
+
+
+
+<p>用ClassWizard添加消息反射函数CtlColor()来修改控件的文本颜色和背景色。</p>
+
+
+
+<p>注意：在ClassWizard下可看到有两个很相似的消息，一个是“=WM_CTLCOLOR”消息，另一个是“WM_CTLCOLOR”消息，这里必须用“=WM_CTLCOLOR”消息添加函数。如果误用了“WM_CTLCOLOR”消息将得不到想要的效果。</p>
+
+
+<pre>
+HBRUSH CEditBox::CtlColor(CDC* pDC, UINT nCtlColor)
+{
+    pDC->SetTextColor( m_ForeColor );    //设置控件文字颜色
+    pDC->SetBkColor( m_BackColor );//设置文字的背景色
+    return (HBRUSH)m_BkBrush.GetSafeHandle();  //控件背景刷
+}
+</pre>
+
+
+<p>PreSubclassWindow()和CtlColor()函数都是消息函数，为了设置控件颜色和字体，还需定义接口函数在使用时调用：</p>
+
+
+
+<pre>
+//设置文本颜色
+void CEditBox::SetForeColor(COLORREF color)
+{
+    m_ForeColor = color;
+    Invalidate();
+}
+
+//获取文本颜色
+COLORREF CEditBox::GetForeColor()
+{
+    return m_ForeColor;
+}
+
+//设置背景颜色
+void CEditBox::SetBkColor(COLORREF color)
+{
+    m_BackColor = color;
+    m_BkBrush.Detach();
+    m_BkBrush.CreateSolidBrush( m_BackColor );
+    Invalidate();
+}
+
+//获取背景色
+COLORREF CEditBox::GetBkColor()
+{
+    return m_BackColor;
+}
+
+//设置字体
+void CEditBox::SetTextFont(int FontSize,LPCTSTR FontName)
+{
+    if ( p_Font )    delete p_Font;
+ p_Font = new CFont;
+    p_Font->CreatePointFont( FontSize, FontName );
+    SetFont( p_Font );
+    m_FontSize = FontSize;
+    m_FontName = FontName;
+}
+
+//获取字体大小
+int CEditBox::GetFontSize()
+{
+    return m_FontSize;
+}
+
+//获取字体名
+CString CEditBox::GetFontName()
+{
+    return m_FontName;
+}
+
+</pre>
+
+
+<p>至此，用CEditBox类可以定义出可设置颜色和字体的Edit Box控件了。使用时，先在对话框中加入一个Edit Box控件，用ClassWizard为定义一个控制变量m_Edit，类型设定为CEditBox。然后用m_Edit.SetForeColor(color)、m_Edit.SetBkColor()和m_Edit.SetTextFont(FontHight,FontName)为控件设置颜色和字体，这样就可以作出一个美观的文本框了。</p>
+
+
+
+<p> 说明：Edit Box控件只能放入纯文本，不支持对文本格式的设置，也就不能对局部的文字颜色和字体进行设置，所以，以上设置都是针对整个控件的。</p>
+
+
+
+<p>三、访问编辑控件的内容：</p>
+
+
+
+<p> Edit Box控件已经提供了几种访问控件内容的方法：</p>
+
+
+
+<p>① 定义一个与控件关联的变量，类型可设置为CString或其它类型，用UpdateData()函数来更新控件或变量。</p>
+
+
+
+<p>② 用GetWindowText()获取控件内文本，用SetWindowText()设置控件文本。</p>
+
+
+
+<p>③ 用SetSel()设置控件内的选择区，用GetSel()获取控件中选择文本的位置，用ReplaceSel()替换选择的文本。</p>
+
+
+
+<p>但只用这几种方法还是不太方便，所以在CEditBox类中又增加了几个访问接口函数。</p>
+
+
+
+<p>1、读取控件文本ReadText()</p>
+
+
+
+<pre>
+int CEditBox::ReadText(CString& str)
+{
+    GetWindowText( str );  //获取控件文本
+    return str.GetLength();//文本长度
+}
+</pre>
+
+
+
+<p>参数str是字符串的引用，用于接收读取的控件内容，返回值是控件中文本字节数。</p>
+
+
+
+<p>2、用字符串设置控件内容SetText()</p>
+
+
+
+<pre>
+void CEditBox::SetText(LPCTSTR str)
+{
+    SetSel( 0, -1, true );    //全选
+    ReplaceSel( str );       //替换
+    SetSel(0);               //设置插入点为起始位置
+}
+</pre>
+
+
+
+<p>参数str是准备设置控件的内容，要求是字符串。</p>
+
+
+
+<p>3、读取当前选择的文本ReadSelText()</p>
+
+
+<pre>
+int CEditBox::ReadSelText(CString& str)
+{
+    int selStart, selEnd;
+    GetSel( selStart, selEnd );//获取当前选择的位置
+    int selLen = selEnd-selStart;    //求选择区长度
+    if( selLen )
+    {
+  CString text;
+  GetWindowText( text );//获取控件文本
+  str = text.Mid( selStart, selLen );  //获取选择的文本
+    }
+    else
+  str = _T("");
+    return selLen;
+}
+</pre>
+
+
+<p>参数str是字符串的引用，用于接收读出的文本，返回值是读出的文本字节数。</p>
+
+
+
+<p>如果当前控件中有内容被选择，则读出选择文本，并返回长度；如果没有选择的文本，读出的是空串，返回为0。</p>
+
+
+
+<p>4、设置选择区SetSelText()</p>
+
+
+
+<pre>
+void CEditBox::SetSelText(int nStartChar,int nSelLen)
+{
+    SetSel(nStartChar,nStartChar+nSelLen);
+}
+</pre>
+
+
+
+<p>参数nStartChar为选择区起点（从0算起），nSelLen为选择区长度。</p>
+
+
+
+<p>功能是把控件的指定区域设置为选择的状态。</p>
+
+
+
+<p>5、当前是否有选择isSelect()</p>
+
+
+
+<pre>
+BOOL CEditBox::isSelect()
+{
+    int selStart, selEnd;
+    GetSel( selStart, selEnd );     //获取当前选择的位置
+    return selEnd-selStart;
+}
+</pre>
+
+
+
+<p>如果当前控件中有选择的文本，返回非0值，否则返回0。</p>
+
+
+
+<p>以上是为了使控件访问更方便而增加的接口函数。再配合CEdit本身提供的访问函数，很多操作都可轻易实现了。</p>
+
+
+
+<p>CEdit控件提供访问函数主要有：</p>
+
+
+
+<p>int GetWindowText(LPCTSTR lpszStringBuf,int nMaxCount);</p>
+
+<p>获取控件文本，与ReadText()功能相同。</p>
+
+
+
+<p>void SetWindowText(LPCTSTR lpszString);</p>
+
+<p>设置控件文本。</p>
+
+
+
+<p>void GetSel(int& nStartChar,int& nEndChar);</p>
+
+<p>获取选择区的位置</p>
+
+
+
+<p>void SetSel(int nStartChar,int nEndChar,BOOL bNoScroll=FALSE);</p>
+
+<p>设置选择区，参数为起点和终点，用SetSel(0,-1)可设置为全选</p>
+
+
+
+<p>void ReplaceSel(LPCTSTR lpszNewText,BOOL bCanUndo=FALSE);</p>
+
+<p>用字符串替换选择的文本</p>
+
+
+
+<p>四、与文件的接口：</p>
+
+
+
+<p>这部分接口函数供“打开文件”和“保存文件”等操作调用。把它们定义在CEditBox类中，增强了控件的封装性，也可以简化应用中“打开”和“保存”的操作。</p>
+
+
+
+<p>1、文件内容装入Edit控件</p>
+
+
+
+
+<pre>
+void CEditBox::LoadFile(LPCTSTR PathName)
+{
+    CFile file;  //构造一个CFile类的对象
+    if( file.Open( PathName, CFile::modeRead )==0 )  //以读方式打开文件
+  return;
+    int len = file.GetLength();  //求文件长度
+    CString text = _T("");
+    file.Read( text.GetBufferSetLength(len), len );  //读文件
+    text.ReleaseBuffer();
+    file.Close(); //关闭文件
+    SetText( text );    //装入编辑控件
+    m_PathName = PathName;
+    SetModify( false );  //清除修改标志
+}
+</pre>
+
+
+
+<p>参数PathName为文件路径名，调用该函数可以把指定文件装入编辑控件。如果文件不存在，直接返回。</p>
+
+
+
+<p>2、保存编辑控件内容到文件</p>
+
+
+
+<pre>
+void CEditBox::SaveFile(LPCTSTR PathName)
+{
+    CFile file;
+    if( file.Open( PathName, CFile::modeCreate | CFile::modeWrite )==0 )
+  return;
+    CString text;
+    int textLen = ReadText( text );
+    file.Write( (LPCTSTR)text, textLen ); //把字符串内容写入文件
+    file.Close();//关闭文件
+    m_PathName = PathName;
+    SetModify( false );//清除修改标志
+}
+
+</pre>
+
+
+<p>参数PathName为文件路径名，调用该函数可以把控件内容写入指定文件。如果建立文件失败，直接返回。</p>
+
+
+
+<p>3、新建文件</p>
+
+
+
+<pre>
+void CEditBox::NewFile()
+{
+    SetSel( 0, -1, true );  //全选
+    Clear();    //清除
+    m_PathName = _T("");
+    SetModify( false );     //清除修改标志
+}
+</pre>
+
+
+
+<p>供“新建”文件菜单消息调用，功能是清空控件。</p>
+
+
+
+<p>4、是否有文件打开</p>
+
+
+
+<pre>
+BOOL CEditBox::isOpenFile()
+{
+    return !(m_PathName.IsEmpty());
+}
+</pre>
+
+
+
+<p>如果控件中已经有打开的文件，返回非0，否则返回0。</p>
+
+
+
+<p>5、获取打开的文件名</p>
+
+
+
+<pre>
+CString CEditBox::GetPathName()
+{
+    return m_PathName;
+}
+</pre>
+
+
+
+<p>如果控件中已经有打开的文件，返回文件路径名，否则返回空串。</p>
+
+
+
+<p>这5个函数中的m_PathName是在CEditBox中定义的字符串变量，并初始化为空串。</p>
+
+
+
+<p>五、自定义右键菜单：</p>
+
+
+
+<p>文本编辑框已经提供了一个默认右键菜单，如果你想重新定义一个来代替它，可以按下面的方法制作。</p>
+
+
+
+<p>在VC++的Project菜单下选择Add To Project下的Components and Controls，在弹出的对话框中打开Visual C++ Components，找到Pop-up Menu，单击Insert按钮，选择加入的类为CEditBox，确定。关闭对话框。</p>
+
+
+
+<p>这时，你在CEditBox类中会看到已经加入了下面的代码：</p>
+
+
+
+<pre>
+void CEditBox::OnContextMenu(CWnd*, CPoint point)
+{
+    // CG: This block was added by the Pop-up Menu component
+    {
+        if (point.x == -1 && point.y == -1){
+            //keystroke invocation
+            CRect rect;
+            GetClientRect(rect);
+            ClientToScreen(rect);
+            point = rect.TopLeft();
+            point.Offset(5, 5);
+        }
+        CMenu menu;
+        VERIFY(menu.LoadMenu(CG_IDR_POPUP_EDIT_BOX));
+        CMenu* pPopup = menu.GetSubMenu(0);
+        ASSERT(pPopup != NULL);
+        CWnd* pWndPopupOwner = this;
+        while (pWndPopupOwner->GetStyle() & WS_CHILD)
+            pWndPopupOwner = pWndPopupOwner->GetParent();
+        pPopup->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, point.x, point.y,
+            pWndPopupOwner);
+    }
+}</pre>
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>ERP系统架构（BSCS开发模式）</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.6em;
+}
+P{
+margin:16px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 100px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 70px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#goBottom:hover{
+background-color:white;
+border:#ccc 1px solid;
+color:red;
+}
+ 
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+.floatr{
+float:right;
+padding-right:5px;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+img{
+border:0;
+}
+.picsay{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+}
+
+\s*<br />\s*
+ 
+ 
+</p>
+
+<p>
+</style>
+</head>
+
+<body> 
+<div class="container">
+<!--
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+-->
+
+<!--
+height="*\w*"
+width="*\w*"
+</p>
+<p>
+-->
+<h4>ERP信息系统架构（BS、CS、混合开发模式对比分析）</h4>
+<table id="tbrowser">
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2">C/S</td>
+    <td colspan="2">B/S</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>描述</td>
+    <td>优缺点</td>
+    <td>描述</td>
+    <td>优缺点</td>
+  </tr>
+  <tr>
+    <td>硬件环境</td>
+    <td>一般建立在专用的网络上，局域网之间再通过专门服务器提供连接和数据交换服务（可实现远程访问）；</td>
+    <td>由于客户端与服务器的直接连接，没有中间环节，因此响应速度快；</td>
+    <td>建立在广域网上，不必是专用的网络硬件环境；</td>
+    <td>有较的适应范围，但对带宽要求高，必须使用网络打印；</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table id="tbrowser">
+  <tr>
+    <td>&nbsp;</td>
+    <td>C/S</td>
+    <td colspan="2">B/S</td>
+    </tr>
+  <tr>
+    <td>安全要求</td>
+    <td>一般面对相对固定的用户群，对信息安全的控制能力强，一般机密的及高度机密的信息系统采用此架构，一般通过B/S发布部分可公开信息；</td>
+    <td colspan="2">面向不可知用户，对安全的控制能力相对弱；；</td>
+    </tr>
+  <tr>
+    <td>程序架构</td>
+    <td>可以更加注重流程，可以对权限多层次校验，对系统运行速度可以较少考虑； </td>
+    <td colspan="2">对安全和访问速度有多重考虑，建立在需要更加优化的基础上；</td>
+    </tr>
+  <tr>
+    <td>系统维护</td>
+    <td>由于整体性，必须整体考察，处理出现的问题以及系统升级成本相对较高，需要专门的客户端安装程序，分布功能较弱；针对点多面广且不具备网络条件的用户群体，不能够实现快速部署安装和配置；</td>
+    <td colspan="2">架构简单，构件个别的更换，系统维护简单，升级成本，用户从网上自己下载安装就可以实现升级；</td>
+  </tr>
+  <tr>
+    <td>处理问题</td>
+    <td>一般处理用户面固定，并且在相同区域，满足安全要求高需求；</td>
+    <td colspan="2">建立在广域网上，面向不同的用户群，满足分散地域广需求；</td>
+  </tr>
+  <tr>
+    <td>用户接口</td>
+    <td>多是建立在Windows平台上，表现方法有限，对程序员普遍要求较高，开发成本较高；</td>
+    <td colspan="2">一般建立在浏览器上，有更加丰富和生动的表现方式与用户交流，开发成本较低；</td>
+  </tr>
+  <tr>
+    <td>交互方式</td>
+    <td>一般是典型的中央集权的机械式处理，交互性相对低；</td>
+    <td colspan="2">信息流向可变化，B-B,B-C,B-G等信息、流向的变化，更像交易中心；</td>
+  </tr>
+  <tr>
+    <td>系统性能</td>
+    <td>客户端和服务端都能够处理任务，这虽然对客户机的要求较高，但因此可以减轻服务器的压力；</td>
+    <td colspan="2">异地浏览和信息采集灵活，不过，客户端只能完成浏览、查询、数据输入等简单功能，绝大部分工作由服务器承担，这使得服务器的负担很重；</td>
+  </tr>
+  <tr>
+    <td>系统的实现要求</td>
+    <td>具有较强的事务处理能力，能实现复杂的业务流程，操作界面漂亮、形式多样，可以充分满足客户自身的个性化要求；</td>
+    <td colspan="2">个性化程序明显降低，无法实现具有个性化的功能要求，操作是以鼠标为最基本的操作方式，无法满足快速操作的要求，页面动态刷新，响应速度明显降低，功能弱化，难以实现传统模式下的特殊功能要求；</td>
+  </tr>
+  <tr>
+    <td>趋势</td>
+    <td>&nbsp;</td>
+    <td colspan="2">未来的发展趋势</td>
+  </tr>
+  <tr>
+    <td>适应方面</td>
+    <td>交互复杂的企业级应用；</td>
+    <td colspan="2">以浏览为主，录入简单的应用程序；</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>工厂、企业，地点比较集中的位置；</td>
+    <td colspan="2">一般的写字楼、超市、连锁、门店、分销行业，一般选用B/S架构，或是通过VPN来架构；</td>
+  </tr>
+  <tr>
+    <td>品牌</td>
+    <td>SAP、Oracle、金蝶、用友等大的ERP厂商并没有大力推广和应用；</td>
+    <td colspan="2">一些比较小的ERP主推和主打这类产品架构的产品；</td>
+  </tr>
+  <tr>
+    <td>适应Internet</td>
+    <td>差</td>
+    <td colspan="2">好</td>
+  </tr>
+  <tr>
+    <td>维护工作量</td>
+    <td>大</td>
+    <td colspan="2">小</td>
+  </tr>
+  <tr>
+    <td>运行速度</td>
+    <td>快</td>
+    <td colspan="2">慢</td>
+  </tr>
+  <tr>
+    <td>数据安全</td>
+    <td>高</td>
+    <td colspan="2">低</td>
+  </tr>
+  <tr>
+    <td>人机交互</td>
+    <td>好</td>
+    <td colspan="2">差</td>
+  </tr>
+  <tr>
+    <td>与操作系统平台关系</td>
+    <td>大</td>
+    <td colspan="2">小</td>
+  </tr>
+  <tr>
+    <td>通信协议</td>
+    <td>自定义</td>
+    <td colspan="2">http协议</td>
+  </tr>
+  <tr>
+    <td>通信模块</td>
+    <td>开发</td>
+    <td colspan="2">web服务器包含的通信模块；</td>
+  </tr>
+  <tr>
+    <td>应用比例</td>
+    <td>12.5%</td>
+    <td colspan="2">37.5%</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="3">超过50%的企业用户使用混合型架构的ERP产品；</td>
+    </tr>
+</table>
+<p></p>
+
+
+
+<p>另外一种软件架构：主机、终端类型：主机负责所有的业务逻辑，终端只提供操作界面；</p>
+<p>C/S有两层和三层两种类型；</p>
+
+<table id="tbrowser">
+  <tr>
+    <td>&nbsp;</td>
+    <td>两层</td>
+    <td>&nbsp;</td>
+    <td>三层</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>客户端</td>
+    <td>服务端</td>
+    <td>客户端</td>
+    <td>应用服务器</td>
+    <td>数据服务器</td>
+  </tr>
+  <tr>
+    <td>业务逻辑</td>
+    <td>少量</td>
+    <td>大量</td>
+    <td>&nbsp;</td>
+    <td>所有业务逻辑</td>
+    <td>负责数据的管理</td>
+  </tr>
+  <tr>
+    <td>界面</td>
+    <td>提供界面</td>
+    <td>&nbsp;</td>
+    <td>提供界面</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>B/S</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>web服务器充当应用服务器</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<h4>混合结构：</h4>
+<p>在项目里调用IE浏览器组件；</p>
+<p>CS、BS公用一个数据库；</p>
+<p>SOA，Service Oriented Architecture;   </p>
+
+<h3>-End-</h3>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+-->

@@ -1,0 +1,679 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>从0到万物及其理</h4>
+
+<p></p>
+
+<p>茅塞盾开 2018-09-29 22:22:32</p>
+
+<p>这是一部壮丽的物理史诗，这是一串光耀后世的姓名。他们是：牛顿，高斯，黎曼，麦克斯韦尔，爱因斯坦，杨振宁，罗摩奴詹，霍金，维藤……（且慢，最近十年，我们只能在娱乐版看到的杨老师，居然可以和那些大师比肩吗？可以的！以杨老师和他的学生命名的杨－米场，即所谓标准模型，成功地解释、整合了四种自然力中的三种。）</p>
+
+<p>那么，这些智慧的头脑到底有多智慧？</p>
+
+<p>我们普遍接受这样一个结论，即我们现存的这个宇宙起源于一次大爆炸，英文叫做Big Bang！</p>
+
+<p>但是，原子物理学家绝不可以止步在如此初级的常识上。他会告诉你，创世的刹那，是如下的演化阶段：</p>
+
+<p>话说：一切，开始于10E^- 43 秒……（10的负43次方秒，也称为普朗克时间，人类已知的最小时间存在。普朗克时间=普朗克长度/光速。光速定义值：c=299792458m/s=299792.458km/s。请注意了，这是一个定义值，而不是一个测量值。</p>
+
+<p>言归正传，创世的刹那：</p>
+
+<p>1</p>
+
+<p>创世时间表</p>
+
+<p># 10E－43秒，十维宇宙分裂成一个四维宇宙和一个六维宇宙。六维宇宙崩溃，缩成10E－32公尺。四维宇宙（我们今天所在的宇宙）则迅速爆炸，此时的温度高达10E32（10的32次方）度；</p>
+
+<p># 10E－35秒，大一统作用力崩解；</p>
+
+<p># 10E－9秒，电弱对称崩解，此时的温度是10E15度；</p>
+
+<p># 10E－3秒，夸克开始凝聚，中子与质子出现，此时的温度是10E14度；</p>
+
+<p># 3分钟，质子与中子开始凝聚成稳定的原子核；</p>
+
+<p># 30万年，电子开始凝聚在原子核周围，第一个原子出现；</p>
+
+<p># 30亿年，第一个似星体(quasar)出现;</p>
+
+<p># 50亿年，第一个星系出现；</p>
+
+<p># 100～150亿年，太阳系诞生，又经过数十亿年，地球上出现了第一个生命。</p>
+
+<p>这个时间表，是哪位大神写的科幻小说吧？NO！这是目前已经成为众多科学家普遍共识的创世时间表。</p>
+
+<p>的确，表中所述的那个数量级上的时间、长度、温度等等所有的数值，没有任何一个是可以直接测量的，因为目前咱们人类的技术和工具水平，还远远不能企及到那个数量级。但是，人类的心智却做到了。这个时间表里面的每一个数字的背后，都是一堆严密的公式和演算，都有一群知名或者不知名的物理学家和数学家，他们是我们人类最智慧的大脑。</p>
+
+<p>回到时间表的第一个事件，“十维宇宙分裂”，这就是我们今天的主题了：超维度空间。让我们一起看看，两百年来，科学家们是如何探究世界的本源的。</p>
+
+<p>让我们先厘清一个重要概念：</p>
+
+<p>2</p>
+
+<p>维度和多维宇宙</p>
+
+<p>一只在直线上行走的毛毛虫只能前后移动，所以，我们把直线或曲线叫做：一维空间；</p>
+
+<p>一只阿米巴扁平虫可以在球面上前后左右移动，所以，我们把平面或曲面叫做：二维空间；</p>
+
+<p>一只鸟在我们的空间可以上下前后左右移动，所以，我们的空间叫做是：三维空间；</p>
+
+<p>（加上时间一维，我们的世界是四维的，合称时空。在这个时空中你要准确标定一个点，需要四个数字，比如：淮海路、马当路交界，二楼，下午四点。）</p>
+
+<p>依此类推，，，</p>
+
+<p>如果，有人告诉你，多维空间（四维以上）的人，看着我们的保险柜或房子时根本就是内外一目了然，就像我们看着二维平面上的圆圈一样，你会不会大惑不解、无法想象、或者毛骨悚然？</p>
+
+<p>当然，对于’眼见为凭’来说，这其实涉入了一个哲学难题。如果眼见才是真实的，那么高维度的对象就不是真实的。但从另一个角度来看，人不过是动物中的一种，阿米巴扁平虫只能感知二维的世界，我们如何证明我们所能感知的所谓’真实’，岂不是也受限于我们自己的认知条件？</p>
+
+<p>必须承认的事实是：人类的大脑和眼睛，只是为了应付三维空间和四维时空的各种情况演化出来的，因此它们不具备辨识和解析高维度空间物体的能力。</p>
+
+<p>超弦理论认为：宇宙真正的时空，其实是一个十维的空间，其中四维是爱因斯坦的时空流形（也就是我们的日常生活空间），另外一个和它’垂直’的还有一个很小很小的六维流形。在这个十维空间中，有一种最小单位的弦纵横其中。以类比的说法，十维空间是宇宙这座大琴的音箱，拨动这些弦造成不同的音高与音色，于是产生不同的基本粒子，进而发展出所有的物质与作用力。（最新的M理论，有别于超弦理论，认为宇宙是从十一维开始演进的。）</p>
+
+<p>3</p>
+
+<p>只有四种自然力</p>
+
+<p>两千年来，科学家已经发现我们宇宙的所有现象，都可以简化成四个作用力：</p>
+
+<p>1、电磁力（electromagneticforce)：包括电力、磁力和光本身，合称为电磁力。电荷（磁级）正负相同为排斥力，相反为吸引力。由光子传递，与电量成正比，距离成反比。长程力，在四种力中第2强。</p>
+
+<p>2、强核力 (strong nuclearforce)：是夸克之间的吸引力，由胶子传递（束缚质子和中子于原子核中的是其附加效果由π介子传递）。在有效距离内，距离越大，力约大。短程力，在四种力中最强，也是恒星燃烧能量的自然力，氢弹的爆炸正是运用强核力的原理。</p>
+
+<p>3、弱核力 (weak nuclear force)：弱核力左右了部分放射性物质的衰变形态，是造成β衰变一类的衰变的力。由希格斯粒子(W+、W-、Z0)传递，较弱，短程力，作用在夸克级的粒子。是四种力中第3强的。</p>
+
+<p>4、重力 (gravitational force，或称引力）：由引力子传递，与质量成正比，距离成反比。长程力，在四种力中最弱。</p>
+
+<p>4</p>
+
+<p>为何要统一自然力？</p>
+
+<p>一旦人类将所有的作用力整合成一个超作用力，这时会有什么突破。关于这一点，物理学家Paul Davies写到：</p>
+
+<p>“我们能够改变时空的结构，了解宇宙万物的来龙去脉，让物质变得井然有序。控制超作用力后，我们便能任意地组合与改变粒子，制造出前所未有的物质形态。我们甚至能左右空间的维度数，制造出具有不可思议属性的人工世界。我们将成为宇宙的主宰。”</p>
+
+<p>回看一下人类掌握“力”的历史：</p>
+
+<p>人类诞生的历史超过数千万年，在99.99%时间里，人类能够掌握的能量只是双手和肌肉的力量，大概只有八分之一马力；</p>
+
+<p>十万年前，随着手持工具的发明，人类的能量输出倍增，达到一又四分之一马力；</p>
+
+<p>牛顿发现万有引力和运动定律，让力学被简化成条理分明的方程组。现代机械原理催生出蒸汽机，人类掌握的能量达到数十到数百马力；</p>
+
+<p>麦克斯韦尔方程式，启迪了爱迪生等发明家，人类进入电力时代，能量级数获得飞跃，极大地改变了人们的生活。</p>
+
+<p>爱因斯坦的相对论为人类打开了核能利用的时代，人类掌握的能量提升到足够摧毁自己所居住的行星的程度。</p>
+
+<p>历史地看，每当人类控制一项自然力，都能大幅提升人类所能掌握的能量，让整个社会改头换面。（那么，未来的人类需要多大的能量？10E 20亿电子伏特起步，超过了现在的一千亿倍。否则，我们将无法使空间弯曲，解决航行到遥远星际的难题；或者，在宇宙崩溃的瞬间，有足够的能量打开六维宇宙，逃离灭亡的劫难。）</p>
+
+<p>下面，就让我们按照时间顺序，回顾一下人类整合四种自然力的历程：</p>
+
+<p>（本文虽然涉及诸多专有词汇，但我们尽量直白描述。理解这些前辈的伟大思想其实不难，并不需要多少艰深的专业知识，只要：一点常识＋一点逻辑＋一点耐心。）</p>
+
+<p>第一个走进这段物理史诗的，是一位数学家：黎曼。</p>
+
+<p>5</p>
+
+<p>黎曼，支撑爱因斯坦的巨人</p>
+
+<p>牛顿曾经说：“如果说我比别人看得更远些，那是因为我站在了巨人的肩上”。按照牛顿的这种说法，黎曼毫无疑问正是支撑起爱因斯坦的那个巨人。</p>
+
+<p>一八五四年六月十日，一套新的几何学诞生了。黎曼在德国哥廷根大学发表了著名的演说，彻底撼动了两千年来从未被动摇过的欧几里德几何学。</p>
+
+<p>黎曼是位数学奇才，高中时期只用区区六天时间完全吸收了《数论》（Theory of Number)，那是一部八百五十九页的艰涩巨著。</p>
+
+<p>黎曼挑战希腊几何学，认为纵然欧几里德的数学运算极为精确，它的根基却只是常识与直觉的流沙，而不是扎实的逻辑推演结果。</p>
+
+<p>比如，欧式几何说三角形三个内角之和等于一百八十度，但这个看似简单的问题，在数学史上却从来没有被严密证明过！而且，假如我们身处弯曲表面的世界，这个公式就不成立了。（行文至此，我们必须向欧几里德先生表达诚挚的敬意！每次想到他老人家两千多年前写就的《几何原本》至今仍然是全世界的中学课本，我就不寒而栗！那些至今未被严密证明过的公理，一个生活于公元前300年的希腊人是如何发现的呐？如果这个世界有“神迹”，欧先生当之无愧是其中之一！）</p>
+
+<p>说回到黎曼，他的研究领域甚至延伸到电学，他认为电力与磁力实际上是同一种作用力的不同表象。据此他发展出作用力新解，作出了牛顿两百年以降的首次划时代重大突破，彻底推翻了牛顿的超距作用原则，他认为：作用力源自于几何学，作用力只是由于几何结构扭曲所造成的必然现象。（牛顿以降，科学界认为作用力是一种两个遥距物体的即时交互作用，一个物体可以即时影响间隔一段距离的其他物体的运动。</p>
+
+<p>我们总结一下黎曼的伟大之处：</p>
+
+<p>1、他以多维空间理论简化了所有自然作用力；认为电力与磁力和重力一样，只是高维空间弯曲产生的结果。</p>
+
+<p>2、他提出了虫洞（warmholes）的概念，黎曼切口是多重连结空间的一个最简单范例。</p>
+
+<p>3、他以“场”来描述重力，以“度量张量”（Riemann metric tensor）描述空间里每一个点的重力场。（所谓“度量张量”，其实就是一组数字，类似坐标。）</p>
+
+<p>黎曼英年早逝，并未找出电力与磁力的场方程式，也没有计算出空间要褶皱到什么程度才足以描述不同的作用力，这几项重要发展留给了麦克斯韦尔和爱因斯坦。</p>
+
+<p>6</p>
+
+<p>狭义相对论，光速恒定⇒ E＝mc²</p>
+
+<p>我们赞美阳光！它不仅孕育了的生命，同时也照亮了人类的思想。爱因斯坦，是那个御光飞行、穿越时空的人。</p>
+
+<p>爱因斯坦小时候，常以简单问题自问自答：“如果你追上一束光线，它看起来是什么样子？你会不会看到一束静止的光波，冻结在时间中？”这个问题，让他在后五十年里，带领人类走进了时空神秘之旅。</p>
+
+<p>十六岁时，爱因斯坦发现世界上似乎并没有能够追上光速的东西。二十六岁时，他用严密的数学证明了这一发现。在瑞士专利局担任低阶职员的他，用麦克斯韦尔的场方程式推导出狭义相对论（special relativity）。</p>
+
+<p>用一句话概括狭义相对论，那就是：光速在任何恒动架构里恒为常数。这个定理表面上看并不显眼，但确是人类心灵的最伟大成就之一！</p>
+
+<p>爱因斯坦指出，无论我们怎样加速，无论我们自身的速度如何，人们所能测量的光速是一样的。</p>
+
+<p>对于这一结论，爱因斯坦给出了超脱凡俗的解释，他认为：导致这个结果的原因是：时间变慢了！（这是石破天惊的一句）也就是说，我们移动的越快，我们的时钟就走得越慢，我们的量尺也越短，所以，我们测量的光速是不变的。</p>
+
+<p>爱因斯坦进一步思考：那么，几乎所有的物体都必须使用时钟与量尺来测量，既然时间和量尺都是变化的，所以我们必须校正所有的物理量（quantity），于是他导出了下一个重大的结论：质量是从能量来的。</p>
+
+<p>这个结论，一举推翻了十九世纪的两大物理发现：质量守恒和能量守恒。自此以后，质量与能量被视为单一单位：质-能（matter-energy）。</p>
+
+<p>二十六岁的爱因斯坦同时给出了质能变动的方程式，那就是著名的 E＝mc²。</p>
+
+<p>让我们再来追寻一下狭义相对论的推导过程：</p>
+
+<p>光速恒定⇒时间变慢⇒质量不恒定⇒“质量-能量”相互转换⇒ E＝mc²</p>
+
+<p>侠义相对论，统一了“时-空”，也统一了“质-能”。</p>
+
+<p>统一了“时-空”以及“质-能”之后的爱因斯坦，进一步思考“时空”与“质能”之间的关系，也就是狭义相对论所忽略的加速度，还有重力。</p>
+
+<p>这导致了他的下一个巨大成就：广义相对论。</p>
+
+<p>7</p>
+
+<p>广义相对论，空间是弯曲的⇒力学＝几何学</p>
+
+<p>再次，爱因斯坦由一个简单问题开始：“如果一个人处于自由落体状态，他就不会感觉到自己的体重？”爱因斯坦透过这个简单问题掌握了重力的基本特性：在加速度架构下的自然律和重力场的定律是一样的。这就是所谓等效原理（equivalence principle）。</p>
+
+<p>透过等效原理，爱因斯坦重新思考关于光速的问题：光速会受重力影响吗？答案是肯定的，重力场会扭曲光线的行进路线。</p>
+
+<p>但是！但是，根据费玛最短时间原理，光线会采取两点之间的最短时间路径，爱因斯坦再次得出一个令人震慑的结论：如果我们可以观测到光线以曲线前进，那就意味着空间本身是弯曲的！（光以曲线前进这一预测，已经被后人的无数次实验反复证明。）</p>
+
+<p>伟大的爱因斯坦进一步得出结论：质能的存在造成周围时空的弯曲。</p>
+
+<p>我们前面讲过，数学家黎曼早在一八五四年就提出了作用力与空间弯曲的关系，并提出了重力场论。爱因斯坦利用黎曼的研究成果，用数学形式表达了他自己的物理学新发现，这就是广义相对论（general relativity）。</p>
+
+<p>让我们再来追寻一下广义相对论的推导过程：</p>
+
+<p>光线以曲线前进＋光线走两点间最短时间路径⇒空间是弯曲的⇒“质-能”造成“时-空”弯曲⇒力学＝几何学</p>
+
+<p>爱因斯坦的伟大，止步于他的第三次尝试。</p>
+
+<p>在狭义和广义相对论之后，他终其一生研究统一场论（unified field theory ），简单说，就是试图寻找一个公式，能够同时描述光与重力。可惜，他最终没有成功。</p>
+
+<p>对这一问题给出答案的，是Theodor Kaluza和Oskar Klein两位科学家，他们的理论我们称之为“克鲁查-克莱因理论”，简单说，这个理论就是：在五维空间里，将光与重力的理论统一了起来。</p>
+
+<p>可是，第五维到底在哪里？克鲁查说：第五维已经崩解成一个圆圈，它的体积实在太小了，连原子都装不下，因而也无法测量。一九二六年，克莱因甚至计算出第五维的尺寸只有10E－33公分（10的负33次方），而探测如此微小距离所需要的能量也就是是所谓蒲朗克能量（Planck energy），相当于10E 20亿电子伏特，百万兆倍于质子蕴藏的能量。</p>
+
+<p>克鲁查-克莱因理论在当时并未收到广泛关注和普遍认同，领一时风气之先的是另一套全新的理论：量子力学（quantum mechanics）（码了这么多字，原子物理学家终于登场了！）</p>
+
+<p>8</p>
+
+<p>量子力学，整合了三种自然相互作用力</p>
+
+<p>一九二五年，以薛丁格（Erwin Schrödinger）和海森堡（Werner Heisenberg）为代表的一组科学家，已经对原子运动给出了几近完整的数学描述，我们称之为量子力学。</p>
+
+<p>这是一套与黎曼、爱因斯坦学说迥异的解释自然力的理论，它的主要理论观点包括：</p>
+
+<p>1、作用力是由于不连续的能量包交换而产生（也就是量子：quanta）；</p>
+
+<p>2、不同的作用力的产生来自于不同量子的交换；</p>
+
+<p>3、我们永远无法同时知道次原子粒子的速度及其位置；</p>
+
+<p>这就是著名的海森堡测不准定理，这个听起来不怎么靠谱的定理，却是半个世纪以来最经得起任何实验挑战的一个定理，至今，还没有任何一个实验结果违背了这一条定理。</p>
+
+<p>所谓次原子粒子：就是比原子还要微小的粒子。海森堡测不准定律在哲学上的意义在于，它从物质构成的最底层，将所有事物的产生和构成，都解释为机率的一个表现，而不是一个必然的结果！换句话说，就是没有所谓客观存在，也没有所谓必然结果。这一条，彻底撼动了唯物主义的基石。</p>
+
+<p>4、粒子有可能以有限机率进行穿隧或量子跳跃，并穿越不可浸透的障碍物。</p>
+
+<p>听起来各种不靠谱是吗？但是！这个理论不仅反复被实验证明，而且人们甚至根据该理论制造出了隧道二极管（tunnel diode，或称江崎二极管）。</p>
+
+<p>量子力学以光子（也就是光的量子）为例，认为弱作用力和强作用力是源于能量量子的交换，并称之为“杨－米场”，这是杨振宁和他的学生米尔斯于一九五四年发现的理论。</p>
+
+<p>你造吗？杨老师年轻的时候有多牛逼！到一九七O年代，杨－米场已经可以解开所有核子物质的秘密，可以解释有关于次原子粒子的任何实验数据。在解释电子与光的交互作用时，其精确度达到千万分之一，号称是有史以来最精确的理论。科学界对这个理论如此有信心，以至于称之为“标准模型”（Standard Model）。</p>
+
+<p>量子力学经过五十年的发展，成功地整合了四种自然作用力的三种：强作用力＋弱作用力＋电磁力。但是，包括杨振宁本人在内的许多科学家都认为，标准模型一定不是最终的大一统理论，主要原因是该模型并不包括重力！</p>
+
+<p>历史地看，可以这么说：量子力学只是根据次原子粒子的部分外表特性做了整理，却未对它们的来源做出任何说明。</p>
+
+<p>9</p>
+
+<p>超重力论，在十一维空间统合四种作用力</p>
+
+<p>统合量子理论和重力，以创造出一个“万有理论”（Theory of Everything），这个问题挫折了二十世纪最聪明的心智，包括爱因斯坦、海森堡等等一众科学界的巨擎和大碗，但均不可得。</p>
+
+<p>一九七六年，纽约州立大学石溪分校的三位物理学家写下了超重力理论。简单说，这个理论对黎曼的“度量张量”模型进行研究，几乎实现了爱因斯坦统合已知作用力的梦想。</p>
+
+<p>他们发现，在一个十一维的度量张量模型里，包含了自然界里几乎所有的粒子与作用力：爱因斯坦的重力理论、杨－米场与麦克斯韦尔场、还有夸克与轻子。如图所示：</p>
+
+<p>（图中的括弧，代表一个十一维的黎曼度量张量场。如果把它简化成四维，就是爱因斯坦的重力场；提高它的维度数，我们就可以推导出麦克斯韦尔方程组和标准化模型；最终，在十一维度，统合了代表四种作用力的所有方程组。）</p>
+
+<p>超重力理论虽然在模型上统合了四种作用力，但它的缺陷在于在很多关键节点上没有具体量化的数学模型和公式。所以只能成为迈向宇宙统一理论慢慢征途上的一块铺路石。新的，也是最强大有力的物理学计划已经登场，它就是：超弦理论（Superstring Theory）</p>
+
+<p>10</p>
+
+<p>超弦，统合所有作用力和自然律</p>
+
+<p>一九六八年，超弦理论被意外发现。当时，两位年轻的理论物理学家在欧洲核子研究中心（CERN）意外发现十九世纪数学家尤拉完成的尤拉贝塔函数（Euler beta funcation）竟然符合几乎所有描述基本粒子强交互作用所需的全部特质。</p>
+
+<p>什么是弦论呢？爱因斯坦在后半生中，一直在寻找统一场论，即一个能在单独的包罗万象的数学框架下描写自然界所有力的理论。他渴望以前人从未成功达到过的清晰来揭示宇宙活动的奥秘，由此而展示的自然界的动人美丽和优雅。</p>
+
+<p>如今，相当一部分物理学家相信他们终于发现了一个框架，有可能把这些知识缝合成一个无缝的整体：一个单一的理论，一个能描述一切现象的理论，这就是弦论。它正在实现当年爱因斯坦满怀热情追求的统一理论的理想。</p>
+
+<p>弦论可以用来描述引力和所有基本粒子。它的一个基本观点就是自然界的基本单元, 如电子、光子、中微子和夸克等等, 看起来像粒子，实际上都是很小很小的一维弦的不同振动模式，正如小提琴上的弦。</p>
+
+<p>弦理论中的宇宙弦(我们把弦论中的弦称作超弦,以免与普通的弦混淆)可以作某些模式的振动。每种振动模式都对应有特殊的共振频率和波长。所有的基本粒子, 如电子、光子、中微子和夸克等等，都是宇宙弦的不同振动模式或振动激发态。</p>
+
+<p>每条宇宙弦的典型尺度约为长度的基本单位，即普朗克长度（10E -33厘米）。弦实在是太细微了，从远处观察，我们实在无法区分它究竟是弦的共振还是粒子。只有当我们把粒子放大，我们才能看出那根本不是一个点状粒子，而是一种振动弦。</p>
+
+<p>按照超弦理论，粒子并非是宇宙的基本元素，物理定律就相当于琴弦的合音定律。弦论博大精深，可以解释所有的自然基本定律。</p>
+
+<p>简言之, 如果把宇宙看作是由宇宙弦组成的大海，那末基本粒子就像是水中的泡沫, 它们不断在产生, 也不断在湮灭。我们现实的物质世界, 其实是宇宙弦演奏的一曲壮丽的交响乐 !</p>
+
+<p>甚至包含生命复杂信息和编码的去氧核糖核酸（DNA）分子，也是类似弦的结构。弦，是能够储存大量数据的最精简的方式之一。</p>
+
+<p>超弦理论，以及在其基础上发展起来的弦场理论，统合了所有的自然律和作用力，菲尔兹奖章（诺贝尔奖没有设立数学奖，菲尔兹是数学界的最高奖项）获得者维藤说：“所有物理学上的伟大思想，都是超弦理论的副产品。”</p>
+
+<p>11</p>
+
+<p>罗摩奴詹，确立十维宇宙</p>
+
+<p>超弦理论似乎包含了所有的物理学知识，极其广博精深。许多科学家认为，这是二十一世纪的物理学，意外落入二十世纪，但是人类还没有发明二十一世纪的数学，来精确描述它。</p>
+
+<p>有一个重大秘密：我们只能在二十六维与十维中定义弦论，否则就无法用弦论整合已知的物理定律。解开这个秘密的，是堪比当年黎曼的另一位数学天才罗摩奴詹（Srinivasa Ramanujan）。</p>
+
+<p>罗摩奴詹一八八七年出生于印度，少时坎坷，甚至没有通过升高三的考试。二十六岁那年，他给著名数学家哈代写了一封信，信中包含了一百二十个定理。这位贫穷孤立的印度哥们，完全不知道欧洲数学界的任何研究资讯，纯粹凭个人才智、按照自己的方法，重新推导出欧洲百年数学史的所有重要定律。</p>
+
+<p>罗摩奴詹的研究成果包含了三册四百多页的笔记，其中包含了四千多个公式。后人在此基础上总结出了罗摩奴詹模函数（Ramanujan funcation），这是一个奇特的包含了高达二十四次乘幂的数学式。这些数学式证明：弦论只有在十维中才是自洽的。也就是说，产生我们现存宇宙的那个高维度宇宙，它的维度数一定是十！（1994年开始了弦论的第二次革命。此后诞生的“M理论”被认为是最新的大一统理论模型，M理论认为：历史上五种不同的弦论在本质上被证明是等价的，它们可以从11维时空的M理论导出。）</p>
+
+<p>写到这儿，这一段物理诗史基本可以告一段落。从黎曼、爱因斯坦的重力场，到量子力学，到超重力论，到超弦理论，到M理论，人类历史上这些伟大的智慧头脑，前赴后继探寻宇宙的真理，已经为我们描述了宇宙诞生的全过程，也就是开始于10E－34秒的创世时间表。</p>
+
+<p>让我们一起看看，弦论以降，科学到底是怎样解释我们所存在的这个宇宙的：</p>
+
+<p>12</p>
+
+<p>宇宙的生灭</p>
+
+<p>一、宇宙的诞生</p>
+
+<p>正如我们之前所介绍的那样，创世的刹那，开始于“大爆炸”Big Bang，自10E－34秒开始，历经150亿年形成我们今天的宇宙。</p>
+
+<p>宇宙“大爆炸”的实验证据主要有以下四点：</p>
+
+<p>1、经由测量恒星光线的扭曲的现象，一再证实恒星正以高速远离我们而去，而且，离我们越远的恒星或星系，会以越高的速度远离我们而去；</p>
+
+<p>2、“大爆炸”理论预测宇宙中氦与氢的比例应该接近25% : 75%，实际测量数据与该预测高度吻合；</p>
+
+<p>3、通过对放射性物质衰变的测量，我们可以为地球上的岩石和陨石断年，目前没有发现任何物体可以追溯到“大爆炸”之前；</p>
+
+<p>4、“大爆炸”产生了宇宙回音，这种微波辐射至今仍在宇宙回响，一九六五年，人类侦测到了这个微波背景辐射（microwave backgroundradiation）。</p>
+
+<p>二、宇宙的灭亡</p>
+
+<p>我们先看看每颗恒星的生命历程：</p>
+
+<p>恒星由大量氢气聚合形成，氢元素融合形成氦，由于氢质子的重量超过氦质子的重量，因此氢聚合成氦时就会有多余的质量，这些质量依据爱因斯坦的质－能公式 E＝mc²成为能量，这个能量将原子核束缚在一起，并将部分能量释放出来，使太阳发光发热。</p>
+
+<p>之后，经过数十亿年光阴，氢气逐渐耗尽，核熔炉逐渐熄灭，重力成为优势作用力使恒星两次塌陷，恒星温度此时会急剧升高，成为“红巨星”，再然后成为“白矮星”，“白矮星”爆炸成为“超新星”和“中子星”，“中子星由于重力继续塌陷，最后成为“黑洞”。</p>
+
+<p>在这一历程中，恒星内部的元素按照“结合能量曲线“依次变化。</p>
+
+<p>恒星中的氢元素按照这个曲线一再融合成为更重元素之后便会到达铁，而无法再制造出额外的能量，这时，恒星崩溃并释放出大量热量，超新星于焉诞生，这种剧烈爆炸将星体炸碎并将残骸遍洒星际空间，成为孕育新恒星的种子。</p>
+
+<p>在描述完恒星的生命周期后，我们再看看包含无数颗恒星并见证无数次恒星生灭的宇宙本身，它将何去何从？</p>
+
+<p>根据爱因斯坦的广义相对论，宇宙的结局无限悲泣。要么，就是不断膨胀，直到温度接近绝对零度；要么，就是大崩坠，收缩成一团火球。如果宇宙是一个无限边界的开放宇宙，它就会被“冰”毁灭；如果宇宙是一个有边界的封闭宇宙，它就会被火毁灭。</p>
+
+<p>物理学家通过平均密度来判断宇宙到底是不断膨胀还是会逆转走向大崩坠，如果宇宙平均密度小于10E－29 克/立方公分，宇宙就会不断膨胀，否则，将会陷入大崩坠。</p>
+
+<p>量子力学还描述了另外一种宇宙消亡的情景，那就是质子和中子衰变。根据大一统理论，我们所知道的一切物质，包括太阳系和地球、也包括智慧生物身体内的质子和中子最终都会分解。</p>
+
+<p>13</p>
+
+<p>问题是：产生宇宙的大爆炸之前是什么？</p>
+
+<p>在了解了恒星乃至整个宇宙的生命历程之后，必须要回答的问题是：在这个刹那之前呐？是否有那个第一推动力？或者说，是否有那个点燃Big Bang的上帝存在呐？</p>
+
+<p>数百年来，伴随着科学发现的不断积累，宗教界关于上帝存在的坚持已经退守到这样一个境地，那就是说：大霹雳之前到底发生了什么？牛顿生前并没有能够解答这个关于“第一推动”的问题，他把它归功于“上帝之手”。</p>
+
+<p>但事实上，以超弦理论为集大成者，今天的科学家群体，不仅给出了Big Bang创世之后的宇宙发展历程（包括宇宙消亡的历程），同时也给出了Big Bang之前的宇宙存在的假说，那就是关于平行宇宙、黑洞、虫洞等相关理论。这些理论在解答了“第一推动”这个疑问的同时，再次撼动了上帝存在的证明。</p>
+
+<p>昔日尼采有言“上帝已死”，现在霍金在《大设计》第一页上就宣称“哲学已死”，因为“哲学跟不上科学，特别是物理学现代发展的步伐”。这是一个极为傲慢的“宣言”。他的意思是，世界本源是所有哲学流派的终极思考，而现在科学界已经给出了世界本源和宇宙发展的全部解释，所以，哲学的使命已经终结了。</p>
+
+<p>的确！“唯物”、“唯心”，甚至“客观存在”，都已经被量子理论、超弦理论彻底动摇！</p>
+
+<p>与此同时，上帝也被霍金“扫地出门”，他在《大设计》末尾宣称：因为存在像引力这样的法则，所以宇宙能够“无中生有”，自发生成可以解释宇宙为什么存在，我们为什么存在。所以“不必祈求上帝去点燃导火索使宇宙运行”。也就是说，上帝现在不再是必要的了。（请参看霍金《哲学已死》，朱清时《物理学步入禅境：缘起性空》）</p>
+
+<p>14</p>
+
+<p>霍金，平行宇宙</p>
+
+<p>黑洞是使霍金名满天下的研究，在那之后，他创立了量子宇宙学（quantum cosmology），以爱因斯坦的古典宇宙学为出发点，再将整个宇宙量子化，试图完成那个前辈物理学家的未竟事业“统一场论”，统合小到夸克、大到银河星际甚至整个宇宙的所有自然律。事实上，霍金的理论甚至远远超出了我们的宇宙！</p>
+
+<p>他的新构想是将整个宇宙看成一个量子粒子，用宇宙波函数来描述多重宇宙（不止一个，是无数个宇宙）的无穷集合。按照霍金的理论，我们的宇宙，只是无数的平行宇宙之一，每个宇宙都透过复杂的虫洞系统与其他宇宙相连结。</p>
+
+<p>如果霍金说的没错，世上就存在着无数的平行宇宙。其中很多宇宙具有不同的物理常数，大多数宇宙都是一片死寂，不具备孕育生命的物理定律。但是在某一个宇宙中，它的物理定律恰好符合生命的条件，这就是我们的宇宙。</p>
+
+<p>如果这种理论属实，我们就不必把生命的起源归诸于上帝。</p>
+
+<p>15</p>
+
+<p>宇宙航行 & 遁入高维度宇宙</p>
+
+<p>前文说过，太阳系乃至这个宇宙，终究难逃消亡的命运。那么，智慧生物是否作为宇宙的一部分因而最终难逃灭亡的宿命呐？</p>
+
+<p>我们的希望，就在十维宇宙和超弦理论！</p>
+
+<p>按照超弦理论，我们的宇宙诞生于一个十维宇宙，由于这个十维宇宙的对程结构不稳定，在“大爆炸”时分解为一个四维宇宙（我们现在的宇宙）和一个六维宇宙。四维急剧膨胀，历经150亿年形成了我们今天的宇宙；而六维宇宙则急剧收缩成为一个10E－32公分的微小世界。</p>
+
+<p>这个六维宇宙在哪里？它就在我们的周围！只是因为它太微小以至于无法观测得到。假如，我们能够观测得话，它会是什么样子呐？这是近几十年内大量数学家、物理学家研究的课题。其中，以华裔科学家丘成桐命名的卡拉比－丘流形是比较得到认可的一个答案。</p>
+
+<p>上图是一个六维卡拉比－丘流形的二维截面图。也是说，该图相当于是一个六维空间的“影子”。</p>
+
+<p>接着说，当我们的四维宇宙崩溃时，与大爆炸那一刻相反，原本收缩的那个六维宇宙开始慢慢展开，智慧生物有机会在这一个瞬间，由四维宇宙逃入六维宇宙，获得新生。</p>
+
+<p>这一个过程，需要我们掌握更强大的力和能量，才能驾控宇宙，获得新生。举例说：那时我们需要极高速的宇宙飞船，但根据狭义相对论我们知道我们永远不可能达到光速，那么我们怎么跨越动辄以光年计数的漫漫长路呐？不违反爱因斯坦的自然律而又能够实现可能的时空跨越的方法，就是人为把时空弯曲。</p>
+
+<p>打一个容易理解的比方，就好比在地毯的另一边有一个瓶子，我们不需要走到地毯的那一边去拿到它，我们可以坐在原地，把地毯逐渐拉向我们，通过使地毯逐渐卷曲，来拉近我们和瓶子的距离，以这样的方法最终拿到瓶子。</p>
+
+<p>这就是不需要跨越距离，但是却可以从一点到达另一点的方法：弯曲时空。而弯曲时空所需要的能量，是我们现在所掌握能量的一千亿倍。这就是统合自然力的目的所在。</p>
+
+<p>前文说到，量子力学还描述了另外一种宇宙消亡的情景，那就是质子和中子衰变。根据大一统理论，我们所知道的一切物质，包括太阳系和地球、也包括智慧生物身体内的质子和中子最终都会分解。</p>
+
+<p>那时，智慧生物就需要用新的质子和中子合成新的原子核。这同样需要巨大的能量，和弯曲时空所需要的数量级相当。这也是统合自然力的意义所在。</p>
+
+<p>结语</p>
+
+<p>我们赞美数百多年来科学进步过程中的这些先驱，是他们智慧的心智，让我们人类只凭借头脑和一些工具，就可以计算出支配数十亿光年外的物质的定律，我们只有微不足道的能源，甚至还没有离开太阳系，但我们已经知道恒星深处的核子反应或原子核内的情况。</p>
+
+<p>我们在这个不起眼的小行星上发现的物理定律，却适用于宇宙的各个角落，我们的思想能了解并控制星星的宇宙法则，我们体内的原子原是某个恒星的核融合反应的产物，我们的原子比山的年代还久远，我们是由宇宙尘造成的，这些原子又凝聚成能了解宇宙法则的智慧生物。</p>
+
+<p>让我们以霍金的一段话作为结语：</p>
+
+<p>“如果我们真能发现一个完全的理论，如果我们能讨论出答案，这将是人类理智的最大成就－届时我们就能知道上帝的想法了。”</p>
+
+<p>请严谨地写科普好吗。弱作用力是由W、Z粒子传播的，它们不是希格斯粒子、而且矢量规范玻色子。不知道小编您自已懂不懂现代物理？</p>
+
+<p>目前的科技只适用于地球，所有的理论都是基于地球环境产生的</p>
+
+
+
+<p style='float:right;'>本页共194段，12236个字符，34743 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

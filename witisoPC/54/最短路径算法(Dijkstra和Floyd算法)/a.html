@@ -1,0 +1,422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>最短路径算法(Dijkstra和Floyd算法)</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop属性.  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器  
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000">红色</option><option value="#006600">绿色</option><option value="#0000ff">蓝色</option><option value="#660000">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+.code0, .code2, .code4{
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+	background-color:#eee;
+	
+	}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+<body>
+<div id="container">
+<h3></h3>
+<p><strong>注意：以下代码</strong><strong> </strong><strong>只是描述思路，没有测试过！！</strong> </p>
+<p align="left"><strong>Dijkstra</strong><strong>算法</strong></p>
+<p>1.定义概览</p>
+<p>Dijkstra(迪杰斯特拉)算法是典型的单源最短路径算法，用于计算一个节点到其他所有节点的最短路径。主要特点是以起始点为中心向外层层扩展，直到扩展到终点为止。Dijkstra算法是很有代表性的最短路径算法，在很多专业课程中都作为基本内容有详细的介绍，如数据结构，图论，运筹学等等。注意该算法要求图中不存在负权边。</p>
+<p>问题描述：在无向图 G=(V,E) 中，假设每条边 E[i] 的长度为 w[i]，找到由顶点 V0 到其余各点的最短路径。（单源最短路径） </p>
+<p align="left">2.算法描述</p>
+<p>1)算法思想：设G=(V,E)是一个带权有向图，把图中顶点集合V分成两组，第一组为已求出最短路径的顶点集合（用S表示，初始时S中只有一个源点，以后每求得一条最短路径 , 就将加入到集合S中，直到全部顶点都加入到S中，算法就结束了），第二组为其余未确定最短路径的顶点集合（用U表示），按最短路径长度的递增次序依次把第二组的顶点加入S中。在加入的过程中，总保持从源点v到S中各顶点的最短路径长度不大于从源点v到U中任何顶点的最短路径长度。此外，每个顶点对应一个距离，S中的顶点的距离就是从v到此顶点的最短路径长度，U中的顶点的距离，是从v到此顶点只包括S中的顶点为中间顶点的当前最短路径长度。</p>
+<p>2)算法步骤：</p>
+<p>a.初始时，S只包含源点，即S＝{v}，v的距离为0。U包含除v外的其他顶点，即:U={其余顶点}，若v与U中顶点u有边，则&lt;u,v&gt;正常有权值，若u不是v的出边邻接点，则&lt;u,v&gt;权值为∞。</p>
+<p>b.从U中选取一个距离v最小的顶点k，把k，加入S中（该选定的距离就是v到k的最短路径长度）。</p>
+<p>c.以k为新考虑的中间点，修改U中各顶点的距离；若从源点v到顶点u的距离（经过顶点k）比原来距离（不经过顶点k）短，则修改顶点u的距离值，修改后的距离值的顶点k的距离加上边上的权。</p>
+<p>d.重复步骤b和c直到所有顶点都包含在S中。 </p>
+<p align="left">执行动画过程如下图</p>
+<p><img width="283" height="222" src="a_clip_image001.gif" alt="https://pic002.cnblogs.com/images/2012/426620/2012073019540660.gif" /> </p>
+<p align="left">3.算法代码实现： </p>
+<div class="code">
+<pre>
+const int MAXINT = 32767;
+const int MAXNUM = 10;
+int dist[MAXNUM];
+int prev[MAXNUM];
+int A[MAXUNM][MAXNUM];
+void Dijkstra(int v0)
+{
+    bool S[MAXNUM]; // 判断是否已存入该点到S集合中
+    int n = MAXNUM;
+    for (int i = 1; i <= n; ++i)
+    {
+        dist[i] = A[v0][i];
+        S[i] = false; // 初始都未用过该点
+        if (dist[i] == MAXINT)
+        prev[i] = -1;
+        else
+        prev[i] = v0;
+    }
+    dist[v0] = 0;
+    S[v0] = true;
+    for (int i = 2; i <= n; i++)
+    {
+        int mindist = MAXINT;
+        int u = v0;　　 // 找出当前未使用的点j的dist[j]最小值
+        for (int j = 1; j <= n; ++j)
+        if ((!S[j]) && dist[j] < mindist)
+        {
+            u = j; // u保存当前邻接点中距离最小的点的号码
+            mindist = dist[j];
+        }
+        S[u] = true;
+        for (int j = 1; j <= n; j++)
+        if ((!S[j]) && A[u][j] < MAXINT)
+        {
+            if (dist[u] + A[u][j] < dist[j]) //在通过新加入的u点路径找到离v0点更短的路径
+            {
+                dist[j] = dist[u] + A[u][j]; //更新dist
+                prev[j] = u; //记录前驱顶点
+            }
+        }
+    }
+}
+</pre>
+</div>
+<p align="left">4.算法实例</p>
+<p>先给出一个无向图</p>
+<p><img border="0" width="345" height="204" src="a_clip_image003.jpg" alt="https://pic002.cnblogs.com/images/2012/426620/2012073019593375.jpg" /></p>
+<p>用Dijkstra算法找出以A为起点的单源最短路径步骤如下</p>
+<p><img border="0" width="600" height="555" src="a_clip_image004.jpg" alt="https://pic002.cnblogs.com/images/2012/426620/2012073020014941.jpg" /> </p>
+<p align="left"><strong>Floyd</strong><strong>算法</strong></p>
+<p>1.定义概览</p>
+<p><strong>Floyd-Warshall</strong><strong>算法</strong>（Floyd-Warshall algorithm）是解决任意两点间的最短路径的一种算法，可以正确处理有向图或负权的最短路径问题，同时也被用于计算有向图的传递闭包。Floyd-Warshall算法的时间复杂度为O(N3)，空间复杂度为O(N2)。 </p>
+<p align="left">2.算法描述</p>
+<p>1)算法思想原理：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Floyd算法是一个经典的动态规划算法。用通俗的语言来描述的话，首先我们的目标是寻找从点i到点j的最短路径。从动态规划的角度看问题，我们需要为这个目标重新做一个诠释（这个诠释正是动态规划最富创造力的精华所在）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从任意节点i到任意节点j的最短路径不外乎2种可能，1是直接从i到j，2是从i经过若干个节点k到j。所以，我们假设Dis(i,j)为节点u到节点v的最短路径的距离，对于每一个节点k，我们检查Dis(i,k) + Dis(k,j) &lt; Dis(i,j)是否成立，如果成立，证明从i到k再到j的路径比i直接到j的路径短，我们便设置Dis(i,j) = Dis(i,k)  + Dis(k,j)，这样一来，当我们遍历完所有节点k，Dis(i,j)中记录的便是i到j的最短路径的距离。</p>
+<p>2).算法描述：</p>
+<p>a.从任意一条单边路径开始。所有两点之间的距离是边的权，如果两点之间没有边相连，则权为无穷大。</p>
+<p>b.对于每一对顶点 u 和 v，看看是否存在一个顶点 w 使得从 u 到 w 再到 v 比己知的路径更短。如果是更新它。</p>
+<p>3).Floyd算法过程矩阵的计算----十字交叉法</p>
+<p>方法：两条线，从左上角开始计算一直到右下角 如下所示</p>
+<p>给出矩阵，其中矩阵A是邻接矩阵，而矩阵Path记录u,v两点之间最短路径所必须经过的点</p>
+<p><img border="0" width="441" height="104" src="a_clip_image005.jpg" alt="https://pic002.cnblogs.com/images/2012/426620/2012073109403649.gif" /></p>
+<p>相应计算方法如下：</p>
+<p><img border="0" width="562" height="278" src="a_clip_image006.jpg" alt="https://pic002.cnblogs.com/images/2012/426620/2012073109460084.jpg" /></p>
+<p><img border="0" width="566" height="283" src="a_clip_image007.jpg" alt="https://pic002.cnblogs.com/images/2012/426620/2012073109453085.jpg" /></p>
+<p><img border="0" width="543" height="308" src="a_clip_image008.jpg" alt="https://pic002.cnblogs.com/images/2012/426620/2012073109463549.jpg" /></p>
+<p>最后A3即为所求结果 </p>
+<p align="left">3.算法代码实现</p>
+<pre>
+typedef struct
+{
+    char vertex[VertexNum]; //顶点表
+    int edges[VertexNum][VertexNum]; //邻接矩阵,可看做边表
+    int n,
+    e; //图中当前的顶点数和边数
+}
+MGraph;
+void Floyd(MGraph g)
+{
+    int A[MAXV][MAXV];
+    int path[MAXV][MAXV];
+    int i,
+    j,
+    k,
+    n = g.n;
+    for (i = 0; i < n; i++)
+    for (j = 0; j < n; j++)
+    {
+        A[i][j] = g.edges[i][j];
+        path[i][j] = -1;
+    }
+    for (k = 0; k < n; k++)
+    {
+        for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+        if (A[i][j] > (A[i][k] + A[k][j]))
+        {
+            A[i][j] = A[i][k] + A[k][j];
+            path[i][j] = k;
+        }
+    }
+}
+</pre>
+<p>算法时间复杂度:O(n3)</p>
+
+<p><a href="http://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html">ref</a></p>
+</div>
+<div>
+<div id="ftsize1"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em">大</a></div>
+<div id="ftsize2"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em">中</a></div>
+<div id="ftsize3"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em">小</a></div>
+<div style="display:none" id="goTopBtn"><a target="_self" style="color:#fff;">&and;</a></div>
+<div style="display:none" id="shangy">
+	<a onclick="shangy()" target="_self" style="color:#fff;">&uarr;</a></div>
+<div id="xiay">
+	<a onclick="xiay()" target="_self" style="color:#fff;">&darr;</a></div>
+<div id="goBottom">
+	<a onclick="downn()" target="_self" style="color:#fff;">&or;</a></div>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+</body>
+</html>
+<!--
+_____________________________________________________________________________________
+1 段落替换：
+\s*</p>
+<p>\s*
+------------------
+</p>
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+<p>
+_____________________________________________________________________________________
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+在线代码格式化:
+http://tool.oschina.net/codeformat/js/
+需要加<pre></pre>标签
+-->

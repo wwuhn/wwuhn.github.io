@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>78个神奇的心理学定律</h4>
+
+<p></p>
+
+<p>成功心理学一一要想取得成功，需要有成功者的品质</p>
+
+<p>1、糖果效应：如果连一颗糖的诱惑都抵挡不住，还能成就什么</p>
+
+<p>2、贝尔效应：坚信自己能行，你就能成功</p>
+
+<p>3、杜根定律：自信并勤于实践，让你永远手握坐票</p>
+
+<p>4、杜利奥定理：失去什么都没有失去热忱可怕</p>
+
+<p>5、脱皮效应：蜕掉萎靡不振的皮囊，重新振作起来</p>
+
+<p>6、布利斯定理：凡事预则立，不预则废</p>
+
+<p>7、苏东坡效应：若想驾奴人生，需先认清自己</p>
+
+<p>8、隧道视野效应：视野开阔，方能看得高远</p>
+
+<p>交际心理学一一人脉像雪球，会滚才能越滚越大</p>
+
+<p>9、邻里效应：远亲不如近邻，交往需要热情</p>
+
+<p>10、瀑布心理效应：说者无心，听者有意</p>
+
+<p>11、南风法则：温暖胜于严寒，柔弱可以克刚</p>
+
+<p>12、海格力斯效应：以恨换恨恨无涯，以爱换爱爱无边</p>
+
+<p>13、斯坦纳定理：说得愈少，才能听得愈多</p>
+
+<p>14、特里法则：有勇气承认错误，才会更受人欢迎</p>
+
+<p>15、态度效应：你对别人笑，别人才会对你笑</p>
+
+<p>选择心理学一一先选择好目标和方向，再努力才有效</p>
+
+<p>16、手表定理：你不能同时挑选两种不同的价值观</p>
+
+<p>17、不值得定律：不值得做的事情，就不值得做好</p>
+
+<p>18、卡贝定律：懂得放弃，才能更好的争取</p>
+
+<p>19、布里丹毛驴效应：两全其美，并不完美</p>
+
+<p>20、霍布森选择效应：没有余地的选择，没有任何意义</p>
+
+<p>21、累积定律：选择决定命运，积累成就人生</p>
+
+<p>22、重复定律：成功就是将简单的事情重复做好</p>
+
+<p>盲从心理学一一如果不理智思考，会被牵着鼻子跑</p>
+
+<p>23、羊群效应：不用大脑去思考，只知跟着别人跑</p>
+
+<p>24、权威效应：追求心理安全，迷信权威人物</p>
+
+<p>25、晕轮效应：不要被别人头上的“光环”迷惑</p>
+
+<p>26、首因效应：以貌取人，容易犯下大错</p>
+
+<p>27、思维定势效应：如果思维受限，大脑将会断电</p>
+
+<p>28、流言的心理效应：流言可畏，让人逃跑</p>
+
+<p>29、韦奇定律：走自己的路，让别人说去吧</p>
+
+<p>30、改宗效应：不做没有是非观念的“好好先生”</p>
+
+<p>减压心理学一一打开心的阀门，排泄烦恼和压力</p>
+
+<p>31、齐加尼克效应：适时休息，解工作压力</p>
+
+<p>32、职场休克理论：你可以做到不“休克”</p>
+
+<p>33、避雷针效应：善疏则通，能导必安</p>
+
+<p>34、酸葡萄效应：可望不可及时，请学会自我安慰</p>
+
+<p>35、替换定律：与其苦心消除，不如轻松替换</p>
+
+<p>36、鸟笼效应：无谓的烦恼，让人最难摆脱</p>
+
+<p>37、武器效应：烦恼有可能引发犯罪行为</p>
+
+<p>婚姻心理学一一从恋爱到婚姻，幸福需要巧经营</p>
+
+<p>38、多看效应：制造偶遇机会，让双方产生吸引力</p>
+
+<p>39、互补定律：优劣互补，白头偕老更靠谱</p>
+
+<p>40、过度理由效应：不要为了表面的利益而抱怨</p>
+
+<p>41、角色互换效应：将心比心，读懂爱人的心</p>
+
+<p>42、幸福递减定律：爱情从轰轰烈烈变为平平淡淡</p>
+
+<p>43、刺猬法则：若想给彼此温暖，需要保持恰当距离</p>
+
+<p>合作心理学------个篱笆三个粧，一个好汉三个帮</p>
+
+<p>44、跷跷板互惠原则：人生永远不是独角戏</p>
+
+<p>45、华盛顿合作定律：怎样合作是一个问题</p>
+
+<p>46、共生效应：独木不成林，也难以成材</p>
+
+<p>47、蚂蚁效应：人心齐，泰山移</p>
+
+<p>48、旁观者效应：责任不清，导致合作失灵</p>
+
+<p>49、木桶原理：永远不要让自己拖团队的“后腿”</p>
+
+<p>50、米格-25效应：优化组合，可使整体胜于局部之和</p>
+
+<p>竞争心理学一一竞争既能激发动力，还能増强活力</p>
+
+<p>51、鲶鱼效应：有了压力，才能有动力和活力</p>
+
+<p>52、犬獒效应：狭路相逢勇者胜</p>
+
+<p>53、马蝇效应：外界压力会驱使你勇往直前</p>
+
+<p>54、竞争优势效应：每个人都希望自己比别人强</p>
+
+<p>55、瓦拉赫效应：找到自己的优势，方能如鱼得水</p>
+
+<p>56、零和游戏原理：你所臝的，正是别人所输的</p>
+
+<p>57、詹森效应：竞争实力重要，心理素质更重要</p>
+
+<p>管理心理学一一管理者不能当监工，而要当教练</p>
+
+<p>58、鲦鱼效应：蛇无头不行，鸟无翼不飏</p>
+
+<p>59、罗森塔尔效应：信任和期望是最高明的激励</p>
+
+<p>60、奥卡姆剌刀效应：如无必要，无増实体</p>
+
+<p>61、洛伯定理：你没看见的，才是最关键的</p>
+
+<p>62、彼得原理：人往高处走，最终难胜任</p>
+
+<p>63、霍桑效应：关注并让员工尽情宣泄坏情绪</p>
+
+<p>64、异性效应：男女搭配，干活不累</p>
+
+<p>65、苛希纳定律：在管理上，并不是人多就好</p>
+
+<p>推销心理学一一若想产品大卖，先为顾客“把脉”</p>
+
+<p>66、沃尔森法则：把信息和情报放在第一位</p>
+
+<p>67、得寸进尺效应：循序渐进更容易让人接受</p>
+
+<p>68、250效应：善待一位顾客，获得更多顾客</p>
+
+<p>69、巴莱多定律：最重要的只占一小部分</p>
+
+<p>70、禁果效应：若想传播推广，请先闭口不讲</p>
+
+<p>71、凡勃伦效应：天价又如何，照样有人买</p>
+
+<p>连锁心理学一一细节决定成败，连锁反应让人很无奈</p>
+
+<p>72、蝴蝶效应：细小的误差，会造成巨大的后果</p>
+
+<p>73、墨菲定律：如果有出错的可能，早晚会发生</p>
+
+<p>74、马太效应：最初的好与差，到后来差距越来越大</p>
+
+<p>75、多米诺骨牌效应：很小的初始能量可能产生一连串的反应</p>
+
+<p>76、破窗理论：及时修补，别让破窗成为一种常态</p>
+
+<p>77、棘轮效应：由俭入奢易，由奢入俭难</p>
+
+<p>78、配套效应：如果好鞍必须配好马，配到最后会“被耍”</p>
+
+
+
+<p style='float:right;'>本页共91段，2002个字符，5593 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

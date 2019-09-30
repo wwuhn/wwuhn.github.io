@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ 
+<title>动画图解发动机和其它常见的机械原理</title>
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script>
+<script>
+function goTopEx() {
+    var obj = document.getElementById("goTopBtn");
+    function getScrollTop() {
+        return document.documentElement.scrollTop;
+    }
+    function setScrollTop(value) {
+        document.documentElement.scrollTop = value;
+    }
+    window.onscroll = function() {
+        getScrollTop() > 0 ? obj.style.display = "": obj.style.display = "none";
+    }
+    obj.onclick = function() {
+        var goTop = setInterval(scrollMove, 10);
+        function scrollMove() {
+            setScrollTop(getScrollTop() / 111);
+            if (getScrollTop() < 1) clearInterval(goTop);
+        }
+    }
+}
+
+function goTopEx() {
+    var obj = document.getElementById("goTopBtn");
+    function getScrollTop() {
+        return document.documentElement.scrollTop;
+    }
+    function setScrollTop(value) {
+        document.documentElement.scrollTop = value;
+    }
+    window.onscroll = function() {
+        getScrollTop() > 0 ? obj.style.display = "": obj.style.display = "none";
+    }
+    obj.onclick = function() {
+        var goTop = setInterval(scrollMove, 10);
+        function scrollMove() {
+            setScrollTop(getScrollTop() / 111);
+            if (getScrollTop() < 1) clearInterval(goTop);
+        }
+    }
+}</script>
+ <style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"mv boli","宋体";
+width:75.29%;
+line-height:1.4em;
+}
+P{
+margin:8px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:5px;
+margin-bottom:-15px;
+text-indent:0em;
+}
+
+.fc{
+color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+	font-family: "MV Boli";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #aaa;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "MV Boli";
+padding-left:3px;
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+/*padding:2px 0px;*/
+display:table-column-group;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+background-color:#f2f4b9;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+.floatr{
+float:right;
+padding-right:5px;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+#goTopBtn {
+width: 18px;
+line-height: 1.2;
+padding: 5px 0;
+background-color:#eee;
+color:#000;
+font-size: 12px;
+text-align: center;
+position: fixed;
+_position: absolute;
+
+right: 10px;
+bottom: 105px;
+_bottom: "auto";
+cursor: pointer;
+opacity: .6;
+filter: Alpha(opacity=30);
+opacity=.3;
+}
+#goTopBtn:hover{
+background-color:white;
+border:#ccc 1px solid;
+color:red;
+}
+
+
+#goBottom {
+width: 18px;
+line-height: 1.2;
+padding: 5px 0;
+background-color: #eee;
+color: #fff;
+font-size: 12px;
+text-align: center;
+position: fixed;
+_position: absolute;
+
+right: 10px;
+bottom: 30px;
+_bottom: "auto";
+cursor: pointer;
+filter: Alpha(opacity=30);
+opacity=.3;
+writing-mode:tb-rl;
+}
+#goBottom:hover{
+background-color:white;
+border:#ccc 1px solid;
+color:red;
+}
+#shangy {
+width: 18px;
+line-height: 1.2;
+padding: 5px 0;
+background-color: #eee;
+color: #fff;
+font-size: 12px;
+text-align: center;
+position: fixed;
+_position: absolute;
+
+right: 10px;
+bottom: 80px;
+_bottom: "auto";
+cursor: pointer;
+filter: Alpha(opacity=30);
+opacity=.3;
+}
+#xiay {
+width: 18px;
+line-height: 1.2;
+padding: 5px 0;
+background-color: #eee;
+color: #fff;
+font-size: 12px;
+text-align: center;
+position: fixed;
+_position: absolute;
+
+right: 10px;
+bottom: 55px;
+_bottom: "auto";
+cursor: pointer;
+filter: Alpha(opacity=30);
+opacity=.3;
+}
+img{
+margin-right:5px;
+border:0px;
+
+margin-bottom:24px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+动画图解发动机和其它常见的机械原理<br /><br />
+<div style="line-height:22px">
+<a href="#1">一、</a>直列式发动机：它的汽缸肩并肩地排成一排，L4发动机，一般的车都用<br />
+<a href="#2">二、</a>V型发动机：汽缸排列在成一定角度的两个平面上，V6发动机<br />
+<a href="#3">三、</a>水平对置式发动机：汽缸排列在发动机相对的两个平面上<br />
+<a href="#4">四、</a>汽车变档机制<br />
+<a href="#5">五、</a>汽车万向节<br />
+<br />
+
+<a href="#6">六、</a>飞机的星形发动机<br />
+<a href="#7">七、</a>双涵道涡轮风扇发动机+喷气发动机<br />
+<a href="#8">八、</a>转子发动机--内燃机的一种，把热能转为旋转运动而非活塞运动。<br />
+<a href="#9">九、</a>奎西发动机<br />
+<a href="#10">十、</a>斯特林发动机<br />
+<a href="#11">十一、</a>二冲程发动机<br />
+<a href="#12">十二、</a>四冲程发动机<br />
+<br />
+<a href="#13">十三、</a>工业式蒸气机<br />
+<a href="#14">十四、</a>火车式节气机<br />
+
+<a href="#15">十五、</a>缝纫机<br />
+<a href="#16">十六、</a>舰炮弹药装填系统，推进药跟战斗部是分开的<br />
+<a href="#17">十七、</a>手枪---不卡壳是水平<br />
+<a href="#18">十八、</a>飞机机枪<br />
+<a href="#19">十九、</a>马耳他十字机芯——用于控制时钟的秒针运动<br />
+<a href="#20">二十、</a>三相定子绕组<br />
+<a href="#21">二一、</a>椭圆规<br />
+
+
+<a href="#22">二二、</a>其它机械原理图<br />
+<br />
+</div>
+<a name="1" id="1"></a>一、直列式发动机：它的汽缸肩并肩地排成一排，L4发动机，一般的车都用↓<br />
+<img src="直列式发动机.gif" /><br />
+
+<a name="2" id="2"></a>二、V型发动机：汽缸排列在成一定角度的两个平面上，V6发动机↓   <br />
+<img width="320" height="240" src="V型发动机.gif" /> <br />
+
+<a name="3" id="3"></a>三、水平对置式发动机：汽缸排列在发动机相对的两个平面上↓ <br />
+<img width="320" height="240" src="水平对置式发动机.gif" /> <br />
+<a name="4" id="4"></a>四、汽车变档机制↓ <br />
+<img width="400" height="330" src="汽车变档机制.gif" /> <br />
+<a name="5" id="5"></a>五、汽车万向节↓ <br />
+<img style="float:left" width="320" height="240" src="汽车万向节.gif" /> <br />
+<img style="float:left" width="320" height="240" src="汽车万向节2.gif" /> <br />
+<span style="clear:both; display:block;"><a name="6" id="6"></a>六、飞机的星形发动机↓</span> <br />
+<img style="float:left" width="280" height="233" src="飞机的星形发动机.gif" />
+<img style="float:left; width:23%;" src="飞机的星形发动机2.gif" /> <br />
+
+
+<span style="clear:both; display:block;"><a name="7" id="7"></a>七、双涵道涡轮风扇发动机↓</span><br />
+<img width="406" height="272" src="双涵道涡轮风扇发动机.gif" /> <br />
+涡轮喷气发动机↓ <br />
+<img width="406" height="174" src="喷气发动机.gif" /> <br />
+<a name="8" id="8"></a>八、转子发动机--内燃机的一种，把热能转为旋转运动而非活塞运动。↓ <br />
+<p>转子发动机（Wankel Engine、Rotary Engine）是由德国人菲加士·汪克尔（Felix Wankel，1902-1988）所发明。转子发动机采用三角转子旋转运动来控制压缩和排放，与传统的活塞往复式发动机的直线运动迥然不同。对于转子发动机，膨胀压力作用在转子的侧面，从而将三角形转子的三个面之一推向偏心轴的中心。这一运动在两个分力的力作用下进行，一个指向输出轴中心的向心力，另一个是使输出轴转动的切线力。</p>
+<p>我们都知道，一般车辆使用的是4行程活塞发动机，要上下各两次才能完成一次循环，所以被称为4行程发动机。而转子发动机并没有活塞，只有一颗三角弧形的转子。当然也没有气缸壁，只有一个蚕茧形的气室，而转子就是在这蚕茧形的气室内转动。转子在气室内不是规矩的绕着轴心转动，如果转子真的是绕着固定轴心转动，那气室的形状将会是圆形，进气，压缩，爆炸，排气的内燃机四个行程将不存在，所以转子的驱动轴是偏心的，也就因为驱动轴是偏心的，所以转子才能在蚕茧形气室内上下旋转，因此气室才会设计成蚕茧形。
+</p><p>气室被三角弧形转子分成了三份，旋转时大小会不断变化，这些变化量就是转子发动机的排气量。这时只要在气室的侧壁上下开孔，下孔就会因转子压缩气室内的空间而变成排气孔，而没有开口的腰部，空气就会被压缩，只要有火花塞点火就可以引爆混合汽油空气产生膨胀，推动转子旋转，而混合燃油的空气则由上空吸入，这样转子发动机就完成了进气，压缩，爆炸，和排气四个行程。
+</p><p>因为转子是三角弧形的，所以有三个独立运作的空间，于是转子转一圈就会有三次的动力行程；转子中间还有一个很重要的设计，那就是转子齿与驱动齿的齿比绝对是3：2，所以转子转一圈驱动轴转三圈，这就是转子发动机驱动轴可以轻易达到10000r/min的高转速的原因；而4行程活塞发动机若要达到每一转就有一次动力则需要两气缸，也就是说相同的转速下，一个转子相当于两气缸；<a href="http://blog.sina.com.cn/s/blog_4a4d102b010006m1.html">from</a></p>
+<img style="float:left" width="206" height="166" src="转子发动机1.gif" />
+<img style="float:left" width="240" height="320" src="转子发动机2.gif" /> <br />
+
+
+<span style="clear:both; display:block;"><a name="9" id="9"></a>九、奎西发动机↓</span><br />
+<img width="400" height="250" src="奎西发动机.gif" /> <br />
+<a name="10" id="10"></a>十、斯特林发动机↓ <br />
+<p>斯特林发动机这种发动机是伦敦的牧师罗巴特 斯特林（Robert Stirling）于1816年发明的，所以命名为“斯特林发动机”（Stirling engine）。斯特林发动机是独特的热机，因为他们理论上的效率几乎等于理论最大效率，称为卡诺循环效率。斯特林发动机是通过气体受热膨胀、遇冷压缩而产生动力的。这是一种外燃发动机，使燃料连续地燃烧，蒸发的膨胀氢气（或氦）作为动力气体使活塞运动，膨胀气体在冷气室冷却，反复地进行这样的循环过程.
+</p>
+<p>斯特林发动机的最大的特点是作工用的气体呈封闭循环状态，不需要外界提供空气。利用的是气体热胀冷缩原理，属于“外燃机”。潜艇使用这种发动机后可以延长在水下的潜航时间，而普通的潜艇在上浮时使用柴油机，同时为电池充电。在水下时，因为没有空气，所以只能用电动机工作。这种潜艇是要依赖空气进行推进的。
+使用斯特林发动机的潜艇，是不依赖于外界空气的。这种潜艇，也被称作亚核潜艇。日本的苍龙级潜艇，就是这种所谓的AIP潜艇。AIP就是英文Air-Independent Propulsion（不依赖空气推进）的缩写。</p>
+<div>
+<img width="303" height="218" src="斯特林发动机1.gif" />
+<img style="float:left;"  src="斯特林发动机2.gif" />
+<a href="http://blog.sina.com.cn/s/blog_554f6db10100nvvs.html"><img style="float:left; width:32%"  src="斯特林发动机11.gif" /></a>
+</div>
+<div style="clear:both;">
+<img style="float:left; width:22%"  src="斯特林发动机12.gif" />
+<img style="float:left; width:22%"  src="斯特林发动机91.gif" />
+<img style="float:left; width:22%"  src="斯特林发动机92.gif" />
+<img style="float:left; width:22%"  src="斯特林发动机93.gif" />
+</div>
+
+
+<span style="clear:both; display:block;"><a name="11" id="11"></a>十一、二冲程发动机↓</span><br />
+
+<img width="125" height="239" src="二冲程发动机1.gif" />
+<img style="float:left;"  width="97" height="194" src="二冲程发动机2.gif" />
+<img style="float:left; width:32%;" src="二冲程发动机3.gif" />
+<img style="float:left;" src="二冲程发动机4.gif" />
+
+
+<span style="clear:both; display:block;"><a name="12" id="12"></a>十二、四冲程发动机↓</span><br />
+<img style="float:left;" width="80" height="174" src="四冲程发动机1.gif" />
+<img style="float:left;"  width="119" height="186" src="四冲程发动机2.gif" />
+<img style="float:left; width:50%;"  src="四冲程发动机3.gif" />
+ <br />
+ 
+<span style="clear:both; display:block;"><a name="13" id="13"></a>十三、工业式蒸气机↓</span><br />
+<img src="工业式蒸气机1.gif" />
+<img style="float:left; width:30%" src="工业式蒸气机2.gif" /> <br />
+
+<span style="clear:both; display:block;"><a name="14" id="14"></a>十四、火车式蒸气机↓</span><br />
+<img width="584" height="201" src="火车式蒸气机.gif" /><br />
+<a name="15" id="15"></a>十五、缝纫机↓ <br />
+<img style="float:left;" width="370" height="386" src="缝纫机1.gif" />
+<img style="float:left; width:30%;" src="缝纫机2.gif" /> <br />
+
+<span style="clear:both; display:block;"><a name="16" id="16"></a>十六、舰炮弹药装填系统，推进药跟战斗部是分开的↓</span> <br />
+<img height="300" src="舰炮弹药装填系统.gif" /><br />
+
+
+<a name="17" id="17"></a>十七、手枪---不卡壳是水平↓ <br />
+<div>
+<img style="float:left;" src="手枪1.gif" />
+<img style="float:left;" src="手枪2.gif" /></div>
+<div style="clear:both; display:block;">
+<img style="width:48%; float:left;" src="手枪3.gif" />
+<img style="float:left;" src="手枪4.gif" />
+</div>
+
+<span style="clear:both; display:block;"><a name="18" id="18"></a>十八、飞机机枪↓</span><br />
+<img src="飞机机枪.gif" /><br />
+
+
+<a name="19" id="19"></a>十九、马耳他十字机芯——用于控制时钟的秒针运动↓ <br />
+<img width="320" height="240" src="十字机芯.gif" /> <br />
+
+<a name="20" id="20"></a>二十、三相定子绕组励磁、绕组、旋转磁场↓<br />
+<img src="三相定子绕组.gif" />
+
+
+
+
+<span style="clear:both; display:block;"><a name="21" id="21"></a>二一、椭圆规↓</span><br />
+<img width="320" height="240" src="椭圆规.gif" /> <br />
+
+
+
+
+<span style="clear:both; display:block;"><a name="22" id="22"></a>二二、其它机械原理图↓</span><br />
+<div>
+<img style="float:left; width:40%;"  src="其它机械1.gif" />
+<img style="float:left; width:20%;"  src="其它机械2.gif" /></div>
+<div style="clear:both">
+<img style="float:left; width:45%;" src="其它机械3.gif" />
+<img style="float:left; width:35%;" src="其它机械4.gif" /></div>
+
+<p style="clear:both;">外燃机是一种外燃的闭式循环往复活塞式热力发动机，有别于依靠燃料在发动机内部燃烧获得动力的内燃机。新型外燃机使用氢气作为工质，在四个封闭的气缸内充有一定容积的工质。气缸一端为热腔，另一端为冷腔。工质在低温冷腔中压缩，然后流到高温热腔中迅速加热，膨胀做功。燃料在气缸外的燃烧室内连续燃烧，通过加热器传给工质，工质不直接参与燃烧，也不更换。编辑本段外燃机优缺点</p>
+<p>由于外燃机避免了传统内燃机的震爆做功问题，从而实现了高效率、低噪音、低污染和低运行成本。外燃机可以燃烧各种可燃气体，如：天然气、沼气、石油气、氢气、煤气等，也可燃烧柴油、液化石油气等液体燃料，还可以燃烧木材，以及利用太阳能等。只要热腔达到700℃，设备即可做功运行，环境温度越低，发电效率越高。外燃机最大的优点是出力和效率不受海拔高度影响，非常适合于高海拔地区使用。</p>
+<p>热气机(StirlingEngine)是一种由外部供热使气体在不同温度下作周期性压缩和膨胀的闭式循环往复式发动机，由苏格兰牧师 RobertStirling在十九世纪初发明，所以又称斯特林发动机。相对于内燃机燃料在气缸内燃烧的特点热气机又被称作外燃机。现在热气机特指按闭式回热循环工作的热机，不包括斯特林热泵或斯特林制冷机。</p>
+<p>热气机工作原理</p>
+<p>热气机是一种外燃的、闭式循环往复活塞式热力发动机。</p>
+<p>热气机可用氢、氮、氦或空气等作为工质，按斯特林循环工作。在热气机封闭的气缸内充有一定容积的工质。气缸一端为热腔，另一端为冷腔。工质在低温冷腔中压缩，然后流到高温热腔中迅速加热，膨胀作功燃料在气缸外的燃烧室内连续燃烧，通过加热器传给工质，工质不直接参与燃烧，也不更换。</p>
+<p>已设计制造的热气机有多种结构，可利用各种能源，已在航天、陆上、水上和水下等各个领域进行应用。试验热气机的功率传递机构分为曲柄连杆传动、菱形传动、斜盘或摆盘传动、液压传动和自由活塞传动等。</p>
+<p>按缸内循环的组成形式分，热气机主要有配气活塞式和双作用式两类。在一个气缸内有两个活塞作规律的相对运动，冷腔与热腔之间用冷却器、回热器和加热器连接，配气活塞推动工质在冷热腔之间往返流动。</p>
+<p>热力循环可以分为定温压缩过程、定容回热过程、定温膨胀过程、定容储热过程四个过程。</p>
+<p>与内燃机比较热气机所具备的优点：</p>
+<p>适用于各种能源，无论是液态的、气态的或固态的燃料，当采用载热系统(如热管)间接加热时，几乎可以使用任何高温热源(太阳能放射性同位素和核反应等)，而发动机本身(除加热器外)不需要作任何更改。同时热气机无需压缩机增压，使用一般风机即可满足要求，并允许燃料具有较高的杂质含量。</p>
+<p>热气机在运行时，由于燃料在气缸外的燃烧室内连续燃烧，独立于燃气的工质通过加热器吸热，并按斯特林循环对外做功，因此避免了类似内燃机的爆震做功和间歇燃烧过程，从而实现了高效、低噪和低排放运行。高效：总能效率达到80%以上；低噪：1米处裸机噪音底于68dBA；低排放：尾气排放达到欧5标准。</p>
+
+
+<p>喷气发动机的工作原理大致是这样的：空气由前方进入发动机——压缩风扇对空气进行压缩（一般进行多级压缩）——空气进入燃烧室——燃烧室里由喷口喷出燃油，与空气混合、燃烧——燃气向后喷出，部分能量推动涡轮做工——其他燃气喷出，推动飞机运动。涡轮是与压缩风扇相连，由涡轮带动压缩风扇运动。这是一个循环过程。</p>
+<p>螺旋桨飞机就是通过活塞发动机带动螺旋桨产生的拉力或推力，简单的说就是通过活塞发动机燃烧室燃烧使得气体剧烈膨胀推动活塞带动连杆从而运转曲轴旋转，然后带动螺旋桨，螺旋桨你可以想象成一个电风扇，通过对后方闪动气体从而产生向前的反作用力；</p>
+
+<p>涡轮喷气式发动机就复杂点了，大概就是通过涡轮增压的混合气体经过剧烈燃烧氧化产生的巨大的向前推动的反作用力，备注：喷气式的一般用的是航空煤油，螺旋桨式的一般用的航空汽油，不是一般的汽油跟煤油哦！</p>
+
+
+
+
+<p>飞机是比空气重的飞行器，因此需要消耗自身动力来获得升力。而升力的来源是飞行中空气对机翼的作用。</p>
+<p>在下面这幅图里，有一个机翼的剖面示意图。机翼的上表面是弯曲的，下表面是平坦的，因此在机翼与空气相对运动时，流过上表面的空气在同一时间(T)内走过的路程(S1)比流过下表面的空气的路程(S2)远，所以在上表面的空气的相对速度比下表面的空气快(V1=S1/T &gt;V2=S2/T1)。根据帕奴利定理——“流体对周围的物质产生的压力与流体的相对速度成反比。”，因此上表面的空气施加给机翼的压力 F1 小于下表面的 F2 。F1、F2 的合力必然向上，这就产生了升力。</p>
+<img src="wing.gif" />
+<p>从机翼的原理，我们也就可以理解螺旋桨的工作原理。螺旋桨就好像一个竖放的机翼，凸起面向前，平滑面向后。旋转时压力的合力向前，推动螺旋桨向前，从而带动飞机向前。当然螺旋桨并不是简单的凸起平滑，而有着复杂的曲面结构。老式螺旋桨是固定的外形，而后期设计则采用了可以改变的相对角度等设计，改善螺旋桨性能。 </p>
+
+
+
+<p>1 活塞式航空发动机一般以汽油为燃料，带动螺旋桨，由螺旋桨产生推（拉）力为飞机提供动力。所以，作为飞机的动力装置时，发动机与螺旋桨是不能分割的。</p>
+<p>活塞式航空发动机的主要构件:气缸、活塞、连杆、曲轴、进、排气活门、机匣。</p>
+<p>活塞式发动机的优点：<br>
+  经济性较好：不但耗油率低，而且单位功率的售价低；<br>
+  燃烧较完全，所以对环境的污染相对较小；<br>
+  噪音较小。<br>
+  目前，活塞式航空发动机仍广泛地应用于小型低速飞机。</p><br />
+
+<p>2 脉动式喷气发动机</p>
+
+<p>现代高速飞机多数使用喷气式发动机，原理是将空气吸入，与燃油混合，点火，爆炸膨胀后的空气向后喷出，其反作用力则推动飞机向前。下图的发动机剖面图里，一个个压气风扇从进气口中吸入空气，并且一级一级的压缩空气，使空气更好的参与燃烧。风扇后面橙红色的空腔是燃烧室，空气和油料的混和气体在这里被点燃，燃烧膨胀向后喷出，推动最后两个风扇旋转，最后排出发动机外。而最后两个风扇和前面的压气风扇安装在同一条中轴上，因此会带动压气风扇继续吸入空气，从而完成了一个工作循环。</p>
+<p>该发动机由进气道、活门装置、燃烧室和长喷管组成。燃料有效燃烧所必须的压力，是依靠发动机中半闭塞的容积内燃烧时产生的。</p>
+
+<p>工作时，先把空气压入活门装置内与燃料混合燃烧，燃烧后燃气的压力将活门关闭，以防止燃气倒流，燃气以很高的速度从长喷管喷出，产生推力。燃气喷出后，由于燃气的惯性，仍继续往外喷，在燃烧室内造成气体稀薄的现象，压力小于外界的大气压。由于压差的作用，自动打开活门装置，空气再次进入燃烧室循环工作。</p>
+<p>脉动式喷气发动机的特点</p>
+<p>脉动式喷气发动机结构简单、体积小，可以地面起动。在700km/H的飞行速度下，比推力为冲压发动机的2~3倍。但燃烧不连续，推力忽大忽小，振动厉害，不宜载人，寿命较低。此外脉动式喷气发动机的燃油消耗量大，限制了它的推广应用。</p><br />
+
+<p>3 冲压式喷气发动机</p>
+<p>该发动机由进气道、燃烧室和喷管组成。空气先经进气道扩压后，速度下降、压力提高，压缩后的空气与燃油喷嘴喷出的燃油混合在燃烧室进行等压燃烧，高温高压燃气从喷管高速喷出，产生推力。</p>
+
+<p>冲压式喷气发动机的特点</p>
+<p>由于空气是依靠外界飞行速度的冲压而增压的，所以推力随飞行速度的提高而增加。冲压发动机在飞行速度很大的情况下才能有效地产生推力。发动机在地面放置时速度等于零，不能产生推力，所以冲压发动机在地面不能单独起动，必须与其它类型发动机组合一起才能使用。</p><br />
+
+<p>4 涡轮喷气发动机 这类发动机的原理基本与上面提到的喷气原理相同，具有加速快、设计简便等优点。但如果要让涡喷发动机提高推力，则必须增加燃气在涡轮前的温度和增压比，这将会使排气速度增加而损失更多动能，于是产生了提高推力和降低油耗的矛盾。因此涡喷发动机油耗大，对于商业民航机来说是个致命弱点。</p>
+<br />
+<p>5 涡轮风扇发动机 涡轮风扇发动机吸入的空气一部分从外部管道(外涵道)后吹，一部分送入内涵道核心机(相当于一个纯涡喷发动机)。最前端的“风扇”作用类似螺旋桨，通过降低排气速度达到提高喷气发动机推进效率的目的。同时通过精确设计，使更多的燃气能量经风扇传递到外涵道，同样解决了排气速度过快的问题，从而降低了发动机的油耗。由于该风扇设计要兼顾内外涵道的需要，因此难度远大于涡喷发动机。 </p>
+<br />
+<p>6 冲压喷气发动机 此类发动机没有风扇等器件，完全靠高速飞行时产生的冲压效应压缩吸入的空气，点火、燃烧、后喷等原理。因此其优点为结构简单、体积小、推力大、加速快。缺点是需要外部能源进行启动(通常为火箭助推)，不适合循环使用。</p>
+<p>自从人们跳出模仿飞鸟拍翅飞行的谜思之后，依据贝努力原理的空气动力升力就成为除气球和火箭外所有动力飞行器的基本原理。机翼前行时，上下翼面之间的气流速度差造成上下翼面之间的压力差，这就是升力。所谓“机翼前行”，实际上就是机翼和空气形成相对速度。既然如此，和机身一起前行时，机翼可以造成升力，机身不动而机翼像风车叶一样打转转，和空气形成相对速度，也可以形成升力，这样旋转的“机翼”就成为旋翼，旋翼产生升力就是直升机可以垂直起落的基本原理。
+&nbsp;</p>
+</div>
+
+
+
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="shangy"><a href="javascript:void(null)" onclick="shangy()" target="_self">&uarr;</a></div>
+<div id="xiay"><a href="javascript:void(null)" onclick="xiay()" target="_self">&darr;</a></div>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+<script type="text/javascript">
+function xiay(){
+window.scrollBy(0,window.innerHeight);
+}
+function shangy(){
+window.scrollBy(0,-window.innerHeight);
+}
+</script>
+</body>
+</html>
+<script language="javascript"> 
+bg_even("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>

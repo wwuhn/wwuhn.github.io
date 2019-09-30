@@ -1,0 +1,1383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Python</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop属
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000">红色</option><option value="#006600">绿色</option><option value="#0000ff">蓝色</option><option value="#660000">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style></head><body onload="downn();">
+<div>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	//if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	//}
+</script>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a><a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a></div>
+<div id="container">
+<script>
+	goTopEx();
+</script>
+
+<p>Python就为我们提供了非常完善的基础代码库，覆盖了网络、文件、GUI、数据库、文本等大量内容，被形象地称作“内置电池（batteries included）”。用Python开发，许多功能不必从零编写，直接使用现成的即可。
+
+<p>
+
+<p>除了内置的库外，Python还有大量的第三方库，也就是别人开发的，供你直接使用的东西。当然，如果你开发的代码通过很好的封装，也可以作为第三方库给别人使用。
+<p>Python当然也有不能干的事情，比如写操作系统，这个只能用C语言写；写手机应用，只能用Swift/Objective-C（针对iPhone）和Java（针对Android）；写3D游戏，最好用C或C++。</p>
+<p>在python解释器中输入循环时，循环体语句如for i in range(0,50,10):在输完:后回车，需要输入四个空格作为缩进，表示循环体的输入，循环体全部输入完成后，双回车表示循环体输入完成。</p>
+
+
+<p>IPython是一个增强的Python shell，http://ipython.org</p>
+
+
+
+<p>python解释器的执行方式：</p>
+
+
+<p>1 默认方式是按行处理，遇到换行时就认为语句（或表达式）结束，就会去执行这个语句（或求值表达式）；
+<p>2 如果在读入一行的最后遇到反斜杠\，解释器就丢掉反斜杠及随后的换行符，把下一行的内容看作是本行内容的继续（续行）；
+<p>4 以换行结尾的一系列字符构成一个物理行，解释器根据上面规则把连续的几个物理行拼接成一个逻辑的程序行（逻辑行），一次处理一个逻辑行。</p>
+
+
+<p>5 如果读到的行是一个复杂结构的头部，解释器就会继续读完这个结构（根据代码的退格缩进形式），而后一次完成这个结构的处理。如def、if、for、while等。</p>
+
+
+<p>二进制、8进制和16进制的整数字面量都是由一个引导部分加一个数值部分组成。如十进制的16表示成二进制就是0b10000、八进制是0o20、十六进制是0x11。</p>
+
+
+<p>def abs(x):
+<p>&nbsp;&nbsp;return -x if x<0 else x
+<p>python关键字：from, import, and, or, not, True, False, if, else, elif, for, in, while, break, continue, def, return, None, pass。包括:
+<p>三个特殊字面量：True, False, None;
+<p>二个程序包导入语句：from, import；
+<p>函数定义：def；
+<p>流程控制结构：if, else, elif, for, in, while,break, continue, return；
+<p>pass：通常用于填补语法空白，如某种结构要求一个语句成分，但实际程序中不需要做任何操作，就可以用pass填补空白。
+<p>函数定义以def开头。</p>
+
+<p>def 函数名(参数列表):
+<p>&nbsp;&nbsp;语句组
+<p>Python拥有一个强大的标准库。Python语言的核心只包含数字、字符串、列表、字典、文件等常见类型和函数，而由Python标准库提供了系统管理、网络通信、文本处理、数据库接口、图形系统、XML处理等额外的功能。Python标准库命名接口清晰、文档良好，很容易学习和使用。</p>
+
+
+<p>Python社区提供了大量的第三方模块，使用方式与标准库类似。它们的功能无所不包，覆盖科学计算、Web开发、数据库接口、图形系统多个领域，并且大多成熟而稳定。第三方模块可以使用Python或者C语言编写。SWIG,SIP常用于将C语言编写的程序库转化为Python模块。Boost C++ Libraries包含了一组库，Boost.Python，使得以 Python 或 C++ 编写的程序能互相调用。借助于拥有基于标准库的大量工具、能够使用低级语言如C和可以作为其他库接口的C++，Python已成为一种强大的应用于其他语言与工具之间的胶水语言。
+<p>Python标准库的主要功能有：
+<p>文本处理，包含文本格式化、正则表达式匹配、文本差异计算与合并、Unicode支持，二进制数据处理等功能
+<p>文件处理，包含文件操作、创建临时文件、文件压缩与归档、操作配置文件等功能
+<p>操作系统功能，包含线程与进程支持、IO复用、日期与时间处理、调用系统函数、写日记(logging)等功能
+<p>网络通信，包含网络套接字，SSL加密通信、异步网络通信等功能
+<p>网络协议，支持HTTP，FTP，SMTP，POP，IMAP，NNTP，XMLRPC等多种网络协议，并提供了编写网络服务器的框架
+<p>W3C格式支持，包含HTML，SGML，XML的处理。
+<p>其它功能，包括国际化支持、数学运算、HASH、Tkinter等
+<p>PyCharm 由著名的JetBrains公司开发，带有一整套可以帮助用户在使用Python语言开发时提高其效率的工 具，比如调试、语法高亮、Project管理、代码跳转、智能提示、自动完成、单元测试、版本控制。此外，该IDE提供了一些高级功能，以用于支持Django框架下的专业Web开发。</p>
+
+<p>python解释器：cpython，以命令行方式工作。</p>
+<p>python语言提供了一组函数（称为内置函数或标准函数），可以在程序中直接使用。python还通过标准库的程序包提供了许多有用的函数，需要导入才可以使用。如导入数学函数包：from math import *</p>
+
+
+
+
+<p>first.py
+<p>from math import sqrt
+<p>s=(5+7+11)/2
+<p>area = sqrt(s*(s-5)*(s-7)*(s-11))
+<p>print("Area of the triangle:",area)
+<p>python控制结构的语句与C语言稍有不同：不用{},用冒号“:”,不用else if，用elif。</p>
+
+<pre>
+from math import sqrt
+a = float(input("Length of edge a:"))
+b = float(input("Length of edge b:"))
+c = float(input("Length of edge c:"))
+if a>0 and b>0 and c>0 and \
+    a+b>c and b+c>a and a+c>b:
+    s=(a+b+c)/2
+    area = sqrt(s*(s-a)*(s-b)*(s-c))
+    print("Area of the triangle:",area)
+else:
+    print("three edge:", a, b, c, "cannot form a trangle!")
+</pre>
+
+<p>for语句一般用于描述比较简单、规范的循环，使用一个循环控制变量（或叫迭代器）来控制循环，包括退出。</p>
+
+
+<p>while语句用于描述一般的复杂循环。</p>
+
+
+<p>for 变量 in 迭代器</p>
+
+
+<p>迭代器描述一个值序列。</p>
+
+
+<p>如</p>
+
+<p>for x in range(100):
+<p>range(100)表示0-99这个序列。
+<p>range(m,n)表示m,m++,……,n-1这个序列；
+
+
+
+<p>range(m,n,d)表示一个等差序列m,m+d,m+2d+……直到那个最接近但不包括n的等差值。</p>
+<p>Python是面向对象的编程语言，在Python中一切都是对象。对象由数据和行为两部分组成，而行为主要通过方法来实现，通过一些特殊方法的重写，可以实现运算符重载。运算符也是表现对象行为的一种形式，不同类的对象支持的运算符有所不同，同一种运算符作用于不同的对象时也可能会表现不同的行为，这正是“多态”的表现。
+<p>算术、位、成员测试、关系、逻辑运算符（按优先级排列），集合运算符、同一性测试运算符。
+
+
+<p>字符串切片：从一个字符串中取子串，是一种重要的字符串操作。</p>
+
+<p>空函数
+<p>如果想定义一个什么都不做的函数，可以使用pass语句。
+<p>def donothing():
+<p>&nbsp;&nbsp;&nbsp;&nbsp;pass
+<p>如果为了让程序能跑起来，但暂时又不写这个函数，可以使用pass语句。这里pass用作占位符。
+
+<p>用sys.exit()提前结束程序。</p>
+<pre>
+import sys
+while True:
+    print('Type exit to exit.')
+    response = input()
+    if response == 'exit':
+        print('You typed ' , response)
+        sys.exit()
+</pre>
+<p>函数的一个主要目的就是将需要多次执行的代码放在一起。如果没有函数定义，你可能每次都需要复制粘贴这些代码。
+<p>一般来说，我们总是希望避免复制代码，因为如果一旦决定要更新代码（比如说，发现了一个缺陷要修复），就必须记住要修改所有复制的代码。
+<p>随着你获得更多的编程经验，常常会发现自己在为代码“消除重复”，即去除一些重复或复制的代码。消除重复能够使程序更短、更易读、更容易更新。
+<p>None表示没有值。None 是NoneType 数据类型的唯一值（其他编程语言可能称这个值为null、nil 或undefined）。就像布尔值True
+<p>和False 一样，None 必须大写首字母N。
+<p>如果你希望变量中存储的东西不会与一个真正的值混淆，这个没有值的值就可能有用。
+<p>spam = print('Hello!') #Hello!
+<p>None == spam #True
+<p>如果需要在一个函数内修改全局变量，就使用global 语句。如果在函数的顶部有global eggs 这样的代码，它就告诉Python，“在这个函数中，eggs 指的是全局变量，所以不要用这个名字创建一个局部变量。”例如，在文件编辑器中输入以下代码：
+<p>def spam():
+<p>&nbsp;&nbsp;&nbsp;&nbsp;global eggs
+<p>&nbsp;&nbsp;&nbsp;&nbsp;eggs = 'spam'
+<p>eggs = 'global'
+<p>spam()
+<p>print(eggs)
+<p>在Python 程序中遇到错误，或“异常”，意味着整个程序崩溃。你不希望这发生在真实世界的程序中。相反，你希望程序能检测错误，处理它们，然后继续运行。
+<p>def spam(divideBy):
+<p>&nbsp;&nbsp;&nbsp;&nbsp;return 42 / divideBy
+<p>print(spam(12))
+<p>print(spam(0))
+<p>通常，对于一个函数，你要知道的就是它的输入值（变元）和输出值。你并非总是需要加重自己的负担，弄清楚函数的代码实际是怎样工作的。如果以这种高层的方式来思考函数，通常大家会说，你将该函数看成是一个黑盒。
+<p>这个思想是现代编程的基础。
+<p>一些模块中的函数是由其他人编写的。尽管你在好奇的时候也可以看一看源代码，但为了能使用它们，你并不需要知道它们是如何工作的。而且，因为鼓励在编写函数时不使用全局变量，你通常也不必担心函数的代码会与程序的其他部分发生交叉影响。
+<p>错误可以由try 和except 语句来处理。那些可能出错的语句被放在try 子句中。如果错误发生，程序执行就转到接下来的except 子句开始处。
+<p>def spam(divideBy):
+<p>&nbsp;&nbsp;&nbsp;&nbsp;try:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 42 / divideBy
+<p>&nbsp;&nbsp;&nbsp;&nbsp;except ZeroDivisionError:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('Error: Invalid argument.')
+<p>print(spam(2))
+<p>print(spam(0))
+<p>函数是将代码逻辑分组的主要方式。因为函数中的变量存在于它们自己的局部作用域内，所以一个函数中的代码不能直接影响其他函数中变量的值。这限制了哪些代码才能改变变量的值，对于调试代码是很有帮助的。
+<p>函数是很好的工具，帮助你组织代码。你可以认为他们是黑盒。它们以参数的Python 编程快速上手——让繁琐工作自动化形式接收输入，以返回值的形式产生输出。它们内部的代码不会影响其他函数中的变量。
+
+<p>方法也是函数，它们与特定数据类型的值绑定。
+<p>因为range(4)的返回值是类似列表的值。Python 认为它类似于[0, 1, 2, 3]。
+<p>多重赋值技巧是一种快捷方式，让你在一行代码中，用列表中的值为多个变量赋值。
+<p>cat = ['fat', 'black', 'loud']
+<p>size, color, disposition = cat<p>增强的赋值操作：在对变量赋值时，常常会用到变量本身。例如：
+<p>spam = 42
+<p>spam = spam + 1
+<p>这样会增加代码的重复，作为一种快捷方式，可以用增强的赋值操作符+=来完成同样的事：spam += 1
+<p>方法和函数是一回事，只是它是调用在一个值上。例如，如果一个列表值存储在spam 中，你可以在这个列表上调用index()列表方法，就像spam.index('hello')一样。方法部分跟在这个值后面，以一个句点分隔。
+<p>每种数据类型都有它自己的一组方法。例如，列表数据类型有一些有用的方法，用来查找、添加、删除或操作列表中的值。
+<p>Python 中缩进规则的例外:在大多数情况下，代码行的缩进告诉Python 它属于哪一个代码块。但是，这个规则有几个例外。例如在源代码文件中，列表实际上可以跨越几行。这些行的缩进并不重要。Python 知道，没有看到结束方括号，列表就没有结束。
+<p>in 和not in 操作符可以检查值是否存在于列表中。也可以利用这些操作符，检查某个键或值是否存在于字典中。
+<p>pyperclip 模块有copy()和paste()函数，可以向计算机的剪贴板发送文本，或从它接收文本。将程序的输出发送到剪贴板，使它很容易粘贴到邮件、文字处理程序或其他软件中。pyperclip 模块不是Python 自带的。要安装它。
+<p>使用IDLE 时，不能向程序传递命令行参数。以CMD可以传递命令行参数。
+<p>正则表达式，简称为regex，是文本模式的描述方法。例如，\d 是一个正则表达式，表示一位数字字符，即任何一位 0 到 9 的数字。
+<p>有时候，想匹配的模式是可选的。就是说，不论这段文本在不在，正则表达式都会认为匹配。字符?表明它前面的分组在这个模式中是可选的。
+<p>*（称为星号）意味着“匹配零次或多次”，即星号之前的分组，可以在文本中出Python 编程快速上手——让繁琐工作自动化现任意次。它可以完全不存在，或一次又一次地重复。
+<p>*意味着“匹配零次或多次”，+（加号）则意味着“匹配一次或多次”。星号不要求分组出现在匹配的字符串中，但加号不同，加号前面的分组必须“至少出现一次”。
+<p>如果想要一个分组重复特定次数，就在正则表达式中该分组的后面，跟上花括号包围的数字。例如，正则表达式(Ha){3}将匹配字符串'HaHaHa'，但不会匹配'HaHa'，因为后者只重复了(Ha)分组两次。
+<p>假定想要将区号从电话号码中分离。添加括号将在正则表达式中创建“分组”：(\d\d\d)-(\d\d\d-\d\d\d\d)。然后可以使用group()匹配对象方法，从一个分组中获取匹配的文本。
+<p>除了search 方法外，Regex 对象也有一个findall()方法。search()将返回一个Match对象，包含被查找字符串中的“第一次”匹配的文本，而findall()方法将返回一组字符串，包含被查找字符串中的所有匹配。为了看看search()返回的Match 对象只包含第一次出现的匹配文本。
+<p>在正则表达式中，.（句点）字符称为“通配符”。它匹配除了换行之外的所有字符。
+<p>点-星使用“贪心”模式：它总是匹配尽可能多的文本。要用“非贪心”模式匹配所有文本，就使用点-星和问号。像和大括号一起使用时那样，问号告诉Python 用非贪心模式匹配。
+<p>>>> nongreedyRegex = re.compile(r'<.*?>')
+<p>>>> mo = nongreedyRegex.search('<To serve man> for dinner.>')
+<p>>>> mo.group()
+<p>'<To serve man>'
+<p>你可能想同时检查多个条件，例如，有时候你需要在两个条件都为True 时才执行相应的操作，而有时候你只要求一个条件为True 时就执行相应的操作。在这些情况下，关键字and 和or 可助你一臂之力。
+<p>函数是带名字的代码块，用于完成具体的工作。
+<p>要执行函数定义的特定任务，可调用该函数。需要在程序中多次执行同一项任务时，你无需反复编写完成该任务的代码，而只需调用执行该任务的函数，让Python运行其中的代码。你将发现，通过使用函数，程序的编写、阅读、测试和修复都将更容易。
+<p>?匹配零次或一次前面的分组。
+<p>*匹配零次或多次前面的分组。
+<p>+匹配一次或多次前面的分组。
+<p>{n}匹配n次前面的分组。
+<p>{n,}匹配n次或更多前面的分组。
+<p>{,m}匹配零次到m次前面的分组。
+<p>{n,m}匹配至少n次、至多m次前面的分组。
+<p>{n,m}或*或+对前面的分组进行非贪心匹配。
+<p>^spam意味着字符串必须以spam开始。
+<p>spam$意味着字符串必须以spam结束。
+<p>.匹配所有字符，换行符除外。
+<p>\d、\w和\s分别匹配数字、单词和空格。
+<p>\D、\W和\S分别匹配出数字、单词和空格外的所有字符。
+<p>[abc]匹配方括号内的任意字符（诸如a、b或c）。
+<p>[^abc]匹配不在方括号内的任意字符。
+<p>正则表达式不仅能找到文本模式，而且能够用新的文本替换掉这些模式。Regex对象的sub()方法需要传入两个参数。第一个参数是一个字符串，用于取代发现的匹配。第二个参数是一个字符串，即正则表达式。sub()方法返回替换完成后的字符串。例如，
+<p>>>> namesRegex = re.compile(r'Agent \w+')
+<p>>>> namesRegex.sub('CENSORED', 'Agent Alice gave the secret documents to Agent Bob.')
+<p>'CENSORED gave the secret documents to CENSORED.'
+<p>当程序运行时，变量是保存数据的好方法，但如果希望程序结束后数据仍然保持，就需要将数据保存到文件中。你可以认为文件的内容是一个字符串值，大小可能有几个GB。
+<p>每个运行在计算机上的程序，都有一个“当前工作目录”，或cwd。所有没有从根文件夹开始的文件名或路径，都假定在当前工作目录下。利用os.getcwd()函数，可以取得当前工作路径的字符串，并可以利用os.chdir()改变它。
+<p>>>> import os
+<p>>>> os.getcwd()
+<p>'C:\\Python34'
+<p>>>> os.chdir('C:\\Windows\\System32')
+<p>>>> os.getcwd()
+<p>'C:\\Windows\\System32'
+<p>有两种方法指定一个文件路径。
+<p>“绝对路径”，总是从根文件夹开始。
+<p>“相对路径”，它相对于程序的当前工作目录。
+<p>还有点（.）和点点（..）文件夹。它们不是真正的文件夹，而是可以在路径中使用的特殊名称。单个的句点（“点”）用作文件夹目名称时，是“这个目录”的缩写。两个句点（“点点”）意思是父文件夹。
+<p>程序可以用os.makedirs()函数创建新文件夹（目录）：
+<p>>>> import os
+<p>>>> os.makedirs('C:\\delicious\\walnut\\waffles')
+<p>。“纯文本文件”只包含基本文本字符，不包含字体、大小和颜色信息。带有.txt 扩展名的文本文件，以及带有.py 扩展名的Python 脚本文件，都是纯文本文件的例子。它们可以被Windows 的Notepad 或OS X 的TextEdit应用打开。你的程序可以轻易地读取纯文本文件的内容，将它们作为普通的字符串值。
+<p>“二进制文件”是所有其他文件类型，诸如字处理文档、PDF、图像、电子表格和可执行程序。
+<p>在Python 中，读写文件有3 个步骤：
+<p>1．调用open()函数，返回一个File 对象。
+<p>2．调用File 对象的read()或write()方法。
+<p>3．调用File 对象的close()方法，关闭该文件。
+<p>shutil（或称为shell 工具）模块中包含一些函数，让你在Python 程序中复制、移动、改名和删除文件。要使用shutil 的函数，首先需要import shutil。
+<p>利用os 模块中的函数，可以删除一个文件或一个空文件夹。但利用shutil 模块，可以删除一个文件夹及其所有的内容。
+<p>os.walk()函数被传入一个字符串值，即一个文件夹的路径。你可以在一个for循环语句中使用os.walk()函数，遍历目录树，就像使用range()函数遍历一个范围的数字一样。不像range()，os.walk()在循环的每次迭代中，返回3 个值：
+<p>1．当前文件夹名称的字符串。
+<p>2．当前文件夹中子文件夹的字符串的列表。
+<p>3．当前文件夹中文件的字符串的列表。
+<p>requests 模块让下载变得很简单，加上HTML 的概念和选择器的基本知识，你就可以利用BeautifulSoup 模块，解析下载的网页。但要全面自动化所有针对网页的任务，你需要利用selenium 模块，直接控制Web 浏览器。selenium 模块将允许你自动登录到网站，填写表单。因为Web 浏览器是在因特网上收发信息的最常见方式，所以这是程序员工具箱中一件了不起的工具。
+<p>交互模式或IDLE下输入import 模块名，如果没有出错信息，表示已包含此模块；
+<p>和纯文本相比，.docx 文件有很多结构。这些结构在python-docx 中用3 种不同的类型来表示。在最高一层，Document 对象表示整个文档。Document 对象包含一个Paragraph 对象的列表，表示文档中的段落（用户在Word 文档中输入时，如果按下回车，新的段落就开始了）。每个Paragraph 对象都包含一个Run 对象的列表。
+<p>Word 文档中的文本不仅仅是字符串。它包含与之相关的字体、大小、颜色和其他样式信息。在Word 中，样式是这些属性的集合。一个Run 对象是相同样式文本的延续。当文本样式发生改变时，就需要一个新的Run 对象。
+<p>打开另一程序：
+<p>import subprocess
+<p>subprocess.Popen('C:\\Windows\\System32\\calc.exe')
+<p>图像由像素的集合构成，每个像素具有表示颜色的RGBA 值，可以通过x 和y坐标的定位。两种常见的图像格式是JPEG 和PNG。Pillow 模块可以处理这两种图像格式和其他格式。
+<p>模块 是扩展名为.py的文件，包含要导入到程序中的代码。
+<p>你还可以导入模块中的特定函数，这种导入方法的语法如下：
+<p>from module_name import function_name
+<p>类中的函数称为方法 ；你前面学到的有关函数的一切都适用于方法，就目前而言，唯一重要的差别是调用方法的方式。__init__() 是一个特殊的方法，每当你根据类创建新实例时，Python都会自动运行它。在这个方法的名称中，开头和末尾各有两个下划线，这是一种约定，旨在避免Python默认方法与普通方法发生名称冲突。
+<p>Python标准库 是一组模块，安装的Python都包含它。你现在对类的工作原理已有大致的了解，可以开始使用其他程序员编写好的模块了。可使用标准库中的任何函数和类，为此只需在程序开头包含一条简单的import 语句。
+<p>发生错误时，如果程序还有工作没有完成，妥善地处理错误就尤其重要。这种情况经常会出现在要求用户提供输入的程序中；如果程序能够妥善地处理无效输入，就能再提示用户提供有效输入，而不至于崩溃。
+<p>Python与C++的不同：
+<p>1 控制结构不使用()、{},而是用:和缩进来构造模块；
+<p>2 函数定义不用{}，也不需要声明，而是使用def、:和缩进；
+<p>3 类型不需要声明，C++的变量和实例声明前面都需要跟一个类型（或类），以python不需要，直接用赋值符号=就可以赋值了；
+<p>4 C++的容器类不是内置类型，使用时需要使用include包含进来，而Python有内置类型的容器类list、tuple、dict、set等；
+<p>5 Python不使用指针，使用迭代器来跟踪数据元素的位置；
+
+
+<p>print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
+<p>1 *objects表示可以有任意多个任意类型的实参表达式，后面的参数都是带默认值参数；
+<p>2 sep表示两项输出之间的分隔串，默认为一个空格；
+<p>3 end表示输出完成后的结束串，默认为一个换行符；
+<p>4 file表示输出位置，默认为输出到屏幕窗口里；
+<p>5 flush
+<p>lambda表达式用于描述小的匿名函数；</p>
+<p>lambda 参数名, …:表达式</p>
+<p>高阶函数是指带有函数参数或以函数作为返回值的函数。</p>
+
+<p>Python解释器：
+<p>CPython，用C语言开发的，在命令下执行 Python ,就可以启动Python解释器，CPython也是目前用的最多的Python解释器。
+<p>IPython，基于CPython之上的一个交互式解释器，只是在交互方式上有所增强，运行程序的方式都一样，CPython用'>>>' 做提示符 ，而IPython用'In [序号]：' 做提示符。
+<p>在Python中，每个值都有一种数据类型但不需要我们声明变量的数据类型，Python会根据每个变量的初始值情况分析其数据类型，并在内部对其进行跟踪。int（整型）1). 在32位系统上，整数的位数为32位，取值范围为：-2**31～2**31-1 ，即-2147483648～21474836472).在64位系统上,整数的位数为64位,取值范围为-2**63～2**63-1,即-9223372036854775808～9223372036854775807
+<p>Python标准库keyword模块中，可以输出当前版本所有关键字。
+<p>>>> import keyword
+<p>>>> keyword.kwlist
+
+
+
+
+<p>object类中定义的所有方法都有两条前导下划线和两条后置下划线。如__new__()、__init__()、__str__()、__eq__(other)；</p>
+<p>当创建一个对象时，__new__()被自动调用，随后调用__init__()方法来初始化这个对象；</p>
+<p>__str__()方法会返回一个描述该对象的字符串。默认情况下，它返回一个由该对象所属的类名以及该对象十六进制形式的内存地址组成的字符串；</p>
+<p>如果两个对象相等，那么__eq__(other)方法返回True。</p>
+<p>print(objectName)</p>
+<p>same as print(objectName.__str__())</p>
+<p>open(filename,mode)为filename返回一个文件对象。参数mode是一个指定这个文件将被如何使用（只读或只写等）的字符串；</p>
+<p>如果你想统计一个班上学生的一个集合，</p>
+<p>如果你只想知道每个学生的名字，可以使用列表；</p>
+<p>如果你想知道每个学生的电话号码，可以使用字典，</p>
+<p>如果你只想知道某个名字是否是你班上的学生，你可以使用集合；</p>
+<p>如果你想把班上的学生名字作为函数的参数或字典的key，可以使用元组；</p>
+<p>递归是程序控制的一种可替代方案，它实质上就是不用循环控制的重复；</p>
+
+
+<p>字典类似于列表，但更加通用。在列表中，下标必须是整数；而在字典中，下标（几何）可以是任何类型。</p>
+
+<p>字典包含下标（称为键）集合和值集合。每个键都有一个值关连，称为项。</p>
+
+<p>变量是引用存储在内存中的值的名字；</p>
+
+<p>逻辑运算符可以用来创建一个组合条件；</p>
+
+<p>运算符的优先级和结合方向决定了运算符的计算顺序；</p>
+
+<p>计算器控制的循环；</p>
+
+<p>在Python中，一切都是对象，所有数据类型和数据结构（容器）都定义为类和对象；</p>
+
+<p>列表和字典，都可以通过下标运算符[]访问，一个使用数字的偏移值，一个使用key；</p>
+
+<p>class subclass(parentclass):</p>
+
+<p>Python中的所有类都派生于object类；</p>
+
+<p>Python允许你对某些字符进行转义操作，以此来实现一些难以单纯用字符描述的效果。</p>
+
+<p>字符在前面添加反斜线符号\会使该字符的意义发生改变。最常见的转义符是\n，代表换行符。</p>
+
+<p>转义符\t常用于对齐字符串。</p>
+
+<p>列表和元组可以是任意深度和复杂度的数据结构。</p>
+
+<p>元组存在的理由：</p>
+
+<p>元组占用的空间较小；</p>
+
+<p>你不会意外修改元组的值；</p>
+
+<p>可以将元组用作字典的键；</p>
+
+<p>命名元组可以作为对象的替代；</p>
+
+<p>函数的参数是以元组形式传递的；</p>
+
+<p>字典与列表类似，但其中元素的顺序无关紧要，因为它们不是通过像0或1的偏移量访问的。取而代之，每个元素拥有与之对应的互不相同的键（key），需要通过键来访问元素。</p>
+
+<p>集合就像舍弃了值，仅剩下键的字典一样。如果你仅仅想知道某一个元素是否存在而不关心其他的，使用集合是个非常好的选择。如果需要为键附加其他信息的话，建议使用字典。</p>
+
+<p>False: None、0、0.0、''、[]、()、{}、set()</p>
+
+<p>range()函数返回在特定区间的自然数序列；</p>
+
+<p>当需要在函数内部多次执行复杂任务时，内部函数非常有用。</p>
+
+<p>内部函数可以看作一个闭包。闭包是一个可以由另一个函数动态生成的函数，并且可以改变和存储函数外创建的变量的值。</p>
+
+<p>对于简单的文本文件，唯一的结构层次是间隔的行。然而有时候需要更加结构化的文本，用于后续使用的程序保存数据或者向另外一个程序传送数据。</p>
+
+<p>如CSV使用逗号分隔符，XML、HTML使用‘<’、‘>’标签。</p>
+
+<p>许多程序提供多种选项和设置。动态的设置可以通过传入程序参数，但是持久的参数需要保存下来。</p>
+
+<p>Excel、关系数据库是结构化二进制文件；</p>
+
+<p>NoSQL数据存储，有些数据库并不是关系型的，不支持SQL。它们用来处理庞大的数据集、支持更加灵活的数据定义以及定制的数据操作。</p>
+
+<p>从源代码安装模块：python install setup.py</p>
+
+<p>Anaconda是一个针对科学计算设计的多合一安装包。</p>
+
+<p>pip允许将包安装到指定的路径中， 避免它与一些已经安装的包相互影响。</p>
+
+<p>函数参数：*args，获取任何非关键字的值并将其保存在一个元组中；</p>
+<p>函数参数：**kwargs，获取额外的参数并将其保存在一个字典中；</p>
+<p>把一部分数据和另一部分数据配对时，字典非常有用。</p>
+<p>面向对象编程是一种封装代码的方法，以便函数和变量可以都在一起。</p>
+<p>数据存储：变量存储到内在→无格式文本文件存储到磁盘→格式文本文件如CSV、JSON、Excel等→数据库；</p>
+<p>数据库允许你操作数据而无需将整个数据集加载到内存中。</p>
+<p>数据库可以在不同的数据之间用一种方式建立关系；</p>
+<p>数据库可以共享数据，减少数据复用；</p>
+
+<p>在Python中，一切都是数据对象，包括基本数据类型。Python中的对象是通过引用传递的，在赋值时，不这这个对象是新建的，还是一个已经存在的对象，都是将该对象的引用（并不是值）赋值给变量。如x=1，1这个整形对象被创建，然后将这个对象的引用赋值给x这个变量。这里还需要区别右值是变量还是字面量的情形，如果是字面量，则在内存中首先创建这个字面量，再将这个引用传递给变量，如果是变量，则还需区别是可变对象还是不可变对象，如果是可变对象，则是直接传递引用，如果是不可变对象，则是在内存中重新创建这个对象，再将这个引用传递给变量。</p>
+
+<p>多元赋值，其实就是元组赋值。x,y,z=1,2,'string' 等价于(x,y,z) =(1,2,'string')</p>
+
+<p>动态类型：变量赋值时，解释器会根据语法和右侧的操作数来决定新对象的类型。在对象创建后，一个该对象的引用会被赋值给左侧的变量。</p>
+
+<p>迭代器就是有一个next()方法的对象，而不是通过索引来计数，当你或是一个循环机制需要下一个项时，调用迭代器的next()方法就可以获得它，条目全部取完后，会引发一个StopIteration异常，这并不表示错误发生，只是告诉外部调用者，迭代完成。</p>
+
+<p>通过pip install导入的库保存在：C:\Python\Lib\site-packages</p>
+
+<p>Python pandas数据分析</p>
+<p>读取 写入 </p>
+<p>read_csv 　　　　　　to_csv </p>
+<p>read_excel 　　　　　to_excel </p>
+<p>read_hdf 　　　　　　to_hdf </p>
+<p>read_sql 　　　　　　to_sql </p>
+<p>read_json　　　　　　to_json </p>
+<p>read_msgpack (experimental) 　　to_msgpack (experimental) </p>
+<p>read_html 　　　　　　to_html </p>
+<p>read_gbq (experimental) 　　　　to_gbq (experimental) </p>
+<p>read_stata 　　　　　 to_stata </p>
+<p>read_sas </p>
+<p>read_clipboard 　　　to_clipboard </p>
+<p>read_pickle 　　　　　to_pickle／／速度比csv快</p>
+
+<p>字典与列表根本的区别在于索引的方式不一样，前者通过key索引元素值，后者通过元素位置的偏移值索引元素值。</p>
+
+<p>pypi：python package index;</p>
+
+<p>dir(module)：查看一个模块中所包含的所有对象；</p>
+
+<p>包（package）是一个由多个模块组成的集合，用来管理多个模块。</p>
+
+<p>from <package> import <子模块、函数、变量></p>
+
+<p>Pandas是python的一个数据分析包，最初由AQR Capital Management于2008年4月开发，并于2009年底开源出来，目前由专注于Python数据包开发的PyData开发team继续开发和维护，属于PyData项目的一部分。Pandas最初被作为金融数据分析工具而开发出来，因此，pandas为时间序列分析提供了很好的支持。 Pandas的名称来自于面板数据（panel data）和python数据分析（data analysis）。panel data是经济学中关于多维数据集的一个术语，在Pandas中也提供了panel的数据类型。</p>
+<p>Series：一维数组，与Numpy中的一维array类似。二者与Python基本的数据结构List也很相近，其区别是：List中的元素可以是不同的数据类型，而Array和Series中则只允许存储相同的数据类型，这样可以更有效的使用内存，提高运算效率。</p>
+<p>Time- Series：以时间为索引的Series。</p>
+<p>DataFrame：二维的表格型数据结构。很多功能与R中的data.frame类似。可以将DataFrame理解为Series的容器。以下的内容主要以DataFrame为主。</p>
+<p>Panel ：三维的数组，可以理解为DataFrame的容器。</p>
+<p>装饰器：当我们写了一个很长的函数后，发现还需要添加一些功能，这时需要从开始来读已经写好的代码，在更改时需要大量的时间，在python中可以实用装饰器来给一个函数加上一个方法。</p>
+<p>如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator。最难理解的就是generator和函数的执行流程不一样。函数是顺序执行，遇到return语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。</p>
+<p>pip list可以返回安装的第三方模块及版本号。</p>
+<p>Python 提供了多个图形开发界面的库，几个常用 Python GUI 库如下：</p>
+<p>Tkinter： Tkinter 模块(Tk 接口)是 Python 的标准 Tk GUI 工具包的接口 .Tk 和 Tkinter 可以在大多数的 Unix 平台下使用,同样可以应用在 Windows 和 Macintosh 系统里。Tk8.0 的后续版本可以实现本地窗口风格,并良好地运行在绝大多数平台中。</p>
+<p>wxPython：wxPython 是一款开源软件，是 Python 语言的一套优秀的 GUI 图形库，允许 Python 程序员很方便的创建完整的、功能健全的 GUI 用户界面。</p>
+<p>Jython：Jython 程序可以和 Java 无缝集成。除了一些标准模块，Jython 使用 Java 的模块。Jython 几乎拥有标准的Python 中不依赖于 C 语言的全部模块。比如，Jython 的用户界面将使用 Swing，AWT或者 SWT。Jython 可以被动态或静态地编译成 Java 字节码。</p>
+<p>If you are using python 3.x you have to change your import-line from import Tkinter as tk to import tkinter as tk.</p>
+<p>数据类型构造函数：</p>
+<p>str()、int()和float()函数</p>
+<p>list()、tuple()、str()、dict()、set()函数</p>
+<p>有一个捷径，让执行提前跳出while 循环子句。如果执行遇到break 语句，就会马上退出while 循环子句。在代码中，break 语句仅包含break 关键字。</p>
+<p>像break 语句一样，continue 语句用于循环内部。如果程序执行遇到continue语句，就会马上跳回到循环开始处，重新对循环条件求值（这也是执行到达循环末尾时发生的事情）。</p>
+<p>range()的开始、停止和步长参数。</p>
+<p>如果需要在一个函数内修改全局变量，就使用global 语句。如果在函数的顶部有global eggs 这样的代码，它就告诉Python，“在这个函数中，eggs 指的是全局变量，所以不要用这个名字创建一个局部变量。”</p>
+<p>有4 条法则，来区分一个变量是处于局部作用域还是全局作用域：</p>
+<p>1．如果变量在全局作用域中使用（即在所有函数之外），它就总是全局变量。</p>
+<p>2．如果在一个函数中，有针对该变量的global 语句，它就是全局变量。</p>
+<p>3．否则，如果该变量用于函数中的赋值语句，它就是局部变量。</p>
+<p>4．但是，如果该变量没有用在赋值语句中，它就是全局变量。</p>
+<p>def spam():</p>
+<p>global eggs</p>
+<p>eggs = 'spam' # this is the global</p>
+<p>def bacon():</p>
+<p>eggs = 'bacon' # this is a local</p>
+<p>def ham():</p>
+<p>print(eggs) # this is the global</p>
+<p>eggs = 42 # this is the global</p>
+<p>spam()</p>
+<p>print(eggs)</p>
+<p>函数是将代码逻辑分组的主要方式。因为函数中的变量存在于它们自己的局部作用域内，所以一个函数中的代码不能直接影响其他函数中变量的值。这限制了哪些代码才能改变变量的值，对于调试代码是很有帮助的。</p>
+<p>函数是很好的工具，帮助你组织代码。你可以认为他们是黑盒。它们以参数的形式接收输入，以返回值的形式产生输出。它们内部的代码不会影响其他函数中的变量。</p>
+<p>列表本身又可以包含其他列表，所以可以用它们将数据安排成层次结构。</p>
+<p>方法和函数是一回事，只是它是调用在一个值上。</p>
+<p>每种数据类型都有它自己的一组方法。例如，列表数据类型有一些有用的方法，用来查找、添加、删除或操作列表中的值。</p>
+<p>列表值有一个index()方法，可以传入一个值，如果该值存在于列表中，就返回它的下标。如果该值不在列表中，Python 就报ValueError。</p>
+<p>列表并不是唯一表示序列值的数据类型。例如，字符串和列表实际上很相似，只要你认为字符串是单个文本字符的列表。对列表的许多操作，也可以作用于字符串：按下标取值、切片、用于for 循环、用于len()，以及用于in 和not in 操作符。</p>
+<p>变量包含对列表值的引用，而不是列表值本身。但对于字符串和整数值，变量就包含了字符串或整数值。在变量必须保存可变数据类型的值时，例如列表或字典，Python 就使用引用。对于不可变的数据类型的值，例如字符串、整型或元组，Python变量就保存值本身。</p>
+<p>在处理列表和字典时，尽管传递引用常常是最方便的方法，但如果函数修改了传入的列表或字典，你可能不希望这些变动影响原来的列表或字典。要做到这一点，Python 提供了名为copy 的模块，其中包含copy()和deepcopy()函数。第一个函数copy.copy()，可以用来复制列表或字典这样的可变值，而不只是复制引用。</p>
+<p>如果要复制的列表中包含了列表，那就使用copy.deepcopy()函数来代替。deepcopy()函数将同时复制它们内部的列表。</p>
+<p>列表是有用的数据类型，因为它们让你写代码处理一组可以修改的值，同时仅用一个变量。在本书后面的章节中，你会看到一些程序利用列表来完成工作。没有列表，这些工作很困难，甚至不可能完成。列表是可变的，这意味着它们的内容可以改变。</p>
+<p>元组和字符串虽然在某些方面像列表，却是不可变的，不能被修改。包含一个元组或字符串的变量，可以被一个新的元组或字符串覆写，但这和现场修改原来的值不是一回事，不像append()和remove()方法在列表上的效果。</p>
+<p>变量不直接保存列表值，它们保存对列表的“引用”。在复制变量或将列表作为函数调用的参数时，这一点很重要。因为被复制的只是列表引用，所以要注意，对该列表的所有改动都可能影响到程序中的其他变量。如果需要对一个变量中的列表修改，同时不修改原来的列表，就可以用copy()或deepcopy()。</p>
+<p>像列表一样，“字典”是许多值的集合。但不像列表的下标，字典的索引可以使用许多不同数据类型，不只是整数。字典的索引被称为“键”，键及其关联的值称为“键-值”对。</p>
+<p>转义字符包含一个倒斜杠（\），紧跟着是想要添加到字符串中的字符。（尽管它包含两个字符，但大家公认它是一个转义字符。）例如，单引号的转义字符是\’。你可以在单引号开始和结束的字符串中使用它</p>
+<p>字符串像列表一样，使用下标和切片。</p>
+<p>通过切片并将结果子字符串保存在另一个变量中，就可以同时拥有完整的字符串和子字符串，便于快速简单的访问。</p>
+<p>字符串的格式化很大程序上是对空格的处理。</p>
+<p>虽然计算机可以很快地查找文本，但你必须精确地告诉它要找什么。正则表达式让你精确地指明要找的文本模式。实际上，某些文字处理和电子表格应用提供了查找替换功能，让你使用正则表达式进行查找。</p>
+<p>Python 自带的re 模块让你编译Regex 对象。该对象有几种方法：search()查找单词匹配，findall()查找所有匹配实例，sub()对文本进行查找和替换。</p>
+<p>用open()函数打开一个文件，就要向它传递一个字符串路径，表明希望打开的文件。这既可以是绝对路径，也可以是相对路径。open()函数返回一个File 对象。</p>
+<p>文件被组织在文件夹中（也称为目录），路径描述了一个文件的位置。运行在计算机上的每个程序都有一个当前工作目录，它让你相对于当前的位置指定文件路径，而非总是需要完整路径（绝对路径）。os.path 模块包含许多函数，用于操作文件路径。</p>
+<p>shutil（或称为shell 工具）模块中包含一些函数，让你在Python 程序中复制、移动、改名和删除文件。要使用shutil 的函数，首先需要import shutil。</p>
+<p>可以导入os，使用函数os.getcwd()弄清楚当前工作目录是什么，并使用os.chdir()改变当前工作目录。</p>
+<p>openpyxl</p>
+<p>调用get_sheet_names()方法可以取得工作簿中所有表名的列表。</p>
+<p>每个表由一个Worksheet 对象表示，可以通过向工作簿方法get_sheet_by_name()传递表名字符串获得。最后，可以调用Workbook 对象的get_active_sheet()方法，取得工作簿的活动表。活动表是工作簿在Excel 中打开时出现的工作表。在取得Worksheet对象后，可以通过title 属性取得它的名称。</p>
+<p>有了Worksheet 对象后，就可以按名字访问Cell 对象。</p>
+<p>Cell 对象有一个value 属性，不出意外，它包含这个单元格中保存的值。Cell 对象也有row、column 和coordinate 属性，提供该单元格的位置信息。</p>
+<p>为了定义单元格的字体风格，需要从openpyxl.styles 模块导入Font()和Style()函数。</p>
+<p>sheet['B9'] = '=SUM(B1:B8)'</p>
+<p>利用python-docx 模块，Python 可以创建和修改Word 文档，它带有.docx 文件扩展名。运行pip install python-docx，可以安装该模块（附录A 介绍了安装第三方模块的细节）。</p>
+<p>和纯文本相比，.docx 文件有很多结构。这些结构在python-docx 中用3 种不同的类型来表示。在最高一层，Document 对象表示整个文档。Document 对象包含一个Paragraph 对象的列表，表示文档中的段落（用户在Word 文档中输入时，如果按下回车，新的段落就开始了）。每个Paragraph 对象都包含一个Run 对象的列表。</p>
+<p>Word 文档中的文本不仅仅是字符串。它包含与之相关的字体、大小、颜色和其他样式信息。在Word 中，样式是这些属性的集合。一个Run 对象是相同样式文本的延续。当文本样式发生改变时，就需要一个新的Run 对象。</p>
+<p>如果你只关心Word 文档中的文本，不关心样式信息，就可以利用getText()函数。它接受一个.docx 文件名，返回其中文本的字符串。</p>
+<p>getText()函数打开了Word 文档，循环遍历paragraphs 列表中的所有Paragraph对象，然后将它们的文本添加到fullText 列表中。循环结束后，fullText 中的字符串连接在一起，中间以换行符分隔。</p>
+<p>在处理PDF 和Word 文档时有很多限制，这是因为这些格式的本意是很好地展示给人看，而不是让软件易于解析。下一章将探讨存储信息的另外两种常见格式：JSON和CSV文件。这些格式是设计给计算机使用的。你会看到，Python 处理这些格式要容易得多。</p>
+<p>CSV 表示“Comma-Separated Values（逗号分隔的值）”，CSV文件是简化的电子表格，保存为纯文本文件。Python 的csv 模块让解析CSV 文件变得容易。</p>
+<p>JSON（发音为“JAY-sawn”或“Jason”，但如何发音并不重要。因为无论如何发音，都会有人说你发音错误）是一种格式，它以JavaScript 源代码的形式，将信息保存在纯文本文件中。</p>
+<p>JSON 是JavaScript Object Notation 的缩写不需要知道JavaScript 编程语言，就可以使用JSON 文件，但了解JSON 格式是有用的，因为它用于许多Web 应用程序中。</p>
+<p>要得到单独的线程，首先要调用threading.Thread()函数，生成一个Thread 对象。</p>
+<p>图像由像素的集合构成，每个像素具有表示颜色的RGBA 值，可以通过x 和y坐标的定位。两种常见的图像格式是JPEG 和PNG。Pillow 模块可以处理这两种图像格式和其他格式。</p>
+
+
+
+
+
+<p>当你用一种语言开始作真正的软件开发时，你除了编写代码外，还需要很多基本的已经写好的现成的东西，来帮助你加快开发进度。比如说，要编写一个电子邮件客户端，如果先从最底层开始编写网络协议相关的代码，那估计一年半载也开发不出来。高级编程语言通常都会提供一个比较完善的基础代码库，让你能直接调用，比如，针对电子邮件协议的SMTP库，针对桌面环境的GUI库，在这些已有的代码库的基础上开发，一个电子邮件客户端几天就能开发出来。
+<p>计算机的优势在于：一是速度快（电子速度），所以善于做重复的工作，重复几千几万次都做得又快又好，另外一个方面就是记忆好，能存储很多数据。</p>
+<p>字典，将不同的信息关联起来。与列表一样，你也可以根据需要在字典中存储任意数量的信息。
+<p>Hash，一般翻译做“散列”，也有直接音译为“哈希”的。哈希算法将任意长度的二进制值映射为较短的固定长度的二进制值，这个小的二进制值称为哈希值。哈希值是一段数据唯一且极其紧凑的数值表示形式。如果散列一段明文而且哪怕只更改该段落的一个字母，随后的哈希都将产生不同的值。要找到散列为同一个值的两个不同的输入，在计算上是不可能的，所以数据的哈希值可以检验数据的完整性。一般用于快速查找和加密算法。
+<p>哈希表是根据设定的哈希函数H(key)和处理冲突方法将一组关键字映射到一个有限的地址区间上，并以关键字在地址区间中的象作为记录在表中的存储位置，这种表称为哈希表或散列，所得存储位置称为哈希地址或散列地址。作为线性数据结构与表格和队列等相比，哈希表无疑是查找速度比较快的一种。
+<p>通过将单向数学函数（有时称为“哈希算法”）应用到任意数量的数据所得到的固定大小的结果。如果输入数据中有变化，则哈希也会发生变化。哈希可用于许多操作，包括身份验证和数字签名。也称为“消息摘要”。
+<p>简单解释：哈希(Hash)算法,即散列函数。它是一种单向密码体制,即它是一个从明文到密文的不可逆的映射,只有加密过程,没有解密过程。同时,哈希函数可以将任意长度的输入经过变化以后得到固定长度的输出。哈希函数的这种单向特征和输出数据长度固定的特征使得它可以生成消息或者数据。
+<p>哈希算法(散列算法或者消息摘要算法)是信息存储和查询所用的一项基本技术，它是一种基于Hash函数的文件构造方法，可实现对记录的快速随机存取。它把给定的任意长关键宇映射为一个固定长度的哈希值，一般用于鉴权、认证、加密、索引等。其主要优点是运算简单，预处理时间较短，内存消耗低，匹配查找速度比较快，便于维护和刷新，支持匹配规则数多等。
+
+
+
+<p>模块就是一个py文件，包就是一个包含py文件的文件夹；</p>
+
+<p>The list methods make it very easy to use a list as a stack, where the last element added is the first element retrieved (“last-in, first-out”). To add an item to the top of the stack, use append(). To retrieve an item from the top of the stack, use pop() without an explicit index.</p>
+
+<p>It is also possible to use a list as a queue, where the first element added is the first element retrieved (“first-in, first-out”); however, lists are not efficient for this purpose. While appends and pops from the end of list are fast, doing inserts or pops from the beginning of a list is slow (because all of the other elements have to be shifted by one).
+<p>To implement a queue, use collections.deque which was designed to have fast appends and pops from both ends.
+<p>Unlike sequences, which are indexed by a range of numbers, dictionaries are indexed by keys, which can be any immutable type;
+<p>Python also includes a data type for sets. A set is an unordered collection with no duplicate elements. Basic uses include membership testing and eliminating duplicate entries. Set objects also support mathematical operations like union, intersection, difference, and symmetric difference.
+
+
+<p>FILE *fp，文件指针代表一个指向文件开头的指针。</p>
+
+<p>fp = fopen("d:\myfile.txt",'w');</p>
+
+<p>list除了保存字面量（常量），也可以保存变量；</p>
+
+<p>dir会返回一个内置方法与属性的列表；</p>
+<p>Python的动态数据类型：左值是一个引用，不需指明类型，类型由编译器通过右值的对象或引用指向的对象来判断。Python属于动态数据类型，但还是强类型语言。</p>
+
+<p>程序的组成：包（可以理解为具有一定联系的模块（py文件）组成的文件夹）→模块（py文件，模块通过控制结构和函数来组织语句）→语句→表达式，表达式的核心功能是创建和处理和我们的对象，当然对象是在内存中存在，关于这些对象支持什么样的形态和操作是由数据类型来体现的。</p>
+
+<p>Python进制转换函数：bin()、hex()、oct()</p>
+
+<p></p><pre>
+list1 =[1,2,3,4,5]x = 3;tup = (1,2,3,4,)
+print(list1[2] == x == tup[2])
+print(id(list1[2]),id(x),id(tup[2]))
+s = '3'
+print(x == s)
+'''
+True1593631536 1593631536 1593631536False
+'''</pre>
+
+<p>以上就是Python中的对象的引用和共享。</p>
+
+<p>如果在IDLE中，则会一次性将帮助信息全部显示出来（在python shell中分屏显示）。</p>
+
+<p>format()函数常用于把一个字符串插入到另一个字符串。花括号{}表示想把值插入的位置。</p>
+
+
+
+
+<p>数据可以存储成许多不同的格式和文档类型。某些格式存储的数据很容易被机器处理，如CSV、JSON、XML，而另一些格式则很被人工所读取，如Word.</p>
+
+<p>CSV Comma-Separated Values 逗号分隔值；
+<p>JSON JavaScript Object Notation JS对象符号；
+<p>XML eXtensible Markup Language 可扩展标记语言；
+
+<p>调用read()会一次性读取文件的全部内容，如果文件有10G，内存就爆了，所以，要保险起见，可以反复调用read(size)方法，每次最多读取size个字节的内容。另外，调用readline()可以每次读取一行内容，调用readlines()一次读取所有内容并按行返回list。因此，要根据需要决定怎么调用。</p>
+
+<p>如果文件很小，read()一次性读取最方便；如果不能确定文件大小，反复调用read(size)比较保险；如果是配置文件，调用readlines()最方便。</p>
+
+<p>python中'\r','\n'及'、'\r\n'的使用感悟</p>
+
+<p>今天写一个Python脚本去读取一个txt文件时，发现一个很有趣的现象：</p>
+
+<p>如果这个文件是用atom编辑器写的，发现换行符是'\r'。这样一来去逐行读取数据就失效了，因为用open函数去打开该文件readline()时默认使用的换行符是'\n'。</p>
+
+<p>但是，当这个txt文件是用pycharm编辑器写的话，其换行符就是'\n'了。一切正常。</p>
+
+<p>查找资料发现，在打字机时代就有了这几个符号的设计，其实'\r'的本意是回到行首，'\n'的本意是换行。所以回车相当于做的是'\r\n'或者'\n\r'。到了计算机时代沿用了这个符号设计，但是估计是换行并回行首是一体的了基本上，所以出现了这几种设计：'\r'就是换行并回行首，'\n'就是换行并回行首，用'\r\n'表示换行并回行首。（Windows是'\r\n'，Linux是'\n'）</p>
+
+<p>我使用的是python2.7，知乎上（感谢 龚奇源 博士）找到一种方法：</p>
+
+<p>如果需要明文内容，请用rU来读取（强烈推荐），即U通用换行模式（Universal new line mode）。该模式会把所有的换行符（\r \n \r\n）替换为\n。只支持读入，但是也足够了。这是Python 提供给我们的最好的选择，没有之一。</p>
+
+<p>open函数加上参数'rU'后，读取结果跟txt文件表现就一致了。</p>
+
+<p>s = s.strip()	#会删除掉\n</p>
+
+<p>要让每个字符串都单独占一行，需要在write() 语句中包含换行符\n</p>
+
+<p>方法split() 以空格为分隔符将字符串分拆成多个部分，并将这些部分都存储到一个列表中。结果是一个包含字符串中所有单词的列表，虽然有些单词可能包含标点。为计算Alice in Wonderland 包含多少个单词，我们将对整篇小说调用split() ，再计算得到的列表包含多少个元素，从而确定整篇童话大致包含多少个单词：</p>
+
+<p>向re.compile()传入一个字符串值，表示正则表达式，它将返回一个Regex 模式对象（或者就简称为Regex 对象）。</p>
+
+<p>Regex 对象的search()方法查找传入的字符串，寻找该正则表达式的所有匹配。如果字符串中没有找到该正则表达式模式，search()方法将返回None。如果找到了该模式，search()方法将返回一个Match 对象。Match 对象有一个group()方法，它返回被查找字符串中实际匹配的文本。</p>
+
+<p>如果想要一次就获取所有的分组，请使用groups()方法，注意函数名的复数形式。</p>
+
+<p>因为mo.groups()返回多个值的元组，所以你可以使用多重复制的技巧，每个值赋给一个独立的变量，就像前面的代码行：areaCode, mainNumber = mo.groups()。</p>
+
+<p>字符|称为“管道”。希望匹配许多表达式中的一个时，就可以使用它。例如，正则表达式r'Batman|Tina Fey'将匹配'Batman'或'Tina Fey'。</p>
+
+<p>正则表达式中的(wo)?部分表明，模式wo 是可选的分组。该正则表达式匹配的文本中，wo 将出现零次或一次。这就是为什么正则表达式既匹配'Batwoman'，又匹配'Batman'。</p>
+
+<p>*（称为星号）意味着“匹配零次或多次”，即星号之前的分组，可以在文本中出Python 编程快速上手——让繁琐工作自动化现任意次。它可以完全不存在，或一次又一次地重复。</p>
+
+<p>*意味着“匹配零次或多次”，+（加号）则意味着“匹配一次或多次”。星号不要求分组出现在匹配的字符串中，但加号不同，加号前面的分组必须“至少出现一次”。这不是可选的。</p>
+
+<p>用花括号匹配特定次数如果想要一个分组重复特定次数，就在正则表达式中该分组的后面，跟上花括号包围的数字。例如，正则表达式(Ha){3}将匹配字符串'HaHaHa'，但不会匹配'HaHa'，因为后者只重复了(Ha)分组两次。</p>
+
+<p>Python 的正则表达式默认是“贪心”的，这表示在有二义的情况下，它们会尽可能匹配最长的字符串。花括号的“非贪心”版本匹配尽可能最短的字符串，即在结束的花括号后跟着一个问号。</p>
+
+<p>除了search 方法外，Regex 对象也有一个findall()方法。search()将返回一个Match对象，包含被查找字符串中的“第一次”匹配的文本，而findall()方法将返回一组字符串，包含被查找字符串中的所有匹配。</p>
+
+<p>通过在字符分类的左方括号后加上一个插入字符（^），就可以得到“非字符类”。非字符类将匹配不在这个字符类中的所有字符。</p>
+
+<p>可以在正则表达式的开始处使用插入符号（^），表明匹配必须发生在被查找文本开始处。类似地，可以再正则表达式的末尾加上美元符号（$），表示该字符串必须以这个正则表达式的模式结束。可以同时使用^和$，表明整个字符串必须匹配该模式，也就是说，只匹配该字符串的某个子集是不够的。</p>
+
+<p>在正则表达式中，.（句点）字符称为“通配符”。它匹配除了换行之外的所有字符。</p>
+
+<p>用点-星匹配所有字符有时候想要匹配所有字符串。例如，假定想要匹配字符串'First Name:'，接下来是任意文本，接下来是'Last Name:'，然后又是任意文本。可以用点-星（.*）表示“任意文本”</p>
+
+<p>不区分大小写的匹配robocop = re.compile(r'robocop', re.I)</p>
+
+<p>正则表达式不仅能找到文本模式，而且能够用新的文本替换掉这些模式。Regex对象的sub()方法需要传入两个参数。第一个参数是一个字符串，用于取代发现的匹配。第二个参数是一个字符串，即正则表达式。sub()方法返回替换完成后的字符串。</p>
+<p>re.split(r'[\s\,\;]+', 'a,b;; c  d')</p>
+
+<p>['a', 'b', 'c', 'd']</p>
+
+<p>除了简单地判断是否匹配之外，正则表达式还有提取子串的强大功能。用()表示的就是要提取的分组（Group）。比如：</p>
+
+<p>^(\d{3})-(\d{3,8})$分别定义了两个组，可以直接从匹配的字符串中提取出区号和本地号码：</p>
+
+<p>>>> m = re.match(r'^(\d{3})-(\d{3,8})$', '010-12345')</p>
+
+<p>>>> m</p>
+
+<p><_sre.SRE_Match object; span=(0, 9), match='010-12345'></p>
+
+<p>>>> m.group(0)</p>
+
+<p>'010-12345'</p>
+
+<p>>>> m.group(1)</p>
+
+<p>'010'</p>
+
+<p>>>> m.group(2)</p>
+
+<p>'12345'</p>
+
+<p>如果正则表达式中定义了组，就可以在Match对象上用group()方法提取出子串来。</p>
+
+<p>注意到group(0)永远是原始字符串，group(1)、group(2)……表示第1、2、……个子串。</p>
+
+
+<p>引号（单引号、双引号、三引号）开始或结束一个字符串。</p>
+
+<p>所以引用在程序中是有定义字符串这个特殊用途的，如果想把引用也做为字符串的一部分，需要让其转义，使用“\”符号。</p>
+
+<p>交互模式interactive mod和脚本模式script mode.</p>
+
+<p>在编程语言中，键盘上的符号都是有特定用途的。一个符号在不同的上下文环境中可能有不同的用途，以及不同符号之间组合形成不同的用途。例如*，可以是算术乘，也可以是字符复制，两个*的**还可以表示乘方。</p>
+
+<p>IDLE调试程序：</p>
+
+<p>IDLE→运行（ctrl+F）→Python Shell→Debug→Debugger→回到IDLE,设置断点→运行（ctrl+F）→step</p>
+
+<p>for语句是在第一行中初始化循环变量、循环判断、循环变量更新；</p>
+
+<p>while语句是在每一行中进行循环判断，在循环体内更新循环变量；</p>
+
+<p>有时候只有在循环体语句中才会知道是不是需要退出某次循环或整个循环，这时可以使用条件判断结合使用continue或break语句。</p>
+
+<p>do while通常用于需要根据执行一次后的循环变量再判断循环条件。</p>
+
+<p>当第一次创建一个新的类的实例时，Python会检查是否定义了一个__init__函数。如果已经定义了，将运行这个函数，可以通过类似self.name = 'wwu'的格式让对象初始化值；</p>
+
+<p>能够创建一个带有值的实例非常有用。__init__函数除了初始化对象以外，还可以做其它普通函数可以做的事件（定义代码）。</p>
+
+<p>__init__()方法使用双下划线，是为了尽量确保名字的唯一性；</p>
+
+<p>我们可以在类中重写__str__()，当输出定义的对象时，可以获得类定义此方法时的一些信息。</p>
+
+<p>字符串可以使用下标符号[]和数字范围来切片字符串，也可以使用内置的对象方法strip()来按分割符（delimiter,字符或字符串)来切割，或使用striplines()来按行切割。</p>
+
+<p>取几行代码，为它们指定一个名字，你就得到了一个（可以重用的）函数。取一组函数，把它们打包成一个文件，你就得到了一个模块（也可以重用）。</p>
+
+<p>类是将状态（类的数据变量）和行为（对类数据变量的处理）打包在一起。</p>
+
+<p>对象共享行为，但不共享数据。属性不会由同一个类创建的其他对象共享。从一个类创建对象时，每个对象会共享这个类的行为（类中定义的方法），但是会维护其自己的状态副本（属性）。</p>
+
+<p>__new__()方法可以返回对象，如果返回的对象是第一个参数的类实例，接下来就会执行__init__()方法，__init__()方法的第一个参数就是__new__()返回的对象。__new__()如果没有返回第一个参数的类实例（返回别的实例或None），就不会执行__init__()方法。</p>
+
+<p>操作符重载：</p>
+
+<p>修改操作符的行为以便它能够作用于用户定义类型，这个过程称为操作符重载。对每一个操作符，Python都提供了一个对应的特殊方法，如__add__对应+号操作符。</p>
+
+<p>操作符重载就是修改一个类似+号这样操作符的行为，使之可以用于用户定义的类型。</p>
+
+<p>操作符重载的本质还是一个函数，一个引用用户自定义类型的对象作为参数的函数。</p>
+
+<p>在程序运行的任何时刻，往对象上添加属性是合法的。</p>
+
+<p>面向对象编程，数据和修改数据的操作组织成类和方法的形式。</p>
+
+<p>方法是在类定义之内定义的函数，在类的实例上调用。</p>
+
+<p>定义内部函数：self__xxx</p>
+
+<p>当import某个模块而使得指定的.py文件被加载时，Python解释器会为它创建一个module实例，并创建一个模块名来引用它。from import会将被导入模块中的名称引用的值赋给当前模块中新创建的新名称。</p>
+
+<p>模块可以在任何位置引用。</p>
+
+<p>sys.path列出了寻找模块的路径。</p>
+
+<p>在Python中，对象方法的第一个参数一定是对象本身。</p>
+
+<p>对象常见的+-*/等操作分别由__add__、__sub__、__mul__、__truediv__方法来定义或重写。</p>
+
+<p>类名称旁边多了个括号，并指定了类，这在Python中代表着继承了该类。可以用super()来调用次类方法。</p>
+
+<p>Python解释器尝试执行try区块中的代码，如果发生例外，执行流程会距离例外发生点，然后对比except声明的类型，看是否符合引发例外类型对象，如果是，就执行except区块中的程序代码。</p>
+
+<p>except可以有多个。</p>
+
+<p>read()方法在指定整数自变量的情况下会读取指定的字符数或字节数（视打开模式是文本模式还是二进制模式而定）。</p>
+
+<p>对于文本模式来说，默认读到\n、\r、\r\n时，都可以被判定为一行，而readline()或readlines()读到的第一行的换行字符都一律换为\n；</p>
+
+<p>对于二进制模式来说，行的判断标准默认是遇到b'\n'这个bytes类型。</p>
+
+<p>文本模式在写入的情况下，任何'\n'都会被置换为os.linesep的值。（windows就是'\r\n')</p>
+
+<p>readline在读不到下一行时会返回一个空字符串。</p>
+
+<p>如果open()返回的文件对象都实现了__iter__()方法，可以返回一个迭代器，则在open()后可以直接用for方法迭代。</p>
+
+<p>文件对象的tell()方法可以告诉文件指针的位移量，单位是字节数。seek()方法可以指定跳到哪个位移量。可以使用seek()实现文件的随机存取，文件的打开方式是'r+b'。</p>
+
+<p>文件的打开模式的"+"表示读取与写入。</p>
+
+<p>指定文本模式时默认采用locale.getprefered.encoding()的返回值作为文件编码，以windows简体中文版来说是返回CP936或bdk。如有某个.txt文件是以UTF-8编码并且有中文时，open()的参数必须指定编码方式为utf-8,如：open('test.txt', 'r', ' encoding="UTF-8")</p>
+
+<p>UTF-8的编码方式是每个汉字使用三个字节，如1000个汉字就需要3KB的存储空间。</p>
+
+<p>计算机如何实现任务的自动化，1 编写计算机能够理解的任务完成的详细步骤（包括需要使用的数据），这个包括需要使用的数据的指令序列称为程序；2 程序存入到计算机的存储器，计算的CPU能够通过振荡器和控制器实现对存储器中的指令序列进行读取和译码，并操作存储器中的数据。其实质就是实现输入、处理、输出的自动化。</p>
+
+<p>一个对象能被hashable，它必须实现__hash__()与__eq__()方法，必须是immutable。只要对象具有__iter__()方法，可返回一个迭代器(iterator)的对象，就是一个iterable对象。</p>
+
+<p>sequences type:str, list, tuple, range, bytes, bytearray;</p>
+
+<p>set type: set</p>
+
+<p>mapping type: dict</p>
+
+<p>1 open</p>
+
+<p>https://docs.python.org/3/library/functions.html#open</p>
+
+<p>open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)</p>
+
+<p>1.1 file </p>
+
+<p>file可以是绝对路径，如'E:\\test.txt'</p>
+
+<p>也可以是相对路径（相对于当前工作路径），如‘text.txt'</p>
+
+<p>1.2 mode</p>
+
+<p>mode是用来指定文件打开后的操作方式，如'r'是用来read(写），'w‘是指用来write（写，以覆盖旧内容的方式），'a'也是用来write（写，以追加内容的方式），'+'是指用来update(更新，读和写)。</p>
+
+<p>文件可以以字符串的方式，也可以以二进制的方式来读写，分别用'b'和't'来指定。</p>
+
+<p>mode的默认方式是‘rb'，也就是打开后以字符串的方式进行读操作。</p>
+
+<p>A set object is an unordered collection of distinct hashable objects. Common uses include membership testing, removing duplicates from a sequence, and computing mathematical operations such as intersection, union, difference, and symmetric difference. (For other containers see the built-in dict, list, and tuple classes, and the collections module.)</p>
+<p>二维列表可以用来表示矩阵和表格；</p>
+
+<p>三维列表可以理解为一张二维列表+一维列表，也就是一终行列式表格，但其元素不是单个的元素，也是一个列表。</p>
+
+<p>按同样的思路，可以理解为一张四维列表，其元素是一张二维列表，也就是表格内的元素是二维列表。</p>
+
+<p>三维列表的例子：一个班上的学生的科目的成绩（成绩包括平时评分、期中考试成绩、期末考试成绩）</p>
+
+<p>每日每时的温度和温度可以表示为一个三维列表；</p>
+
+<p>http://www.cs.armstrong.edu/liang/data/weather.txt</p>
+<p>列表和字典作为函数参数，函数内部修改列表或字典两者的元素，当函数调用时，此时作为实参和形参的列表或字典会一起修改。</p>
+
+<p>delimiter = ','</p>
+
+<p>mylist = ['Brazil', 'Russia', 'India', 'China']</p>
+
+<p>print delimiter.join(mylist)</p>
+
+<p>import time</p>
+
+<p>print time.ctime(time.time())</p>
+
+<p>print time.asctime(time.localtime(time.time()))</p>
+
+<p>print time.asctime(time.gmtime(time.time()))</p>
+
+<p>以上实例输出结果为：</p>
+
+<p>Wed Oct 21 17:08:51 2015</p>
+
+<p>Wed Oct 21 17:08:51 2015</p>
+
+<p>Wed Oct 21 09:08:51 2015</p>
+
+<p>from dateutil import parser</p>
+
+<p>dt = parser.parse("Aug 28 2015 12:00AM")</p>
+
+<p>print dt</p>
+
+<p>以上实例输出结果为：</p>
+
+<p>2015-08-28 00:00:00</p>
+
+<p>问题记录</p>
+
+<p>模块导入pip install pypiwin32</p>
+
+<p>"D:\Users\wwuhnwu01\pip\pip.ini"</p>
+
+<p>[global]</p>
+
+<p>[install]</p>
+
+<p>index-url = https://pypi.mirrors.ustc.edu.cn/simple</p>
+
+<p>Installing collected packages: pywin32, pypiwin32</p>
+
+<p>Successfully installed pypiwin32-223 pywin32-223</p>
+
+<p>备注：第一次安装失败，隔天安装成功，可能是服务器或网路的原因。</p>
+<p></p>
+<pre>
+# 有两个磁盘文件A和B,各存放一行字母,要求把这两个文件中的信息合并(按字母顺序排列), 输出到一个新文件C中。
+f1str = "file1's str111.\n"
+f2str = "file2's str222.\n"
+with open('test1.txt', 'w') as f1:    
+	f1.write(f1str)
+with open('test2.txt', 'w') as f2:    
+	f2.write(f2str)   
+# import string
+# 文件合并
+fn1 = 'test1.txt'
+fn2 = 'test2.txt'
+fall = 'test3.txt'
+with open(fn1) as fp:    
+	a = fp.read()
+with open(fn2) as fp:    
+	b = fp.read()s = a +'\n' + b
+with open(fall,'w') as fp:        
+	fp.write(s)print(s)
+</pre>
+
+<p>迭代器可以遍历序列的对象，但不提供列表的操作和方法，可以将其转化为一个列表操作。</p>
+<p>闭包closure</p>
+<pre>
+def func():
+    def add(x,y):
+        return x + y
+    return add  # 返回函数对象
+fadd = func()
+print(fadd(3,4))
+</pre>
+
+<p>Python 中一切都是对象，严格意义我们不能说值传递还是引用传递，我们应该说传不可变对象和传可变对象。</p>
+
+<p>每个模块都有一个 __name__ 属性，当其值是 '__main__' 时，表明该模块自身在运行，否则是被引入。</p>
+
+
+
+<p>一个模块被另一个程序第一次引入时，其主程序将运行。如果我们想在模块被引入时，模块中的某一程序块不执行，我们可以用 __name__ 属性来使该程序块仅在该模块自身运行时执行。</p>
+
+
+
+<p>if __name__ == '__main__':</p>
+
+
+
+<p>print('程序自身在运行')</p>
+
+
+
+<p>else:</p>
+
+
+
+<p>print('我来自另一模块')</p>
+
+<p>智能指针，用类实现了运算符（*,->)重载。</p>
+
+<p>仿函数的功能是在其成员函数operator()中实现的。</p>
+
+
+
+<p>class Node:</p>
+
+
+
+<p>...def __init__(self,value,next=None):</p>
+
+
+
+<p>........self.value = value</p>
+
+
+
+<p>........self.next = next</p>
+
+
+
+<p>L = Node("a", Node("b", Node("c", Node("d"))))</p>
+
+
+
+<p>L.next.next.value</p>
+
+<p>Python中的列表不是由若干个独立的节点相互引用而成的，而是一整块单一连续的内存区块－－我们通常称之为数组（array）。这直接导致了它与链表之间的一些重要区别。访问很快，插入较慢。</p>
+
+
+<p>Python中的列表不是由若干个独立的节点相互引用而成的，而是一整块单一连续的内存区块－－我们通常称之为数组（array）。这直接导致了它与链表之间的一些重要区别（访问很快，中间插入较慢）。</p>
+
+<p>C++的STL的list容器是一个双向链表（doubly-linked lists，包含不同、没有关系的内存区域，通过指针链接起来。），可高效地进行插入删除元素。</p>
+
+
+
+<p>Python的list提供随机访问（下标+偏移值操作），STL的list不提供随机访问，需要遍历操作。</p>
+
+
+
+<p>学了C再学Python，一定要了解变量的实现方式：引用语义和值语义</p>
+
+<p>我们知道，内存是一批线性排列的存储单元。对于集合类型，我们只要知道集合的第一个元素的地址，便可以推导出元素的存储地址。显然，序列类型中元素的线性关系可以用这种方式表示。这种存储方式要求元素存储在一起，如果在中间增加或删除一个元素，当存储的元素比较多时，效率会比较慢。如果要任意存储（是指不一定要存储在一起），如何能保证所有元素的都可以被访问到？我们可以联想到现实世界在仓库（假定仓库的每一个位置都是编地址码的）里存储物品的实际情况。如果要在仓库放客户存过来的一票货，这票货可能有几十件，你无法在仓库找到单独的一个位置，只能分开存放，要确保“随时快速找到某一件货”的原则，你可以将每一件货（编号）保存的位置记录下来，录入电脑，找某一编号的货时，便打查找到对应的货位（地址码）。还有一种方式，就是每一件的记录，另外再保存一个其下一件货的地址，这样只要知道了第一件货的位置，顺藤摸瓜下去，就可以找到需要找的货。对应到电脑中的数据存储，上面的方式其实就是顺序存储、映射存储、链式存储。顺序存储要求一个集合的数据元素存储在一起，映射存储就是每一个元素映射一个存储地址，链式存储就是每一个元素除了保存其自身的值以外，还额外保存相邻元素（后趋或前后趋）的地址或引用。这就是数据结构中的存储结构。</p>
+
+<p>数据集合中元素的实际关系有一对一的线性关系，有一对多的层次关系（树型关系）和多对多的网状关系（图形关系）。线性关系好解决，内存单元本身就是线性结构的，所以数据元素存储在内存中就已经隐性地表示了数据元素的线性关系。但是图形关系就不行了，图形关系的集合数据除了要保存数据元素本身以外，还要把数据元素之间的联系也看作一种数据，显式地保存在内存中。如一个图形结构就要保存两个集合，一个是顶点集数据，一个产顶点相互连接的边集数据。这里所说的数据结构关系称为数据的逻辑结构。</p>
+
+<p>最复杂的图形数据结构，如果采用链式存储，其数据量包括：顶点、边及数据的链接地址。最简单的线性结构，如果采用顺序存储，只需保存数据元素本身即可。</p>
+
+<p>Python变量的对象都是对象，可以是基本整数、浮点数等类型的对象，也可以是组合类型的对象，如list等。程序中建立和使用的各种复杂对象，包括Python函数等，都是基本独立的存储块实现，通过链接相互关联。程序是里的名字（变量、参数、函数名等）关联着作为其值的对象，这种关系可以用赋值操作改变。</p>
+
+<p>Python语言中变量的这种实现方式称为变量的引用语义，在变量里保存值（对象）的引用。采用这种方式，变量所需的存储空间大小一致，因为其中只需要保存一个引用。有些语言采用的不是这种方式，它们把变量的值直接保存在变量的存储区里，称为值语义。这样，一个整数类型的变量就需要保存一个整数所需的空间，一个浮点数变量就需要足够的空间存储一个浮点数。如果一个变量中需要保存很大的数据对象，它就需要占据更大的存储空间。例如C语言采用的就是变量的值语义。</p>
+
+<p>Python语言的实现基于一套精心设计的链接结构。变量与其值对象的关系通过链接的方式实现，对象之间的联系同样也通过链接。一个复杂对象内部也可能包含几个子部分，相互之间通过链接建立联系。如果一个list包含10个字符串，那么在实现中，在这个list对象里就会记录这10个字符串的链接关系。</p>
+
+<p>一切都是对象，函数也是，所以可以做为函数的参数，也可以是列表的元素</p>
+<pre>
+def applyToEach(L,f):
+    for i in range(len(L)):
+        L[i] = f(L[i])
+Ls = [1,-2,3.33]
+applyToEach(Ls,abs)
+print(Ls)
+
+# applyToEach是函数的函数，所以称为高阶函数
+</pre>
+
+
+
+<p>函数的传值到底是值传递还是引用传递，要看情况</p>
+
+
+
+<p>不可变参数用值传递：</p>
+
+
+
+<p>比如像整数和字符串这样的不可变对象，是通过拷贝进行传递的，因为你无论如何都不可能在原处改变不可变对象。</p>
+
+
+
+<p>可变参数是用引用传递：</p>
+
+
+
+<p>比如像列表，字典这样的对象是通过引用传递，和C语言里面的用指针传递数组很相似，可变对象能在函数内部改变。</p>
+
+
+
+<p>什么是lambda函数？它的好处是什么</p>
+
+
+
+<p>lambda 表达式，通常是在需要一个函数，但是又不想费神去命名一个函数的场合下使用，也就是指匿名函数。</p>
+
+
+
+<p>lambda函数：首要用途是指点短小的回调函数。</p>
+
+
+
+<p>lambda [arguments]:expression</p>
+
+
+
+<p>>>> a=lambdax,y:x+y</p>
+
+
+
+<p>>>> a(3,11)</p>
+
+
+
+<p>lambda能和def做同样种类的工作，特别是对于那些逻辑简单的函数，直接用lambda会更简洁，而且省去取函数名的麻烦。</p>
+
+<p>关键码也常作为数据的一部分，存储在数据集里，这就是基于关键码的数据存储和检索。</p>
+
+
+
+<p>作为检索基础的关键码，通常是数据项的某种（可能具有唯一性）特征，可以是数据内容的一个组成部分，也可以是专门为数据检索建立的标签。如学生号，只是为了检索方便，用来作为数据的唯一标识。</p>
+
+<p>字典就是支持基于关键码的数据存储与检索的数据结构。</p>
+
+
+
+<p>做基于关键码的检索，就是要实现从关键码到数据存储位置的映射，而这种映射也就是索引。</p>
+
+<p>在Python中，“if__name __ ==”__ main__“允许您将Python文件作为可重用模块或独立程序运行。</p>
+
+
+
+<pre>
+
+# D:\Users\wwuhnwu01\pip\pip.ini
+
+[global]
+
+respect-virtualenv = true
+
+download-cache = f:/Python/pip/cache
+
+log-file = f:/Python/pip/pip.log
+
+# trusted-host = http://pypi.mirrors.ustc.edu.cn/
+
+[install]
+
+timeout = 30
+
+# find-links = http://pypi.douban.com
+
+# find-links = http://pypi.douban.com/simple
+
+# find-links = http://pypi.hustunique.com/
+
+# find-links = http://pypi.sdutlinux.org/
+
+# find-links = http://pypi.mirrors.ustc.edu.cn/
+
+# index-url = https://pypi.mirrors.ustc.edu.cn/simple
+
+# index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 清华：https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 阿里云：http://mirrors.aliyun.com/pypi/simple/
+
+# 中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/
+
+# 华中理工大学：http://pypi.hustunique.com/
+
+# 山东理工大学：http://pypi.sdutlinux.org/ 
+
+# 豆瓣：http://pypi.douban.com/simple/
+
+# https://mirrors.ustc.edu.cn/pypi/web/simple/
+
+</pre>
+
+
+
+<p>通过Python程序的__name__属性可以识别程序的使用方式，每个Python程序运行时都有一个__name__属性，如果脚本被作为模块导入，则其__name__属性的值被自动设为模块名。如果脚本作为程序直接运行，则__name__属性被自动设为字符串__main__</p>
+
+
+
+<p>Python采用基于值的内存管理模式。赋值语句的执行过程是：首先把等号右侧表达式的值计算出来，然后在内存中寻找一个位置把值存放进去，最后创建变量并指向这个内存地址。Python中的变量并不直接存储值，而是存储了值的内存地址或引用，这也是变量类型随时可以改变的原因。</p>
+
+
+
+<p>虽然不需要在使用之前显式地声明变量及其类型，但Python是一种不折不扣的强类型编程语言，Python解释器会根据赋值运算符右侧表达式的值为自动推断变量类型。</p>
+
+
+
+<p>python变量并不直接存储值，而是存储值的引用或内存地址。当赋值表达式中等于号（=）的右边出现值时，python先保存这个值，并给这个值维护一个引用计数器，每当有新的变量引用该值时其引用计算器加1，当该变量被删除或不再引用该值时其引用计数器减1，当某个值的引用计数器变为0时则由垃圾回收器负责清理和删除。如果需要立刻进行垃圾回收，可以导入gc模块后调用其collect()方法。</p>
+
+
+
+<p>字典在内部维护的哈希表使得检索操作非常快。</p>
+
+<p>迭代器是指实现了__iter__()和__next__()方法的类或对象。</p>
+
+
+<p>使用ShellExecute函数运行其他程序</p>
+
+<p>除了使用os模块中的os.system()函数以外，还可以使用win32api模块中的ShellExecute()函数。其函数如下所示。</p>
+
+<p>ShellExecute(hwnd, op , file , params , dir , bShow )</p>
+
+<p>其参数含义如下所示。</p>
+
+<p>hwnd：父窗口的句柄，如果没有父窗口，则为0。</p>
+
+<p>op：要进行的操作，为“open”、“print”或者为空。</p>
+
+<p>file：要运行的程序，或者打开的脚本。</p>
+
+<p>params：要向程序传递的参数，如果打开的为文件，则为空。</p>
+
+<p>dir：程序初始化的目录。</p>
+
+<p>bShow：是否显示窗口。</p>
+
+<p>以下实例使用ShellExecute函数运行其他程序。</p>
+
+<p>>>> import win32api</p>
+
+<p># 打开记事本程序，在后台运行，即显示记事本程序的窗口</p>
+
+<p>>>> win32api.ShellExecute(0, 'open', 'notepad.exe', '','',0)</p>
+
+<p># 打开记事本程序，在前台运行</p>
+
+<p>>>> win32api.ShellExecute(0, 'open', 'notepad.exe', '','',1)</p>
+
+<p># 向记事本传递参数，打开python.txt</p>
+
+<p>>>> win32api.ShellExecute(0, 'open', 'notepad.exe', 'python.txt','',1)</p>
+
+<p># 在默认浏览器中打开http://www.python.org网站</p>
+
+<p>>>> win32api.ShellExecute(0, 'open', 'http://www.python.org', '','',1)</p>
+
+<p># 在默认的媒体播放器中播放E:\song.wma</p>
+
+<p>>>> win32api.ShellExecute(0, 'open', 'E:\\song.wma', '','',1)</p>
+
+<p># 运行位于E:\book\code目录中的MessageBox.py脚本</p>
+
+<p>>>> win32api.ShellExecute(0, 'open', 'E:\\book\\code\\MessageBox.py', '','',1)</p>
+
+<p>可以看出，使用ShellExecute函数，就相当于在资源管理器中双击文件图标一样，系统会打开相应的应用程序执行操作。</p>
+
+
+<p>1）三角函数：sin(x)、cos(x)、 tan(x)、 cot(x)、sec(x)、 csc(x)；<p>2）反三角函数： asin(x)、acos(x)、atan(x)、acot(x)、asec(x)、acsc(x)；<p>3）双曲线三角函数：sinh(x)、cosh(x)、tanh(x)、sech(x)、csch(x)、coth(x)；<p>4）反双曲线三角函数：asinh(x)、acosh(x)、atanh(x)、asech(x)、acsch(x)、acoth(x)；<p>5）对数函数： ln(x)、log(x)；<p>6）指数函数：a^x、e^x；<p>7）幂函数：x^a；<p>8）平方根函数：sqrt(x)；<p>9）绝对值函数：abs(x)；<p>10）取整函数：floor(x)【向下取整】、ceil(x)【向上取整】；

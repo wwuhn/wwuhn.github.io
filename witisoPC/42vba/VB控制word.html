@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <script type="text/javascript">
+ 
+function goTopEx(){
+  var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+}}}
+</script>
+<script type="text/javascript">
+  function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;}
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;}    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+}}}
+</script>
+
+<title>VB控制word</title>
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+.container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:95.29%;
+	line-height:1.5em;
+}
+P{
+	margin:0em;
+	text-indent:2em;
+}
+	.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+img{
+	margin-right:5px;
+	border:0;
+}
+.fc{
+	color:red;
+}
+
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:hover {text-decoration: none;}
+a:active {text-decoration: none;}
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#goTopBtn:hover{
+	background-color:white;
+	border:#ccc 1px solid;
+	color:red;
+}
+
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+#goBottom:hover{
+	background-color:white;
+	border:#ccc 1px solid;
+	color:red;
+}
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+
+.cite{
+color:#930;
+font-size:90%;
+line-height:130%;
+}
+
+
+.from{
+text-align:right; 
+font-size:90%;
+
+}
+.contents a{
+width:19%;
+float:right;
+white-space:nowrap;
+overflow:hidden;
+}
+\s*</p>
+
+<p>\s*
+
+</p>
+
+<p>
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<h4> 1、在Word文档中插入表格，给单元格赋值，访问单元格内容，拆分及合并单元格</h4>
+<ul>
+<p>'先引用Microsoft Word 11.0 Object Library</p>
+<p>Option Explicit</p>
+<p>'强制要求变量声明</p>
+<p>Dim WordApp As Word.Application '创建Word应用程序</p>
+<p>Private Sub Command1_Click()</p>
+
+<p>Set WordApp = New Word.Application '实例化</p>
+<p>WordApp.Visible = True '显示 Office Word 界面</p>
+<p>'或者Application.Visible = True</p>
+<p>WordApp.DisplayAlerts = False '不提示保存对话框</p>
+<p>WordApp.Documents.Add '创建新的空白Word文档</p>
+<p>WordApp.Selection.EndKey unit:=wdStory  '将光标移到文档末尾，在文本后面插入表格</p>
+<p>Selection.TypeText Text:=&quot;我的Word表格&quot; '表格的标题名称</p>
+<p>Call WordApp.ActiveDocument.Tables.Add(WordApp.Application.Selection.Range, 10, 5, 1, 0) '插入一个10行5列的表格</p>
+<p>Selection.Tables(1).Columns.Width = 80 '定义表格的列宽</p>
+
+<p>'给单元格赋值</p>
+<p>WordApp.ActiveDocument.Tables(1).Cell(1, 1).Range.InsertAfter &quot;序号&quot;</p>
+<p>WordApp.ActiveDocument.Tables(1).Cell(1, 2).Range.InsertAfter &quot;项目1&quot;</p>
+<p>WordApp.ActiveDocument.Tables(1).Cell(1, 3).Range.InsertAfter &quot;项目2&quot;</p>
+<p>WordApp.ActiveDocument.Tables(1).Cell(1, 4).Range.InsertAfter &quot;项目3&quot;</p>
+<p>WordApp.ActiveDocument.Tables(1).Cell(1, 5).Range.InsertAfter &quot;项目4&quot;</p>
+
+<p>'合并单元格</p>
+<p>WordApp.ActiveDocument.Tables(1).Cell(2, 2).Select '选中表格的第2行第2列</p>
+<p>Call WordApp.Application.Selection.MoveDown(5, 3, 1) '向下移动3格</p>
+<p>WordApp.Application.Selection.Cells.Merge '合并4个格子</p>
+
+<p>'拆分单元格</p>
+<p>WordApp.ActiveDocument.Tables(1).Cell(10, 2).Select '选中表格的第10行第2列</p>
+<p>Call WordApp.Application.Selection.Cells.Split(7, 2, True) '拆分成7行2列    </p>
+
+<p>'访问单元格内容</p>
+<p>Debug.Print WordApp.ActiveDocument.Tables(1).Cell(1, 1).Range.Text '第1行第1列的内容</p>
+
+<p>ActiveDocument.SaveAs &quot;c:\MyWord.doc&quot; '保存最后生成的word文档</p>
+<p>End Sub</p>
+<p>Private Sub Form_Unload(Cancel As Integer)</p>
+<p>On Error Resume Next</p>
+<p>WordApp.Quit</p>
+<p>Set WordApp = Nothing</p>
+<p>End Sub</p>
+</ul>
+<h4> 2、在Word文档中插入和导出图片对象</h4>
+<ul>
+<p>'先引用Microsoft Word 11.0 Object Library</p>
+<p>Option Explicit</p>
+<p>Dim WordApp As Word.Application '创建Word应用程序</p>
+<p>Private Sub Command1_Click()</p>
+<p>On Error GoTo Errhandler</p>
+<p>CommonDialog1.Filter = &quot;Word(*.Doc)|*.Doc|AllFile(*.*)|*.*&quot;</p>
+<p>CommonDialog1.FilterIndex = 1</p>
+<p>CommonDialog1.ShowOpen</p>
+<p>Set WordApp = New Word.Application '实例化</p>
+<p>WordApp.Documents.Open CommonDialog1.FileName '打开Word文件</p>
+<p>WordApp.Visible = True '显示 Office Word 界面</p>
+<p>'或者Application.Visible = True</p>
+<p>WordApp.DisplayAlerts = False '不提示保存对话框</p>
+<p>WordApp.Selection.EndKey Unit:=wdStory  '将光标移到文档末尾，在文本后面插入图片对象</p>
+<p>Selection.TypeText Text:=&quot;我的图片&quot; '图片的标题名称</p>
+
+<p>'插入图片对象</p>
+<p>Selection.InlineShapes.AddPicture FileName:=&quot;C:\CommandPicture.jpg&quot;, LinkToFile:=False, SaveWithDocument:=True</p>
+<p>Selection.MoveLeft Unit:=wdCharacter, Count:=1, Extend:=wdExtend</p>
+<p>Selection.InlineShapes(1).ConvertToShape.Select</p>
+<p>Selection.ShapeRange.Fill.Visible = msoFalse</p>
+<p>Selection.ShapeRange.Fill.Transparency = 0#</p>
+<p>Selection.ShapeRange.Line.Weight = 0.75</p>
+<p>Selection.ShapeRange.Line.DashStyle = msoLineSolid</p>
+<p>Selection.ShapeRange.Line.Style = msoLineSingle</p>
+<p>Selection.ShapeRange.Line.Transparency = 0#</p>
+<p>Selection.ShapeRange.Line.Visible = msoFalse</p>
+<p>Selection.ShapeRange.LockAspectRatio = msoTrue</p>
+<p>Selection.ShapeRange.Height = 361.4</p>
+<p>Selection.ShapeRange.Width = 481.6</p>
+<p>Selection.ShapeRange.PictureFormat.Brightness = 0.5</p>
+<p>Selection.ShapeRange.PictureFormat.Contrast = 0.5</p>
+<p>Selection.ShapeRange.PictureFormat.ColorType = msoPictureAutomatic</p>
+<p>Selection.ShapeRange.PictureFormat.CropLeft = 0#</p>
+<p>Selection.ShapeRange.PictureFormat.CropRight = 0#</p>
+<p>Selection.ShapeRange.PictureFormat.CropTop = 0#</p>
+<p>Selection.ShapeRange.PictureFormat.CropBottom = 0#</p>
+<p>Selection.ShapeRange.RelativeHorizontalPosition = wdRelativeHorizontalPositionColumn</p>
+<p>Selection.ShapeRange.RelativeVerticalPosition = wdRelativeVerticalPositionPage</p>
+<p>Selection.ShapeRange.Left = wdShapeCenter</p>
+<p>Selection.ShapeRange.Top = wdShapeCenter</p>
+<p>Selection.ShapeRange.LockAnchor = False</p>
+<p>Selection.ShapeRange.WrapFormat.AllowOverlap = True</p>
+<p>Selection.ShapeRange.WrapFormat.Side = wdWrapBoth</p>
+<p>Selection.ShapeRange.WrapFormat.DistanceTop = CentimetersToPoints(0)</p>
+<p>Selection.ShapeRange.WrapFormat.DistanceBottom = CentimetersToPoints(0)</p>
+<p>Selection.ShapeRange.WrapFormat.DistanceLeft = CentimetersToPoints(0.32)</p>
+<p>Selection.ShapeRange.WrapFormat.DistanceRight = CentimetersToPoints(0.32)</p>
+<p>Selection.ShapeRange.WrapFormat.Type = 3</p>
+<p>Selection.ShapeRange.ZOrder msoSendBehindText  '设置图片为衬托于文字下方</p>
+<p>'判断文档中是否存在图片对象</p>
+<p>If ActiveDocument.Shapes.Count + ActiveDocument.InlineShapes.Count &gt; 0 Then</p>
+<p>'取得图片的2种方法</p>
+
+<p>'第1种方法：用下面命令将文件另存为网页格式的文件，文件夹“MyWord.files”将保存Word文档中所有的图片</p>
+<p>'这种方法对所有的Word版本均适用</p>
+<p>ActiveDocument.SaveAs &quot;c:\MyWord.htm&quot;, wdFormatHTML '保存为网页格式</p>
+
+<p>'第2种方法：引用ADO对象库，将所有的图片保存在数据库中，然后可以一张一张地显示出来</p>
+
+<p>'另外：</p>
+<p>'如果Word文档是docx格式的，那可以按这个办法解决：</p>
+<p>'.docx 格式的文件本质上是一个ZIP压缩文件，.docx 格式文件的主要内容是保存为XML格式的，但文件并非直接保存于磁盘。</p>
+<p>'它是保存在一个ZIP文件中，然后取扩展名为.docx。我们只需要用解压软件比如：WinZIP、WinRAR或者7ZIP等软件进行解压就可以了。</p>
+<p>'方法有两种，一种是将.docx后缀名修改为.zip后缀名；另一个方法就是打开WinZIP然后，选择此文档即可。</p>
+<p>'图片资源文件都被保存在word\media文件夹中。           </p>
+
+<p>Else</p>
+<p>Debug.Print &quot;Word文档中不存在图片对象！&quot;</p>
+<p>End If</p>
+<p>Errhandler:</p>
+<p>Exit Sub</p>
+<p>End Sub</p>
+<p>Private Sub Form_Unload(Cancel As Integer)</p>
+<p>On Error Resume Next</p>
+<p>WordApp.Quit</p>
+<p>Set WordApp = Nothing</p>
+<p>End Sub</p>
+</ul>
+<h4>3、统计Word文档页数、字数</h4>
+<ul>
+<p>'先引用Microsoft Word 11.0 Object Library</p>
+<p>Option Explicit</p>
+<p>Dim WordApp As Word.Application '创建Word应用程序</p>
+<p>Private Sub Command1_Click()</p>
+<p>On Error GoTo Errhandler</p>
+<p>CommonDialog1.Filter = &quot;Word(*.Doc)|*.Doc|AllFile(*.*)|*.*&quot;</p>
+<p>CommonDialog1.FilterIndex = 1</p>
+<p>CommonDialog1.ShowOpen</p>
+<p>Set WordApp = New Word.Application '实例化</p>
+<p>WordApp.Documents.Open CommonDialog1.FileName '打开Word文件</p>
+<p>WordApp.Visible = False '不显示 Office Word 界面</p>
+<p>'或者Application.Visible = True</p>
+<p>'WordApp.DisplayAlerts = False '不提示保存对话框</p>
+
+<p>Debug.Print WordApp.ActiveDocument.ComputeStatistics(Word.WdStatistic.wdStatisticPages) '页数</p>
+<p>Debug.Print WordApp.ActiveDocument.Characters.Count '字数</p>
+
+<p>Errhandler:</p>
+<p>Exit Sub</p>
+<p>End Sub</p>
+<p>Private Sub Form_Unload(Cancel As Integer)</p>
+<p>On Error Resume Next</p>
+<p>WordApp.Quit</p>
+<p>Set WordApp = Nothing</p>
+<p>End Sub</p>
+</ul>
+<h4>3 返回Word文档的段落文字，控制分页，设置页眉和页脚</h4>
+<ul>
+<p>'先引用Microsoft Word 11.0 Object Library</p>
+<p>Option Explicit</p>
+<p>Dim WordApp As Word.Application '创建Word应用程序</p>
+<p>Private Sub Command1_Click()</p>
+<p>Dim i As Long</p>
+<p>On Error GoTo Errhandler</p>
+<p>CommonDialog1.Filter = &quot;Word(*.Doc)|*.Doc|AllFile(*.*)|*.*&quot;</p>
+<p>CommonDialog1.FilterIndex = 1</p>
+<p>CommonDialog1.ShowOpen</p>
+<p>Set WordApp = New Word.Application '实例化</p>
+<p>WordApp.Documents.Open CommonDialog1.FileName '打开Word文件</p>
+<p>WordApp.Visible = True '显示 Office Word 界面</p>
+<p>'或者Application.Visible = True</p>
+<p>WordApp.DisplayAlerts = False '不提示保存对话框</p>
+
+<p>'返回段落文字，返回的段落文字在文本框控件中</p>
+<p>Text1.Text = &quot;&quot;</p>
+<p>For i = 1 To ActiveDocument.Paragraphs.Count</p>
+<p> Text1.Text = Text1.Text &amp; (ActiveDocument.Paragraphs(i).Range.Text &amp; vbCrLf &amp; vbCrLf)</p>
+<p>Next</p>
+
+<p>'控制分页</p>
+<p>WordApp.Selection.EndKey unit:=wdStory  '将光标移到文档末尾</p>
+<p>WordApp.Selection.InsertBreak wdPageBreak '在文档末尾插入一页</p>
+
+<p>'设置图片格式的页眉</p>
+<p>If ActiveWindow.View.SplitSpecial &lt;&gt; wdPaneNone Then</p>
+<p>ActiveWindow.Panes(2).Close</p>
+<p>End If</p>
+<p>If ActiveWindow.ActivePane.View.Type = wdNormalView Or ActiveWindow.ActivePane.View.Type = wdOutlineView Then</p>
+<p>ActiveWindow.ActivePane.View.Type = wdPrintView</p>
+<p>End If</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader</p>
+<p>Selection.InlineShapes.AddPicture FileName:=&quot;F:\资料\My Pictures\2013年元旦.gif&quot;, LinkToFile:=False, SaveWithDocument:=True '加载一图片文件作为页眉</p>
+<p>Selection.ParagraphFormat.Alignment = wdAlignParagraphLeft</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekMainDocument</p>
+
+<p>'设置文本格式的页眉</p>
+<p>If ActiveWindow.View.SplitSpecial &lt;&gt; wdPaneNone Then</p>
+<p>ActiveWindow.Panes(2).Close</p>
+<p>End If</p>
+<p>If ActiveWindow.ActivePane.View.Type = wdNormalView Or ActiveWindow.ActivePane.View.Type = wdOutlineView Then</p>
+<p>ActiveWindow.ActivePane.View.Type = wdPrintView</p>
+<p>End If</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader</p>
+<p>Selection.TypeText Text:=&quot;办公室常用工具&quot;</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekMainDocument</p>
+
+<p>'隐藏页眉的横线</p>
+<p>WordApp.ActiveDocument.Sections(1).Headers(wdHeaderFooterPrimary).Range.Borders(wdBorderBottom).Visible = False</p>
+
+<p>'取得页眉的内容</p>
+<p>Debug.Print WordApp.ActiveDocument.Sections(1).Headers(wdHeaderFooterFirstPage).Range.Text  '获取WORD第一节的页眉的文字内容</p>
+
+
+<p>'设置页脚</p>
+<p>If ActiveWindow.View.SplitSpecial &lt;&gt; wdPaneNone Then</p>
+<p>ActiveWindow.Panes(2).Close</p>
+<p>End If</p>
+<p>If ActiveWindow.ActivePane.View.Type = wdNormalView Or ActiveWindow.ActivePane.View.Type = wdOutlineView Then</p>
+<p>ActiveWindow.ActivePane.View.Type = wdPrintView</p>
+<p>End If</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader</p>
+<p>If Selection.HeaderFooter.IsHeader = True Then</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageFooter</p>
+<p>Else</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekCurrentPageHeader</p>
+<p>End If</p>
+<p>Selection.TypeText Text:=&quot;2013年&quot; '设置页脚</p>
+<p>Selection.Fields.Add Range:=Selection.Range, Type:=wdFieldNumPages</p>
+<p>ActiveWindow.ActivePane.View.SeekView = wdSeekMainDocument</p>
+
+<p>ActiveDocument.SaveAs &quot;c:\MyWord.doc&quot; '保存最后生成的word文档</p>
+<p> </p>
+<p>Errhandler:</p>
+<p>Exit Sub</p>
+<p>End Sub</p>
+<p>Private Sub Form_Unload(Cancel As Integer)</p>
+<p>On Error Resume Next</p>
+<p>WordApp.Quit</p>
+<p>Set WordApp = Nothing</p>
+<p>End Sub</p>
+</ul>
+<h4>控制Word文档中的文本框对象</h4>
+<ul>
+<p>'先引用Microsoft Word 11.0 Object Library</p>
+<p>Option Explicit</p>
+<p>Dim WordApp As Word.Application '创建Word应用程序</p>
+<p>Private Sub Command1_Click()</p>
+<p>On Error GoTo Errhandler</p>
+<p>CommonDialog1.Filter = &quot;MS Office Word(*.Doc)|*.Doc|AllFile(*.*)|*.*&quot;</p>
+<p>CommonDialog1.FilterIndex = 1</p>
+<p>CommonDialog1.ShowOpen</p>
+<p>Set WordApp = New Word.Application '实例化</p>
+<p>WordApp.Documents.Open CommonDialog1.FileName '打开Word文件</p>
+<p>If Documents.Count &gt;= 1 Then</p>
+<p>Text1.Text = &quot;打开的Word文件是：&quot; &amp; ActiveDocument.Name &amp; vbCrLf &amp; vbCrLf</p>
+<p>End If</p>
+<p>WordApp.Visible = True '显示 Office Word 界面</p>
+<p>'或者Application.Visible = True</p>
+<p>WordApp.DisplayAlerts = False '不提示保存对话框</p>
+
+<p>WordApp.Selection.EndKey unit:=wdStory  '将光标移到文档末尾</p>
+<p>WordApp.Selection.Font.Bold = 1</p>
+<p>WordApp.Selection.Font.Name = &quot;黑体&quot;</p>
+<p>WordApp.Selection.Font.Size = 18</p>
+<p>WordApp.Selection.TypeText Text:=&quot;在Word文件中插入文本框对象&quot;</p>
+<p>WordApp.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter '居中显示</p>
+<p> </p>
+<p>'创建文本框对象,座标（100，100），宽度200，高度200</p>
+<p>With ActiveDocument.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 100, 400, 300).Fill</p>
+<p>'.Transparency = 1 '设置透明色</p>
+<p>.ForeColor = vbRed '设置前景颜色</p>
+<p>.UserPicture (&quot;F:\资料\My Pictures\758254_960x1000_0.jpg&quot;) '设置文本框对象的背景图片</p>
+<p>End With</p>
+<p>ActiveDocument.Shapes(1).TextFrame.TextRange.Text = &quot;这是一个美女&quot; '给文本框赋值</p>
+<p>'ActiveDocument.Shapes(1).Line.Transparency = 1 '设置透明边框线条</p>
+
+<p>'再创建一个透明背景的文本框对象</p>
+<p>With ActiveDocument.Shapes.AddTextbox(msoTextOrientationHorizontal, 100, 400, 400, 300).Fill</p>
+<p>.Transparency = 1 '设置透明色背景</p>
+<p>.ForeColor = vbRed '设置前景颜色</p>
+<p>End With</p>
+<p>ActiveDocument.Shapes(2).TextFrame.TextRange.Text = &quot;这是一个透明背景的文本框&quot; '给文本框赋值</p>
+<p>'ActiveDocument.Shapes(2).Line.Transparency = 1 '设置透明边框线条</p>
+
+<p>'下面是获取文本框对象的内容</p>
+<p>Dim i As Long    </p>
+<p>For i = 1 To ActiveDocument.Shapes.Count</p>
+<p> Text1.Text = Text1.Text &amp; (&quot;第&quot; &amp; i &amp; &quot;个文本框的内容：&quot; &amp; ActiveDocument.Shapes(i).TextFrame.TextRange.Text &amp; vbCrLf)</p>
+<p>Next</p>
+
+<p>ActiveDocument.SaveAs &quot;c:\MyWord.doc&quot; '保存最后生成的word文档</p>
+
+<p>Errhandler:</p>
+<p>Exit Sub</p>
+<p>End Sub</p>
+<p>Private Sub Form_Unload(Cancel As Integer)</p>
+<p>On Error Resume Next</p>
+<p>WordApp.Quit</p>
+<p>Set WordApp = Nothing</p>
+<p>End Sub</p>
+</ul>
+<h4>在Word文档中设置Excel风格的页码</h4>
+<ul>
+<p>'先引用Microsoft Word 11.0 Object Library</p>
+<p>Option Explicit</p>
+<p>Dim WordApp As Word.Application '创建Word应用程序</p>
+<p>Dim WordDoc As Word.Document    '创建Word文档对象</p>
+<p>Private Sub Command1_Click()</p>
+<p>Dim i As Long</p>
+<p>On Error GoTo Errhandler</p>
+<p>CommonDialog1.Filter = &quot;Word(*.Doc)|*.Doc|AllFile(*.*)|*.*&quot;</p>
+<p>CommonDialog1.FilterIndex = 1</p>
+<p>CommonDialog1.ShowOpen</p>
+<p>Set WordApp = New Word.Application '实例化</p>
+<p>Set WordDoc = WordApp.Documents.Open(CommonDialog1.FileName) '选择并打开Word文件</p>
+<p>WordApp.Visible = True '显示 Office Word 界面</p>
+<p>'或者Application.Visible = True</p>
+<p>WordApp.DisplayAlerts = False '不提示保存对话框</p>
+
+<p>'设置Word文档第一页页码</p>
+<p>Dim WordRange As Range</p>
+<p>Set WordRange = WordApp.ActiveDocument.Sections(1).Footers(wdHeaderFooterPrimary).Range</p>
+
+<p>With WordRange</p>
+<p>.InsertAfter &quot;第&quot;</p>
+<p>.Font.Size = 14</p>
+<p>.Collapse Direction:=wdCollapseEnd</p>
+
+<p>'插入页码域</p>
+<p>.Fields.Add Range:=WordRange, Type:=wdFieldEmpty, Text:=&quot;PAGE  \* Arabic &quot;, PreserveFormatting:=True</p>
+<p>.Expand unit:=wdWord</p>
+<p>.InsertAfter &quot;页 &quot;</p>
+
+<p>.InsertAfter &quot;共&quot;</p>
+<p>.Collapse Direction:=wdCollapseEnd</p>
+<p> </p>
+<p>'插入页数域</p>
+<p>.Fields.Add Range:=WordRange, Type:=wdFieldEmpty, Text:=&quot;NUMPAGES  \* Arabic &quot;, PreserveFormatting:=True</p>
+<p>.Expand unit:=wdWord</p>
+<p>.InsertAfter &quot;页&quot;</p>
+<p>.InsertAfter &quot;【我的Word文件 作者：ChenJL1031（东方之珠）】&quot;</p>
+<p>.ParagraphFormat.Alignment = wdAlignParagraphRight '右对齐</p>
+<p>End With</p>
+
+<p>'Text1.Text = WordApp.ActiveDocument.Sections(1).Headers(wdHeaderFooterFirstPage).Range.Text</p>
+
+<p>Set WordRange = Nothing</p>
+<p>ActiveDocument.SaveAs &quot;c:\MyWord.doc&quot; '保存最后生成的word文档</p>
+<p> </p>
+<p>Errhandler:</p>
+<p>Exit Sub</p>
+<p>End Sub</p>
+<p>Private Sub Form_Unload(Cancel As Integer)</p>
+<p>On Error Resume Next</p>
+<p>WordApp.Quit</p>
+<p>Set WordApp = Nothing</p>
+<p>End Sub</p>
+</ul>
+<a href="http://blog.csdn.net/chenjl1031/article/details/8905354">reference</a>
+
+<p>&nbsp;</p>
+<p></p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>

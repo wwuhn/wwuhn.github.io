@@ -1,0 +1,864 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>CPP工程师常见的面试题总结</h3>
+
+<p>1.在C++ 程序中调用被C 编译器编译后的函数，为什么要加extern “C”？</p>
+<p></p>
+<p>答：首先，extern是C/C++语言中表明函数和全局变量作用范围的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用。</p>
+<p></p>
+<p>通常，在模块的头文件中对本模块提供给其它模块引用的函数和全局变量以关键字extern声明。extern "C"是连接申明(linkage</p>
+<p></p>
+<p>declaration),被extern</p>
+<p></p>
+<p>"C"修饰的变量和函数是按照C语言方式编译和连接的。作为一种面向对象的语言，C++支持函数重载，而过程式语言C则不支持。函数被C++编译后在符号库中的名字与C语言的不同。例如，假设某个函数的原型为：void</p>
+<p></p>
+<p>foo( int x, int y</p>
+<p></p>
+<p>);该函数被C编译器编译后在符号库中的名字为_foo，而C++编译器则会产生像_foo_int_int之类的名字。这样的名字包含了函数名、函数参数数量及类型信息，C++就是靠这种机制来实现函数重载的。</p>
+<p></p>
+<p>所以，可以用一句话概括extern “C”这个声明的真实目的:解决名字匹配问题，实现C++与C的混合编程。</p>
+<p></p>
+<p>2.头文件中的ifndef/define/endif有什么作用？</p>
+<p></p>
+<p>答：这是C++预编译头文件保护符，保证即使文件被多次包含，头文件也只定义一次。</p>
+<p></p>
+<p>3. ＃include<file.h> 与 ＃include "file.h"的区别？</p>
+<p></p>
+<p>答：前者是从标准库路径寻找和引用file.h，而后者是从当前工作路径搜寻并引用file.h。</p>
+<p></p>
+<p>4.评价一下C/C++各自的特点</p>
+<p></p>
+<p>答：C语言是一种结构化语言，面向过程，基于算法和数据结构，所考虑的是如何通过一个过程或者函数从输入得到输出；</p>
+<p></p>
+<p>C++是面向对象，基于类、对象和继承，所考虑的是如何构造一个对象模型，让这个模型能够契合与之对应的问题，通过获取对象的状态信息得到输出或实现过程控制。</p>
+<p></p>
+<p>5．const 有什么用途？</p>
+<p></p>
+<p>答：在C/C++中，（1）可以定义const常量，（2）修饰函数的返回值和形参；</p>
+<p></p>
+<p>在C++中，还可以修饰函数的定义体，定义类的const成员函数。被const修饰的东西受到强制保护，可以预防意外的变动，提高了程序的健壮性。</p>
+<p></p>
+<p>6．const和#define有什么区别？</p>
+<p></p>
+<p>答：（1）const和#define都可以定义常量，但是const用途更广。</p>
+<p></p>
+<p>（2）const 常量有数据类型，而宏常量没有数据类型。编译器可以对前者进行类型安全检查。而对后者只进行字符替换，没有类型安全检查，并且在字符替换可能会产生意料不到的错误。</p>
+<p></p>
+<p>（3） 有些集成化的调试工具可以对const 常量进行调试，但是不能对宏常量进行调试。</p>
+<p></p>
+<p>7．关于sizeof小结的。</p>
+<p></p>
+<p>答：sizeof计算的是在栈中分配的内存大小。</p>
+<p></p>
+<p>（1） sizeof不计算static变量占得内存；</p>
+<p></p>
+<p>（2） 32位系统的指针的大小是4个字节，64位系统的指针是8字节，而不用管指针类型；</p>
+<p></p>
+<p>（3） char型占1个字节，int占4个字节，short int占2个字节</p>
+<p></p>
+<p>long int占4个字节，float占4字节，double占8字节，string占4字节</p>
+<p></p>
+<p>一个空类占1个字节，单一继承的空类占1个字节，虚继承涉及到虚指针所以占4个字节</p>
+<p></p>
+<p>（4） 数组的长度：</p>
+<p></p>
+<p>若指定了数组长度，则不看元素个数，总字节数=数组长度*sizeof（元素类型）</p>
+<p></p>
+<p>若没有指定长度，则按实际元素个数类确定</p>
+<p></p>
+<p>Ps：若是字符数组，则应考虑末尾的空字符。</p>
+<p></p>
+<p>（5） 结构体对象的长度</p>
+<p></p>
+<p>在默认情况下，为方便对结构体内元素的访问和管理，当结构体内元素长度小于处理器位数的时候，便以结构体内最长的数据元素的长度为对齐单位，即为其整数倍。若结构体内元素长度大于处理器位数则以处理器位数为单位对齐。</p>
+<p></p>
+<p>（6） unsigned影响的只是最高位的意义，数据长度不会改变，所以sizeof（unsigned int）=4</p>
+<p></p>
+<p>（7） 自定义类型的sizeof取值等于它的类型原型取sizeof</p>
+<p></p>
+<p>（8） 对函数使用sizeof，在编译阶段会被函数的返回值的类型代替</p>
+<p></p>
+<p>（9） sizeof后如果是类型名则必须加括号，如果是变量名可以不加括号，这是因为sizeof是运算符</p>
+<p></p>
+<p>（10） 当使用结构类型或者变量时，sizeof返回实际的大小。当使用静态数组时返回数组的全部大小，sizeof不能返回动态数组或者外部数组的尺寸</p>
+<p></p>
+<p>8．sizeof与strlen的区别？</p>
+<p></p>
+<p>答： （1）sizeof的返回值类型为size_t（unsigned int）；</p>
+<p></p>
+<p>（2）sizeof是运算符，而strlen是函数；</p>
+<p></p>
+<p>（3）sizeof可以用类型做参数，其参数可以是任意类型的或者是变量、函数，而strlen只能用char*做参数，且必须是以’\0’结尾；</p>
+<p></p>
+<p>（4）数组作sizeof的参数时不会退化为指针，而传递给strlen是就退化为指针；</p>
+<p></p>
+<p>（5）sizeo是编译时的常量，而strlen要到运行时才会计算出来，且是字符串中字符的个数而不是内存大小；</p>
+<p></p>
+<p>9．指针和引用的区别？</p>
+<p></p>
+<p>答：指针和引用都提供了间接操作对象的功能。</p>
+<p></p>
+<p>（1） 指针定义时可以不初始化，而引用在定义时就要初始化，和一个对象绑定，而且一经绑定，只要引用存在，就会一直保持和该对象的绑定；</p>
+<p></p>
+<p>（2） 赋值行为的差异：指针赋值是将指针重新指向另外一个对象，而引用赋值则是修改对象本身；</p>
+<p></p>
+<p>（3） 指针之间存在类型转换，而引用分const引用和非const应用，非const引用只能和同类型的对象绑定，const引用可以绑定到不同但相关类型的对象或者右值</p>
+<p></p>
+<p>10．数组和指针的区别？</p>
+<p></p>
+<p>答：（1）数组要么在全局数据区被创建，要么在栈上被创建；指针可以随时指向任意类型的内存块；</p>
+<p></p>
+<p>（2）修改内容上的差别：</p>
+<p></p>
+<p>char a[] = “hello”;</p>
+<p></p>
+<p>a[0] = ‘X’;</p>
+<p></p>
+<p>char *p = “world”; // 注意p 指向常量字符串</p>
+<p></p>
+<p>p[0] = ‘X’; // 编译器不能发现该错误，运行时错误</p>
+<p></p>
+<p>(3)用运算符sizeof 可以计算出数组的容量（字节数）。sizeof(p),p 为指针得到的是一个指针变量的字节数，而不是p</p>
+<p></p>
+<p>所指的内存容量。C++/C</p>
+<p></p>
+<p>语言没有办法知道指针所指的内存容量，除非在申请内存时记住它。注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针。</p>
+<p></p>
+<p>11.空指针和悬垂指针的区别？</p>
+<p></p>
+<p>答：空指针是指被赋值为NULL的指针；delete指向动态分配对象的指针将会产生悬垂指针。</p>
+<p></p>
+<p>（1） 空指针可以被多次delete，而悬垂指针再次删除时程序会变得非常不稳定；</p>
+<p></p>
+<p>（2） 使用空指针和悬垂指针都是非法的，而且有可能造成程序崩溃，如果指针是空指针，尽管同样是崩溃，但和悬垂指针相比是一种可预料的崩溃。</p>
+<p></p>
+<p>12.C++中有malloc/free，为什么还有new/delete？</p>
+<p></p>
+<p>答：malloc/free是C/C++标准库函数，new/delete是C++运算符。他们都可以用于动态申请和释放内存。</p>
+<p></p>
+<p>对于内置类型数据而言，二者没有多大区别。malloc申请内存的时候要制定分配内存的字节数，而且不会做初始化；new申请的时候有默认的初始化，同时可以指定初始化；</p>
+<p></p>
+<p>对于类类型的对象而言，用malloc/free无法满足要求的。对象在创建的时候要自动执行构造函数，消亡之前要调用析构函数。由于malloc/free是库函数而不是运算符，不在编译器控制之内，不能把执行构造函数和析构函数的任务强加给它，因此，C++还需要new/delete。</p>
+<p></p>
+<p>13.什么是智能指针？</p>
+<p></p>
+<p>答：当类中有指针成员时，一般有两种方式来管理指针成员：一是采用值型的方式管理，每个类对象都保留一份指针指向的对象的拷贝；另一种更优雅的方式是使用智能指针，从而实现指针指向的对象的共享。</p>
+<p></p>
+<p>智能指针的一种通用实现技术是使用引用计数。智能指针类将一个计数器与类指向的对象相关联，引用计数跟踪该类有多少个对象共享同一指针。</p>
+<p></p>
+<p>每次创建类的新对象时，初始化指针并将引用计数置为1；当对象作为另一对象的副本而创建时，拷贝构造函数拷贝指针并增加与之相应的引用计数；对一个对象进行赋值时，赋值操作符减少左操作数所指对象的引用计数（如果引用计数为减至0，则删除对象），并增加右操作数所指对象的引用计数；调用析构函数时，构造函数减少引用计数（如果引用计数减至0，则删除基础对象）。</p>
+<p></p>
+<p>14.面向对象技术的基本概念是什么，三个基本特征是什么？</p>
+<p></p>
+<p>答：基本概念：类、对象、继承； 基本特征：封装、继承、多态。</p>
+<p></p>
+<p>封装：将低层次的元素组合起来形成新的、更高实体的技术；</p>
+<p></p>
+<p>继承：广义的继承有三种实现形式：实现继承、可视继承、接口继承。</p>
+<p></p>
+<p>多态：允许将子类类型的指针赋值给父类类型的指针</p>
+<p></p>
+<p>15.C++空类默认有哪些成员函数？</p>
+<p></p>
+<p>答：默认构造函数、析构函数、复制构造函数、赋值函数</p>
+<p></p>
+<p>16.哪一种成员变量可以在一个类的实例之间共享？</p>
+<p></p>
+<p>答：static静态成员变量</p>
+<p></p>
+<p>17.继承层次中，为什么基类析构函数是虚函数？</p>
+<p></p>
+<p>答：编译器总是根据类型来调用类成员函数。但是一个派生类的指针可以安全地转化为一个基类的指针。这样删除一个基类的指针的时候，C++不管这个指针指向一个基类对象还是一个派生类的对象，调用的都是基类的析构函数而不是派生类的。如果你依赖于派生类的析构函数的代码来释放资源，而没有重载析构函数，那么会有资源泄漏。</p>
+<p></p>
+<p>18.为什么构造函数不能为虚函数？</p>
+<p></p>
+<p>答：虚函数采用一种虚调用的方法。需调用是一种可以在只有部分信息的情况下工作的机制。如果创建一个对象，则需要知道对象的准确类型，因此构造函数不能为虚函数。</p>
+<p></p>
+<p>19.如果虚函数是有效的，那为什么不把所有函数设为虚函数？</p>
+<p></p>
+<p>答：不行。首先，虚函数是有代价的，由于每个虚函数的对象都要维护一个虚函数表，因此在使用虚函数的时候都会产生一定的系统开销，这是没有必要的。</p>
+<p></p>
+<p>20.构造函数可以是内联函数</p>
+<p></p>
+<p>21.什么是多态？多态有什么作用？</p>
+<p></p>
+<p>答：多态就是将基类类型的指针或者引用指向派生类型的对象。多态通过虚函数机制实现。</p>
+<p></p>
+<p>多态的作用是接口重用。</p>
+<p></p>
+<p>22.重载和覆盖有什么区别？</p>
+<p></p>
+<p>答：虚函数是基类希望派生类重新定义的函数，派生类重新定义基类虚函数的做法叫做覆盖；</p>
+<p></p>
+<p>重载就在允许在相同作用域中存在多个同名的函数，这些函数的参数表不同。重载的概念不属于面向对象编程，编译器根据函数不同的形参表对同名函数的名称做修饰，然后这些同名函数就成了不同的函数。</p>
+<p></p>
+<p>重载的确定是在编译时确定，是静态的；虚函数则是在运行时动态确定。</p>
+<p></p>
+<p>23.公有继承、受保护继承、私有继承</p>
+<p></p>
+<p>答：（1）公有继承时，派生类对象可以访问基类中的公有成员，派生类的成员函数可以访问基类中的公有和受保护成员；</p>
+<p></p>
+<p>（2）私有继承时，基类的成员只能被直接派生类的成员访问，无法再往下继承；</p>
+<p></p>
+<p>（3）受保护继承时，基类的成员也只被直接派生类的成员访问，无法再往下继承。</p>
+<p></p>
+<p>24.公有继承时基类受保护的成员，可以通过派生类对象访问但不能修改。</p>
+<p></p>
+<p>25.有哪几种情况只能用构造函数初始化列表而不能用赋值初始化？</p>
+<p></p>
+<p>答：const成员，引用成员</p>
+<p></p>
+<p>26.什么是虚指针？</p>
+<p></p>
+<p>答：虚指针或虚函数指针是虚函数的实现细节。带有虚函数的每一个对象都有一个虚指针指向该类的虚函数表。</p>
+<p></p>
+<p>27.C++如何阻止一个类被实例化？一般在什么时候将构造函数声明为private？</p>
+<p></p>
+<p>答：（1）将类定义为抽象基类或者将构造函数声明为private；</p>
+<p></p>
+<p>（2）不允许类外部创建类对象，只能在类内部创建对象</p>
+<p></p>
+<p>28.main函数执行之前会执行什么？执行之后还能执行代码吗？</p>
+<p></p>
+<p>答：（1）全局对象的构造函数会在main函数之前执行；</p>
+<p></p>
+<p>（2）可以，可以用_onexit 注册一个函数，它会在main 之后执行;</p>
+<p></p>
+<p>如果你需要加入一段在main退出后执行的代码，可以使用atexit()函数，注册一个函数。</p>
+<p></p>
+<p>语法：</p>
+<p></p>
+<p>#include &lt;stdlib.h></p>
+<p></p>
+<p>#include &lt;stdio.h></p>
+<p></p>
+<p>int atexit(void (*function")(void));</p>
+<p></p>
+<p>void fn1( void ), fn2( void ), fn3( void );</p>
+<p></p>
+<p>int main( void )</p>
+<p></p>
+<p>{</p>
+<p></p>
+<p>atexit(fn1);</p>
+<p></p>
+<p>atexit( fn2 );</p>
+<p></p>
+<p>printf( "This is executed first.\n" );</p>
+<p></p>
+<p>}</p>
+<p></p>
+<p>void fn1()</p>
+<p></p>
+<p>{</p>
+<p></p>
+<p>printf( " This is\n" );</p>
+<p></p>
+<p>}</p>
+<p></p>
+<p>void fn2()</p>
+<p></p>
+<p>{</p>
+<p></p>
+<p>printf( " executed next." );</p>
+<p></p>
+<p>}</p>
+<p></p>
+<p>结果：</p>
+<p></p>
+<p>This is executed first.</p>
+<p></p>
+<p>This is executed next.</p>
+<p></p>
+<p>29.请描述进程和线程的区别？</p>
+<p></p>
+<p>答：（1）进程是程序的一次执行，线程是进程中的执行单元；</p>
+<p></p>
+<p>（2）进程间是独立的，这表现在内存空间、上下文环境上，线程运行在进程中；</p>
+<p></p>
+<p>（3）一般来讲，进程无法突破进程边界存取其他进程内的存储空间；而同一进程所产生的线程共享内存空间；</p>
+<p></p>
+<p>（4）同一进程中的两段代码不能同时执行，除非引入多线程。</p>
+<p></p>
+<p>30.进程间如何通信？</p>
+<p></p>
+<p>答：信号、信号量、消息队列、共享内存</p>
+<p></p>
+<p>31.在网络编程中涉及并发服务器，使用多进程与多线程的区别？</p>
+<p></p>
+<p>答：（1）线程执行开销小，但不利于资源管理和保护；进程则相反，进程可跨越机器迁移。</p>
+<p></p>
+<p>（2）多进程时每个进程都有自己的内存空间，而多线程间共享内存空间；</p>
+<p></p>
+<p>（3）线程产生的速度快，线程间通信快、切换快；</p>
+<p></p>
+<p>（4）线程的资源利用率比较好；</p>
+<p></p>
+<p>（5）线程使用公共变量或者资源时需要同步机制。</p>
+<p></p>
+<p>32.说一下TCP 3次握手、4次挥手的全过程。</p>
+<p></p>
+<p>33.TCP和UDP有什么区别。</p>
+<p></p>
+<p>答：</p>
+<p></p>
+<p>TCP——传输控制协议,提供的是面向连接、可靠的字节流服务。</p>
+<p></p>
+<p>当客户和服务器彼此交换数据前，必须先在双方之间建立一个TCP连接，之后才能传输数据。TCP提供超时重发，丢弃重复数据，检验数据，流量控制等功能，保证数据能从一端传到另一端。</p>
+<p></p>
+<p>UDP——用户数据报协议，是一个简单的面向数据报的传输层协议。UDP不提供可靠性，它只是把应用程序传给IP层的数据报发送出去，但是并不能保证它们能到达目的地。由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，且没有超时重发等机制，故而传输速度很快.</p>
+<p></p>
+<p>TCP协议和UDP协议的一些特性区别如下：</p>
+<p></p>
+<p>1.TCP协议在传送数据段的时候要给段标号；UDP 协议不需要。</p>
+<p></p>
+<p>2.TCP协议可靠；UDP协议不可靠。</p>
+<p></p>
+<p>3.TCP协议是面向连接；UDP协议采用无连接。</p>
+<p></p>
+<p>4.TCP协议负载较高,采用虚电路；UDP协议低负载。</p>
+<p></p>
+<p>5.TCP协议的发送方要确认接受方是否收到数据段(3次握手协议)。</p>
+<p></p>
+<p>6.TCP协议采用窗口技术和流控制。</p>
+<p></p>
+<p>34.如何编写套接字？</p>
+<p></p>
+<p>35.调用函数时要进行参数压栈，一般情况下顺序是从最右边参数往左压栈。</p>
+<p></p>
+<p>36.经常要操作的内存分为那几个类别？</p>
+<p></p>
+<p>答：（1）栈区：由编译器自动分配和释放，存放函数的参数值、局部变量的值等；</p>
+<p></p>
+<p>（2）堆：一般由程序员分配和释放，存放动态分配的变量；</p>
+<p></p>
+<p>（3）全局区（静态区）：全局变量和静态变量存放在这一块，初始化的和未初始化的分开放；</p>
+<p></p>
+<p>（4）文字常量区：常量字符串就放在这里，程序结束自动释放；</p>
+<p></p>
+<p>（5）程序代码区：参访函数体的二进制代码。</p>
+<p></p>
+<p>37.请讲述堆和栈的区别。</p>
+<p></p>
+<p>答：（1）申请方式不同。栈上有系统自动分配和释放；堆上有程序员自己申请并指明大小；</p>
+<p></p>
+<p>（2）栈是向低地址扩展的数据结构，大小很有限；堆是向高地址扩展，是不连续的内存区域，空间相对大且灵活；</p>
+<p></p>
+<p>（3）栈由系统分配和释放速度快；堆由程序员控制，一般较慢，且容易产生碎片；</p>
+<p></p>
+<p>38.全局变量放在数据段，内部变量static int count；放在数据段，内部变量char *p=“AAA”，p的位置在堆栈上，指向的空间的位置数据段，内部变量char</p>
+<p></p>
+<p>*p=new char；p的位置堆，指向的空间的位置数据段</p>
+<p></p>
+<p>39.字符数组与字符串的比较：最明显的区别是字符串会在末尾自动添加空字符。</p>
+<p></p>
+<p>40.函数指针相关概念（C++学习笔记）</p>
+<p></p>
+<p>41.类使用static成员的优点，如何访问？</p>
+<p></p>
+<p>答：优点：</p>
+<p></p>
+<p>（1）static 成员的名字是在类的作用域中，因此可以避免与其他类的成员或全局对象名字冲突；</p>
+<p></p>
+<p>（2）可以实施封装。static 成员可以是私有成员，而全局对象不可以；</p>
+<p></p>
+<p>（3） static 成员是与特定类关联的，可清晰地显示程序员的意图。</p>
+<p></p>
+<p>static 数据成员必须在类定义体的外部定义(正好一次)，static 关键字只能用于类定义体内部的声明中，定义不能标示为static.</p>
+<p></p>
+<p>不像普通数据成员，static成员不是通过类构造函数进行初始化，也不能在类的声明中初始化，而是应该在定义时进行初始化.保证对象正好定义一次的最好办法，就是将static</p>
+<p></p>
+<p>数据成员的定义放在包含类非内联成员函数定义的文件中。</p>
+<p></p>
+<p>静态数据成员初始化的格式为：</p>
+<p></p>
+<p>＜数据类型＞＜类名＞::＜静态数据成员名＞=＜值＞</p>
+<p></p>
+<p>类的静态数据成员有两种访问形式：</p>
+<p></p>
+<p>＜类对象名＞.＜静态数据成员名＞ 或 ＜类类型名＞::＜静态数据成员名＞</p>
+<p></p>
+<p>42. static数据成员和static成员函数</p>
+<p></p>
+<p>答：（1）static数据成员：</p>
+<p></p>
+<p>static数据成员独立于该类的任意对象而存在；每个static数据成员是与类关联的对象，并不与该类的对象相关联。Static数据成员（const</p>
+<p></p>
+<p>static数据成员除外）必须在类定义体的外部定义。不像普通数据成员，static成员不是通过类的构造函数进行初始化，而是应该在定义时进行初始化。</p>
+<p></p>
+<p>（2）static成员函数：</p>
+<p></p>
+<p>Static成员函数没有this形参，它可以直接访问所属类的static成员，不能直接使用非static成员。因为static成员不是任何对象的组成部分，所以static成员不能被声明为const。同时，static成员函数也不能被声明为虚函数。</p>
+<p></p>
+<p>43.static成员变量定义放在cpp文件中，不能放在初始化列表中。Const static成员可就地初始化。</p>
+<p></p>
+<p>44.如何引用一个已经定义过的全局变量？</p>
+<p></p>
+<p>答：可以用引用头文件的方式，也可以用extern关键字，如果用引用头文件方式来引用某个在头文件中声明的全局变量，假定你将那个变量写错了，那么在编译期间会报错，如果你用extern方式引用时，假定你犯了同样的错误，那么在编译期间不会报错，而在连接期间报错。</p>
+<p></p>
+<p>44.static关键字的作用。</p>
+<p></p>
+<p>答：static总是使得变量或对象的存储形式变成静态存储，连接方式变成内部连接，对于局部变量（已经是内部连接了），它仅改变其存储方式；对于全局变量（已经是静态存储了），它仅改变其连接类型。</p>
+<p></p>
+<p>45.奈奎斯特定理</p>
+<p></p>
+<p>46.香农定理</p>
+<p></p>
+<p>47．多态类中的虚函数表是 Compile-Time，还是 Run-Time时建立的?</p>
+<p></p>
+<p>答案：虚拟函数表是在编译期就建立了,各个虚拟函数这时被组织成了一个虚拟函数的入口地址的数组。而对象的隐藏成员--虚拟函数表指针是在运行期--也就是构造函数被调用时进行初始化的，这是实现多态的关键。</p>
+<p></p>
+<p>48. 一个父类写了一个 virtual 函数，如果子类覆盖它的函数不加 virtual ,也能实现多态?</p>
+<p></p>
+<p>在子类的空间里，有没有父类的这个函数，或者父类的私有变量? (华为笔试题）</p>
+<p></p>
+<p>答案：只要基类在定义成员函数时已经声明了 virtue关键字，在派生类实现的时候覆盖该函数时，virtue关键字可加可不加，不影响多态的实现。子类的空间里有父类的所有变量(static除外)。</p>
+<p></p>
+<p>49. 完成字符串拷贝可以使用 sprintf、strcpy 及 memcpy 函数，请问这些函数有什么区别</p>
+<p></p>
+<p>，你喜欢使用哪个，为什么？</p>
+<p></p>
+<p>答案：这些函数的区别在于实现功能以及操作对象不同。</p>
+<p></p>
+<p>（1）strcpy 函数操作的对象是字符串，完成从源字符串到目的字符串的拷贝功能。</p>
+<p></p>
+<p>（2）sprintf 函数操作的对象不限于字符串：虽然目的对象是字符串，但是源对象可以是字符串、也可以是任意基本类型的数据。这个函数主要用来实现（字符串或基本数据类型）向字符串的转换功能。如果源对象是字符串，并且指定 %s 格式符，也可实现字符串拷贝功能。</p>
+<p></p>
+<p>（3）memcpy</p>
+<p></p>
+<p>函数顾名思义就是内存拷贝，实现将一个内存块的内容复制到另一个内存块这一功能。内存块由其首地址以及长度确定。程序中出现的实体对象，不论是什么类型，其最终表现就是在内存中占据一席之地（一个内存区间或块）。因此，memcpy</p>
+<p></p>
+<p>的操作对象不局限于某一类数据类型，或者说可适用于任意数据类型，只要能给出对象的起始地址和内存长度信息、并且对象具有可操作性即可。鉴于memcpy</p>
+<p></p>
+<p>函数等长拷贝的特点以及数据类型代表的物理意义，memcpy</p>
+<p></p>
+<p>函数通常限于同种类型数据或对象之间的拷贝，其中当然也包括字符串拷贝以及基本数据类型的拷贝。</p>
+<p></p>
+<p>对于字符串拷贝来说，用上述三个函数都可以实现，但是其实现的效率和使用的方便程度不同：</p>
+<p></p>
+<p>? strcpy 无疑是最合适的选择：效率高且调用方便。</p>
+<p></p>
+<p>? sprintf 要额外指定格式符并且进行格式转化，麻烦且效率不高。</p>
+<p></p>
+<p>? memcpy 虽然高效，但是需要额外提供拷贝的内存长度这一参数，易错且使用不便；并且如果长度指定过大的话（最优长度是源字符串长度 +</p>
+<p></p>
+<p>1），还会带来性能的下降。其实 strcpy 函数一般是在内部调用 memcpy 函数或者用汇编直接实现的，以达到高效的目的。因此，使用</p>
+<p></p>
+<p>memcpy 和 strcpy 拷贝字符串在性能上应该没有什么大的差别。</p>
+<p></p>
+<p>对于非字符串类型的数据的复制来说，strcpy 和 snprintf 一般就无能为力了，可是对 memcpy</p>
+<p></p>
+<p>却没有什么影响。但是，对于基本数据类型来说，尽管可以用 memcpy</p>
+<p></p>
+<p>进行拷贝，由于有赋值运算符可以方便且高效地进行同种或兼容类型的数据之间的拷贝，所以这种情况下 memcpy 几乎不被使用 。memcpy</p>
+<p></p>
+<p>的长处是用来实现（通常是内部实现居多）对结构或者数组的拷贝，其目的是或者高效，或者使用方便，甚或两者兼有。</p>
+<p></p>
+<p>50. 应用程序在运行时的内存包括代码区和数据区，其中数据区又包括哪些部分？</p>
+<p></p>
+<p>答：对于一个进程的内存空间而言，可以在逻辑上分成 3个部份：代码区，静态数据区和动态数据区。</p>
+<p></p>
+<p>动态数据区一般就是“堆栈”。 栈是一种线性结构，堆是一种链式结构。进程的每个线程都有私有的“栈”。</p>
+<p></p>
+<p>全局变量和静态变量分配在静态数据区，本地变量分配在动态数据区，即堆栈中。程序通过堆栈的基地址和偏移量来访问本地变量。</p>
+<p></p>
+<p>51. C++函数中值的传递方式有哪几种?</p>
+<p></p>
+<p>答：三种传递方式为：值传递、指针传递和引用传递。</p>
+<p></p>
+<p>52. C++里面是不是所有的动作都是main()引起的？如果不是，请举例.</p>
+<p></p>
+<p>比如全局变量的初始化，就不是由main函数引起的</p>
+<p></p>
+<p>举例： class A{};</p>
+<p></p>
+<p>A a; //a的构造函数限执行</p>
+<p></p>
+<p>int main() {}</p>
+<p></p>
+<p>53. 下列哪两个是等同的</p>
+<p></p>
+<p>int b;</p>
+<p></p>
+<p>A const int* a = &b;</p>
+<p></p>
+<p>B const* int a = &b;</p>
+<p></p>
+<p>C const int* const a = &b;</p>
+<p></p>
+<p>D int const* const a = &b;</p>
+<p></p>
+<p>54. 内联函数在编译时是否做参数类型检查？</p>
+<p></p>
+<p>答：内联函数要做参数类型检查, 这是内联函数跟宏相比的优势。</p>
+<p></p>
+<p>55. 全局变量和局部变量有什么区别？实怎么实现的？操作系统和编译器是怎么知道的？</p>
+<p></p>
+<p>（1）生命周期不同：</p>
+<p></p>
+<p>全局变量随主程序创建和创建，随主程序销毁而销毁</p>
+<p></p>
+<p>局部变量在局部函数内部，甚至局部循环体等内部存在，退出就不存在； 内存中</p>
+<p></p>
+<p>分配在全局数据区</p>
+<p></p>
+<p>（2）使用方式不同：通过声明后全局变量程序的各个部分都可以用到；局部变量只能在局部使用，分配在栈区</p>
+<p></p>
+<p>操作系统和编译器通过内存分配的位置来知道的，全局变量分配在全局数据段并且在程序开始运行的时候被加载。局部变量则分配在堆栈里面 。</p>
+<p></p>
+<p>56. 有 A 、 B 、 C 、 D 四个人，要在夜里过一座桥。他们通过这座桥分别需要耗时 1 、 2 、 5 、 10 分钟，只有一支手电，并且同时最多只能两个人一起过桥。请问，如何安排，能够在 17 分钟内这四个人都过桥？</p>
+<p></p>
+<p>Solution:关键是时间最长的两个人必须同时过桥</p>
+<p></p>
+<p>The First Time ： A(1) 和 B(2) 过桥， A(1) 返回 Cost ： 1+2</p>
+<p></p>
+<p>The Second Time ： C(5) 和 D(10) 过桥， B(2) 返回 Cost ： 10+2</p>
+<p></p>
+<p>The Third Time A(1) 和 B(2) 过桥 Cost ： 2</p>
+<p></p>
+<p>Total Time Cost ： (1+2)+(10+2)+2=17 minutes</p>
+<p></p>
+<p>57. static全局变量与普通的全局变量有什么区别？static局部变量和普通局部变量有什么区别？static函数与普通函数有什么区别？</p>
+<p></p>
+<p>答：static全局变量与普通全局变量区别：static全局变量只初使化一次，防止在其他文件单元中被引用;</p>
+<p></p>
+<p>static局部变量和普通局部变量区别：static局部变量只被初始化一次，下一次依据上一次结果值；</p>
+<p></p>
+<p>static函数与普通函数区别：static函数在内存中只有一份，普通函数在每个被调用中维持一份拷贝。</p>
+<p></p>
+<p>58. 程序的局部变量存在于（堆栈）中，全局变量存在于（静态区 ）中，动态申请数据存在于（ 堆）中。</p>
+<p></p>
+<p>59． 对于一个频繁使用的短小函数,在C语言中应用什么实现,在C++中应用什么实现?</p>
+<p></p>
+<p>c用宏定义，c++用inline</p>
+<p></p>
+<p>60. 有1,2,....一直到n的无序数组,求排序算法,并且要求时间复杂度为O(n),空间复杂度O(1),使用交换,而且一次只能交换两个数。</p>
+<p></p>
+<p>#include&lt;iostream.h></p>
+<p></p>
+<p>Using namespace std；</p>
+<p></p>
+<p>int main(){</p>
+<p></p>
+<p>int a[] = {10,6,9,5,2,8,4,7,1,3};</p>
+<p></p>
+<p>int len = sizeof(a) / sizeof(int);</p>
+<p></p>
+<p>int temp;</p>
+<p></p>
+<p>for(int i = 0; i < len; )</p>
+<p></p>
+<p>{</p>
+<p></p>
+<p>temp = a[a[i] - 1];</p>
+<p></p>
+<p>a[a[i] - 1] = a[i];</p>
+<p></p>
+<p>a[i] = temp;</p>
+<p></p>
+<p>if ( a[i] == i + 1)</p>
+<p></p>
+<p>i++;</p>
+<p></p>
+<p>}</p>
+<p></p>
+<p>for (int j = 0; j < len; j++)</p>
+<p></p>
+<p>cout&lt;&lt;a[j]&lt;&lt;",";</p>
+<p></p>
+<p>return 0;</p>
+<p></p>
+<p>}</p>
+
+
+<p style='float:right;'>本页共568段，15126个字符，31336 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

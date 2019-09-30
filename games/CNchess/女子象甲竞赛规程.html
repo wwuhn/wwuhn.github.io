@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>全国象棋女子甲级联赛竞赛规程(2018-2019“乐昌桃花杯”)</h4>
+
+<p>一、主办单位：</p>
+
+<p>中国象棋协会</p>
+
+<p>二、承办单位：</p>
+
+<p>广东省棋类协会、乐昌市体育局</p>
+
+<p>三、竞赛时间：</p>
+
+<p>第一阶段：2018年10月</p>
+
+<p>第二阶段：2018年12月</p>
+
+<p>第三阶段：2019年3月</p>
+
+<p>四、竞赛项目：女子团体赛</p>
+
+<p>五、参赛单位：</p>
+
+<p>（一）获得2017-2018全国象棋女子甲级联赛前七名的单位；</p>
+
+<p>（二）获得2018-2019全国象棋女子甲级联赛预选赛前三名的单位；</p>
+
+<p>（三）如有不参赛者，则按照预选赛成绩分别依次递补。</p>
+
+<p>六、参赛办法：</p>
+
+<p>（一）每单位可报领队1名，教练1名，棋手3名。每场上场队员2名。</p>
+
+<p>（二）参赛棋手应符合相关《全国象棋甲级联赛参赛单位及参赛棋手注册交流办法》的规定。</p>
+
+<p>七、竞赛办法：</p>
+
+<p>（一）执行最新《象棋竞赛规则》。</p>
+
+<p>（二）比赛采用双循环制，共赛18轮。分为三阶段，进行赛会制比赛。</p>
+
+<p>（三）比赛用时：</p>
+
+<p>每方基本用时为60分钟，每走一步加30秒。</p>
+
+<p>(四)台次排列：临时定台制。</p>
+
+<p>(五)名次计算：根据各队所得场分多少排列名次，多者列前。场分相等时，按以下顺序依次区分：全队总局分，胜场，全队胜局，后手胜局，直胜，全队犯规。若仍无法区分时，以附加赛区分。</p>
+
+<p>(六)比赛计算等级分。</p>
+
+<p>八、录取名次和奖励：</p>
+
+<p>（一）录取前三名。分别奖励：（人民币，税前）冠军15万，亚军10万，季军6万。</p>
+
+<p>(二)联赛前七名获得参加2019-2020全国象棋女子甲级联赛资格。</p>
+
+<p>(三)其他奖项评奖办法另定。</p>
+
+<p>九、报名和报到：</p>
+
+<p>另行通知。</p>
+
+<p>十、裁判员和仲裁委员会：</p>
+
+<p>(一)中国象棋协会遴选仲裁、裁判长，副裁判长及裁判员。</p>
+
+<p>(二)设仲裁委员会，人员组成和职责范围按《仲裁委员会条例》执行。</p>
+
+<p>十一、器材和经费：</p>
+
+<p>(一)棋子、棋盘和棋钟须严格按照中国象棋协会器材标准和要求备齐。</p>
+
+<p>(二)各队赛会制比赛期间相关费用自理。</p>
+
+<p>十二、其他：</p>
+
+<p>(一)各队须参加由中国象棋协会组织的赛事推广活动。</p>
+
+<p>(二)参赛人员须出席开、闭幕式。因故不能出席，需经协会批准。</p>
+
+<p>(三)棋手着装：</p>
+
+<p>1.正装参赛并出席与比赛有关的各项活动；</p>
+
+<p>2.每场比赛各队棋手需着统一队服参赛。</p>
+
+<p>(四)未尽事宜，另行通知。</p>
+
+<p>十三、本规程解释权属中国象棋协会。</p>
+
+<p>2017-2018年全国象棋女子甲级联赛赛果</p>
+
+<p>http://www.gdchess.com/XQData/ShowTeamRank.asp？eid=100002697</p>
+
+<p>排名	编号	团体名称	总分	局分	队胜局	胜数	出场	胜	平	负	备注</p>
+
+<p>1	1	北京九重汇象棋队	23	44	12	8	18	8	7	3</p>
+
+<p>2	4	江苏新天一	23	43	10	8	18	8	7	3</p>
+
+<p>3	9	广东鼎新高科	21	41	9	4	18	4	13	1</p>
+
+<p>4	3	浙江上盘象棋俱乐部	19	38	9	7	18	7	5	6</p>
+
+<p>5	5	浙江非奥棋类俱乐部	18	36	9	7	18	7	4	7</p>
+
+<p>6	2	上海九城集团	18	34	10	6	18	6	6	6</p>
+
+<p>7	6	成都锦江队	17	35	7	3	18	3	11	4</p>
+
+<p>8	7	龙元建设队	16	35	7	4	18	4	8	6</p>
+
+<p>9	10	金环建设象棋队	15	32	9	5	18	5	5	8</p>
+
+<p>10	8	武汉光谷湖北	10	22	5	3	18	3	4	11</p>
+
+<p>预选赛参赛队伍（比赛时间2018.8.04-07在深圳）</p>
+
+<p>1杭州燃气集团队</p>
+
+<p>2广东省乐昌市队</p>
+
+<p>3金环建设河北队</p>
+
+<p>4山东队</p>
+
+<p>5象棋微学堂杭州队</p>
+
+<p>6广州棋院</p>
+
+<p>7成都市棋类协会</p>
+
+<p>8云南省棋牌运动管理中心</p>
+
+<p>9杭州分院国际交流中心</p>
+
+<p>全国象棋女子甲级联赛竞赛规程(2017-2018)</p>
+
+<p>2017年08月30日14:36责任编辑：刘笑来源：中国棋牌网</p>
+
+<p>2017-2018全国象棋女子甲级联赛竞赛规程</p>
+
+<p>一、主办单位：</p>
+
+<p>国家体育总局棋牌运动管理中心、中国象棋协会</p>
+
+<p>二、承办单位：</p>
+
+<p>山东省棋牌运动管理中心、潍坊市体育局、高密市人民政府</p>
+
+<p>三、竞赛时间：</p>
+
+<p>第一阶段：2017年10月17-23日</p>
+
+<p>第二阶段：2018年4月21-27日</p>
+
+<p>四、竞赛项目：女子团体赛</p>
+
+<p>五、参赛单位：</p>
+
+<p>（一）获得2016-2017全国象棋女子甲级联赛前七名的单位；</p>
+
+<p>（二）获得2017-2018全国象棋女子甲级联赛预选赛前三名的单位；</p>
+
+<p>（三）如有不参赛者，则按照预选赛成绩分别依次递补。</p>
+
+<p>六、参赛办法：</p>
+
+<p>（一）每单位可报领队1名，教练1名，棋手3名。每场上场队员2名。</p>
+
+<p>（二）参赛棋手应符合相关《全国象棋甲级联赛参赛单位及参赛棋手注册交流办法》的规定。</p>
+
+<p>七、竞赛办法：</p>
+
+<p>（一）执行最新《象棋竞赛规则》。</p>
+
+<p>（二）比赛采用双循环制，共赛18轮。分为两阶段，进行赛会制比赛。</p>
+
+<p>（三）比赛用时：</p>
+
+<p>每方基本用时为60分钟，每走一步加30秒。</p>
+
+<p>(四)台次排列：临时定台制。</p>
+
+<p>(五)名次计算：根据各队所得场分多少排列名次，多者列前。场分相等时，按以下顺序依次区分：全队总局分，胜场，全队胜局，后手胜局，直胜，全队犯规。若仍无法区分时，以附加赛区分。</p>
+
+<p>(六)比赛计算等级分。</p>
+
+<p>八、录取名次和奖励：</p>
+
+<p>（一）录取前三名。分别奖励：（人民币，税前）冠军12万，亚军6万，季军4万。</p>
+
+<p>(二)联赛前七名获得参加2018-2019全国象棋女子甲级联赛资格。</p>
+
+<p>(三)其他奖项评奖办法另定。</p>
+
+<p>九、报名和报到：</p>
+
+<p>另行通知。</p>
+
+<p>十、裁判员和仲裁委员会：</p>
+
+<p>(一)中国象棋协会遴选仲裁、裁判长，副裁判长及裁判员。</p>
+
+<p>(二)设仲裁委员会，人员组成和职责范围按《仲裁委员会条例》执行。</p>
+
+<p>十一、器材和经费：</p>
+
+<p>(一)棋子、棋盘和棋钟须严格按照中国象棋协会器材标准和要求备齐。</p>
+
+<p>(二)各队赛会制比赛期间相关费用自理。</p>
+
+<p>十二、其他：</p>
+
+<p>(一)各队须参加由中国象棋协会组织的赛事推广活动。</p>
+
+<p>(二)参赛人员须出席开、闭幕式。因故不能出席，需经协会批准。</p>
+
+<p>(三)棋手着装：</p>
+
+<p>1.正装参赛并出席与比赛有关的各项活动；</p>
+
+<p>2.每场比赛各队棋手需着统一队服参赛。</p>
+
+<p>(四)未尽事宜，另行通知。</p>
+
+<p>十三、本规程解释权属中国象棋协会。</p>
+
+
+
+<p style='float:right;'>本页共114段，2466个字符，6138 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

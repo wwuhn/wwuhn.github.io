@@ -1,0 +1,522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MFC中获取各个窗口之间的句柄或者指针对象的方法</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop属性.  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器  
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000">红色</option><option value="#006600">绿色</option><option value="#0000ff">蓝色</option><option value="#660000">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<h3></h3>
+
+<p>MFC在非常多的对话框操作中,我们常常要用到在一个对话框中调用另一个对话框的函数或变量。能够用以下方法来解决。</p>
+
+<p>HWND hWnd=::FindWindow(NULL,_T(&quot;Sphere&quot;));      //得到对话框的句柄</p>
+
+<p>C***Dialog* pWnd= (C***Dialog*)C***Dialog::FromHandle(hWnd); //由句柄得到对话框的对象指针</p>
+
+<p>pWnd-  &gt;xxx( );   //调用C***Dialog中的函数xxx();</p>
+
+<p><a href="http://www.cnblogs.com/del/archive/2008/02/28/1085432.html">ref</a></p>
+
+
+
+
+
+<p>获取主窗体句柄:CWnd *wnd  = AfxGetMainWnd();</p>
+<p>HWND hwnd = wnd-&gt;GetSafeHwnd();</p>
+
+
+
+<p>设置控件为窗体焦点：GetDlgItem(idC_TREE1)-&gt;SetFocus();</p>
+
+
+
+<p>获取控件句柄：HWND hwndctrl = ::GetDlgItem(mainHwnd, idC_TREE1);//获取树形控件的句柄idC_TREE idC_COMBO1</p>
+
+
+
+
+  <p>获取当前最上层窗体的句柄：HWND mainHwnd = ::GetForegroundWindow();//获取当前topmost的窗体句柄</p>
+  <p>获取当前窗体的焦点句柄：HWND currentFocus = ::GetFocus();</p>
+  
+
+
+  <p>(一)MFC中获得各个类的句柄总结 </p>
+  
+
+
+  <p>VC中编程。最大的障碍和问题就是消息机制和指针获取与操作。事实上这些内容基本上是每本VC学习工具书上必讲的内容，并且通过MSDN非常多问题都能解决。下面文字主要是个人在编程中指针使用的一些体会。说的不当的地方请指正。一般我们使用的框架是VC提供的Wizard生成的MFC App Wizard(exe)框架，不管是多文档还是单文档，都存在指针获取和操作问题。
+
+
+<p>以下这节内容主要是一般的框架。然后再讲多线程中的指针使用。使用到的类须要包括响应的头文件。首先一般获得本类(视图、文档、对话框都支持)实例指针this，用this的目的，主要能够通过类中的函数向其它类或者函数中发指针，以便于在非本类中操作和使用本类中的功能。</p>
+    <p>这当中的关键在于理解 m_pMainWnd， AfxGetApp()，AfxGetMainWnd() 的意义！</p>
+    <p>1） 在View中获得Doc指针</p>
+
+<p>CYouSDidoc *pDoc=GetDocument();一个视图仅仅能有一个文档。</p>
+
+<p>2) 在App中获得MainFrame指针</p>
+
+<p>CWinApp 中的 m_pMainWnd变量就是MainFrame的指针。</p>
+
+<p>CMainFrame *pMain =(CMainFrame *)AfxGetMainWnd();</p>
+
+<p>3) 在View中获得MainFrame指针</p>
+
+<p>CMainFrame *pMain=(CmaimFrame *)AfxGetApp()-&gt;m_pMainWnd;</p>
+
+<p>4) 获得View（已建立）指针</p>
+
+<p>CMainFrame *pMain=(CmaimFrame *)AfxGetApp()-&gt;m_pMainWnd;</p>
+
+<p>CyouView *pView=(CyouView *)pMain-&gt;GetActiveView();</p>
+
+<p>5) 获得当前文档指针</p>
+
+<p>CDocument * pCurrentDoc =(CFrameWnd *)m_pMainWnd-&gt;GetActiveDocument();</p>
+
+<p>6) 获得状态栏与工具栏指针</p>
+
+<p>CStatusBar * pStatusBar＝(CStatusBar *)AfxGetMainWnd()-&gt;GetDescendantWindow(AFX_idW_STATUS_BAR);</p>
+
+<p>CToolBar * pToolBar=(CtoolBar *)AfxGetMainWnd()-&gt;GetDescendantWindow(AFX_idW_TOOLBAR);</p>
+    <p>7) 假设框架中增加工具栏和状态栏变量还能够这样</p>
+
+<p>(CMainFrame *)GetParent()-&gt;m_wndToolBar;</p>
+
+<p>(CMainFrame *)GetParent()-&gt;m_wndStatusBar;</p>
+    <p>8) 在Mainframe获得菜单指针</p>
+
+<p>CMenu *pMenu=m_pMainWnd-&gt;GetMenu();</p>
+
+<p>9) 在不论什么类中获得应用程序类</p>
+
+<p>AfxGetInstanceHandle 得到句柄，AfxGetApp 得到指针</p>
+    <p>9.1 怎样在自己的类和“应用程序类”中获得“文档类”的句柄？</p>
+
+<p>SDI AfxGetMainWnd() -&gt; GetActiveView() -&gt; GetDocument() 得到指针</p>
+
+<p>MDI AfxGetMainWnd() -&gt; MDIGetActive() -&gt; GetActiveView() -&gt; GetDocument() 得到指针</p>
+
+<p>9.2 怎样在“框架类”中获得“文档类”句柄？</p>
+
+<p>SDI GetActiveView() -&gt; GetDocument() 得到指针。MDI MDIGetActive() -&gt; GetActiveView() -&gt; GetDocument() 从 CMainFrame 得到指针，GetActiveView() -&gt; GetDocument() 从 CChildFrame 得到指针</p>
+
+<p>9.3 怎样在“视图类”中获得“文档类”句柄？</p>
+
+<p>GetDocument()</p>
+    <p>I 怎样在“文档类”中获得“视图类”句柄？</p>
+
+<p>GetView()。调用 GetFirstViewPosition 和 GetNextView 函数得到指针。</p>
+
+<p>II 怎样在自己的类和“应用程序类”中获得“视图类”句柄？</p>
+
+<p>SDI GetActiveView 得到指针</p>
+
+<p>MDI MDIGetActive() -&gt; GetActiveView() 从 CMainFrame 得到指针，GetActiveView 从 CChildFrame 得到指针</p>
+    
+
+<p>最后提醒大家。在提取到各个句柄之后。由于初次提取的都是标准类句柄，所以，在使用时要注意将标准句柄转换成自己的类的句柄。</p>
+    <p>如：</p>
+
+<p>AfxGetApp();//得到的是WinApp类的句柄。</p>
+
+<p>所以操作前记得转换成自定义的类的句柄。</p>
+
+<p>如：((CMyApp*)AfxGetApp())-&gt;XXXX（）。//这的xxxx()就是你定义的类中间的成员。</p>
+    <p>(二)MFC中<strong>句柄、指针、id之间的转换</strong></p>
+
+<p>win32直接操作的是句柄HANDLE。每一个句柄就相应windows窗体，而vc对HANDLE进行类封装，间接操作的都是HANDLE，如今句柄仅仅是类的一个成员变量。</p>
+<p>从句柄到指针</p>
+
+<p>CWnd* pWnd=CWnd::FromHandle(hWnd); //a temporary CWnd object is created //and attached.</p>
+
+<p>pWnd-&gt;Attach(hWnd); //Attaches a Windows window to a CWnd object</p>
+<p>从指针到句柄</p>
+
+<p>HWND hWnd=pWnd-&gt;GetSafeHandle();</p>
+
+<p>hWnd=pWnd-&gt;m_hWnd;</p>
+<p>SDK编程中窗体id、句柄、指针三者相互转换函数</p>
+
+<p>id--HANDLE--HWND三者之间的互相转换</p>
+
+<p>id-&gt;句柄-----------hWnd = ::GetDlgItem(hParentWnd,id);</p>
+
+<p>id-&gt;指针-----------CWnd::GetDlgItem();</p>
+
+<p>句柄-&gt;id-----------id = GetWindowLong(hWnd,GWL_ID);</p>
+
+<p>句柄-&gt;指针--------CWnd *pWnd=CWnd::FromHandle(hWnd);</p>
+
+<p>指针-&gt;ID----------id = GetWindowLong(pWnd-&gt;GetSafeHwnd,GWL_ID);</p>
+
+<p>GetDlgCtrlID();</p>
+
+<p>指针-&gt;句柄--------hWnd=cWnd.GetSafeHandle() or mywnd-&gt;m_hWnd;</p>
+
+<p>HICON-&gt;ID--------HICON hIcon = AfxGetApp()-&gt;LoadIcon(nIconID);</p>
+
+<p>HICON hIcon = LoadIcon(AfxGetApp()-&gt;m_hInstance, MAKEINTRESOURCE(nIconID));</p>
+
+
+<p>附注：获得窗体句柄三种方法</p>
+<p>1.HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName)</p>
+<p>HWND FindWindowEx(HWND hwndParent, HWND hwndChildAfter,LPCTSTR lpClassName, LPCTSTR lpWindowName)</p>
+<p>2.HWND WindowFromPoint(POINT&amp; Point)//获得当前鼠标光标位置的窗体HWND</p>
+
+
+<p><a target="_blank" href="http://blog.csdn.net/cy757/archive/2009/08/07/4423756.aspx" rel="nofollow">ref</a></p>
+
+
+
+<p>VC++中有关句柄和指针及其转换</p>
+<p>1.MFC窗体的句柄和指针的转换</p>
+
+<p>(1) 一般窗体对象都会有一个其相应的句柄变量，所以我们能够取此对象的m_hWnd属性来得到句柄。</p>
+
+<p>(2)使用GetSafeHwnd函数取得程序所在窗体类的句柄</p>
+
+<p>(3)使用FromHandle函数来通过句柄得到其想要的指针</p>
+
+<p>其它的一些方法：</p>
+
+<p>GetActiveWindow 取当前活动窗体句柄</p>
+
+<p>AfxGetMainWnd   取主窗体句柄</p>
+
+<p>GetForegroundWindow 取前台窗体句柄</p>
+
+<p>FindWindow寻找參数指定的窗体</p>
+
+<p>EnumWindow枚举窗体</p>
+<p>2. 上下文无关设备的句柄和指针的转换</p>
+
+<p>(1)this-&gt;m_hDC</p>
+
+<p>(2)CDC::GetSafeHdc</p>
+
+<p>(3)能够使用FromHandle函数来通过句柄得到其想要的指针</p>
+<p>3.Gdi对象的句柄和指针的转换</p>
+
+<p>(1)this-&gt;m_hObject</p>
+
+<p>(2)CGdiObject::GetSafeHandle</p>
+
+<p>(3)能够使用FromHandle函数来通过句柄得到其想要的指针</p>
+<p>4.窗体、控件的指针和句柄的相互转化</p>
+<p>(1)指针转化为句柄</p>
+<p>在MFC应用程序中首先要获得窗体的指针，然后将其转化为句柄</p>
+<p>CWnd* pWnd;</p>
+<p>HANDLE hWnd = pWnd-&gt;GetSafeHwnd();</p>
+<p>(2)句柄转化为指针</p>
+<p>在MFC应用程序中首先获得对话框控件的句柄。然后获得其指针</p>
+<p>HANDLE hWnd;</p>
+<p>GetDlgItem(IDC_xxx,&amp;hWnd);</p>
+<p>CWnd * pWnd = FromHandle(hWnd);</p>
+<p>获得程序窗体指针的办法</p>
+<p>(1)获得主框架窗体指针(不论什么时候都能够用，仅仅要是MFC程序中)</p>
+<p>CWnd* pWnd = AfxGetMainWnd();</p>
+<p>(2)获得对话框中控件指针</p>
+<p>CWnd* pWnd = GetDlgItem(IDC_xxx);</p>
+<p>(3)获得对话框中某控件的句柄</p>
+<p>HANDLE GetDlgItem(m_hDLG,m_nID_DlgItem);</p>
+<p>(4)获得GDI对象的句柄</p>
+<p>HANDLE m_hGDIObj = m_pGDIObj-&gt;GetSafeHanle();</p>
+<p><a target="_blank" href="http://blog.csdn.net/lovegod12/archive/2009/04/19/4092249.aspx" rel="nofollow">ref</a></p>
+
+</div>
+
+
+<div>
+<div id="ftsize1"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em">大</a></div>
+<div id="ftsize2"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em">中</a></div>
+<div id="ftsize3"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em">小</a></div>
+<div style="display:none" id="goTopBtn"><a target="_self" style="color:#fff;">&and;</a></div>
+<div style="display:none" id="shangy">
+	<a onclick="shangy()" target="_self" style="color:#fff;">&uarr;</a></div>
+<div id="xiay">
+	<a onclick="xiay()" target="_self" style="color:#fff;">&darr;</a></div>
+<div id="goBottom">
+	<a onclick="downn()" target="_self" style="color:#fff;">&or;</a></div>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

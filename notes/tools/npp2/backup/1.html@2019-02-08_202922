@@ -1,0 +1,55 @@
+﻿#include <iostream>
+using namespace std;
+void bubble(int a[], int n);
+void binaryQuery(int array[], int x);
+
+int main()
+{
+	int a[] = {0, 3, 5, 1, 8, 7, 9, 4, 2, 10, 6};
+	int n = 11;
+	bubble(a,n);
+	cout<<endl;
+	binaryQuery(a, 5);
+	cin.get();
+	return 0;
+} 
+
+void bubble(int a[], int n)
+{
+	int i, j, tmp;
+	bool flag;
+	for (i=1; i<n; ++i)
+	{
+		flag = false;
+		for (j=0; j<n-i; ++j)
+			if (a[j+1] < a[j])
+			{
+				tmp = a[j]; a[j] = a[j+1]; a[j+1] = tmp; flag = true;}
+			if (!flag) break;/* 一趟冒泡中没有发生交换，排序结束*/
+	}
+	cout << endl;
+	for (i=0; i<n; ++i)
+		cout << a[i] << ' ';
+
+}
+
+void binaryQuery(int array[], int x)
+{
+	int lh, rh, mid;
+	lh = 0;  rh = 9;
+	while ( lh <= rh )
+	{
+		mid = ( lh + rh ) / 2;
+		if ( x== array[mid] ) 
+		{
+			cout << x << "的位置是：" << mid << endl; 
+			break; 
+		}
+		if ( x < array[mid]) 
+			rh = mid - 1; 
+		else 
+			lh = mid + 1;
+    }
+	if (lh > rh) 
+		cout << "没有找到" << endl;
+}

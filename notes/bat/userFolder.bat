@@ -1,0 +1,1 @@
+cmd /c reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit" /v "LastKey" /d "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\user shell folders" /f&&start regedit.exe

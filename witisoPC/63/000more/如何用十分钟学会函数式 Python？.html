@@ -1,0 +1,775 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>如何用十分钟学会函数式 Python？</h4>
+
+<p></p>
+
+<p>函数式编程到底是什么？本文将详解其概念，同时分享怎样在 Python 中使用函数式编程。主要内容包括列表解析式和其他形式的解析式。</p>
+
+<p>函数式模型</p>
+
+<p>在命令式模型中，执行程序的方式是给计算机一系列指令让它执行。执行过程中计算机会改变状态。例如，比如 A 的初始值是 5，后来改变了 A 的值。那么 A 就是个变量，而变量的意思就是包含的值会改变。</p>
+
+<p>而在函数式模式中，你不需要告诉计算机做什么，而是告诉计算机是什么。比如数字的最大公约数是什么，1 到 n 的乘积是什么等等。</p>
+
+<p>因此，变量是不能被改变的。变量一旦被设置，就永远保持同一个值（注意在纯粹的函数式语言中，它们不叫变量）。因此，在函数式模型中，函数没有副作用。副作用就是函数对函数外的世界做出的改变。来看看下面这段Python代码的例子：</p>
+
+<p>a = 3</p>
+
+<p>def some_func():</p>
+
+<p>global a</p>
+
+<p>a = 5</p>
+
+<p>some_func()</p>
+
+<p>print(a)</p>
+
+<p>代码的输出是 5。在函数式模型中，改变变量的值是完全不允许的，让函数影响函数外的世界也是不允许的。函数唯一能做的就是做一些计算然后返回一个值。</p>
+
+<p>你可能会想：“没有变量也没有副作用？这有什么好的？”好问题。</p>
+
+<p>如果函数使用同样的参数调用两次，那么我们可以保证它会返回同样的结果。如果你学过数学函数，你肯定知道这样做的好。这叫做引用透明性（referential transparency）。由于函数没有副作用，那么我们可以加速计算某个东西的程序。比如，如果程序知道 func(2)返回 3，那么可以将这个值保存在表中，这样就不需要重复运行我们早已知道结果的函数了。</p>
+
+<p>通常，函数式编程不使用循环，而是使用递归。递归是个数学概念，通常的意思是“把结果作为自己的输入”。使用递归函数，函数可以反复调用自己。下面就是个使用Python定义的递归函数的例子：</p>
+
+<p>def factorial_recursive(n):</p>
+
+<p># Base case: 1! = 1</p>
+
+<p>if n == 1:</p>
+
+<p>return 1</p>
+
+<p># Recursive case: n! = n * (n-1)!</p>
+
+<p>else:</p>
+
+<p>return n * factorial_recursive(n-1)</p>
+
+<p>函数式编程语言也是懒惰的。懒惰的意思是，除非到最后一刻，否则它们不会执行计算或做任何操作。如果代码要求计算2+2，那么函数式程序只有在真正用到计算结果的时候才会去计算。我们马上就会介绍Python中的这种懒惰。</p>
+
+<p>映射</p>
+
+<p>要理解映射（map），首先需要理解什么是可迭代对象。可迭代对象（iterable）指任何可以迭代的东西。通常是列表或数组，但 Python 还有许多其他可迭代对象。甚至可以自定义对象，通过实现特定的魔术方法使其变成可迭代对象。魔术方法就像 API 一样，能让对象更有 Python 风格。要让对象变成可迭代对象，需要实现以下两个魔术方法：</p>
+
+<p>class Counter:</p>
+
+<p>def __init__(self, low, high):</p>
+
+<p># set class attributes inside the magic method __init__</p>
+
+<p># for "inistalise"</p>
+
+<p>self.current = low</p>
+
+<p>self.high = high</p>
+
+<p>def __iter__(self):</p>
+
+<p># first magic method to make this object iterable</p>
+
+<p>return self</p>
+
+<p>def __next__(self):</p>
+
+<p># second magic method</p>
+
+<p>if self.current &gt; self.high:</p>
+
+<p>raise StopIteration</p>
+
+<p>else:</p>
+
+<p>self.current += 1</p>
+
+<p>return self.current - 1</p>
+
+<p>第一个魔术方法“__iter__”（双下划线iter）返回迭代子，通常在循环开始时调用。__next__则返回迭代的下一个对象。</p>
+
+<p>可以打开命令行试一下下面的代码：</p>
+
+<p>for c in Counter(3, 8):</p>
+
+<p>print(c)</p>
+
+<p>这段代码将会输出：</p>
+
+<p>3</p>
+
+<p>4</p>
+
+<p>5</p>
+
+<p>6</p>
+
+<p>7</p>
+
+<p>8</p>
+
+<p>在 Python 中，迭代器就是只实现了__iter__魔术方法的对象。也就是说，你可以访问对象中都包含的位置，但无法遍历整个对象。一些对象实现了__next__魔术方法，但没有实现__iter__魔术方法，比如集合（本文稍后会讨论）。在本文中，我们假设涉及到的一切对象都是可迭代的对象。</p>
+
+<p>现在我们知道了什么是可迭代的对象，回过头来讨论下映射函数。映射可以对可迭代对象中的每个元素执行指定的函数。通常，我们对列表中的每个元素执行函数，但要知道映射其实可以针对绝大多数可迭代对象使用。</p>
+
+<p>map(function, iterable)</p>
+
+<p>假设有一个列表由以下数字组成：</p>
+
+<p>[1, 2, 3, 4, 5]</p>
+
+<p>我们希望得到每个数字的平方，那么代码可以写成这样：</p>
+
+<p>x = [1, 2, 3, 4, 5]</p>
+
+<p>def square(num):</p>
+
+<p>return num*num</p>
+
+<p>print(list(map(square, x)))</p>
+
+<p>Python中的函数式函数是懒惰的。如果我们不加“list()”，那么函数只会将可迭代对象保存下来，而不会保存结果的列表。我们需要明确地告诉Python“把它转换成列表”才能得到结果。</p>
+
+<p>在Python中一下子从不懒惰的函数求值转换到懒惰的函数似乎有点不适应。但如果你能用函数式的思维而不是过程式的思维，那么最终会适应的。</p>
+
+<p>这个“square(num)”的确不错，但总觉得有点不对劲。难道为了仅使用一次的map就得定义整个函数吗？其实我们可以使用lambda函数（匿名函数）。</p>
+
+<p>Lambda 表达式</p>
+
+<p>Lambda表达式就是只有一行的函数。比如下面这个lambda表达式可以求出给定数字的平方：</p>
+
+<p>square = lambda x: x * x</p>
+
+<p>运行下面的代码：</p>
+
+<p>&gt;&gt;&gt; square(3)</p>
+
+<p>9</p>
+
+<p>你肯定在问：“参数去哪儿了？这究竟是啥意思？看起来根本不像函数啊？”</p>
+
+<p>嗯，的确是不太容易懂……但还是应该能够理解的。我们上面的代码把什么东西赋给了变量“square”。就是这个东西：</p>
+
+<p>lambda x:</p>
+
+<p>它告诉Python这是个lambda函数，输入的名字为x。冒号后面的一切都是对输入的操作，然后它会自动返回操作的结果。</p>
+
+<p>这样我们的求平方的代码可以简化成一行：</p>
+
+<p>x = [1, 2, 3, 4, 5]</p>
+
+<p>print(list(map(lambda num: num * num, x)))</p>
+
+<p>有了lambda表达式，所有参数都放在左边，操作都放在右边。虽然看上去有点乱，但不能否认它的作用。实际上能写出只有懂得函数式编程的人才能看懂的代码还是有点小兴奋的。而且把函数变成一行也非常酷。</p>
+
+<p>归纳</p>
+
+<p>归纳（reduce）是个函数，它把一个可迭代对象变成一个东西。通常，我们在列表上进行计算，将列表归纳成一个数字。归纳的代码看起来长这样：</p>
+
+<p>reduce(function, list)</p>
+
+<p>上面的函数可以使用lambda表达式。</p>
+
+<p>列表的乘积就是把所有数字乘到一起。可以这样写代码：</p>
+
+<p>product = 1</p>
+
+<p>x = [1, 2, 3, 4]</p>
+
+<p>for num in x:</p>
+
+<p>product = product * num</p>
+
+<p>但使用归纳，可以写成这样：</p>
+
+<p>from functools import reduce</p>
+
+<p>product = reduce((lambda x, y: x * y),[1, 2, 3, 4])</p>
+
+<p>这样能得到同样的结果。这段代码更短，而且借助函数式编程，这段代码更简洁。</p>
+
+<p>过滤</p>
+
+<p>过滤（filter）函数接收一个可迭代对象，然后过滤掉对象中一切不需要的东西。</p>
+
+<p>通常过滤接收一个函数和一个列表。它会针对列表中的每个元素执行函数，如果函数返回True，则什么都不做。如果函数返回False，则从列表中去掉那个元素。</p>
+
+<p>语法如下：</p>
+
+<p>filter(function, list)</p>
+
+<p>我们来看一个简单的例子。没有过滤，代码要写成这样：</p>
+
+<p>x = range(-5, 5)</p>
+
+<p>new_list = []</p>
+
+<p>for num in x:</p>
+
+<p>if num &lt; 0:</p>
+
+<p>new_list.append(num)</p>
+
+<p>使用过滤可以写成这样：</p>
+
+<p>x = range(-5, 5)</p>
+
+<p>all_less_than_zero = list(filter(lambda num: num &lt; 0, x))</p>
+
+<p>高阶函数</p>
+
+<p>高阶函数接收函数作为参数，返回另一个函数。一个非常简单的例子如下所示：</p>
+
+<p>def summation(nums):</p>
+
+<p>return sum(nums)</p>
+
+<p>def action(func, numbers):</p>
+
+<p>return func(numbers)</p>
+
+<p>print(action(summation, [1, 2, 3]))</p>
+
+<p># Output is 6</p>
+
+<p>或者更简单“返回函数”的例子：</p>
+
+<p>def rtnBrandon():</p>
+
+<p>return "brandon"</p>
+
+<p>def rtnJohn():</p>
+
+<p>return "john"</p>
+
+<p>def rtnPerson():</p>
+
+<p>age = int(input("What's your age?"))</p>
+
+<p>if age == 21:</p>
+
+<p>return rtnBrandon()</p>
+
+<p>else:</p>
+
+<p>return rtnJohn()</p>
+
+<p>还记得之前说过函数式编程语言没有变量吗？实际上高阶函数能很容易做到这一点。如果你只需要在一系列函数中传递数据，那么数据根本不需要保存到变量中。</p>
+
+<p>Python 中的所有函数都是顶级对象。顶级对象是拥有一个或多个以下特征的对象：</p>
+
+<p>在运行时生成</p>
+
+<p>赋值给某个数据结构中的变量或元素</p>
+
+<p>作为参数传递给函数</p>
+
+<p>作为函数的结果返回</p>
+
+<p>所以，所有 Python 中的函数都是对象，都可以用作高阶函数。</p>
+
+<p>部分函数</p>
+
+<p>部分函数有点难懂，但非常酷。通过它，你不需要提供完整的参数就能调用函数。我们来看个例子。我们要创建一个函数，它接收两个参数，一个是底，另一个是指数，然后返回底的指数次幂，代码如下：</p>
+
+<p>def power(base, exponent):</p>
+
+<p>return base ** exponent</p>
+
+<p>现在我们需要一个求平方的函数，可以这么写：</p>
+
+<p>def square(base):</p>
+
+<p>return power(base, 2)</p>
+
+<p>这段代码没问题，但如果需要立方函数怎么办？或者四次方函数呢？是不是得一直定义新的函数？这样做也行，但是程序员总是很懒的。如果需要经常重复一件事情，那就意味着一定有办法提高速度，避免重复。我们可以用部分函数实现这一点。下面是使用部分函数求平方的例子：</p>
+
+<p>from functools import partial</p>
+
+<p>square = partial(power, exponent=2)</p>
+
+<p>print(square(2))</p>
+
+<p># output is 4</p>
+
+<p>这是不是很苦？我们事先告诉 Python 第二个参数，这样只需要提供一个参数就能调用需要两个参数的函数了。</p>
+
+<p>还可以使用循环来生成直到能计算 1000 次方的所有函数。</p>
+
+<p>from functools import partial</p>
+
+<p>powers = []</p>
+
+<p>for x in range(2, 1001):</p>
+
+<p>powers.append(partial(power, exponent = x))</p>
+
+<p>print(powers[0](3))</p>
+
+<p># output is 9</p>
+
+<p>函数式编程不够 Python</p>
+
+<p>你也许注意到了，我们这里许多函数式编程都用到了列表。除了归纳和部分函数之外，所有其他函数都生成列表。Guido（Python发明人）不喜欢在 Python 中使用函数式的东西，因为 Python 有自己的方法来生成列表。</p>
+
+<p>在 Python IDLE 中敲“import this”，可以看到下面的内容：</p>
+
+<p>&gt;&gt;&gt; import this</p>
+
+<p>The Zen of Python, by Tim Peters</p>
+
+<p>Beautiful is better than ugly.</p>
+
+<p>Explicit is better than implicit.</p>
+
+<p>Simple is better than complex.</p>
+
+<p>Complex is better than complicated.</p>
+
+<p>Flat is better than nested.</p>
+
+<p>Sparse is better than dense.</p>
+
+<p>Readability counts.</p>
+
+<p>Special cases aren’t special enough to break the rules.</p>
+
+<p>Although practicality beats purity.</p>
+
+<p>Errors should never pass silently.</p>
+
+<p>Unless explicitly silenced.</p>
+
+<p>In the face of ambiguity, refuse the temptation to guess.</p>
+
+<p>There should be one — and preferably only one — obvious way to do it.</p>
+
+<p>Although that way may not be obvious at first unless you’re Dutch.</p>
+
+<p>Now is better than never.</p>
+
+<p>Although never is often better than *right* now.</p>
+
+<p>If the implementation is hard to explain, it’s a bad idea.</p>
+
+<p>If the implementation is easy to explain, it may be a good idea.</p>
+
+<p>Namespaces are one honking great idea — let’s do more of those!</p>
+
+<p>这就是Python之禅。这首诗表明了什么叫做Python风格。我们要指出的是这句话：</p>
+
+<p>There should be one — and preferably only one — obvious way to do it.</p>
+
+<p>（任何事情应该有一个且只有一个方法解决。）</p>
+
+<p>在 Python 中，映射和过滤能做到的事情，列表解析式（稍后介绍）也能做到。这就打破了 Python 之禅，因此我们说函数式编程的部分不够“Python”。</p>
+
+<p>另一个常被提及的地方就是lambda。在Python中，lambda函数就是个普通的函数。lambda只是个语法糖。这两者是等价的：</p>
+
+<p>foo = lambda a: 2</p>
+
+<p>def foo(a):</p>
+
+<p>return 2</p>
+
+<p>普通的函数能做到一切 lambda 能做到的事情，但反过来却不行。lambda 不能完成普通函数能完成的一切事情。</p>
+
+<p>关于为何函数式编程不适合Python生态系统曾有过一次讨论。你也许注意到，我之前提到了列表解析式，我们现在就来介绍下什么是列表解析式。</p>
+
+<p>列表解析式</p>
+
+<p>之前我说过，任何能用映射或过滤完成的事情都可以用列表解析式完成。这就是我们要学的东西。</p>
+
+<p>列表解析式是 Python 生成列表的方式。语法如下：</p>
+
+<p>[function for item in iterable]</p>
+
+<p>要想求列表中每个数字的平方，可以这么写：</p>
+
+<p>print([x * x for x in [1, 2, 3, 4]])</p>
+
+<p>可以看到，我们给列表中的每个元素应用了一个函数。那么怎样才能实现过滤呢？先来看看之前的这段代码：</p>
+
+<p>x = range(-5, 5)</p>
+
+<p>all_less_than_zero = list(filter(lambda num: num &lt; 0, x))</p>
+
+<p>print(all_less_than_zero)</p>
+
+<p>可以将它转换成下面这种使用列表解析式的方式：</p>
+
+<p>x = range(-5, 5)</p>
+
+<p>all_less_than_zero = [num for num in x if num &lt; 0]</p>
+
+<p>像这样，列表解析式支持 if 语句。这样就不需要写一堆函数来实现了。实际上，如果你需要生成某种列表，那么很有可能使用列表解析式更方便、更简洁。</p>
+
+<p>如果想求所有小于 0 的数字的平方呢？使用 Lambda、映射和过滤可以写成：</p>
+
+<p>x = range(-5, 5)</p>
+
+<p>all_less_than_zero = list(map(lambda num: num * num, list(filter(lambda num: num &lt; 0, x))))</p>
+
+<p>看上去似乎很长，而且有点复杂。用列表解析式只需写成：</p>
+
+<p>x = range(-5, 5)</p>
+
+<p>all_less_than_zero = [num * num for num in x if num &lt; 0]</p>
+
+<p>不过列表解析式只能用于列表。映射和过滤能用于一切可迭代对象。那为什么还要用列表解析式呢？其实，解析式可以用在任何可迭代的对象上。</p>
+
+<p>其他解析式</p>
+
+<p>可以在任何可迭代对象上使用解析式。</p>
+
+<p>任何可迭代对象都可以用解析式生成。从 Python 2.7 开始，甚至可以用解析式生成字典（哈希表）。</p>
+
+<p># Taken from page 70 chapter 3 of Fluent Python by Luciano Ramalho</p>
+
+<p>DIAL_CODES = [</p>
+
+<p>(86, 'China'),</p>
+
+<p>(91, 'India'),</p>
+
+<p>(1, 'United States'),</p>
+
+<p>(62, 'Indonesia'),</p>
+
+<p>(55, 'Brazil'),</p>
+
+<p>(92, 'Pakistan'),</p>
+
+<p>(880, 'Bangladesh'),</p>
+
+<p>(234, 'Nigeria'),</p>
+
+<p>(7, 'Russia'),</p>
+
+<p>(81, 'Japan'),</p>
+
+<p>]</p>
+
+<p>&gt;&gt;&gt; country_code = {country: code for code, country in DIAL_CODES}</p>
+
+<p>&gt;&gt;&gt; country_code</p>
+
+<p>{'Brazil': 55, 'Indonesia': 62, 'Pakistan': 92, 'Russia': 7, 'China': 86, 'United States': 1, 'Japan': 81, 'India': 91, 'Nigeria': 234, 'Bangladesh': 880}</p>
+
+<p>&gt;&gt;&gt; {code: country.upper() for country, code in country_code.items() if code &lt; 66}</p>
+
+<p>{1: 'UNITED STATES', 7: 'RUSSIA', 62: 'INDONESIA', 55: 'BRAZIL'}</p>
+
+<p>只要是可迭代对象，就可以用解析式生成。我们来看个集合的例子。如果你不知道集合是什么，可以先读读这篇（https://medium.com/brandons-computer-science-notes/a-primer-on-set-theory-746cd0b13d13）文章。简单来说就是：</p>
+
+<p>集合是元素的列表，但列表中没有重复的元素</p>
+
+<p>元素的顺序不重要</p>
+
+<p># taken from page 87, chapter 3 of Fluent Python by Luciano Ramalho</p>
+
+<p>&gt;&gt;&gt; from unicodedata import name</p>
+
+<p>&gt;&gt;&gt; {chr(i) for i in range(32, 256) if 'SIGN' in name(chr(i), '')}</p>
+
+<p>{'×', '¥', '°', '£', '©', '#', '¬', '%', 'µ', '&gt;', '¤', '±', '¶', '§', '&lt;', '=', '®', '$', '÷', '¢', '+'}</p>
+
+<p>可以看到，集合使用字典同样的大括号。Python非常聪明。它会查看你是否在大括号中提供了额外的值，来判断是集合解析式还是字典解析式。如果想了解更多关于解析式的内容，可以看看这个可视化的指南（http://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/）。如果想了解更多关于解析式和生成器的内容，可以读读这篇文章（https://medium.freecodecamp.org/python-list-comprehensions-vs-generator-expressions-cef70ccb49db）。</p>
+
+<p>结论</p>
+
+<p>函数式编程很美、很纯净。函数式代码可以写得非常干净，但也可以写得很乱。一些 Python 程序员不喜欢在 Python 中使用函数式的模型，不过大家可以根据自己的喜好，记得用最好的工具完成工作。</p>
+
+<p>原文：https://hackernoon.com/learn-functional-python-in-10-minutes-to-2d1651dece6f</p>
+
+<p>作者：Brandon Skerritt，利物浦大学计算机科学系的学生，Hackernoon和 PoliticsMeansPolitics 的记者。</p>
+
+
+
+<p style='float:right;'>本页共242段，8822个字符，16268 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

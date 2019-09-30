@@ -1,0 +1,448 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>“初唐四杰”之冠王勃：监狱，是成就传奇的大学</h4>
+
+<p>原创|发布：2017 -10 -01 21 :11 :59 更新：2017 -10 -02 08 :28 :27 阅读67199 赞886 唐高宗也在朋友圈里看到了这篇热文。当他读到“落霞与孤鹜齐飞，秋水共长天一色”时，拍案喝彩道：“此乃千古绝唱，真天才也。”并马上唤来太监询问，太监吞吞吐吐答道：“王勃已落水而亡。”唐高宗失望得一屁股坐回龙椅，自言自语地叹息着：“可惜，可惜，可惜了！”
+</p>
+
+<p>（一）海浪吞噬天才
+</p>
+
+<p>当南中国海一涌炽热的海浪当头打来的时候，王勃的脑海里一定会汹涌起前不久他在南昌笔战群儒的超赞画面，那是他南下探父途中一个传奇的经历。
+</p>
+
+<p>那天正逢唐上元二年（公元675 年）重阳节，南昌洪州都督阎伯屿刚刚重修了江南三大名阁之首的滕王阁。趁着秋高气爽之际，阎都督在鄱阳湖畔举行盛大宴会，邀集当地名流大咖和文艺青年登阁揽胜，把酒赋诗，想把滕王阁的卓绝风姿用诗文展示出来。
+</p>
+
+<p>宴会开始前，阎伯屿逐一邀请大咖才俊们赋诗作文，可在场众人都约好了似的各找各的理由婉言谢绝。原来他们事先得到了情报，知道这次作文竞赛隐藏了一个阴谋，就是阎伯屿早已谋划好要自己的女婿在宴会上参赛，并要获得冠军。因为作为一个文化人，阎都督的女婿孟学士正需要博得文名，以便在未来的江湖上扬名立万。
+</p>
+
+<p>就在大家都磨蹭着假装才华难济，不敢动笔，都督女婿吴学士踌躇满志，准备大秀一番自己事先备好的美文时，一个二十出头的愣头青却从末座上站起身，表示自己愿意作文一篇，博大家一笑。
+</p>
+
+<p>气氛一下子紧张起来，所有人都诧异地看着这个不识相的屌丝。私下里一打听才知道，这个不识相的愣头青，名字叫什么王勃，是南下探父路过南昌的。而阎都督正是给他那同朝为官之父的面子，才临时邀请来他来陪坐的。没想到，他却这么不给主人的面子。
+</p>
+
+<p>但事已至此，阎都督也不好再说什么，只能点头应允。而他的女婿也只好抑制着愤怒，表示愿意和王勃同场竞技，悻悻然收起作秀的姿态，退到一旁展纸研墨，装成现想现写的样子。
+</p>
+
+<p>王勃也不客气，礼貌性地向他拱拱手后，就立即进入另一个考场开笔作文。
+</p>
+
+<p>比赛开始后，王勃的监考老师为了巴结都督和他的女婿，就派一书童将王勃的答卷一句句实时报告给都督和他女婿等人。
+</p>
+
+<p>很快，纸条传来了，上面写着：王文第一句“豫章故郡，洪都新府。”众人面无表情，认为是通常桥段，没有新意。又一张纸条传来，写着：第二句“星分翼轸，地接衡庐。”众人开始发出不屑的嘘声……都督女婿的心放了下来，心想这样更好，要是像原先安排的那样自己一个独唱，就是赢了，也不能服众。
+</p>
+
+<p>但当写着“层峦耸翠，上出重霄”的纸条传到的时候，现场的嘲笑讥讽之声戛然而止，有人开始小声赞叹。再送来“落霞与孤鹜齐飞，秋水共长天一色”的纸条时，众人先是愣住了神，接着便爆发出压抑不住的掌声，连都督也不由自主地拍起手来。
+</p>
+
+<p>“落霞与孤鹜齐飞，秋水共长天一色”——这联霸气侧漏的千古绝对，瞬间就让都督女婿整个人都不好了，被打回原型般晕倒在自己的考卷前。
+</p>
+
+<p>王勃则从容不迫地续完后文，收起笔墨，扬长而去，只给看呆了的众儒留下一个碉堡了的背影。
+</p>
+
+<p>真是“没有对比就没有伤害”，围观的儒生们感叹着，他们纷纷拍照、点评，上微博、发朋友圈，一篇名叫《滕王阁序》的美文立马就被各种社交媒体刷爆了。王勃也一下子将其他诗人甩了好几条街。而整个初唐诗坛，也因他那屌炸天的勃起，发出了一片尖叫。
+</p>
+
+<p>（二）天才必须被神话
+</p>
+
+<p>王勃大约出生于公元650 年，古绛州龙门（今山西河津）人。他出身儒学世家，与杨炯、卢照邻、骆宾王组成“初唐四杰”，被尊为四杰之首。按照世间流行的套路，如此牛叉的人物，必须有个神话般的经历与之相配。
+</p>
+
+<p>果然，《旧唐书》开始造神了。这部仿佛大唐墓志铭般的皇皇巨著是这样给王勃树碑立传的：
+</p>
+
+<p>王勃是个神童（呵呵，天才共有的桥段），很小就聪敏异常，六岁时便能作诗为文，且诗文构思巧妙，意境独特，被他父亲的好友、文坛大V杜易简夸赞为“王氏三株树”（另外两株唐诗大树为诗人王勔、王勮）之一。九岁时，王勃读颜师古注的《汉书》后，撰写了《指瑕》十卷，指出颜师古的著作错误之处，成了不可思议的儿童学者。十岁时，便饱览六经，相当于修完了硕士课程。到十二岁至十四岁时，王勃就更不得了了，又从文学转向医学，跟随神医曹元先后学习了《周易》《黄帝内经》《难经》等医学名著，并对“三才六甲之事，明堂玉匮之数”多有领悟，相当于又获得了医学博士……
+</p>
+
+<p>比这些神童传说更牛的，还是他那所谓的“未冠而仕”。就是，还没有戴上成人的帽子（古代男子20 岁成年束发戴冠），就走上了为官从政的道路。这倒确实是王勃一生中另一个值得炫耀的牛叉经历。
+</p>
+
+<p>事情的经过是这样的：十三岁时，王勃决定自下而上开启自己的仕途，于是从首都长安回到家乡，写《上绛州上官司马书》等文章就教当地父母官，探寻步入政坛的门路。第二年，他提升规格，上书大唐宰相刘祥道，直陈政见，表明自己积极用世的决心，博得刘祥道的赞赏，夸其“此神童也！”再一年，他又通过皇甫常伯直接攀登顶层，向唐高宗献《乾元殿颂》，在大唱赞歌中极力抒发自己想成为大唐官员的强烈愿望，在皇上那里挂了个号。十六岁时，王勃通过李常伯再唱《宸游东岳颂》赞歌一首，接着参加高考，金榜题名，并如愿以偿地被授予朝散郎官职。虽然这个“朝散郎”的官不大，只相当于现在国家级文联、作协委员，但一个娃娃就当了朝廷的命官，还是闪耀了惊艳，成就了佳话。
+</p>
+
+<p>自此，王勃更是自信满满，创造力频发，写出了不少脍炙人口的诗赋美文，也奠定了此后在滕王阁里笔战群儒的坚实基础。
+</p>
+
+<p>（三）监狱，是成就传奇的大学
+</p>
+
+<p>就像今天要想摆脱屌丝身份，就必须混个硕士、博士装装门面一样，自古以来，一个人要想为自己的人生涂上一层传奇色彩，就必须进入一所神秘的大学——监狱进修进修。王勃也不例外，虽然这个经历不是他主动争取来的。
+</p>
+
+<p>王勃当上全国文联、作协委员后，因编写史书赢得了沛王李贤的欢心。一次，沛王李贤与英王李哲斗鸡，王勃就写了一篇感恩的《檄英王鸡文》，讨伐英王的斗鸡，反衬沛王斗鸡的勇猛。不料此文传到唐高宗手中，惹得圣颜不悦，当即怒下圣旨道：“歪才，歪才！二王斗鸡，王勃身为博士，不进行劝诫，反倒作檄文，有意虚构，夸大事态，此人应立即逐出王府。”
+</p>
+
+<p>于是，王勃被踢出体制内，刚刚开始的仕途毁于一旦。
+</p>
+
+<p>俗话说“福不双生，祸不单行”。咸亨二年秋冬，二十一岁的王勃自漂泊地四川返回长安，参加第二次高考。他的朋友凌季友当时为虢州司法，觉得虢州中药材丰富，而他又曾是医学博士，就为他在虢州谋得一个参军之职。就在他任虢州参军期间，有个叫曹达的官奴犯了罪。因为私交，他就将曹达藏匿起来。可事后又怕走漏风声连累自己，竟一冲动将曹达杀死灭口了。
+</p>
+
+<p>结果东窗事发，王勃被判犯了死罪。后幸亏遇到大赦，改为了三年的有期徒刑。
+</p>
+
+<p>后来，让年轻的王勃踏上生命归程的原因，就是他出狱后要去看望远在交址（今越南）做小官的父亲。而他的父亲之所以被贬到边远蛮荒的热带，就是因为受他犯罪的牵连。
+</p>
+
+<p>不过，歪打正着的是，经过监狱的锤炼，出狱后的王勃经历更丰满了，诗文更出彩了。难怪人们都说“监狱也是一所大学”，因为在形形色色的犯人身上，有铁窗之外所学不到的人生内容。所以，世界上很多领袖人物，都要到监狱里去升华自己的生命，去增加自己的荣光，去获取被崇拜者神化的传奇经历。
+</p>
+
+<p>（四）没去天涯，他还是我们的邻居
+</p>
+
+<p>王勃去了天堂已有1341 年，但他那首送别诗《送杜少府之任蜀州》从来没有在人间终止传唱：
+</p>
+
+<p>城阙辅三秦，风烟望五津。
+</p>
+
+<p>与君离别意，同是宦游人。
+</p>
+
+<p>海内存知己，天涯若比邻。
+</p>
+
+<p>无为在岐路，儿女共沾巾。
+</p>
+
+<p>其中“海内存知己，天涯若比邻”句，经常被那些不善表达，或性情懒惰的草根们在送别亲朋时引用。
+</p>
+
+<p>那么，问题来了，为什么那些不善于表达，或性情懒惰的草根们在送别亲朋时特别喜欢引用这两句诗呢？
+</p>
+
+<p>我们先来看看它与另一首也非常著名的送别诗有什么不同。那就是王维的《渭城曲》，其中“劝君更尽一杯酒，西出阳关无故人”也常被送别的草根们引用。但两诗的意境截然不同：王维的充满不舍与担忧，王勃的则明摆着情愿和放心，有点“莫愁前路无知己，天下何人不识君”（高适《别董大》）的乐观与从容。
+</p>
+
+<p>王勃的诗翻译成大白话，就是“跑到哪里我们都是知心朋友，走得再远我们也像隔壁邻居。”多么快乐健康的心态啊，全无送别诗惯有的沉重与伤感，散发的全是朝气蓬勃的阳刚之气，就像昂扬向上的初唐气势一样。
+</p>
+
+<p>读这首送别诗，感觉诗人自己也从没去过什么遥远的天涯，而只是在作一次长假旅行，好像过不了几天就会回来继续做我们的邻居似的。
+</p>
+
+<p>（五）大海吞不掉朝阳
+</p>
+
+<p>从滕王阁转身而去的王勃，在将一群惊愕的儒生抛在身后后，继续南下，去看因他而遭贬遥远交址（今越南）的父亲。但波涛汹涌的南中国海没有成全他的孝心，而是以一涌炽热的海浪覆盖了这个旷世天才。
+</p>
+
+<p>那一年，是唐高宗上元三年（公元676 年），王勃只有二十六岁
+</p>
+
+<p>我想，当那涌作恶的海浪退却后，海面上应该回旋起了无尽的唏嘘和叹息吧。
+</p>
+
+<p>也有人猜想他是“自沉于海”，也即自杀的，就像千年之后，在山海关卧轨的另一位年轻的诗人海子一样。
+</p>
+
+<p>我也愿意这么想。因为某些天才诗人，就像希腊神话中为人间盗取圣火的普罗米修斯，一旦圣火在大地上燃起，他便觉得自己的使命完成，生命就没有必要继续存在下去了。
+</p>
+
+<p>据说，在《滕王阁序》到处刷屏的时候，唐高宗也在朋友圈里看到了这篇热文。当他读到“落霞与孤鹜齐飞，秋水共长天一色”时，激动得把手机一扔，拍案喝彩道：“此乃千古绝唱，真天才也。”并马上唤来太监询问：“朕当年因斗鸡文逐斥了这个王勃，是朕之错了。现在，王勃在何处？朕要召他入朝！”太监吞吞吐吐答道：“王勃已落水而亡。”唐高宗失望得一屁股坐回龙椅，自言自语地叹息着：“可惜，可惜，可惜了！”
+</p>
+
+<p>想想，连皇上都肯为他站台的人，该是多么大的腕儿。
+</p>
+
+<p>也许，作为生命，王勃只是一现的昙花。但作为诗人，他则像一轮光芒四射的朝阳。而朝阳是不会被大海吞没的。虽然他的生命，没能像他的名字那样长久地勃起下去，但初唐的诗坛，却凭借他的名字而愈发坚挺地勃起了，并由此诞生了许多朝气蓬勃的新生命。
+</p>
+
+<p>是的，有时候命运就像一个玩笑，一涌海浪一瞬间造成的错误，就可以铸成千古之恨，即便用一千年的时光也难以挽回。
+</p>
+
+<p>【作者简介】宋执群，生于一九六零年代。中国作家协会会员。主要作品有长篇小说《梅雨》《望海门》，长篇文化散文《锦上姑苏》等。</p>
+
+
+
+<p style='float:right;'>本页共53段，4227个字符，12469 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

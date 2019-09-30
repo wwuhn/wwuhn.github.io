@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+ 
+<title>mySQL操作</title>
+
+<link href="../zfirst/js/overall.js" type="text/javascript" />
+<link ID="CSS" href="../zfirst/css/css22.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+
+
+
+<div class="container">
+<p>SQL：数据库查询语言，SQL语句可以直接从命令行输入与执行（。也可以写入PHP脚本中，以从数据库取得或改变数据。SQL语句均以分号代表一段语句的结束。只有在检测到了分号并按了Enter键时，才检查语法及执行语句。</p>
+<p>MySQL:数据库管理系统；可替很多应用程序管理多个数据库，每个数据库也能按不同的数据组织形式存储不同的数据，支持数种客户端程序，包括命令行形式的解释器（启动MySQL即可使用命令解释器。）；</p>
+<p>数据库由DBMS管理，DBMS就是所谓的数据库管理系统或数据库服务器，并支持某种数据库语言。几乎所有的数据库服务器使用的语言者是SQL；</p>
+<p>数据库的表包含数据行，每行又包含每种属性的值，结合起来便是一个有关联性的对象。</p>
+
+  <p>1.输入密码：******</p>
+  <p> 2.ues mysql;使用Mysql</p>
+  <p> 3.show databases;显示数据库 </p>
+  <p> 4.use register;使用数据库名为register</p>
+  <p> 5.show tables;显示register数据库中的表 </p>
+  <p> 6.describe user;对表user进行操作： </p>
+  <p>insert into user(username,password)  values(&quot;xiaoyan&quot;,&quot;123456&quot;);插入数据 </p>
+  <p> insert into user(username,password)  values(&quot;ff&quot;,&quot;123456&quot;);插入数据 </p>
+  <p> delete from user where  username=&quot;xiaoyan&quot;;删除数据 </p>
+  <p> update user set  username=&quot;xiaoyan&quot; where username=&quot;ff&quot;;更新数据 </p>
+  <p> select * from user;查询数据 </p>
+  <p>7.quit;推出</p>
+
+<p></p>
+  <p>一、启动与退出 </p>
+  <p>1、进入MySQL：启动MySQL  Command Line Client（MySQL的DOS界面），直接输入安装时的密码即可。此时的提示符是：mysql&amp;gt;  </p>
+  <p>2、退出MySQL：quit 或 exit </p>
+  <p>&nbsp;</p>
+  <p>二、库操作 </p>
+  <p>1、创建数据库 </p>
+  <p>命令：create database </p>
+  <p>例如：建立一个名为xhkdb的数据库 </p>
+  <p>mysql&gt; create database xhkdb; </p>
+  <p>&nbsp;</p>
+  <p>2、显示所有的数据库 </p>
+  <p>命令：show databases （注意：最后有个s） </p>
+  <p>mysql&gt; show databases; </p>
+  <p>3、删除数据库 </p>
+  <p>命令：drop database </p>
+  <p>例如：删除名为xhkdb的数据库 </p>
+  <p>mysql&gt; drop database xhkdb; </p>
+  <p>4、连接数据库 </p>
+  <p>命令： use </p>
+  <p>例如：如果xhkdb数据库存在，尝试存取它： </p>
+  <p>mysql&gt; use xhkdb;    www.2cto.com  </p>
+  <p>屏幕提示：Database changed </p>
+  <p>5、当前选择（连接）的数据库 </p>
+  <p>mysql&gt; select database(); </p>
+  <p>6、当前数据库包含的表信息： </p>
+  <p>mysql&gt; show tables; （注意：最后有个s） </p>
+  <p>三、表操作，操作之前应连接某个数据库 </p>
+  <p>1、建表 </p>
+  <p>命令：create table ( [,.. ]); </p>
+  <p>mysql&gt; CREATE TABLE `testa` ( </p>
+  <p>
+    -&gt;   `id` int(10) UNSIGNED NOT  NULL AUTO_INCREMENT, </p>
+  <p>
+    -&gt;   `name` varchar(20) DEFAULT  NULL , </p>
+  <p>
+    -&gt;   PRIMARY KEY (`id`)    www.2cto.com  </p>
+  <p>
+    -&gt; ) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8; </p>
+  <p>2、获取表结构 </p>
+  <p>命令： desc 表名，或者show columns from 表名 </p>
+  <p>mysql&gt; DESCRIBE MyClass </p>
+  <p>mysql&gt; desc MyClass; </p>
+  <p>mysql&gt; show columns from MyClass; </p>
+  <p>3、删除表 </p>
+  <p>命令：drop table </p>
+  <p>例如：删除表名为 MyClass 的表 </p>
+  <p>mysql&gt; drop table MyClass; </p>
+  <p>4、插入数据 </p>
+  <p>命令：insert into [( [,.. ])] values ( 值1 )[, ( 值n )] </p>
+  <p>5、查询表中的数据 </p>
+  <p>1)、查询所有行 </p>
+  <p>mysql&gt; select * from MyClass; </p>
+  <p>2）、查询前几行数据 </p>
+  <p>mysql&gt; select * from MyClass order by id  limit 0,2; </p>
+  <p>
+    www.2cto.com  </p>
+  <p>
+    6、删除表中数据 </p>
+  <p>命令：delete from 表名 where 表达式 </p>
+  <p>例如：删除表 MyClass中编号为1 的记录 </p>
+  <p>mysql&gt; delete from MyClass where id=1; </p>
+  <p>7、修改表中数据：update 表名 set 字段=新值,… where 条件 </p>
+  <p>mysql&gt; update MyClass set name=”Mary”  where id=1; </p>
+  <p>8、在表中增加字段： </p>
+  <p>命令：alter table 表名 add字段  类型其他; </p>
+  <p>例如：在表MyClass中添加了一个字段passtest，类型为int(4)，默认值为0 </p>
+  <p>mysql&gt; alter table MyClass add passtest  int(4) default ”0” </p>
+  <p>9、更改表名： </p>
+  <p>命令：rename table 原表名 to 新表名; </p>
+  <p>例如：在表MyClass名字更改为YouClass </p>
+  <p>mysql&gt; rename table MyClass to YouClass; </p>
+  <p></p>
+
+<p></p>
+
+<p></p>
+  <p>
+    1、显示当前数据库服务器中的数据库列表： </p>
+  <p>
+    mysql&gt; SHOW DATABASES;</p>
+  <p>
+    注意：mysql库里面有MYSQL的系统信息，我们改密码和新增用户，实际上就是用这个库进行操作。 </p>
+  <p>
+    2、显示数据库中的数据表： </p>
+  <p>
+    mysql&gt; USE 库名； </p>
+  <p>
+    mysql&gt; SHOW TABLES;</p>
+  <p>
+    3、显示数据表的结构： </p>
+  <p>
+    mysql&gt; DESCRIBE 表名;</p>
+  <p>
+    4、建立数据库： </p>
+  <p>
+    mysql&gt; CREATE DATABASE 库名;</p>
+  <p>
+    5、建立数据表： </p>
+  <p>
+    mysql&gt; USE 库名;</p>
+  <p>
+    mysql&gt; CREATE TABLE 表名 (字段名  VARCHAR(20), 字段名 CHAR(1));</p>
+  <p>
+    6、删除数据库： </p>
+  <p>
+    mysql&gt; DROP DATABASE 库名;</p>
+  <p>
+    7、删除数据表： </p>
+  <p>
+    mysql&gt; DROP TABLE 表名； </p>
+  <p>
+    8、将表中记录清空： </p>
+  <p>
+    mysql&gt; DELETE FROM 表名;</p>
+  <p>
+    9、显示表中的记录： </p>
+  <p>
+    mysql&gt; SELECT * FROM 表名;</p>
+  <p>
+    10、往表中插入记录： </p>
+  <p>
+    mysql&gt; INSERT INTO 表名 VALUES (”hyq”,”M”);</p>
+  <p>
+    11、更新表中数据： </p>
+  <p>
+    mysql-&gt; UPDATE 表名 SET 字段名 1=’a',字段名2=’b’ WHERE 字段名3=’c';</p>
+  <p>
+    12、用文本方式将数据装入数据表中： </p>
+  <p>
+    mysql&gt; LOAD DATA LOCAL INFILE “D:/mysql.txt” INTO TABLE 表名;</p>
+  <p>
+    13、导入.sql文件命令： </p>
+  <p>
+    mysql&gt; USE 数据库名;</p>
+  <p>
+    mysql&gt; SOURCE d:/mysql.sql;</p>
+  <p>
+    14、命令行修改root密码： </p>
+  <p>
+    mysql&gt; UPDATE mysql.user SET  password=PASSWORD(’新密码’) WHERE User=’root’;</p>
+  <p>
+    mysql&gt; FLUSH PRIVILEGES;</p>
+  <p>
+    15、显示use的数据库名： </p>
+  <p>
+    mysql&gt; SELECT DATABASE();</p>
+  <p>
+    16、显示当前的user： </p>
+  <p>
+    mysql&gt; SELECT USER();</p></p>
+
+<p><p>数据保存形式</p>
+
+<p>text file:</p>
+
+<p>xml</p>
+
+<p>database</p>
+
+<p>web database</p>
+<p>MySQL</p>
+
+<p>命令行操作</p>
+
+<p>D:\Program Files\Canon\Easy-WebPrint EX\bin\mysql.exe  &quot;--defaults-file=D:\MySQL\MySQL Server 5.5\my.ini&quot; &quot;-uroot&quot;  &quot;-p&quot;</p>
+
+<p>图形用户界面操作</p>
+
+<p>D:\MySQL\MySQL Workbench CE 5.2.47\MySQLWorkbench.exe</p>
+
+<p>mysql命令行操作</p>
+
+<p>show database;</p>
+
+<p>use dataiso;</p>
+
+<p>show tables;</p>
+
+<p>select * from family;</p>
+
+<p>create database databaseN</p>
+
+<p>create table tableN(field list);</p>
+
+<p>drop database databaseN;</p>
+
+<p>drop table tableN;</p>
+
+<p>delete from tableN;内容删除，表格不会消失；</p>
+
+<p>status;</p>
+
+<p>alter table;</p>
+
+<p>alter table tableN drop columnN</p>
+
+<p>alter table tableN add columnN …</p>
+
+<p>alter table tableN change columnN newN…</p>
+
+<p>批量执行SQL语句</p>
+
+<p>1 新建.sql文件，每条文件用&quot;;&quot;分隔；</p>
+
+<p>2 在“mysql&gt;&quot;提示符下输入:source d:\sql.sql;</p>
+
+<p>当 &quot;id&quot;列设为primary.autoIncrement时，insert不要设置；</p>
+
+<p>create database dataiso;</p>
+
+<p>use dataiso;</p>
+
+<p>create table family(id int(3) not null primary  key,name char(10) not null,address varchar(50) default &quot;hn&quot;,date  date);</p>
+
+<p>insert into family values('wwu','hn',1888-12-12');</p>
+
+<p>Structured Query Language最早是由IBM公司于1970年发展出来的一种专门用于数据库存取的语法。</p>
+
+<p>有ISO标准；</p>
+
+<p>DDL Data Definition Language:建立数据库、表格的语法；</p>
+
+<p>DML Data Manipulation Language:专门用来处理表格内数据的语法，如insert,update,delete,select;</p>
+
+<p>DCL Data Control Language:设定数据库、表格权限的语法，如grant,deny,revoke;</p>
+
+<p>mysql数据库的备份与还原</p>
+
+<p>mysql workbench→server  administration→manager import and export</p>
+
+<p>SELECT * FROM family ORDER BY date:将price字段做升序排序，如果添加DESC,则做降序处理；</p>
+
+<p>SELECT * FROM family LIMIT 0,2:从索引0开始，列出前面两笔数据；</p>
+
+<p>SELECT * FROM family WHERE name LIKE '%wu%':字段name内只要含有wu字符串的数据都会被取出来； </p>
+
+<p>XML型数据库：以xml形式保存的数据库，Native xml database;自然的xml数据库。其基本优点是不用区分数据交换形式和数据保存形式，在关系数据库中，保存具体数据之前，首先必须对保存数据用的表进行严格的设计，也就是数据项目以及类型必须事先决定下来，而且当数据结构改变时，首先要修改表的设计，但对NXDB来说，不用进行表的设计，就可以将数据保存进去； </p>
+
+
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="shangy"><a href="javascript:void(null)" onclick="shangy()" target="_self">&uarr;</a></div>
+<div id="xiay"><a href="javascript:void(null)" onclick="xiay()" target="_self">&darr;</a></div>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+<script type="text/javascript">
+function xiay(){
+window.scrollBy(0,window.innerHeight);
+}
+function shangy(){
+window.scrollBy(0,-window.innerHeight);
+}
+</script>
+</body>
+</html>

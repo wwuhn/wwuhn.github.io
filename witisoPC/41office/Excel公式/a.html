@@ -1,0 +1,505 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>Excel</strong><strong>｜不知道这十三条基本知识，敢说你会公式吗？ </strong></p>
+
+<p>原创&nbsp;韩老师讲office&nbsp;2019-01-25 19:36:52</p>
+
+<p>经常会有朋友问起公式操作的问题，比如填充、检查错误、显示、保护等问题，那韩老师就总结一下公式操作知识。</p>
+
+<p><strong>一、运算符</strong><strong> </strong></p>
+
+<p>1、数学运算符：</p>
+
+<p><img width="327" height="136" src="a_clip_image001.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>2、比较运算符</p>
+
+<p>比较运算符</p>
+<p><img width="325" height="133" src="a_clip_image002.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+<p>逻辑运算主要包括逻辑与、逻辑非和逻辑或，在Excel中的逻辑运算用逻辑函数完成，主要用于组合多个比较表达式或取反运算。常见的逻辑函数有逻辑与运算函数AND、逻辑非运算函数NOT、逻辑或运算函数OR。</p>
+<p>逻辑运算符的返回结果是TRUE或FALSE</p>
+
+<p>3、引用运算符</p>
+
+<p><img width="244" height="46" src="a_clip_image003.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>4、文本运算符</p>
+
+<p><img width="424" height="45" src="a_clip_image004.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><strong>二、运算符优先级</strong><strong> </strong></p>
+
+<p>公式中同时用到了多个运算符，Excel将按下面的顺序进行运算： </p>
+  <ol>
+    <li>如果公式中包含了相同优先级的运算符，Excel将从左到右进行计算； </li>
+    <li>如果公式中有不同级别的混合运算，运算符的顺序从高到低依次为：引用运算符（:）、负号（如一l）、%（百分比）、^（乘方）、*和/（乘和除）、十和一（加和减）、&amp;（连接符）、比较运算符。 </li>
+    <li>如果要修改计算的顺序，应把公式需要首先计算的部分括在圆括号内。 </li>
+  </ol>
+  <p align="left"><strong>三、相对引用于绝对引用</strong><strong> </strong></p>
+
+<p>1、概念： </p>
+  <ol>
+    <li>A1 : 相对引用。 </li>
+    <li>$A$1: 绝对引用 </li>
+    <li>$A1: 列绝对引用，行相对引用 </li>
+    <li>A$1: 行绝对引用，列相对引用 </li>
+  </ol>
+  <p align="left">2、用途:</p>
+  <ol>
+    <li>行前添加$，复制公式时，行数不发生变化。 </li>
+    <li>列前添加$，复制公式时，列数不发生变化。 </li>
+  </ol>
+  <p align="left">3、F4键——引用方式之间切换的快捷键： </p>
+  <ol>
+    <li>按一次：绝对引用； </li>
+    <li>按两次：对行绝对引用、对列相对引用； </li>
+    <li>按三次：对行相对引用、对列绝对引用； </li>
+    <li>按四次：相对引用。 </li>
+  </ol>
+  <p align="left">4、举例： </p>
+  <ol>
+    <li>九九乘法表的生成，灵活运用了引用方式。 </li>
+  </ol>
+  <p align="left"><img width="623" height="211" src="a_clip_image005.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /> </p>
+  <ol>
+    <li>VLOOKUP多行多列查找也运用了多种引用方式。 </li>
+  </ol>
+  <p align="left"><img width="626" height="448" src="a_clip_image006.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><strong>四、公式排查错误</strong><strong> </strong></p>
+
+<p>很多朋友，在写公式出现错误时，手足无措，马上来问韩老师：我这个公式哪里错了？</p>
+
+<p>其实：有一个找韩老师更快捷的途径——公式求值！</p>
+
+<p><img width="562" height="133" src="a_clip_image007.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>公式求值，可以帮你一步一步排查公式错误，最终找到错误的位置。</p>
+
+<p>举例：</p>
+
+<p>如下根据身份证计算出生日期，出现错误，通过公式求值，很容易检查出公式哪个位置错误：</p>
+
+<p><img width="859" height="497" src="a_clip_image008.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><img width="630" height="234" src="a_clip_image009.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><strong>五、公式填充</strong><strong> </strong></p>
+
+<p>公式由一个单元格拖到另一单元格叫“公式填充”，主要依靠“填充柄”来完成，填充柄位于公式单元格右下角：</p>
+
+<p><img width="372" height="235" src="a_clip_image010.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>两种方式：</p>
+
+<p>1、拖动填充柄：适用于行数少的情况，如下:</p>
+
+<p><img width="368" height="339" src="a_clip_image011.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>2、鼠标左键双击填充柄：适用于行数很多的情况，如下:</p>
+
+<p><img width="373" height="339" src="a_clip_image012.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>当然：数据行少，也可以用双击填充柄。</p>
+
+<p><strong>六、公式批量填充</strong><strong> </strong></p>
+
+<p>选取要输入公式的区域，在编辑栏中输入公式，按CTRL+ENTER即可批量填充公式。</p>
+
+<p><img width="429" height="463" src="a_clip_image013.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><strong>七、公式转换为数值</strong><strong> </strong></p>
+
+<p>很多时候，我们用公式计算出结果以后，怕数据随源数据改变，或者数据复制后出错误，我们仅仅保留数值：</p>
+
+<p><img width="429" height="336" src="a_clip_image014.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><strong>八、公式显示</strong><strong> </strong></p>
+
+<p>如果需要看到详细的公式，可以点击【公式】菜单——【显示公式】选项：</p>
+
+<p><img width="640" height="320" src="a_clip_image015.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><strong>九、显示另一单元格公式</strong><strong> </strong></p>
+
+<p>如果需要在别的单元格显示某单元格公式，可用FORMULATEXT函数：</p>
+
+<p><img width="640" height="270" src="a_clip_image016.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /> </p>
+  <p align="left"><strong>十、隐藏公式</strong><strong> </strong></p>
+
+<p>如果不想让别人看到你的公式，可以将公式隐藏，操作步骤：</p>
+
+<p>1、选中公式单元格，打开【设置单元格格式】对话框，【保护】选项卡下，勾选“锁定”与“隐藏”：</p>
+
+<p><img width="624" height="246" src="a_clip_image017.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>2、设置保护工作表：</p>
+
+<p><img width="813" height="479" src="a_clip_image018.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p><strong>十一、保护公式</strong><strong> </strong></p>
+
+<p>选中<strong>非公式区域</strong>，取消单元格锁定，公式区域不必操作，再设置保护工作表：</p>
+
+<p><img width="826" height="450" src="a_clip_image019.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>这样操作以后，公式单元格不能被选中。</p>
+
+<p><strong>十二、显示公式部分计算结果</strong><strong> </strong></p>
+
+<p>选取公式中的要显示的部分表达式，按F9键，即可部分显示结果：</p>
+
+<p><img width="786" height="389" src="a_clip_image020.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>按“ESC”退出部分显示。</p>
+
+<p>此种方法，也可以检查公式哪部分出错。</p>
+
+<p><strong>十三、中断公式编辑</strong><strong> </strong></p>
+
+<p>有时候在编辑公式状态下，鼠标不小心点到了其它单元格，出现公式编辑取消不掉的情况，此时，应该选择公式编辑栏左侧的红色“×”，强行停止公式编辑：</p>
+
+<p><img width="626" height="68" src="a_clip_image021.jpg" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>如下动图：</p>
+
+<p><img width="786" height="358" src="a_clip_image022.gif" alt="Excel｜不知道这十三条基本知识，敢说你会公式吗？" /></p>
+
+<p>在公式编辑过程中，你还遇到哪些难点？请留言给韩老师。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

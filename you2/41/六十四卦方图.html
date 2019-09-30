@@ -1,0 +1,816 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.1em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.2em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:center;
+	line-height:1.2em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:center;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:22px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+#tbrowser td{
+}
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:center;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:center;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/text-align:center;
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:center;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:center;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:center;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:center;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:center;
+}
+pre{
+	font-size:70%;
+	line-height:120%;
+	padding:0;
+
+	padding:8px;
+	}
+
+pre{
+font-size-adjust:inherit;
+font-stretch:ultra-condensed;
+word-spacing:-2px;
+letter-spacing:-2px;
+padding:3px;
+margin:0;
+}
+.STYLE1 {
+color: blue;
+font-size:110%;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body> 
+<div id="container">
+<h3></h3>
+
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />	
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+
+
+  <tr height="33">
+    <td colspan="2" rowspan="2" style="vertical-align:middle; text-align:center;">上卦→<br />
+      下卦↓</td>
+    <td height="33">乾（天）</td>
+    <td>兑(泽)</td>
+    <td>离(火)</td>
+    <td>震(雷)</td>
+    <td>巽(风)</td>
+    <td>坎(水)</td>
+    <td>艮(山)</td>
+    <td>坤(地)</td>
+  </tr>
+  <tr height="47">
+    <td height="47" style="text-align:center;">
+<pre>▅▅▅▅▅
+▅▅▅▅▅
+▅▅▅▅▅</td>
+<td height="47" style="text-align:center;">
+<pre>▅▅　▅▅
+▅▅▅▅▅
+▅▅▅▅▅</td>
+<td height="47" style="text-align:center;">
+<pre>▅▅▅▅▅
+▅▅　▅▅
+▅▅▅▅▅</td>
+<td height="47" style="text-align:center;">
+<pre>▅▅　▅▅
+▅▅　▅▅
+▅▅▅▅▅</td>
+<td height="47" style="text-align:center;">
+<pre>▅▅▅▅▅
+▅▅▅▅▅
+▅▅　▅▅</td>
+<td height="47" style="text-align:center;">
+<pre>▅▅　▅▅
+▅▅▅▅▅
+▅▅　▅▅</td>
+<td height="47" style="text-align:center;">
+<pre>▅▅▅▅▅
+▅▅　▅▅
+▅▅　▅▅</td>
+<td height="47" style="text-align:center;">
+<pre>▅▅　▅▅
+▅▅　▅▅
+▅▅　▅▅</td>
+  </tr>
+  <tr height="47">
+    <td height="47">乾(天)<br />
+      111</td>
+    <td>
+<pre>▅▅▅▅▅
+▅▅▅▅▅
+▅▅▅▅▅</td>
+    <td><span class="STYLE1">乾</span>为天<br />
+      qián<br />
+      1</td>
+    <td>泽天<span class="STYLE1">夬</span><br />
+    guài<br />
+    43</td>
+    <td>火天<span class="STYLE1">大有</span><br />
+    dàyǒu<br />
+    14</td>
+    <td>雷天<span class="STYLE1">大壮</span><br />
+    dàzhuàng<br />
+    34</td>
+    <td>风天<span class="STYLE1">小畜</span><br />
+    xiǎoxù<br />
+    9</td>
+    <td>水天<span class="STYLE1">需</span><br />
+    xū<br />
+    5</td>
+    <td>山天<span class="STYLE1">大畜</span><br />
+    dàxù<br />
+    26</td>
+    <td>地天<span class="STYLE1">泰</span><br />
+    tài<br />
+    11</td>
+  </tr>
+  <tr height="47">
+    <td height="47">兑(泽)<br />
+      110</td>
+    <td>
+<pre>▅▅　▅▅
+▅▅▅▅▅
+▅▅▅▅▅</td>
+    <td>天泽<span class="STYLE1">履</span><br />
+    lǚ<br />
+    10</td>
+    <td><span class="STYLE1">兑</span>为泽<br />
+      duì<br />
+      58</td>
+    <td>火泽<span class="STYLE1">睽</span><br />
+    kuí<br />
+    38</td>
+    <td>雷泽<span class="STYLE1">归妹</span><br />
+    guīmèi<br />
+    54</td>
+    <td>风泽<span class="STYLE1">中孚</span><br />
+    zhōngfú<br />
+    61</td>
+    <td>水泽<span class="STYLE1">节</span><br />
+    jiē<br />
+    60</td>
+    <td>山泽<span class="STYLE1">损</span><br />
+    sǔn<br />
+    41</td>
+    <td>地泽<span class="STYLE1">临</span><br />
+    lín<br />
+    19</td>
+  </tr>
+  <tr height="47">
+    <td height="47">离(火)<br />
+      101</td>
+    <td>
+<pre>▅▅▅▅▅
+▅▅　▅▅
+▅▅▅▅▅</td>
+    <td>天火<span class="STYLE1">同人</span><br />
+    tóngrén<br />
+    13</td>
+    <td>泽火<span class="STYLE1">革</span><br />
+    gé<br />
+    49</td>
+    <td><span class="STYLE1">离</span>为火<br />
+      lí<br />
+      30</td>
+    <td>雷火<span class="STYLE1">丰</span><br />
+    fēng<br />
+    55</td>
+    <td>风火<span class="STYLE1">家人</span><br />
+    jiārén<br />
+    37</td>
+    <td>水火<span class="STYLE1">既济</span><br />
+    jìjì<br />
+    63</td>
+    <td>山火<span class="STYLE1">贲</span><br />
+    bì<br />
+    22</td>
+    <td>地火<span class="STYLE1">明夷</span><br />
+    míngyí<br />
+    36</td>
+  </tr>
+  <tr height="47">
+    <td height="47">震(雷)<br />
+      100</td>
+    <td>
+<pre>▅▅　▅▅
+▅▅　▅▅
+▅▅▅▅▅</td>
+    <td>天雷<span class="STYLE1">无妄</span><br />
+    wúwàng<br />
+    25</td>
+    <td>泽雷<span class="STYLE1">随</span><br />
+    suí<br />
+    17</td>
+    <td>火雷<span class="STYLE1">噬嗑</span><br />
+    shìhé<br />
+    21</td>
+    <td><span class="STYLE1">震</span>为雷<br />
+      zhèn<br />
+      51</td>
+    <td>风雷<span class="STYLE1">益</span><br />
+    yì<br />
+    42</td>
+    <td>水雷<span class="STYLE1">屯</span><br />
+    zhūn<br />
+    3</td>
+    <td>山雷<span class="STYLE1">颐</span><br />
+    yí<br />
+    27</td>
+    <td>地雷<span class="STYLE1">复</span><br />
+    fù<br />
+    24</td>
+  </tr>
+  <tr height="47">
+    <td height="47">巽(风)<br />
+      011</td>
+    <td>
+<pre>▅▅▅▅▅
+▅▅▅▅▅
+▅▅　▅▅</td>
+    <td>天风<span class="STYLE1">姤</span><br />
+    gòu<br />
+    44</td>
+    <td>泽风<span class="STYLE1">大过</span><br />
+    dàguò<br />
+    28</td>
+    <td>火风<span class="STYLE1">鼎</span><br />
+    dǐng<br />
+    50</td>
+    <td>雷风<span class="STYLE1">恒</span><br />
+    héng<br />
+    32</td>
+    <td><span class="STYLE1">巽</span>为风<br />
+      xùn      <br />
+      57</td>
+    <td>水风<span class="STYLE1">井</span><br />
+    jǐng<br />
+    48</td>
+    <td>山风<span class="STYLE1">蛊</span><br />
+    gǔ<br />
+    18</td>
+    <td>地风<span class="STYLE1">升</span><br />
+    shēng<br />
+    46</td>
+  </tr>
+  <tr height="47">
+    <td height="47">坎(水)<br />
+      010</td>
+    <td>
+<pre>▅▅　▅▅
+▅▅▅▅▅
+▅▅　▅▅</td>
+    <td>天水<span class="STYLE1">讼</span><br />
+    sòng<br />
+    6</td>
+    <td>泽水<span class="STYLE1">困</span><br />
+    kùn<br />
+    47</td>
+    <td>火水<span class="STYLE1">未济</span><br />
+    wèijì<br />
+      64</td>
+    <td>雷水<span class="STYLE1">解</span><br />
+    jiě<br />
+    40</td>
+    <td>风水<span class="STYLE1">涣</span><br />
+    huàn<br />
+    59</td>
+    <td><span class="STYLE1">坎</span>为水<br />
+      kǎn<br />
+      29</td>
+    <td>山水<span class="STYLE1">蒙</span><br />
+    méng<br />
+    4</td>
+    <td>地水<span class="STYLE1">师</span><br />
+    shī<br />
+    7</td>
+  </tr>
+  <tr height="47">
+    <td height="47">艮(山)<br />
+      001</td>
+    <td>
+<pre>▅▅▅▅▅
+▅▅　▅▅
+▅▅　▅▅</td>
+    <td>天山<span class="STYLE1">遁</span><br />
+    dùn<br />
+    33</td>
+    <td>泽山<span class="STYLE1">咸</span><br />
+    xián<br />
+    31</td>
+    <td>火山<span class="STYLE1">旅</span><br />
+    lǚ<br />
+    56</td>
+    <td>雷山<span class="STYLE1">小过</span><br />
+    xiǎoguò<br />
+    62</td>
+    <td>风山<span class="STYLE1">渐</span><br />
+    jiàn<br />
+    53</td>
+    <td>水山<span class="STYLE1">蹇</span><br />
+    jiǎn<br />
+      39</td>
+    <td><span class="STYLE1">艮</span>为山<br />
+      gèn<br />
+      52</td>
+    <td>地山<span class="STYLE1">谦</span><br />
+      qiān<br />
+    15</td>
+  </tr>
+  <tr height="47">
+    <td height="47">坤(地)<br />
+      000</td>
+    <td>
+<pre>▅▅　▅▅
+▅▅　▅▅
+▅▅　▅▅</td>
+    <td>天地<span class="STYLE1">否</span><br />
+    pǐ<br />
+    12</td>
+    <td>泽地<span class="STYLE1">萃</span><br />
+    cuì<br />
+    45</td>
+    <td>火地<span class="STYLE1">晋</span><br />
+    jìn<br />
+    35</td>
+    <td>雷地<span class="STYLE1">豫</span><br />
+    yù<br />
+    16</td>
+    <td>风地<span class="STYLE1">观</span><br />
+    guān<br />
+    20</td>
+    <td>水地<span class="STYLE1">比</span><br />
+    bǐ<br />
+    8</td>
+    <td>山地<span class="STYLE1">剥</span><br />
+    bō<br />
+      23</td>
+    <td><span class="STYLE1">坤</span>为地<br />
+      kūn<br />
+      2</td>
+  </tr>
+</table>
+<p>乾坤屯蒙需讼师，比小畜兮履泰否；1乾2坤3屯4蒙5需6讼7师8比9小畜10履11泰12否</p>
+
+<p>同人大有谦豫随，蛊临观兮噬嗑贲；13同人14大有15谦16豫17随18蛊19临20观21噬嗑22贲</p>
+
+<p>剥复无妄大畜颐，大过坎离三十备。23剥24复25无妄26大畜27颐28大过29坎30离</p>
+
+<p>咸恒遁兮及大壮，晋与明夷家人睽；31咸32恒33遁34大壮35晋36明夷37家人38睽</p>
+
+<p>蹇解损益夬姤萃，升困井革鼎震继；39蹇40解41损42益43夬44姤45萃46升47困48井49革</p>
+
+<p>艮渐归妹丰旅巽，兑涣节兮中孚至；50鼎51震52艮53渐54归妹55丰56旅57巽58兑59涣</p>
+
+<p>小过既济兼未济，是为下经三十四。60节61中孚62小过63既济64未济</p>
+</div>
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+
+5 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+
+6
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+
+

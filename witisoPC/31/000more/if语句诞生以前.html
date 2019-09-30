@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>if语句诞生以前</title>
+<style type="text/css">
+.container{
+font-size:1.3em;
+text-indent:2em;
+margin:auto;
+font-family:"mv boli","宋体";
+width:75.29%;
+line-height:1.3em;
+}
+P{
+margin:8px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:5px;
+margin-bottom:-15px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}.fix{
+position:fixed;
+top:600px;
+left:89%;
+}
+.fix a:link {
+	text-decoration: none;
+	cursor:url(rose.ani);
+	font-size:0.75em;
+}
+.fix a:visited {
+	text-decoration: none;
+	color:##005681;
+	font-size:0.75em;
+}
+.fix a {
+    padding: 2px 8px;
+    border: 1px solid;
+    border-color: #ffe #aaab9c #ccc #fff;
+    text-decoration: none;
+    background: #f0e7d7;
+    color: #800000;
+    
+}
+.fix a:hover {
+    background: transparent;
+    border-color: #aaab9c #fff #fff #ccc;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<div class="fix"><a href="#top" target="_self">go top</a></div>
+<p>20世纪60年代初，在提倡规则让读写程序更轻松的时代潮流中，结构化程序设计应运而生。时至今日，大家对if、while这样的语句早已习以为常。结构化程序设计的初衷正是通过导入这些语句使代码结构理解变得简单。</p>
+<p>汇编语言中是没有if语句的。</p>
+<h4>C语言代码：</h4>
+<p>int main(){</p>
+<p>&nbsp;&nbsp;int x = 123</p>
+<p>&nbsp;&nbsp;if (x == 456){</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+<p>&nbsp;&nbsp;}</p>
+<p>&nbsp;&nbsp;/* if语句后 */   </p>
+<p>} </p>
+<h4>汇编语言</h4>
+<table>
+  <tr>
+    <td>_main:</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>...</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>mov1 $123, -8(%rbp) </td>
+    <td>①</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td># if语句前 </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>mov1 -8(%rbp) , %eax </td>
+    <td>②</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>cmp1 $456, %eax </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>jmp LBB1_2 </td>
+    <td>③</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td># if语句中</td>
+    <td>④</td>
+  </tr>
+  <tr>
+    <td>LBB1_2:</td>
+    <td>&nbsp;</td>
+    <td>⑤</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td># if语句后</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>...</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p>1 首先把-8(%rbp)理解为C语言中的x;</p>
+<p>2 ①句把数值123代入x;</p>
+<p>3 ②句把x的值移存到临时场所后，把它和数值456比较；</p>
+<p>4 ③句是指当条件为假时转到LBB1_2处； </p>
+<h4>while语句，让反复执行的if语句更简洁</h4>
+<h4>C语言</h4>
+<p>void use_while(int x){</p>
+<p>&nbsp;&nbsp;printf(&quot;use_while/n&quot;);</p>
+<p>&nbsp;&nbsp;while(x &gt; 0){</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;%d/n&quot;, x) ;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;x--;</p>
+<p>&nbsp;&nbsp;} </p>
+<p>} </p>
+<h4>不使用while语句的C语言表达方式</h4>
+<p>void use_while(int x){</p>
+<p>&nbsp;&nbsp;printf(&quot;use_while/n&quot;);</p>
+<p>&nbsp;&nbsp;start_loop:</p>
+<p>&nbsp;&nbsp;if(!(x &gt; 0)) goto end-loop;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;printf(&quot;%d/n&quot;, x) ;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;x--; </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;goto start_loop;</p>
+<p>&nbsp;&nbsp;end_loop:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;return;</p>
+<p>} </p>
+<p>&nbsp;</p>
+<h4>for语句：让数值渐增的while语句更简洁</h4>
+<h4>C语言</h4>
+<p>for (i = 0; i &lt; N; i++){</p>
+<p>&nbsp;&nbsp;printf(&quot;%d\n&quot;, i); </p>
+<p>} </p>
+<h4>不使用for语句的表达式</h4>
+<p>i = 0;</p>
+<p>while(i &lt; n){</p>
+<p>&nbsp;&nbsp;printf(&quot;%d\n&quot;, i);</p>
+<p>&nbsp;&nbsp;i++; </p>
+<p>}  </p>
+<h4>foreach：根据处理的对象来控制循环操作</h4>
+<p> while语句通过条件判断来控制循环操作，for语句通过循环次数来控制循环操作；而foreach句型则是通过处理的对象来控制循环损伤 </p>
+</div>
+</body>
+</html>

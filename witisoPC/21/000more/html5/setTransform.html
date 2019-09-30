@@ -1,0 +1,41 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>矩阵转换 | setTransform(a, b, c, d, e, f)</title> 
+    </head> 
+    <body> 
+        <canvas id="canvas" width="400" height="400" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">Demo</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            function drawIt() {  
+                ctx.strokeStyle = "red";  
+                ctx.scale(2, 2);  
+                ctx.strokeRect(0, 0, 60, 60);  
+                /*  
+                 * context.setTransform(a, b, c, d, e, f) - 首先重置用户坐标系，然后再按指定的矩阵转换用户坐标系（translate, rotate, scale, transform 是针对当前用户坐标系做转换，而 setTransform 是针对重置后的用户坐标系做转换）  
+                 *   相当于：context.setTransform(M11, M12, M21, M22, OffsetX, OffsetY)  
+                 *  
+                 * 关于仿射矩阵参考：http://www.cnblogs.com/webabcd/archive/2008/11/03/1325150.html  
+                 *  
+                 *   |X|             |M11（默认值 1）      M21（默认值 0）       0|  
+                 *   |Y| = |x y 1| * |M12（默认值 0）      M22（默认值 1）       0|  
+                 *   |1|             |OffsetX（默认值 0）  OffsetY（默认值 0）   1|  
+                 *  
+                 *   X = x * M11 + y * M12 + OffsetX  
+                 *   Y = x * M21 + y * M22 + OffsetY  
+                 */  
+                ctx.strokeStyle = "blue";  
+                ctx.setTransform(1, 0, 0, 1, 0, 0);  
+                ctx.strokeRect(0, 0, 60, 60);  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 400, 400);  
+            }  
+        </script> 
+    </body> 
+    </html> 

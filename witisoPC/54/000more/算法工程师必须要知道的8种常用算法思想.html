@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>算法工程师必须要知道的8种常用算法思想</h3>
+
+<p>
+</p>
+
+<p>算法思想有很多，业界公认的常用算法思想有8 种，分别是枚举、递推、递归、分治、贪心、试探法、动态迭代和模拟。当然8 种只是一个大概的划分，是一个“仁者见仁、智者见智”的问题。
+</p>
+
+<p><h4 >1 枚举算法思想</h4 >
+</p>
+
+<p>知识点讲解：光盘:视频讲解第2 章枚举算法思想.avi
+</p>
+
+<p>枚举算法思想的最大特点是，在面对任何问题时它会去尝试每一种解决方法。在进行归纳推理时，如果逐个考察了某类事件的所有可能情况，因而得出一般结论，那么这个结论是可靠的，这种归纳方法叫作枚举法。
+</p>
+
+<p>1 枚举算法基础
+</p>
+
+<p>枚举算法的思想是：将问题的所有可能的答案一一列举，然后根据条件判断此答案是否合适，保留合适的，丢弃不合适的。在C语言中，枚举算法一般使用while循环实现。使用枚举算法解题的基本思路如下。
+</p>
+
+<p>①确定枚举对象、枚举范围和判定条件。
+</p>
+
+<p>②逐一列举可能的解，验证每个解是否是问题的解。
+</p>
+
+<p>枚举算法一般按照如下3 个步骤进行。
+</p>
+
+<p>①题解的可能范围，不能遗漏任何一个真正解，也要避免有重复。
+</p>
+
+<p>②判断是否是真正解的方法。
+</p>
+
+<p>③使可能解的范围降至最小，以便提高解决问题的效率。
+</p>
+
+<p>枚举算法的主要流程如图1 -1 所示。
+</p>
+
+<p>算法工程师必须要知道的8 种常用算法思想
+</p>
+
+<p><h4 >2 递推算法思想</h4 >
+</p>
+
+<p>知识点讲解：光盘:视频讲解第2 章递推算法思想.avi
+</p>
+
+<p>与枚举算法思想相比，递推算法能够通过已知的某个条件，利用特定的关系得出中间推论，然后逐步递推，直到得到结果为止。由此可见，递推算法要比枚举算法聪明，它不会尝试每种可能的方案。
+</p>
+
+<p>2 .1 递推算法基础
+</p>
+
+<p>递推算法可以不断利用已有的信息推导出新的东西，在日常应用中有如下两种递推算法。
+</p>
+
+<p>①顺推法：从已知条件出发，逐步推算出要解决问题的方法。例如斐波那契数列就可以通过顺推法不断递推算出新的数据。
+</p>
+
+<p>②逆推法：从已知的结果出发，用迭代表达式逐步推算出问题开始的条件，即顺推法的逆过程。
+</p>
+
+<p><h4 >3 递归算法思想</h4 >
+</p>
+
+<p>知识点讲解：光盘:视频讲解第2 章递归算法思想.avi
+</p>
+
+<p>因为递归算法思想往往用函数的形式来体现，所以递归算法需要预先编写功能函数。这些函数是独立的功能，能够实现解决某个问题的具体功能，当需要时直接调用这个函数即可。在本节的内容中，将详细讲解递归算法思想的基本知识。
+</p>
+
+<p>3 .1 递归算法基础
+</p>
+
+<p>在计算机编程应用中，递归算法对解决大多数问题是十分有效的，它能够使算法的描述变得简洁而且易于理解。递归算法有如下3 个特点。
+</p>
+
+<p>①递归过程一般通过函数或子过程来实现。
+</p>
+
+<p>②递归算法在函数或子过程的内部，直接或者间接地调用自己的算法。
+</p>
+
+<p>③递归算法实际上是把问题转化为规模缩小了的同类问题的子问题，然后再递归调用函数或过程来表示问题的解。
+</p>
+
+<p>在使用递归算法时，读者应该注意如下4 点。
+</p>
+
+<p>①递归是在过程或函数中调用自身的过程。
+</p>
+
+<p>②在使用递归策略时，必须有一个明确的递归结束条件，这称为递归出口。
+</p>
+
+<p>③递归算法通常显得很简洁，但是运行效率较低，所以一般不提倡用递归算法设计程序。
+</p>
+
+<p>④在递归调用过程中，系统用栈来存储每一层的返回点和局部量。如果递归次数过多，则容易造成栈溢出，所以一般不提倡用递归算法设计程序。
+</p>
+
+<p><h4 >4 分治算法思想</h4 >
+</p>
+
+<p>知识点讲解：光盘:视频讲解第2 章分治算法思想.avi
+</p>
+
+<p>在本节将要讲解的分治算法也采取了各个击破的方法，将一个规模为N的问题分解为K个规模较小的子问题，这些子问题相互独立且与原问题性质相同。只要求出子问题的解，就可得到原问题的解。
+</p>
+
+<p>4 .1 分治算法基础
+</p>
+
+<p>在编程过程中，经常遇到处理数据相当多、求解过程比较复杂、直接求解法会比较耗时的问题。在求解这类问题时，可以采用各个击破的方法。具体做法是：先把这个问题分解成几个较小的子问题，找到求出这几个子问题的解法后，再找到合适的方法，把它们组合成求整个大问题的解。如果这些子问题还是比较大，还可以继续再把它们分成几个更小的子问题，以此类推，直至可以直接求出解为止。这就是分治算法的基本思想。
+</p>
+
+<p>使用分治算法解题的一般步骤如下。
+</p>
+
+<p>①分解，将要解决的问题划分成若干个规模较小的同类问题。
+</p>
+
+<p>②求解，当子问题划分得足够小时，用较简单的方法解决。
+</p>
+
+<p>③合并，按原问题的要求，将子问题的解逐层合并构成原问题的解。
+</p>
+
+<p><h4 >5 贪心算法思想</h4 >
+</p>
+
+<p>知识点讲解：光盘:视频讲解第2 章贪心算法思想.avi
+</p>
+
+<p>本节所要讲解的贪心算法也被称为贪婪算法，它在求解问题时总想用在当前看来是最好方法来实现。这种算法思想不从整体最优上考虑问题，仅仅是在某种意义上的局部最优求解。虽然贪心算法并不能得到所有问题的整体最优解，但是面对范围相当广泛的许多问题时，能产生整体最优解或者是整体最优解的近似解。由此可见，贪心算法只是追求某个范围内的最优，可以称之为“温柔的贪婪”。
+</p>
+
+<p>5 .1 贪心算法基础
+</p>
+
+<p>贪心算法从问题的某一个初始解出发，逐步逼近给定的目标，以便尽快求出更好的解。当达到算法中的某一步不能再继续前进时，就停止算法，给出一个近似解。由贪心算法的特点和思路可看出，贪心算法存在以下3 个问题。
+</p>
+
+<p>①不能保证最后的解是最优的。
+</p>
+
+<p>②不能用来求最大或最小解问题。
+</p>
+
+<p>③只能求满足某些约束条件的可行解的范围。
+</p>
+
+<p>贪心算法的基本思路如下。
+</p>
+
+<p>①建立数学模型来描述问题。
+</p>
+
+<p>②把求解的问题分成若干个子问题。
+</p>
+
+<p>③对每一子问题求解，得到子问题的局部最优解。
+</p>
+
+<p>④把子问题的局部最优解合并成原来解问题的一个解。
+</p>
+
+<p>实现该算法的基本过程如下。
+</p>
+
+<p>（1 ）从问题的某一初始解出发。
+</p>
+
+<p>（2 ）while能向给定总目标前进一步。
+</p>
+
+<p>（3 ）求出可行解的一个解元素。
+</p>
+
+<p>（4 ）由所有解元素组合成问题的一个可行解。
+</p>
+
+<p><h4 >6 试探法算法思想
+</p>
+
+<p></h4 >试探法也叫回溯法，试探法的处事方式比较委婉，它先暂时放弃关于问题规模大小的限制，并将问题的候选解按某种顺序逐一进行枚举和检验。当发现当前候选解不可能是正确的解时，就选择下一个候选解。如果当前候选解除了不满足问题规模要求外能够满足所有其他要求时，则继续扩大当前候选解的规模，并继续试探。如果当前候选解满足包括问题规模在内的所有要求时，该候选解就是问题的一个解。在试探算法中，放弃当前候选解，并继续寻找下一个候选解的过程称为回溯。扩大当前候选解的规模，并继续试探的过程称为向前试探。
+</p>
+
+<p>6 .1 试探法算法基础
+</p>
+
+<p>使用试探算法解题的基本步骤如下所示。
+</p>
+
+<p>①针对所给问题，定义问题的解空间。
+</p>
+
+<p>②确定易于搜索的解空间结构。
+</p>
+
+<p>③以深度优先方式搜索解空间，并在搜索过程中用剪枝函数避免无效搜索。
+</p>
+
+<p>试探法为了求得问题的正确解，会先委婉地试探某一种可能的情况。在进行试探的过程中，一旦发现原来选择的假设情况是不正确的，立即会自觉地退回一步重新选择，然后继续向前试探，如此这般反复进行，直至得到解或证明无解时才死心。
+</p>
+
+<p>假设存在一个可以用试探法求解的问题P，该问题表达为：对于已知的由n元组（y1 ，y2 ，…，yn）组成的一个状态空间E={（y1 ，y2 ，…，yn）∣yi∈Si，i=1 ，2 ，…，n}，给定关于n元组中的一个分量的一个约束集D，要求E中满足D的全部约束条件的所有n元组。其中，Si是分量yi的定义域，且|Si|有限，i=1 ，2 ，…，n。E中满足D的全部约束条件的任一n元组为问题P的一个解。
+</p>
+
+<p>解问题P的最简单方法是使用枚举法，即对E中的所有n元组逐一检测其是否满足D的全部约束，如果满足，则为问题P的一个解。但是这种方法的计算量非常大。
+</p>
+
+<p>对于现实中的许多问题，所给定的约束集D具有完备性，即i元组（y1 ，y2 ，…，yi）满足D中仅涉及y1 ，y2 ，…，yj的所有约束，这意味着j（j<i）元组（y1 ，y2 ，…，yj）一定也满足D中仅涉及y1 ，y2 ，…，yj的所有约束，i=1 ，2 ，…，n。换句话说，只要存在0 <=j<=n？1 ，使得（y1 ，y2 ，…，yj）违反D中仅涉及y1 ，y2 ，…，yj的约束之一，则以（y1 ，y2 ，…，yj）为前缀的任何n元组（y1 ，y2 ，…，yj，yj+1 ，…，yn）一定也违反D中仅涉及y1 ，y2 ，…，yi的一个约束，n>=i>;j。因此，对于约束集D具有完备性的问题P，一旦检测断定某个j元组（y1 ，y2 ，…，yj）违反D中仅涉及y1 ，y2 ，…，yj的一个约束，就可以肯定，以（y1 ，y2 ，…，yj）为前缀的任何n元组（y1 ，y2 ，…，yj，yj+1 ，…，yn）都不会是问题P的解，因而就不必去搜索它们、检测它们。试探法是针对这类问题而推出的，比枚举算法的效率更高。
+</p>
+
+<p><h4 >7 迭代算法
+</p>
+
+<p></h4 >迭代法也称辗转法，是一种不断用变量的旧值递推新值的过程，在解决问题时总是重复利用一种方法。与迭代法相对应的是直接法（或者称为一次解法），即一次性解决问题。迭代法又分为精确迭代和近似迭代。“二分法”和“牛顿迭代法”属于近似迭代法，功能都比较类似。
+</p>
+
+<p>7 .1 迭代算法基础
+</p>
+
+<p>迭代算法是用计算机解决问题的一种基本方法。它利用计算机运算速度快、适合做重复性操作的特点，让计算机对一组指令（或一定步骤）进行重复执行，在每次执行这组指令（或这些步骤）时，都从变量的原值推出它的一个新值。
+</p>
+
+<p>在使用迭代算法解决问题时，需要做好如下3 个方面的工作。
+</p>
+
+<p>（1 ）确定迭代变量
+</p>
+
+<p>在可以使用迭代算法解决的问题中，至少存在一个迭代变量，即直接或间接地不断由旧值递推出新值的变量。
+</p>
+
+<p>（2 ）建立迭代关系式
+</p>
+
+<p>迭代关系式是指如何从变量的前一个值推出其下一个值的公式或关系。通常可以使用递推或倒推的方法来建立迭代关系式，迭代关系式的建立是解决迭代问题的关键。
+</p>
+
+<p>（3 ）对迭代过程进行控制
+</p>
+
+<p>在编写迭代程序时，必须确定在什么时候结束迭代过程，不能让迭代过程无休止地重复执行下去。通常可分为如下两种情况来控制迭代过程：
+</p>
+
+<p>①所需的迭代次数是个确定的值，可以计算出来，可以构建一个固定次数的循环来实现对迭代过程的控制；
+</p>
+
+<p>②所需的迭代次数无法确定，需要进一步分析出用来结束迭代过程的条件。
+</p>
+
+<p><h4 >8 模拟算法思想
+</p>
+
+<p></h4 >模拟是对真实事物或者过程的虚拟。在编程时为了实现某个功能，可以用语言来模拟那个功能，模拟成功也就相应地表示编程成功。
+</p>
+
+<p>8 .1 模拟算法的思路
+</p>
+
+<p>模拟算法是一种基本的算法思想，可用于考查程序员的基本编程能力，其解决方法就是根据题目给出的规则对题目要求的相关过程进行编程模拟。在解决模拟类问题时，需要注意字符串处理、特殊情况处理和对题目意思的理解。在C语言中，通常使用函数srand()和rand()来生成随机数。其中，函数srand()用于初始化随机数发生器，然后使用函数rand()来生成随机数。如果要使用上述两个函数，则需要在源程序头部包含time.h文件。在程序设计过程中，可使用随机函数来模拟自然界中发生的不可预测情况。在解题时，需要仔细分析题目给出的规则，要尽可能地做到全面考虑所有可能出现的情况，这是解模拟类问题的关键点之一。</p>
+
+
+
+<p style='float:right;'>本页共91段，4519个字符，12509 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

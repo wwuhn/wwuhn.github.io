@@ -1,0 +1,753 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+</style>
+</head>
+
+<body> 
+<div id="container">
+<h3></h3>
+
+<table id="tbrowser">
+
+  <col width="35" />
+  <col width="383" />
+  <col width="466" />
+  <tr>
+    <td width="35"></td>
+    <td width="383">C语言</td>
+    <td width="466">C++语言</td>
+  </tr>
+  <tr>
+    <td width="35">1</td>
+    <td width="383">以.c为文件扩展名，如果不小心用了一些C++支持的功能，.c文件是无法通过编译的</td>
+    <td width="466">以.cpp为文件扩展名，支持C语言功能</td>
+  </tr>
+  <tr>
+    <td width="35">2</td>
+    <td width="383">面向过程</td>
+    <td width="466">多范式，支持面向过程、面向对象、泛型</td>
+  </tr>
+  <tr>
+    <td width="35">3</td>
+    <td width="383">遵循自上而下构建程序</td>
+    <td width="466">遵循自下而上构建程序</td>
+  </tr>
+  <tr>
+    <td width="35">4</td>
+    <td width="383">用函数构建模块</td>
+    <td width="466">用函数和类构建模块</td>
+  </tr>
+  <tr>
+    <td width="35">5</td>
+    <td width="383">数据的安全性较低</td>
+    <td width="466">可以对类成员使用修饰符，以使其对外部用户不可访问</td>
+  </tr>
+  <tr>
+    <td width="35">6</td>
+    <td width="383">把char字面常量视为int类型<br />
+      char ch = 'A';<br />
+      字面常量'A'被储存在int大小的内存块中<br />
+      变量ch中该值只占内存的1个字节</td>
+    <td width="466">把char常量视为char类型<br />
+      字面常量'A'和变量ch都占用1个字节；</td>
+  </tr>
+  <tr>
+    <td width="35">7</td>
+    <td width="383">函数原型可选</td>
+    <td width="466">函数原型必不可少</td>
+  </tr>
+  <tr>
+    <td width="35">8</td>
+    <td width="383">不能在结构体中使用函数(可以包含函数指针)</td>
+    <td width="466">可以在结构体中使用函数。且可以设置private、protected、public等访问控制符</td>
+  </tr>
+  <tr>
+    <td width="35">9</td>
+    <td width="383">struct duo{int a; int b;}<br />
+      struct duo m;</td>
+    <td width="466">struct    duo{int a; int b;}<br />
+      struct duo m;或<br />
+      duo m;</td>
+  </tr>
+  <tr>
+    <td width="35">10</td>
+    <td width="383">enum    sample{sage,thyme,salt,pepper}<br />
+      enum sample season;<br />
+      season = sage;<br />
+      season = (enum sample)3;<br />
+      season = 2;<br />
+      season++;</td>
+    <td width="466">enum    sample{sage,thyme,salt,pepper}<br />
+      enum sample season;<br />
+      sample season2;<br />
+      season = sage;<br />
+      season = (enum sample)3;</td>
+  </tr>
+  <tr>
+    <td width="35">11</td>
+    <td width="383">允许从void*隐式转换到其它的指针类型</td>
+    <td width="466">不允许从void*隐式转换到其它的指针类型</td>
+  </tr>
+  <tr>
+    <td width="35">12</td>
+    <td width="383">int    ar[5] = {4,5,6,7,8};<br />
+      int *pi;<br />
+      void * pv;<br />
+      pv = pi;<br />
+      pi = (int*)pv;<br />
+      pi = pv;</td>
+    <td width="466">int    ar[5] = {4,5,6,7,8};<br />
+      int *pi;<br />
+      void * pv;<br />
+      pv = pi;<br />
+      pi = (int*)pv;<br />
+      （可以把派生类对象的地址赋给基类指针）</td>
+  </tr>
+  <tr>
+    <td width="35">13</td>
+    <td width="383">C99和C11在iso646.h中定义了类似#define    || or的拼写</td>
+    <td width="466">可以用or来代替||</td>
+  </tr>
+  <tr>
+    <td width="35">14</td>
+    <td width="383">宽字符wchar_t类型被定义在多个头文件中</td>
+    <td width="466">wchar_t是内置类型，也是关键字</td>
+  </tr>
+  <tr>
+    <td width="35">15</td>
+    <td width="383">通过complex.h来支持复数类型</td>
+    <td width="466">通过complex头文件提供一个复数类来支持复数类型</td>
+  </tr>
+  <tr>
+    <td width="35">16</td>
+    <td width="383">不支持引用变量</td>
+    <td width="466">支持引用变量。引用相对于指针，一般用作函数参数、函数返回值。引用必先初始化，但不分配存储空间，初始化后不能被改变，且不存在指向空值NULL<br />
+      指针可以被重定向指向不同的对象，引用记录指向它初始化指向的对象；<br />
+      基本上，当你可能会指向空（或什么都不指向）或可能会在不同时间指向不同对象的时候，使用指针！反之，则使用引用。</td>
+  </tr>
+  <tr>
+    <td width="35">17</td>
+    <td width="383">处理输入输出的头文件：<br />
+      &lt;stdio.h&gt;</td>
+    <td width="466">处理输入输出的头文件：<br />
+      #include &lt;iostream.h&gt;<br />
+      using namespace std;</td>
+  </tr>
+  <tr>
+    <td width="35">18</td>
+    <td width="383">scanf()和printf()主要用于输入/输出，只能输出基本类型。<br />
+      对于string s，可以使用printf(&quot;%s&quot;, s.c_str())输出</td>
+    <td width="466">主要使用流cin和cout以及&lt;&lt;&gt;&gt;endl来执行输入和输出操作。</td>
+  </tr>
+  <tr>
+    <td width="35">19</td>
+    <td width="383">不提供命名空间的功能。</td>
+    <td width="466">支持命名空间的特性。在C++下，若要使用C中已有库中的函数，文件包含方式为前面加一个c，同时去掉.h后缀，如：<br />
+      #include &lt;cstdio&gt;<br />
+      #include &lt;cstdlib&gt;<br />
+      using namespace std;</td>
+  </tr>
+  <tr>
+    <td width="35">20</td>
+    <td width="383">不支持函数重载</td>
+    <td width="466">支持函数重载</td>
+  </tr>
+  <tr>
+    <td width="35">21</td>
+    <td width="383">操作符不可能重载</td>
+    <td width="466">操作符可以重载（类）</td>
+  </tr>
+  <tr>
+    <td width="35">22</td>
+    <td width="383">异常处理的几种方式：<br />
+      1.使用标准C库提供了abort()和exit()两个函数，它们可以强行终止程序的运行，其声明处于&lt;stdlib.h&gt;头文件中。<br />
+      2.使用assert(断言)宏调用，位于头文件&lt;assert.h&gt;中，当程序出错时，就会引发一个abort（）。<br />
+      3.使用errno全局变量，由C运行时库函数提供，位于头文件&lt;errno.h&gt;中。<br />
+      4.使用goto语句，当出错时跳转。<br />
+      5.使用setjmp,longjmp进行异常处理。</td>
+    <td width="466">使用Try和Catch块提供异常处理。</td>
+  </tr>
+  <tr>
+    <td width="35">23</td>
+    <td width="383">变量必须在函数或语句块的开头处声明</td>
+    <td width="466">可随处声明，只要满足先声明后使用的原则</td>
+  </tr>
+  <tr>
+    <td width="35">24</td>
+    <td width="383">处理字符数组的函数的头文件：<br />
+      #include &lt;string.h&gt;<br />
+      'a'!=&quot;a&quot;，后者还包括一个'\0'</td>
+    <td width="466">处理字符串类的头文件：<br />
+      #include &lt;string&gt;</td>
+  </tr>
+  <tr>
+    <td width="35">25</td>
+    <td width="383">static修饰局部变量，让局部变量具有了“记忆性”，可以使在不同时间调用的函数进行调用、传递信息；</td>
+    <td width="466">static修饰类的成员是静态成员，静态成员可以在多个对象实例间进行通信、传递信息；</td>
+  </tr>
+  <tr>
+    <td width="35">26</td>
+    <td width="383">动态内存分配，以void*类型（暂未确定类型的指针）返回分配的内存区域地址:<br />
+      malloc()，需要另外的free()来释放内存；</td>
+    <td width="466">动态内存分配，以void*类型返回分配的内存区域地址:<br />
+      new()new(delete)与malloc(free)的主要区别是除了分配与释放内存，还会自动调用构造函数与析构函数。</td>
+  </tr>
+  <tr>
+    <td width="35">27</td>
+    <td width="383">C89没有定义布尔类型，C语言判断真假时以0为假，非0为真。<br />
+      typedef int BOOL;<br />
+      #define TRUE 1<br />
+      #define FALSE <br />
+      C99为了让我们能够写出与C++兼容的代码，添加了一个头文件&lt;stdbool.h&gt;，该文件定义了bool=_Bool,true=1,false=0。</td>
+    <td width="466">C++中，通过bool来定义布尔变量，通过true和false对布尔变量进行赋值。</td>
+  </tr>
+  <tr>
+    <td width="35">28</td>
+    <td width="383">只支持标准函数库、Win32API函数（&lt;windows.h&gt;    ）</td>
+    <td width="466">支持类库，如STL、MFC</td>
+  </tr>
+  <tr>
+    <td width="35">29</td>
+    <td width="383">CRT库提供了一级操作文件的函数：<br />
+      1 fopen()函数（文件打开）<br />
+      2 fread()函数（读）<br />
+      3 fwrite()函数（写）<br />
+      4 fclose()函数（文件关闭）<br />
+      Win32 API函数操作文件：<br />
+      1 CreateFile()；<br />
+      2 WriteFile()；</td>
+    <td width="466">提供了不同功能的类来支持文件的操作：<br />
+      1 ofsteam类（从内存写到硬盘）<br />
+      2 ifstream类（是从硬盘读到内存）<br />
+      3 fstream类（读写）<br />
+      MFC提供的Cfile类：<br />
+      1 .Read()方法；<br />
+      2 .Write()方法；<br />
+      3 .Close()方法；<br />
+      MFC提供的CStdioFile</td>
+  </tr>
+  <tr>
+    <td width="35">30</td>
+    <td width="383">const用来限定一个变量是只读的，即不可变的。默认具有外部链接，并分配内存空间。<br />
+      *const表示指针指向的变量的值不可变。<br />
+      const*表示指针的值是不可变的。</td>
+    <td width="466">const表示常量（    C++中定义常量的时候不再采用define），是内部链接。编译器在通常情况下不为常量分配空间,而是将其值存放在符号表内。但当使用extern修饰常量时,则必须立即为此常量分配空间。以使用寻址的方法来引用它。</td>
+  </tr>
+  <tr>
+    <td width="35">31</td>
+    <td width="383">没有参数默认值的概念，可以利用宏来模拟参数默认值</td>
+    <td width="466">支持带默认参数的函数</td>
+  </tr>
+  <tr>
+    <td width="35">32</td>
+    <td width="383">早期ANSI    C没有inline关键字，后续的C99扩展了这一关键字</td>
+    <td width="466">支持内嵌（inline）函数</td>
+  </tr>
+  <tr>
+    <td width="35">33</td>
+    <td width="383">　</td>
+    <td width="466">在函数中通过::访问全局变量</td>
+  </tr>
+  <tr>
+    <td width="35">34</td>
+    <td width="383">受限指针（Restricted    pointer）（即restrict指针）</td>
+    <td width="466">　</td>
+  </tr>
+  <tr>
+    <td width="35">35</td>
+    <td width="383">变长数组</td>
+    <td width="466">　</td>
+  </tr>
+  <tr>
+    <td width="35">36</td>
+    <td width="383">带可变数量参数的宏</td>
+    <td width="466">　</td>
+  </tr>
+  <tr>
+    <td width="35">37</td>
+    <td width="383">版本：c89→c99→c11</td>
+    <td width="466">版本：C++98→C++03→C++11→C++14→C++17</td>
+  </tr>
+  <tr>
+    <td width="35">38</td>
+    <td width="383">struct duo m;</td>
+    <td width="466">duo m;</td>
+  </tr>
+  <tr>
+    <td width="35">39</td>
+    <td width="383">enum sample season;</td>
+    <td width="466">sample season;</td>
+  </tr>
+  <tr>
+    <td width="35">40</td>
+    <td width="383">VC6在{{}{}}结构中，内部的{}不能使用相同的局部变量声明；</td>
+    <td width="466"></td>
+  </tr>
+</table>
+</div>
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+
+5 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+
+6
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+
+

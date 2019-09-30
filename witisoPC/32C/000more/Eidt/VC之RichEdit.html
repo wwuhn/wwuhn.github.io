@@ -1,0 +1,921 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>VC++ 之 RichEdit</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.6em;
+}
+P{
+margin:16px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ 
+img{
+border:0;
+}
+.picsay{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+}
+.code0{
+color:red;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:0em;
+}
+.code2{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:2em;
+}
+.code4{
+color:blue;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:4em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h3>一.常见问题</h3>
+
+<h4>a.可以编译,不能执行的</h4>
+
+<p>AfxInitRichEdit();</p>
+
+<p></p>
+
+<h4>b.升级默认的Riched版本(默认的有一些bug)，如</h4>
+
+<p>可在InitInstance中添加</p>
+
+<p>LoadLibrary(&quot;RICHED20.DLL&quot;)</p>
+
+<p>最后注意 FreeLibrary</p>
+
+<p></p>
+
+<p>如果是CRichEditView基类的可用</p>
+
+<p class="code0">BOOL CXXXXXXView::PreCreateWindow(CREATESTRUCT&amp; cs)</p>
+
+<p class="code0">{</p>
+
+<p class="code0">//装入rich edit version 2.0</p>
+
+<p class="code0">if (LoadLibraryA(&quot;RICHED20.DLL&quot;) == NULL)</p>
+
+<p class="code0">{</p>
+
+<p class="code2">AfxMessageBox(_T(&quot;Fail to load \&quot;riched20.dll\&quot;.&quot;),MB_OK | MB_ICONERROR);</p>
+
+<p class="code2">PostMessage(WM_QUIT,0,0);</p>
+
+<p class="code2">return FALSE;</p>
+
+<p class="code0">}</p>
+
+<p class="code0"></p>
+
+<p class="code0">m_strClass = RICHEDIT_CLASSA;//for 2.0 class</p>
+
+<p class="code0"></p>
+
+<p class="code0">return CRichEditView::PreCreateWindow(cs);</p>
+
+<p class="code0">}</p>
+
+<p></p>
+
+<h4>c.最后追加行</h4>
+
+<p>richeditctrl.SetSel(-1, -1);</p>
+
+<p>richeditctrl.ReplaceSel( (LPCTSTR)str );</p>
+
+<p></p>
+
+<h4>d.字数限制</h4>
+
+<p>CRichEditCtrl::LimitText(long nChars)</p>
+
+<p></p>
+
+<h4>e.换行切换</h4>
+
+<p>CRichEditView的OnInitialUpdate()函数中加入下面两句：</p>
+
+<p>m_nWordWrap = WrapNone;</p>
+
+<p>WrapChanged();</p>
+
+<p>WrapChanged实际上也是调用</p>
+
+<p>ctrl.SetTargetDevice(NULL, 1); //m_nWordWrap == WrapNone</p>
+
+<p>ctrl.SetTargetDevice(NULL, 0); //m_nWordWrap == WrapToWindow</p>
+
+<p>还有不常用的 m_nWordWrap == WrapToTargetDevice</p>
+
+<p>ctrl.SetTargetDevice(m_dcTarget, GetPrintWidth());</p>
+
+<p>如果是在Dialog中，可使用SetTargetDevice，注意在属性里面加上want return</p>
+
+<p></p>
+
+<h4>f.有时候不希望带格式的数据粘贴，可通过PasteSpecial选择性粘贴</h4>
+
+<p>pmyRichEditCtrl-&gt;PasteSpecial(CF_TEXT);</p>
+
+<p></p>
+
+<h4>g.随着输入随着自动滚动条滚动到最后一行</h4>
+
+<p>int nFirstVisible = pmyRichEditCtrl-&gt;GetFirstVisibleLine();</p>
+
+<p>if (nFirstVisible &gt; 0)</p>
+
+<p>{</p>
+
+<p>pmyRichEditCtrl-&gt;LineScroll(-nFirstVisible, 0);</p>
+
+<p>}</p>
+
+<p>或</p>
+
+<p>m_cRichEdit.PostMessage(WM_VSCROLL, SB_BOTTOM,0);</p>
+
+<p></p>
+
+<p></p>
+
+<h4>h.设置UNDO的次数(只能用在RICHED20以上，即默认不支持，必须升级)</h4>
+
+<p>SendMessage(EM_SETTEXTMODE,TM_MULTILEVELUNDO,0);</p>
+
+<p>TM_MULTILEVELUNDO 支持多取消(默认值).可通过EM_SETUNDOLIMIT设置最大次数</p>
+
+<p>SendMessage(EM_SETUNDOLIMIT,100,0);</p>
+
+<p></p>
+
+<h4>i.响应OnChange</h4>
+
+<p>EM_SETEVENTMASK 设置 ENM_CHANGE</p>
+
+<p>long lMask = GetEventMask();</p>
+
+<p>lMask |= ENM_CHANGE;</p>
+
+<p>lMask &amp;= ~ENM_PROTECTED;</p>
+
+<p>SetEventMask(lMask);</p>
+
+<p></p>
+
+<h4>j.设置只读</h4>
+
+<p>CRichEditCtrl::SetReadOnly( BOOL bReadOnly = TRUE );</p>
+
+<p>通过设置PROTECTED实现选中的文本只读，参见</p>
+
+<p><a href="http://www.codeguru.com/Cpp/controls/richedit/article.php/c2401/" target="_blank">http://www.codeguru.com/Cpp/controls/richedit/article.php/c2401/</a></p>
+
+<p></p>
+
+<p></p>
+
+<h3>二.函数应用</h3>
+
+<h4>a.设置字体（主要是通过SetSelectionCharFormat）</h4>
+
+<p>CHARFORMAT cf;</p>
+
+<p>rich.GetSelectionCharFormat(cf);</p>
+
+<p>cf.dwMask|=CFM_BOLD;</p>
+
+<p>cf.dwEffects|=CFE_BOLD;//设置粗体，取消用cf.dwEffects&amp;=~CFE_BOLD;</p>
+
+<p>cf.dwMask|=CFM_ITALIC;</p>
+
+<p>cf.dwEffects|=CFE_ITALIC;//设置斜体，取消用cf.dwEffects&amp;=~CFE_ITALIC;</p>
+
+<p>cf.dwMask|=CFM_UNDERLINE;</p>
+
+<p>cf.dwEffects|=CFE_UNDERLINE;//设置斜体，取消用cf.dwEffects&amp;=~CFE_UNDERLINE;</p>
+
+<p>cf.dwMask|=CFM_COLOR;</p>
+
+<p>cf.crTextColor = RGB(255,0,0);//设置颜色</p>
+
+<p>cf.dwMask|=CFM_SIZE;</p>
+
+<p>cf.yHeight =200;//设置高度</p>
+
+<p>cf.dwMask|=CFM_FACE;</p>
+
+<p>strcpy(cf.szFaceName ,_T(&quot;隶书&quot;));//设置字体</p>
+
+<p>rich.SetSelectionCharFormat(cf);</p>
+
+<p></p>
+
+<h4>b.设置字体的行间距</h4>
+
+<p>要用richedit2.0以上</p>
+
+<p>试试</p>
+
+<p>PARAFORMAT2 pf;</p>
+
+<p>pf.cbSize = sizeof(PARAFORMAT2);</p>
+
+<p>pf.dwMask = PFM_NUMBERING | PFM_OFFSET;</p>
+
+<p>pf.wNumbering = PFN_BULLET;//注意PFM_NUMBERING</p>
+
+<p>pf.dxOffset = 10;</p>
+
+<p>VERIFY(SetParaFormat(pf));</p>
+
+<p>常用的dwMask有</p>
+
+<p>PFM_NUMBERING 成员 wNumbering 才起作用，项目符号，默认用PFN_BULLET</p>
+
+<p>2 使用阿拉伯数字 (1, 2, 3, ...).</p>
+
+<p>3 使用小写字母 (a, b, c, ...).</p>
+
+<p>4 使用大写字母 (A, B, C, ...).</p>
+
+<p>5 使用小写罗马数字 (i, ii, iii, ...).</p>
+
+<p>6 使用大写罗马数字 (I, II, III, ...).</p>
+
+<p>7 自定义，字符见成员 wNumberingStart.</p>
+
+<p>PFM_OFFSET 成员 dxOffset 才起作用，缩进，单位twips</p>
+
+<p>PFM_STARTINDENT 成员 dxStartIndent 才起作用，首行缩进</p>
+
+<p>PFM_SPACEAFTER 成员 dySpaceAfter 才起作用，段间距</p>
+
+<p>PFM_LINESPACING 成员 dyLineSpacing 才起作用，行间距</p>
+
+<p></p>
+
+<h4>c.设置CRichEditCtrl(2.0)背景透明</h4>
+
+<p>long style = ::GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE);</p>
+
+<p>style &amp;= WS_EX_TRANSPARENT;</p>
+
+<p>::SetWindowLong(GetSafeHwnd(), GWL_EXSTYLE, style);</p>
+
+<p>或 CreateEx，然后把WS_EX_TRANSPARENT样式加上</p>
+
+<p></p>
+
+<h4>e.得到内容有三种</h4>
+
+<p>1)GetWindowText</p>
+
+<p>2)使用EM_GETTEXTEX</p>
+
+<p>GETTEXTEX gt;</p>
+
+<p>gt.cb = 200;</p>
+
+<p>gt.flags = GT_DEFAULT;</p>
+
+<p>gt.codepage = CP_ACP ;</p>
+
+<p>gt.lpDefaultChar = NULL;</p>
+
+<p>gt.lpUsedDefChar = NULL;</p>
+
+<p>SendMessage(EM_GETTEXTEX,(WPARAM)&amp;gt,(LPARAM)text);</p>
+
+<p>3)StreamOut(主要用于RTF等格式输出)</p>
+
+<p>static DWORD CALLBACK</p>
+
+<p>MyStreamOutCallback(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)</p>
+
+<p>{</p>
+
+<p>CFile* pFile = (CFile*) dwCookie;</p>
+
+<p></p>
+
+<p>pFile-&gt;Write(pbBuff, cb);</p>
+
+<p>*pcb = cb;</p>
+
+<p></p>
+
+<p>return 0;</p>
+
+<p>}</p>
+
+<p></p>
+
+<p></p>
+
+<p>CFile cFile(TEXT(&quot;myfile.rtf&quot;), CFile::modeCreate|CFile::modeWrite);</p>
+
+<p>EDITSTREAM es;</p>
+
+<p>es.dwCookie = (DWORD) &amp;cFile;//设置用例参数,以便回调函数调用</p>
+
+<p>es.pfnCallback = MyStreamOutCallback;</p>
+
+<p>pmyRichEditCtrl-&gt;StreamOut(SF_RTF, es);</p>
+
+<p>读入可以此类推，SetWindowText,EM_SETTEXTEX,StreamIn</p>
+
+<p></p>
+
+<h4>f.查找字符串</h4>
+
+<p>FINDTEXTEX ft;</p>
+
+<p>ft.chrg.cpMin = 0;</p>
+
+<p>ft.chrg.cpMax = -1;</p>
+
+<p>ft.lpstrText = &quot;|&quot;;</p>
+
+<p>long lPos = FindText(0, &amp;ft);</p>
+
+<p></p>
+
+<p>如果要继续查找，修改cpMin,如</p>
+
+<p>int nCount = 0;</p>
+
+<p>do</p>
+
+<p>{</p>
+
+<p>long lPos = GetRichEditCtrl().FindText(0, &amp;ft);</p>
+
+<p>if( -1 == lPos) break;</p>
+
+<p>ft.chrg.cpMin = lPos + strlen(ft.lpstrText);</p>
+
+<p>++nCount;</p>
+
+<p>}while(TRUE);</p>
+
+<p></p>
+
+<h4>g.以Html格式保存</h4>
+
+<p>目前做法可先转为RTF格式，再通过RTF-to-HTML Converter</p>
+
+<p></p>
+
+<p><a href="http://www.codeguru.com/Cpp/controls/richedit/conversions/article.php/c5377/" target="_blank">http://www.codeguru.com/Cpp/cont ... /article.php/c5377/</a></p>
+
+<p></p>
+
+<h4>h.重载OnProtected函数得到对应的消息，如粘贴等</h4>
+
+<p>void CMYichEditorView::OnProtected(NMHDR* pNMHDR, LRESULT* pResult)</p>
+
+<p>{</p>
+
+<p>ENPROTECTED* pEP = (ENPROTECTED*)pNMHDR;</p>
+
+<p></p>
+
+<p>switch (pEP-&gt;msg) {</p>
+
+<p>case WM_KEYDOWN://按键，判断pEP-&gt;wParam</p>
+
+<p>case WM_PASTE://粘贴</p>
+
+<p>case WM_CUT://剪切</p>
+
+<p>case EM_SETCHARFORMAT:</p>
+
+<p>default:</p>
+
+<p>break;</p>
+
+<p>};</p>
+
+<p></p>
+
+<p>*pResult = FALSE;</p>
+
+<p>}</p>
+
+<p></p>
+
+<h3>三.聊天常用</h3>
+
+<h4>a.LINK 链接功能</h4>
+
+<p>1.LoadLibrary(_T(&quot;Riched20.dll&quot;));</p>
+
+<p>2.创建RichEdit2.0控件</p>
+
+<p>CreateEx(0, _T(&quot;RichEdit20A&quot;), NULL, WS_CHILD|WS_VISIBLE|WS_VSCROLL|WS_TABSTOP</p>
+
+<p>|ES_READONLY|ES_WANTRETURN|ES_MULTILINE,</p>
+
+<p>rect.left, rect.top, cx, cy,</p>
+
+<p>pParentWnd-&gt;m_hWnd, (HMENU)nID, NULL);</p>
+
+<p>3. 设定选中的文字为链接显示</p>
+
+<p>CHARFORMAT2 cf2;</p>
+
+<p>ZeroMemory(&amp;cf2, sizeof(CHARFORMAT2));//</p>
+
+<p>cf2.cbSize = sizeof(CHARFORMAT2);</p>
+
+<p>cf2.dwMask = CFM_LINK;</p>
+
+<p>cf2.dwEffects |= CFE_LINK;</p>
+
+<p>m_cRichEdit.SendMessage(EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&amp;cf2);</p>
+
+<p>4.支持链接的点击响应</p>
+
+<p>m_cRichEdit.SetEventMask(ENM_LINK);</p>
+
+<p>5.响应链接的点击EN_LINK</p>
+
+<p></p>
+
+<p>BEGIN_MESSAGE_MAP(CMyRichEdit, CRichEditCtrl)</p>
+
+<p>ON_NOTIFY_REFLECT(EN_LINK,OnURL)</p>
+
+<p>END_MESSAGE_MAP()</p>
+
+<p>......</p>
+
+<p></p>
+
+<p>void CMyRichEdit::OnURLClick(NMHDR *pNmhdr, LRESULT *pResult)</p>
+
+<p>{</p>
+
+<p>TCHAR LinkChar[512];</p>
+
+<p>ENLINK *pLink = (ENLINK *)pNmhdr;</p>
+
+<p>if (pLink-&gt;msg == WM_LBUTTONUP)</p>
+
+<p>{</p>
+
+<p>SetSel(penLink-&gt;chrg);//这是链接的文字范围</p>
+
+<p>long Res = GetSelText((char *)LinkChar);//这是链接文字</p>
+
+<p>//后面是你的处理过程</p>
+
+<p>......</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p></p>
+
+<h4>b.插入位图</h4>
+
+<p><a href="http://www.codeguru.com/Cpp/controls/richedit/article.php/c2417/" target="_blank">http://www.codeguru.com/Cpp/controls/richedit/article.php/c2417/</a></p>
+
+<p><a href="http://www.codeguru.com/Cpp/controls/richedit/article.php/c5383/" target="_blank">http://www.codeguru.com/Cpp/controls/richedit/article.php/c5383/</a></p>
+
+<p></p>
+
+<p>自定义在RichEdit中插入对象的图标</p>
+
+<p><a href="http://www.blogcn.com/user3/jiangsheng/blog/1319738.html" target="_blank">http://www.blogcn.com/user3/jiangsheng/blog/1319738.html</a></p>
+
+<p>方法基本同Knowledge Base文章Q220844 HOWTO: Insert a Bitmap Into an RTF Document Using the RichEdit Control</p>
+
+<p>只是在最后插入之前调用一下IOleCache::SetData,用一个HGLOBAL作为参数，HGLOBAL里面的数据是一个METAFILEPICT结构，包含自己提供的图片</p>
+
+<p></p>
+
+<p>使用CRichEditView::InsertFileAsObject就可以插入图像。VC++带有一个例子WordPad。</p>
+
+<p>另外可以参考“Insert any HBITMAP (Bitmap) in your RichEdit Control”(<a href="http://www.codeguru.com/richedit/richeditrc.html" target="_blank">http://www.codeguru.com/richedit/richeditrc.html</a>)。</p>
+
+<p></p>
+
+<h4>c.显示GIF动画</h4>
+
+<p>常用的是通过qq的imageole.dll(也有用Gif89.dll的)</p>
+
+<p><a href="http://www.xiaozhou.net/cooldog/blogview.asp?logID=82" target="_blank">http://www.xiaozhou.net/cooldog/blogview.asp?logID=82</a></p>
+
+<p><a href="http://www.codeproject.com/richedit/AnimatedEmoticon.asp" target="_blank">http://www.codeproject.com/richedit/AnimatedEmoticon.asp</a></p>
+
+<p></p>
+
+<p>在richedit控件中插入动态GIF (Native C++版)</p>
+
+<p><a href="http://blog.joycode.com/jiangsheng/archive/2004/12/15/41209.aspx" target="_blank">http://blog.joycode.com/jiangsheng/archive/2004/12/15/41209.aspx</a></p>
+
+<p></p>
+
+<h4>d.IRichEditOleCallback的使用</h4>
+
+<p><a href="http://61.186.252.131/Expert/topic/905/905844.xml?temp=.8379022" target="_blank">http://61.186.252.131/Expert/topic/905/905844.xml?temp=.8379022</a></p>
+
+<p></p>
+
+<p>类似 MSN 信息发送框的制作(上)</p>
+
+<p><a href="http://www.vckbase.com/document/viewdoc/?id=1087" target="_blank">http://www.vckbase.com/document/viewdoc/?id=1087</a></p>
+
+<p>内容包含：实现右键菜单，图片插入，读取/写入RTF格式字符串</p>
+
+<p></p>
+
+<p>自定义 CRichEditCtrl 控件</p>
+
+<p><a href="http://www.vckbase.com/document/viewdoc/?id=328" target="_blank">http://www.vckbase.com/document/viewdoc/?id=328</a></p>
+
+<p>内容包含：鼠标右键消息，消息映射，字体变换</p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p>PS.richedit控件升级到2.0后，先把字体设为楷体，输入汉字没有问题，但输入字母时，字母自动跳转为Arial字体，而1.0却没有这个文题，仍然是用楷体显示字母</p>
+
+<p>是一个专门的设计 Dual-font, Smart font apply, 参见 <a href="http://61.186.252.131/Expert/topic/913/913807.xml?temp=.3753778" target="_blank"> http://61.186.252.131/Expert/topic/913/913807.xml?temp=.3753778</a></p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p>不能显示图片等其他OLE对象</p>
+
+<p></p>
+
+<p>MFC提供的CRichEditCtrl没有提供直接显示图片等OLE对象的属性或方法设置，但是提供了一个接口SetOLECallback( IRichEditOleCallback* pCallback );</p>
+
+<p>要让CRichEditCtrl显示图片，就得在IRichEditOleCallback上下功夫。</p>
+
+<p>IRichEditOleCallback是windows中的接口，它的定义如下：</p>
+
+<p>ContextSensitiveHelp:</p>
+
+<p>通过该方法通知应用程序它将以上下文关联方式调度帮助。</p>
+
+<p>DeleteObject:</p>
+
+<p>通过该方法发出通知：一个对象即将从RichEdit控件中删除</p>
+
+<p>GetClipboardData:</p>
+
+<p>通过该方法允许RichEdit的客户端（调用程序）提供自己的粘贴对象</p>
+
+<p>GetContextMenu:</p>
+
+<p>通过该方法向应用程序提出通过鼠标右键事件来获取上下文菜单的请求</p>
+
+<p>GetDragDropEffect:</p>
+
+<p>通过该方法允许RichEdit的客户端（调用程序）设置拖动操作的效果</p>
+
+<p>GetInPlaceContext:</p>
+
+<p>通过该方法提供了应用程序级和文档级接口，以及必要的支持In-place激活的信息</p>
+
+<p>GetNewStrorage:</p>
+
+<p>通过该方法存储从粘贴板或超文本流(RTF)中读取的新对象</p>
+
+<p>QueryAcceptData:</p>
+
+<p>通过该方法决定在粘贴操作或拖放操作中引入的数据是否可以被接受。</p>
+
+<p>QueryInsertObject:</p>
+
+<p>通过该方法向应用程序询问某个对象是否可以被插入</p>
+
+<p>ShowContainerUI:</p>
+
+<p>通过该方法告知应用程序是否显示自己的操作界面</p>
+
+<p></p>
+
+<p>大致了解了IRichEditOleCallback接口后，就应该清楚，要显示图片等ole对象，至少应该实现GetNewStorage方法，因为该方法是存储ole对象的接口方法。</p>
+
+<p></p>
+
+<p>以下是接口声明的代码：</p>
+
+<p>interface IExRichEditOleCallback;   // forward declaration (see below in this header file)</p>
+
+<p></p>
+
+<p>IExRichEditOleCallback* m_pIRichEditOleCallback;</p>
+
+<p>BOOL m_bCallbackSet;</p>
+
+<p></p>
+
+<p></p>
+
+<p>interface IExRichEditOleCallback : public IRichEditOleCallback</p>
+
+<p>{</p>
+
+<p>public:</p>
+
+<p>IExRichEditOleCallback();</p>
+
+<p>virtual ~IExRichEditOleCallback();</p>
+
+<p>int m_iNumStorages;</p>
+
+<p>IStorage* pStorage;</p>
+
+<p>DWORD m_dwRef;</p>
+
+<p></p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE GetNewStorage(LPSTORAGE* lplpstg);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE QueryInterface(REFIID iid, void ** ppvObject);</p>
+
+<p>virtual ULONG STDMETHODCALLTYPE AddRef();</p>
+
+<p>virtual ULONG STDMETHODCALLTYPE Release();</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE GetInPlaceContext(LPOLEINPLACEFRAME FAR *lplpFrame,</p>
+
+<p>LPOLEINPLACEUIWINDOW FAR *lplpDoc, LPOLEINPLACEFRAMEINFO lpFrameInfo);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE ShowContainerUI(BOOL fShow);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE QueryInsertObject(LPCLSID lpclsid, LPSTORAGE lpstg, LONG cp);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE DeleteObject(LPOLEOBJECT lpoleobj);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE QueryAcceptData(LPDATAOBJECT lpdataobj, CLIPFORMAT FAR *lpcfFormat,</p>
+
+<p>DWORD reco, BOOL fReally, HGLOBAL hMetaPict);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE ContextSensitiveHelp(BOOL fEnterMode);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE GetClipboardData(CHARRANGE FAR *lpchrg, DWORD reco, LPDATAOBJECT FAR *lplpdataobj);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE GetDragDropEffect(BOOL fDrag, DWORD grfKeyState, LPDWORD pdwEffect);</p>
+
+<p>virtual HRESULT STDMETHODCALLTYPE GetContextMenu(WORD seltyp, LPOLEOBJECT lpoleobj, CHARRANGE FAR *lpchrg,</p>
+
+<p>HMENU FAR *lphmenu </p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

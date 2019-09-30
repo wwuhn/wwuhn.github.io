@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>C数据类型、数组、结构体</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览�?
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop属�?  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览�? 
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览�? 
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000">红色</option><option value="#006600">绿色</option><option value="#0000ff">蓝色</option><option value="#660000">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link�?container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<h3></h3>
+<p>In computer science and computer programming, a data type or simply type is a classification of data which tells the compiler or interpreter how the programmer intends to use the data. Most programming languages support various types of data, for example:integer, float or Boolean. A data type provides a set of values from which an expression (i.e. variable, function...) may take its values. This data type defines the operations that can be done on the data, the meaning of the data, and the way values of that type can be stored. A type of value from which an expression may take its value.</p>
+<p>在计算机科学和计算机编程中，一种数据类型是对数据的一种分类，它能告诉编译器或解释器，编程人员意图怎样使用数据。放多编程语言支持多种数据类型，如整型、实型或布尔型。一种数据类型可以为表达式（变量或函数...）提供一组值。这个数据类型可以定义数据上的特定操作、数据的含义、数据类型值存储的方法。一种数据类型的值可以给到一个表达式。</p>
+<p>In the C programming language, data types are declarations for memory locations or variables that determine the characteristics of the data that may be stored and the methods (operations) of processing that are permitted involving them.</p>
+<p>The C language provides basic arithmetic types, such as integer and real number types, and syntax to build array and compound types. Several headers in the C standard library contain definitions of support types, that have additional properties, such as providing storage with an exact size, independent of the implementation.</p>
+
+
+
+
+
+<p>Different data types requires different amounts of memory and therefore vary in the range of values they can store.</p>
+<p>不同的数据类型战胜不同大小的内存空间，因此，它们所能表示的数据的范围也各不相同。</p>
+<h4>Abstract data types</h4>
+<p>Any type that does not specify an implementation is an abstract data type. For instance, a stack (which is an abstract type) can be implemented as an array (a contiguous block of memory containing multiple values), or as a linked list (a set of non-contiguous memory blocks linked by pointers).</p>
+<p>没有定义具体实现的属于抽象数据类型。例如，栈可以用数组或链表实现。</p>
+<p>Abstract types can be handled by code that does not know or "care" what underlying types are contained in them. Programming that is agnostic about concrete data types is called generic programming. Arrays and records can also contain underlying types, but are considered concrete because they specify how their contents or elements are laid out in memory.</p>
+<p>抽象数据类型不关心其基本类型构成。元编程就是一种不关心具体类型的编程方式。数组和记录都包含有基本的数据类型，但是也有具体描述数组元素或内容在内存中的存储。</p>
+<p>Examples include:</p>
+
+<p>A queue is a first-in first-out list. Variations are Deque and Priority queue.
+</p>
+<p>A set can store certain values, without any particular order, and with no repeated values.
+</p><p>A stack is a last-in, first out data structure.
+</p>
+<p>A tree is a hierarchical structure.
+</p><p>A graph.
+</p>
+<p>A hash, dictionary, map or associative array is a more flexible variation on a record, in which name-value pairs can be added and deleted freely.
+</p><p>A smart pointer is the abstract counterpart to a pointer. Both are kinds of references.
+</p>
+
+
+<p>The items of information that make up an array have all the same data type(int, float etc.) and are logically related in some way. For example, a student's test scores may be integer values that are logically related to the student. In this case it makes sense to store the test scores together in an array. In short, arrays are suitable for storing sets of homogeneous data.</p>
+<p>构成一个数组的各信息项在某种程度上都是逻辑相关的，并且具有相同的数据类型（整形、实型等）。例如，一个学生的考试成绩与其他学生是逻辑相关的，并且具有整型值。在这种情况下，将考试成绩存储在一个数组中是比较合适的。简而言之，数组适合于存储同种类型的数据集。</p>
+
+<p>For every type T, except void and function types, there exist the types "array of N elements of type T". An array is a collection of values, all of the same type, stored contiguously in memory. An array of size N is indexed by integers from 0 up to and including N-1. There are also "arrays of unspecified size" where the number of elements is not known by the compiler. Here is a brief example:
+</p>
+<p>除了空类型或函数类型，每一种类型T，都存在一种“有N个元素的类型T的数组”。一个数组是一种数组类型的值的集合，所有相同类型，在内存中连续存储。一个N个元素的数组从0开始索引到N-1。当然，数组的大小也可以不预先定义给编译器。下面是一个简单的数组例子：</p>
+<p>int cat[10];  // array of 10 elements, each of type int</p>
+<p>int bob[];    // array of an unspecified number of 'int' elements</p>
+<p>Arrays are passed to functions by passing a pointer to the first element. Multidimensional arrays are defined as "array of array …", and all except the outermost dimension must have compile-time constant size:
+</p>
+<p>数组可以可以通过一个指向第一个元素的指针传递给一个函数。多重数组是指“数组的数组...”，多重数组最外层的维需要在编译时间有一个常量的值表明其大小。</p>
+<p>int a[10][8];  // array of 10 elements, each of type 'array of 8 int elements'</p>
+<p>float f[][32]; // array of unspecified number of 'array of 32 float elements'</p>
+
+
+
+
+<p>However, there are items of information that are logically related but each item may have a different data type. A student's number and test scores, for example, are logically related to the student, but the number may be an integer, while the test scores may be floating-point values.</p>
+<p>然而，还有一些逻辑相关但数据类型不同的信息项，例如，学生的学号和考试成绩是逻辑相关的，但是学号可能是整型，而考试成绩可能是浮点数据类型。</p>
+
+<p>Logically related items of information that may have different data types can be combined into a structure. Unlike an array, the data items in a structure may be of different types.</p>
+<p>结构体可以表示逻辑相关但数据类型不同的数据项。与数组不同的是，结构体中的数据项的数据类型可以是不同的。</p>
+
+
+
+<p>Structures aggregate the storage of multiple data items, of potentially differing data types, into one memory block referenced by a single variable. The following example declares the data type struct birthday which contains the name and birthday of a person. The structure definition is followed by a declaration of the variable John that allocates the needed storage.
+</p>
+<p>结构体通过引用一个变量、存储多种数据元素，或者不同的数据类型到一个内存块。下面的例子声明了一个结构体类型“birthday”,这个结构体包含一个人的姓名和生日。紧随其后的的结构体定义是变量“John”，并分配需要大小的内存。</p>
+<pre>
+struct birthday {
+    char name[20];
+    int day;
+    int month;
+    int year;
+};
+
+struct birthday John;
+</pre>
+
+<p>A structure containing a pointer to a structure of its own type is commonly used to build linked data structures:
+</p>
+<p>一个结构体可以包含一个指向自身的指针，通常用来建立链接数据结构。</p>
+<pre>
+struct node {
+	int val;
+	struct node *next;
+};
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<div id="ftsize1"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em">B</a></div>
+<div id="ftsize2"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em">M</a></div>
+<div id="ftsize3"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em">S</a></div>
+<div style="display:none" id="goTopBtn"><a target="_self" style="color:#fff;">&and;</a></div>
+<div style="display:none" id="shangy">
+	<a onclick="shangy()" target="_self" style="color:#fff;">&uarr;</a></div>
+<div id="xiay">
+	<a onclick="xiay()" target="_self" style="color:#fff;">&darr;</a></div>
+<div id="goBottom">
+	<a onclick="downn()" target="_self" style="color:#fff;">&or;</a></div>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览�? 
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换�?
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去�?
+�?\S*)�?
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+

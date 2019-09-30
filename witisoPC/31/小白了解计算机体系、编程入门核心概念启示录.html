@@ -1,0 +1,665 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>小白了解计算机体系、编程入门核心概念启示录</h4>
+
+<p></p>
+
+<p>目录：</p>
+
+<p>1 数据和数据处理的概念</p>
+
+<p>2 赋值语句的理解</p>
+
+<p>3 函数的声明、定义和调用及形参与实参的关系</p>
+
+<p>4 对标识符的理解</p>
+
+<p>5 数据结构及其逻辑关系与存储关系</p>
+
+<p>6 程序的组织与阅读</p>
+
+<p>7 对于结构体和类的理解</p>
+
+<p>8 一般的编程是操作系统之上的编程，是利用编程语言的库的编程</p>
+
+<p>9 数据表示、编码与存储</p>
+
+<p>10 数据输入、处理（运算）、输出的概念</p>
+
+<p>11 编程语言中的控制结构与跳转</p>
+
+<p>12 高级语言的语法机制</p>
+
+<p>13 程序开发模式的选择</p>
+
+<p>14 硬件与软件，硬连接与软连接</p>
+
+<p>15 “存储程序”与计算的自动化</p>
+
+<p>16 字符编码、机器语言与高级语言</p>
+
+<p>17 面向过程与面向对象</p>
+
+<p>18 变量的引用语义与值语义</p>
+
+<p>19 符号化、数字化</p>
+
+<p>1 数据和数据处理的概念</p>
+
+<p>程序是一个指令序列，指令是对数据的处理。一定程度上，程序也可以理解为是变量和函数的组合（类与对象在本质上也是如此，因为其成员也是变量和函数方法）。</p>
+
+<p>指令包含操作码和地址码，分别指向一个包含操作指令和数据的内存单元。</p>
+
+<p>程序也是表达式的集合，表达式 = 操作数 + 操作符；</p>
+
+<p>程序的整体和局部都可以通过输入、处理、输出三个部分去描述(如同硬件体系)。</p>
+
+<p>程序=数据结构（数据及关系表示、存储）+算法（数据处理步骤的描述）+程序语言（用程序语言去描述数据结构和算法）</p>
+
+<p>程序：定义数据+对这些数据的操作（运算）；</p>
+
+<p>数据类型：值集合←→运算符；</p>
+
+<p>数据结构：元素集合←→元素的增、删、改、查；</p>
+
+<p>类：成员数据←→成员方法；</p>
+
+<p>容器类：元素集合←→容器元素的增、删、改、查；</p>
+
+<p>函数：函数局部变量←→函数局部变量的运算；</p>
+
+<p>计算机的应用，粗略可以分为两大领域方向。一个是信息处理，一个是过程控制。</p>
+
+<p>所谓信息处理，指计算机（及相关设备）作为一个独立完整的人工系统，人们输入信息（数据），计算机系统进行信息处理并输出信息（数据）。</p>
+
+<p>而在过程控制类应用中，计算机自身不是一个完全独立的系统，而是一个更大的人工系统中的一部分，计算机信息（数据）承担处理任务，其输出的信息（数据）用于系统的控制，而不是提供给人使用。</p>
+
+<p>（一个输入：传感器；一个输出：LED；CPU或者说微处理器的功能就是根据输入计算和控制，然后控制输出。）</p>
+
+<p>2 赋值语句的理解</p>
+
+<p>程序的赋值语句用等号=连接，在编程中的=号不同于数学上的等号。如编程中的赋值语句：i = i + 1，这在数学中是行不通的，在编程中表示一个赋值语句。编程中的赋值语句需要从右往左（右结合，与一般表达式的左结合不同）理解，也就是左边的值赋给右边的变量，用左边的值初始化或更新右边的变量。右边的表达式可以包含变量，但其值本身不会改变。如下面交换两个值的代码：</p>
+
+<p>temp = a; //因为下面想更新a的值，所以先把其值保存到temp</p>
+
+<p>a = b;</p>
+
+<p>b = temp;</p>
+
+<p>变量重新赋值（更新）时，此时变量的新值依赖于旧值。</p>
+
+<p>左值通常是内存单元，右值可以是内存单元的内容。所有的左值（要初始化或赋值）都可用作右值；但并非所有的右值都可用作左值。</p>
+
+<p>3 函数的声明、定义和调用及形参与实参的关系</p>
+
+<p>函数是对一段代码的封装，让程序模块化，封装的时机可以在需要时进行。</p>
+
+<p>函数的内容一般也可以分为输入、处理、输出三部分：形参和定义的局部变量形成输入、返回值形成输出。</p>
+
+<p>函数声明、定义和调用时，其头部结构是相同的，提供的是一个接口。声明和定义时的形参相当于一个局部变量的声明，调用时需要对形参赋值，赋值后的形参就是实参。</p>
+
+<p>对于库函数，我们需要熟悉的就是其接口，只需要知道其名字、能完成的功能，需要提供的实参。</p>
+
+<p>调用时，如果用变量（已有值）给形参赋值，用于赋值的变量与被调用的函数内使用的变量属于不同的作用域，所以即使名字相同（因为作用域不同，才允许名字相同），其值也互不影响。</p>
+
+<p>（如果想要修改用于赋值的变量，需要在函数中使用指针（C中C++）或引用（C++，或Python的可变对象的引用。）</p>
+
+<p>4 对标识符的理解</p>
+
+<p>程序中有大量的命名工作，如对变量、常量、函数、类、对象命名，取的名字在程序中叫标识符。</p>
+
+<p>命名的标识符我们追求尽量有意义，更优雅，但有时不要钻牛角尖，不要为找意义而找意义，它只是一个起标识作用的符号而已。代表一个内存单元（数据），或一个功能，用什么名字都行，只要在使用时保持一致。</p>
+
+<p>编程语言的进化在于抽象化，“赋予名称”是抽象化的重要部分。抽象程序高的语言不必描述详细过程。</p>
+
+<p>CPU能直接访问内存（外存的数据需要输入到内存才可以处理），内存是顺序的内存单元，每一个内存单元都可以用一个内存地址来表示，彼此之间是一种偏移量的线性关系。按“存储程序”程序的概念，程序的数据和指令序列都保存到内存，在高级语言中，内存地址被抽象为标识符，由编译器（或解释器）与操作系统完成标识符与实际内存地址的映射。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>5 数据结构及其逻辑关系与存储关系</p>
+
+<p>数据结构你可以理解为结构化的数据集合，与之相对应的是非结构化的数据。关系数据库的数据就是一种结构化的数据。结构是对数据元素集合中元素关系的一种描述。</p>
+
+<p>数据结构是对于数据元素集合（或叫容器）而言的。因此在一个数据集中，不仅要考虑元素本身，还要考虑元素之间的关系（逻辑关系），还要考虑存得进去，取得出来（元素操作的访问），以及元素操作的增、删、改的操作，这些操作需要考虑效率（存储关系）。</p>
+
+<p>不管是逻辑关系还是存储关系，都可以用额外的数据来存储（用数据来表示关系）。这时数据结构形成了两个集合，一个是元素本身的集合，另外一个就是关系的集合。一个具体的数据结构就是一个二元组：</p>
+
+<p>D=(E,R)</p>
+
+<p>其中E（Entity）是数据结构D（Data structure）的元素集合，面R∈E*E是D的元素之间的某种关系。对于不同种类的数据结构，其元素之间的关系具有不同性质。</p>
+
+<p>（R，relation，E*E是表示元素之间关系数量的最大值，如图的邻接矩阵就可以用一个二维数组来表示其全部的关系。）</p>
+
+<p>存储关系的链式存储（还有一种就是顺序存储）就是用额外的数据（C的结构体+指针，或Python的类+引用，必须用到复合数据类型）来表示元素的链式关系。</p>
+
+<p>数据结构的逻辑关系有线性关系、树型层次关系、图形网状关系三种。</p>
+
+<p>线性关系不管是顺序存储还是链式存储，其前后关系都可以直接表现出来，不需要额外的数据来表示。</p>
+
+<p>对于树型层次关系，最简单的二叉树可以用顺序存储，此外的不规则的树可以用额外的数据来表示双亲、孩子、兄弟的位置。</p>
+
+<p>对于图型网状关系，可以用额外的数据来存储某一顶点的边。如邻接矩阵、邻接表都是边的数据集合。</p>
+
+<p>上述线性、树型、图型关系等数据结构的最重特征就是它们的结构，可以称之为结构性的数据结构。与之相对应的是功能性的数据结构，功能性的数据结构以某种结构性的数据结构为底层数据结构，提出操作上的功能性要求，如“先进后出”的栈，“先进先出“的队列等。以及优先队列，字典等。</p>
+
+<p>数据结构={数据元素构成，数据元素的逻辑关系，数据元素存储方式，数据元素运算}，如果前三者相同，后者（数据元素运算）不同，我们可以理解为功能性数据结构</p>
+
+<p>同样的数组（C或C++）或列表(Python)，因为在数组或列表之上定义了不同的操作（定义不同函数），可以构造出不同的数据结构（如栈、队列）。</p>
+
+<p>6 程序的组织与阅读</p>
+
+<p>对于结构化编程的C语言程序，代码阅读需从main()开始，此函数是程序的干流，main()对其它函数的调用可以理解为支流。（main()就局部变量的作用域而方，与其它函数处理同等的地位）</p>
+
+<p>程序的组织也是如此，可以在main()中搭建一个框架，分解为不同的函数在main()中调用。</p>
+
+<p>Python中虽然没有强制要求声明main()函数，但出于清晰组织代码的需要，也可以由main()来调用其它函数，以形成清晰的主次调用关系。</p>
+
+<p>在对话框程序中，一般也会有主类，由主类包含其它类的头文件，形成调用关系。</p>
+
+<p>7 对于结构体和类的理解</p>
+
+<p>结构体和类的语法都是由程序语言提供给程序员的一种自定义复合（结构）数据类型的机制。（要定义链接存储结构，还离不开复合数据类型。）</p>
+
+<p>结构体和类定义完成后，便可如同声明变量一样声明结构体变量或类实例了。</p>
+
+<p>一般使用英文句点.来引用结构体变量或类实例成员（成员数据或方法），如下面的语法：</p>
+
+<p>结构体变量或类实例.结构体变量或类实例成员</p>
+
+<p>把前面的部分理解为修饰前缀就好了。</p>
+
+<p>strObj.var</p>
+
+<p>你可以理解为：属于strObj的变量var；</p>
+
+<p>obj.method()</p>
+
+<p>你可以理解为：属于obj的方法method()；</p>
+
+<p>相当于是整体与部分的关系。</p>
+
+<p>结构体和类其本质是一种模块化的封装。</p>
+
+<p>类相对于结构体，是一种更高程度上的抽象，是数据与操作的更强聚合或叫封装，并由此可以构造出继承、多态的机制。</p>
+
+<p>8 一般的编程是操作系统之上的编程，是利用编程语言的库的编程</p>
+
+<p>一般的编程都不是完全从0开始的，一般的编程语言基于不同的操作系统提供不同的编译器或解释器（程序与针对不同的操作系统提供不同的版本）。同时，高级编程语言都会提供函数库或类库。你不需要了解其是如何实现的，只需要了解其接口，知道怎样调用即可。同样的，你也可以积累自己的函数库或类库。</p>
+
+<p>（Python中不叫库，叫模板，用import引入，C或C++中用include包含进来。）</p>
+
+<p>9 数据表示、编码与存储</p>
+
+<p>要用计算机处理信息，首先必须把信息转变成为计算机能处理的形式。这种转换可以由人完成，也可能通过一些物理设备完成。例如，数字照相机把一个客观场景转换为一幅数字化图像(像素表示)；数字麦克风把一段声音转换成某种编码的一串数字信号（声波振动表示）；人通过敲击键盘把一段演讲记录下来变成一段标准编码的文本串；通过光学扫描和文字识别，也可以把纸张上的印刷文字转变为计算机可以处理的编码文本形式。</p>
+
+<p>在计算机科学领域，数据（data）就是指计算机（程序）能够处理的符号形式的总和，或就是经过了编码的信息（信息的编码表示，二进制串，如ASCII、Unicode等）。</p>
+
+<p>程序处理的数据在程序中用变量、常量或数据容器来表示，指向一个内存单元。内存单元其实质是用序列号来表示的，但在高级语言中抽象为变量或常量。</p>
+
+<p>变量或常量按所存储数据的大小由操作系统分配一块内存空间。</p>
+
+<p>程序员通常需要处理下述5个内存区域：</p>
+
+<p>I 全局名称空间：存储全部变量；</p>
+
+<p>II 静态变量空间：存储静态变量；</p>
+
+<p>III 堆：也称为自由存储区，由程序员申请使用，询问预留的空间地址，将其存储在地址中；申请的堆内存用完后程序员如果不释放，需要等到程序结束后才会由系统清理堆。C语言一般使用malloc()函数和realloc()函数申请，而C++一般使用new运算符申请堆空间；</p>
+
+<p>IV 寄存器：用于内部管理，如跟踪栈顶和指令指针；</p>
+
+<p>V 代码空间：存储代码；</p>
+
+<p>VI 栈：存储函数的局部变量和参数，当函数返回时，都会由系统清理栈；</p>
+
+<p>10 数据输入、处理（运算）、输出的概念</p>
+
+<p>计算机系统是一个数据输入、处理、输出的系统（还包括数据存储）。硬件如此，程序也是如此。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>硬件内的模块、集成电路是如此，程序的整体、及作为部件的函数（或对象方法）也是如此。</p>
+
+<p>对于控制台程序，输入输出是通过函数或关键字进行，如C的input()、printf()，C++的cin、cout，Python的input()、print()。</p>
+
+<p>对于GUI(图形用户界面)程序，输入输出借助于窗体表单控件，变量与控件交互，控件与用户交互。</p>
+
+<p>在开发交互式程序时，我们必须为其实现一个用户界面（或称为用户接口）。这样，整个程序开发工具就可以分为三个部分：</p>
+
+<p>I 设计和实现程序的功能部分；</p>
+
+<p>II 设计和实现程序的用户界面；</p>
+
+<p>III 建立这两个部分之间的关联；使用户能通过用户界面使用程序的功能，包括输入命令或程序所需的数据、查看功能模块执行的情况，或者得到计算结果等。</p>
+
+<p>用户→用户界面UI→送给程序的输入数据→程序功能模块→程序产生的输出数据→用户界面→用户</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>11 编程语言中的控制结构与跳转</p>
+
+<p>高级语言中有顺序、选择、循环三种控制结构。</p>
+
+<p>选择、循环结构可以实现语句的跳转，改变语句的顺序流程。</p>
+
+<p>在机器语言和汇编语言中是怎样实现的呢？是通过跳转指令和标签（表示内存地址）来完成的。（VB中的goto语句也是如此）</p>
+
+<p>在硬件中是由控制器的程序计数器（PC寄存器）来实现跳转的（将值更新为要跳转到的内存地址）。</p>
+
+<p>图形界面程序代码执行流程与控制台程序有所不同，後者是一种特殊的条件分支的事件驱动流程，根据winows的通知决定程序的下一步走向。</p>
+
+<p>12 高级语言的语法机制</p>
+
+<p>12.1 代码重用：如函数、模块、类的继承和多态（接口重用）。</p>
+
+<p>12.2 考虑编写大型程序的需要。高级语言的语法要考虑编写大型程序及多人合作的需要，如模板这种语法的抽象。但初学者上手时都是从一些入门的小程序开始的，这里就有一个理解上的矛盾。</p>
+
+<p>12.3 效率的考量：包括程序本身运行在时间和空间上的效率以及程序员编写程序的效率；</p>
+
+<p>12.4 特定的应用领域与场景。如C更贴近底层，PHP更接近web领域。</p>
+
+<p>13 程序开发模式的选择</p>
+
+<p>很多复杂的软件都是从简单的版本开始的。所以一般一开始就想一步到位一个复杂、功能完备、规划良好的程序会很难。可以考虑增量的开发方式（逐步增加新的功能）、原型和补丁的方式（不断修正），也可是逐步函数化、模板化的方式，以及后续重新整合代码的方式。</p>
+
+<p>I 最开始写一些小程序，而不需要函数定义；</p>
+
+<p>II 一旦程序成功运行，识别出其中一段完整的部分，将它封装（将一组语句转换为函数定义）到一个函数中，并加以命名。通过函数将代码进行分块组合；</p>
+
+<p>III 泛化（generalization，给函数添加参数的过程，将一些不必要的具体值替换为合适的通用参数或变量的过程）这个函数，添加合适的形参，让这个函数变得更加通用；</p>
+
+<p>IV 重复上面的步骤，直到得到一组可行的函数；</p>
+
+<p>V 寻找可以使用重构（refactoring，重新组织程序，以改善接口（函数名称与形参），提高代码重用）来改善程序的机会。例如，如果发现程序中几处地方有相似的代码，可以考虑将它们抽取出来做一个合适的通用函数。</p>
+
+<p>VI 在上述开发的过程中，也可以考虑“增量开发”的思路，也就是从最简单的部件开始，每次只增加和测试一部分代码；并适当地增加临时变量来保存和输出，逐步达到你需要的轮廓。一旦程序完成，你就可以删除这些你最终并不需要，只是帮助你理清逻辑思路并调试结果的脚手架代码（scaffolding）。这是一个笨办法，特别是当你逻辑思路不是很清晰时，当然此后你可能需要不断去泛化和重构你的代码。</p>
+
+<p>（软件都会有版本的更新，既有bug的修正，也有功能的增减。）</p>
+
+<p>14 硬件与软件，硬连接与软连接</p>
+
+<p>CPU是逻辑门（晶体管）、加法器、集成电路、模块的组合。世界上第一台电脑Eniac的编程是通过在接线板上插拔连接线的方式进行的，其实质就是改变模块的连接方式。</p>
+
+<p>模块的不同组合可以形成不同的功能模块，这就是硬件的硬连接。</p>
+
+<p>在一定程度上也可以理解为软件是改变模块的硬连接，实现软连接，从而实现不同的功能。</p>
+
+<p>CPU的设计一定程度上是先有指令系统的设计，然后搭建硬件模块去完成，一款CPU（硬件功能）对应一套指令系统（软件功能）。指令系统中指令的不同组合便是不同的程序。</p>
+
+<p>随着硬件的不断发展，硬件的集成度越来越高。一定程度上硬连接与软连接都可以实现相同的功能，所以有时会说硬件和软件的界限越来越模糊。</p>
+
+<p>随着计算机技术的发展，在许多情况下，计算机的某些功能既可以由硬件实现，也可以由软件来实现。因此，硬件与软件在一定意义上说没有绝对严格的界面。</p>
+
+<p>很多软件可以用硬件实现，同样，硬件的功能也可以用软件编写。 从某种意义上说，他们都是在处理信息。打个比方，mp3既可以用软件的播放器播放，也可以用专用的音频解码芯片解码实现播放。</p>
+
+<p>15 “存储程序”与计算的自动化</p>
+
+<p>计算机计算如何才能实现自动化？冯诺依曼提出了“存储程序”的概念：</p>
+
+<p>I 编写包含数据描述的指令序列（程序）；</p>
+
+<p>II 程序和数据输入（键盘输入或由外部存储器输入）到内存中存储；</p>
+
+<p>III 由控制器逐条从内存中取出指令，译码并产生控制信号，由运算器执行运算；如此循环，直到程序结束，产生输出；</p>
+
+<p>人类机械物理工具介入人类智能活动的第一步，也是最基本的一步始终是有限字长二进制数字的基本计算或逻辑运算，以及对它们的存储。</p>
+
+<p>真正的电子器件做计算机的开拓过程，经历了从制作部件到整机，从专用机到通用机，从“外加式程序”到“存储程序”的演变。</p>
+
+<p>16 字符编码、机器语言与高级语言</p>
+
+<p>编程是是在编码的基础上进行的。</p>
+
+<p>编程需要考虑数据表示（描述）的问题，数据存储的问题，还要考虑数据如何处理的问题。</p>
+
+<p>字符编码是一个数据表示的问题，是一个字符数据化的问题，用二进制序列来表示特定的字符，如ASCII、Unicode。</p>
+
+<p>为什么电子计算机可以识别符合机器指令集的机器语言（二进制序列）呢？</p>
+
+<p>电子计算机是能进行二进制布尔运算的开关电路（晶体管）的组合，所以事物抽象为二进制数据，并用二进制数据来表示指令，所以电子计算机自然可以识别。</p>
+
+<p>特定的CPU需要能执行一套特定的指令系统，一款CPU（硬件功能）对应一套指令系统（软件功能）。所以特定的CPU只能执行特定的与指令系统描述的二进制序列（机器语言）。</p>
+
+<p>机器语言是一串二进制数字，将计算的步骤从指令表中查出对应的机器语言编码，再人工写成数列。而查表（指令表）的工作正是计算机所擅长的，指令表的二进制编码用助词符来表示，用汇编器来翻译，这就是汇编语言机制。</p>
+
+<p>高级语言是对机器语言在操作系统层面的抽象，符合高级语言规则的程序经由对应的编译器或解释器翻译或解释为机器语言，计算机就能执行。</p>
+
+<p>（高级语言除了提供语法规则、编译器或解释器以外，还会提供函数库或类库（Python中是模块））</p>
+
+<p>17 面向过程与面向对象比较</p>
+
+<p>面向对象与面向过程在表示问题时都使用分解的思路，也就是把大问题变成n个小问题，分而治之。但面向对象是将任务分解为对象（数据与方法分解、聚合到类与对象），而面向过程是将过程的步骤进行分解。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>描述问题求解思路的三种思维模式：过程化、面向对象、泛型：</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>18 变量的引用语义和值语义</p>
+
+<p>在变量里保存值的引用，称为变量的引用语义。</p>
+
+<p>Python变量的对象都是对象，可以是基本整数、浮点数等类型的对象，也可以是组合类型的对象，如list等。程序中建立和使用的各种复杂对象，包括Python函数等，都是基本独立的存储块实现，通过链接相互关联。程序是里的名字（变量、参数、函数名等）关联着作为其值的对象，这种关系可以用赋值操作改变。</p>
+
+<p>在变量里直接保存变量的值，称为值语义。</p>
+
+<p>Python语言中变量的这种实现方式称为变量的引用语义，在变量里保存值（对象）的引用。采用这种方式，变量所需的存储空间大小一致，因为其中只需要保存一个引用。有些语言采用的不是这种方式，它们把变量的值直接保存在变量的存储区里，称为值语义。这样，一个整数类型的变量就需要保存一个整数所需的空间，一个浮点数变量就需要足够的空间存储一个浮点数。如果一个变量中需要保存很大的数据对象，它就需要占据更大的存储空间。例如C语言采用的就是变量的值语义。</p>
+
+<p>C语言用指针实现引用关系。所以Python中变量与对象的引用关系类似于C语言的指针变量与指针指向的值的关系。</p>
+
+<p>Python语言的实现基于一套精心设计的链接结构。变量与其值对象的关系通过链接的方式实现，对象之间的联系同样也通过链接。一个复杂对象内部也可能包含几个子部分，相互之间通过链接建立联系。如果一个list包含10个字符串，那么在实现中，在这个list对象里就会记录这10个字符串的链接关系。</p>
+
+<p>在Python的数据结构中，对象分为不可变对象和可变对象。基本数据类型如int、float、bool等都是不可变对象。在结构数据类型中，无组tuple、str是不变对象。list、dict、set是可变对象，可变对象存储的元素的引用其实是没有改变的，改变的是其引用指向的值。</p>
+
+<p>19 符号化、数字化</p>
+
+<p>一切信息都可以数字化为“0”，“1”。</p>
+
+<p>我们日常使用的十进制数很容易就可以转化为0和1；</p>
+
+<p>文字字符也可以通过编码规则方便地编成成二进制数据；</p>
+
+<p>人类所有的文字信息，包括我们正在电脑上阅读的这篇文章，都能以比特的方式“数字化生存”在电脑的磁盘里，通过网络传输和浏览器，呈现在屏幕上。</p>
+
+<p>声音或音乐信息目前正在朝着全面数字化的方向挺进。声音的波形原本属于连续的模拟信号，但它可以通过采样方式被记录成不连续的数字信号，即极短的时间间隔捕获声音振幅变化或动态范围，然后以比特的形式存储。由于采样波形的间隔极短，我们根本不会发现它是断续的音阶。数字化的采样信息反过来可以还原成声音或音乐，它们在重新播放时几乎没有失真。只要你听过CD激光唱片播放的立体音乐，对此就会有切身的感受。CD激光盘上布满了极其微波的凹坑，每一个凸凹分别表示“0”，“1”的信息，音乐或声音就以这一系列的凸凹方式，“数字化生存于光盘表面。</p>
+
+<p>图像和照片同样能够数字化。黑白图像就好比在其表面划分出精细的小方格，每一方格称为一个像素。若把全白的像素设定为11111111，全黑的像素设定为00000000，具有不同明暗的灰色介于两者之间，则8比特就具有256种灰度的一个像素数字化的基础。你完全可以使用更多的比特来保存一个像素的信息，这些信息既可以代表黑白层次，也能够代表不同的彩色。事实上，多媒体电脑屏幕上每一像素的颜色已经超过数百万种之多，十分逼真地接近自然色泽。把所有的像素组合起来，图像或照片也就“数字化生存”于电脑屏幕、数字电视屏幕或彩色打印机纸上。</p>
+
+<p>一幅一幅静态的图像连续播放，又可构成动态的卡通片。配上悦耳动听的音乐，附上文字字幕，再经过压缩和解压，电影、电视和多媒体电子图书既能在光盘或磁盘上“数字化生存”，也可以通过互联网络传输到每一角落，“数字化生存”于整个地球。</p>
+
+<p>数字、文字、声音、图像，信息的所有媒体都呈现出“数字化”的特征，比特数字是世界上最数字系统，也是最易于实现、最为可靠的技术。</p>
+
+<p>－End－</p>
+
+
+
+<p style='float:right;'>本页共187段，9118个字符，25613 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

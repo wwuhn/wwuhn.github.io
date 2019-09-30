@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Binary Tree</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function BinaryTree(){
+			var Node = function(key){
+				this.key = key;
+				this.left = null;
+				this.right = null;
+			};
+			var root = null;
+			//basic structure of a binary tree
+			var insertNode = function(node, newNode){
+				if(newNode.key < node.key){
+					if(node.left === null){
+						node.left = newNode;
+					}else{
+						insertNode(node.left, newNode);
+					}
+				}else{
+					if(node.right === null){
+						node.right = newNode;
+					}else{
+						insertNode(node.right,newNode);
+					}
+				}
+			}
+			this.insert = function(key){
+				var newNode = new Node(key);
+				//create the node by key
+				if(root === null){
+					root = newNode;
+					//if the root exists?
+				}else{
+					insertNode(root,newNode);
+				}
+			};
+			//insert a node
+			this.inOrderTraverse = function(callback){
+				inOrderTraverseNode(root,callback);
+			};
+			var inOrderTraverseNode = function(node, callback){
+				if(node!== null){
+					inOrderTraverseNode(node.left,callback);
+					callback(node.key);
+					inOrderTraverseNode(node.right,callback);
+				}
+			};
+			//The situation that left or right node does not exist has been considered by node!== null.
+			// if not exist, return from the stack and move into the next step: callback();
+			// callback() determines the way to deal with the key, all by your mood.
+			this.preOrderTraverse = function(callback){
+				preOrderTraverseNode(root,callback);
+			};
+			var preOrderTraverseNode = function(node, callback){
+				if(node !== null){
+					callback(node.key); 
+					preOrderTraverseNode(node.left,callback);
+					preOrderTraverseNode(node.right,callback);
+				}
+			}
+			//pre-order Traverse
+			this.postOrderTraverse = function(callback){
+				postOrderTraverseNode(root,callback);
+			};
+			var postOrderTraverseNode = function(node, callback){
+				if(node !== null){
+					postOrderTraverseNode(node.left,callback);
+					postOrderTraverseNode(node.right,callback);
+					callback(node);
+				}
+			}
+			//post-order Traverse
+			//min value
+			this.min = function(){
+				return minNode(root);
+			};
+			var minNode = function(node){
+				if(node){
+					while(node && node.left){
+						node = node.left;
+					}
+					return node.key;
+				}
+				return null;
+			}
+			//max.value
+			//note the return operator before func
+			this.max = function(){
+				return maxNode(root);
+			};
+			var maxNode = function(node){
+				if(node){
+					while(node && node.right){
+						node = node.right;
+					}
+					return node.key;
+				}
+				return null;
+			}
+			//search
+			//note the return operator before func
+			//only return to father rather than grandpa or grand grandpa...
+			this.search = function(val){
+				return searchNode(root,val);
+			};
+			var searchNode = function(node,val){
+				if(node){
+					if(node.key == val)
+						return node;
+					else if(node.key>val){
+						return searchNode(node.left,val);
+					}else{
+						return searchNode(node.right,val);
+					}
+				}
+				return false;
+			}
+			//remove
+			this.remove = function(key){
+				return removeNode(root,key);
+			}
+			var removeNode = function(node,key){
+				if(node === null){
+					return null;
+				}
+				if(key < node.key){
+					node.left = removeNode(node.left,key);
+					return node;
+				}else if(key > node.key){
+					node.right = removeNode(node.right,key);
+					return node;
+				}else{
+					if(node.left === null && node.right === null){
+						node = null;
+						return node;
+					}//as a leaf Node;
+					if(node.left === null){//last condition have ensured node.right can not be a null at the same time.
+						node = node.right;
+						return node;
+					}
+					if(node.right === null){
+						node = node.left;
+						return node;
+					}
+					var aux = findMinNode(node.right);
+					node.key = aux.key;
+					node.right = removeNode(node.right, aux.key);
+					return node;
+				}
+			}
+			var findMinNode = function(node){
+				if(node){
+					while(node && node.left){
+						node = node.left;
+					}
+					return node;
+				}
+				return null;
+			}
+		}
+		var nodes = [8, 3, 10, 1, 6, 14, 4, 7, 13];
+		var binaryTree = new BinaryTree();
+		nodes.forEach(function(key){
+			binaryTree.insert(key);
+		});
+		var callback = function(node){
+			node.selected = false;
+		};
+		binaryTree.postOrderTraverse(callback);
+		var midNode = binaryTree.search(8);
+		console.log(midNode.selected);
+
+	</script>
+</body>
+</html>

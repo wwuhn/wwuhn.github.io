@@ -1,0 +1,610 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>python数据结构</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器  
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+}
+
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+</style>
+</head>
+
+<body> 
+<div id="container">
+<h3></h3>
+<!--
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />	
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+-->
+<!--
+height="*\w*"
+width="*\w*"
+</p>
+<p>
+-->
+
+<p>list：可以容纳一切对象，支持丰富的操作（操作符、内置函数、对象方法），有C语言的vector、链表特点
+
+<p>tuple：“只读”（操作受限）的list，更安全
+
+<p>dict：元素是键值对，相互之间是映射的对象，比list的查找速度要快很多；不同的索引方法，用key作来索引（序列是用整数作索引）
+
+<p>set：只存储key的可以支持集合操作的dict
+
+<p>str:元素受限的list,支持更多的格式化操作
+
+<p>如果一个字符串包含很多需要转义的字符，对每一个字符都进行转义会很麻烦。为了避免这种情况，我们可以在字符串前面加个前缀r，表示这是一个raw字符串，里面的字符就不需要转义了。</p>
+
+<p>title = re.findall(r'&lt;meta name=&quot;keywords&quot; content=&quot;(.*?),',html)[0]</p>
+<p>python语言把在程序运行中能使用和处理的各种实体称为对象（object），一个整数是一个对象，一个浮点数也是。</p>
+<p>字典是内置类型中唯一的映射（map）结构，基于哈希表存储健值对数据。值可以是任意数据，但主键必须是可哈希类型。</p>
+
+<p>数据与列表、元组的本质区别在于：元素单一类型和内容嵌入。</p>
+
+<p>在操作方式上，元组可被当作列表的只读版本使用。相对于list，速度要快，更安全。</p>
+
+<p>仅从操作方式上看，列表像是数组和链表的综合体。除按索引访问外，还支持插入、添加、删除等操作，完全可当作队列和栈使用。如不考虑性能问题，列表似乎是一种易使用且功能完善的理想数据结构。</p>
+<p>列表：增删元素、删除列表中的最后一个元素、列表重新排列、列表排序；</p>
+
+
+<p>字典：增加一个键/值对、将指定的设置为新的值、利用键查找值；</p>
+
+
+<p>数据类型和容器是Python理解并存储数据的方式。</p>
+
+
+
+<p>列表、元组、字符串等有序序列以及range对象均支持双向索引，第一个元素下标为0，第二个元素下标为1，以此类推；如果使用负数作为索引，则最后一个元素下标不-1，倒数第二个元素下标不－2，以此类推。
+<p>import this #python之禅
+<p>列表可以根据值、索引、末端位置分别删除元素，分别对应方法：remove()、pop(i)、pop().
+<p>列表排序：sort()方法对列表永久排序（原地操作），sorted()函数对列表进行临时排序，返回一个已经排序的副本。两者都可以传入一个参数“reverse = True”进行反向排序。
+<p>列表的浅复制：根据python按值的存储模式，当一个变量赋值给另一个变量时，两个变量指向同一片存放数据的内存区域，如果用C语言描述，Python中的变量都相当于指针，这两个变量（指针）指向的是同一片内存，对这两个变量（指针）的操作会相互影响，因为作用于同一内存块。如果想把内存中将原来的数据复制出一份新的，则需要深复制，切片操作则 是实现深复制的一种方法。
+<p>一切都是对象，所以容器类对象存储的元素也是对象，所以容器类存储的其实是一组地址，这些地址指向不同的元素，元组存储的是常量指针，指针不能改变，但其指向的值可以改变。
+<p>有人提到，容器序列list、tuple和collections.deque，存放的是它们所包含的任意类型的引用，而扁平序列str、bytes、typearray、memoryview、array.array存放的是值而不是引用，扁平序列只能容纳一种类型，是一段连续的内存空间，更加紧凑。
+<p>元组除了用作不可变的列表，它还可以用于没有字段名的记录，比如坐标、身份信息等。
+<p>当我们有特定的数据集时，list并不一定是首选，比如存放1000万个浮点数，数组（array）的效率就要高很多，因为数组的背后并不是float对象，而是数字的机器翻译，也就是字节表述。这点和C语言中的数组一样。再比如，如果要频繁对序列做先进先出的操作，deque（双端队列）的速度应该会更快。
+<p>如果需要一个只含数字的列表，array.array会比list更高效，它支持所有跟可变列表有关的操作，包括.pop，.insert，.extend等。另外数组还支持从文件读取和存入文件的更快的方法，比如.frombytes和.tofile。
+<p>数组跟C语言数组一样精简，创建一个数组需要指定一个类型码，这个类型码用来表示在底层的C语言应该存放怎样的数据类型。
+
+<p>利用.append和.pop方法，可以将列表（list）变成栈和队列。但删除列表的第一个元素或在第一个元素前插入元素之类的操作会很耗时，因为会移动数据。如果经常要在列表两端操作数据，推荐使用collections.deque类（双向队列）。它是一个线程安全、可快速从两端添加删除元素的数据类型。
+<p>字典，将不同的信息关联起来。与列表一样，你也可以根据需要在字典中存储任意数量的信息。
+<p>列表和元组可以包含多个值，这样编写程序来处理大量数据就变得更容易。而且，由于列表本身又可以包含其他列表，所以可以用它们将数据安排成层次结构。
+
+
+
+<p>区分可变与不可变类型，似乎没有什么意义，但在“传递引用”时，使用可变参数和不可变参数调用函数时产生的不同行为。
+<p>你可以用元组告诉所有读代码的人，你不打算改变这个序列的值。如果需要一个永远不会改变的值的序列，就使用元组。使用元组而不是列表的第二个好处在于，因为它们是不可变的，它们的内容不会变化，Python 可以实现一些优化，让使用元组的代码比使用列表的代码更快。
+<p>如果需要元组值的一个可变版本，将元组转换成列表就很方便。
+<p>变量保存字符串和整数值。但列表不是这样的。当你将列表赋给一个变量时，实际上是将列表的“引用”赋给了该变量。引用是一个值，指向某些数据。列表引用是指向一个列表的值。
+<p>变量包含对列表值的引用，而不是列表值本身。但对于字符串和整数值，变量就包含了字符串或整数值。在变量必须保存可变数据类型的值时，例如列表或字典，Python 就使用引用。对于不可变的数据类型的值，例如字符串、整型或元组，Python变量就保存值本身。
+<p>虽然Python 变量在技术上包含了对列表或字典值的引用，但人们通常随意地说，该变量包含了列表或字典。
+<p>要理解参数如何传递给函数，引用就特别重要。当函数被调用时，参数的值被复制给变元。对于列表（以及字典），这意味着变元得到的是引用的拷贝。
+<p>在处理列表和字典时，尽管传递引用常常是最方便的方法，但如果函数修改了传入的列表或字典，你可能不希望这些变动影响原来的列表或字典。要做到这一点，Python 提供了名为copy 的模块，其中包含copy()和deepcopy()函数。第一个函数copy.copy()，可以用来复制列表或字典这样的可变值，而不只是复制引用。
+<p>如果要复制的列表中包含了列表，那就使用copy.deepcopy()函数来代替。
+<p>列表是有用的数据类型，因为它们让你写代码处理一组可以修改的值，同时仅用一个变量。你会看到一些程序利用列表来完成工作。没有列表，这些工作很困难，甚至不可能完成。
+<p>列表是可变的，这意味着它们的内容可以改变。
+<p>元组和字符串虽然在某些方面像列表，却是不可变的，不能被修改。包含一个元组或字符串的变量，可以被一个新的元组或字符串覆写，但这和现场修改原来的值不是一回事，不像append()和remove()方法在列表上的效果。
+<p>变量不直接保存列表值，它们保存对列表的“引用”。在复制变量或将列表作为函数调用的参数时，这一点很重要。因为被复制的只是列表引用，所以要注意，对该列表的所有改动都可能影响到程序中的其他变量。如果需要对一个变量中的列表修改，同时不修改原来的列表，就可以用copy()或deepcopy()。
+<p>像列表一样，“字典”是许多值的集合。但不像列表的下标，字典的索引可以使用许多不同数据类型，不只是整数。字典的索引被称为“键”，键及其关联的值称为“键-值”对。
+<p>字典仍然可以用整数值作为键，就像列表使用整数值作为下标一样，但它们不必从0 开始，可以是任何数字。
+<p>尽管字典是不排序的，但可以用任意值作为键，这一点让你能够用强大的方式来组织数据。假定你希望程序保存朋友生日的数据，就可以使用一个字典，用名字作为键，用生日作为值。
+<p>有3 个字典方法，它们将返回类似列表的值，分别对应于字典的键、值和键-值对：keys()、values()和items()。这些方法返回的值不是真正的列表，它们不能被修改，没有append()方法。但这些数据类型（分别是dict_keys、dict_values 和dict_items）可以用于for 循环。
+<p>如果希望通过这些方法得到一个真正的列表，就把类似列表的返回值传递给 list函数。
+<p>字典是有用的，因为你可以把一些项（键）映射到另一些项（值），它不像列表，只包含一系列有序的值。字典中的值是通过方括号访问的，像列表一样。字典不是只能使用整数下标，而是可以用各种数据类型作为键：整型、浮点型、字符串或元组。通过将程序中的值组织成数据结构，你可以创建真实世界事物的模型。井字棋盘就是这样一个例子。
+<p>字符串可以用双引号开始和结束，就像用单引号一样。使用双引号的一个好处，就是字符串中可以使用单引号字符。
+<p>spam = "That is Alice's cat."因为字符串以双引号开始，所以Python 知道单引号是字符串的一部分，而不是表示字符串的结束。但是，如果在字符串中既需要使用单引号又需要使用双引号，那就要使用转义字符。
+<p>“转义字符”让你输入一些字符，它们用其他方式是不可能放在字符串里的。转义字符包含一个倒斜杠（\），紧跟着是想要添加到字符串中的字符。（尽管它包含两个字符，但大家公认它是一个转义字符。）例如，单引号的转义字符是\’。你可以在单引号开始和结束的字符串中使用它。
+<p>spam = 'Say hi to Bob\'s mother.'
+<p>Python 知道，因为Bob\'s 中的单引号有一个倒斜杠，所以它不是表示字符串结束的单引号。转义字符\'和\"让你能在字符串中加入单引号和双引号。
+<p>可以在字符串开始的引号之前加上r，使它成为原始字符串。“原始字符串”完全忽略所有的转义字符，打印出字符串中所有的倒斜杠。
+<p>print(r'That is Carol\'s cat.')
+<p>虽然可以用\n转义字符将换行放入一个字符串，但使用多行字符串通常更容易。在Python 中，多行字符串的起止是3 个单引号或3 个双引号。“三重引号”之间的所有引号、制表符或换行，都被认为是字符串的一部分。Python 的代码块缩进规则不适用于多行字符串。
+<p>虽然井号字符（#）表示这一行是注释，但多行字符串常常用作多行注释。
+<p>像列表一样，in 和not in 操作符也可以用于字符串。用in 或not in 连接两个字符串得到的表达式，将求值为布尔值True 或False。
+<p>startswith()和endswith()方法返回True，如果它们所调用的字符串以该方法传入的字符串开始或结束。否则，方法返回False。
+<p>'Hello world!'.startswith('Hello') #True
+<p>如果有一个字符串列表，需要将它们连接起来，成为一个单独的字符串，join()方法就很有用。join()方法在一个字符串上调用，参数是一个字符串列表，返回一个字符串。返回的字符串由传入的列表中每个字符串连接而成。
+<p>>>> ', '.join(['cats', 'rats', 'bats'])
+<p>'cats, rats, bats'
+<p>>>> ' '.join(['My', 'name', 'is', 'Simon'])
+<p>'My name is Simon'
+<p>>>> 'ABC'.join(['My', 'name', 'is', 'Simon'])
+<p>'MyABCnameABCisABCSimon'
+<p>join()方法是针对一个字符串而调用的，并且传入一个列表值（很容易不小心用其他的方式调用它）。
+<p>split()方法做的事情正好相反：它针对一个字符串调用，返回一个字符串列表。在交互式环境中输入以下代码：
+<p>>>> 'My name is Simon'.split()
+<p>['My', 'name', 'is', 'Simon']
+<p>默认情况下，字符串'My name is Simon'按照各种空白字符分割，诸如空格、制表符或换行符。这些空白字符不包含在返回列表的字符串中。
+<p>也可以向split()方法传入一个分割字符串，指定它按照不同的字符串分割。
+<p>用rjust()、ljust()和center()方法对齐文本
+<p>rjust()和ljust()字符串方法返回调用它们的字符串的填充版本，通过插入空格来对齐文本。
+<p>用strip()、rstrip()和lstrip()删除空白字符。
+
+<p>在编程中，空白 泛指任何非打印字符，如空格、制表符和换行符。你可使用空白来组织输出，以使其更易读。要在字符串中添加制表符，可使用字符组合\t 。
+<p>Python将带小数点的数字都称为浮点数 。大多数编程语言都使用了这个术语，它指出了这样一个事实：小数点可出现在数字的任何位置。每种编程语言都须细心设计，以妥善地处理浮点数，确保不管小数点出现在什么位置，数字的行为都是正常的。
+<p>列表是有序集合，因此要访问列表的任何元素，只需将该元素的位置或索引告诉Python即可。要访问列表元素，可指出列表的名称，再指出元素的索引，并将其放在方括号内。
+<p>列表、元组是以下标进行索引，因为其是有序的。字典和集合以key进行索引。
+<p>使用方法sort() 对列表进行永久性排序，永久性地修改了列表元素的排列顺序。现在，汽车是按字母顺序排列的，再也无法恢复到原来的排列顺序：
+<p>reverse() 不是指按与字母顺序相反的顺序排列列表元素，而只是反转列表元素的排列顺序。
+<p>处理列表的部分元素——Python称之为切片 。
+<p>要复制列表，可创建一个包含整个列表的切片，方法是同时省略起始索引和终止索引（[:] ）。这让Python创建一个始于第一个元素，终止于最后一个元素的切片，即复制整个列表。
+<p>如果用一列表名赋值给另一个列表名，两个列表名指向同一个列表值，是一种浅层复制。可变窗口的名字是对窗口序列值的引用。
+
+
+</div>
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+
+5 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+
+6
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+
+

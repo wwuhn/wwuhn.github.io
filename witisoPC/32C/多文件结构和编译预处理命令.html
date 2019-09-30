@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>多文件结构和编译预处理命令</title>
+
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <h2><a href="http://www.jizhuomi.com/software/70.html">多文件结构和编译预处理命令</a> </h2><p><strong> 一、C++程序的多文件结构</strong></p>
+
+<p>之前鸡啄米给大家看了很多比较完整的C++程序的例子，大家可能发现了，它们的结构基本上可以分为三个部分：类的声明、类的成员函数的实现和主函数。因为代码比较少，所以可以把它们写在一个文件中，但是我们实际进行软件开发时，程序会比较复杂，代码量比较大，</p>
+
+<p>一个程序按结构至少可以划分为三个文件：<strong>类的声明文件（*.h文件）、类的实现文件（*.cpp文件）和主函数文件（使用到类的文件）</strong>，如果程序更复杂，我们会为每个类单独建一个声明文件和一个实现文件。这样我们要修改某个类时就直接找到它的文件修改即可，不需要其他的文件改动。</p>
+
+<p>鸡啄米在<a target="_blank" href="http://www.jizhuomi.com/software/60.html">第十九讲中讲生存期</a>时有个时钟类的例子，现在鸡啄米给大家看下将那个程序按照上面说的结构分到三个文件里：</p>
+<p></p>
+<pre>
+// 文件1:Clock类的声明，可以起名为Clock.h
+#include &lt;iostream&gt;
+using namespace std;
+class Clock //时钟类声明
+{
+public: //外部接口
+    Clock();
+    void SetTime(int NewH, int NewM, int NewS);?? //三个形参均具有函数原型作用域
+    void ShowTime();
+    ~Clock(){}
+private: //私有数据成员
+    int Hour,Minute,Second;
+};
+</pre>
+
+<p>// 文件2：Clock类的实现，可以起名为Clock.cpp</p>
+
+<p class="code0">#include &quot;Clock.h&quot;</p>
+
+<p class="code0">//时钟类成员函数实现</p>
+
+<p class="code0">Clock::Clock() //构造函数</p>
+
+<p class="code0">{</p>
+
+<p class="code2">Hour=0;</p>
+
+<p class="code2">Minute=0;</p>
+
+<p class="code2">Second=0;</p>
+
+<p class="code0">}</p>
+
+<p class="code0">void Clock::SetTime(int NewH,int NewM,int NewS)</p>
+
+<p class="code0">{</p>
+
+<p class="code2">Hour=NewH;</p>
+
+<p class="code2">Minute=NewM;</p>
+
+<p class="code2">Second=NewS;</p>
+
+<p class="code0">}</p>
+
+<p class="code0">void Clock::ShowTime()</p>
+
+<p class="code0">{</p>
+
+<p class="code2">cout&lt;&lt;Hour&lt;&lt;&quot;:&quot;&lt;&lt;Minute&lt;&lt;&quot;:&quot;&lt;&lt;Second&lt;&lt;endl;</p>
+
+<p class="code0">}</p>
+
+<p>// 文件3：主函数，可以起名为main.cpp</p>
+
+<p class="code0">#include &quot;Clock.h&quot;</p>
+
+<p class="code0">//声明全局对象g_Clock，具有文件作用域，静态生存期</p>
+
+<p class="code0">Clock g_Clock;</p>
+
+<p class="code0">int main() //主函数</p>
+
+<p class="code0">{</p>
+
+<p class="code2">cout&lt;&lt;&quot;文件作用域的时钟类对象:&quot;&lt;&lt;endl;</p>
+
+<p class="code2">//引用具有文件作用域的对象：</p>
+
+<p class="code2">g_Clock.ShowTime();</p>
+
+<p class="code2">g_Clock.SetTime(10,20,30);</p>
+
+<p class="code2"></p>
+
+<p class="code2">Clock myClock(g_Clock);    //声明具有块作用域的对象myClock，并通过默认拷贝构造函数用g_Clock初始化myClock</p>
+
+<p class="code2">cout&lt;&lt;&quot;块作用域的时钟类对象:&quot;&lt;&lt;endl;</p>
+
+<p class="code2">myClock.ShowTime(); //引用具有块作用域的对象</p>
+
+<p class="code2">return 0;</p>
+
+<p class="code0">}</p>
+
+<p>在vs2010中如何生成这三个文件呢？我们可以点菜单中Project-&gt;Add Class，在弹出的对话框中选择c++   class，然后由弹出个对话框，在class   name处填上类名点finish就可以了，这样.h文件和.cpp文件会自动生成，我们也可以点Project-&gt;Add New   Item，在弹出的对话框中选择Header File(.h)或C++ File(.cpp)来生成.h文件或.cpp文件。</p>
+
+<p>Clock.cpp和main.cpp都使用#include     &quot;Clock.h&quot;把类Clock的头文件Clock.h包含进来。#include指令的作用就是将#include后面的文件嵌入到当前源文件该点处，被嵌入的文件可以是.h文件也可以是.cpp文件。如果不包含Clock.h，Clock.cpp和main.cpp就不知道Clock类的声明形式，就无法使用此类，所以所有使用此类的文件都应该包含声明它的头文件。关于#include指令下面鸡啄米会讲。</p>
+
+<p>上面的程序在编译时，由Clock.cpp和Clock.h编译生成Clock.obj，由main.cpp和Clock.h编译生成main.obj，然后就是链接过程，Clock.obj和main.obj链接生成main.exe可执行文件。如果我们只修改了类的实现文件，那么只需重新编译Clock.cpp并链接就可以，别的文件不用管，这样就提高了效率。在Windows系统中的C++程序用工程来管理多文件结构，而Unix系统一般用make工具管理，如果大家从事Unix系统软件开发，就需要自己写make文件。</p>
+
+<p><strong>二.编译预处理程序</strong></p>
+
+<p>编译器在编译源程序以前，要由预处理程序对源程序文件进行预处理。预处理程序提供了一些编译预处理指令和预处理操作符。预处理指令都要由“#”开头，每个预处理指令必须单独占一行，而且不能用分号结束，可以出现在程序文件中的任何位置。</p>
+
+<p>1.<strong>#include指令</strong></p>
+
+<p>#include指令也叫文件包含指令，用来将另一个源文件的内容嵌入到当前源文件该点处。其实我们一般就用此指令来包含头文件。#include指令有两种写法：</p>
+
+<p>#include &lt;文件名&gt;</p>
+
+<p>使用这种写法时，会在C++安装目录的include子目录下寻找&lt;&gt;中标明的文件，通常叫做按标准方式搜索。</p>
+
+<p>#include &quot;文件名&quot;</p>
+
+<p>使用这种写法时，会先在当前目录也就是当前工程的目录中寻找&quot;&quot;中标明的文件，若没有找到，则按标准方式搜索。</p>
+
+<p><img alt="鸡啄米：C++编程入门系列之二十四（C++程序设计必知：多文件结构和编译预处理命令）" src="http://jizhuomi.com/upload/%E5%AD%A6%E4%B9%A04.jpg" /></p>
+
+<p>2.<strong>#define和#undef指令</strong></p>
+
+<p>如果你学过C语言，就会知道用#define可以定义符号常量，比如，#define PI 3.14   这条指令定义了一个符号常量PI，它的值是3.14。C++也可以这样定义符号常量，但一般更常用的是在声明时用const关键字修饰。C语言还用#define定义参数宏，来实现简单的函数运算，比如，#define   add(x,y) (x+y) 这条指令说明如果我们用到add(1,2)则预处理后就会用(1+2)代替，C++中一般用内联函数来实现。</p>
+
+<p>#undef用来删除由#define定义的宏，使其不再起作用。</p>
+
+<p>3.<strong>条件编译指令</strong></p>
+
+<p>用条件编译指令可以实现某些代码在满足一定条件时才会参与编译，这样我们可以利用条件编译指令将同一个程序在不同的编译条件下生成不同的目标代码。例如，我们可以在调试程序时加入一些调试语句，用条件编译指令控制只有在debug模式下这些调试语句才参与编译，而在release模式下不参与编译。</p>
+
+<h3>条件编译指令有5中形式：</h3>
+
+<h4>a.第一种形式：</h4>
+
+<p></p>
+<pre>
+#if 常量表达式
+    程序正文 //当“ 常量表达式”非零时本程序段参与编译
+#endif
+</pre>
+
+<h4>b.第二种形式：</h4>
+<p></p>
+<pre>
+#if 常量表达式
+    程序正文1 //当“ 常量表达式”非零时本程序段参与编译
+#else
+    程序正文2 //当“ 常量表达式”为零时本程序段参与编译
+#endif
+</pre>
+
+<h4>c.第三种形式：</h4>
+<p></p>
+<pre>
+#if 常量表达式1
+    程序正文1 //当“ 常量表达式1”非零时本程序段参与编译
+elif 常量表达式2
+    程序正文2 //当“常量表达式1”为零、“ 常量表达式2”非零时本程序段参与编译
+    ...
+elif 常量表达式n
+    程序正文n //当“常量表达式1”、...、“常量表达式n-1”均为零、“ 常量表达式n”非零时本程序段参与编译
+#else
+    程序正文n+1 //其他情况下本程序段参与编译
+#endif
+</pre>
+
+<h4>d.第四种形式：</h4>
+<p></p>
+<pre>
+#ifdef 标识符
+    程序段1
+#else
+    程序段2
+#endif
+//如果“标识符”经#defined定义过，且未经undef删除，则编译程序段1，否则编译程序段2。
+</pre>
+
+<h4>e.第五种形式：</h4>
+<p></p>
+<pre>
+#ifndef 标识符
+    程序段1
+#else
+    程序段2
+#endif
+//如果“标识符”未被定义过，则编译程序段1，否则编译程序段2。
+</pre>
+
+<p>4.<strong>define操作符</strong></p>
+
+<p>define是预处理操作符，不是指令，所以不能用#开头。使用形式为：define(标识符）。如果括号里的标识符用#define定义过，并且没有用#undef删除，则define(标识符)为非0，否则为0。可以这样使用：</p>
+
+<p></p>
+<pre>
+#if !define(HEAD_H)
+#define HEAD_H
+</pre>
+
+<p>我们在包含头文件时，有时多次重复包含同一个头文件，比如下面这种情况：</p>
+<p></p>
+<pre>
+// main.cpp文件 
+ #include &quot;file1.h&quot; 
+ #include &quot;file2.h&quot; 
+ int main() 
+ { 
+     … 
+ } 
+ // file1.h文件 
+ #include &quot;head.h&quot; 
+ … 
+ // file2.h文件 
+ #include &quot;head.h&quot; 
+ … 
+ // head.h文件 
+ ... 
+ class A 
+ { 
+     ... 
+ } 
+ ...
+</pre>
+
+<p>main.cpp包含了file1.h文件，file1.h又包含了head.h文件，main.cpp还包含了file2.h文件，file2.h也包含了head.h文件，那么main.cpp就包含了两次head.h文件，在编译时就会报错，说head.h中的类A重复定义了。这时我们可以在被重复包含的文件head.h中使用条件编译指令，用一个唯一的标识符来标识head.h文件是否已经编译过，如果已经编译过则不会重复编译了。鸡啄米给大家改写下上面的head.h文件：</p>
+<p></p>
+<pre>
+// head.h文件
+#ifndef HEAD_H
+#define HEAD_H
+...
+class A
+{
+    ...
+}
+...
+#endif
+</pre>
+
+<p>在这个改好的head.h文件中，上来会先判断HEAD_H是否被定义过，如果没有被定义过，则head.h文件还没参与过编译，就编译此文件中的源代码，同时定义HEAD_H，标记head.h文件已经参与过编译。如果HEAD_H已经被定义过，则说明此文件已经参与过编译，编译器会跳过本文件左右内容编译其他部分，类A也不会有重复定义的错误了。</p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p><p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+  <p>谈到最X的数学公式（X处一般可以随意填），人们一般都会谈到欧拉关于复数指数的一个恒等式：</p>
+
+<p><img width="168" height="56" src="a_clip_image001.jpg" alt="http://p3.pstatp.com/large/91240002f70b08f600ee" /></p>
+
+<p>因为这个公式联系了世界上五个最重要的数字：表示什么都没有的0，表示一个的1，圆周率的π，自然对数的底e和虚数单位i，这个公式如此的简洁，但是在数学中又如此的重要，凡是学习了欧拉公式的人无不惊叹于欧拉深邃的思想。</p>
+
+<p>为了了解它，首先我们要从“数系”的拓展开始。</p>
+
+<p><strong>自然数</strong><strong> </strong></p>
+
+<p>在人们的生产和生活过程中，逐渐对数字产生了需求。人们为了给牛羊等牲畜计数，产生了自然数的概念。自然数就是全体正整数，也就是一个集合{1,2,3,4…} （有些教材把0也归类为自然数）。</p>
+
+<p>自然数集合对加法是封闭的。所谓封闭，就是说如果A和B都是自然数，那么A+B也是自然数。例如2+3=5，4+6=10。 但是，自然数对减法不是封闭的，也就是说，如果A和B都是自然数，A-B不一定是自然数。例如3-2=1还是自然数，但是5-8=-3就不是自然数了。</p>
+
+<p><strong>整数</strong><strong> </strong></p>
+
+<p>也许曾经有一段时间，人们认为5-8是没有意义的。就好像“我一共有5只羊，但是却要杀8只羊招待客人，还剩下几只羊？”这种问题根本不会发生。</p>
+
+<p>但实际上，只要我们去别人家借三只羊就可以满足要求，此时我们拥有的羊就变成了负债3只。也就是-3的含义。所以，人们又发明了0 和负整数。正整数，零和负整数合成了整数集合{……-4,-3,-2,-1,0,1,2,3,4……}</p>
+
+<p>整数对加减法都是封闭的，对乘法也是封闭的，但是对除法就不封闭了。也就是说，如果A和B都是整数，A÷B就不一定是整数。例如4÷2=2是整数，但是3÷2=1.5就不是整数。</p>
+
+<p><strong>有理数</strong><strong> </strong></p>
+
+<p>为了解决除法封闭性的问题，人们发明了分数。在4000年前，古埃及人和古希腊人就在使用分数了。公元前5世纪，古希腊数学家毕达哥拉斯将整数和分数合在一起，提出了有理数的概念。</p>
+
+<p>所谓有理数，就是可以写成两个整数的比的数。写作集合就是</p>
+
+<p><img width="439" height="109" src="a_clip_image002.jpg" alt="http://p9.pstatp.com/large/9122000afad0f6e3295d" /></p>
+
+<p>这样一来，有理数的加、减、乘、除（分母不能为零）就都封闭了。</p>
+
+<p>毕达哥拉斯等人沉醉于自己的成就，他们认为所有的数字都是有理数。但是很快，学派内部的学者希帕索斯就发现了问题：如果一个直角三角形的两个直角边都是1，那么斜边无法用两个整数的比来表示。并由此引发了第一次数学危机。</p>
+
+<p>这个问题在于，有理数对于开方运算是不封闭的，例如：√4=2是有理数，但是√2就不是有理数。</p>
+
+<p><strong>实数</strong><strong> </strong></p>
+
+<p>人们经过长期的研究，终于发现不仅有可以表示成两个整数的比的有理数，还有不能表示成整数比的无限不循环小数：无理数。人们把有理数和无理数合在一起，称为实数。实数与数轴上的点一一对应。</p>
+
+<p><img width="366" height="135" src="a_clip_image003.jpg" alt="http://p1.pstatp.com/large/911d00046333a8cf5eeb" /></p>
+
+<p>在数轴上，我们不仅能找到整数1、2、3…，还能找到分数2/3，也能找到e、π、√2等无理数。</p>
+
+<p>但是，数系并没有到此结束。因为人们发现√-1还是无法在实数范围内找到答案。也许有人会说：这个数本身就不存在啊！任何一个数的平方都一定是非负的，所以怎么会有一个数字的平方等于-1呢？</p>
+
+<p><strong>复数</strong><strong> </strong></p>
+
+<p>数学家们并不这样认为。他们觉得这个数字就好像5-8一样，在某个时刻就会找到它的用处。的确，现在的物理学和数学中，这个数字的作用非常大。这就是虚数。</p>
+
+<p>人们定义虚数单位i的含义是i=√-1，也就是说：</p>
+
+<p><img width="724" height="94" src="a_clip_image004.jpg" alt="http://p3.pstatp.com/large/91240002f7270c6c4366" /></p>
+
+<p>i每4次幂循环一次。我们按照这个规律可以计算出i的2018次幂等于-1。</p>
+
+<p>实数和虚数可以合在一起，就构成了复数：形如a+bi的数字，其中a和b都是实数，而i是虚数单位。</p>
+
+<p>复数可以用复平面上的一个点（或者一个有向线段）表示。</p>
+
+<p><img width="395" height="282" src="a_clip_image005.jpg" alt="http://p9.pstatp.com/large/911d0004634dc14e01e6" /></p>
+
+<p>复平面是由实轴（OX轴）和虚轴（OY轴）构成的平面。实轴就是实数轴，上面的每一个点表示一个实数，例如A点就表示1。虚轴是一个少了原点的数轴，每一个点表示一个虚数，例如B点就表示i。那么平面上的C点在实轴上投影为2，在虚轴上投影为3，所以C点表示的复数就是2+3i.</p>
+
+<p>复数的加减乘除规则与实数非常类似。例如：</p>
+
+<p>A=1+i， B=2+3i， 则</p>
+
+<p>A+B=3+4i； A-B=-1-2i，A×B=（2-3）+（2+3）i=-1+5i等。</p>
+
+<p>显然，复数内的加减乘除（分母不为零）都是封闭的，而且复数的实数次幂也是复数。</p>
+
+<p>不过，问题也接踵而至：一个数的复数次幂是什么？</p>
+
+<p><strong>欧拉公式</strong><strong> </strong></p>
+
+<p>一个整数的有理数幂很简单</p>
+
+<p><img width="549" height="91" src="a_clip_image006.jpg" alt="http://p1.pstatp.com/large/9122000afb0297a06008" /></p>
+
+<p>对于无理数幂，例如2的π次幂，我们总可以用两个有理数去逼近，也就是说我们知道</p>
+
+<p><img width="376" height="86" src="a_clip_image007.jpg" alt="http://p3.pstatp.com/large/9123000483a9aa75e91a" /></p>
+
+<p>只要我们愿意，总可以把精度无限提高，这样无理数幂次的含义也被我们弄清楚了。</p>
+
+<p>可是，2的i次幂到底是什么？人们仿佛毫无头绪。直到欧拉出现了。欧拉提出了著名的欧拉公式：</p>
+
+<p><img width="299" height="85" src="a_clip_image008.jpg" alt="http://p3.pstatp.com/large/9122000afb0c5e9b82c6" /></p>
+
+<p>其中θ是一个实数，e是自然对数的底2.71828…</p>
+
+<p>利用这个公式，我们就可以计算一个数的复数次幂了。例如：</p>
+
+<p><img width="649" height="101" src="a_clip_image009.jpg" alt="http://p3.pstatp.com/large/9121000c9f27e816f945" /></p>
+
+<p>其中ln2表示以e为底2的对数，它是一个实数。</p>
+
+<p>有了这个公式，复数在乘方上也封闭起来了。而且，如果我们令θ=π代入公式，就会得到</p>
+
+<p><img width="604" height="93" src="a_clip_image010.jpg" alt="http://p3.pstatp.com/large/91240002f7490daff89b" /></p>
+
+<p>这就是被誉为世界最美公式的欧拉恒等式。</p>
+
+<p><strong>欧拉公式的证明和应用</strong><strong> </strong></p>
+
+<p>欧拉公式有许多证明方法，比如可以使用泰勒展开。</p>
+
+<p>泰勒展开公式是说：一个光滑的函数可以展开成一系列函数的形式。例如e^x、cosx和sinx可以分别展开成下列形式：</p>
+
+<p><img width="258" height="142" src="a_clip_image011.jpg" alt="http://p1.pstatp.com/large/91250002dce402c49b34" /></p>
+
+<p>我们把x=iθ代入上述公式，就可以发现欧拉公式的左右两边相等。此外还有求导、积分等方法。</p>
+
+<p>使用欧拉公式可以解决非常多的问题，尤其在实变函数和物理中电学问题里，经常会把一个三角函数写作复数形式进行求解。没有欧拉，我们很难解决交流电中的许多计算，也难以实现大规模的电气化。</p>
+
+<p>顺便一说，1783年，76岁的欧拉在一起和家人聚餐，在陪孙子玩的时候他突然停下，对大家说：我死了。然后就与世长辞了。欧拉用自己的生命证明了：一个真正的数学家是没有什么不能预测的。</p>
+
+<p><strong>1</strong><strong>、雅各布线</strong><strong>:</strong><strong>纵使改变</strong><strong>,</strong><strong>依然故我</strong></p>
+
+<p><img width="146" height="38" src="a_clip_image012.jpg" alt="http://p9.pstatp.com/large/249b00110b98725fb3b9" /></p>
+
+<p><img width="354" height="367" src="a_clip_image013.jpg" alt="http://p1.pstatp.com/large/24990018487c2e0cdfce" /></p>
+
+<p>关于雅各布线，最为人们津津乐道的轶事之一，是雅各布醉心于研究对<strong>数螺线</strong>，这项研究从1691年就开始了。他发现，对数螺线经过各种变换后仍然是对数螺线，如它的渐屈线和渐伸线是对数螺线，自极点至切线的垂足的轨迹，以极点为发光点经对数螺线反射后得到的反射线，以及与所有这些反射线相切的曲线（回光线）都是对数螺线。他惊叹这种曲线的神奇，竟在遗嘱里要求后人将对数螺线刻在自己的墓碑上，并附以颂词<strong>“</strong><strong>纵然变化，依然故我</strong><strong>”</strong>，用以象征死后永生不朽。</p>
+
+<p><strong>2</strong><strong>、阿基米德线</strong></p>
+
+<p><img width="183" height="37" src="a_clip_image014.jpg" alt="http://p9.pstatp.com/large/249a0018424e23bc5df8" /></p>
+
+<p><img width="360" height="369" src="a_clip_image015.jpg" alt="http://p9.pstatp.com/large/2499001848f1487afd02" /></p>
+
+<p>据说，阿基米德螺线最初是由阿基米德的老师柯农(欧几里德的弟子)发现的。柯农死后，阿基米德继续研究，又发现许多重要性质，因而这种螺线就以阿基米德的名字命名了。</p>
+
+<p><strong>3</strong><strong>、圆线</strong></p>
+
+<p><img width="164" height="18" src="a_clip_image016.jpg" alt="http://p3.pstatp.com/large/249a001842864b71ef08" /></p>
+
+<p><img width="357" height="369" src="a_clip_image017.jpg" alt="http://p1.pstatp.com/large/216f00110be3bb272dc8" /></p>
+
+<p>关于圆线的公式，这里就不说了。</p>
+
+<p><strong>4</strong><strong>、心形线</strong></p>
+
+<p><img width="287" height="42" src="a_clip_image018.jpg" alt="http://p3.pstatp.com/large/249900184952b14243ec" /></p>
+
+<p><img width="355" height="366" src="a_clip_image019.jpg" alt="http://p3.pstatp.com/large/249a001842a50dcf46e9" /></p>
+
+<p>法国数学家<strong>笛卡尔</strong>在1649年欧洲大陆爆发<strong>黑死病</strong>时流浪到瑞典，在斯德哥尔摩的街头，52岁的笛卡尔邂逅了18岁的<strong>瑞典公主克里斯汀</strong>。几天后，他意外的接到通知，国王聘请他做小公主的数学老师。跟随前来通知的侍卫一起来到皇宫，他见到了在街头偶遇的女孩子。从此，他当上了小公主的数学老师。</p>
+
+<p>小公主的数学在笛卡尔的悉心指导下突飞猛进，笛卡尔向她介绍了自己研究的新领域——<strong>直角坐标系</strong>。每天形影不离的相处使他们彼此产生爱慕之心，公主的父亲国王知道了后勃然大怒，下令将笛卡尔处死，小公主克里斯汀苦苦哀求后，国王将其流放回法国，克里斯汀公主也被父亲软禁起来。</p>
+
+<p><strong>笛卡尔回法国后不久便染上重病</strong>，他日日给公主写信，因被国王拦截，克里斯汀一直没收到笛卡尔的信。笛卡尔在给克里斯汀寄出第十三封信后就气绝身亡了，这第十三封信内容只有短短的一个公式：<strong>r=a(1-sinθ</strong><strong>）</strong>。</p>
+
+<p>国王看不懂，觉得他们俩之间并不是总是说情话的，将全城的数学家召集到皇宫，但没有一个人能解开，他不忍心看着心爱的女儿整日闷闷不乐，就把这封信交给一直闷闷不乐的克里斯汀。</p>
+
+<p></p>
+
+<p>公主看到后，立即明了恋人的意图，她马上着手把方程的图形画出来，一颗心形图案出现在眼前，克里斯汀不禁流下感动的泪水，这条曲线就是著名的“<strong>心形线</strong>”。</p>
+
+<p><img width="580" height="457" src="a_clip_image020.jpg" alt="http://p1.pstatp.com/large/216f00110c3f4ac26e6d" /></p>
+
+<p>国王死后，克里斯汀登基，立即派人在欧洲四处寻找心上人，无奈斯人已故，先她一步走了，徒留她孤零零在人间......<strong>据说这封享誉世界的另类情书还保存在欧洲笛卡尔的纪念馆里。</strong></p>
+
+<p>虽然这个故事是假的。。。</p>
+
+<p><strong>5</strong><strong>、玫瑰线</strong></p>
+
+<p><img width="302" height="41" src="a_clip_image021.jpg" alt="http://p3.pstatp.com/large/2499001849a710d7465d" /></p>
+
+<p><img width="356" height="367" src="a_clip_image022.jpg" alt="http://p3.pstatp.com/large/2499001849a8efd86bcd" /></p>
+
+<p>玫瑰线的说法源于欧洲海图。在中世纪的 航海地图上，并没有 经纬线，有的只是一些从中心有序地向外辐射的互相交叉的直线方向线。此线也称罗盘线， 希腊神话里的各路风神被精心描绘在这些线上，作为方向的记号。所以，哥伦布探险队中的西班牙水手想到方向的时候，并不是罗盘方位上的多少度，而是风（losvientos）。而葡萄牙水手则称他们的罗盘盘面为风的玫瑰（rosedosventor）。水手们根据太阳的位置估计风向，再与“ 风玫瑰”对比找出航向。玫瑰线，即指引方向的线。</p>
+
+<p><strong>6</strong><strong>、线性方程</strong></p>
+
+<p><img width="375" height="316" src="a_clip_image023.jpg" alt="http://p3.pstatp.com/large/216f00110c9d68696a84" /></p>
+
+<p><strong>大道至简，化繁为简！</strong><img width="75" height="14" src="a_clip_image024.jpg" alt="http://p3.pstatp.com/large/2499001849d953bcac9b" />线性方程事实上是人类最喜欢的含未知数的公式，因为其中之包含乘法与加法，简单地不可挑剔。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+</p>
+
+<p>
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+
+-->
+
+

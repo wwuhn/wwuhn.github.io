@@ -1,0 +1,37 @@
+<div style="width:140px; height:140px; background-color:pink; cursor:pointer;"
+id="divBlock" onmousedown="divBlock_event_mousedown(arguments[0]);">
+</div>
+<script>
+    function divBlock_event_mousedown(e) {
+        var e, obj, temp;
+        obj = document.getElementById("divBlock");
+        e = window.event ? window.event: e;
+        obj.startX = e.clientX - obj.offsetLeft;
+        obj.startY = e.clientY - obj.offsetTop;
+        document.onmousemove = document_event_mousemove;
+        temp = document.attachEvent ? document.attachEvent
+
+        ("onmouseup", document_event_mouseup) : document.addEventListener
+
+        ("mouseup", document_event_mouseup, "");
+    }
+    function document_event_mousemove(e) {
+        var e, obj;
+        obj = document.getElementById("divBlock");
+        e = window.event ? window.event: e;
+        with(obj.style) {
+            position = "absolute";
+            left = e.clientX - obj.startX + "px";
+            top = e.clientY - obj.startY + "px";
+        }
+    }
+    function document_event_mouseup(e) {
+        var temp;
+        document.onmousemove = "";
+        temp = document.detachEvent ? document.detachEvent
+
+        ("onmouseup", document_event_mouseup) : document.removeEventListener
+
+        ("mouseup", document_event_mouseup, "");
+    }
+</script>

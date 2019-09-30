@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>vba使用SQL</title>
+
+ <style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.4em;
+}
+P{
+margin:8px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ 
+ img{
+ border:0;
+ }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<p>首先需要引用   microsoft activeX Data Objects 2.8 library</p>
+<p>VBE→工具→引用→勾选；</p>
+<p>1.sql   = &quot;select 构件名称,构件代号,横长度,横数量,竖长度,竖数量,比重,相应工艺 from [参数$B2:K1916] where (大样代码='&quot;   &amp; DYDH &amp; &quot;') and (内外框='WKXC')&quot;</p>
+<p>2.sql   = &quot;select 构件名称,构件代号,横长度,横数量,竖长度,竖数量,比重,相应工艺 from [参数$B2:K&quot; &amp; CSMaxrow &amp;   &quot;] where (大样代码='&quot; &amp; DYDH &amp; &quot;') and (内外框='WKXC')&quot;</p>
+<p>********************************</p>
+<h4>A、根据本工作簿的1个表查询求和写法范本</h4>
+<h4>Sub   查询方法一()</h4>
+<p>Set CONN   = CreateObject(&quot;ADODB.Connection&quot;)</p>
+<p>CONN.Open   &quot;provider=microsoft.jet.oledb.4.0;extended properties=excel 8.0;data source=&quot;   &amp; ThisWorkbook.FullName</p>
+<p>sql   = &quot;select 区域,存货类, sum(代销仓入库数量),sum(代销仓出库数量),sum(日报数量) from [sheet4$a:i] where   区域='&quot; &amp; [b3] &amp; &quot;' and month(日期)='&quot; &amp; Month(Range(&quot;F3&quot;)) &amp; &quot;'   group by 区域,存货类&quot;</p>
+<p>Sheets(&quot;sheet2&quot;).[A5].CopyFromRecordset   CONN.Execute(sql)</p>
+<p>CONN.Close:   SetCONN = Nothing</p>
+<p>End   Sub</p>
+<p>-----------------</p>
+<h4>Sub   查询方法二()</h4>
+<p>Set CONN   = CreateObject(&quot;ADODB.Connection&quot;)</p>
+<p>CONN.Open   &quot;dsn=excel files;dbq=&quot; &amp; ThisWorkbook.FullName</p>
+<p>sql   = &quot;select 区域,存货类, sum(代销仓入库数量),sum(代销仓出库数量),sum(日报数量)from [sheet4$a:i] where   区域='&quot; &amp; [b3] &amp; &quot;' and month(日期)='&quot; &amp; Month(Range(&quot;F3&quot;)) &amp; &quot;'   group by 区域,存货类&quot;</p>
+<p>Sheets(&quot;sheet2&quot;).[A5].CopyFromRecordset   CONN.Execute(sql)</p>
+<p>CONN.Close:   SetCONN = Nothing</p>
+<p>End   Sub</p>
+<p>********************************</p>
+<h4>B、根据本工作簿2个表的不同类别查询求和写法范本</h4>
+<p>Sub   根据入库表和回款表的区域名和月份分别求存货类发货数量和本月回款数量查询()</p>
+<p>Set   conn = CreateObject(&quot;adodb.connection&quot;)</p>
+<p>conn.Open   &quot;provider=microsoft.jet.oledb.4.0;&quot; &amp; _</p>
+<p>&quot;extended   properties=excel 8.0;data source=&quot; &amp; ThisWorkbook.FullName</p>
+<p>Sheet3.Activate</p>
+<p>Sql   = &quot; select a.存货类,a.fh ,b.hk from (select 存货类,sum(本月发货数量) &quot; _</p>
+<p>&amp;   &quot; as fh from [入库$] where 存货类 is not null and 区域='&quot; &amp; [b2] _</p>
+<p>&amp;   &quot;' and month(日期)=&quot; &amp; [d2] &amp; &quot; group by 存货类) as a&quot; _</p>
+<p>&amp;   &quot; left join (select 存货类,sum(数量) as hk from [回款$] where 存货类&quot; _</p>
+<p>&amp;   &quot; is not null and 区域='&quot; &amp; [b2] &amp; &quot;' and month(开票日期)=&quot; &amp; [d2] &amp;   &quot;&quot; _</p>
+<p>&amp;   &quot; group by 存货类) as b on a.存货类=b.存货类&quot;</p>
+<p>Range(&quot;a5&quot;).CopyFromRecordset   conn.Execute(Sql)</p>
+<p>End   Sub</p>
+<p>********************************</p>
+<h4>C、根据本文件夹下其他工作簿1个表区域的区域求和</h4>
+<p>Sub   在工作表1汇总本文件夹下001工作薄的表1分数列查询汇总()</p>
+<p>Set   conn = CreateObject(&quot;ADODB.Connection&quot;)</p>
+<p>conn.Open   &quot;dsn=excel files;dbq=&quot; &amp; ThisWorkbook.Path &amp; &quot;\001.xls&quot;</p>
+<p>sql   = &quot;select sum(分数) from [sheet1$]&quot;</p>
+<p>Sheets(1).[a2].CopyFromRecordset   conn.Execute(sql)</p>
+<p>conn.Close:   Set conn = Nothing</p>
+<p>End   Sub</p>
+<p>---------------------</p>
+<p>Sub   在工作表1汇总本文件夹下001工作薄的表1A1:A10查询汇总()</p>
+<p>Set   conn = CreateObject(&quot;ADODB.Connection&quot;)</p>
+<p>conn.Open   &quot;provider=microsoft.jet.oledb.4.0;extended properties='excel 8.0;hdr=no;';data   source=&quot; &amp; ThisWorkbook.Path &amp; &quot;\001.xls&quot;</p>
+<p>sql   = &quot;select sum(f1) from [sheet1$a1:a10]&quot;</p>
+<p>Sheets(1).[A5].CopyFromRecordset   conn.Execute(sql)</p>
+<p>conn.Close:   Set conn = Nothing</p>
+<p>End   Sub</p>
+<p>-----------------------</p>
+<p>Sub   在工作表1汇总本文件夹下001工作薄的表1分数列A1:A7查询并msgbox表达汇总()</p>
+<p>Set   conn = CreateObject(&quot;ADODB.Connection&quot;)</p>
+<p>Set   rr = CreateObject(&quot;ADODB.recordset&quot;)</p>
+<p>conn.Open   &quot;dsn=excel files;dbq=&quot; &amp; ThisWorkbook.Path &amp; &quot;\001.xls&quot;</p>
+<p>sql   = &quot;select sum(分数) from [sheet1$a1:a7]&quot;</p>
+<p>Sheets(1).[A8].CopyFromRecordset   conn.Execute(sql)</p>
+<p>rr.Open   sql, conn, 3, 1, 1</p>
+<p>MsgBox   rr.fields(0)</p>
+<p>conn.Close:   Set conn = Nothing</p>
+<p>End   Sub</p>
+<p>********************************</p>
+<h4>D、根据本文件夹下其他工作簿多个表区域的单列区域查询求和</h4>
+<p>sub   本文件夹下其他工作簿的每个工作簿的第4列30行查询求和()</p>
+<p>Dim   cn As Object, f$, arr&amp;(1 To 30), i%</p>
+<p>Application.ScreenUpdating   = False</p>
+<p>Set   cn = CreateObject(&quot;adodb.connection&quot;)</p>
+<p>f   = Dir(ThisWorkbook.Path &amp; &quot;\*.xls&quot;)</p>
+<p>Do   While f &lt;&gt; &quot;&quot;</p>
+<p>If   f &lt;&gt; ThisWorkbook.Name Then</p>
+<p>cn.Open   &quot;provider=microsoft.jet.oledb.4.0;extended properties='excel 8.0;hdr=no;';data   source=&quot; &amp; ThisWorkbook.Path &amp; &quot;\&quot; &amp; f</p>
+<p>Range(&quot;d5&quot;).CopyFromRecordset   cn.Execute(&quot;select f4 from [基表1$a5:d65536]&quot;)</p>
+<p>cn.Close</p>
+<p> </p>
+<p>For   i = 1 To 30</p>
+<p>arr(i)   = arr(i) + Range(&quot;d&quot; &amp; i + 4)</p>
+<p>Next   i</p>
+<p>End   If</p>
+<p>f   = Dir</p>
+<p>Loop</p>
+<p>Range(&quot;d5&quot;).Resize(UBound(arr),   1) = WorksheetFunction.Transpose(arr)</p>
+<p>Application.ScreenUpdating   = True</p>
+<p>End   Sub</p>
+<p>********************************</p>
+<h4>E、根据本文件夹下其他工作簿多个表区域的多列区域查询求和</h4>
+<p>sub   本文件夹下其他工作簿的每个工作簿的第B\C\D列 25行查询求和</p>
+<p>Dim   cn As Object, f$, arr&amp;(1 To 25, 1 To 3), i%</p>
+<p>Application.ScreenUpdating   = False</p>
+<p>Set   cn = CreateObject(&quot;adodb.connection&quot;)</p>
+<p>f   = Dir(ThisWorkbook.Path &amp; &quot;\*.xls&quot;)</p>
+<p>Do   While f &lt;&gt; &quot;&quot;</p>
+<p>If   f &lt;&gt; ThisWorkbook.Name Then</p>
+<p>cn.Open   &quot;provider=microsoft.jet.oledb.4.0;extended properties='excel 8.0;hdr=no;';data   source=&quot; &amp; ThisWorkbook.Path &amp; &quot;\&quot; &amp; f</p>
+<p>Range(&quot;b6&quot;).CopyFromRecordset   cn.Execute(&quot;select f2,f3,f4 from [基表3$a6:e65536]&quot;)</p>
+<p>cn.Close</p>
+<p>For   i = 1 To 25</p>
+<p>For   j = 1 To 3</p>
+<p>arr(i,   j) = arr(i, j) + Cells(i + 5, j + 1)</p>
+<p>Next   j</p>
+<p>Next   i</p>
+<p>End   If</p>
+<p>f   = Dir</p>
+<p>Loop</p>
+<p>Range(&quot;b6&quot;).Resize(UBound(arr),   3) = arr</p>
+<p>Application.ScreenUpdating   = True</p>
+<p>End   Sub</p>
+<p>********************************</p>
+<h4>F、其他相关知识整理</h4>
+<p>'   用excel SQL方法</p>
+<p>'conn是建立的连接对象，用open打开</p>
+<p>'   通过 CreateObject(&quot;ADODB.Connection&quot;) 这一句建立了一个数据库连接对象conn</p>
+<p>'   在工程中就不再需要引用“Microsot ActiveX Data Objects 2.0 Library“对象</p>
+<p>'设置对象   conn 为一个新的 ADO 链接实例,也可以用 set conn = New ADODB.Connection。</p>
+<p>--------------</p>
+<p> </p>
+<p>'   conn.Close表示关闭conn连接</p>
+<p>'   Set conn = Nothing 是把连接对象conn置空，不然你退出了文件，但数据库还没有关闭</p>
+<p>conn.Open   &quot;dsn=excel files;dbq=&quot; &amp; ThisWorkbook.Path &amp;   &quot;\001.xls&quot;</p>
+
+<p>'dsn是缩写，data   source name数据库名是 excel file</p>
+
+
+<p>'Sql   = &quot;select sum(分数) from [sheet1$]&quot;这里加&quot;分数&quot;两字什么作用?</p>
+<p>'</p>
+<p>'SQL一般结构是select   字段 from 表，意思是从指定的表中查询字段，字段的理解可以是：表中的列名</p>
+<p>'</p>
+<p>'分数是001.xls文件的sheet1第一行A列的字段名，SQL一般以字段来识别每列数据</p>
+<p>'-------------------</p>
+<p>'为什么要用复制的对象引用过来计算呢？</p>
+<p>'</p>
+<p>'因为Sql语句只是对源数据库的字段找到了符合条件的的数据，但不会自动复制到汇总表来，所以需要复制copy</p>
+<p>'</p>
+<p>'注意这里的   [sheet1$]&quot; ，001文件的数据存放地上sheet1表，应当用方括号并加上$</p>
+<p>'</p>
+<p>'如果源数据文件001不是excel，而是Access，则引用表时，不需要加方括号，也不要$</p>
+
+<p> </p>
+<p>
+
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>

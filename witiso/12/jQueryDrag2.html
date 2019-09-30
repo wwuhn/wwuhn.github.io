@@ -1,0 +1,56 @@
+<html>
+<head>
+<style>
+div{
+	width: 100px;
+	height: 100px;
+	background: #f00;
+	cursor: pointer;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+</style>
+<script type="text/javascript" src="http://public.dabiaoge.me/common/js/jquery.min.js"></script>
+<script>
+$('div').mousedown(function(e) {
+    // e.pageX
+    var positionDiv = $(this).offset();
+    var distenceX = e.pageX - positionDiv.left;
+    var distenceY = e.pageY - positionDiv.top;
+    //alert(distenceX)
+    // alert(positionDiv.left);
+
+    $(document).mousemove(function(e) {
+        var x = e.pageX - distenceX;
+        var y = e.pageY - distenceY;
+
+        if (x < 0) {
+            x = 0;
+        } else if (x > $(document).width() - $('div').outerWidth(true)) {
+            x = $(document).width() - $('div').outerWidth(true);
+        }
+
+        if (y < 0) {
+            y = 0;
+        } else if (y > $(document).height() - $('div').outerHeight(true)) {
+            y = $(document).height() - $('div').outerHeight(true);
+        }
+
+        $('div').css({
+            'left': x + 'px',
+            'top': y + 'px'
+        });
+    });
+
+    $(document).mouseup(function() {
+        $(document).off('mousemove');
+    });
+});
+</script>
+</head>
+<body>
+
+<div>contents after jQuery loading</div>
+</body>
+</html>

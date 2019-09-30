@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<p>﻿高考状元操鲁豫</p>
+
+<p>别人都说我是个怪人，不喜欢说话，不过一旦说起话来便肆无忌惮，直言不讳。在班级几乎没有和同班男生说过几句话，更不用提女生了。我有听到过他们在背后议论我的话，说我长得这么帅，成绩又在班里名列前茅，除了性格怪异外，已经是相当优秀的男生了。如此优秀的男生，竟然对主动和自己说话的女生们毫不搭理，难不成是个“性冷淡”？我听到说我性无能之类的话后，脑子里一片空白，只有怒火，毫不犹豫的捡起了地上的板砖扔向他们……如果不是因为我优异的成绩，老师的竭力挽留，这次扔板砖砸人事件足以让我被学校开除了。被我砸的那个小子，脑袋被缝了六十六针。他痊愈回校后见到我时，不自然的笑着说：“六十六针……很很吉利……很顺，呵呵……”。</p>
+
+<p></p>
+
+<p>我非但不是性冷淡，还是个色狼，我的一个爱好就是看A片。只不过我对我班的女生没有兴趣罢了。人都说“尖子班的女生赛恐龙”。这话一点不假。我们班简直就是个侏罗纪公园……若是有对我心思的，我早TM下手了。同年组的的确有很多漂亮的女生，有的也给我写过很多的爱慕情书。但我都没有去搭理。我是看透了这个学校的女生：长的漂亮的，身材不好；身材好的，长的又不靓；既漂亮身材又好的，又是个没有文化的傻B花瓶。这样的女人我觉得即使是上了，也少了点味道，所以我就一直保留着童子身。等待着能被我看得上的女子的到来，然后尽性……</p>
+
+<p></p>
+
+<p>我有着强健的体魄，连老二也很强壮（这个论点是我在学校澡堂洗澡时发现的，没人的鸡巴有我大），只有十九岁的我，鸡巴在没勃起的时候便有两个握拳的长度了。</p>
+
+<p></p>
+
+<p>我的确说起话来口无遮拦，直言不讳。记得有次，老师当着全班同学的面问我为什么总考第一，让我谈谈经验。我没有说话，而是大步走到黑板前面，拿起粉笔，大字写下了“丁香社区”的网站地址，然后转向老师和同学们，说：</p>
+
+<p></p>
+
+<p>“我之所以能成绩优异，跟看黑板上的这个成人网站有着密不可分的联系。古人云，一张一弛，乃文武之道。我在忙碌的学习中抽出空闲来，看看毛片，陶冶了情操，舒缓了身心。再小手淫一下，释放了压抑。这样，才能有更好的精气神去学好各科文化课。”</p>
+
+<p></p>
+
+<p>台下的老师和同学们都我的言语吓傻了……</p>
+
+<p></p>
+
+<p>零七年高考后，我以六百八十五分的成绩考入了北京大学。我是我们省的文科状元。正因如此，我竟有幸被《鲁豫有约》栏目组“逮”到：应邀去参加一期节目。其实我根本没看过什么《鲁豫有约》。校长和老师都鼓励我去，没辙，只好去凑个人数。因为去的不光光是我自己，还有别省的文理状元，听说加我共五个人，而我又是其中三个文科状元中的状元。栏目组人下了通牒：别人不去可以，我则必须得去。MD！老子我是被吓大地，我仍是坚持不去。后来老师校长们外加栏目组的人百般劝说，就差喊我爹了，我才勉强答应。</p>
+
+<p></p>
+
+<p>就这样，我们五个各省状元，四男一女，坐上了栏目组的大奔。真是个郁闷的旅程，车里一帮大老爷们，只有一个女生，还是个恐龙。我只有靠睡觉来打发时间了。坐了两天半的车，终于到了北京，到了栏目的录制地点。这时候天渐黄昏。负责人给我们几个状元安排了一顿还算凑货的晚餐。接着说要带我们去和主持人见面，互相交流下熟识下，以免明天的节目出现尴尬的场面。也算是彩排吧。</p>
+
+<p></p>
+
+<p>穿过了一道道阴暗的走廊，我们被带到了一间四周封闭，连窗户都没有的小屋子，看样子好象是录音房。录音房里的中间只有两条相对着的长凳，长凳上坐着一个穿着白色连衣裙的女人，女人旁边放着一个小手提包。我第一眼并没看她的脸，因为她穿着肉色丝袜的长腿吸引了我的视线。接着看了她的脸：将近三十的样子，长的倒也秀气，眼睛挺大，看着还顺眼。负责人对我们说：“她就是你们明天上台的主持人陈鲁豫，我先走了，你们先相互交流下吧。”接着他有凑到鲁豫耳边嘀咕了几声，就走了。</p>
+
+<p></p>
+
+<p>录音房的门“当”的一声锁上后，接着就是半分钟的死寂。屋里面只有我们四个男生一个女生，还有一个陌生的女主持人。我看得出，这帮状元们都有点紧张，一个个低着头看地，像犯了什么错误似的。我没他们那么怂，我根本就没紧张过，不过我的眼睛也看着下面，盯着鲁豫的丝袜看。</p>
+
+<p></p>
+
+<p>这时鲁豫说话了：</p>
+
+<p></p>
+
+<p>“你们都是各省的高考状元吧？”</p>
+
+<p></p>
+
+<p>他们低着头说：“恩。”瞧他们那没出息没见过市面地样，我就看不起。鲁豫看了一眼门，然后对我们其中的一个女状元说：</p>
+
+<p></p>
+
+<p>“你先出去一下，一会叫你进来，记得把门稍带锁上。因为我不希望别人来打扰。”</p>
+
+<p></p>
+
+<p>那女生“恩”了一声就出去了。</p>
+
+<p></p>
+
+<p>鲁豫开始和我们聊了起来，这家伙不愧是个优秀的主持人，还真有两下子。刚见到她时，因为人长的一般，我也并没怎么看得起她。但鲁豫只谈了几个话题，就把不喜欢说话的我勾得夸夸其谈了。我心中对这个主持人有了另一种看法：她不是一般女生，很有才华，从她的言语中就能听的出来。学识渊博，而且善解人意。和我说话的时候竟能聊到我喜欢的话题，一针见血的把我的话茬子勾了起来。高中时的我不喜欢和女生说话、没上过女人，是因为没有碰到像鲁豫这样的一个人，这样一个能和我聊到一起的人。我们越聊越投机，另三个男生早就被抛在了一边，剩下我和她侃侃其谈，他们根本都没插话的余地。我从来都没说过这么多的话，直言不讳的我，无所不谈，毫无遮掩。谈一谈竟谈到了男女方面的事情。</p>
+
+<p></p>
+
+<p>我说：“我连女孩子的手都没碰过，一方面是因为我十分喜欢读书，没太多的闲杂时间；另一方面是没遇到过如意的女生。”我挑逗鲁豫说：</p>
+
+<p></p>
+
+<p>“就是说没遇到像你这样算是不错的女人”。</p>
+
+<p></p>
+
+<p>鲁豫问了我一句话使我惊讶了一下，“你看过成人片么？”</p>
+
+<p></p>
+
+<p>我说：“当然看过，而且没少看。”</p>
+
+<p></p>
+
+<p>鲁豫笑了笑，接着对我身旁的三个男生说：</p>
+
+<p></p>
+
+<p>“你们也先出去一下，我逐个采访交谈。”</p>
+
+<p></p>
+
+<p>三个傻呼呼的小子应声也都陆续出去了。鲁豫起身把他们送出去后，反锁上了门。接着回到我的面前坐下，问我：</p>
+
+<p></p>
+
+<p>“你是处男么？”</p>
+
+<p></p>
+
+<p>我靠！这丫不是想让我操吧？我心里想。“当然是。”我说。</p>
+
+<p></p>
+
+<p>她面带娇色，把脸庞凑到了我的耳边娇滴滴地细声说：</p>
+
+<p></p>
+
+<p>“那你想尝试下成人的快乐么？状元郎？”</p>
+
+<p></p>
+
+<p>我听到了我的心跳，像快跑过后般的心跳。我稳住语气说：“还怕你不成？”</p>
+
+<p></p>
+
+<p>她咯咯地笑着推开了我，说：</p>
+
+<p></p>
+
+<p>“开玩笑的！你们是未来的花朵，我怎么会让你和我做那种事？”说着两条二郎腿架了起来，与其说架起来，不如说夹起来。</p>
+
+<p></p>
+
+<p>这么好的机会我焉能错过？！我站了起来，我大裤衩里面的小弟弟也站了起来。我说：</p>
+
+<p></p>
+
+<p>“你也别装了，难道和我状元郎做爱，还会毁了你名声不成？况且我还是个处男，便宜你了！来吧！”</p>
+
+<p></p>
+
+<p>我伸出手来去拽她的腿，她的腿往后一缩，高根鞋子被我抓掉了，我拿着她的鞋子闻了下，是微微的丝袜汗臭味道，这种味道更加勾起了我的性欲。我喘着粗气扑向了她，她也洋装反抗，骚骚的叫“不要啊不要！”那娇滴滴的声音的意思明明是：快啊，我要！我要！我开始吻她的脸，这时便已经感觉到了她粗喘，鼻孔的热气喷到了我的脸上。我开始回忆看过的A片的镜头，边想边效仿，毕竟我是个新手。我的两只手在她薄薄的白色连衣裙上游走，她的娇躯不停的扭动，不时从她的口中传来低吟声。第一次这样碰一个女性的身体，我感觉五内惧焚，一种抑制不住的性欲之热血，直冲我的龟头，感觉要爆炸一样。我受不了了，不能打持久战了！</p>
+
+<p></p>
+
+<p>我开始想揭开他上衣的扣子，却发现扣子早就被她揭开了。她躺在长凳上，用那双含情脉脉的大眼睛盯着我凸起的裤衩看，睫毛忽闪忽闪的。她的小舌头轻舔着自己薄嫩的嘴唇，带出轻轻细细的呻吟着，两只手也开始往我的身上摸。没等我脱下她的上衣，她已经把我的半截袖扒掉了。真是个盎然的骚货！我笑着想。我脱下了她的上衣，两只带着黑色胸罩的奶子弹了出来，不大也不小的奶子，看得我口水都要留下来了。她仰面躺在长凳上，我骑在她的腰身上，用两只手一起柔捏着她的酥胸，软绵绵的，再加上她的轻微呻吟，我的骨头都要酥了。我抬起了屁股，把她的裙子脱了下来，里面竟是一条半透明的白色内裤。黑白相配……她的内裤竟然已经湿透了了，我第一次闻到女人阴水的味道，腥骚味。</p>
+
+<p></p>
+
+<p>长凳足够容纳两个人同卧。我侧倒在她的身旁，搁着她的内衣内裤左手揉捏胸，右手隔着薄沙般的内裤抚摩她的阴唇。当我摸到她阴部的时候，她的喘息呻吟声更加强烈了。看着她那微伸出的小舌头，我便情不自禁的和她接起吻来，我们的舌头在彼此的口中缠绕翻腾……突然她“啊”的一声，退开了我，对我说：</p>
+
+<p></p>
+
+<p>“你把我的舌头咬疼了！”</p>
+
+<p></p>
+
+<p>我开玩笑似的对她说：</p>
+
+<p></p>
+
+<p>“我就是要咬掉你那能言善辩的小舌头！”</p>
+
+<p></p>
+
+<p>她听到了我的夸奖后，脸上露出了笑容，虽然她那撅起的嘴巴想掩饰笑容。她急忙说：</p>
+
+<p></p>
+
+<p>“别闹了，再可不许咬了啊！再咬就不让你进‘门’了！快来啊，继续，快……”</p>
+
+<p></p>
+
+<p>我又扑向了她喷有香水的身躯，把她按在了长凳上，继续爱抚着。我的右手在她的大腿和阴部之间游走着，隔着丝袜和内裤去抚摩，有不一样的感觉。左手则继续玩捏着她的酥胸。她的手也没闲着，直接摸向了我的跨下，隔着裤衩，摩挲着我的鸡巴，然后突然伸进了我的裤裆里，握住了我的鸡巴。她好象很惊讶，一边呻吟着一边对我说：</p>
+
+<p></p>
+
+<p>“哦……啊……你的这个……很大啊……早熟么？……真棒……哦……啊……”</p>
+
+<p></p>
+
+<p>这时我才猛然想到：我没有套子！鲁豫这丫可别有个性病什么的，传染给我就亏大了！她见我突然停止了抚摩，邹着细眉说：</p>
+
+<p></p>
+
+<p>“怎么停下来了呢？不要停，我要，我要。”</p>
+
+<p></p>
+
+<p>我说我没有安全套。她有些迫切的说：</p>
+
+<p></p>
+
+<p>“快，在我的手提包里有！快点的，摸啊！不要停了好么！”果然在她的手提包里我翻出了四个套子。我心里暗想，难不成鲁豫早有预谋，想对我们几个高考状元下手？真是个狡黠的女人。我挑了一个带刺的安全套给鸡巴套了上去，嘿嘿！</p>
+
+<p></p>
+
+<p>我从新回到长凳上时，她已经自己把胸罩给解掉了，两颗粉嫩的乳头就像樱桃一样，我扑上去吃起了她的樱桃，用我的嘴吸吮着、用舌头拍打着她的乳头。当我感觉口中的樱桃硬了后，便迫不及待的扒下了她湿透了的内裤，我第一次真正的见到了女人的B。以前也见过，只不过是在电脑电视中，现在的可是真实的了。她的B还算漂亮，从她的两瓣粉嫩的阴唇可以看出，她被操的次数并不多。也许正因为如此，今天才会表现的这么骚。她那稀疏的阴毛下面，两瓣阴唇大门早已大敞，尿道下面的阴道也时而张合，每一合闭，一股细流就会顺着她的阴道留到长凳上。我已经省略了黄片中的很多环节，也没有退去她的肉色丝袜，便准备直接上了！我紧忙脱去自己的内裤，一根戴着套子的大肉棒登时蹦将了出来，我握着那挺直的金枪，瞄准了她那微张的阴道，猛的插去……突然鲁豫“啊”的一声尖叫，吓了我一跳，她喘着粗气说：</p>
+
+<p></p>
+
+<p>“新手！能轻点么？你弄疼我了！”</p>
+
+<p></p>
+
+<p>我才不管，我的鸡巴在她阴道里做了短暂的停留后（鸡巴在阴道里的感觉真润滑真舒服啊，虽然隔着套子，但也能明显的感受到），慢慢的抽了出去，套子上已经粘满了她的淫水，淫水一股股的往外流淌，流到了长凳上。“噗”的一声，我又把鸡巴猛的推了进去。“啊！”她痛苦的又叫了一声，伴着长长的呻吟对我说：</p>
+
+<p></p>
+
+<p>“啊……你的运动……频率太慢了，不要停好么？我要，我要……”</p>
+
+<p></p>
+
+<p>一推一拉了三次，每一次的推动都会换来她身体的一次扭动、口中的一次呻吟。再想推进去的时候，我已经感觉受不了了，我闭着眼睛喘着粗气说：</p>
+
+<p></p>
+
+<p>“我……受不了了……我……要射了……”</p>
+
+<p></p>
+
+<p>猛的又一推，高潮的快感已经降临到了我的头上，我的精子不由自主的喷射了出去。这种性福的享受映在了我的脸上，我趴在了鲁豫的身上，闭上眼睛，抬着头，尽情的享受这短暂的快感。</p>
+
+<p></p>
+
+<p>半分钟后，我才从她的体内拔出了我那已经变软了的阳具。她连忙伸出手撸下了我鸡巴上的套子，说：</p>
+
+<p></p>
+
+<p>“这是处男的精液，可是个好东西，不能浪费了。”</p>
+
+<p></p>
+
+<p>说完她把我的精子喝了下去。我对她的举动有些惊讶。难道说她那水嫩有弹性而且容光焕发的脸蛋，是总喝精子保持的么？我穿好了衣裤，再看看她，她正从手提包里拿出卫生纸擦自己的阴道流出的淫水，撅着嘴，一脸的不高兴，为什么我知道，因为我是第一次，射精太快。她还完全没有享受到高潮的快感，没有得到性的满足，我就射了。她的丝袜上也弄上了点精子，那是她在撸下我套子后滴上去的。她退下了丝袜，放到了包里，接着拿起了她那条湿透了的内裤。我伸过手去，抢下了她要放入包中的白色透明内裤，说：</p>
+
+<p></p>
+
+<p>“这个给我留做纪念吧。”我闻了闻手中的内裤：“我会记住这个味道的。”</p>
+
+<p></p>
+
+<p>她没有回答，只顾穿衣服。</p>
+
+<p></p>
+
+<p>我接着对她开玩笑说：</p>
+
+<p></p>
+
+<p>“看来今天晚上，你要光着屁股只穿裙子回家了。哈哈。”</p>
+
+<p></p>
+
+<p>她转过头来冲我笑了笑，神秘地说：</p>
+
+<p></p>
+
+<p>“我告诉你个秘密，你可别告诉别人啊。我做节目的时候，基本上都不穿内裤的。”</p>
+
+<p></p>
+
+<p>我整理了一下衣服，想了想，对她说：“我毕竟是新手嘛，明天我们录制完节目再来！我一定让你爽歪歪！</p>
+
+<p></p>
+
+<p>完</p>
+
+﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

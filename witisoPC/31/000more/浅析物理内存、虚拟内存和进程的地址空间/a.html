@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+
+<p>在一个系统中，进程是和其他进程共享CPU和主存资源。但是共享资源会造成一些不可避免的问题，例如由于存储器不够而         进程无法运行，亦或是存储器被外来的恶意进程破坏等。</p>
+
+<p>早期的内存管理机制：</p>
+
+<p> 分派方式一：程序载入</p>
+
+<img width="100%" src="1.png" />
+
+<p>1》CPU要访问进程中的数据，必须通过访问访问物理内存的方式（物理寻址）</p>
+
+<p>        当CPU要执行某条指令时，它会生成一个有效物理地址，通过存储器总线，把它传递给主存，主存取出从物理地址4处开始的四个字节的字，并将它返回给CPU，CPU会将它放在一个寄存器里。</p>
+<img width="" src="2.png" />
+<p>2》一个程序要运行，必须把这些程序加载到内存中。</p>
+
+<p>3》进程的地址空间是连续的。因为程序是直接访问物理内存，所以恶意的程序会随意修改别的进程的内存数据以达到破坏的目         的；有些程序不是恶意的，但有bug的程序也会有可能修改了其他程序的内存，危害系数高。</p>
+
+<p>4》内存使用效率低。如上图，硬盘中三个可执行文件不能同时加载到内存中当A和B同时运行，如果还想运行C，就必须把已经运行过的A或B的数据暂时拷贝到硬盘上，释放出空间C才能加载到内存运行。</p>
+
+<p>5》程序运行的地址是起始地址，而起始地址要加载到内存中才能确定。当A或者B释放出空间够C运行时，操作系统会在这段空         间中随机分配连续的30M的空间给C程序，由于是随机分配，所以程序运行的地址并不能确定。</p>
+
+<p> 分派方式二：段式管理</p>
+<img width="100%" src="3.png" />
+<p>说明：</p>
+
+<p>  ●把程序和内存通过某种关系进行分段，每段有独立的名字，如代码段、数据段。</p>
+
+<p>  ●在编写的时候，只要指明了所属的段，代码段和数据段中出现的所有地址。都是从0开始，操作系统维护其映射关系。</p>
+
+<p>  ●由于CPU将内存分割成不同的段，因此数据指令的有效地址并不是真正的物理地址，而是相对地址（相对于段首0的偏移地址）。</p>
+
+<p>优点：</p>
+
+<p>1》可以分别编写和编译。</p>
+
+<p>2》由于段寄存器的存在，使得进程的地址空间得以隔离，越界问题就可以被判定出来。</p>
+
+<p>3》实际代码和数据中的地址都是偏移量，第一条指令从0开始，而实际的物理地址可以通过计算得出，解决了程序运行地址不确定的问题。</p>
+
+<p>缺点：</p>
+
+<p>         分段管理在内存空间不足时，依旧要唤出整个程序或者整个程序段，在工程量大的情况下，就会造成内存和硬盘之间数据的大量拷贝，导致时间和效率都不高，进而影响性能。</p>
+
+<p>虚拟地址空间的提出</p>
+
+<p>     为了改善早期内存管理机制而造成的性能问题，为了保护物理内存，提出了虚拟地址空间的概念。</p>
+
+<p>     增加一个中间层，利用间接的地址访问方法访问物理内存：程序中访问的内存地址不再是实际的物理内存地址，而是一个虚拟地址，然后由操作系统将这个虚拟地址映射到合适的物理内存地址上。这样一来，只要操作系统处理好虚拟地址到物理地址的映射关系，就可以保证不同的程序最终访问不同的区域，从而达到内存地址空间的隔离。</p>
+
+<p> </p>
+<img width="" src="4.png" />
+<p>上图就是进程的虚拟地址空间，它并不是内存！！而是一个结构体（mm_struct)。</p>
+
+<p>进程的虚拟地址空间是连续的，地址从00000000到ffffffff，共有2^31字节个地址，也就是4G，每一块空间可以用初始地址和终止地址来表示这块区域。</p>
+
+<p>分析一段代码：</p>
+<p></p>
+<pre>
+#include&lt;stdio.h>
+#include&lt;unistd.h>//unistd.h是linux下的
+int g_val=100;
+int main()
+{
+    pid_t id=fork();
+    if(id==0){//child
+        printf("I am child,pid:%d,g_val:%d,&g_val:%p\n",getpid(),g_val,&g_val);
+        sleep(2);
+    }else{//parent
+        sleep(3);
+        printf("I am parent,pid:%d,g_val:%d,&g_val:%p\n",getpid(),g_val,&g_val);
+        sleep(1);
+    }
+    return 0;
+}
+</pre>
+
+<p>输出结果：</p>
+
+<p>            结果看出，父进程和子进程输出的变量值都是一样的。很好理解，因为子进程以父进程为模板，父子进程没有对变量进行任何修改。</p>
+
+<p>           ● 回顾内容：父进程创建出子进程，代码共享，数据以写时拷贝的方式各自私有一份。</p>
+
+<p>                写时拷贝：只有需要的时候再给，物尽其用；只有要修改的时候才复制一份父进程的内容。</p>
+
+<p>如果上述代码子进程将全局变量g_val进行修改：</p>
+<p></p>
+<pre>
+#include&lt;stdio.h>
+#include&lt;unistd.h>
+int g_val=100;
+int main()
+{
+    pid_t id=fork();
+    if(id==0){//child
+        g_val=300;
+        printf("I am child,pid:%d,g_val:%d,&g_val:%p\n",getpid(),g_val,&g_val);
+        sleep(2);
+    }else{//parent
+        sleep(3);
+        printf("I am parent,pid:%d,g_val:%d,&g_val:%p\n",getpid(),g_val,&g_val);
+        sleep(1);
+    }
+    return 0;
+}
+</pre>
+
+<p>输出结果：</p>
+
+<p>从结果可以看出，因为子进程对变量进行了修改，因此变量值不同，但输出的地址依旧相同。</p>
+
+<p>1》父子进程输出变量值不一样，说明输出的变量不是同一个变量。</p>
+
+<p>2》输出地址相同但变量值不同，说明这个输出的地址一定不是物理地址，这个地址叫做虚拟地址（不是真实存在的）。</p>
+
+<p>3》物理地址存在于物理内存中，同理，虚拟地址存在于虚拟地址空间中。要进行数据访问，必须由操作系统将虚拟地址转化为物理地址。</p>
+
+<p>4》我们在C语言和C++中看到的地址都是虚拟地址。</p>
+
+<p>5》用户是看不到物理地址的，物理地址由操作系统统一管理。</p>
+
+<p> </p>
+
+<p>上面的例子我们用地址空间简单表示：</p>
+<img width="100%" src="5.png" />
+<p>  ●第一次是父子进程将虚拟地址通过页表映射到了同一个物理地址，实现了共享。</p>
+
+<p>  ●第二次子进程修改了变量，父子进程以写时拷贝的方式私有数据，相同的虚拟地址被映射到不同的物理地址，实现了私有。</p>
+<img width="100%" src="6.png" />
+<p> </p>
+
+<p>虚拟地址空间：</p>
+
+<p> </p>
+
+<p> 同一个变量，地址相同其实是虚拟地址相同，内容不同是因为OS通过页表和+MMU将虚拟地址映射到了不同的物理地址。</p>
+
+<p>操作系统是通过软硬件结合的方式完成了映射。（软件：页表   硬件：MMU）</p>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

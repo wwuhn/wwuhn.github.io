@@ -1,0 +1,604 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>VC与MFC</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器  
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+
+</script>
+<script>
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000">红色</option><option value="#006600">绿色</option><option value="#0000ff">蓝色</option><option value="#660000">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select></div>');   
+</script>
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+</style>
+</head>
+
+<body> 
+<div id="container">
+<h4>[Visual C++系列]1.1 如何学好VC</h4>
+<p></p>
+<!--
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />	
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+-->
+
+<!--
+height="*\w*"
+width="*\w*"
+</p>
+<p>
+-->
+<p align="left">这个问题很多朋友都问过我，当然流汗是必须的，但同时如果按照某种思路进行有计划的学习就会起到更好的效果。万事开头难，为了帮助朋友们更快的掌握VC开发，下面我将自己的一点体会讲一下：</p>
+<p>1、需要有好的C/C++基础。正所谓“磨刀不误砍柴工”，最开始接触VC时不要急于开始Windows程序开发，而是应该进行一些字符界面程序的编写。这样做的目的主要是增加对语言的熟悉程度，同时也训练自己的思维和熟悉一些在编程中常犯的错误。更重要的是理解并能运用C++的各种特性，这些在以后的开发中都会有很大的帮助，特别是利用MFC进行开发的朋友对C++一定要能熟练运用。</p>
+<p>2、理解Windows的消息机制，窗口句柄和其他GUI句柄的含义和用途。了解和MFC各个类功能相近的API函数。</p>
+<p>3、一定要理解MFC中消息映射的作用。</p>
+<p>4、训练自己在编写代码时不使用参考书而是使用Help Online。</p>
+<p>5、记住一些常用的消息名称和参数的意义。</p>
+<p>6、学会看别人的代码。</p>
+<p>7、多看书，少买书，买书前一定要慎重。</p>
+<p>8、闲下来的时候就看参考书。</p>
+<p>9、多来我的主页。^O^</p>
+<p>后面几条是我个人的一点意见，你可以根据需要和自身的情况选用适用于自己的方法。</p>
+<p>此外我将一些我在选择参考书时的原则：</p>
+<p>对于初学者：应该选择一些内容比较全面的书籍，并且书籍中的内容应该以合理的方式安排，在使用该书时可以达到循序渐进的效果，书中的代码要有详细的讲解。尽量买翻译的书，因为这些书一般都比较易懂，而且语言比较轻松。买书前一定要慎重如果买到不好用的书可能会对自己的学习积极性产生打击。</p>
+<p>对于已经掌握了VC的朋友：这种程度的开发者应该加深自己对系统原理，技术要点的认识。需要选择一些对原理讲解的比较透彻的书籍，这样一来才会对新技术有更多的了解，最好书中对技术的应用有一定的阐述。尽量选择示范代码必较精简的书，可以节约银子。</p>
+<p>此外最好涉猎一些辅助性的书籍。</p>
+<h4>[Visual C++系列] 1.2 理解Windows消息机制</h4>
+<p>Windows系统是一个消息驱动的OS，什么是消息呢？我很难说得清楚，也很难下一个定义（谁在嘘我），我下面从不同的几个方面讲解一下，希望大家看了后有一点了解。</p>
+<p>1、消息的组成：一个消息由一个消息名称（UINT），和两个参数（WPARAM，LPARAM）。当用户进行了输入或是窗口的状态发生改变时系统都会发送消息到某一个窗口。例如当菜单转中之后会有WM_COMMAND消息发送，WPARAM的高字中（HIWORD(wParam)）是命令的ID号，对菜单来讲就是菜单ID。当然用户也可以定义自己的消息名称，也可以利用自定义消息来发送通知和传送数据。</p>
+<p>2、谁将收到消息：一个消息必须由一个窗口接收。在窗口的过程（WNDPROC）中可以对消息进行分析，对自己感兴趣的消息进行处理。例如你希望对菜单选择进行处理那么你可以定义对WM_COMMAND进行处理的代码，如果希望在窗口中进行图形输出就必须对WM_PAINT进行处理。</p>
+<p>3、未处理的消息到那里去了：M$为窗口编写了默认的窗口过程，这个窗口过程将负责处理那些你不处理消息。正因为有了这个默认窗口过程我们才可以利用Windows的窗口进行开发而不必过多关注窗口各种消息的处理。例如窗口在被拖动时会有很多消息发送，而我们都可以不予理睬让系统自己去处理。</p>
+<p>4、窗口句柄：说到消息就不能不说窗口句柄，系统通过窗口句柄来在整个系统中唯一标识一个窗口，发送一个消息时必须指定一个窗口句柄表明该消息由那个窗口接收。而每个窗口都会有自己的窗口过程，所以用户的输入就会被正确的处理。例如有两个窗口共用一个窗口过程代码，你在窗口一上按下鼠标时消息就会通过窗口一的句柄被发送到窗口一而不是窗口二。</p>
+<p>5、示例：下面有一段伪代码演示如何在窗口过程中处理消息</p>
+<div>
+  <div>
+    <div><strong>[cpp]</strong> <a href="http://blog.csdn.net/bbdxf/article/details/6664212#" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;" target="_blank">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/bbdxf/article/details/6664212#" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;" target="_blank">copy</a></span>
+        <div><span data-mod="popu_168">
+          <embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="False" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></embed>
+        </span></div>
+      <span data-mod="popu_169"> </span></div>
+  </div>
+  <ol start="1">
+    <li>LONG yourWndProc(HWND hWnd,UINT uMessageType,WPARAM wP,LPARAM)  </li>
+    <li>{  </li>
+    <li>    switch(uMessageType)  </li>
+    <li>    {//使用SWITCH语句将各种消息分开  </li>
+    <li>        case(WM_PAINT):  </li>
+    <li>            doYourWindow(...);//在窗口需要重新绘制时进行输出  </li>
+    <li>        break;  </li>
+    <li>        case(WM_LBUTTONDOWN):  </li>
+    <li>            doYourWork(...);//在鼠标左键被按下时进行处理  </li>
+    <li>        break;  </li>
+    <li>        default:  </li>
+    <li>            callDefaultWndProc(...);//对于其它情况就让系统自己处理  </li>
+    <li>        break;  </li>
+    <li>    }  </li>
+    <li>}  </li>
+  </ol>
+</div>
+<p>接下来谈谈什么是消息机制：系统将会维护一个或多个消息队列，所有产生的消息都回被放入或是插入队列中。系统会在队列中取出每一条消息，根据消息的接收句柄而将该消息发送给拥有该窗口的程序的消息循环。每一个运行的程序都有自己的消息循环，在循环中得到属于自己的消息并根据接收窗口的句柄调用相应的窗口过程。而在没有消息时消息循环就将控制权交给系统所以Windows可以同时进行多个任务。下面的伪代码演示了消息循环的用法：</p>
+<div>
+  <div>
+    <div><strong>[cpp]</strong> <a href="http://blog.csdn.net/bbdxf/article/details/6664212#" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;" target="_blank">view plain</a><span data-mod="popu_168"> <a href="http://blog.csdn.net/bbdxf/article/details/6664212#" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;" target="_blank">copy</a></span>
+        <div><span data-mod="popu_168">
+          <embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="False" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></embed>
+        </span></div>
+      <span data-mod="popu_169"> </span></div>
+  </div>
+  <ol start="1">
+    <li>while(1)  </li>
+    <li>{  </li>
+    <li>    id=getMessage(...);  </li>
+    <li>    if(id == quit)  </li>
+    <li>        break;  </li>
+    <li>    translateMessage(...);  </li>
+    <li>}  </li>
+  </ol>
+</div>
+<p><br />
+</p>
+<p>当该程序没有消息通知时getMessage就不会返回，也就不会占用系统的CPU时间。 下图为消息投递模式</p>
+<p><img alt="" src="http://hi.csdn.net/attachment/201108/5/0_1312548916ZsdF.gif" width="485" height="268" /> </p>
+<p>在16位的系统中系统中只有一个消息队列，所以系统必须等待当前任务处理消息后才可以发送下一消息到相应程序，如果一个程序陷如死循环或是耗时操作时系统就会得不到控制权。这种多任务系统也就称为协同式的多任务系统。Windows3.X就是这种系统。</p>
+<p>而32位的系统中每一运行的程序都会有一个消息队列，所以系统可以在多个消息队列中转换而不必等待当前程序完成消息处理就可以得到控制权。这种多任务系统就称为抢先式的多任务系统。Windows95/NT就是这种系统。</p>
+<p><strong>1.3 利用Visual C++/MFC开发Windows程序的优势</strong><br />
+</p>
+<p>MFC借助C++的优势为Windows开发开辟了一片新天地，同时也借助ApplicationWizzard使开发者摆脱离了那些每次都必写基本代码，借助ClassWizard和消息映射使开发者摆脱了定义消息处理时那种混乱和冗长的代码段。更令人兴奋的是利用C++的封装功能使开发者摆脱Windows中各种句柄的困扰，只需要面对C++中的对象，这样一来使开发更接近开发语言而远离系统。（但我个人认为了解系统原理对开发很有帮助）</p>
+<p>正因为MFC是建立在C++的基础上，所以我强调C/C++语言基础对开发的重要性。利用C++的封装性开发者可以更容易理解和操作各种窗口对象；利用C++的派生性开发者可以减少开发自定义窗口的时间和创造出可重用的代码；利用虚拟性可以在必要时更好的控制窗口的活动。而且C++本身所具备的超越C语言的特性都可以使开发者编写出更易用，更灵活的代码。</p>
+<p>在MFC中对消息的处理利用了消息映射的方法，该方法的基础是宏定义实现，通过宏定义将消息分派到不同的成员函数进行处理。下面简单讲述一下这种方法的实现方法：</p>
+<pre>代码如下  <div><div><div><strong>[cpp]</strong> <a href="http://blog.csdn.net/bbdxf/article/details/6664223#" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;" target="_blank">view plain</a> <span data-mod="popu_168"><a href="http://blog.csdn.net/bbdxf/article/details/6664223#" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;" target="_blank">copy</a></span><div><span data-mod="popu_168"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="False" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></embed></span></div><span data-mod="popu_169"> </span></div></div><ol start="1"><li>BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)      </li><li>//{{AFX_MSG_MAP(CMainFrame)  </li><li>    ON_WM_CREATE()    </li><li>//}}AFX_MSG_MAP  </li><li>    ON_COMMAND(ID_FONT_DROPDOWN, DoNothing)  </li><li>END_MESSAGE_MAP()  </li><li>经过编译后，代码被替换为如下形式（这只是作讲解，实际情况比这复杂得多）：  </li><li>//BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)    </li><li>CMainFrame::newWndProc(...)  </li><li>{  </li><li>    switch(...)  </li><li>    {  </li><li>        //{{AFX_MSG_MAP(CMainFrame)  </li><li>        //  ON_WM_CREATE()    </li><li>        case(WM_CREATE):  </li><li>            OnCreate(...);  </li><li>        break;  </li><li>        //}}AFX_MSG_MAP  </li><li>        //  ON_COMMAND(ID_FONT_DROPDOWN, DoNothing)  </li><li>        case(WM_COMMAND):  </li><li>            if(HIWORD(wP)==ID_FONT_DROPDOWN)  </li><li>            {  </li><li>                DoNothing(...);  </li><li>            }  </li><li>        break;  </li><li>    //END_MESSAGE_MAP()  </li><li>    }  </li><li>}  </li></ol></div><br />
+</pre>
+<p>newWndProc就是窗口过程只要是该类的实例生成的窗口都使用该窗口过程。 </p>
+<p>所以了解了Windows的消息机制在加上对消息映射的理解就很容易了解MFC开发的基本思路了。</p>
+<h4>1.4 利用MFC进行开发的通用方法介绍</h4>
+<p>以下是我在最初学习VC时所常用的开发思路和方法，希望能对初学VC的朋友有所帮助和启发。</p>
+<p>1、开发需要读写文件的应用程序并且有简单的输入和输出可以利用单文档视结构。</p>
+<p>2、开发注重交互的简单应用程序可以使用对话框为基础的窗口，如果文件读写简单这可利用CFile进行。</p>
+<p>3、开发注重交互并且文件读写复杂的的简单应用程序可以利用以CFormView为基础视的单文档视结构。</p>
+<p>4、利用对话框得到用户输入的数据，在等级提高后可使用就地输入。</p>
+<p>5、在对多文档要求不强烈时尽量避免多文档视结构，可以利用分隔条产生单文档多视结构。</p>
+<p>6、在要求在多个文档间传递数据时使用多文档视结构。</p>
+<p>7、学会利用子窗口，并在自定义的子窗口包含多个控件达到封装功能的目的。</p>
+<p>8、尽量避免使用多文档多视结构。</p>
+<p>9、不要使用多重继承并尽量减少一个类中封装过多的功能。</p>
+<h4>1.5 MFC中常用类，宏，函数介绍</h4>
+</p>
+<p align="left">常用类</p>
+<p>CRect：用来表示矩形的类，拥有四个成员变量：top left bottom right。分别表是左上角和右下角的坐标。可以通过以下的方法构造：</p>
+<p>CRect( int l, int t, int r, int b ); 指明四个坐标</p>
+<p>CRect( const RECT&amp; srcRect ); 由RECT结构构造</p>
+<p>CRect( LPCRECT lpSrcRect ); 由RECT结构构造</p>
+<p>CRect( POINT point, SIZE size ); 有左上角坐标和尺寸构造</p>
+<p>CRect( POINT topLeft, POINT bottomRight ); 有两点坐标构造</p>
+<p>下面介绍几个成员函数：</p>
+<p>int Width( ) const; 得到宽度 int Height( ) const; 得到高度 CSize Size( ) const; 得到尺寸 CPoint&amp; TopLeft( ); 得到左上角坐标 CPoint&amp; BottomRight( ); 得到右下角坐标 CPoint CenterPoint( ) const; 得当中心坐标 此外矩形可以和点（CPoint）相加进行位移，和另一个矩形相加得到“并”操作后的矩形。</p>
+<p>CPoint：用来表示一个点的坐标，有两个成员变量：x y。 可以和另一个点相加。</p>
+<p>CString：用来表示可变长度的字符串。使用CString可不指明内存大小，CString会根据需要自行分配。下面介绍几个成员函数：</p>
+<p>GetLength 得到字符串长度 GetAt 得到指定位置处的字符 operator + 相当于strcat void Format( LPCTSTR lpszFormat, ... ); 相当于sprintf Find 查找指定字符，字符串 Compare 比较 CompareNoCase 不区分大小写比较 MakeUpper 改为小写 MakeLower 改为大写</p>
+<p>CStringArray：用来表示可变长度的字符串数组。数组中每一个元素为CString对象的实例。下面介绍几个成员函数：</p>
+<p>Add 增加CString RemoveAt 删除指定位置CString对象 RemoveAll 删除数组中所有CString对象 GetAt 得到指定位置的CString对象 SetAt 修改指定位置的CString对象 InsertAt 在某一位置插入CString对象</p>
+<p>常用宏</p>
+<p>RGB</p>
+<p>TRACE</p>
+<p>ASSERT</p>
+<p>VERIFY</p>
+<p>常用函数</p>
+<p>CWindApp* AfxGetApp();</p>
+<p>HINSTANCE AfxGetInstanceHandle( );</p>
+<p>HINSTANCE AfxGetResourceHandle( );</p>
+<p>int AfxMessageBox( LPCTSTR lpszText, UINT nType = MB_OK, UINT nIDHelp = 0 );用于弹出一个消息框</p>
+<p></p>
+
+<p><a href="http://blog.csdn.net/bbdxf/article/details/6664220">ref</a>
+
+</div>
+<div>
+<div id="ftsize1"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em">大</a></div>
+<div id="ftsize2"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em">中</a></div>
+<div id="ftsize3"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em">小</a></div>
+
+<div style="display:none" id="goTopBtn"><a target="_self" style="color:#fff;">&and;</a></div>
+<div style="display:none" id="shangy">
+	<a onclick="shangy()" target="_self" style="color:#fff;">&uarr;</a></div>
+<div id="xiay">
+	<a onclick="xiay()" target="_self" style="color:#fff;">&darr;</a></div>
+<div id="goBottom">
+	<a onclick="downn()" target="_self" style="color:#fff;">&or;</a></div>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+
+5 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+
+6
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+
+

@@ -1,0 +1,1185 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script> 
+<script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>mdisk 按分区排序</title>
+
+ <style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.4em;
+}
+P{
+margin:8px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:5px;
+margin-bottom:-15px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 100px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 70px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+ img{
+ border:0;
+ }#tbrowser {
+	width:90%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #eee;
+font-size:1em;
+color:#000000;
+
+font-family: "宋体";
+padding-left:3px;
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+/*padding:2px 0px;*/
+display:table-column-group;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+background-color:#f2f4b9;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+.floatr{
+float:right;
+padding-right:5px;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+</style>
+</head>
+
+<body> 
+<div class="container">
+<a href="mdisk.html">按分区排序 </a> <a href="mdisk2.html">按文件排序</a>
+
+
+<table id="tbrowser">
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+<col width="15%" /><col width="15%" />
+<col width="45%" />
+ 
+<tr>
+<td>sn</td>
+<td>Size</td>
+<td>Current</td>
+<td>Defaultt</td>
+<td>genuine</td>
+<td>Status</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>18</td>
+<td></td>
+<td></td>
+<td>&nbsp;</td>
+<td>new</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>21.3</td>
+<td></td>
+<td></td>
+<td>Y</td>
+<td>&nbsp;</td>
+</tr>
+
+
+<tr>
+<td>2</td>
+<td>19.4</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+<td>new</td>
+</tr>
+<tr>
+  <td colspan="2">其它细节：</td>
+  <td colspan="4">&nbsp;</td>
+</tr>
+<tr>
+  <td colspan="6">启动菜单编辑：1 BCD[查看设置]中的默认驱动器（默认启动）与引导驱动器（当前）有时不是同一驱动器；2 [编辑引导菜单]中菜单项的排列顺序等同[msconfig-boot]的顺序，可同时结合资源管理器；</td>
+  </tr>
+</table>
+
+
+<table id="tbrowser">
+<col width="40%" />
+<col width="60%" />
+  <tr>
+    <td  >partition</td>
+    <td  >content</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>c</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>CAD</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>computer</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>dos</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>dyanmic site learn file</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>flash</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>java</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>liaoyouhuashuo 001-100</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>liaoyouhuashuo 101-200</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>liaoyouhuashuo 201-300</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>liaoyouhuashuo 301-400</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>liaoyouhuashuo 401-500</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>liaoyouhuashuo 501-550</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>network</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>office</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>os</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>pc base</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>photoshop</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>ps webpage</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>Vfp98</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>webpage</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>编程</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>拆本</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>地日月 气候</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>电路电子元器件识别(含图片)</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>电脑安全与黑客攻防</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>汉字小课堂</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>会声会影X4陈文晖</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>驾考宝典电脑版 3.1</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>连供</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>莫言文学作品集</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>其实你应该这样学Java</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>全面精通会声会影</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>数据库</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>唐诗三百首</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>显卡G86-631-A2</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>ADSL宽带错误代码大全及解决办法.txt</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>Core PHP Programming Third Edition Leon Atkinson[A4].pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>SEO必知必会51技.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>The Universal Machine 2012.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>tutorial list.htm</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>Understanding Computation.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>Windows 7 Secrets (2010).pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>大话存储.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>大数据时代：生活,工作与思维的大变革.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>代码之殇.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>电路电子元器件识别(含图片).zip</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>光盘刻录完全攻略.nrg</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>黑客-计算机革命的英雄.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>黑客与画家.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>计算机体系结构—量化研究方法（第5版）.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>计算机网络第6版[英文版].pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>计算机系统结构 高辉.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>计算机易混淆概念.txt</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>计算机专业英语教程(第2版).pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>人为什么活着 稻盛和夫.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>人月神话THE MYTHICAL MAN-MONTH（英文）.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>人月神话THE MYTHICAL MAN-MONTH（中文）.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>深入理解计算机系统(原书第2版)压缩.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>数学之美与浪潮之巅.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>数字化生存 (美）尼葛洛庞蒂.pdf</td>
+    </tr>
+  <tr>
+    <td>K:\tutorial </td>
+    <td>中国大学生计算机设计大赛得奖作品(2012).iso</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>031 视频</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>035 赵本山小品</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>039Jordan</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>3G上网卡</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>Lenovo G470 win7 bit64</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>LenovoG470win7bit32</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>movie</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>os</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>pic</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>qingse</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>software</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>software 20140310</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>we are the world</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>zxy</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>zyf</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>奋斗</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>个性化主题</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>迷你声音库</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>汽车标志</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>实战网络营销宝典</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>书法</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>信用卡</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>责任心改变命运 李强</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>中坚力量</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>主动成功</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>装机必备软件</td>
+    </tr>
+  <tr>
+    <td>l:\software video </td>
+    <td>梁稳根以自己是一个中国人而自豪.mp4</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>classic</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>pic</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>qingse</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>魂断蓝桥</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>贾连杰行书技法</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>教父</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>乱世佳人</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>奇妙的电</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>说好普通话</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>阳光灿烂的日子</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>大刀王五.nrg</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>红与黑.nrg</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>计算机和网络历史.nrg</td>
+    </tr>
+  <tr>
+    <td>M:\movie </td>
+    <td>简谱十日通.nrg</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>Adobe Dreamweaver CS6</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>gho</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>GHOST</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>liaoyouhuashuo 551-600</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>liaoyouhuashuo 601-700</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>liaoyouhuashuo 701-735</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>Office_2003_XiaZaiBa</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>Office2003打开2007文件兼容包</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>NTBOOTautofix v2.5.7.rar</td>
+    </tr>
+  <tr>
+    <td>N:\sys gho </td>
+    <td>win7en20131206.GHO</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>1st Video music picture</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>inventory and disc cover</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>inventory backup</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>langtixu1</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>百科知识</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>光盘在网上出售情况</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>家庭 教育</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>生活艺术 健康</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>书法</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>体育 健身</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>伏羲易与中华文化之源（田原）.nrg</td>
+    </tr>
+  <tr>
+    <td>o:\tutorial overall </td>
+    <td>简谱十日通 - Shortcut.lnk</td>
+    </tr>
+  <tr>
+    <td>p:\tutorial en </td>
+    <td>all that is beautiful</td>
+    </tr>
+  <tr>
+    <td>p:\tutorial en </td>
+    <td>English related</td>
+    </tr>
+  <tr>
+    <td>p:\tutorial en </td>
+    <td>nuoman english</td>
+    </tr>
+  <tr>
+    <td>p:\tutorial en </td>
+    <td>双语不用教</td>
+    </tr>
+  <tr>
+    <td>p:\tutorial en </td>
+    <td>英文超级资料盘</td>
+    </tr>
+  <tr>
+    <td>p:\tutorial en </td>
+    <td>中学英语学习法 只币制了第二碟</td>
+    </tr>
+  <tr>
+    <td>p:\tutorial en </td>
+    <td>最新国际英语音标</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>chinese chess</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>fenda</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>paiji</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>snooker</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>陈佩斯的喜剧人生</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>刘谦魔术大揭秘</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>扑克绝招 控牌绝技</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>扑克千术大解密</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>扑克要牌变牌大揭秘</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>时间管理　 周志轩</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>相声</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>小品</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>用结果说话　孟志强 提高执行力</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>优秀员工 周志轩</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>责任心与能力 杨宗华</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>中国象棋实战技巧</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>out of yfd list.htm</td>
+    </tr>
+  <tr>
+    <td>q:\综艺 娱乐 棋牌 </td>
+    <td>yfd list.html</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>033 杨澜访谈录</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>034 李敖</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>036 鲁豫有约</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>037 康熙来了</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>038 背后的故事</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>overall</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>创业投资</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>构建高效团队的超越管理之法1</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>连云尧　企业成本控制与管理</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>职场</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>自我提升</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>总裁演说之道</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>郭凡生(慧聪)王汉华(亚马逊)曹军(保益互动科技).nrg</td>
+    </tr>
+  <tr>
+    <td>r:\人物 励志 讲座 谈话 创业 职场 </td>
+    <td>易学的现代诠释.nrg</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>fwu</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>Hongsheng</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>nba30</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>putonghua video</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>record</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>wxhiwilco</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>翱翔博客电子书(2007.4.6至2012.4.19)</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>壁纸</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>技能</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>鞠萍姐姐讲故事</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>刻碟封面</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>孔莹</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>拼音小课堂</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>十万个为什么</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>数学用教&amp;2</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>爱我你就抱抱我.nrg</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>良好人生&amp;优秀人生.pps</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>視覺大挑戰.pps</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>双语不用教9.nrg</td>
+    </tr>
+  <tr>
+    <td>s:\backup </td>
+    <td>唐诗.nrg</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>backup1</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>cover</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>dataiso</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>doc</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>fwu</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>java</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>jiang</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>other website</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>pc tips</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>software</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>website backup</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>witiso</td>
+    </tr>
+  <tr>
+    <td>t:\wwuhn </td>
+    <td>wwuhn backup</td>
+    </tr>
+</table>
+<p></p>
+
+<p>
+
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evendd("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>

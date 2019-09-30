@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+
+</script>
+<script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>一个图灵机实现</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.6em;
+}
+P{
+margin:16px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ 
+img{
+border:0;
+}
+.picsay{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+}
+\s*</p>
+
+<p>\s*
+ 
+ 
+</p>
+
+<p>
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<p align="left"><strong>图灵的秘密》读后感：一个图灵机实现</strong><strong> </strong></p>
+
+<p>发表于<a href="http://ng1091.com/blog/archives/473" title="00:11"><strong>2014 </strong><strong>年</strong><strong> 1 </strong><strong>月</strong><strong> 26 </strong><strong>日</strong></a>由<a href="http://ng1091.com/blog/archives/author/admin" title="查看所有由Ng1091发布的文章"><strong>Ng1091</strong></a> | 本文内容遵从<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh" target="_blank"><strong>CC</strong><strong>版权协议</strong></a>转载请注明出自ng1091.com</p>
+
+<p>这篇文章的内容可分为两部分，一是读《图灵的秘密》有感，二是一个图灵机实现。</p>
+
+<p><strong>Part1. </strong><strong>有感</strong></p>
+
+<p>《图灵的秘密》是在2012年，图灵诞辰100周年的时候出版的，非常好的一本书。</p>
+
+<p>读完这本书最大的感受就是，<strong>计算机的诞生离不开图灵机，图灵创造图灵机的初衷是为了解决数学问题，而数学本质上是哲学问题，所以一切都离不开哲学。</strong>（说到这儿都有点小激动想去学哲学了…）</p>
+
+<p>为什么说数学是哲学问题呢？举个最基本的例子，我们到底是发现了数学，还是发明了数学？前者的意思是，宇宙诞生的时候，一切数学原理就形成了，并不因为人的认识而发生改变；后者恰好相反，数学只是人类认知的一种错觉。<a name="tag1" id="tag1"></a><a href="http://ng1091.com/blog/archives/473#ref1">[1]</p>
+
+<p></a></p>
+
+<p>就像我在<a href="http://weibo.com/2741043991/AtfE8zmO1" target="_blank">这篇</a>微博中说的，图灵的论文很晦涩，如果不是Petzold大神的解读真看不懂。那么图灵到底讲了什么呢？简单地说（具体思想什么的就不说了，不然又得抄书），命题逻辑中的一阶逻辑，从几个大家公认的公理出发，可以推出各种定理与命题公式（称为可证明的），现在给你一个公式，让你判断它是不是可证明的。问题是，<strong>有没有一种通用的方法，对于任何公式，都能判断出结果。图灵提出了图灵机模型，利用它证明了不存在这样的通用判定过程。</strong>（与哥德尔的不完备性证明类似：存在既不能被证明又不能被反驳的命题）</p>
+
+<p>书中还提到，图灵机、&nbsp;λ演算和递归函数的可计算性是等价的。<a name="tag2" id="tag2"></a><a href="http://ng1091.com/blog/archives/473#ref2">[2] </a></p>
+
+<p><strong>Part2. </strong><strong>一个图灵机实现</strong></p>
+
+<p><strong>一</strong><strong>. </strong><strong>背景</strong></p>
+
+<p>大一的暑假，这本书还没出版（2012），当时通过彭罗斯的<a href="http://baike.baidu.com/link?url=-JfWFe2RCAMyj5lQBsNQ5ZJ3M3_wE2xtlbzBIzyuZtOZ2fAVg8Ao_cYDAaSlWHzMZk0CPf6j0TG_b6iACmG5Na" target="_blank">《皇帝新脑》</a>对图灵机有所了解，很感兴趣，想写一个小程序，能够输入数据、模拟图灵机的基本动作、输出结果。2天之后，终于写了一个特别简易的程序，就叫它<strong>Ng</strong><strong>图灵机语言</strong>吧。然后，我根据Ng图灵机的语法规则，写了两个小程序，能够对二进制进行加（减）一。如图1。</p>
+
+<p><a href="turing.png"><img border="0" src="turing.png" alt="图1 大一的Ng图灵机语言。这段程序是对二进制数加一。" /></a></p>
+
+<p class="picsay">图1 大一的Ng图灵机语言。这段程序是对二进制数加一。</p>
+
+<p>好玩是好玩，但是功能有限，编程难度很大，除了加一减一的程序，实在写不出什么更有意思的了。</p>
+
+<p>直到看了这本书，又想起大一的Ng图灵机语言，觉得有必要完善一下，增加更多的功能，或许就能写出更复杂的程序了。</p>
+
+<p>唉，本来打算一天完成，看了代码才发现低估工作量了。大一时的C语言“造诣”还挺高的嘛，没有注释、变量名极简、430行代码没一句废话，害得我足足看了2个小时才完全搞懂。又用一天半时间，才把它重新完善好（代码增加至630行，增加了12个新特性）。剩下的半天时间，为它写了几个令人满意的图灵机小程序。</p>
+
+<p><strong>二</strong><strong>. </strong><strong>图灵机的基本原理</strong></p>
+
+<p>图灵机是个虾米东西呢？相信聪明的读者已经有所了解，不过我还是再描述一下，因为有些细节后面要用到。</p>
+
+<p>首先图灵机是一个机器，它不能吃，因为它是虚构的。</p>
+
+<p>1.一条无限长的<strong>纸带（</strong><strong>tape</strong><strong>）</strong>。纸带被划分为一个接一个的小格子，每个格子可以写一个字符。字符的种类是有限的。</p>
+
+<p>2.一个<strong>读写头（</strong><strong>head</strong><strong>）</strong>可以在纸带上左右移动，它能读出当前所指的格子上的符号，并能改变当前格子上的符号。</p>
+
+<p>3.一套<strong>控制规则（</strong><strong>table</strong><strong>）</strong>，它根据当前机器所处的状态以及当前读写头所指的格子上的符号来确定读写头下一步的动作，并改变状态寄存器的值，令机器进入一个新的状态。</p>
+
+<p>4、一个<strong>状态寄存器</strong>，用来保存图灵机当前所处的状态。图灵机的所有可能的状态的数目是有限的，并且有一个特殊的状态，称为“停机状态”。 <a name="tag3" id="tag3"></a><a href="http://ng1091.com/blog/archives/473#ref2">[3] </a></p>
+
+<p>好了，规则讲完了，游戏该怎么玩？</p>
+
+<p>图灵机事先加载控制规则，相当于安装程序。然后用户在纸带上写上东西，相当于程序的输入数据。图灵机从初始状态开始，根据读写头的字符和控制规则，对纸带进行擦写、移动操作，并改变状态寄存器的状态。直到出现停机状态，图灵机停机，这时纸带上的内容就相当于程序的输出数据。</p>
+
+<p>总结一下，<strong>图灵机的核心就是控制规则（</strong><strong>table</strong><strong>），一个控制规则应该包括</strong><strong>5</strong><strong>项信息</strong>：</p>
+
+<p><strong>1.</strong><strong>当前状态（</strong><strong>s1</strong><strong>）</strong><strong></p>
+
+<p></strong><strong>2.</strong><strong>读写头上的字符（</strong><strong>char1</strong><strong>）</strong><strong></p>
+
+<p></strong><strong>3.</strong><strong>新状态（</strong><strong>s2</strong><strong>）</strong><strong></p>
+
+<p></strong><strong>4.</strong><strong>新字符（</strong><strong>char2</strong><strong>）</strong><strong></p>
+
+<p></strong><strong>5.</strong><strong>读写头移动方向（</strong><strong>head</strong><strong>）</strong></p>
+
+<p>也就是说，如果当前状态是s1，并且读写头上的字符是char1，那么就修改状态为s2，将读写头上的字符修改为char2，读写头朝head方向移动一格。（head可以是左、右、不移动和停机）</p>
+
+<p>最后，以一个简单的示例结束本节：</p>
+
+<p>一台图灵机的控制规则如下：</p>
+
+<p>0 0 1 1 停机</p>
+
+<p>0 1 2 1 停机</p>
+
+<p>假设纸带上只有一个字符0，读写头正指向这个0. 图灵机的初始状态是0。</p>
+
+<p>图灵机首先寻找能匹配的规则，发现第一条是可以匹配的，当前状态是0，字符是0，那么跳转至状态1，将字符修改为1，停机。最终纸带上只有一个字符1，并且图灵机最后的状态是1。</p>
+
+<p>如果初始纸带上只有一个字符1，那么这个1不会发生变化，图灵机以状态2停机。</p>
+
+<p><strong>三</strong><strong>.NTM</strong><strong>的语法</strong></p>
+
+<p><strong>Ng</strong><strong>图灵机（</strong><strong>Ng Turing  Machine</strong><strong>）</strong>下文简称为<strong>NTM</strong>。</p>
+
+<p>NTM是一个图灵机语言，因此它有以下语法规则：</p>
+
+<p><strong>1.</strong><strong>字符集：</strong>支持ASCII码从32到126的所有字符。（这些字符都是可打印字符）</p>
+
+<p>以下8个为特殊字符：</p>
+
+<p><strong>读写头控制符：</strong>左移（&lt;）、右移（&gt;）、不移（|）、停机（^）</p>
+
+<p><strong>自动转义字符：</strong> 空格符（*）、任意符（?）</p>
+
+<p>（为什么需要这两个字符呢？因为空格作为控制信息的分隔符，是不能被程序正常识别的，所以用“*”代替空格，程序读到“*”会自动变身为空格符；另外，在控制规则进行匹配的时候，想匹配纸带上的任意字符，就要用到任意符“?”了）</p>
+
+<p><strong>转义字符（</strong><strong>\</strong><strong>）</strong>：想输入以上字符（比如“*”）怎么办？，用一个反斜杠加字符就可以了。比如“\*” 代表 “*”， “\?” 代表“?”。转义字符用在普通字符前没有作用，如“\x” 和“x”是等价的。</p>
+
+<p><strong>注释符号（</strong><strong>//</strong><strong>）</strong>：这个就不多说了。</p>
+
+<p><strong>2.</strong><strong>控制规则：</strong>为了简洁，将控制规则合并为两部分，第一部分是s1+char1，第二部分是s2+char2+head（书写时没有“+”，是紧密连接的），两部分之间用空格分隔。其中char和head的长度均为一个字符。 </p>
+<p align="left">比如</p>
+
+<p>00 101&gt;，可以得出s1为0，char1为0，s2为10，char2为1，head为&gt;</p>
+
+<p>start0 &nbsp;movex&lt;，可以得出s1为start，char1为0，s2为move，char2为x，head为&lt;</p>
+
+<p>每一部分的长度不能超过64位（第二部分长度不包括最后的head），因此NTM支持（126-32）^64个状态，大概是10的126次方。理论上是够用的，而且NTM也算是一个64位的图灵机了，挺跟得上时代的。</p>
+
+<p><strong>3.</strong><strong>初始状态：</strong>初始状态默认为NTM代码中加载的第一个状态。</p>
+
+<p><strong>4.</strong><strong>初始纸带：</strong>初始纸带会提示用户进行输入，以终结字符（$）结束；也可以跳过，会自动创建一个字符为空格的格子。输入完成后，读写头指向最后一个非终结字符($)，也就是$左边的那个字符。需要注意的是，在纸带上输入字符时，不需要转义。</p>
+
+<p><strong>四</strong><strong>.</strong><strong>一个简单的</strong><strong>NTM</strong><strong>程序</strong></p>
+
+<p>好了，下面一起来写第一个NTM程序吧！写什么呢？万变不离<strong>Hello World</strong>，就写它吧！</p>
+
+<p><strong>大致思路就是在纸带上从左向右依次打印</strong><strong>Hello World</strong><strong>，然后停机。挺简单吧？</strong></p>
+
+<p>我们用数字作为状态编号，第一个状态是0，当遇到空格时，打印H，进入状态1，读写头右移； 在状态1，遇到空格时，打印e，进入状态2，读写头右移……</p>
+
+<p>完整代码是：</p>
+
+<p>0* 1H&gt;</p>
+
+<p>1* 2e&gt;</p>
+
+<p>2* 3l&gt;</p>
+
+<p>3* 4l&gt;</p>
+
+<p>4* 5o&gt;</p>
+
+<p>5* 6*&gt;</p>
+
+<p>6* 7W&gt;</p>
+
+<p>7* 8o&gt;</p>
+
+<p>8* 9r&gt;</p>
+
+<p>9* 10l&gt;</p>
+
+<p>10* 11d^ // 打印完d，停机，因此11状态可省略</p>
+
+<p>将代码保存为hello.txt，和NTM放在同一目录。</p>
+
+<p>双击turing.exe，输入文件名，会看到代码已经成功加载，然后按回车跳过纸带（因为不需要任何输入）。最后，看到NTM停机，纸带上输出Hello World。如图2。</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/hello.png"><img border="0" width="677px" height="440px" src="hello.png" alt="图2 NTM的Hello World程序" /></a></p>
+
+<p>图2 NTM的Hello World程序</p>
+
+<p>怎么样，简单吧。再分析一下代码，一共有0~10,11个状态，每个状态负责打印Hello World中的一个字符，然后跳转至下一个状态，因此每个状态只执行一次，<strong>整个状态是线性执行的，没有循环或条件分支</strong>。</p>
+
+<p><strong>五</strong><strong>.</strong><strong>两个计算二进制数的</strong><strong>NTM</strong><strong>程序</strong></p>
+
+<p>下面我将展示两个之前提到的，也就是大一写的<strong>二进制加（减）一</strong>的程序。</p>
+
+<p>为什么要从二进制入手呢？因为二进制的运算规则很简单，比如加法只有3条，0+0=0,0+1=1,1+1=10，所以编程难度就很小。</p>
+
+<p>先来看二进制加1，分析几个例子：</p>
+
+<p>110 + 1 = &nbsp;111 （6+1=7）</p>
+
+<p>1011 + 1 = 1100 （11+1=12）</p>
+
+<p>1111 + 1 = 10000 （15+1=16）</p>
+
+<p><strong>不难发现规律：若最低位（最右边）为</strong><strong>0</strong><strong>，将其变为</strong><strong>1</strong><strong>即可；若最低位为</strong><strong>1</strong><strong>，将左边遇到的第一个</strong><strong>0</strong><strong>变为</strong><strong>1,</strong><strong>将途中经过的所有字符变为</strong><strong>0</strong><strong>；如果左边没有</strong><strong>0</strong><strong>，就在最高位加一个</strong><strong>1</strong><strong>。</strong></p>
+
+<p>你应该还记得，NTM输入完纸带后，读写头指向最后一个字符，<strong>恰好指向二进制数的最低位</strong>。</p>
+
+<p>假设以状态0开始，第一个规则是：</p>
+
+<p><strong>00 01^ </strong><strong>&nbsp;</strong>// 它的含义是，在状态0遇到字符0，保持状态0不变，将字符修改为1，然后停机</p>
+
+<p>// 如果状态0的遇到字符1， 我们就进入一个新状态，向左寻找0：</p>
+
+<p><strong>01 10&lt;</strong> //进入1状态， 将1变为0，左移</p>
+
+<p><strong>10 11^</strong> //在1状态找到0， 将0变为1，停机</p>
+
+<p><strong>11 10&lt;</strong> //在1状态，将遇到的1都变为0，继续进入1状态，循环查找</p>
+
+<p><strong>1* 11^</strong> //如果左边没有找到0，就会来到最高位的左边一格，遇到空白符，此时输出1停机</p>
+
+<p>下面用图3、图4来演示一下之前的3个例子：</p>
+
+<p><a href="一个图灵机实现_clip_image004.gif"><img border="0" width="264" height="300" src="一个图灵机实现_clip_image004.gif" alt="图3 例1和例2的演示" /></a></p>
+
+<p>图3 例1和例2的演示</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/ntm-e3.png"><img border="0" width="186" height="300" src="一个图灵机实现_clip_image006.gif" alt="图4 例3的演示" /></a></p>
+
+<p>图4 例3的演示</p>
+
+<p>最后用NTM验证一下：</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/ntm-e1e2e3.png"><img  src="5.png" alt="图5 NTM验证3个例子" /></a></p>
+
+<p>图5 NTM验证3个例子</p>
+
+<p><strong>Bingo</strong><strong>！</strong></p>
+
+<p><strong>减法也不难</strong>，<strong>如果最低位是</strong><strong>1</strong><strong>，变为</strong><strong>0</strong><strong>停机即可；如果最低位是</strong><strong>0</strong><strong>，向左寻找</strong><strong>1</strong><strong>，进行借位，途中遇到的</strong><strong>0</strong><strong>都变为</strong><strong>1</strong><strong>；如果借不到</strong><strong>1</strong><strong>，直接停机。</strong></p>
+
+<p>最后一种情况全为0，停机后会变成全1，是二进制的循环减法。</p>
+
+<p>程序代码与加法相似：</p>
+
+<p>01 00^</p>
+
+<p>00 11&lt;</p>
+
+<p>10 11&lt;</p>
+
+<p>11 10^</p>
+
+<p>1* 1*^</p>
+
+<p>具体就不演示了，感兴趣可以自己用NTM跑一下。</p>
+
+<p>顺便一提，十进制加一的程序也不难，只要做到逢9变0，再进1位就行。代码如下</p>
+
+<p>// Ng Turing  Machine</p>
+
+<p>// 给一个十进制正整数加1</p>
+
+<p>// 例： 要计算123</p>
+
+<p>// 输入：123$</p>
+
+<p>00 01^</p>
+
+<p>01 02^</p>
+
+<p>02 03^</p>
+
+<p>03 04^</p>
+
+<p>04 05^</p>
+
+<p>05 06^</p>
+
+<p>06 07^</p>
+
+<p>07 08^</p>
+
+<p>08 09^</p>
+
+<p>09 00&lt;</p>
+
+<p>0* 01^</p>
+
+<p><strong>六</strong><strong>.</strong><strong>真正的</strong><strong>NTM</strong><strong>程序</strong></p>
+
+<p>终于来到<strong>激动人心</strong>的地方了！其实之前讲的程序都是<strong>小儿科</strong>，下面我们要用NTM干”大事“了！</p>
+
+<p><strong>如何计算两个数的加法？</strong></p>
+
+<p>为简单起见，我们将数表示成连续的1。比如3就是111，5就是11111。</p>
+
+<p>另外还要约定，输入时每个字符之间有一个空格，这个想法借鉴了图灵的论文，空格用来计算时打印辅助信息，可以方便计算，减少代码量。 </p>
+<p align="left">先来分析一下，要计算2 + 1 =，将其表示成1 1 + 1 =，计算结果应该是1 1 1。</p>
+
+<p>计算3 + 2 =，先表示成1 1 1 + 1 1 =，计算结果应该是1 1 1 1 1。</p>
+
+<p>（上式中的“=”可以使最终输出更直观，在代码中要用到，因此不能省略）</p>
+
+<p><strong>思路大概是这样</strong>：先找到最左边的1，然后从左向右，把遇到的每一个1复制到等号右边。如何找到最左边的1呢？我们用一个字符“$”作为表达式的开始，这样找到“$”就表示到了公式最左边。每复制一个1，要对其进行标记，防止重复复制，用一个“#”放在1的右边，表示这个1已经复制过了。每次复制完成后，从右向左找到第一个“#”，表示这个“#”左边的1都已经复制过了，所以向右寻找1，如果在找到1之前先遇到了“=”，表示所有的1都已经复制完成了，这时就可以停机了，但是为了美观，我们再次向左移动，清理掉左边的所有“#”标记，遇到“$”时停机。刚才的描述中漏掉了一个bug，就是字符“+”，其实可以简单处理，遇到“+”忽略即可。</p>
+
+<p>嗯，思路清楚了，程序该怎么写呢？请看图6。</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/plus-ex.png"><img     src="6.png" alt="图6 NTM两数加法的示例" /></a></p>
+
+<p>图6 NTM两数加法的示例</p>
+
+<p>最终代码：</p>
+
+<p>0= begin=| // 开始</p>
+
+<p>begin? begin?&lt; // 移动到纸带开始处</p>
+
+<p>begin$ plus$&gt; // 遇到$即开始处，进入plus过程</p>
+
+<p>plus1 plus-flag1&gt; //若遇到1，用plus-flag进行标记</p>
+
+<p>plus-flag* add-to#| // 标记完成，进入add-to开始做加法</p>
+
+<p>add-to? add-to?&gt; // 向右移动，寻找=</p>
+
+<p>add-to= write-pass=&gt; //找到=，跳过一个格子</p>
+
+<p>write-pass? write?&gt; // 跳过完成，进入write</p>
+
+<p>write1 write-pass1&gt; // 寻找空白</p>
+
+<p>write* back1&lt; // 找到空白，写入1，进入back</p>
+
+<p>back? back?&lt; // 退回到#标记，进入plus，做下一次加法</p>
+
+<p>back# plus#&gt;</p>
+
+<p>plus= clear=&lt; // 若遇到=，表示加法完成，进入clear清理标记</p>
+
+<p>clear# clear*&lt;</p>
+
+<p>clear? clear?&lt;</p>
+
+<p>clear$^</p>
+
+<p>plus+ pass+&gt; // 若遇到+，表示已完成第一个数的加法，忽略+</p>
+
+<p>pass* plus#&gt;</p>
+
+<p>用NTM验证一下，结果正确。如图7。</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/plus-ntm.png"><img    src="7.png"  /></a></p>
+
+<p>图7 两数加法的NTM截图</p>
+
+<p>加法算完了，<strong>如何计算两个数的乘法呢？</strong></p>
+
+<p>2 * 3 = 表示成 1 1 * 1 1 1 =</p>
+
+<p>把加2做3遍，就是乘法的含义。</p>
+
+<p><strong>思路又变得清晰起来</strong>：寻找“*”右边的1，用@标记，然后把“*”左边的1全部复制到“=”号右边，复制过程可以直接调用之前的加法代码。需要注意的是，每次复制前，需要清除上次留下的#标记。一次复制完成后，从“=”开始向左找到第一个@，表示左边的1已经乘过了，向右寻找1继续做加法。当找到1之前遇到=时，表示运算过程已经结束，清除@和#标记即可停机。</p>
+
+<p>详细过程如图8所示。</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/multiply-ex.png"><img    src="8.png"  /></a></p>
+
+<p>图8 NTM的乘法示例</p>
+
+<p>最终代码：</p>
+
+<p>// Ng Turing  Machine</p>
+
+<p>// 两数相乘</p>
+
+<p>// 数字用 1 的个数表示</p>
+
+<p>// 以$开始，数字之间用空格分隔，以=结束</p>
+
+<p>// 例： 要计算 2 * 3</p>
+
+<p>// 输入：$1 1 * 1 1 1 =$</p>
+
+<p>0= find-at=&lt;  // 开始</p>
+
+<p>find-at? find-at?&lt;</p>
+
+<p>find-at@ find-one@&gt;</p>
+
+<p>find-at\* find-one\*&gt;</p>
+
+<p>find-one? find-one?&gt;</p>
+
+<p>find-one1 find-one-flag1&gt;</p>
+
+<p>find-one-flag? find-star@&lt;</p>
+
+<p>find-star? find-star?&lt;</p>
+
+<p>find-star\* clear-left\*&lt;</p>
+
+<p>clear-left? clear-left-pass*&lt;</p>
+
+<p>clear-left-pass? clear-left?&lt;</p>
+
+<p>clear-left$ plus$&gt;</p>
+
+<p>plus1 plus-flag1&gt; //若遇到1，用plus-flag进行标记</p>
+
+<p>plus-flag* add-to#| // 标记完成，进入add-to开始做加法</p>
+
+<p>add-to? add-to?&gt; // 向右移动，寻找=</p>
+
+<p>add-to= write-pass=&gt; //找到=，跳过一个格子</p>
+
+<p>write-pass? write?&gt; // 跳过完成，进入write</p>
+
+<p>write1 write-pass1&gt; // 寻找空白</p>
+
+<p>write* back1&lt; // 找到空白，写入1，进入back</p>
+
+<p>back? back?&lt; // 退回到#标记，进入plus，做下一次加法</p>
+
+<p>back# plus#&gt;</p>
+
+<p>plus\* find-equal\*&gt;</p>
+
+<p>find-equal? find-equal?&gt;</p>
+
+<p>find-equal= find-at=&lt;</p>
+
+<p>find-one= clear-at=&lt;</p>
+
+<p>clear-at? clear-at?&lt;</p>
+
+<p>clear-at@ clear-at*&lt;</p>
+
+<p>clear-at\* clear-sharp\*&lt;</p>
+
+<p>clear-sharp? clear-sharp?&lt;</p>
+
+<p>clear-sharp# clear-sharp*&lt;</p>
+
+<p>clear-sharp$^</p>
+<p align="left">用NTM验证一下，如图9。</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/multiply-ntm.png"><img    src="9.png"  /></a></p>
+
+<p>图9 乘法的NTM截图</p>
+
+<p>结果正确，注意到截图中的<strong>steps</strong>了吗？计算2 * 3需要317步才能完成，而计算3 * 5竟然需要1178步。</p>
+
+<p>不过NTM有一个<strong>优点</strong>，就是它的程序是工作在<strong>字符级</strong>的，不用担心数据<strong>溢出</strong>什么的，纸带是<strong>无限长</strong>的，所以纸带长度取决于你的内存大小。如果你愿意，可以计算两个非常大的数。</p>
+
+<p>怎么样，加法、乘法都写好了，如果还不过瘾，可以参考乘法尝试写<strong>幂运算</strong>。</p>
+
+<p>其实《图灵的秘密》这本书中，有关图灵机的例子，有的比刚才的示例还要复杂，比如<strong>计算二进制乘法、除法、计算</strong><strong>π</strong>等等。有兴趣可以去膜拜一下。</p>
+
+<p><strong>七</strong><strong>.NTM</strong><strong>的更多特性</strong></p>
+
+<p>终于有时间更新日志啦，再不更新就不知道什么是图灵机了。这一节就来讲一下NTM的高级使用方法。</p>
+
+<p>还记得之前说过新版NTM增加了12个特性吗？这里就讲几个比较重要的吧。（有些小特性实在拿不出手）</p>
+
+<p><strong>1.</strong><strong>状态重载</strong></p>
+
+<p>这个特性之前已经和大家见过面了。为了简化代码量，增加对任意字符的匹配机制，又不损失精确匹配，所以就想到了“状态重载”的办法。也就是<strong>精确匹配优先机制</strong>。</p>
+
+<p>当一个状态同时具有<strong>任意匹配</strong>和<strong>精确匹配</strong>的规则时，首先进行精确匹配，如果匹配失败，再选择任意匹配。</p>
+
+<p>比如：</p>
+
+<p>find-at?  find-at?&gt;</p>
+
+<p>find-at@ another@|</p>
+
+<p>这样两条规则结合，就可以实现向右寻找“@”，找到后进入another状态。</p>
+
+<p>如果没有状态重载，代码可能是这个样子：</p>
+
+<p>find-at!  find-at!&gt;</p>
+
+<p>find-at# find-at#&gt;</p>
+
+<p>find-at$ find-at$&gt;</p>
+
+<p>find-at1 find-at1&gt;</p>
+
+<p>find-at0 find-at0&gt;</p>
+
+<p>//省略若干，这里必须把纸带上可能出现的字符都穷举一遍…orz</p>
+
+<p>find-at@ another@|</p>
+
+<p>利用状态重载，还能实现<strong>if</strong><strong>语句</strong></p>
+
+<p>is-at@ goto1@|</p>
+
+<p>is-at? goto2?|</p>
+
+<p>if遇到@，then进入goto1状态，else进入goto2状态。（结构本质上跟上例是一样的）</p>
+
+<p>如何实现<strong>if-elseif-else</strong><strong>语句</strong>？</p>
+
+<p>is-at@ goto1@|</p>
+
+<p>is-at# goto2#|</p>
+
+<p>is-at$ goto3$|</p>
+
+<p>is-at? goto4?|</p>
+
+<p>其实这样的多条语句就相当于is-elseif-else语句。</p>
+
+<p><strong>2.</strong><strong>调试模式</strong><strong> (debug)</strong></p>
+
+<p>这是一个非常有用的功能，使用<strong>-d</strong>或<strong>-d2</strong>命令可以进入调试模式，在调试模式中能够<strong>单步运行</strong>程序。</p>
+
+<p>-d和d2的区别是：-d是简洁模式，控制规则和纸带信息写在一行中；-d2则各占一行,并且显示读写头的位置。对于比较大的程序，使用-d2模式更直观，对于小程序使用-d显得简洁。</p>
+
+<p>比如我们要调试之前的乘法程序，在命令行输入turing -d2 multiply.txt 以debug2模式运行程序。</p>
+
+<p>输入初始纸带后就开始单步运行了。每一步显示当前匹配的控制规则、纸带信息和读写头位置，按回车进入下一步。如图10所示。</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/debug-mode.png"><img    src="10.png"  /></a></p>
+
+<p>图10 debug模式</p>
+
+<p>这样，可以看到NTM的详细运行过程，对调试程序有很大帮助。（事实上，我在写加法和乘法的时候，通过调试模式解决了好几个bug）</p>
+
+<p><strong>3.</strong><strong>死循环检测</strong></p>
+
+<p>据我所知，<strong>任何编程语言都不能检测一个程序是否陷入死循环，同样</strong><strong>NTM</strong><strong>也不能</strong>。但是通过一个简单的想法，可以基本实现死循环检测。这个想法就是：一般的的NTM程序，执行步数都不会太大，否则说明它可能进入死循环了。NTM默认值是10000，只要执行步数达到10000步，就会暂停运行，询问用户是否继续。（当然，一些大规模的NTM程序可能会超过这个值，这时可以使用-n命令指定值）</p>
+
+<p>我们写一个死循环程序，来试试看：</p>
+
+<p>0? 1?&lt;</p>
+
+<p>1? 0?&gt;</p>
+
+<p>这个程序在0、1状态之间不停循环，读写头做往复运动。</p>
+
+<p>运行程序，如图11所示</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/dead-loop.png"><img    src="11.png"  /></a></p>
+
+<p>图11 死循环检测</p>
+
+<p>当程序运行了10000步之后，出现提示，选项1和2的区别是2不打印纸带，对于一些非常bug的程序，可能会输出很长的无意义的纸带，打印会浪费时间。</p>
+
+<p>我们选择1，NTM停机，打印纸带。</p>
+
+<p>（这里有一个小bug，就是选择3.continue之后，运行步数会从0开始计数，导致最终的程序运行步数不正确。现在已经深夜了，懒得改…）</p>
+
+<p><strong>4.</strong><strong>更多特性？</strong></p>
+
+<p>别忘了使用<strong>–help</strong>命令，可以看到NTM的所有命令。</p>
+
+<p>如图12所示。</p>
+
+<p><a href="http://ng1091.com/blog/wp-content/uploads/2014/01/help.png"><img    src="12.png"  /></a></p>
+
+<p>图12 NTM的帮助</p>
+
+<p><strong>八</strong><strong>.NTM Relase</strong></p>
+
+<p><a href="http://www.ng1091.com/public/2014-02-14/NTM_Release_1.0.zip" target="_blank">NTM Release 1.0版本</a></p>
+
+<p>跟之前的beta版相比，增加了dead-loop.txt，修改了一处英语语法上的错误Orz…，还有一些小修改。</p>
+
+<p><strong>九</strong><strong>.NTM</strong><strong>的实现</strong></p>
+
+<p>解读代码的事情貌似非常浪费时间，尤其是在刚打完游戏的时候。所以代码就不解读了，日后再说！</p>
+
+<p>在这一节里，我突然想到，NTM的实现确实有一些能够优化的地方。</p>
+
+<p>控制规则的存储，我按照s1状态的长度作为索引，然后把长度相等的规则放在一个链表中，状态长度最长64位，所以最多就有64个链表。这个索引<strong>效率并不高</strong>，经常使用的状态名称长度也就那几个，大概是5~10位吧，所以冲突率高，在链表中线性查找会浪费很多时间。更好的办法是对状态名称算<strong>hash</strong>值，使用数组+链表索引，或者一种树结构的索引（如红黑树）。</p>
+
+<p><strong>呼</strong><strong>~</strong><strong>，这篇日志总算勉强</strong><strong>YY</strong><strong>完毕。最近几天突然有了下一篇日志的灵感，顺便来一个下集预告：关于认知，什么是理解，我们真的理解了吗，还是像</strong><strong>John Searle</strong><strong>的</strong><strong>Chinese room</strong><strong>那样什么都不理解；认知能力来源于大脑，那么随着大脑进化，认知到底有没有极限？</strong></p>
+
+<p><strong>References:</strong></p>
+
+<p><a name="ref1" id="ref1"></a><a href="http://ng1091.com/blog/archives/473#tag1">[1] </a> Charles Petzold 《图灵的秘密》（人民邮电出版社，2012），286</p>
+
+<p><a name="ref2" id="ref2"></a><a href="http://ng1091.com/blog/archives/473#tag2">[2] </a> 同上，311</p>
+
+<p><a name="ref3" id="ref3"></a><a href="http://ng1091.com/blog/archives/473#tag3">[3] </a> <a href="http://baike.baidu.com/link?url=zn2BtSSzocPUbzFmP2c1sfrvyggiqCp7-AJZMOC7xVgoHY7cC7cbdPlOpHy8QlM6" target="_blank">百度百科-图灵机</a></p>
+<p></p>
+<p>
+
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>

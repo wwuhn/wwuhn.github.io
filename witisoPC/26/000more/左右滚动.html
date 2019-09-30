@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>无缝滚动——左右</title>
+  <link rel="stylesheet" type="text/css" href="../css/base.css" media="all"/>
+  <style type="text/css">
+  #scroll{width:698px;height:108px;margin:50px auto 0;position:relative;overflow:hidden;}
+  .btn_left{display:block;width:68px;height:68px;background:url(images/btn.jpg) no-repeat -70px -69px;position:absolute;top:20px;left:1px;z-index:1;}
+  .btn_left:hover{background:url(images/btn.jpg) no-repeat -70px 0;}
+  .btn_right{display:block;width:68px;height:68px;background:url(images/btn.jpg) no-repeat 1px -69px;position:absolute;top:20px;right:0;z-index:1;}
+  .btn_right:hover{background:url(images/btn.jpg) no-repeat 1px 0;}
+  #scroll .content{width:546px;height:108px;position:relative;overflow:hidden;margin:0 auto;}
+  #scroll ul{position:absolute;}
+  #scroll li{float:left;width:182px;height:108px;text-align:center;}
+  #scroll li a:hover{position:relative;top:2px;}
+  </style>
+</head>
+<body>
+  <div id="scroll">
+    <a href="javascript:;" class="btn_left"></a>
+    <a href="javascript:;" class="btn_right"></a>
+    <div class="content">
+      <ul>
+        <li><a href="#"><img src="images/1.jpg" width="178" height="108" alt=""/></a></li>
+        <li><a href="#"><img src="images/2.jpg" width="178" height="108" alt=""/></a></li>
+        <li><a href="#"><img src="images/3.jpg" width="178" height="108" alt=""/></a></li>
+        <li><a href="#"><img src="images/4.jpg" width="178" height="108" alt=""/></a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+window.onload = function(){
+  var oDiv = document.getElementById('scroll');
+  var oUl = oDiv.getElementsByTagName('ul')[0];
+  var aLi = oDiv.getElementsByTagName('li');
+  var aBtn = oDiv.getElementsByTagName('a');
+  var speed = -1;
+  var timer = null;
+  oUl.innerHTML += oUl.innerHTML;
+  oUl.style.width = aLi[0].offsetWidth * aLi.length + 'px';
+  timer = setInterval(function(){
+    oUl.style.left = oUl.offsetLeft + speed + 'px';
+    if(oUl.offsetLeft < - oUl.offsetWidth / 2){
+      oUl.style.left = '0';
+    }else if(oUl.offsetLeft > 0){
+      oUl.style.left = - oUl.offsetWidth / 2 + 'px';
+    }
+  },30);
+  aBtn[0].onclick = function(){
+    speed = -1;
+  };
+  aBtn[1].onclick = function(){
+    speed = 1;
+  };
+  oUl.onmouseover = function(){
+    clearInterval(timer);
+  };
+  oUl.onmouseout = function(){
+    timer = setInterval(function(){
+      oUl.style.left = oUl.offsetLeft + speed + 'px';
+      if(oUl.offsetLeft < -oUl.offsetWidth / 2){
+        oUl.style.left = '0';
+      }else if(oUl.offsetLeft > 0){
+        oUl.style.left = - oUl.offsetWidth / 2 + 'px';
+      }
+    },30);
+  };
+};
+</script>

@@ -1,0 +1,828 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:55.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:0em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:85%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+.num{
+text-indent:-2em;
+color:#999999;
+font-size:80%;
+、、margin-bottom:-2.3em;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4><a href="https://www.5000yan.com/">《道德经》</a></h4>
+
+<h4>上篇：《道经》（01－38）</h4>
+<p class="num">01 天地之始：无（道），是天地的开端</p>
+
+<p>道可道，非常道。名可名，非常名。无，名天地之始。有，名万物之母。故常无，欲以观其妙。常有，欲以观其徼。此两者同出而异名，同谓之玄。玄之又玄，众妙之门。</p>
+<p class="ref">徼(jiào)：通“窍”，踪迹的意思。也有说是边界，巡察的意思。</p>
+<p class="ref">大道无形，大道无穷，大道无际，大道无言，大道至简；道法自然，可以言传，但妙在意会。</p>
+
+
+<p class="num">02 功成弗居：立下了功勋而不自我夸耀</p>
+
+<p>天下皆知美之为美，斯恶矣；皆知善之为善，斯不善已。故有无相生，难易相成，长短相形，高下相倾，音声相和，前後相随。是以圣人处无为之事，行不言之教。万物作焉而不辞。生而不有，为而不恃，功成而弗居。夫唯弗居，是以不去。</p>
+<p class="ref">音声：汉代郑玄为《礼记·乐记》作注时说，合奏出的乐音叫做“音”，单一发出的音响叫做“声”。</p>
+
+<p class="num">03 圣人之治：有道之人治理天下的方法</p>
+
+
+<p>不尚贤，使民不争。不贵难得之货，使民不为盗。不见可欲，使民心不乱。是以圣人之治，虚其心，实其腹，弱其志，强其骨；常使民无知、无欲，使夫智者不敢为也。为无为，则无不治。</p>
+
+<p class="ref">见：通“现”，出现，显露。此是显示，炫耀的意思。</p>
+<p class="ref">“知”是人类痛苦、厮杀之源头。“无知”使百姓们没有盗取利禄之心，没有争强好胜之志，这样做，就顺应了自然规律，就做到了无为而治。</p>
+<p class="num">04 和光同尘：收敛光耀，混同于尘世</p>
+
+
+
+<p>道冲，而用之，或不盈。渊兮似万物之宗。挫其锐，解其纷，和其光，同其尘，湛兮似或存。吾不知谁之子，象帝之先。</p>
+
+<p class="ref">冲：虚而不满，道冲，将道比喻成空虚的容器。湛：没有、虚无的意思。帝之先：天地的祖先，形容其出现之早。</p>
+
+<p class="num">05 多言数穷：话说得越多，言辞的穷尽就越快到来(用很多言辞法令来强制人民执行，很快就会遭到失败)</p>
+
+
+
+<p>天地不仁，以万物为刍狗。圣人不仁，以百姓为刍狗。天地之间，其犹橐龠乎？虚而不屈，动而愈出。多言数穷，不如守中。</p>
+
+<p class="ref">①仁：仁爱、仁慈。②刍（chú）狗：用野草扎成的狗，古人祭祀时用，用后即扔。刍，野草。③橐（tuó）龠（yuè）：古代的风箱。④数：通“速”。⑤中：适中，中正，虚静。</p>
+<p class="ref">天地无所谓仁爱（天地是自然的存在，没有理性、感情和偏爱），对待万物像对待祭祀时草扎的小狗一样，任凭万物自然生长；有道的人无所谓仁爱，对待百姓也如同对待刍狗一样，任凭百姓自己发展。</p>
+<p class="num">06 谷神不死：虚空不定的变化永不停歇</p>
+
+
+
+<p>谷神不死，是谓玄牝。玄牝之门，是谓天地根。绵绵若存，用之不勤。</p>
+<p class="ref">谷：形容虚空。神：形容不测的变化。玄牝(pìn)：象征深远而看不见的生育万物的总根源，这里用以形容“道”的不可思议的生殖力。牝，生殖。</p>
+<p class="ref">把神秘莫名的“道”喻为雌性动物的生殖器官，形象地表现了无所不能、孕育着万物的道的特性。这种粗拙而简明的表述方法，在《道德经》中多次出现。</p>
+<p class="ref">山谷两边是山，中间空无，于卑下的地位泰然处之，这种特性没有形态，来自一种达到极致的东西，就是道,所谓虚怀若谷。</p>
+<p class="num">07 天长地久：天地长久，是因为它不是为了自己而生存</p>
+
+
+<p>天长地久。天地所以能长且久者，以其不自生，故能长生。是以圣人後其身而身先，外其身而身存。非以其无私邪！故能成其私。</p>
+<p class="ref">邪：同“耶”，疑问语气词。</p>
+
+<p class="num">08 不争无尤：不争才不会出现过失，才不会招来怨咎</p>
+
+
+<p>上善若水。水善利万物而不争，处众人之所恶，故几於道。居善地，心善渊，与善仁，言善信，正善治，事善能，动善时。夫唯不争，故无尤。</p>
+<p class="ref">几(jī))：作“接近”解。 地：低下、卑下的意思。 渊：深的意思。正：行政的意思。⑦尤：怨咎。</p>
+
+<p class="num">09 持而盈之：保持着盈满的状态，不如适可而止</p>
+
+
+<p>持而盈之，不如其已；揣而锐之，不可长保；金玉满堂，莫之能守；富贵而骄，自遗其咎。功遂身退，天之道。</p>
+<p class="ref">揣：zhuī  捶打，敲打的意思。莫：代词，“没有谁”的意思。咎（jiù）：灾祸的意思。</p>
+
+<p class="num">10 明白四达：通达四方，能不玩弄权术和心智吗？</p>
+
+
+<p>载营魄抱一，能无离乎？专气致柔，能如婴儿乎？涤除玄鉴，能无疵乎？爱民治国，能无为乎？天门开阖，能为雌乎？明白四达，能无知乎？生之畜之。生而不有，为而不恃，长而不宰，是谓“玄德”。</p>
+<p class="ref">载：zài 充满（道路）。畜，xù ，饲养牲畜。长，念作zhǎng，指滋养万物。</p>
+
+<p class="num">11 无之为用：“有”给人便利，“无”也有虚空的作用</p>
+
+
+<p>三十幅，共一毂，当其无，有车之用。埏埴以为器，当其无，有器之用。凿户牖以为室，当其无，有室之用。故有之以为利，无之以为用。</p>
+<p class="ref">①辐：车轮上的直棍，有如自行车的钢丝。三十辐，是一个车轮直棍的数目。 ②毂（gǔ）：即车轮中心穿车轴的圆木．北方叫它“车头”。 ③埏（yàn）埴（zhì）：即用抟土和陶土做成饮食用的器皿。埏，借为“抟”，即抟土：埴，陶土。 ④牖（yǒu）：窗户。 ⑤无：这一章三个“无”，均作“空虚”解。</p>
+
+<p class="num">12 去彼取此：抛去外物的引诱来确保安足纯朴的生活</p>
+
+
+<p>五色令人目盲，五音令人耳聋，五味令人口爽，驰骋畋猎，令人心发狂，难得之货，令人行妨。是以圣人，为腹不为目，故去彼取此。</p>
+<p class="ref">畋：tián，有打猎和耕种的意思。妨：本指妨碍、损害的意思，这里特指盗窃、掠夺之类行为。腹：是指内在自我。目：指外在自我或感觉世界。彼：指外。此：指内。</p>
+
+<p class="num">13 宠辱不惊：受宠或受辱都不放在心上，不以得失而动心（不以物喜，不以己悲）</p>
+
+
+<p>宠辱若惊，贵大患若身。何谓宠辱若惊？宠为下，得之若惊，失之若惊，是谓宠辱若惊。何谓贵大患若身？吾所以有大患者，为吾有身，及吾无身，吾有何患。故贵以身为天下，若可寄天下。爱以身为天下，若可托天下。</p>
+<p class="ref"></p>
+
+<p class="num">14 执古之道：根据早已存在的“道”的运行规律，来考察现在的具体事物</p>
+
+
+<p>视之不见，名曰夷。听之不闻，名曰希。搏之不得，名曰微。此三者不可致诘，故混而为一。其上不皦，其下不昧，绳绳不可名，复归於无物。是谓无状之状，无物之象，是谓惚恍。迎之不见其首，随之不见其後。执古之道，以御今之有。能知古始，是谓道纪。</p>
+<p class="ref">①夷：看不见。 ②希：听不到。 ③微：摸不着。“夷”、“希”、“微”三字均形容感官所不能把握的“道”。 ④诘（jié）：追。⑤一：即“道”。 ⑥皦（jiǎo）：光亮，光明。 ⑦昧（mèi):昏暗，阴暗。 ⑧绳绳（mǐn)、渺茫、不清楚。 ⑨惚恍：闪烁不定的样子。 ⑩古之道：就是太初的大道。 有：指世上万事万物。 古始：就是宇宙的原始或“道”的端始。 道纪：“道”的纲纪。纪，准则，法度。</p>
+
+<p class="num">15 微妙玄通：古时善于行“道”的人，见解微妙而且深刻玄远</p>
+
+
+<p>古之善为士者，微妙玄通，深不可识。夫唯不可识，故强为之容。豫兮若冬涉川；犹兮若畏四邻；俨兮其若容；涣兮若冰之将释；敦兮其若朴；旷兮其若谷；混兮其若浊；澹兮其若海；飉兮若无止。孰能浊以静之徐清。孰能安以动之徐生。保此道者，不欲盈。夫唯不盈，故能蔽而新成。</p>
+<p class="ref">飉liáo，风的声音</p>
+
+<p class="num">16 致虚守静：使心灵空明虚寂到极点，使生活的清静达到极致</p>
+
+
+<p>致虚极，守静笃。万物并作，吾以观复。夫物芸芸，各复归其根。归根曰静，是谓复命；复命曰常，知常曰明。不知常，妄作凶。知常容，容乃公，公乃全，全乃天，天乃道，道乃久，没身不殆。</p>
+<p class="ref">笃（dǔ）：极度、顶点。没身mò：终身。</p>
+
+<p class="num">17 功成事遂：当事情办好之后，人民会认为自已本来就是这样的</p>
+
+
+<p>太上，下知有之。其次，亲而誉之。其次，畏之。其次，侮之。信不足焉，有不信焉。悠兮其贵言，功成事遂，百姓皆谓∶我自然。</p>
+<p class="ref">太上：最上等的。 贵言：珍惜言辞，即很少发号施令。 事遂：把事情做好了。</p>
+
+<p class="num">18 大仁大义：人人所向往的仁义的出现，恰恰是因为大道荒废了</p>
+
+
+<p>大道废，有仁义；慧智出，有大伪；六亲不和，有孝慈；国家昏乱，有忠臣。</p>
+<p class="ref"></p>
+
+<p class="num">19 少私寡欲：减少私欲杂念才会没有忧患</p>
+
+
+<p>绝圣弃智，民利百倍；绝仁弃义，民复孝慈；绝巧弃利，盗贼无有；此三者，以为文不足。故令有所属，见素抱朴，少私寡欲。</p>
+<p class="ref"></p>
+
+<p class="num">20 独异于人：与众不同，在于守“道”为贵</p>
+
+
+<p>绝学无忧，唯之与阿，相去几何？善之与恶，相去若何？人之所畏，不可不畏。荒兮其未央哉！众人熙熙，如享太牢、如春登台。我独泊兮，其未兆，如婴儿之未孩；儡儡兮若无所归。众人皆有馀，而我独若遗。我愚人之心也哉！沌沌兮。俗人昭昭，我独昏昏；俗人察察，我独闷闷。澹兮其若海，飂兮若无止。众人皆有以，而我独顽且鄙。我独异於人，而贵食母。</p>
+<p class="ref">太牢：古代代帝王祭祀时丰盛的筵席（有牛、羊、猪）。泊兮：浑朴、淡泊的意思。沌沌(dùn)：不清楚。儽儽(liǎo)：疲倦的样子。儽lěi，通“累”。 察察：苛刻之意。闷闷：昏浊，不清楚的意思。澹（dàn）：辽阔、辽远的意思。飂(liǎo)：狂暴的风。以：在这里作“用”字解。也有“能耐”意。</p>
+
+<p class="num">21 孔德之容：大德之形，随“道”而移</p>
+
+
+<p>孔德之容，惟道是从。道之为物，惟恍惟惚。惚兮恍兮，其中有象。恍兮惚兮，其中有物。窈兮冥兮，其中有精。其精甚真。其中有信。自古及今，其名不去，以阅众甫。吾何以知众甫之状哉！以此。</p>
+<p class="ref">孔：是“大”的意思。恍：不清楚。惚：不清楚。③窈：深远。冥(mǐng)：暗昧不清楚。精：是极细微的物质性实体。阅：认识。甫：同“父”。</p>
+
+<p class="num">22 圣人抱一：有德之人在于坚守有道的原则</p>
+
+
+<p>曲则全，枉则直，洼则盈，敝则新，少则得，多则惑。是以圣人抱一为天下式。不自见，故明；不自是，故彰；不自伐，故有功；不自矜，故长；夫唯不争，故天下莫能与之争。古之所谓∶“曲则全”者，岂虚言哉！诚全而归之。</p>
+<p class="ref">式：这里可以理解为法则。见：通“现”。伐：夸耀。矜(jīn)：自高自大的意思。莫：没有谁。</p>
+
+<p class="num">23 希言自然：少说话（少施政令）合乎自然</p>
+
+
+<p>希言自然。故飘风不终朝，骤雨不终日。孰为此者？天地。天地尚不能久，而况於人乎？故从事於道者，同於道。德者同於德。失者同於失。同於道者，道亦乐得之；同於德者，德亦乐得之；同於失者，失於乐得之。信不足焉，有不信焉。</p>
+<p class="ref">朝 zhāo 早晨</p>
+
+<p class="num">24 物或恶之：对于不懂道的行为，“物”是不会喜欢的</p>
+
+
+<p>企者不立；跨者不行。自见者不明；自是者不彰。自伐者无功；自矜者不长。其在道也曰∶馀食赘形。物或恶之，故有道者不处。</p>
+<p class="ref">赘（zhuì）：多余的。</p>
+
+<p class="num">25 道法自然：道纯任自然</p>
+
+
+<p>有物混成，先天地生。寂兮寥兮，独立不改，周行而不殆，可以为天下母。吾不知其名，强字之曰道。强为之名曰大。大曰逝，逝曰远，远曰反。故道大、天大、地大、人亦大。域中有大，而人居其一焉。人法地，地法天，天法道，道法自然。</p>
+<p class="ref">法：效法；</p>
+
+<p class="num">26 宜戒轻躁：轻率就会失去根本，躁动就会丧失主宰</p>
+
+
+<p>重为轻根，静为躁君。是以君子终日行不离辎重。虽有荣观，燕处超然。奈何万乘之主，而以身轻天下。轻则失根，躁则失君。</p>
+<p class="ref"></p>
+
+<p class="num">27 常善救人：有道的人经常善于做到人尽其才</p>
+
+
+<p>善行无辙迹。善言无瑕谪。善数不用筹策。善闭无关楗而不可开。善结无绳约而不可解。是以圣人常善救人，故无弃人。常善救物，故无弃物。是谓袭明。故善人者，不善人之师。不善人者，善人之资。不贵其师、不爱其资，虽智大迷，是谓要妙。</p>
+<p class="ref">①辙（zhé）迹：车子在泥土的路上走过，车轮辗过留下的痕迹。②瑕（xiá）谪（zhé）：缺点，毛病。③筹策：古代用竹制的计数的器具。④关楗（jiàn）：关锁门户的器具。⑤绳约：用绳子捆起来。⑥袭明：聪明不外露。袭，掩藏。⑦资：借鉴。⑧要妙：精深微妙。</p>
+
+<p class="num">28 常德乃足：甘愿做天下的川谷，永恒的德才能充足</p>
+
+
+<p>知其雄，守其雌，为天下溪。为天下溪，常德不离，复归於婴儿。知其白，守其黑，为天下式。为天下式，常德不忒，复归於无极。知其荣，守其辱，为天下谷。为天下谷，常德乃足，复归於朴。朴散则为器，圣人用之则为官长。故大制不割。</p>
+<p class="ref">①谿（xi:一声）：沟溪，山里的小河沟。②式：这甩可作“模式”、“楷式”讲。③忒（tè）：差错。④朴：素材。老子有时用“朴”来表示“道”。⑤官：管理的意思。长zhǎng：首长、领导的意思。</p>
+
+<p class="num">29 去奢去泰：有道的人要去除那种极端的、奢侈的、过度的措施</p>
+
+
+<p>将欲取天下而为之，吾见其不得已。天下神器，不可为也，为者败之，执者失之。夫物或行或随、或觑或吹、或强或羸、或挫或隳。是以圣人去甚、去奢、去泰。</p>
+<p class="ref">①取天下：治天下。 ②不得已：得不到罢了。已，罢。 ③或：代词，可译为“有的”或“有的人”。歔（xū）哈气使温暖。 ④羸léi ：瘦弱。 ⑤隳（huì）：毁坏。 ⑥甚：非常的、极端的。</p>
+
+<p class="num">30 不以兵强：按照“道”的原则辅佐君王的人，不依靠兵力来称霸天下</p>
+
+
+<p>以道佐人主者，不以兵强天下。其事好还。师之所处，荆棘生焉。军之後，必有凶年。善有果而已，不敢以取强。果而勿矜。果而勿伐。果而勿骄。果而不得已。果而勿强。物壮则老，是谓不道，不道早已。</p>
+<p class="ref"></p>
+
+<p class="num">31 恬淡为上：兵器是不祥的东西，最好淡然处之</p>
+
+
+<p>夫佳兵者，不祥之器，物或恶之，故有道者不处。君子居则贵左，用兵则贵右。兵者不祥之器，非君子之器，不得已而用之，恬淡为上。胜而不美，而美之者，是乐杀人。夫乐杀人者，则不可得志於天下矣。吉事尚左，凶事尚右。偏将军居左，上将军居右。言以丧礼处之。杀人之众，以悲哀泣之，战胜以丧礼处之。</p>
+<p class="ref"></p>
+
+<p class="num">32 知止不殆：有所制约，守好本位，就没有什么危险了</p>
+
+
+<p>道常无名。朴虽小，天下莫能臣也。侯王若能守之，万物将自宾。天地相合，以降甘露，民莫之令而自均。始制有名，名亦既有，夫亦将知止，知止可以不殆。譬道之在天下，犹川谷之於江海。</p>
+<p class="ref"></p>
+
+<p class="num">33 自知者明：能够了解、认识别人的是智慧的，能够了解、认识自己的才是高明的</p>
+
+
+<p>知人者智，自知者明。胜人者有力，自胜者强。知足者富。强行者有志。不失其所者久。死而不亡者，寿。</p>
+<p class="ref"></p>
+
+<p class="num">34 不自为大：“道”始终不认为自己伟大，所以才能成就其伟大</p>
+
+
+<p>大道泛兮，其可左右。万物恃之以生而不辞，功成而不名有。衣养万物而不为主，常无欲，可名於小。万物归焉，而不为主，可名为大。以其终不自为大，故能成其大。</p>
+<p class="ref">汜（fàn）：同“泛”，水向四处漫流。</p>
+
+<p class="num">35 往而不害：掌握“大道”，天下归顺，且不互相妨害，大家都和平安泰</p>
+
+
+<p>执大象，天下往。往而不害，安平太。乐与饵，过客止。道之出口，淡乎其无味。视之不足见。听之不足闻。用之不足既。</p>
+<p class="ref">大象：即“无象之象”，指“道”。 </p>
+
+<p class="num">36 柔弱刚强：柔能胜刚，是一种微妙高明的道理</p>
+
+
+<p>将欲歙之，必固张之。将欲弱之，必固强之。将欲废之，必固兴之。将欲取之，必固与之。是谓微明。柔弱胜刚强。鱼不可脱於渊，国之利器不可以示人。</p>
+<p class="ref">歙 xī 收敛，吸进。</p>
+
+<p class="num">37 道常无为：“道”永远是顺其自然的，却又好像没有什么事情不是它所作为的</p>
+
+
+<p>道常无为而无不为。侯王若能守之，万物将自化。化而欲作，吾将镇之以无名之朴。无名之朴，夫亦将无欲。不欲以静，天下将自定。</p>
+<p class="ref"></p>
+<h4>下篇：《德经》</h4>
+<p class="num">38 处实去华：忠信守道的人立世，为人当敦厚而不轻薄，实在而不虚华</p>
+
+
+<p>上德不德，是以有德。下德不失德，是以无德。上德无为而无以为。下德为之而有以为。上仁为之而无以为。上义为之而有以为。上礼为之而莫之以应，则攘臂而扔之。故失道而後德。失德而後仁。失仁而後义。失义而後礼。夫礼者，忠信之薄而乱之首。前识者，道之华而愚之始。是以大丈夫，处其厚不居其薄。处其实，不居其华。故去彼取此。</p>
+<p class="ref"></p>
+
+<p class="num">39 贵以贱本：尊贵是以卑贱为根本</p>
+
+
+<p>昔之得一者。天得一以清。地得一以宁。神得一以灵。谷得一以盈。万物得一以生。侯王得一以为天下贞。其致之。天无以清将恐裂。地无以宁将恐废。神无以灵将恐歇。谷无以盈将恐竭。万物无以生将恐灭。侯王无以贞将恐蹶。故贵以贱为本，高以下为基。是以侯王自称孤、寡、不谷。此非以贱为本邪？非乎。至誉无誉。不欲琭琭如玉，珞珞如石。</p>
+<p class="ref">一：这里的几个“一”，指的是“道”。</p>
+
+<p class="num">40 有生於无：看得见的有形质却生于看不见的无形质</p>
+
+
+<p>反者道之动。弱者道之用。天下万物生於有，有生於无。</p>
+<p class="ref"></p>
+
+<p class="num">41 大器晚成：最珍贵的器物总在最后制成</p>
+
+
+<p>上士闻道，勤而行之。中士闻道，若存若亡。下士闻道，大笑之。不笑不足以为道。故建言有之。明道若昧。进道若退。夷道若纇。上德若谷。大白若辱。广德若不足。建德若偷。质真若渝。大方无隅。大器晚成。大音希声。大象无形。道隐无名。夫唯道，善贷且成。</p>
+<p class="ref"></p>
+
+<p class="num">42 或损或益：所以世上的事物，减损有时反而会增加，增加有时反而会减损</p>
+
+
+<p>道生一。一生二。二生三。三生万物。万物负阴而抱阳，冲气以为和。人之所恶，唯孤、寡不谷，而王公以为称，故物或损之而益，或益之而损。人之所教，我亦教之，强梁者，不得其死。吾将以为教父。</p>
+<p class="ref">①一：按老子学说，“一”即道。②二：这里指对立统一的“阴”和“阳”。③三：有两种说法：一是指阳阳交合产生的第三者“和气”；二是指阴阳相合所形成的一个均调和谐的状态。④冲气：空虚的气。⑤恶：厌恶。</p>
+
+<p class="num">43 无为之益：空虚无形之物，能自由穿透任何没有间隙的地方</p>
+
+
+<p>天下之至柔，驰骋天下之至坚。无有入无间，吾是以知无为之有益。不言之教，无为之益，天下希及之。</p>
+<p class="ref"></p>
+
+<p class="num">44 知足不辱：知道满足就不会受到屈辱，懂得适可而止就不会遇到危险</p>
+
+
+<p>名与身孰亲。身与货孰多。得与亡孰病。是故甚爱必大费。多藏必厚亡。知足不辱。知止不殆。可以长久。</p>
+<p class="ref"></p>
+
+<p class="num">45 大成若缺：天下最美好的东西似乎也有欠缺，但它的作用是不会衰竭的</p>
+
+
+<p>大成若缺，其用不弊。大盈若冲，其用不穷。大直若屈。大巧若拙。大辩若讷。静胜躁，寒胜热。清静为天下正。</p>
+<p class="ref"></p>
+
+<p class="num">46 知足常足：知道欲望有度，不贪得无厌，才能保持恒久的满足</p>
+
+
+<p>天下有道，却走马以粪。天下无道，戎马生於郊。祸莫大於不知足。咎莫大於欲得。故知足之足，常足矣。</p>
+<p class="ref">走马：战马。原意为善跑的马。粪：通“播”，耕种。咎：过失，罪过。</p>
+
+<p class="num">47 不为而成：不去妄加施为就能够有所成就</p>
+
+
+<p>不出户，知天下。不窥牖，见天道。其出弥远，其知弥少。是以圣人不行而知。不见而明。不为而成。</p>
+<p class="ref"></p>
+
+<p class="num">48 为学日益：追求学问，知识一天天增加。追求大“道”，欲念一天天减少</p>
+
+
+<p>为学日益。为道日损。损之又损，以至於无为。无为而元不为。取天下常以无事，及其有事，不足以取天下。</p>
+<p class="ref"></p>
+
+<p class="num">49 圣无常心：有道的人是没有私心的，以百姓的心为自己的心</p>
+
+
+<p>圣人无常心。以百姓心为心。善者吾善之。不善者吾亦善之，德善。信者吾信之。不信者吾亦信之，德信。圣人在天下，歙歙焉，为天下浑其心。百姓皆注其耳目，圣人皆孩之。</p>
+<p class="ref">歙歙 xīxī，无所偏执的样子</p>
+
+<p class="num">50 出生入死：有出生就会有死亡，嗜欲太重者早死，敛欲守静以心合道者长寿</p>
+
+
+<p>出生入死。生之徒，十有三。死之徒，十有三。人之生，动之於死地，亦十有三。夫何故？以其生生之厚。盖闻善摄生者，陆行不遇兕虎，入军不被甲兵。兕无所投其角。虎无所用其爪。兵无所容其刃。夫何故？以其无死地。</p>
+<p class="ref">兕 sì 古代一种酒器。这里指雌犀牛。</p>
+
+<p class="num">51 尊道贵德：道受到尊敬，德重视，在于它不加干涉而顺其自然</p>
+
+
+<p>道生之，德畜之，物形之，势成之。是以万物莫不尊道，而贵德。道之尊，德之贵，夫莫之命而常自然。故道生之，德畜之。长之育之。亭之毒之。养之覆之。生而不有，为而不恃，长而不宰。是谓玄德。</p>
+<p class="ref"></p>
+
+<p class="num">52 天下有始：天下万物都有本始，要谨守万物的根本，关闭欲念的心门</p>
+
+
+<p>天下有始，以为天下母。既得其母，以知其子。既知其子，复守其母，没身不殆。塞其兑，闭其门，终身不勤。开其兑，济其事，终身不救。见小曰明，守柔曰强。用其光，复归其明，无遗身殃。是为习常。</p>
+<p class="ref"></p>
+
+<p class="num">53 行於大道：行走在大道之上，不要走上歧途</p>
+
+
+<p>使我介然有知，行於大道，唯施是畏。大道甚夷，而人好径。朝甚除，田甚芜，仓甚虚。服文彩，带利剑，厌饮食，财货有馀。是谓盗夸。非道也哉。</p>
+<p class="ref">①介然：微小。②施：即“邪”字。邪行，邪径。③夷：平坦。④径：邪径。⑤朝cháo，指朝廷。除：清洁，整齐。⑥厌：通“餍”字。⑦盗夸：指盗魁。⑧也哉：语气词连用，表示肯定、感叹的语气，可译为“啊”、“呀”。</p>
+
+<p class="num">54 善抱大道：抱持大道，以己度他</p>
+
+
+<p>善建者不拔。善抱者不脱。子孙以祭祀不辍。修之於身，其德乃真。修之於家，其德乃馀。修之於乡，其德乃长。修之於邦，其德乃丰。修之於天下，其德乃普。故以身观身，以家观家，以乡观乡，以邦观邦，以天下观天下。吾何以知天下然哉？以此。</p>
+<p class="ref"></p>
+
+<p class="num">55 物壮则老：事物过于壮盛就会走向衰老</p>
+
+
+<p>含德之厚，比於赤子。毒虫不螫，猛兽不据，攫鸟不搏。骨弱筋柔而握固。未知牝牡之合而朘作，精之至也。终日号而不嗄，和之至也。知和曰常。知常曰明。益生曰祥。心使气曰强。物壮则老。谓之不道，不道早已。</p>
+<p class="ref">①螫shì有毒腺的虫子刺人或动物。据：兽爪取物之意。②攫（jué）：用爪抓取。牝（pìn）③朘zuī：婴孩的生殖器。④嗄（shà）：嗓音嘶哑。⑤祥：本为吉祥，但古代亦可指妖祥。这里指灾祸、不吉的意思。</p>
+
+<p class="num">56 知者不言：真正的智者决不会夸夸其谈（施加政令）</p>
+
+
+<p>知者不言。言者不知。挫其锐，解其纷，和其光，同其尘，是谓玄同。故不可得而亲。不可得而疏。不可得而利。不可得而害。不可得而贵。不可得而贱。故为天下贵。</p>
+<p class="ref"></p>
+
+<p class="num">57 以正治国：以清静无为的正道来治理国家，以奇巧诡秘的方法来用兵，以不扰害人民来治理天下</p>
+
+
+<p>以正治国，以奇用兵，以无事取天下。吾何以知其然哉？以此。天下多忌讳，而民弥贫。民多利器，国家滋昏。人多伎巧，奇物泫起。法令滋彰，盗贼多有。故圣人云，我无为而民自化。我好静，而民自正。我无事，而民自富。我无欲，而民自朴。</p>
+<p class="ref"></p>
+
+<p class="num">58 福祸相倚：祸与福相因而生</p>
+
+
+<p>其政闷闷，其民淳淳。其政察察，其民缺缺。祸兮，福之所倚。福兮，祸之所伏。孰知其极，其无正。正复为奇，善复为妖。人之迷其日固久。是以圣人方而不割。廉而不刿。直而不肆。光而不耀。</p>
+<p class="ref">①闷闷：昏昏昧昧，含有宽厚的意思。②淳淳：忠厚。③察察：严酷。④缺缺：狡黠。⑤正：正面，与“奇”对应。⑥割：生硬，不自然。⑦廉：棱角。刿：划伤。⑧耀：过分明亮。</p>
+
+<p class="num">59 长生久视：长生久视之道在于爱惜精力，早做准备，厚积其德</p>
+
+
+<p>治人事天，莫若啬。夫唯啬，是谓早服。早服谓之重积德。重积德则无不克。无不克则莫知其极。莫知其极可以有国。有国之母可以长久。是谓深根固柢，长生久视之道。</p>
+<p class="ref">①啬sè：这里是收藏其神形而不用，以归无为之意。②早服：早准备。③克：胜任。④母：这里指“道”，譬喻保国的根本之道。⑤柢dǐ：树木的根。⑥视：生活。</p>
+
+<p class="num">60 治国烹鲜：治理一个很大的国家，要像烹煎很小的鱼那样，不能时常翻动导致破碎</p>
+
+
+<p>治大国，若烹小鲜。以道莅天下，其鬼不神；非其鬼不神，其神不伤人。非其神不伤人，圣人亦不伤人。夫两不相伤，故德交归焉。</p>
+<p class="ref"></p>
+
+<p class="num">61 各得其所：谦虚卑下，都可以达到各自的愿望</p>
+
+
+<p>大国者下流，天下之交。天下之牝。牝常以静胜牡。以静为下。故大国以下小国，则取小国。小国以下大国，则取大国。故或下以取，或下而取。大国不过欲兼畜人。小国不过欲入事人。夫两者各得所欲，大者宜为下。</p>
+<p class="ref">牝（pìn）雌性。牡（mǔ）雌性。</p>
+
+<p class="num">62 万物之奥：道是荫庇万物之所</p>
+
+
+<p>道者万物之奥。善人之宝，不善人之所保。美言可以市尊。美行可以加人。人之不善，何弃之有。故立天子、置三公，虽有拱璧以先驷马，不如坐进此道。古之所以贵此道者何。不曰∶求以得，有罪以免邪？故为天下贵。</p>
+<p class="ref">奥：藏，含有庇荫的意思。</p>
+
+<p class="num">63 为大於细：实现远大要从细微的地方入手</p>
+
+
+<p>为无为，事无事，味无味。大小多少，报怨以德。图难於其易，为大於其细。天下难事必作於易。天下大事必作於细。是以圣人终不为大，故能成其大。夫轻诺必寡信。多易必多难。是以圣人犹难之，故终无难矣。</p>
+<p class="ref"></p>
+
+<p class="num">64 慎终如始：事情开始和结束之时同样慎重，就没有办不成的事</p>
+
+
+<p>其安易持，其未兆易谋。其脆易泮，其微易散。为之於未有，治之於未乱。合抱之木，生於毫末。九层之台，起於累土。千里之行，始於足下。为者败之，执者失之。是以圣人无为故无败，无执故无失。民之从事，常於几成而败之。慎终如，始则无败事。是以圣人欲不欲，不贵难得之货。学不学，复众人之所过，以辅万物之自然而不敢为。</p>
+<p class="ref"></p>
+
+<p class="num">65 善为道者：古代善于遵行“道”的人，不是教导人民知晓智巧伪诈，而是教导人民淳厚朴实</p>
+
+
+<p>古之善为道者，非以明民，将以愚之。民之难治，以其智多。故以智治国，国之贼。不以智治国，国之福。知此两者，亦稽式。常知稽式，是谓玄德。玄德深矣、远矣！与物反矣。然後乃至大顺。</p>
+<p class="ref"></p>
+
+<p class="num">66 不争之争：因为不与人相争，所以天下就没有人能与之相争</p>
+
+
+<p>江海之所以能为百谷王者，以其善下之，故能为百谷王。是以圣人欲上民，必以言下之。欲先民，必以身後之。是以圣人处上而民不重，处前而民不害。是以天下乐推而不厌。以其不争，故天下莫能与之争。</p>
+<p class="ref">①上民：把自己摆在百姓之上，也就是统治人民的意思。②先民：把自己摆在人民的前面，也就是统治人民的意思。③重：不堪重负的意思。④害；妨害。⑤厌：不喜欢。</p>
+
+<p class="num">67 持保三宝：应该永远保持三种宝贝：慈、俭、不敢为天下先</p>
+
+
+<p>天下皆谓我道大，似不肖。夫唯大，故似不肖。若肖，久矣！其细也夫。我有三宝持而保之∶一曰慈，二曰俭，三曰不敢为天下先。慈故能勇，俭故能广，不敢为天下先，故能成器长。今舍慈且勇，舍俭且广，舍後且先，死矣！夫慈，以战则胜，以守则固。天将救之，以慈卫之。</p>
+<p class="ref">肖 xiào 相似，像</p>
+
+<p class="num">68 不争之德：不与人争的“德”，也就是运用别人的能力</p>
+
+
+<p>善为士者，不武；善战者，不怒；善胜敌者，不与；善用人者，为之下。是谓不争之德，是谓用人之力，是谓配天之极。</p>
+<p class="ref">①士：武士，古代的武士也叫“士”。这里指将帅。②不与：不与之争。③极：标准、道理。</p>
+
+<p class="num">69 哀者胜矣：当两军实力相当的时候，怀有慈悲怜悯之心的一方能获得胜利</p>
+
+
+<p>用兵有言：“吾不敢为主，而为客；不敢进寸，而退尺。”是谓行无行，攘无臂；扔无敌，执无兵。祸莫大於轻敌，轻敌几丧吾宝。故抗兵相加，哀者胜矣。</p>
+<p class="ref">①主：打仗时的主动攻势。②客：打仗时的被动防守。③行无行：前一个“行”，读xíng，行动；后一个“行”读háng，行列。④攘(rǎng)：捋起。⑤扔：对抗的意思。⑥宝：命脉之意。</p>
+
+<p class="num">70 被褐怀玉：有道之人总是外表穿着粗布衣服，而怀里却揣着美玉</p>
+
+
+<p>吾言甚易知、甚易行。天下莫能知、莫能行。言有宗、事有君。夫唯无知，是以我不知。知我者希，则我者贵。是以圣被褐怀玉。</p>
+<p class="ref">①不我知：宾语前置，就是“不知我”。②希：同“稀”，少。③则：法则，此处活用为动词，效法之意。④被褐而怀玉：穿着粗衣而内怀美玉。褐，粗布衣服；被，通“披”。</p>
+
+<p class="num">71 知不知矣：知道自己还有所不知</p>
+
+
+<p>知不知，上矣，不知知，病也。夫唯病病，是以不病。圣人不病，以其病病。夫唯病病，是以不病。</p>
+<p class="ref">①知不知：有两种解释：一是知道却自以为不知道，一是知道自己还有所不知。②不知知：不知而自以为知。③病病：把这种毛病当作毛病。</p>
+
+<p class="num">72 自知自爱：有自知之明，却不自我表现；有自爱之心，却不自显高贵</p>
+
+
+<p>民不畏威，则大威至。无狎其所居，无厌其所生。夫唯不厌，是以不厌。是以圣人自知不自见。自爱不自贵。故去彼取此。</p>
+<p class="ref">①第一个“威”意为统治者的权威、高压政策；第二个“威”指的是统治者面临的威胁。狎xiá：同“狭”。②厌：“压”的意思。③厌：同前。④厌：作“厌恶”解。⑤见：同“现”，表现。</p>
+
+<p class="num">73 天网恢恢：自然的范围宽广无边，虽然稀疏但并不会有一点漏失</p>
+
+
+<p>勇於敢则杀。勇於不敢则活。此两者或利或害。天之所恶孰知其故。天之道不争而善胜。不言而善应。不召而自来。繟(chǎn，舒缓)然而善谋。天网恢恢，疏而不失。</p>
+<p class="ref">①或：“有的”的意思。②恶wù：不喜欢。③召zhào，召唤。繟chàn：缓慢的意思。④恢恢：广大的样子。</p>
+
+<p class="num">74 民不畏死：人生来就具有反抗暴政的道德勇气，一旦人民不再畏惧死亡，那么国家的严刑峻法也就无法发挥作用了</p>
+
+
+<p>民不畏死，奈何以死惧之。若使民常畏死，而为奇者，吾得执而杀之，孰敢。常有司杀者杀。夫代司杀者杀，是谓代大匠斫。夫代大匠斫者，希有不伤其手矣。</p>
+<p class="ref">①为奇qí：是指做出邪恶的行为。②司杀者：指天道而言。③斫zhuó：用斧子砍木头。</p>
+
+<p class="num">75 民之轻死：人民如果缺衣少食，无法满足基本的温饱，就会铤而走险，轻生冒死</p>
+
+
+<p>民之饥，以其上食税之多，是以饥。民之难治以其上之有为，是以难治。民之轻死，以其求生之厚，是以轻死。夫唯无以生为者，是贤於贵生。</p>
+<p class="ref">①上：指统治者。②求生：这里指生活享受。</p>
+
+<p class="num">76 柔弱处上：坚强往往处于劣势，柔弱往往能处于优势</p>
+
+
+<p>人之生也柔弱，其死也坚强。草木之生也柔脆，其死也枯槁。故坚强者死之徒，柔弱者生之徒。是以兵强则灭，木强则折。强大处下，柔弱处上。</p>
+<p class="ref"></p>
+
+<p class="num">77 功成不处：有所成就而不居功自傲</p>
+
+
+<p>天之道，其犹张弓与。高者抑之，下者举之。有馀者损之，不足者补之。天之道，损有馀而补不足。人之道，则不然，损不足以奉有馀。孰能有馀以奉天下，唯有道者。是以圣人为而不恃，功成而不处。其不欲见贤邪！</p>
+<p class="ref">①处：有“占有”的意思。②见：通“现”，表现。</p>
+
+<p class="num">78 柔之胜刚：水柔弱而来攻坚克强</p>
+
+
+<p>天下莫柔弱於水。而攻坚强者，莫之能胜。以其无以易之。弱之胜强。柔之胜刚。天下莫不知，莫能行。是以圣人云，受国之垢，是谓社稷主。受国不祥，是为天下王。正言若反。</p>
+<p class="ref">①垢gòu：屈辱。②祥：吉利的。</p>
+
+<p class="num">79 报怨以德：不论别人对自己的怨恨有多大，都要用清静无为的道德来应对</p>
+
+
+<p>和大怨，必有馀怨，安可以为善。是以圣人执左契，而不责於人。有德司契，无德司彻。天道无亲，常与善人。</p>
+<p class="ref">①和hé，和解。左契：债权人所持的契约。古代以竹木简为契约，分左右两片，债权人执左片，故称左契。②司契：古代贵族所用的管账人。③彻：是周代田税法，指十一税。④与：给，赠。</p>
+
+<p class="num">80 小国寡民：使国家变小，使人民稀少</p>
+
+
+<p>小国寡民。使有什伯之器而不用。使民重死而不远徙。虽有舟舆，无所乘之。虽有甲兵，无所陈之。使民复结绳而用之。甘其食、美其服、安其居、乐其俗。邻国相望，鸡犬之声相闻。民至老死不相往来。</p>
+<p class="ref">①什：十。伯：百。“什佰”为古代士卒部曲的名称。什，十人，是由十个人组成的军事单位，相当于现代军队编制中的“班”；佰，百人，是由一百个人组成的军事单位，相当于现代军队编制里两个“排”的规模。②徙xǐ：迁移。③舆yú：车子。④结绳：远古时原始人没有文字，在绳上打结来帮助记忆。</p>
+
+<p class="num">81 为而不争：有道之人的法则是施惠于众人而不与人争夺</p>
+
+
+<p>信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有。既以与人己愈多。天之道，利而不害；圣人之道为而不争。</p>
+<h4>老子与《道德经》</h4>
+
+<p>《道德经》被誉为“万经之王”，内容涵盖哲学、伦理学、政治学、军事学等诸多学科，曾被后人尊奉为治国、齐家、修身、为学的宝典。它对中国的哲学、科学、政治、宗教等都产生了深远的影响，体现了古代中国人的一种世界观和人生观。先秦诸子以及中国人的文化思想等都或多或少受到《道德经》的影响，而且它的影响是多方面的，包括文化、科学、宗教等各方面。</p>
+<p>《老子》一书共81章，上篇称为《道经》下篇称为《德经》，总称《道德经》。无论在中国的哲学、政治、军事、管理、宗教、文学、伦理等诸多领域，此书都可称得上经典名作，它的主要内容有三个方面：</p>
+
+<p></p>
+
+<p>1 宇宙。《老子》在第一章开宗明义说：“道，可道，非常道；名，可名，非常名。无，名天地之始；有，名万物之母。”老子心目中的宇宙就是“道”，道无所不在，周行不止；道是万物的根本；道是视之不见、听之不闻、搏之不得的无形物。他的这一思想，冲破天帝造众生的神论观点，在中国哲学史和文化史上都是一个首创。</p>
+
+<p></p>
+
+<p>2 人生。老子的人生观有两个基本点：一是贵身自养，摄生修行；二是柔弱不争，致虚守静。前者在第十三章有精彩的论述：“贵以身为天下，若可寄天下；爱以身为天下，若可托天下。”既然身体能与天下并重，那么怎样贵身爱身呢？ 老子认为，首先应摈除五色、五音、五味这些物欲享乐，然后注意摄生，见朴抱素，加强个人修养。后者是老子反复强调的处理人际关系的原则，体现了一种以退为进、以静制动的人生哲学</p>
+
+<p></p>
+
+<p>3 政治。老子最著名的政治主张就是“无为”，这是他认为的治理天下的最高原则。他们导顺应民心，符合天道，处无为之事，行不言之教，“治大国，若烹小鲜”，消除一己之心，使民众安居乐业，实现无为而治，达到“小国寡民”的理想境界。</p>
+<p>《道德经》的影响不仅时间久，历史长，而且领域广、方面多。在宗教上，它是道教的开山之作; 在修身方面，“功成身退”是文人入世的信条；在军事方面，“以柔克刚”成为军事家奉行的准则; 在管理方面，老子的“以人为本”是日本企业最基本的信条; 在艺术方面，“道法自然”成为书法家、绘画家、诗人遵循的理念; 在文学方面，《老子》精警凝练，处处闪烁着哲人的智慧，妙语巧喻、格言警句比比皆是，蕴含人生哲理。</p>
+<p>老子曾做过周朝“守藏室之史”，就是管理“藏室”的史官。老子一向只注意研究学问，不在意个人得失荣辱，虽然学识渊博，却一直过着默默无闻的生活。公元前516年，在周王室内部的权力争斗中，贵族王子朝失败，带着所有典籍逃走。老子再无“藏室”可管，于是骑着青牛，离开东周来到函谷关，在镇守函谷关的周大夫尹喜的盛情邀请下，写成了共有5000字的《老子》上、下两篇。写完书后，老子骑上青牛，出函谷关，从此不知去向。《老子》以“道可道，非常道”开篇，提出了一个最高的哲学概念“道”，老子哲学就是由“道”推演出来的，他也因此成为道家的始祖。老子把天、地、人等宇宙万物连贯成为一个整体，突破了古代哲学以政治和伦理为轴心的局限。老子认为“道”是先于天地生成的，是天地万物之源，宇宙间的一切，包括人在内都是天地万物的一部分，“人法地，地法天，天法道，道法自然”。老子这种思想实际上就是中国古代最早的一种“天人合一”思想，这一思想为后来的庄子所继承和发展。这种“天人合一”的整体观念，对中国古代的各个领域都产生了深远的影响。</p>
+
+
+
+<p>老子思想中最大的闪光点是他的朴素的辩证法思想。老子观察到宇宙间的万事万物都存在着互相矛盾的两个对立面，“有无相生，难易相成，长短相形”，世间万物有阴阳、刚柔、强弱、兴废等分别。他还发现对立的事物能够向其相反的方向转化，如:“物壮则老”，“兵强则灭”，“木强则折”，“祸兮福之所倚，福兮祸之所伏”。为了防止物极必反，导致衰落，老子主张“去甚去奢去泰”，就是要去掉那此极端的、过分的举动，始终保持着像“道”那样冲虚而不盈满的状态。</p>
+
+
+
+<p>老子的朴素辩证法思想表现在军事战略方面就是“善为士者不武，善战者不怒，善胜敌者不与”，同时还要注意“将欲弱之，必固强之”，“将欲夺之，必固与之”。他还提出了以柔弱胜刚强的指导思想，比如，天下没有比水更柔弱的东西，但以水来攻坚，没有攻不了的，以此来说明柔弱能战胜刚强。</p>
+
+
+
+<p>老子的道的本性是自然的，他提出了天道自然的观念。他认为天地的运行是自然而然，不假外力的。人也应该和万物一样，是自然的，人生必须消除主观和外在的干涉，使其自然发展。</p>
+
+
+
+<p>在自然人性论的基础上，老子提出了“无为而治”的政治论。老子把人民的饥荒、贫困看作是多欲的统治者横征暴敛的结果。人民起来为“盗”，轻生冒死，其责任完全在于统治者。老子主张用“天之道”来取代“人之道”，这样就能解决社会所存在的一切弊端。</p>
+
+
+
+<p>老子提倡的“无为而治”，是对统治阶级的“有为”进行的揭露和抨击。老子提倡这种“无为”之治的目标是建立一个和谐美好的社会，也就是“使民复结绳而用之，甘其食，美其服，安其居，乐其俗”。邻国相望，鸡犬之声相望，民至老死不相往来”。</p>
+
+
+
+<p>千百年来，老子的思想深刻地影响着中国的哲学、伦理道德、政治、文化甚至是中国人的思维，他的思想为战国时代的庄子等人所继承，形成了道家学派。</p>
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

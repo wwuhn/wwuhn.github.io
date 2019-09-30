@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html><title>PChistory</title>
+<script>
+function scrol...(){
+var scl=document.body.scrollHeight/2+30*14;
+window.scrollBy(0,scl);
+}
+</script>
+<body onLoad="scrol()">
+<!--(-0+2020)*nianPX(14)+0+18=--><!--canvas的height属性最大只能达到32000；-->
+
+
+
+<canvas id="myCanvas2" width="974" height="5920" style="border:0px solid #d3d3d3; margin-top:-4px;">
+<!--height:nianPX=14*year+a bit-->
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+
+<script>
+
+var c=document.getElementById("myCanvas2");
+var ctx=c.getContext("2d");
+
+var canvasW=974;
+var dingJiange=18; //顶端间隔 竖线起始位置(Y轴）
+var diJiange=18; //底部间隔 竖线起始位置(Y轴）
+var jianGe=dingJiange+diJiange;
+var Xcor=436; //竖线X坐标的起始位置；
+//因最小的字体需要12它，所以下面的定位需要达到12；
+var nianPX=14; //一年间隔使用的像素；
+
+var nianYprev=-1600; //公元前有多少年开始
+var nianYnex=2020;//公元前后多少年结束
+var nianYprevPx=nianYprev*nianPX; //公元前有多少年及像素；
+var nianYnexPx=nianYnex*nianPX; //公元后有多少年及像素；
+var Ycor=nianYprevPx+nianYnexPx; //竖线Y坐标的终点位置（长度）；
+
+
+
+var nianL=8; //年线段的长度；
+
+var nianL10=20; //10年线段的长度；
+var nianL100=30; //100年线段的长度；
+var fontsi=nianPX*3;//字体大小
+var fontsi10=nianPX*4;
+var fontsi100=nianPX*5;
+
+//长竖线
+ctx.beginPath();
+ctx.moveTo(Xcor,dingJiange);
+ctx.lineTo(Xcor,Ycor+diJiange);
+ctx.stroke();
+
+//年横线
+for(i=dingJiange;i<=Ycor+diJiange;i+=nianPX){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.4)";  
+ctx.stroke();
+}
+
+//5年横线
+for(i=dingJiange;i<=Ycor+jianGe;i+=nianPX*5){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL*1.5,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.6)";  
+ctx.stroke();
+
+
+}
+
+//10年横线和文本
+for(i=dingJiange;i<=Ycor+jianGe;i+=nianPX*10){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL*2,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.8)"; 
+ctx.stroke();
+ctx.textAlign="right";
+var varmid=(i-dingJiange)/nianPX;
+	if(varmid%100!=0){
+	ctx.font="12px 宋体"; //30px 可以写在里面
+
+	ctx.fillStyle="";
+	ctx.fillText((i-dingJiange)/nianPX-nianYprev,Xcor-nianL*2,i+6);
+	}
+}
+//100年横线和文本
+for(i=dingJiange;i<=Ycor+jianGe;i+=nianPX*100){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL*3,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.9)"; 
+ctx.stroke();
+ctx.textAlign="right";
+ctx.font="18px 宋体"; //30px 可以写在里面
+
+ctx.strokeStyle='';
+ctx.strokeText((i-dingJiange)/nianPX-nianYprev,Xcor-nianL*3,i+8);
+
+}
+function txtL(year0,txt){
+	var xc=Xcor-nianL-65; //左边的线条从右边开始到左边结束的位置；
+	var xc2=10;//左边文本从左边开始的位置；
+	var yp;
+	if(year0>=0){
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		txt="" + year0 + "年，" + txt;
+	}else{
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		yearp=year0*(-1);
+		txt="前" + yearp + "年，" + txt;
+	}
+	ctx.fillStyle="#00f";
+	ctx.beginPath();
+	ctx.moveTo(Xcor-60,yp);
+	ctx.lineTo(xc+xc2-40,yp);
+	ctx.stroke();
+	ctx.textBaseline="top";
+	ctx.textBaseline = "middle"; 		
+	ctx.font="12px Verdana"; 
+	ctx.fillStyle="#000";
+	ctx.textAlign="left";
+//xc的位置是xc=Xcor+nianL100＝974－436－30＝508，可以容纳46个12px的字符(44*12=535)；
+
+
+	var txtN;//右边屏幕可容纳字符串个数；
+	var txtW=12*1;//手工算出是0.945;txtW是一个字符串的宽度；
+	txtN=Math.floor(xc/txtW);	
+	
+
+	if(txt.length>txtN){
+		var fortime=Math.ceil(txt.length/txtN);//需要循环的次数；
+		ctx.fillText(txt.substring(0,txtN),xc2,yp);
+		for(i=0;i<fortime;i++){
+		yp=yp+14;
+			txt=txt.substring(txtN);
+			var txt2="        "+txt.substring(0,txtN);
+			ctx.fillText(txt2,xc2,yp);
+		}
+	}else{
+	ctx.fillText(txt,xc2,yp);
+	}
+	
+
+	
+}
+
+function txtR(year0,txt){
+	var xc=Xcor+nianL100; 
+	var yp;
+
+	if(year0>=0){
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		txt="" + year0 + "年，" + txt;
+	}else{
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		yearp=year0*(-1);
+		txt="前" + yearp + "年，" + txt;
+	}
+	ctx.fillStyle="#00f";
+	ctx.beginPath();
+	ctx.moveTo(Xcor+3,yp);
+	ctx.lineTo(xc,yp);
+	ctx.stroke();
+	ctx.textBaseline = "middle"; 	
+	ctx.font="12px Verdana"; 
+	ctx.fillStyle="#000";
+	ctx.textAlign="left";
+//xc的位置是xc=Xcor+nianL100＝974－436－30＝508，可以容纳46个12px的字符(44*12=535)；	
+	var txtN;//右边屏幕可容纳字符串个数；
+	var txtW=12*1;//手工算出是0.945;txtW是一个字符串的宽度；
+	txtN=Math.floor((canvasW-xc)/txtW);		
+
+	if(txt.length>txtN){
+		var fortime=Math.ceil(txt.length/txtN);//需要循环的次数；
+		ctx.fillText(txt.substring(0,txtN-4),xc,yp);
+		
+		for(i=0;i<fortime;i++){
+		yp=yp+14;
+			txt=txt.substring(txtN-4);
+			var txt2="        "+txt.substring(0,txtN-4);
+			ctx.fillText(txt2,xc,yp);
+		}
+		
+	}else{
+	ctx.fillText(txt,xc,yp);
+	}
+}
+
+function txtR2(year0,txt){
+	var xc=Xcor+nianL100; 
+	var yp;
+	if(year0>=0){
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+
+	}else{
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+	
+	}
+
+	ctx.fillStyle="#00f";
+	ctx.beginPath();
+	ctx.moveTo(Xcor+3,yp);
+	ctx.lineTo(xc,yp);
+	ctx.stroke();
+	ctx.textBaseline = "middle"; 	
+	ctx.font="12px Verdana"; 
+	ctx.fillStyle="#000";
+	ctx.textAlign="left";
+//xc的位置是xc=Xcor+nianL100＝974－436－30＝508，可以容纳46个12px的字符(44*12=535)；	
+	var txtN;//右边屏幕可容纳字符串个数；
+	var txtW=12*1;//手工算出是0.945;txtW是一个字符串的宽度；
+	txtN=Math.floor((canvasW-xc)/txtW);		
+
+	if(txt.length>txtN){
+		var fortime=Math.ceil(txt.length/txtN);//需要循环的次数；
+		ctx.fillText(txt.substring(0,txtN-4),xc,yp);
+		
+		for(i=0;i<fortime;i++){
+		yp=yp+14;
+			txt=txt.substring(txtN-4);
+			var txt2="          "+txt.substring(0,txtN-4);
+			ctx.fillText(txt2,xc,yp);
+		}
+		
+	}else{
+	ctx.fillText(txt,xc,yp);
+	}
+}
+function txtL2(year0,txt){
+	var xc=Xcor-nianL-65; //左边的线条从右边开始到左边结束的位置；
+	var xc2=10;//左边文本从左边开始的位置；
+	var yp;
+	if(year0>=0){
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+
+	}else{
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+
+	}
+	ctx.fillStyle="#00f";
+	ctx.beginPath();
+	ctx.moveTo(Xcor-60,yp);
+	ctx.lineTo(xc+xc2-40,yp);
+	ctx.stroke();
+	
+	ctx.textBaseline = "middle"; 		
+	ctx.font="12px Verdana"; 
+	ctx.fillStyle="#000";
+	ctx.textAlign="left";
+//xc的位置是xc=Xcor+nianL100＝974－436－30＝508，可以容纳46个12px的字符(44*12=535)；
+
+
+	var txtN;//右边屏幕可容纳字符串个数；
+	var txtW=12*1;//手工算出是0.945;txtW是一个字符串的宽度；
+	txtN=Math.floor(xc/txtW);	
+	
+
+	if(txt.length>txtN){
+		var fortime=Math.ceil(txt.length/txtN);//需要循环的次数；
+		ctx.fillText(txt.substring(0,txtN),xc2,yp);
+		for(i=0;i<fortime;i++){
+		yp=yp+14;
+			txt=txt.substring(txtN);
+			var txt2="        "+txt.substring(0,txtN);
+			ctx.fillText(txt2,xc2,yp);
+		}
+	}else{
+	ctx.fillText(txt,xc2,yp);
+	}
+	
+
+	
+}
+
+
+	ctx.font = '24px 宋体';  
+	ctx.fillStyle = '#808000';  
+                var linearGradient = ctx.createLinearGradient(0, 0, 100, 24);  
+                linearGradient.addColorStop(0, "#fff");  
+                linearGradient.addColorStop(0.8, "#aaa");  
+                linearGradient.addColorStop(1, "#000");  
+                ctx.beginPath();  
+                ctx.arc(50, 50, 50, 0, 2 * Math.PI, true);  
+                ctx.fillStyle = linearGradient; 
+
+ctx.font = '12px 宋体';  
+ctx.fillStyle = '#808000'; 	
+ctx.fillText("计算理论及设备的创建及他们的天才灵感",10,1600);
+
+
+txtL(1,"大");
+txtR(1,"大");
+txtL2(1600,"计算理论及设备的创建及他们的天才灵感");
+txtR(1600,"英国物理学家吉伯发现，不仅琥珀和煤玉摩擦后能吸引轻小物体，而且相当多的物质经摩擦后也都具有吸引轻小物体的性质，他注意到这些物质经摩擦后并不具备磁石那种指南北的性质。为了表明与磁性的不同，他采用琥珀的希腊字母拼音elektron把这种性质称为“电的”。");
+txtL(1621,"英国人冈特发明计算尺，这是世界上最早的模拟计算工具。");
+txtL(1623,"德国科学家希克尔德Wilhelm Schickard率先研制出了欧洲第一台计算设备，这是一个能进行六位以内数加减法，并能通过铃声输出答案的“计算钟”。使用转动齿轮来进行操作。");
+
+txtL(1642,"法国数学家Pascal 在WILLIAM Oughtred计算尺的基础上，设计出了一种利用齿轮的运转来进行加减法的加法机，将计算尺加以改进，能进行八位计算。");
+txtL2(1660,"大约在1660年，德国马德堡的盖利克发明了第一台摩擦起电机。");
+txtR(1666,"英国的牛顿提出万有引力定律");
+txtL(1673,"德国数学家莱布尼兹发明乘法机，这是第一台可以运行完整的四则运算的计算机。莱布尼兹同时还提出了“可以用机械代替人进行繁琐重复的计算工作”的伟大思想，这一思想至今鼓舞着人们探求新的计算机。");
+txtR(1677,"德国的莱布尼兹发明微积分");
+txtR(1801,"Joseph Marie Jacquard对织布机的设计进行了改进，其中他使用了一系列打孔的纸卡片来作为编织复杂图案的程序。Jacquard式织布机，尽管并不被认为是一台真正的计算机，但是它的出现确实是现代计算机发展过程中重要的一步。");
+txtL2(1803,"19世纪80年代,美国人霍利瑞斯H.Hollerith首次使用穿孔卡技术的数据处理机器,用于人口普查。");
+txtR(1822,"英国人查尔斯.马贝奇C.Babbage完成了第一台差分机");
+txtR(1847,"1854年，英国数学家布尔发表了两部重要著作《逻辑的数学分析》和《思维规律的研究》，创立了逻辑代数。逻辑代数系统采用二进制，是现代电子计算机的数学和逻辑基础。");
+
+txtL(1879,"1879.10.21，爱迪生点燃了世界上第一盏电灯。同年，英国的麦克斯韦出版《电磁通论》，集电磁理论之大成。美国的霍尔发现电流通过金属,在磁场作用下产生横向电动势");
+txtR(1888,"美国人赫尔曼·霍勒斯发明了制表机，它采用穿孔卡片进行数据处理，并用电气控制技术取代了纯机械装置。");
+txtL(1901,"1901年12月12日古列尔莫·马可尼（Guglielmo Marconi）,接收到了第一次人类跨过大西洋的无线电通讯讯号。");
+txtL(1893,"1893年，尼古拉·特斯拉（Nikola Tesla）在美国密苏里州圣路易斯首次公开展示了无线电通信。他所制作的仪器包含电子管发明之前无线电系统的所有基本要素。");
+txtL2(1863,"1864年，英国科学家麦克斯韦建立了完整的电磁波理论，推导出电磁波与光具有同样的传播速度。");
+txtL(1887,"德国物理学家海因里希·鲁道夫·赫兹（Heinrich Rudolf Hertz）用实验证实了电磁波的存在");
+txtL(1745,"荷兰莱顿的穆申布鲁克发明了能保存电的莱顿瓶。莱顿瓶的发明为电的进一步研究提供了条件，它对于电知识的传播起到了重要的作用。");
+txtL(1819,"丹麦人奥斯特发现如果电路中有电流通过，它附近的普通罗盘的磁针就会发生偏移。");
+txtL(1821,"法拉第从中得到启发，认为假如磁铁固定，线圈就可能会运动。根据这种设想，他成功地发明了一种简单的装置。在装置内，只要有电流通过线路，线路就会绕着一块磁铁不停地转动。");
+
+txtL(1831,"法拉第制出了世界上最早的第一台电动机;同时也建造了第一座发电机原型。");
+txtL(1854,"布尔出版了《思维规律的研究－逻辑与概率的数学理论基础》标志着布尔代数的建立，是计算机数字电路的理论基础。");
+txtR(1895,"英国人约翰.弗莱明J.Fleming发明了世界上第一只真空二极管。");
+txtL(1907,"美国人德.福雷斯特D.Forest发明了真空三极管。");
+txtL(1837,"莫尔斯电报机在美国研制成功。");
+txtR(1831,"俄罗斯的西林格把线圈和磁针组合在一起，发明了电报机。1820年，丹麦奥斯特在一篇论文中公布了他的一个发现：在与伏打电池连接了的导线旁边放一个磁针，磁针马上就发生偏转。西格林由此受到启发。");
+txtR(1820,"丹麦奥斯特在一篇论文中公布了他的一个发现：在与伏打电池连接了的导线旁边放一个磁针，磁针马上就发生偏转。");
+txtR(1799,"意大利伏打(伏特A Voult)以含食盐水的湿抹布，夹在银和锌的圆形板中间，堆积成圆柱状，制造出最早的电池－伏打电池。");
+
+txtL(1936,"图灵机：24岁的英国数学家图灵发表著名论文《论可计算数及其在密码问题的应用》，提出了“理想计算机”，后人称之为“图灵机”。图灵通过数学证明得出理论上存在“通用图灵机”，这为可计算性的概念提供了严格的数学定义，图灵机成为现代通用数字计算机的数学模型，它证明通用数字计算机是可以制造出来的。");
+
+txtR(1938,"香农的逻辑电路理论：美国人克劳德·艾尔伍德·香农（Claude Shannon）发表了他的伟大论文《对继电器和开关电路中的符号分析》，文中首次提及数字电子技术的应用。他向人们展示了如何使用开关来实现逻辑和数学运算。1938年，德国人Zuse完成了Z1电子机械二进制计算机；");
+txtR(1942,"美国人阿坦那索夫和贝利设计了完全采用真空管作为存储与运算元件的计算机ABC（Atanasoff Berry Computer）；");
+txtL(1944,"5月，Mark 1,美国 人霍华德.艾肯H.Aiken制造了第一台电磁式继电器计算机;");
+txtR(1944,"6月,英国人Flowers发明了Colossus,用来破译德的密码;");
+txtR(1945,"11月,美国人Mauchly和Eckert研制完成第一台全数字电子计算机ENIAC；");
+txtL(1949,"布拉顿、巴丁、肖克利W.Shockley发明了锗晶体管，PNP或NPN型。");
+txtR(1949,"英国人威尔克斯（Maurice Vincent Wilkes）领导、设计和制造EDSAC（Electronic Delay Storage Automatic Calculator，电子延迟存储自动计算机）是世界上首次实现存储程序计算机。");
+txtL(1951,"美德州仪器公司TI首创了半导体硅晶体管；");
+txtR(1956,"冯·诺伊曼领导设计了EDVAC (Electronic Discrete variable Automatic Computer)。：（1）采用了二进制，不但数据采用二进制，指令也采用二进制；（2)建立了存储程序，指令和数据便可一起放在存储器里，并作同样处理．简化了计算机的结构，大大提高了计算机的速度。");
+txtL(1958,"9月，美德州仪器公司的杰克.基尔比J.Kilby造出了第一块“集成”的半导体电路(集成电路)，集成了1个晶体管、3个电阻、1个电容。");
+txtL(1971,"1月，英特尔公司的马西安.特德.霍夫(T.hoff)发明了世界上第一枚微处理器4004。");
+txtR(1975,"人类的第一台微型计算机“牵牛星”使用的正是第三代4004，8080；");
+txtR(1976,"乔布斯成立了apple,并组装了apple Ⅱ;");
+txtL2(1981,"1981.8.12,IBM PC:intl+MS dos1.0");
+txtR(1969,"贝尔实验室研究人员肯.汤普森Ken Thompson和登尼斯.瑞奇Dennis Ritchie合作开发了一个面向小型机的操作系统Unix.");
+txtL2(1969,"1969年10月ARPA进行了第一次通信试验。");
+txtL(1974,"5月，康恩和舍夫的论文在《IEEE通信技术汇刊》杂志上发表。于是，TCP/IP协议正式诞生了。");
+txtL(1990,"12月，提姆.伯纳尔斯.李Tim Berners Lee完成了世界上第一个万维网的服务器程序和浏览器的编码工作。");
+txtR(1991,"芬兰人利纳斯.托瓦尔兹Linus Torvalds开发了Linux.大部分用于服务器和嵌入式设备中。");
+txtL2(1993,"1993.2,马克.安德雷生Marc Andreeseen和自己的同事埃瑞克.比纳Eric Bina写了一个叫Mosaic的浏览器软件。");
+txtR2(1995,"1994年6月，MS-dos 6.22 最后一个销售版本。1995.8 IE1.0发布.");
+txtR2(1994,"1994年10月，Netscape推出了第一代浏览器产品Nevigator。");
+txtL2(2000,"2000年9月，MS-dos 8.0 dos的最后一个版本");
+
+
+</script>
+</body>
+</html>

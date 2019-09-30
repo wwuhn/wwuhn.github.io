@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>十首让你潸然泪下的诗词</h3>
+
+<p>纳兰性德说：当时只道是寻常。</p>
+<p>年少读诗，总喜欢那些荡气回肠或柔情万里的诗词，感觉每一句都充满了深意。直到多年以后，经历了一些事情，才能真正读懂诗中的情意，然后潸然泪下。</p>
+<p>《丑奴儿·书博山道中壁》</p>
+<p>宋·辛弃疾</p>
+<p>少年不识愁滋味，爱上层楼。</p>
+<p>爱上层楼，为赋新词强说愁。</p>
+<p>而今识尽愁滋味，欲说还休。</p>
+<p>欲说还休，却道天凉好个秋。</p>
+<p>年少时以为自己懂得了人生的愁苦，侃侃而谈生活的不如意，仿佛自己是一个洞穿世事的智者，能够看清楚生活的真相，面对生活的苦难。</p>
+<p>经历了一些事情，受过的一些挫折后，才发现，真正的愁苦是说不出的。有些事情不知道如何说，向谁说，只能自己消化。</p>
+<p>《虞美人·听雨》</p>
+<p>宋·蒋捷</p>
+<p>少年听雨歌楼上。红烛昏罗帐。</p>
+<p>壮年听雨客舟中。</p>
+<p>江阔云低、断雁叫西风。</p>
+<p>而今听雨僧庐下。鬓已星星也。</p>
+<p>悲欢离合总无情。</p>
+<p>一任阶前、点滴到天明。</p>
+<p>年少时，意气风发，纵情歌酒，中年时，失意低沉，患得患失。</p>
+<p>到了暮年，把该放下的放下，该看清的看清后，才懂得，人生不如意事十之八九，悲欢离合自有天意，既然如此，有何必感叹呢！顺其自然吧！</p>
+<p>《夜雨》</p>
+<p>唐·白居易</p>
+<p>我有所念人，隔在远远乡。</p>
+<p><p<strong>>我有所感事，结在深深肠。</p>
+<p>乡远去不得，无日不瞻望。</p>
+<p>肠深解不得，无夕不思量。</p>
+<p>况此残灯夜，独宿在空堂。</p>
+<p>秋天殊未晓，风雨正苍苍。</p>
+<p>不学头陀法，前心安可忘。</p>
+<p>我有所念人，隔在远远乡。我有所感事，结在深深肠。年少读诗，对这句话很美，很美！</p>
+<p>等到中年，才越发感慨那句乡远去</strong>不得，无日不瞻望。肠深解不得，无夕不思量的深意，是啊，故乡遥远却无法回去，内心痛苦却无处化解。</p>
+<p>《蝶恋花·阅尽天涯离别苦》</p>
+<p>近现代·王国维</p>
+<p>阅尽天涯离别苦，不道归来，</p>
+<p>零落花如许。</p>
+<p>花底相看无一语，绿窗春与天俱暮。</p>
+<p>待把相思灯下诉，一缕新欢，</p>
+<p>旧恨千千缕。</p>
+<p>最是人间留不住，朱颜辞镜花辞树。</p>
+<p>年少不懂离别，不懂物是人非。只有经历了天涯离别后，才发现，绿窗与青天如故，却已经不是当时的风景。</p>
+<p>时光流逝啊，人世间最留不住的是，那在镜中一去不复返的青春和离树飘零的落花</p>
+<p>《唐多令·芦叶满汀洲》</p>
+<p>宋·刘过</p>
+<p>芦叶满汀洲，寒沙带浅流。</p>
+<p>二十年重过南楼。</p>
+<p>柳下系船犹未稳，能几日，又中秋。</p>
+<p>黄鹤断矶头，故人今在否？</p>
+<p>旧江山浑是新愁。</p>
+<p>欲买桂花同载酒，终不似，少年游。</p>
+<p>光阴似箭，重回故地，柳树下的小舟尚未系稳，我就要匆匆忙忙回到家乡啦！</p>
+<p>我年少时的老朋友呢？眼前满目是苍凉的旧江山，买上桂花，带着美酒，却已然没有了年少的豪迈啊！</p>
+<p>《月夜忆舍弟》</p>
+<p>唐·杜甫</p>
+<p>戍鼓断人行，边秋一雁声。</p>
+<p>露从今夜白，月是故乡明。</p>
+<p>有弟皆分散，无家问死生。</p>
+<p>寄书长不达，况乃未休兵。</p>
+<p>年少时，总想着出去闯闯，待到成功时衣锦还乡。</p>
+<p>可是，有时候，一旦分别，就身不由己。在远离家乡的某地，共看一轮明月，才发现，月亮还是家乡的最圆。我的那些兄弟们呢？却已经分散在天涯，无处打听消息。</p>
+<p>《渡汉江》</p>
+<p>唐·宋之问</p>
+<p>岭外音书断，经冬复历春。</p>
+<p>近乡情更怯，不敢问来人。</p>
+<p>年少回家，总是令人欢快和兴奋的事情，不理解为什么为“近乡情更怯”。</p>
+<p>等长大之后，满面风霜，回到家乡，才感受到近乡情更怯的真意，这都是源于对家乡对家人爱与挂怀啊。</p>
+<p>《寄黄几复》</p>
+<p>宋·黄庭坚</p>
+<p>我居北海君南海，寄雁传书谢不能。</p>
+<p>桃李春风一杯酒，江湖夜雨十年灯。</p>
+<p>持家但有四立壁，治病不蕲三折肱。</p>
+<p>想见读书头已白，隔溪猿哭瘴溪藤。</p>
+<p>年少不懂离别，以为朋友就是一辈子，一辈子联系，一辈子往来。</p>
+<p>可是，长大了，朋友就越来越不联系了，想着当初春风下观赏桃李，共饮美酒。江湖落魄，一别已是十年，只能对着孤灯，听着秋雨，思念着朋友。</p>
+<p>《独坐敬亭山》</p>
+<p>唐·李白</p>
+<p>众鸟高飞尽，孤云独去闲。</p>
+<p>相看两不厌，只有敬亭山。</p>
+<p>年少轻狂，最耐不住寂寞，总喜欢热闹，喜欢往人多的地方走，往繁华的地方走。</p>
+<p>可是历经繁华，感受了人世间冷暖，才知道，看不够，看不厌的的，也许就只有敬亭山了。</p>
+<p>《浣溪沙·谁念西风独自凉》</p>
+<p>清·纳兰性德</p>
+<p>谁念西风独自凉，萧萧黄叶闭疏窗，</p>
+<p>沉思往事立残阳。</p>
+<p>被酒莫惊春睡重，赌书消得泼茶香，</p>
+<p>当时只道是寻常。</p>
+<p>人生如果不经历失去，又如何懂得珍惜的可贵。人生如果不经历繁华，又如何懂得平淡的可贵。</p>
+<p>经历了轰轰烈烈，才懂平平淡淡才是真。平凡才是生活，一切都将归于平淡。</p>
+<p>到人生后半场你会发现，其实我们真正拥有的，只有一个小家。在今天获得经济自由的同时，由家庭、事业、个人而产生的焦虑仍无处不在，甚至愈演愈烈。如何处理家庭工作中的困倦与无力，如何找到内心的安宁与平静？听民谣之父胡德夫为你讲述六十载人生沉浮，感受最至诚的人生告白。人到中年，如何应对生活中的危机，更重要的是，如何在危机后过好日子？</p>
+<p></strong></p>
+
+
+<p style='float:right;'>本页共90段，2575个字符，6316 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

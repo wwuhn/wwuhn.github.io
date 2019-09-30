@@ -1,0 +1,149 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>歌词同步播放器-powered by widuu xiaowei</title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.4">
+<meta name="MobileOptimized" content="240">
+<link href="/mp3/css/blue.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/mp3/js/jquery.js"></script>
+<script type="text/javascript" src="/mp3/js/jquery.jplayer.js"></script>
+<script type="text/javascript" src="/mp3/js/lrc.js"></script>
+<style type="text/css">
+* { margin:0; padding:0; }
+ul, ol, dl { list-style:none; }
+.content li.hover{ color:red; }
+.content{ width:402px; height:200px; background:#ccc; overflow:hidden; padding:10px;}
+</style>
+<script>
+//<![CDATA[
+$(document).ready(function(){
+$("#jquery_jplayer_1").jPlayer({
+ready: function (event) {
+$(this).jPlayer("setMedia", {
+mp3:"yangcong.mp3" //mp3的播放地址
+}).jPlayer("play");
+},
+timeupdate: function(event) {
+if(event.jPlayer.status.currentTime==0){
+time = "";
+}else {
+time = event.jPlayer.status.currentTime;
+}
+
+},
+play: function(event) {
+//点击开始方法调用lrc。start歌词方法 返回时间time
+
+if(event.jPlayer.status.currentTime==0){
+$("#jquery_jplayer_1").jPlayer("pause",1);
+}
+
+if($('#lrc_content').val()!==""){
+$.lrc.start($('#lrc_content').val(), function() {
+return time;
+});
+}else{
+$(".content").html("没有字幕");
+}
+},
+repeat: function(event) {
+if(event.jPlayer.options.loop) {
+$(this).unbind(".jPlayerRepeat").bind($.jPlayer.event.ended + ".jPlayer.jPlayerRepeat", function() {
+$(this).jPlayer("play");
+});
+} else {
+$(this).unbind(".jPlayerRepeat");
+}
+},
+swfPath: "/js", //存放jplayer.swf的决定路径
+solution:"html, flash", //支持的页面
+supplied: "mp3", //支持的音频的格式
+wmode: "window"
+
+});
+$("#lrc_content").hide();
+});
+//]]>
+</script>
+</head>
+<body>
+<textarea id="lrc_content" name="textfield" cols="70" rows="10">
+[ar:测试用 ]
+[00:03.00]洋葱
+[00:06.00]演唱：平安
+[00:09.00]
+[00:11.38]如果你眼神能够为我片刻的降临
+[00:21.23]如果你能听到心碎的声音
+[00:28.88]盘底的洋葱像我永远是配角戏
+[00:35.74]偷偷的看着你偷偷的隐藏着自己
+[00:43.48]
+[00:44.90]如果你愿意一层一层
+[00:48.46]一层的剥开我的心
+[00:52.66]你会发现你会讶异
+[00:56.40]你是我最压抑最深处的秘密
+[01:00.26]如果你愿意一层一层
+[01:03.69]一层的剥开我的心
+[01:07.76]你会鼻酸你会流泪
+[01:11.60]只要你能听到我看到我的全心全意
+[01:18.30]
+[01:19.11]如果你愿意一层一层
+[01:22.57]一层的剥开我的心
+[01:26.66]你会发现你会讶异
+[01:30.41]你是我最压抑最深处的秘密
+[01:34.48]如果你愿意一层一层
+[01:37.58]一层的剥开我的心
+[01:41.51]你会鼻酸你会流泪
+[01:45.15]只要你能听到我看到我的全心全意
+[01:53.55]
+[01:55.65]你会鼻酸你会流泪
+[01:59.84]只要你能听到我看到我的全心全意
+[02:12.57]
+</textarea></p> <p><p>
+<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+<div id="jp_container_1" class="jp-audio">
+<div class="jp-type-single">
+<div class="jp-gui jp-interface">
+<ul class="jp-controls">
+<li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+<li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+<li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+<li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+<li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+</ul>
+<div class="jp-progress">
+<div class="jp-seek-bar">
+<div class="jp-play-bar"></div>
+</div>
+</div>
+<div class="jp-volume-bar">
+<div class="jp-volume-bar-value"></div>
+</div>
+<div class="jp-time-holder">
+<div class="jp-current-time"></div>
+<div class="jp-duration"></div>
+<ul class="jp-toggles">
+<li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
+<li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
+</ul>
+</div>
+</div>
+<div class="jp-title">
+<ul>
+<li>mp3player powered by xiaowei</li>
+</ul>
+</div>
+<div class="jp-no-solution">
+<span>Update Required</span>
+To play the media you will need to either update your browser to a recent version or update your <a href="<a href="http://get.adobe.com/flashplayer/">http://get.adobe.com/flashplayer/</a>" target="_blank">Flash plugin</a>.
+</div>
+</div>
+</div>
+<div class="content"><ul id="lrc_list">
+点击开始播放……
+</ul></div>
+</body>
+</html>

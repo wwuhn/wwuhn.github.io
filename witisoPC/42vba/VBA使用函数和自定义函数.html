@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>VBA使用函数和自定义函数</title> <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</meta></head>
+
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+
+
+<body>
+
+<div id="container">
+<h3>VBA中输入公式和使用函数</h3>
+<p>1 VBA在单元格中输入公式</p>
+<p>在公式中一般会出现对单元格地址的引用，引用的方式有绝对引用（A1方式）和相对引用（R1C1）方式，同样的，在用VBA输入公式时，也会有两种方式。
+
+<p>1.1 输入A1格式的公式</p>
+
+<p>向单元格输入公式，实际上就是输入公式的字符串。这时采用Range的value属性或Formula属性均可。</p>
+
+<p>.Range("E11").Formula = "=sum(E2:E10)"</p>
+
+
+
+<p>1.2 输入R1C1公式</p>
+
+<p>使用R1C1格式向单元格输入公式，实际上是录制宏的方式。是一种地址相对引用的方式，这里的相对引用的基准地址就是公式所在的地址，
+
+以此地址为基准，偏移行R和列C得到相对引用位置。有些人可能喜欢这种方式，不过这种方式不像A1方式那样直观和容易理解。</p>
+<p>(如果不是很熟悉VBA的语法格式，可以采取录制宏的方式去得到代码；如果觉得R1C1格式不习惯，可以在在Excel，设置公式的引用方式为A1（在Excel选项的公式项中设置），输入公式后再复制到VBA代码中。)</p>
+<p>.Range("G11").FormulaR1C1 = "=SUM(R[-9]C:R[-1]C)";
+<p>[]中的数据代表单元格相对于当前单元格的行列偏移。</p>
+<p>1.3 输入数组公式
+<p>向单元格或单元格区域输入数组公式，需要使用FormulaArray属性。
+<p>Range("E1:E11")FormulaArray = "=C2:C10*D2:D10"
+<p>2 使用函数</p>
+<p>2.1 VBA引用Excel内置函数</p>
+<p>.Range("A16") = "=find(""."",A13,1)"</p>
+<p>.Range("A18") = Application.WorksheetFunction.Find(".", fname, 1)</p>
+<p>(在VBE的代码窗口中输入Application.WorksheetFunction.可以得到引用Excel内置函数的提示；)</p>
+<p>2.2 VBA引用内置函数</p>
+
+<p>如Left(字符串，字符数）；</p>
+<p>(在VBE的代码窗口中输入VBA.，可以得到内置函数的提示；)</p>
+<p>2.3 自定义函数：Function</p>
+  <p>函数过程的标志以Function开头，定义好以后，可以像调用Excel已定义的函数一样通过等于号去使用它。</p>
+  <p>如：</p>
+<p>Function 及格率(cell As Range)</p>
+
+<p>及格率=WorksheetFunction.CountIf(cell, ">=60") / WorksheetFunction.CountIf(cell, ">0")</p>
+
+<p>及格率=Format(及格率, "0.00%")</p>
+
+<p>End Function</p>
+<p>自定义函数可以必须有返回值，所以有函数体中必须至少被赋值一次，也因此在Function后跟数据类型定义；</p>
+<p>Function过程通常三种方式调用：</p>
+<p>（1）在工作表中通过公式调用：像内部函数一样在工作表中使用，也可以与其它函数嵌套。使用方法如下：</p>
+<p>公式→插入函数→类别：用户定义→选择函数；</p>
+
+<p>（2）在VBA代码中被其它过程调用。</p>
+
+<p>（3）递归：Function过程和Sub一样可以实现递归。如果不是刻意地、有计划地进入递归状态，可以会造成资源耗尽或者溢出堆栈空间。例如下例函数的调用：
+  </p>
+</p>
+
+<p>在VBA语言中，也有预定义一些函数，与Excel预定义的相同功能的函数有细微区别）。
+
+Sub formulaTest()</p>
+
+<p>With ActiveWorkbook.Sheets(&quot;使用公式和函数&quot;)</p>
+
+<p>For i = 2 To 10</p>
+
+<p>.Range(&quot;E&quot; &amp; i).Value = &quot;=sum(A&quot; &amp; i &amp; &quot;:D&quot; &amp; i &amp; &quot;2)&quot;</p>
+
+<p>Next</p>
+
+<p>.Range(&quot;E11&quot;).Formula = &quot;=sum(E2:E10)&quot;</p>
+
+<p>.Range(&quot;G11&quot;).FormulaR1C1 = &quot;=SUM(R[-9]C:R[-1]C)&quot;</p>
+
+<p>.Range(&quot;G2:G10&quot;).FormulaArray = &quot;=E2:E10*F2:F10&quot;</p>
+
+<p>.Range(&quot;A13&quot;) = ActiveWorkbook.Name</p>
+
+<p>Dim fname As String</p>
+
+<p>fname = Range(&quot;A13&quot;).Value</p>
+
+<p></p>
+
+<p>.Range(&quot;A14&quot;) = InStr(ActiveWorkbook.Name, &quot;.&quot;)</p>
+
+<p>.Range(&quot;A15&quot;) = InStr([A13], &quot;.&quot;)</p>
+
+<p>.Range(&quot;A16&quot;) = &quot;=find(&quot;&quot;.&quot;&quot;,A13,1)&quot;</p>
+
+<p>.Range(&quot;A17&quot;) = InStr(fname, &quot;.&quot;)</p>
+
+<p>.Range(&quot;A18&quot;) = Application.WorksheetFunction.Find(&quot;.&quot;, fname, 1)</p>
+
+<p>.Range(&quot;A19&quot;) = Application.WorksheetFunction.Find(&quot;.&quot;, [A13], 1)</p>
+
+<p>'[A13]相当于range(&quot;A13&quot;)</p>
+
+<p>End With</p>
+
+<p>'Instr([start,]string1,string2[,compare])</p>
+
+<p>End Sub</p>
+
+<p><h3>定义函数的帮助信息。</h3>
+
+<p>VBA中用于指定函数说明的是Application.MacroOptions方法。</p>
+
+<p>Application.MacroOptions方法的基本语法是：</p>
+
+<p>Application.MacroOptions(Macro,Description,HasMenu,MenuText,?HasShortcutKey,ShortcutKey,Category,StatusBar,HelpContextID,HelpFile)</p>
+  <p>Application.MacroOptions?Macro:=&quot;大写&quot;,?Description:=&quot;将阿拉伯数字转为人民币金额大写&quot;,?Category:=&quot;andy专用&quot;</p>
+  <p>使用MacroOptions方法添加函数的帮助分为两类：普通工作簿和加载宏。基于普通工作簿与加载工作簿的特性不同，在设置函数说明时需要区别对待。</p>
+  <p>&nbsp;</p>
+</div>
+</body>
+</html>

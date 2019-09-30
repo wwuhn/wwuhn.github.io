@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>小白初学编程需要了解的一些概念</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+<h4>数据和数据处理的概念</h4>
+<p>程序是一个指令序列，指令是对数据的处理。一定程度上，程序也可以理解为是变量和函数的组合（类与对象在本质上也是如此，因为其成员也是变量和函数方法）。
+<p>指令包含操作码和地址码，分别指向一个包含操作指令和数据的内存单元。</p>
+</p>
+<p>程序也是表达式的集合，表达式 = 操作数 + 操作符；</p>
+<p>程序的整体和局部都可以通过输入、处理、输出三个部分去描述。</p>
+<p>程序=数据结构（数据及关系表示、存储）+算法（数据处理步骤的描述）+程序语言（用程序语言去描述数据结构和算法）</p>
+<p>程序是定义数据和对这些数据的操作（运算）</p>
+<p>数据类型：值集合←→运算符；</p>
+<p>数据结构：元素←→元素的增、删、改、查；</p>
+<p>类：成员数据←→成员方法；</p>
+<p>容器类：元素←→容器元素的增、删、改、查；</p>
+<p>函数：函数局部变量←→函数局部变量的运算；</p>
+<h4>赋值语句的理解</h4>
+<p>程序的赋值语句用等号=连接，在编程中的=号不同于数学上的等号。如编程中的赋值语句：i = i + 1，这在数学中是行不通的，在编程中表示一个赋值语句。编程中的赋值语句需要从右往左（右结合，与一般表达式的左结合不同）理解，也就是左边的值赋给右边的变量，用左边的值初始化或更新右边的变量。右边的表达式可以包含变量，但其值本身不会改变。如下面交换两个值的代码：</p>
+<pre>
+temp = a; //因为下一步想更新a的值，所以先把其值保存到temp
+a = b;
+b = temp;
+</pre>
+<h4>函数的声明、定义和调用及形参与实参的关系</h4>
+<p>函数是对一段代码的封装，让程序模块化，封装的时机可以在需要时进行。</p>
+<p>函数的内容一般也可以分为输入、处理、输出三部分：形参和定义的局部变量形成输入、返回值形成输出。</p>
+<p>函数声明、定义和调用时，其头部结构是相同的，提供的是一个接口。声明和定义时的形参相当于一个局部变量的声明，调用时需要对形参赋值，赋值后的形参就是实参。</p>
+<p>对于库函数，我们需要熟悉的就是其接口，只需要知道其名字、能完成的功能，需要提供的实参。</p>
+<p>调用时，如果用变量（已有值）给形参赋值，用于赋值的变量与被调用的函数内使用的变量属于不同的作用域，所以即使名字相同（因为作用域不同，才允许名字相同），其值也互不影响。</p>
+<p>（如果想要修改用于赋值的变量，需要在函数中使用指针（C或C++）或引用（C++或Python的可变对象的引用。）</p>
+
+
+
+<h4>对标识符的理解</h4>
+<p>程序中有大量的命名工作，如对变量、常量、函数、类、对象命名，取的名字在程序中叫标识符。</p>
+<p>命名的标识符我们追求尽量有意义，更优雅，但有时不要钻牛角尖，不要为找意义而找意义，它只是一个起标识作用的符号而已。代表一个内存单元（数据），或一个功能，用什么名字都行，只要在使用时保持一致。</p>
+
+<h4>数据结构及其逻辑关系与存储关系</h4>
+<p>数据结构是对于数据元素集合（或叫容器）而言的。因此在一个数据集中，不仅要考虑元素本身，还要考虑元素之间的关系（逻辑关系），还要考虑存得进去，取得出来（元素操作的访问），以及元素操作的增、删、改的操作，这些操作需要考虑效率（存储关系）。</p>
+<p>不管是逻辑关系还是存储关系，都可以用额外的数据来存储（用数据来表示关系）。这时数据结构形成了两个集合，一个是元素本身的集合，另外一个就是关系的集合。</p>
+<p>存储关系的链式存储（还有一种就是顺序存储）就是用额外的数据（C的结构体+指针，或Python的类+引用，必须用到复合数据类型）来表示元素的链式关系。</p>
+
+<p>数据结构的逻辑关系有线性关系、树型层次关系、图形网状关系三种。</p>
+
+<p>线性关系不管是顺序存储还是链式存储，其前后关系都可以直接表现出来，不需要额外的数据来表示。</p>
+<p>对于树型层次关系，最简单的二叉树可以用顺序存储，此外的不规则的树可以用额外的数据来表示双亲、孩子、兄弟的位置。</p>
+<p>对于图型网状关系，可以用额外的数据来存储某一顶点的边。如邻接矩阵、邻接表都是顶点和边的数据集合。</p>
+<p>同样的数组（C或C++）或列表(Python)，因为数组或列表不同的操作（定义不同函数），可以构造出不同的数据结构（如栈、队列）。</p>
+
+<h4>程序的组织与阅读</h4>
+
+<p>对于结构化编程的C语言程序，代码阅读需从main()开始，此函数是程序的干流，main()对其它函数的调用可以理解为支流。</p>
+<p>程序的组织也是如此，可以在main()中搭建一个框架，分解为不同的函数在main()中调用。（main()就局部变量的作用域而方，与其它函数处理同等的地位）</p>
+<p>Python中虽然没有强制要求声明main()函数，但出于清晰组织代码的需要，也可以由main()来调用其它函数，以形成清晰的主次调用关系。</p>
+
+<p>在对话框程序中，一般也会有主类，由主类包含其它类的头文件，形成调用关系。</p>
+<h4>对于结构体和类的理解</h4>
+<p>结构体和类的语法都是由程序语言提供给程序员的一种自定义复合（结构）数据类型的机制。</p>
+
+<p>结构体和类定义完成后，便可如同声明变量变量一样声明结构体变量或类实例了。</p>
+<p>一般使用英文句点.来引用结构体变量或类实例成员（成员数据或方法），如下面的语法：</p>
+<p>结构体变量或类实例.结构体变量或类实例成员</p>
+<p>把前面的部分理解为修饰前缀就好了。</p>
+<p>strObj.var</p>
+<p>你可以理解为：属于strObj的变量var；</p>
+<p>obj.method()</p>
+<p>你可以理解为：属于obj的方法method()；</p>
+<p>相当于是整体与部分的关系。</p>
+<p>结构体和类其本质是一种模块化的封装。</p>
+
+<h4>一般的编程是操作系统之上的编程，是利用编程语言的库的编程</h4>
+
+<p>一般的编程都不是完全从0开始的，一般的编程语言基于不同的操作系统提供不同的编译器或解释器。同时，高级编程语言都会提供函数库或类库。你不需要了解其是如何实现的，只需要了解其接口，知道怎样调用即可。同样的，你也可以积累自己的函数库或类库。</p>
+<p>（Python中不叫库，叫模板，用import引入，C或C++中用include包含进来。）</p>
+<h4>数据存储与表示</h4>
+
+<p>程序处理的数据在程序中用变量、常量或数据容器来表示，指向一个内存单元。内存单元其实质是用序列号来表示的，但在高级语言中抽象为变量或常量。</p>
+<p>变量或常量按所存储数据的大小由操作系统分配一块内存空间。</p>
+
+<h4>数据输入、处理（运算）、输出的概念</h4>
+<p>计算机系统是一个数据输入、处理、输出的系统（还包括数据存储），硬件如此，程序也是如此。</p>
+<p>硬件内的模块、集成电路是如此，程序的整体、及作为部件的函数（或对象方法）也是如此。</p>
+<p>对于控制台程序，输入输出是通过函数或关键字进行，如C的input()、printf()，C++的cin、cout，Python的input()、print()。</p>
+<p>对于GUI(图形用户界面)程序，输入输出借助于窗体表单控件，变量与控件交互，控件与用户交互。</p>
+
+<h4>编程语言中的控制结构与跳转</h4>
+<p>高级语言中有顺序、选择、循环三种控制结构。</p>
+<p>选择、循环结构可以实现语句的跳转，改变语句的顺序流程。</p>
+<p>在机器语言和汇编语言中是怎样实现的呢？是通过跳转指令和标签（表示内存地址）来完成的。（VB中的goto语句也是如此）</p>
+
+<p>在硬件中是由控制器的程序计数器（PC寄存器）来实现跳转的（将值更新为要跳转到的内存地址）。</p>
+
+<p>图形界面程序代码执行流程与控制台程序有所不同，後者是一种特殊的条件分支的事件驱动流程，根据winows的通知决定程序的下一步走向。</p>
+
+<h4>高级语言的语法机制</h4>
+<p>1 代码重用：如函数、模块、类的继承和多态（接口重用）。</p>
+<p>2 考虑编写大型程序的需要。高级语言的语法要考虑编写大型程序及多人合作的需要，如模板这种语法的抽象。但初学者上手时都是从一些入门的小程序开始的，这里就有一个理解上的矛盾。</p>
+<p>3 效率的考量：包括程序本身运行在时间和空间上的效率以及程序员编写程序的效率；</p>
+<p>4 特定的应用领域与场景。如C更贴近底层，PHP更接近web领域。</p>
+
+
+<h4>程序开发模式的选择</h4>
+
+<p>很多复杂的软件都是从简单的版本开始的。所以一般一开始就想一步到位一个复杂、功能完备、规划良好的程序会很难。可以考虑增量的开发方式（逐步增加新的功能）、原型和补丁的方式（不断修正），也可是逐步函数化、模板化的方式，以及后续重新整合代码的方式。</p>
+（软件都会有版本的更新，既有bug的修正，也有功能的增减。）
+
+<h4>硬件与软件，硬连接与软连接</h4>
+
+<p>CPU是逻辑门（晶体管）、加法器、集成电路、模块的组合。世界上第一台电脑Eniac的编程是通过在接线板上插拔连接线的方式进行的，其实质就是改变模块的连接方式。</p>
+
+<p>模块的不同组合可以形成不同的功能模块，这就是硬件的硬连接。</p>
+<p>在一定程度上也可以理解为软件是改变模块的硬连接，实现软连接，从而实现不同的功能。</p>
+<p>CPU的设计一定程度上是指令系统的设计，一款CPU（硬件功能）对应一套指令系统（软件功能）。指令系统中指令的不同组合便是不同的程序。</p>
+<p>随着硬件的不断发展，硬件的集成度越来越高。一定程度上硬连接与软连接都可以实现相同的功能，所以有时会说硬件和软件的界限越来越模糊。</p>
+
+
+
+
+<h4>“存储程序”与计算的自动化</h4>
+
+<p>计算机计算如何才能实现自动化？冯诺依曼提出了“存储程序”的概念：</p>
+<p>1 编写包含数据的指令序列（程序）；</p>
+<p>2 程序输入（键盘输入或由辅助存储器输入）到内存中存储；</p>
+<p>3 由控制器逐条从内存中取出指令，译码并产生控制信号，由运算器执行运算；如此循环，直到程序结束，产生输出；</p>
+
+
+<h4>字符编码、机器语言与高级语言</h4>
+<p>编程是是在编码的基础上进行的。</p>
+<p>编程需要考虑数据表示（描述）的问题，数据存储的问题，还要考虑数据如何处理的问题。</p>
+<p>字符编码是一个数据表示的问题，是一个字符数据化的问题，用二进制序列来表示特定的字符，如ASCII、Unicode。（同样的，图像的点、声音的振动幅度与频率也可以数字化。）</p>
+<p>为什么电子计算机可以识别符合机器指令集的机器语言（二进制序列）呢？</p>
+<p>电子计算机是能进行二进制布尔运算的开关电路（晶体管）的组合，所以事物抽象为二进制数据，并用二进制数据来表示指令，所以电子计算机自然可以识别。</p>
+<p>CPU的设计一定程度上是指令系统的设计，一款CPU（硬件功能）对应一套指令系统（软件功能）。所以特定的CPU只能执行特定的与指令系统描述的二进制序列。</p>
+<p>高级语言是对机器语言在操作系统层面的抽象，符合高级语言规则的程序经由对应的编译器或解释器翻译或解释为机器语言，计算机就能执行。</p>
+<p>（高级语言除了提供语法规则、编译器或解释器以外，还会提供函数库或类库（Python中是模块）。）</p>
+
+
+
+
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

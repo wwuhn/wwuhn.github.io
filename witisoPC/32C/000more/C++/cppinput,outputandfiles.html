@@ -1,0 +1,555 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>cppinput,outputandfiles</h3>
+
+<p>
+</p>
+
+<p>Most computer languages build input and output into the language itself, but C originally left I/O to compiler implementers.One reason for this was to give implementers the freedom to design I/O functions that best fit the hardware requirements of the target computer. In practice, most implementers based I/O on a set of library functions originally developed for the OS environment, for example, stdio.h.
+</p>
+
+<p>C++ uses many of its more advanced language features to implement input and output, including classes, derived classes, function overloading, virtual functions, templates, and multiple inheritance.
+</p>
+
+<p>Just as C implementations come with a standard library of functions, C++ comes with a standard library of classes.
+</p>
+
+<p>图片描述(最多50字)
+</p>
+
+<p>The ios_base class represents general properties of a stream, such as whether it's open for reading and whether it's a binary or a text stream.
+</p>
+
+<p>The ios class is based on ios_base, and it includes a pointer member to a streambuf object.
+</p>
+
+<p>The streambuf class provides memory for a buffer, along with class methods for filling the buffer, accessing buffer contents, flushing the buffer, and managing the buffer memory.
+</p>
+
+<p>The ostream class derived from the ios class and provides output methods. cout is a ostream class object.
+</p>
+
+<p>The istream class derived from the ios class and provides input methods. cin is a istream class object.
+</p>
+
+<p>The iostream class is based on the istream and ostream class and thus inherits both input and output methods.
+</p>
+
+<p>The program could read one character from the file, process it, read the next character from the file, and so on. Reading a file a character at a time from a disk requires a lot of hardware activity and is slow. The buffered approach is to read a large chunk from the disk, store the chunk in the buffer, and read the buffer one character at a time. Because it is much quicker to read individual bytes of data from memory than from a had disk, this approach is much faster as well as easier on the hardware. Similarly, in output, a program can first fill the buffer and then transfer the entire block of data to a hard disk, clearing the buffer for the next batch of output. This is called flushing the buffer.
+</p>
+
+<p>To use these facilities, you use objects of the approriate classes. For example, you use an ostream object such as cout to handle output. Creating such an object opens a stream, automatically creates a buffer, and associates it with the steam. It also makes the class member functions available to you.
+</p>
+
+<p>The C++ facilities for file input and output are based on the same basic class definitions that cin and cout are based on, you can using ifsteam and ofstream objects for file input and output.
+</p>
+
+<p>The C++ I/O class package handles file input and output much as it handles standard input and output. To wirte to a file, you create an ofstream object and use the ostream methods, such as the &lt;&lt; insertion operator or write(). To read a file, you create an ifstream object and use the istream methods, such as the >> extraction operator or get(). Files require more management than the standard input and output, however. For example, you have to associate a newly opened file with a stream. You can open a file in read-only mode, write-only mode, or read-and-write mode. If you write to a file, you might want to create a new file, replace an old file, or add to an old file. Or you might want to move back and forth through a file. To help handle these tasks, C++ defines several new classes in the fstream(formerly fstream.h) header file, including the ifstream class for file input and the ofstream class for file output.C++ also defines the fstream class for simultaneous file I/O. These classes are derived from the classses in the iostream header file, so objects fo these new classes are able to use the methods you 've already learned.
+</p>
+
+<p>图片描述(最多50字)
+</p>
+
+<p>Suppose you want a program to write to a file. You must do the following:
+</p>
+
+<p>I Create an ofstream object to manage the output stream;
+</p>
+
+<p>II Associate that object with a particular file;
+</p>
+
+<p>III Use the object the same way you would use cout; the only difference is that output goes to the file instead of to the screen.
+</p>
+
+<p>The codes as belows:
+</p>
+
+<p>ofstream fout;
+</p>
+
+<p>fout.open("a.txt");
+</p>
+
+<p>fout &lt;&lt; " some contents";
+</p>
+
+<p>Indeed, because ostream is a base class for the ofstream class, you can use all the ostream methods, including the various insertion operator definitions and the formatting methods and manipulators. The ofstream class uses buffered output, so the program allocates space for an output buffer when it creates an ofstream object such as fout.
+</p>
+
+<p>Opening a file for output this way creates a new file if there is no file of that name. If a file by that name exists prior to opening it for output, the act of opening it truncates it so that output starts with a clean file.
+</p>
+
+<p>The requirements for reading a file are much like those for writing to a file:
+</p>
+
+<p>I Create an ifstream object to manage the input stream;
+</p>
+
+<p>II Associate that object with a particular file;
+</p>
+
+<p>III Use the object the same way you would use cin;
+</p>
+
+<p>The codes as belows:
+</p>
+
+<p>ifstream fin;
+</p>
+
+<p>fin.open("a.txt");
+</p>
+
+<p>char ch;
+</p>
+
+<p>fin >>ch;
+</p>
+
+<p>char buf[11];
+</p>
+
+<p>fin.getline(buf,80);
+</p>
+
+<p>string line;
+</p>
+
+<p>getline(fin,line);
+</p>
+
+<p>Input, like output, is buffered, so creating an ifstream object such as fin creates an input buffer, which the fin object manages. As with output, buffering moves data much faster than byte-by-byte transfer.
+</p>
+
+<p>Let's look at a short example:
+</p>
+
+<p>#include &lt;iostream> // not needed for many systems
+</p>
+
+<p>#include &lt;fstream>
+</p>
+
+<p>#include &lt;string>
+</p>
+
+<p>int main()
+</p>
+
+<p>{
+</p>
+
+<p>using namespace std;
+</p>
+
+<p>string filename;
+</p>
+
+<p>cout &lt;&lt; "Enter name for new file: ";
+</p>
+
+<p>cin >> filename;
+</p>
+
+<p>// create output stream object for new file and call it fout
+</p>
+
+<p>ofstream fout(filename.c_str());
+</p>
+
+<p>fout &lt;&lt; "For your eyes only!\n"; // write to file
+</p>
+
+<p>cout &lt;&lt; "Enter your secret number: "; // write to screen
+</p>
+
+<p>float secret;
+</p>
+
+<p>cin >> secret;
+</p>
+
+<p>fout &lt;&lt; "Your secret number is " &lt;&lt; secret &lt;&lt; endl;
+</p>
+
+<p>fout.close(); // close file
+</p>
+
+<p>// create input stream object for new file and call it fin
+</p>
+
+<p>ifstream fin(filename.c_str());
+</p>
+
+<p>cout &lt;&lt; "Here are the contents of " &lt;&lt; filename &lt;&lt; ":\n";
+</p>
+
+<p>char ch;
+</p>
+
+<p>while (fin.get(ch)) // read character from file and
+</p>
+
+<p>cout &lt;&lt; ch; // write it to screen
+</p>
+
+<p>cout &lt;&lt; "Done\n";
+</p>
+
+<p>fin.close();
+</p>
+
+<p>std::cin.get();
+</p>
+
+<p>std::cin.get();
+</p>
+
+<p>return 0;
+</p>
+
+<p>}
+</p>
+
+<p>output:
+</p>
+
+<p>Enter name for new file: newfile
+</p>
+
+<p>Enter your secret number: 13
+</p>
+
+<p>Here are the contents of newfile:
+</p>
+
+<p>For your eyes only!
+</p>
+
+<p>Your secret number is 13
+</p>
+
+<p>Done
+</p>
+
+<p>Summary:
+</p>
+
+<p>A stream is a flow of bytes into or out of a program. A buffer is a temporary holding area in memory that acts as an intermediary between a buffer and a file, using large chunks of data of the size most effciently handled by devices such as disk drivers. And information can be transferred between a buffer and a program in a byte-by-byte flow that often is more convenient for the processing done in a program. C++ handles input by connecting a buffered stream to a program and to its source of input. Similary, C++ handles output by connecting a buffered stream to a program and to its output target. The iostream and fstream file constitute an I/O class library that defines a rich set of classes for managing streams. C++ programs that include the iostream file automatically open eight streams, managing them with eight objects. The cin object manages the stadard input stream, which, by default, connects to the standard input device, typically a keyboard. The cout object manages the standard output stream, which ,by default, connects to the standard output device, typically a monitor. The cerr and clog objects manage unbuffered and buffered streams connected to the standard error device, typically a monitor. These four objects have four wide character counterparts, named wcin, wcout, wcerr, and wclog.
+</p>
+
+<p>The I/O class library provides a variety of useful methods. The istream class defines versions of the extraction operator(>>) that recognize all the basic C++ types and that convert character input to those types. The get() family of methods and the getline() method provide further support for single-character input and for string input. Similarly, the ostream class defines versions of the insertion operator(&lt;&lt;) that recognize all the basic C++ types and that convert them to suitable character output. The put() method provides further support for single-character output. The wistream and wostream classes provide similar support for wide characters.
+</p>
+
+<p>You can control how a program formats output by using ios_base class methods and by using manipulators(functions that can be concatenated with insertion) defined in the iostream and iomanip files. These methods and manipulators let you control the number base, the field width, the number of decimal places displayed, the system used to display floating-point values, and other elements.
+</p>
+
+<p>The fstream file provides class definitions that extend the iostream methods to file I/O. The ifstream class derives from the istream class. By associating an ifstream object with a file, you can use all the istream methods for reading the file. Similarly, associating an ofstream object with a file lets you use the ostream methods to write to a file. And associating an fstream object with a file lets you employ both input and output methods with the file.
+</p>
+
+<p>To associate a file with a stream, you can provide the filename when initializing a file stream object or you can first create a file stream object and then use the open() method to associate the stream with a file. The close() method terminates the connection between a stream and a file. The class constructors and the open() method take an optional second argument that provides the file mode. The file mode determines such things as whether the file is to be read and/or written to, whether opening a file for writing truncates it, whether attempting to open a non-existent file is an error, and whether to  use the binary or text mode.
+</p>
+
+<p>A text file stores all information in character form. For example, numeric values are converted to character representations. The usual insertion and extraction operators, along with get() and getline(), support this mode. A binary file stores all information by usig the same binary representation the computer uses internally. Binary files store data particularly floating-point vlaues, more accurately and compactly than text files. These class methods let you position a file pointer relative to the beginning of a file, relative to the end, or relative to the current position. The tellg() and tellp() methods report the current file position.
+</p>
+
+<p>The sstream header file defines istringstream and ostringstream classes that let you use istream and ostream methods to extract information from a string and to format information placed into a string.
+</p>
+
+<p>-End-
+</p>
+
+
+
+<p style='float:right;'>本页共87段，10826个字符，10941 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

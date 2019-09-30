@@ -1,0 +1,546 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>编程语言分类及如何选择以及正确的学习路线</h3>
+
+<p>1 命令式、声明式、动态式、函数式编程语言
+</p>
+
+<p>编程语言俗称“计算机语言”，种类非常的多，总的来说可以分成机器语言、汇编语言、高级语言三大类。电脑每做的一次动作，一个步骤，都是按照已经用计算机语言编好的程序来执行的，程序是计算机要执行的指令的集合，而程序全部都是用我们所掌握的语言来编写的。所以人们要控制计算机一定要通过计算机语言向计算机发出命令。
+</p>
+
+<p>首先要明白，任何一个语言都有它擅长的地方，例如英文，确实比较擅长表达一些逻辑性强、准确性高的概念，是一门很不错科学语言。而中文呢，确实有它的模糊美、意境美、含蓄美，是门很好的文学语言。
+</p>
+
+<p>计算机语言的开发总是与特定领域的问题密切相关，语言开发者往往也是因为某一领域问题的解决，因不满足于某一语言在某一方面的不足而开发的。任何一门计算机语言都无法做到在所有领域的最大优势。一门计算机语言不仅要提供语法机制、编译器、也有语言开发者的设计哲学，还包括库支持、平台框架工具支持、生态系统等。
+</p>
+
+<p>选择一种语言和平台并拼命地练习以满足解决问题的需要，这种方式已经一去不复返了。有时不同的钉子需要不同的锤子。
+</p>
+
+<p>高级编程语言广义上可以分为命令式、声明式、动态式、函数式。
+</p>
+
+<p>1.1 命令式语言
+</p>
+
+<p>传统的命令式语言描述了执行的方式，而不是执行的内容。命令式语言从一开始就设计为提供机器码的抽象级别。
+</p>
+
+<p>命令式语言的语句主要是操作程序的状态。面向对象的语言就是经典的状态操作器，因为它们一直在创建和改变对象。VB、C、C++、C#都是命令式语言。
+</p>
+
+<p>这些语言都非常擅长利用类型系统和对象描述现实世界中的情形。它们都非常严格－即编译器要进行许多安全检查。安全检查（或类型合理性）表示，不能轻易地把Cow类型变成Sheep类型，所以如果在方法的签名中声明需要一个Cow类型，编译器（和运行时）就要保证不会给方法传送Sheep类型。这些语言通常有奇异的重用机制－用多态性原则编写的代码很容易抽象出来。这样其他地方的代码，从同一模块到完全不同的项目，就可以利用已编写好的代码。
+</p>
+
+<p>1.2 声明式语言
+</p>
+
+<p>声明式语言描述了执行的内容，而不是执行方式（这与命令式语言相反，命令式语言描述了如何通过程序语句操作状态）。为人所熟知的声明式语言是HTML，它描述了页面的布局、需要的字体、文本和修饰，以及在哪里显示图像。另一个经典的声明式语言是SQL，它描述了要从关系数据库提取的内容。以及XAML(eXtensible Application Markup Language），它引出了一大串基于XML的声明式语言。
+</p>
+
+<p>声明式语言擅长描述和转换数据。多年来，我们从命令式语言中调用它们来检索和操作数据。
+</p>
+
+<p>1.3 动态语言
+</p>
+
+<p>动态语言包括具有“动态”特性的所有语言，如后期绑定和调用、REPL（Read Eval Print Loops）、鸭子类型化（不严格的类型化，即如果对象看起来像一只鸭子，行走起来也像一只鸭子，它就一定是一只鸭子）等。
+</p>
+
+<p>动态语言一般会尽可能把编译的操作推迟到运行时执行。
+</p>
+
+<p>像这样的方法编译有一些有趣副作用。如果类型不需要事先完全定义（因为类型系统非常灵活），就可以编写使用严格接口（例如，COM或者其他.NET程序集）代码，使这些代码在遇到该接口的失败时有很大的灵活性。
+</p>
+
+<p>动态语言非常适合于快速建立原型，不必事先定义类型，就可以把注意力集中在解决问题的代码上，而不是集中在实现过程中的类型约束。REPL允许逐行编写原型代码，程序中的变化会立即反映出来，而不需要把时间浪费在编译－运行－调试循环上。
+</p>
+
+<p>Python语言是一个经典的动态语言，Ruby也是。
+</p>
+
+<p>1.4 函数式语言
+</p>
+
+<p>函数式语言把计算看成数学函数，它们努力避免状态操作，而主要考虑函数的结果，以此作为解决问题的基础。如果你做过微积分，那么就会很熟悉函数式编程的理论。
+</p>
+
+<p>因为函数式编程语言一般不操作状态，所以程序中生成的副作用就小很多。这意味着这类语言一直在执行并行算法。高度并行系统的圣杯是避免重叠“无意中”的状态操作。死锁、竞态条件以及被破坏的不变量都是没有同步状态操作代码的经典问题。通过线程、共享内存以及锁来并行编程和同步都非常困难，所以为什么不一起避免？因为函数式编程语言鼓励程序员编写无状态的算法，这样编译器就可以推断出代码的自行并行性。这意味着可以利用多核处理器的强大能力，而没有管理线程、锁和共享内存的巨大负担。
+</p>
+
+<p>函数式程序是很简洁的，与命令式语言相比，函数式语言通常需要较少的代码就可以解决问题。代码较少一般意味着bug较少，要测试的区域也较少。
+</p>
+
+<p>Haskell、Clean、List都是函数式语言。
+</p>
+
+<p>函数式语言(functional language)一类程序设计语言，是一种非冯·诺伊曼式的程序设计语言。函数式语言主要成分是原始函数、定义函数和函数型。这种语言具有较强的组织数据结构的能力，可以把某一数据结构(如数组)作为单一值处理；可以把函数作为参数，其结果也可为函数，这种定义的函数称为高阶函数，程序就是函数，程序作用在结构型数据上，产生结构型结果，从根本上改变了冯·诺伊曼式语言的“逐词”工作方式。
+</p>
+
+<p>在函数式编程中，一个变量一旦被赋值，是不可改变的。没有可变的变量，意味着没有状态。而中间状态是导致软件难以管理的一个重要原因，尤其在并发状态下，稍有不慎，中间状态的存在很容易导致问题。没有中间状态，也就能避免这类问题。无中间状态，更抽象地说是没有副作用。说的是一个函数只管接受一些入参，进行计算后吐出结果，除此以外不会对软件造成任何其他影响，把这个叫做没有副作用。因为没有中间状态，因此一个函数的输出只取决于输入，只要输入是一致的，那么输出必然是一致的。这个又叫做引用透明。这些不同的名词差不多都在讲一个意思。
+</p>
+
+<p>函数式编程的目标是模块化。我们需要透过表象看到更深的抽象层次，例如结构化编程和非结构化编程的区别，从表面上看比较大的一个区别是结构化编程没了“goto”语句。但更深层次是结构化编程使得模块化成为可能。像goto语句这样的能力存在，虽然会带来一定的便利，但是它会打破模块之间的界限，让模块化变得不容易。而模块化有诸多好处，首先模块内部是更小的单一的逻辑，更容易编程；其次模块化有利于复用；最后模块化使得每个模块也更加易于测试。模块化是软件成功的关键所在，模块化的本质是对问题进行分解，针对细粒度的子问题编程解决，然后把一个个小的解决方案整合起来，解决完整的问题。这里就需要一个机制，可以将一个个小模块整合起来。函数式编程有利于小模块的整合，有利于模块化编程。
+</p>
+
+<p>语言分类的标准有很多种，便即工业语言、脚本语法、学术编程语言等。
+</p>
+
+<p>2 选择正确的计算机语言和开发平台
+</p>
+
+<p>如果你有明确的方向，那么很好选择。	如果你想做算法、机器学习方向，那么python是最好的选择。如果你想做web开发，java、php等都可以。如果想做一些更底层的工作，那么就可以选c。	当然这是建立在你有明确方向的基础上。
+</p>
+
+<p>如果你是在校大学生，那么你有大把连续的时间，就先学习c，然后再学c++。我个人是学c入门的，也许很多人不理解我为什么推荐学c，因为c和c++都很难、很复杂，看起来并不适合入门。然而正是它们的难和复杂才能让你更好地理解计算机系统（计算机系统不是指操作系统）。学习编程不是学习编程语言，而是学习一个计算机生态，即一个庞大的知识体系。只会编程语言而不理解整个计算机的体系，就像只会写字而写不出好文章。了解c/c++和了解计算机系统是极为贴合的，向下可以帮助你更容易地理解操作系统、编译原理、计算机网络、计算机组成原理，为什么呢？因为较为底层的东西很多都是用c实现的，和系统的贴合度极高，很多教材源码甚至教程，在讲述这些知识的时候都是用c或c++作为媒介。而向上，c++面向对象的机制，也可以做出一些应用，譬如五子棋游戏等，也不会显得那么枯燥。花个小半年时间了解c和c++，之后你就会觉得看书、看资料可以轻松很多。
+</p>
+
+<p>如果你是一个上班族，但是刚刚学习编程，可能学c和c++对你来说有些复杂和困难，因为学习它们确实是很需要时间。你们不像在校生那样有大把的连续时间，而零碎的时间去学习一个比较复杂的东西效果不见得有那么好，所以可以先学一些（更容易见效）的编程语言，从python入手吧，至少能快速做出一些小应用，不至于丢失了兴趣，但是真的要入门编程又还得看看与计算机系统相关的书籍，这样才能更深层次地去编程，譬如【深入理解计算机系统】这一本书可以读很多遍，这本书把整个计算机系统给串起来了。当然也可以考虑从HTML+CSS+Javascript入门，让你能快速地搭建一些网页或一个网站，HTML+CSS可以让你体现内容呈现、Javascript可以让你体验代码逻辑的概念。
+</p>
+
+<p>开发平台.NET Framework
+</p>
+
+<p>有上百种语言面向.NET Framework，所以.NET开发人员有一个巨大的语言库供他们使用。.NET Framework在设计时就考虑到语言的交互操作，所以这些语言可以彼此通信，在解决编程问题时可以相互借鉴各种语言的优势。开发人员可以选择正确的语言工具来完成任务。
+</p>
+
+<p>在语言中把每个类别的特性集混合起来是目前的一个趋势，这对程序员有好处，程序员喜欢使用的语言常会从每个类别中选择最佳特性。当前的趋势是应用程序开发人员使用命令式/动态语言，而函数式语言擅长解决特定领域的问题。
+</p>
+
+<p>.NET可以无缝地进行语言的交互操作，因此可以使用自己喜欢的命令式语言解决大多数要解决的问题，再使用函数式语言进行数据操作，或者利用某些核心数学来解决问题。
+</p>
+
+<p>正确的学习路线
+</p>
+
+<p>下面以C++为例
+</p>
+
+<p>1 了解计算机是如何实现数据化、比特化的，也就是编码是如何实现的，如整型的补码、浮点数的real*4或real*8、字符的ASCII、GBK（包含GB2312）、Unicode等；
+</p>
+
+<p>2 了解计算机体系结构，包括计算机的逻辑元件、加法器、记忆循环电路以及对冯诺依曼的“存储程序”概念有一定认识。	让你理解你的程序是在一个什么样的世界里运行的，知道这个程序为何而存在，知道它怎样存在，并且也知道怎样让它更好的存在。
+</p>
+
+<p>3 操作系统、计算机网络、数据库
+</p>
+
+<p>3 语言基础
+</p>
+
+<p>编程的学习总是从一些小规模的玩具程序开始的，也就是没有UI界面的dos程序，让你熟悉语言的语法、一些基础的数据结构与算法。需要明白一点的是，任何一个编程语言都是为开发大型的应用程序而开发的，一些语法机制也是为大型应用的需要而提供的。如代码重用机制、模块化机制、多文件，声明与定义的分离，通过类来实现封装、继承、多态。初学者学习写一些玩具程序时，好像觉得这些开发思路或语法工具没有多少价值。
+</p>
+
+<p>4 一些简单的数据结构与算法
+</p>
+
+<p>5 与平台相关的框架工具
+</p>
+
+<p>大部分的应用程序都是与操作系统平台有关的（也可以开发与平台无关的游戏），开发者开发大型应用程序都不可能从零开始，要利用语言提供的库、平台提供的API和框架工具去开发，这样在速度和代码的质量方面都有保障。
+</p>
+
+<p>开发应用程序首先要选择开发环境，然后选择应用程序框架；
+</p>
+
+<p>开发包括不同操作系统的桌面应用、浏览器、移动端、移动浏览器端，且都分客户端、服务端。还有云计算、大数据、AI、VR，以及工控、嵌入端等；
+</p>
+
+<p>必须结合一个具体的操作系统平台，所以得熟悉某个操作系统平台的 API 函数，比如 Linux，以及该操作系统的原理。
+</p>
+
+<p>网络通信，网络通信在这里具体一点就是 Socket 编程。
+</p>
+
+<p>假设我们现在要开发一个类似电驴这样的软件，假设操作系统选择 Windows，使用语言使用 C++，这款产品的实现技术分为 UI 和网络通信、数据库部分，下面将详细介绍这两部分。
+</p>
+
+<p>UI 部分
+</p>
+
+<p>无论你是在阅读别人的项目还是需要自己开发这样的项目，在确定了这款软件使用的 UI 库，您就需要对 Windows 的窗口、对话框、消息产生、派发与处理机制进行了解。
+</p>
+
+<p>接着，根据上图中的软件功能，大致分为三大模块，即资源、下载和分享。这三大块是可以使用一个 Windows Tab 控件去组织，这个时候您需要了解 Windows Tab 控件的特性。
+</p>
+
+<p>一些可视化编程平台就可以给你提供一些可视化的编程界面并提供数据关连机制。
+</p>
+
+<p>网络通信部分
+</p>
+
+<p>网络通信部分，主要有两大块，第一个是程序启动时，与服务端的交互；第二个就是文件下载与分享的 P2P 网络。
+</p>
+
+<p>数据库部分
+</p>
+
+<p>2 客户/服务器模型：C/S，运行于局域网环境中的数据应用程序）
+</p>
+
+<p>应用程序使用的数据库位于局域网服务器中，其它的计算机通过客户端应用程序访问服务器中的数据。c/s结构，应用软件被划分为客户软件和服务器软件两部分，这两部分允许安装在同一台设备上，但多数情况下被安装在网络不同的PC上，当客户软件发出访问数据库请求后，服务器软件接收这一请求；C/S模式的最大优势是把系统划分为前台和后台，在通常情况下，客户机运行前端front-end)应用程序，向用户提供界面（user interface)和显示逻辑（presentation logic),而服务器则负责访问后台数据库，并完成各种事务逻辑（transaction logic)的处理，这样每次任务都是由客户机和服务器共同完成；C/S模式的第三个成分就是连接器，它是沟通客户机和服务器的纽带，包括网卡及其驱动程序，和实施数据库访问的软件，如ODBC、ADO，使服务器成为数据库服务器。
+</p>
+
+<p>3 浏览器/服务器模型：B/S,适用于开发internet环境中的数据库应用程序）
+</p>
+
+<p>客户端应用程序为浏览器，客户通过浏览器访问服务器中的某个网页，如在网页中提出数据请求，该请求首先发送到web服务器，由web服务器将数据请求发送到数据库服务器，数据库服务器接到数据请求后，完成数据处理，并将处理结果返回web服务器，web服务器最后将结果返回到客户端的浏览器中，在设计网页时，可以使用ADO(activeX data object)访问VF数据库。
+</p>
+
+<p>5 附几种常用语言的相关概念、编程思想、适合领域
+</p>
+
+<p>一 c语言
+</p>
+
+<p>1、相关概念：实模式、保护模式、调度、中断、调用栈、回调……基本上计算机科学里面的基本概念都会涉及
+</p>
+
+<p>2、编程思想：结构化编程，即将解决方案描述为一个清晰的过程，这其中会涉及数据的建模（数据结构），接口的定义（函数），项目整体的组织结构（类似于中断向量表的注册、回调机制）。整个实现的过程就是这种流程从粗到细，步步细化的过程。
+</p>
+
+<p>3、适合的领域：编译系统（很容易划分为 lexer、parser、walker等）、OS（很容易分成 cpu相关、内存相关、外设相关、进程相关）、DBMS等系统软件，或者是靠近
+</p>
+
+<p>硬件的嵌入式系统（除了汇编就只能用c了）
+</p>
+
+<p>二 c++
+</p>
+
+<p>1、相关概念：虚函数、虚表、内联、多继承、const、泛型、模板（语言相关）……opencv、OGRE、3D渲染、GPU、mesh、skeleton、帧循环、DX、GUI、MFC、Qt、消息队列、非阻塞IO（应用领域相关）……
+</p>
+
+<p>2、编程思想：过程化、oo、泛型、函数式 4种同时支持，实际中用OO比较多。
+</p>
+
+<p>3、适合领域：多媒体、高性能网络服务器等较讲究效率的应用程序
+</p>
+
+<p>三 java
+</p>
+
+<p>1、相关概念：字节码、虚拟机、垃圾回收、接口、多线程、包、程序库、反射、框架、集成、组件、http、web、数据库、SSH、javaee……
+</p>
+
+<p>2、编程思想：OO，即思考的角度是更面向问题域的对象，整个程序是对象不断细化，以及对象间交互的过程（调用相应的方法）。java的程序比较讲究扩展性和可维护性，一般会使用比较多的设计模式，常用的程序组织形式是MVC、监听者模式等。
+</p>
+
+<p>3、适合领域：大部分没有硬实时要求的应用程序（可能正因为此，所以java程序员的数量是最多的）
+</p>
+
+<p>四 Javascript
+</p>
+
+<p>1、相关概念：闭包、对象、函数、CSS、DOM、Ajax、HTML5、node.js、V8……
+</p>
+
+<p>2、编程思想：基于prototype的OO，以及基于闭包的函数式编程（后者用的更多）。常用代码组织形式：事件触发的回调机制（node.js与前端的区别是其自己定义、触发事件）、基于非阻塞异步IO的框架（node.js）
+</p>
+
+<p>3、适合领域：web前端，
+</p>
+
+<p>写在最后：
+</p>
+
+<p>不过，会了这两种语言，并不代表你就是一个编程员了。学会编程的关键就是 -- “ 编程思想“ 。 学会怎样用一种很“ 广泛的思维“ 去考虑“ 编程问题 “，也就是这种思维是可以放之于任何一种编程语言都可以解决问题的，而不是局限于单纯的一种语言。这些思维包括逻辑思维的能力、抽象思维的能力、描述和解决问题的能力。这样当你需要学习一种新的语言时，你只要学习他的语法等等就可以了，至于怎样用这种语言解决编程问题不是早就在你的脑子里了吗。所以，这也就是为什么很多程序员可以拿到一种语言，一两个星期就可以使用的很熟练了。这，也同样要求你去学几种完全不同的语言。
+</p>
+
+<p>－End－
+</p>
+
+
+
+<p style='float:right;'>本页共84段，6913个字符，18989 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<p>﻿小玥的記事簿第01頁</p>
+
+<p></p>
+
+<p>自我介紹一下，70年次，身高僅158公分，41公斤，屬於可愛型的女生；有個大我兩歲的哥哥，目前獨居在外工作中。小玥是一位很喜歡找刺激感的女生，可是不是淫亂喔。分享一下小玥曾經發生的事情吧。</p>
+
+<p></p>
+
+<p>某年的某個週末，小玥去參加我一個死黨的生日派對，她叫做小雨。小玥很喜歡穿裙子，所以挑了一件上衣、黑色短裙、搭配黑色膝上襪，外面再披件薄外套就出門了。</p>
+
+<p></p>
+
+<p>出門時大約是下午七點多，天色已經暗了，小玥騎著我心愛的Easy100在馬路上奔馳，無奈人來人往的很多車，所以是走走又停停。當天風又很大，小玥又要擔心裙子會被風吹起，所以每當車子騎出去時，手總是要重新把裙子給壓好。有次小玥停紅燈時，發現旁邊有個怪阿伯一直盯著我看，這時我才發現我的裙子有一邊已經被風吹起，嚴重曝光了。小玥趕緊站起來要把裙子給壓好時，又有一陣怪風吹來，也因為一隻手要扶著機車手把，僅剩的一手沒辦法一次把裙子壓住，就這樣，小玥的內內被看光光了，重點是，小玥穿的是粉色的小丁。(>_<~)相信等紅燈的人都有看到了，所以小玥等綠燈一亮，馬上死命狂奔，不過這個小事件也讓小玥有點莫名的小興奮。(^_^||)</p>
+
+<p></p>
+
+<p>派對的地點是小傑家，小傑是小雨的男友，家裡很有錢，這棟房子是小傑父母買給他的，少說也有100坪。當我來到小傑家門口時，心中突然感嘆，有錢人跟窮人真的是差很大。小玥剛到門口時，虹兒已經跑出來迎接我了(虹兒是我的另一名死黨，跟小雨我們並稱傻傻三姐妹-_-)。停好車進到裡面，有好幾個人已經到了，其中一名是虹兒的男友，叫阿翔。小玥把我的禮物跟大家的都一起放在桌上後，派對現場也算佈置完成了。</p>
+
+<p></p>
+
+<p>虹兒跟她男友則是一一幫我介紹幾個我不認識的人，小玥算過，今天的派對總共是5男4女。過了一會兒，小傑跟今天的主角小雨，已經從樓上下來了。小雨今天穿了一套白色的連身小禮服，小傑也搭配小雨，穿了一套白色燕尾服現身。當然免不了的我們先祝福一下壽星，大夥兒再一起唱歌、喝酒(說到這兒，小傑家真的是應有盡有，卡啦OK等、大型電視、撞球檯、遊泳池…等，好羨慕有錢人喔>_<~)，到了大概快九點，虹兒才從另一個房間把蛋糕給推了出來。</p>
+
+<p></p>
+
+<p>蛋糕有兩層，佈置的相當火辣(後來才知道是虹兒的主意@_@)，下層的裝飾是一對男女交歡的人偶，上層的裝飾則是男生小弟弟形狀的巧克力(顏色大小都很像，羞…)。蛋糕推出來後，大夥兒就一股腦的興奮起來，等小雨吹蠟燭時，我們還在一旁喝道「吹下去…吹下去…」。後來還要小雨舔小弟弟形狀的巧克力，另一名女生小慧更狠，直接要求小雨學口交的動作，還跑過去揉小雨的胸部，讓在場的大家情緒都High了起來。</p>
+
+<p></p>
+
+<p>當小弟弟形狀的巧克力被吃掉後，一名叫小華的男生說不夠看，要小雨跟小傑當場表演口交，大家的情緒正High，一窩瘋的附和，只見小雨開始在小傑身上挑逗，隔著褲子摸著小傑的小弟弟，熱舞中的小雨裙下不停的曝光，白色小丁根本包不住私處，黑色的毛毛早就被在場的眾人看光了。小玥我當然目不轉睛的看著，只見小傑的褲子漲起一個大包，小雨隨後熟練的拉下小傑褲子的拉鍊，掏出那一根「寶貝」，用她那櫻桃小嘴不停的吞吐著。此時的小玥早就濕了，看了一下旁邊的人，阿翔從後面環抱著虹兒，手不安份的遊移在虹兒的身上；小慧也坐在沙發上嬌喘，一隻手更伸到了裙下不停的撫慰著；小華更是大辣辣的掏出小弟弟在自慰，總之，現場的情緒已經High到極點。</p>
+
+<p></p>
+
+<p>小玥我也忍不住，將手往裙下伸了過去，才發現原來我的妹妹早就濕成一片，就在這時候，虹兒把我跟她男友阿翔拉到另一旁的沙發上，阿翔的手還是不停的撫摸著虹兒，虹兒的手卻開始撫摸著我。虹兒一碰到我的裙下，便笑說我好濕，接下來就脫掉了我的小丁，用手指頭撫慰著我的私處。而阿翔已經把虹兒的上半身脫光，貪婪的吸吮著虹兒的胸部，看著在場的男女，眼神不停的穿梭在大夥的淫亂之間，而我跟虹兒只剩下淫叫的份兒。正當我被虹兒摸到快要傾洩之時，突然聽到一陣歡呼聲，原來是小傑已經被小雨吹到噴了。</p>
+
+<p></p>
+
+<p>我們三個人趕緊整頓衣裳，但我的小丁跟虹兒的內衣都被阿翔給沒收，望了旁邊，其他人也早就整頓好衣裳，裝作沒事的站在旁邊叫好(雖然大夥心理有數，早就被看光了@_@)。等小雨將精液吐在衛生紙、並整理好儀態後，才算結束這一場的鬧劇。大夥兒又唱了不少歌、喝了不少酒後，才結束這一次的派對。小玥我只喝了一點酒(小玥其實不太會喝>_<~)，所以還能夠騎車回去。</p>
+
+<p></p>
+
+<p>跟大夥兒告別後，我去牽車準備離開時，才發現我的內褲沒拿回來=_=||)，小玥的裙子很短，騎車一定會曝光，可是又不好意思回去拿內褲，只好硬著頭皮騎回家。騎回去的路上已經沒那麼多人了，但裙子還是一樣會被風吹起，不過因為剛經歷了那麼刺激的情緒、再加上風直接吹進裙底的舒服感，我就沒有太刻意去壓住裙子，相信從小玥旁邊經過的人，都能看到另人血脈噴張的畫面，甚至可以看到從小玥私處的毛毛、跟流下的蜜汁(>_<~羞)。</p>
+
+<p></p>
+
+<p>小玥的記事簿第02頁</p>
+
+<p></p>
+
+<p>某日，小玥起了個大早，盥洗了一下後，想說要來洗衣服，便把衣服拿到後面陽台。</p>
+
+<p></p>
+
+<p>介紹一下小玥的住的地方，小玥是住外面，整棟樓房有六層，共兩棟，陽台對陽台並排著，每層樓有六間房間跟一公共衛浴，三間套房、三間雅房。小玥租的是套房，在五樓，一廳一房一衛、再加一個陽台，洗衣機就在陽台上。</p>
+
+<p></p>
+
+<p>話說回來，小玥把衣服倒進洗衣機後，想說身上的睡衣也順道一起洗，又懶得走到裡面換完衣服，再把睡衣拿出來，探了探對面的陽台，沒有半個人影，便直接把睡衣跟睡褲脫了下來(小玥那天穿的是兩件式的)，丟到洗衣機裡。且小玥剛睡醒，還沒有穿上內衣，所以現在小玥的身上僅剩下一件透明的粉藍色內褲。設定好洗衣機後，小玥正準備進房間時，突然發現對面樓上的陽台有個男生正直愣愣的盯著我看，我也愣住了，我們四目交會大約有10幾秒吧，我才趕緊抱住胸部的逃回房間。</p>
+
+<p></p>
+
+<p>過了幾分鐘，小玥的心情平靜了一下後，才從落地窗旁偷偷看看對面樓上的陽台，果然那個男生還在那兒，感覺像是意猶未盡似的，只是他的手不停的擺動著，應該是在DIY吧，只是被陽台遮住，所以看不到(小失望了一下>_<~)。小玥也趁機觀察一下，那位男生長的還蠻帥氣，裸著上半身(下半身看不到，所以不知道有沒有裸>_<~)，胸膛算蠻結實的，看的小玥心有點癢癢滴(>_<~)。過沒多久，就看到那位男生緊張的跑進房間，小玥心想應該是射出來了吧，呵呵…。當我正準備回味方才的刺激感，也來DIY一下時，小玥的電話聲響了起來。是虹兒打來的(小雨是我的死黨之一，詳見第01頁)。</p>
+
+<p></p>
+
+<p>虹兒說她男朋友阿翔要開車載我們去溪頭玩(其實小玥忘記那天去的地方是哪了@_@||)，我當然一口答應，我立刻換了套衣服，粉藍色成套內衣褲、搭配白色短上衣、粉紅小短裙(小玥還是超喜歡穿裙子啦^_^y)，沒多久，虹兒她們就到我住的樓下了。阿翔開的是休旅車，駕駛當然是阿翔囉，副駕駛座坐的是虹兒，後座還有小雨跟成哥(成哥是小雨的乾哥哥，我們大夥也都認識很久了)，我也是坐後座，只是小雨跟成哥都說要坐靠窗，小玥我只好坐中間囉(>_<~)。</p>
+
+<p></p>
+
+<p>一路上，我們一行人說說笑笑，很快的就下了高速公路。下了高速公路後，紅燈就感覺特別多了。小玥發現阿翔在停紅燈時，表面上在跟我們聊天，但眼睛卻不時的看車內後照鏡，這時才反應過來，小玥一坐下後，原本的短裙早就縮到曝光，任誰往下一看，都可以很清楚看到我的裙下風光，更何況是從後照鏡看，連毛毛都看的一清二楚。偷偷望了一下成哥，他也早就知道了，看他猛盯著我的裙下，害得小玥我心又癢癢的(>_<~)，只是我們彼此心照不宣，反正又不會少塊肉。終於到了目的地，一條非常清澈的小溪就出現在我們眼前，可是人潮卻是相當的多。成哥說他知道上遊有個可以玩水的地方，且人煙罕至，所以阿翔在成哥帶領下，不到半小時，我們就來到了這片無人之地。</p>
+
+<p></p>
+
+<p>目的地剛好被溪谷跟森林的圍繞，所以根本沒有人會來，且溪水流下後形成一道約一公尺高的小瀑布，瀑布底下有個大約一公尺深的水池，水質是清澈到見底，成哥說他也是偶然間才發現的。兩個男生一下車後，便脫到僅剩一條內褲就跳下水。阿翔穿的是一件灰色寬鬆的四角褲，而成哥穿的是白色的緊身三角褲，虹兒跟小雨見狀也脫去了衣物，露出穿在裡面的內衣褲後就下水，小玥我呢?因為我不知道要來玩水，且內衣褲穿的是薄紗款，一脫掉衣服，三點就會被看光光(>_<~)，只好坐在水邊的時頭上，讓腳泡在水邊裡，享受這微微的清涼感。</p>
+
+<p></p>
+
+<p>當然，坐在水邊，就是觀察水裡的四個人囉。虹兒穿的是比基尼款的淺黃內衣褲，雖然性感，但根本是為了來玩水而選擇的，可以拿來當泳衣了；反觀小雨，雖然內衣褲沒有小玥我的透明，不過碰到水之後，還是隱約可以見到毛毛，若隱若現的，更加引人暇想；阿翔穿的四角褲較寬鬆，在水裡飄啊飄的，小弟弟會不時從褲縫探出頭來，看著阿翔常常要整理下體，把它「喬」回原位的模樣，就覺得有點好笑；而成哥的白色三角褲從一碰到水之後，根本是透明的，看的一清二楚，那粗壯的下體一直呈現勃起狀態，害的小玥看的目不轉睛。當小玥看的出神時，不知何時，小雨跟虹兒已經來到我的腳邊，她們倆一人一邊的把我給拉了下水，噗通一聲，害我差一點嗆到。等我在水裡站了起來後，發現她們四個人看著變成落湯雞的我不停的狂笑，我抖了抖衣服後發現，原本的白色上衣，已經變成完全透明的國王新衣了，露出的內衣更是透明到連乳頭、乳暈都看的一清二楚，乳頭更因為突然的接觸到冷水，而不由自主的站了起來。</p>
+
+<p></p>
+
+<p>第一反應是趕緊用雙手遮住我的兩點春光，但他們四人依然不停狂笑，而小玥也不是好惹的，反正都濕了，也被看光了，我就乾脆不遮了，一口氣追了上去，在水裡把虹兒的比基尼給扒了下來，虹兒也不甘識弱的把我的下半身給扒個精光；接下來當然是小雨囉，反正虹兒已經全裸了，她乾脆加入我，跟我一起把小雨給扒光，在這同時，我的身上也沒有任何的衣服了。三位赤裸裸的美少女加上兩位僅穿內褲的勃起男生，怎麼說都奇怪，接下來，當然是我們三位女生要去扒了男生的內褲囉。兩個男生在水裡跑給我們追，最後當然是內褲被我們沒收囉(^_^y)。在嘻鬧過程中，我們的身體早就互相被摸光光，大家的情緒也興奮到了最高點。</p>
+
+<p></p>
+
+<p>後來，阿翔直接把虹兒帶到旁邊的大石頭上，演出了活春宮，虹兒那淫亂的叫聲可不是A片中女主角的叫聲可比擬的，小玥我在一旁更是看的入神，整個身體不由自主的火熱了起來。在看看小雨，她不知何時已經在一旁幫著成哥口交，看著成哥那粗壯的下體，在小雨口中進進出出的，小玥實在是受不了了，就跑到了成哥旁邊，整個人跨坐在成哥臉上，享受成哥那舌頭的溫暖。過了一會兒，也許是太刺激吧，阿翔已經把精液噴灑在虹兒身上(搞體外射精@_@||)，就在此時，小雨便離開成哥，跑去挑逗阿翔，而虹兒也不介意的看著小雨跟阿翔搞了起來，雖然阿翔剛剛射完，不過在小雨的挑逗下，一下子就又堅挺無比，再戰第二回合；小玥我也被成哥給拉了起來，以觀音坐蓮方式，跟著小雨合演雙重奏，那淫叫聲絕對比虹兒有過之而無不及。第一次享受成哥那粗狀的下體，過程中小玥早不知洩了幾次，最後怎麼結束的，小玥也記不清了。只知道最後我們一行五人直接在水池裡嬉鬧，互相洗淨身體，才準備踏上歸途。</p>
+
+<p></p>
+
+<p>濕掉的衣服當然不能穿，所以兩個男生就直接穿外褲，可是那沒有消腫的下體直接頂住外褲，讓我們三個女生笑的不可開交；小雨跟虹兒也沒穿內衣褲，那胸前的兩點激突在衣服上是格外明顯，加上小雨下半身穿件超短迷你裙，若隱若現的模樣，更是讓阿翔跟成哥口水直流；可是我呢?我的衣服都濕透了，根本不能穿，小雨跟虹兒起鬨，說反正我是坐後座，乾脆別穿了，我想想也沒別的辦法，只好裸著身子搭上了車。回去的路上，坐我旁邊的成哥，手更是沒停過，不斷的挑逗我，害我一路上淫聲連連，過收費站還要躲躲藏藏(怕上新聞頭條=_=||)。</p>
+
+<p></p>
+
+<p>到家後已經是半夜了，小玥的衣服雖然還有點微濕，不過想說只是到樓上而已，直接套上衣服跟裙子，把濕的內衣褲拿在手上，就告別虹兒一行人，自己走回宿舍。小玥剛踏進電梯時，旁邊進來了一名男生，他也要搭電梯，不過當電梯門一關上後，我才驚覺我還把我的內衣褲拿在手上，且上半身微濕的衣服，把我胸前的兩點春光表露的一覽無遺。僅僅一樓到五樓的電梯，小玥覺得好像過了很久，我相信我手上的內衣跟胸前的兩點一定被這名男生看的透徹，害的小玥一股燥熱不斷攀升，等到五樓電梯一開，小玥馬上衝回房間，結束今天的淫穢…不，是刺激之旅。</p>
+
+<p></p>
+
+<p>早上洗到一半的衣服!?還在洗衣機裡，不過今天實在太累了，明天再重洗吧，小玥把身上的衣服全部脫光後，就在溫暖的被窩裡，深深的進入了夢鄉。</p>
+
+<p></p>
+
+<p>小玥的記事簿第03頁</p>
+
+<p></p>
+
+<p>有人問小玥為什麼喜歡刺激感?這一切可能要聽小玥我慢慢道來。</p>
+
+<p></p>
+
+<p>記得剛上國二時，那時還是男女合班，對「異性」這方面還是矇矓無知。在班上我是一位乖乖女，成績中等，可是在我的內心裡卻對著男生充滿好奇。</p>
+
+<p></p>
+
+<p>小雨是小玥的死黨，打從上國中後，一直到大學畢業，她都跟我同班，所以我們的感情才會那麼好，也因為小雨，我才有了第一次的異性接觸。</p>
+
+<p></p>
+
+<p>有一天，小雨說她父母親出差，要約我今晚到她家過夜。我父母當然是同意了(我們家跟小雨家也有一定的認識了)，整理下換洗衣物跟簡單的用品後，小玥想說穿的輕便點，就穿了件長版上衣，看起來像連身裙，但搭配上安全褲，就不會走光了。之後我就前往小雨家。</p>
+
+<p></p>
+
+<p>當然不可能只有我們倆，小雨還約了在班上較要好的朋友愛紗、小胡、阿彬跟小豪，總共三女三男。當天傍晚，感覺我們像是在辦小型派對似的，帶了一堆零食、飲料、撲克牌…等，一面看電視、一面聊天。突然阿彬提議大家來玩撲克牌，大夥兒一同附和。玩了幾輪大老二下來，感覺有輸有贏，但卻沒有獎懲，感覺不好玩，小胡就在旁邊提議說玩刺激點的，最輸的人要脫一件衣服。原本小玥還不太同意，可是其他人到最後都接受了，小玥也只好硬著頭皮豁出去了。記得那天，小雨穿的是T恤加牛仔短裙、愛紗穿T恤加牛仔短褲、其他三個男生也都是穿T恤加牛仔褲。</p>
+
+<p></p>
+
+<p>遊戲開始了，第一回合跟第二回合分別是小胡跟小豪最輸，他們倆都選擇脫掉上衣，露出他們那瘦瘦的上半身，我們三個女生還在虧說要把男生給輸到脫內褲。</p>
+
+<p></p>
+
+<p>第三回合又是小豪最輸，他也把牛仔褲給脫了，身上僅剩下紅色的四角褲，我們大家還一致笑他穿紅色內褲還一直輸。</p>
+
+<p></p>
+
+<p>第四回合最輸的是愛紗，她選擇先脫掉上衣，露出淡藍色的內衣，我看三個男生都興奮的歡呼，害的愛紗臉紅的跟蘋果一樣，而小豪的四角褲也很明顯的隆起了一塊。</p>
+
+<p></p>
+
+<p>第五回合輪到小玥輸了，記得小玥穿的是長版上衣吧，所以小玥轉過身，脫下了安全褲後，害的在場的男生都失望了一下。</p>
+
+<p></p>
+
+<p>好景不常這句話用在小玥身上真是一點都不為過，第六回合還是小玥最輸，若脫下衣服，小玥等於只穿內衣褲，所以只好再轉過身去，把內褲給脫了下來，且我們大家都是坐在地上，所以小玥下半身空蕩蕩的很怕曝光，只好小心的跪坐著。突然在我旁邊的小胡把我的內褲搶了過去，聞一聞後還說好香喔，我趕緊搶了回來，並大罵變態，我們鬧完了這一輪後，才繼續下一回合。</p>
+
+<p></p>
+
+<p>接下來的回合已經不太記得順序了，只記得最先脫光的是被我罵變態的小胡，當他脫下內褲，小玥第一次見到那硬梆梆的下體時，就感覺下體濕濕的；第二個脫光的是就是小玥我啦，當我一脫光，在場的男生無不叫好，還看到已經脫光的小胡，那硬梆梆的下體前端還流出陣陣口水。</p>
+
+<p></p>
+
+<p>下一個回合輸的人又是小玥(>_<~)，可是小玥已經沒得脫了，大夥兒情緒都已經高漲，起鬨要我幫小胡打手槍。小玥第一次碰到男生的那裡，感覺真的好硬又好熱，一面打的過程，還一面被小胡撫摸全身，我的下體也早已泛濫成災，當小胡射出來時，大夥兒還一起歡呼，第一次碰觸到男生的精液，味道實在很腥，小玥我也趕緊跑去清洗乾淨，才接下去一回合。</p>
+
+<p></p>
+
+<p>也不知玩了幾回合了，在場的人也都輸到脫個精光，再輸下去的懲罰也一項比一項鹹濕。小雨幫小豪口交，射出來後還要吞下去，只見小雨很委曲的把小豪的精液都給吞下肚；阿彬要當場自慰給大家看，只見阿彬搓弄沒幾下就射了出來，大家還笑他「沒擋頭」；小豪要幫愛紗手淫到潮吹，愛紗被小豪逗弄到淫聲連連，最後全身一面抽慉、一面噴灑出愛液，還把小豪噴的滿臉濕淋淋。</p>
+
+<p></p>
+
+<p>接下來，三個男生都要求要和我們做愛，但我們三個女生當時都還是處女、也稍微懂得要保護自己，結果是斷然拒絕了，只見他們三個男生失望的表情，總覺得還有些可憐呢。最後，在男生的要求下，我們六個人圍成一個圈，一起自慰，雖然大家的手還是都很不安份的摸向彼此，不過還是在彼此的高潮聲浪中，結束了這一夜的激情演出。</p>
+
+<p></p>
+
+<p>要問後續?小玥以前的瘋狂經歷還很多，等小玥慢慢的寫出來</p>
+
+<p></p>
+
+<p>小玥的記事簿第04頁</p>
+
+<p></p>
+
+<p>小玥剛畢業後的第一份工作，是在一家機械設備廠當業務員，業務員幾乎都要往外跑，不斷地拜訪客戶、或協助客戶設備使用上的困難。剛踏入公司時，什麼都不懂，所以公司有指派一名資深前輩跟我搭檔。這名資深前輩在公司大家都叫他正哥，他人很好，也教了小玥很多公司的事，所以小玥很快就跟他混熟了。</p>
+
+<p></p>
+
+<p>記得一天星期五，有個客戶打電話來要我們過去，說是設備出了問題，正哥就要小玥一起過去學習。正哥開車載我，那天大約下午一點就到達客戶那裡，也因為客戶的問題對正哥來說太簡單，不到半小時就解決了。回程的路上我們在車上聊東聊西，聊到小玥最近肩膀很緊，正哥也附和著說他也是覺得最近很累，便提議要帶我去按摩。小玥從來沒被按摩過，所以也答應了，我們倆就趁著上班時間的空檔，偷閒一下(^_^y)。</p>
+
+<p></p>
+
+<p>正哥帶我到一家男女精油按摩的店裡(店名不記得@_@||)，剛進到裡面，小玥就聞到一股芳香的精油味，內部裝潢非常寬敞。只見正哥熟練的告訴接待小姐，說要一間雙床的房間，接待小姐便引領著我們到二樓去了。到了按摩房，小玥看見兩張美容床，大概距一公尺的間隔並排在一起，後面的隔間還有一間浴室，此時接待小姐問我說有指定美容師嗎?小玥第一次進來這種地方怎麼會知道，所以一切就交給正哥安排啦。接下來正哥拿了套和服給我，叫我換衣服，他說要做精油推拿，要換穿和服才不會弄髒自己的衣服，還叫我內衣褲都要脫掉才不會弄髒，而正哥也拿了套和服說要到洗手間換便離開了。小玥也沒有想什麼，便把衣服都脫去後，換成這套和服。和服是連身式的，大概蓋住到膝蓋，在腰間可以綁住，小玥換好後看了一下，胸部的兩點微微突起在和服上(這個和服很薄=_=||)，和服裡什麼都沒穿，感覺涼涼的，之後，正哥也換好和服回來了，款式是跟小玥我的一模一樣，讓小玥不禁想看看，正哥和服下面的裸體。</p>
+
+<p></p>
+
+<p>過沒多久，有人敲了門後走了進來，是一男一女。男美容師長的很帥氣，體格真的不錯，穿著短式和服搭配和式短褲，非常的有日式風味；女的美容師長的也很漂亮、身才又好，上半身僅穿著低胸小可愛，感覺胸前部隨時會蹦出來似的，下半身是一件短到不行的黑色短裙，小玥都已經很明顯看到她的小丁，相信正哥一定也看在眼裡吧。接著，兩位美容師要我們趴在床上，先幫我們舒背，我跟正哥便一人一張床趴了上去，服務我的卻是那位男美容師。原本我是想開口問正哥，可是看著正哥不發一語，也就隨興了。</p>
+
+<p></p>
+
+<p>大約十來分鐘，兩位美容師分別開口說要幫我們上精油，男美容師一把抓住我的衣領，非常熟練的把我的和服給拉到臀部，此時小玥的上半身已經是全裸了，小玥內心有點緊張，但也因為害羞，所以只好任人宰割，同時看看正哥，他的和服同樣也被脫到臀部處，此時正哥也正望向我這邊，我那紅通通的臉龐應該被正哥給看到了吧。</p>
+
+<p></p>
+
+<p>不過接下來，美容師用精油來回在背上推拿的感覺，真的讓小玥覺得很舒服，那力道真的是恰到好處，我看著正哥也舒服的享受著，被美女推拿的感覺。上半身結束後，男美容師貼心的把我上半身的衣服蓋好，只是接下來，男美容師就把我下半身的衣服給拉到腰間，小玥整個屁屁都被看光了，在小玥還沒反應過來時，男美容師的手已經在小玥的臀部推拿了起來。我轉頭偷看下正哥，女美容師也早已經在推拿正哥的下半身，她那嬌嫩的手在正哥的臀部遊移，小玥相信正哥的正面一定早就硬梆梆了。</p>
+
+<p></p>
+
+<p>話說回來，男美容師的手在小玥大腿內側來回滑動，不時會輕帶過小玥的下體，一想到小玥的下面被男美容師看的一清二楚，在害羞之餘，更覺得興奮了起來。此時女美容師問了正哥要做輕鬆的嗎?正哥笑著回答說「當然要囉」。小玥還不知什麼是輕鬆的，還以為是放鬆肌肉的推拿方式，所以等男美容師問了小玥我之後，我也學著正哥笑著回答「當然要囉」。接下來兩位美容師同時要我跟正哥翻到正面來，小玥小心翼翼的整理好衣服，才轉身躺在美容床上，可是眼角餘光卻瞄到另一張床的正哥，早已脫去和服，赤裸裸的躺在美容床上，正哥的下體是那麼的硬挺挺，讓女美容師看在眼裡。正哥此時也望向我這邊，四目交會，小玥害羞的不知說什麼，便隨口說了「那麼硬很不舒服吧」，此時女美容師笑著回答說沒關係，我會讓他舒服的，小玥才恍然大悟，方才美容師所指的「輕鬆的」，原來是這麼一回事。接下來，小玥便看著女美容師脫去身上的衣服，才一轉眼，女美容師身上已經一絲不掛。</p>
+
+<p></p>
+
+<p>未等小玥回過神，男美容師也開始動手脫去我身上僅有的和服，同時小玥也發現，男美容師身上也早已一絲不掛，那健美的身材、跟硬挺的下體就這樣映入了我的眼底。小玥看著女美容師跨坐在正哥身上採用六九的姿勢，用那嬌嫩的小口吞吐著正哥的下體，正哥也不安份的搓揉女美容師的胸部，口中還不時傳出舒服的激喘聲；突然小玥的下體感到一陣快感，原來是男美容師用他那豐厚的舌頭，替小玥口交，從下體傳來的一陣陣快感，讓小玥我忍不住放聲嬌喘。在激情之餘，我看見正哥正笑著望向我這邊，小玥裸赤裸裸的身體、及淫亂的一面盡入正哥眼底，小玥不禁害羞起來，但男美容師那熟練的口技，早已征服小玥，讓小玥我顧不及害羞，放聲淫叫，最後在正哥的眼前，洩出那高潮的蜜汁。</p>
+
+<p></p>
+
+<p>在看看正哥，也在女美容師的口技之下，將精液全數噴灑出來，那原本硬挺的下體，瞬間變成了軟綿綿的小蚯蚓。兩位美容師分別簡單替我們擦拭一下身體、穿上衣服後便走了出去。房間內剩下一絲不掛的我跟正哥，想到剛剛小玥淫亂的一面被正哥看透，又忍不住害羞了起來，反倒是正哥先開口虧我，說我剛剛很爽喔，小玥也不甘示弱的回說你還不是一樣，兩個人就一搭一唱的化解尷尬的氣氛。</p>
+
+<p></p>
+
+<p>接下來正哥帶我到後面隔間的浴室盥洗。正哥先要幫我洗背，說背部的精油自己洗不好洗，小玥也沒拒絕，反正都被看光了。洗的過程，正哥還服務很周到，不只背部，連胸部、手臂、下體都洗的一乾二淨，正哥還笑我說被洗的很舒服喔，我回他應該是他豆腐吃的很舒服吧；接下來換我幫正哥洗了，我也是幫他洗的很徹底，洗到小弟弟時，早已是一柱擎天，我虧他說剛剛被服務的還不夠爽啊，他回我說現在被我洗的更爽。當我替他沖去泡沫時，還偷偷的含住那硬挺的下體、吹了兩三下，讓他的心癢到回程了路上還不停在抱怨呢。</p>
+
+<p></p>
+
+<p>待我們洗好身體、並換好衣服後，兩位美容師便引領我們到樓下結帳，當然是正哥出錢囉。回程路上，正哥說他常常到這間美容店，男、女客都有接，店內還有其他服務，只是價格不一，還說有空還會再帶我來見識見識，我也回說有免費的我沒意見，我們就這樣結束偷閒之旅，回到公司上班囉。</p>
+
+﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

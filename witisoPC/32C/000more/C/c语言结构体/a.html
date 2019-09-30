@@ -1,0 +1,803 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>C结构体</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+<p><strong>c</strong><strong>语言结构体 </strong></p>
+<p>ccc云志&nbsp;2018-08-25 20:42:51</p>
+
+<p>今天小编给大家带来c语言结构体的相关语法知识，温馨提示：<strong>亮点在最后！</strong> </p>
+<p><strong>1.</strong><strong>关于c语言结构体的引入 </strong></p>
+
+<p>在前面已经介绍了整形（int，long，….），浮点型（flaot，double），字符型（char），还介绍了数组（存储一组具有相同类型的数据），字符串。但是在实际问题中只有这些数据类型是不够的，有时候我们需要其中的几种一起来修饰某个变量，例如一个学生的信息就需要学号（字符串），姓名（字符串），年龄（整形）等等，这些数据类型都不同但是他们又是表示一个整体，要存在联系，那么我们就需要一个新的数据类型。</p>
+
+<p><strong>——结构体:</strong>就将不同类型的数据存放在一起，作为一个整体进行处理。</p>
+
+<p><strong>2.c</strong><strong>语言使用结构体变量进一步加强了表示数据的能力。 </strong></p>
+
+<p><strong>2.1</strong><strong>结构体声明</strong></p>
+
+<p></p>
+<pre>
+//申明一个结构体
+struct book
+{
+    char title[MAXTITL];//一个字符串表示的titile 题目  ；
+    char author[MAXAUTL];//一个字符串表示的author作者  ；
+    float value;//一个浮点型表示的value价格；
+};//注意分号不能少，这也相当于一条语句；
+</pre>
+
+<p>这个声明描述了一个由两个字符数组和一个float变量组成的结构体，但是注意，他并没有创建一个实际的数据对象，而是描述了一个组成这类对象的元素，【因此，我们也有时候将结构体声明叫做模板，因为它勾勒出数据该如何存储，并没有实例化数据对象】。</p>
+
+<p><strong>下面介绍一下上面的结构体声明；</strong></p>
+
+<p>1.首先使用关键字struct，他表示接下来是一个结构体。</p>
+
+<p>2.后面是一个可选的标志（book），它是用来引用该结构体的快速标记。因此我们以后就会可以这样创建数据对象</p>
+
+<p>struct book library；//把library设为一个可以使用book结构体的结构体变量，则library这个变量就包含了其book结构体中的所有元素</p>
+
+<p>3.接下来就是一个花括号，括起了结构体成员列表，及就是每个成员变量，使用的都是其自己的声明方式来描述，用分号来结束描述；</p>
+
+<p>列如；char title[MAXTITL];字符数组就是这样声明的，用分号结束；</p>
+
+<p><strong>注意:</strong>其中每个成员可以使用任何一种c数据结构甚至是其他的结构体，也是可以的；</p>
+
+<p>4.在结束花括号后的分号表示结构体设计定义 的结束。</p>
+
+<p><strong>2.2</strong><strong>关于其struct声明的位置，也就是这段代码要放到哪里。同样这也是具有作用域的。</strong></p>
+
+<p>这种声明如果放在任何函数的外面，那么则可选标记可以在本文件中，该声明的后面的所有函数都可以使用。如果这种声明在某个函数的内部，则它的标记只能咋内部使用，并且在其声明之后；</p>
+
+<p><img width="640" height="489" src="a_clip_image001.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p><img width="640" height="481" src="a_clip_image002.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p><strong>2.3</strong><strong>关于我们不断说的，标记名是可选的，那么我们什么时候可以省略，什么时候一定不能省略呢？</strong></p>
+
+<p>如果是上面那种声明定义的方法，并且想在一个地方定义结构体设计，而在其他地方定义实际的结构体变量那么就必须使用标记；</p>
+
+<p>可以省略，设计的同时就创建该结构体变量，但是这种设计是一次性的，</p>
+
+<p>还有就是引入typedef。</p>
+
+<p>这个到后面的定义结构体变量一起说吧</p>
+
+<p><strong>关于结构体类型的定义的总结,一般格式就是:</strong></p>
+
+<p></p>
+<pre>
+struct 结构体名(也就是可选标记名）
+{
+    成员变量；
+}；//使用分号表示定义结束；
+</pre>
+
+<p><strong>3.</strong><strong>定义结构体变量 </strong></p>
+
+<p><strong>3.1</strong><strong>之前我们结构体类型的定义（结构体的声明）只是告诉编译器该如何表示数据，但是它没有让计算机为其分配空间。我们要使用结构体，那么就需要创建变量，也就是结构体变量；</strong></p>
+
+<p>创建一个结构体变量；struct book library；</p>
+
+<p>看到这条指令，编译器才会创建一个结构体变量library，此时编译器才会按照book模板为该变量分配内存空间，并且这里存储空间都是以这个变量结合在一起的，这也是后面访问结构体变量成员的时候，我们就要用到结构体变量名来访问。</p>
+
+<p><strong>分析:</strong></p>
+
+<p>struct book的作用；在结构体声明中，struct book所起到的作用就像int，，，，等基础数据类型名作用一样。</p>
+
+<p>struct book s1，s2，*ss；</p>
+
+<p>定义两个struct book结构体类型的结构体变量，还定义了一个指向该结构体的指针，其ss指针可以指向s1，s2，或者任何其他的book结构体变量。</p>
+
+<p>其实：</p>
+
+<p>struct book library；</p>
+
+<p>等效于：</p>
+
+<p></p>
+<pre>
+struct book{
+    char …
+    ….
+    …..
+}library；
+</pre>
+
+<p>这两种是等效的，只是第一种可以减少代码的编写量；</p>
+
+<p><strong>3.2</strong><strong>现在还是回到刚才提及的那个问题，可选标志符什么时候可以省略</strong></p>
+
+<p><strong>其一：</strong></p>
+
+<p></p>
+<pre>
+struct
+{
+    char title[MAXTITL];
+    char author[MAXAUTL];
+    float value；
+}library;
+</pre>
+
+<p>//<strong>注意：</strong>这里不再是定义声明结构体类型，而是直接创建结构体变量了，这个编译器会分配内存的；</p>
+
+<p>//这样的确可以省略标识符也就是结构体名，但是只能使用一次，因为这是声明结构体的过程和定义结构体变量的过程和在了一起，并且个成员变量没有初始化的；</p>
+
+<p>//如果你想多次使用一个结构体模块，这样子是行不通的；</p>
+
+<p><strong>其二：</strong></p>
+
+<p>用typedef定义新类型名来代替已有类型名，即给已有类型重新命名；</p>
+
+<p>一般格式为；typedef 已有类型 新类型名；</p>
+
+<pre>
+typedef int Elem;
+typedef struct{
+    int date;
+    .....
+    .....
+}STUDENT;
+STUDENT stu1,stu2;
+</pre>
+
+<p><img width="640" height="448" src="a_clip_image003.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p><strong>总结一下关于结构体变量的定义：</strong></p>
+
+<p>1.先定义结构体类型后再定义结构体变量；</p>
+
+<p>格式为；struct 结构体名 变量名列表；</p>
+
+<p>struct book s1，s2，*ss；//注意这种之前要先定义结构体类型后再定义变量；</p>
+
+<p>2.在定义结构体类型的同时定义结构体变量；</p>
+
+<p>格式为；</p>
+
+<pre>
+struct 结构体名
+{
+    成员列表；
+}变量名列表；//这里结构体名是可以省的，但尽量别省；
+struct book
+{
+    char title[MAXTITL];//一个字符串表示的titile 题目  ；
+    char author[MAXAUTL];//一个字符串表示的author作者  ；
+    float value;//一个浮点型表示的value价格；
+}s1，s2;
+</pre>
+
+<p>3.直接定义结构体类型变量，就是第二种中省略结构体名的情况；</p>
+
+<p>这种方式不能指明结构体类型名而是直接定义结构体变量，并且在值定义一次结构体变量时适用，无结构体名的结构体类型是无法重复使用的，也就是说，后面程序不能再定义此类型变量了，除非再写一次重复的struct</p>
+<p><strong>4.</strong><strong>对于结构体变量的初始化 </strong></p>
+
+<p><strong>4.1</strong><strong>先回忆一下关于基本数据类型和数组类型的初始化</strong></p>
+
+<p>int a = 0；</p>
+
+<p>int array[4] = {1,2,3,4};//每个元素用逗号隔开</p>
+
+<p>回忆一下数组初始化问题；</p>
+
+<p><img width="640" height="331" src="a_clip_image004.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p>再回到结构体变量的初始化吧</p>
+
+<p>关于结构体变量的初始化与初始化数组类似：也是使用花括号括起来，用逗号分隔的初始化好项目列表，注意每个初始化项目必须要和要初始化的结构体成员类型想匹配</p>
+
+<pre>
+struct book s1={//对结构体初始化
+    &quot;yuwen&quot;,//title为字符串
+    &quot;guojiajiaoyun&quot;,//author为字符数组
+    22.5 //value为flaot型
+};
+</pre>
+
+<p>//要对应起来，用逗号分隔开来，与数组初始化一样；</p>
+
+<p><strong>4.2</strong><strong>加入一点小知识，关于结构体初始化和存储类时期的问题</strong></p>
+
+<p>如果要初始化一个具有静态存储时期的结构体，初始化项目列表中的值必须是常量表达式，</p>
+
+<p>如果存储时期是自动的，那么列表的值就不必是常量了；</p>
+
+<p>关于这点在讲存储类时期的时候在分析；</p>
+
+<p><strong>4.3</strong><strong>注意：</strong></p>
+
+<p>如果在定义结构体变量的时候没有初始化，那么后面就不能全部一起初始化了；</p>
+
+<p>意思就是：</p>
+<p></p>
+<pre>
+///////这样是可以的，在定义变量的时候就初始化了；
+struct book s1 = {                 /* 对结构体初始化 */
+	&quot; guojiajiaoyun &quot; ,   /* author为字符数组 */
+	&quot; yuwen &quot; ,           /* title为字符串 */
+	22.5
+};
+///////这种就不行了，在定义变量之后，若再要对变量的成员赋值，那么只能单个赋值了；
+struct book s1;
+s1 = {
+	&quot; guojiajiaoyun &quot; ,   /* author为字符数组 */
+	&quot; yuwen &quot; ,           /* title为字符串 */
+	22.5
+}; /* 这样就是不行的，只能在定义的时候初始化才能全部赋值，之后就不能再全体赋值了，只能单个赋值； */
+</pre>
+
+<p>只能；</p>
+
+<p>s1.title = &quot;yuwen&quot;;........//单个赋值；</p>
+
+<p><strong>4.4</strong><strong>对于结构体的指定初始化</strong></p>
+
+<p>《这个只存在于c99，》</p>
+
+<p><img width="640" height="442" src="a_clip_image005.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p><strong>5.</strong><strong>访问结构体成员 </strong></p>
+
+<p><strong>5.1</strong><strong>结构体就像一个超级数组，在这个超级数组内，一个元素可以是char类型，下个元素就可以是flaot类型，再下个还可以是int数组型，这些都是存在的。在数组里面我们通过下标可以访问一个数组的各个元素，那么如何访问结构体中的各个成员呢？</strong></p>
+
+<p>用结构成员运算符点（.）就可以了；</p>
+
+<p>结构体变量名.成员名;</p>
+
+<p><strong>注意:</strong>点其结合性是自左至右的，它在所有的运算符中优先级是最高的；</p>
+
+<p>例如，s1.title指的就是s1的title部分，s1.author指的就是s1的author部分,s1.value指的就是s1的value部分。然后就可以像字符数组那样使用s1.title,象使用float数据类型一样使用s1.value；</p>
+
+<p><strong>注意:</strong>s1；虽然是个结构体，但是s1.value却是float型的，因此s1.value就相当于float类型的变量名一样，按照float类型来使用；</p>
+
+<p>例如；printf(“%s %s  %f”,s1.title,s1.author,s1.value);//访问结构体变量元素</p>
+
+<p><strong>注意:</strong>scanf(“%d”,&amp;s1.value);  这语句存在两个运算符，&amp;和结构成员运算符点，按照道理我们应该将（s1。value括起来，因为他们是整体，表示s1的value部分）但是我们不括起来也是一样的，因为点的优先级要高于&amp;。</p>
+
+<p><strong>5.2</strong><strong>如果其成员本身又是一种结构体类型，那么可以通过若干个成员运算符，一级一级的找到最低一级成员再对其进行操作；</strong></p>
+
+<p>结构体变量名.成员.子成员………最低一级子成员;</p>
+<pre>
+ struct date
+ {
+	 int year;
+	 int month;
+	 int day;
+ };
+ struct student
+ {
+	 char name[10];
+	 struct date birthday;
+ } student1;
+</pre>
+
+<p>//若想引用student的出生年月日，可表示为；student.brithday.year；</p>
+
+<p>brithday是student的成员；year是brithday的成员；</p>
+
+<p><strong>5.3</strong><strong>整体与分开</strong></p>
+
+<p>5.3.1可以将一个结构体变量作为一个整体赋值给另一相同类型的结构体变量，可以到达整体赋值的效果；这个成员变量的值都将全部整体赋值给另外一个变量；</p>
+
+<p>5.3.2不能将一个结构体变量作为一个整体进行输入和输出；在输入输出结构体数据时，必须分别指明结构体变量的各成员；</p>
+
+<p><img width="640" height="269" src="a_clip_image006.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p>+</p>
+
+<p><strong>总结：</strong>除开“相同类型的结构体变量可以相互整体赋值”外，其他情况下，不能整体引用，只能对各个成员分别引用； </p>
+<p><strong>6.</strong><strong>结构体数组（这个在国二里面常考的类型，只要考结构体就离不开结构体数组和成员的访问，当然也只是简单的操作）</strong><strong> </strong></p>
+
+<p><strong>6.1</strong><strong>为什么要引用结构体数组?</strong></p>
+
+<p>显然，在上面的book类型的结构体 ，每本书就需要用一个book类型的结构体变量来描述，若是要描述两本书，需要使用两个这样的变量，依次类推；因此要使用一个该结构体的数组，来表示这些图书；并且数组就是存储一组具有相同类型的数据，因此就有了结构体数组的出现，注意本置，</p>
+
+<p><strong>6.2</strong><strong>声明结构体数组</strong></p>
+
+<p>与普通的数组声明一样，int a[10];int为元素的数据类型，a为数组名 【10】表示申请了10的int单元的内存；</p>
+
+<p>再看结构体声明；struct book library[10];是不是类似，struct book为数组元素的数据类型，library为数组名，[10]为申请了10个struct  book单元的内存；</p>
+
+<p>解释；声明library为一个具体10个元素的数组，并且每个元素都book类型的结构，因此可以得到library[0],library[1]…….都是单独独立的一个book结构；</p>
+
+<p>注意library本身不是结构体名而是一个数组名；</p>
+
+<p><strong>6.3</strong><strong>结构体数组的初始化</strong></p>
+
+<p><img width="640" height="249" src="a_clip_image007.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p><strong>两种初始化:</strong>就是在定义的时候赋值的两种情况；</p>
+
+<p><strong>6.4</strong><strong>访问结构体数组的成员</strong></p>
+
+<p><strong>规则:</strong>在结构体名后加点运算符，然后再是成员名；</p>
+
+<p>library[5].title;//表示第5个元素的title成员；library[5]是结构体变量名，title就是成员名；</p>
+
+<p>library[5].titlt[4];//注意title是数组类型，第5个数组元素的title成员的第4个字符；</p>
+
+<p><strong>总结:</strong></p>
+
+<p>library //book结构体的数组</p>
+
+<p>library[2]//数组的第二个元素，一个book结构体类型的变量名；</p>
+
+<p>library[2].title；//char数组，结构体数组的第二个元素的title成员；</p>
+
+<p>library[2].title[4]；//表示一个字符，结构体数组的第二个元素的title成员的第四个字符；</p>
+
+<p><img width="640" height="239" src="a_clip_image008.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p><strong>7.</strong><strong>指向结构体的指针 </strong></p>
+
+<p><strong>7.1</strong><strong>使用指向结构体的好处；就像指向数组的指针一样，它比数组本身更容易操作，指向结构体的指针通常也比结构体本身更容易操作；</strong></p>
+
+<p>声明和初始化结构体指针，</p>
+
+<p>声明struct book * him；</p>
+
+<p>规则就是，struct 结构体名+  * + 指针名；</p>
+
+<p>这个声明不是建立一个新的结构体，而是创建了一个指针类型的him指针变量，他可以指向任何现有的book类型的结构体；</p>
+
+<p>him = &amp;library[0]；</p>
+
+<p>指针him正指向结构体library[0]，如何使用him来取得library[0]的一个成员呢？</p>
+
+<p><strong>方法一:</strong></p>
+
+<p>引入一个运算符，-&gt;</p>
+
+<p>后跟-&gt;运算符的结构体指针和后跟.点运算符的结构体名是一样操作的；</p>
+
+<p>注意一点的是；不能使用him.成语；因为him不是结构体名；</p>
+
+<p><strong>总结:</strong></p>
+
+<p>-&gt;只用于结构体指针访问成员；</p>
+
+<p>.点只用于结构体名访问成员；</p>
+
+<p><strong>方法二:</strong></p>
+
+<p>如果him=&amp;library[0]，那么him=library[0]；因为&amp;和是一个互逆的运算符；</p>
+
+<p>&amp;取地址，*取值；</p>
+
+<p>=》library[0].value 等价于 （*him）.value；注意必须使用圆括号，优先级问题；</p>
+
+<p>然后都与him.value是一个作用；</p>
+
+<p>对于考国二懂得上面的也就差不多了,足够了；</p>
+
+<p><strong>8.</strong><strong>向函数传递结构体信息 </strong></p>
+
+<p><strong>8.1</strong><strong>传递结构体成员</strong></p>
+
+<p>只要结构体成员是具有单值的数据类型，（及int等基础数据类型）就可以把它作为参数传递给一个接受这个特定参数类型的函数；</p>
+
+<p><strong>注意:</strong>这个只能实现访问，不能修改；</p>
+
+<p><strong>8.2</strong><strong>使用结构体地址</strong></p>
+
+<p><img width="640" height="333" src="a_clip_image009.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p><strong>注意:</strong>如果不修改值，则设置为const</p>
+
+<p><strong>8.3</strong><strong>使用结构体作为参数传递</strong></p>
+
+<p><img width="640" height="356" src="a_clip_image010.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p>其中s也是结构体变量，并且为s1结构体变量的副本。</p>
+
+<p><strong>总结:</strong></p>
+
+<p>结构体指针，使用-&gt;运算符访问成员；</p>
+
+<p>结构体名；使用.点运算符访问成员；</p>
+
+<p>要想通过调用函数修改实参结构体变量的值，只能传递地址，通过指针来修改；直在地址上修改；</p>
+
+<p><strong>8.4</strong><strong>结构体之间的双向通信</strong></p>
+
+<p><strong>先注意这个:c</strong>语言中对于结构体变量是可以整体赋值的，无论其成员是怎样的</p>
+
+<p>传递地址，使用结构体指针接收，用于访问不做修改；const限制修改，</p>
+
+<p><img width="640" height="339" src="a_clip_image011.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p>结构体作为参数传递,不能成功修改实参，只能访问；</p>
+
+<p><img width="640" height="350" src="a_clip_image012.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p>结构体作为参数，修改结构体并且返回类型也为结构体达到修改的目的；</p>
+
+<p><img width="640" height="412" src="a_clip_image013.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p>传递地址，使用结构体指针接收，用于修改，不使用const限制修改</p>
+
+<p><img width="640" height="428" src="a_clip_image014.jpg" alt="c语言基础语法——结构体（精品）" /></p>
+
+<p>通常我们是使用结构体指针的，如果不修改那么我们会使用const修改； </p>
+<p><strong>9.</strong><strong>在结构体中使用字符数组还是字符指针来存储字符串 </strong></p>
+
+<p>答案先给出:尽量使用字符数组；</p>
+
+<p><strong>9.1</strong><strong>使用字符数组</strong></p>
+<p></p>
+<pre>
+#define MAXTITL 100
+#define MAXAUTL 100
+struct book
+{
+    char title[MAXTITL];//一个字符串表示的titile 题目  ；
+    char author[MAXAUTL];//一个字符串表示的author作者  ；
+    float value;//一个浮点型表示的value价格；
+};
+</pre>
+
+<p>字符串的存储在结构体内部的；</p>
+
+<p>结构体总分配200个字节的内存给这两个字符串</p>
+
+<p><strong>9.2</strong><strong>使用字符指针</strong></p>
+
+<p></p>
+<pre>
+struct book
+{
+    char *title；
+    char * author；
+};
+</pre>
+
+<p>这里的字符串是存储在编译器认为存储字符串常量的任何地方，这个结构体中存放的只有两个地址而已，值分配8分字节；结构体不为字符串分配任何内存存储空间，因此这时候在输入的时候存在了一个潜在的危险；</p>
+
+<p>scanf(&quot;%s&quot;,s.last);//把字符串放到由s.last指向的内存中因为这是一个未初始化的变量，因此该地址是可以指向任意大小的，因此此时就是一个潜在的危险；</p>
+
+<p><strong>总结:</strong>因我们最好是使用字符数组来存储字符串；</p>
+
+<p>结构体最有用的在于自引用结构，基于这个特性可以实现链表等较为复杂的数据结构，在操作系统内核中链表的应用很广泛。此外，基于自引用结构还能用C语言实现基本的C++对象概念。</p>
+<p>结构体变量.结构体成员</p>
+<p>你可以把结构体变量看成是一个定语，对结构体成员的修饰。</p>
+<p>你也可以变结构体变量看成是主体，.看成是引用，结构体成员看成是结构体变量的下标，只是这个下标不是数字的偏移量，而相当于是一个key。也就是整体用特殊的数组去看待。</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

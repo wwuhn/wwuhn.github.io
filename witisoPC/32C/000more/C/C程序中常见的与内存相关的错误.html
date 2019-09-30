@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>C程序中常见的与内存相关的错误</h4>
+
+
+<p>对C程序员来说，管理和使用虚拟内存是个困难的、容易出错的任务。与内存有 关的错误常常令人费解，因为它们在时间和空间上，经常在  距错误源一段距离之后 才表现出来。</p>
+<p>与内存相关的常见错误包括：</p>
+<p>间接引用坏指针；</p>
+<p>读取未初始化的内存；</p>
+<p>栈缓冲区溢出；</p>
+<p>假设指针和它们指向对象的大小相同；</p>
+<p>错位错误；</p>
+<p>引用指针而不是它所指向的对象；</p>
+<p>误解指针运算；</p>
+<p>引用不存在的变量；</p>
+<p>引用空闲堆块中的数据；</p>
+<p>内存泄露。</p>
+<h4>1、间接引用坏指针</h4>
+<p>间接引用坏指针的一个常见示例是scanf错误。假设要使用scanf从stdin读一个 整数到一个变量。正确的方法是传递给scanf一个变量的地  址：</p>
+<pre>
+	scanf("%d",&val); //ok
+	scanf("%d",val); //error
+</pre>
+<p>但若传递val的内容，而不是它的地址，在这种情况下，scanf将把val的内容解 释为一个地址，并试图将一个字写到这个位置。在最好的情  况下，程序立即以异常 终止；但在最糟糕的情况下，val的内容对应于虚拟内存的某个合法的读/写区域， 于是就覆盖了这块内存，这通常在  相当长的一段时间后造成灾难性的、令人困惑的 后果。</p>
+<p>知识点：scanf输入的是变量的地址。</p>
+<p>2、读取未初始化的内存</p>
+<p>BSS（Block Started by Symbol）通常是指用来存放程序中未初始化的全局变 量和静态变量的一块内存区域。其特点是可读写的，在程序  执行之前BSS段会自动 清0。所以，未初始的全局变量在程序执行之前已经成0了。</p>
+<p>虽然BSS内存位置（如未初始化的全局变量）总是被加载器初始化为零，但是对 于堆内存却不是这样的。一个 常见的错误就是假设堆内存  被初始化为零。</p>
+<pre>
+int *matvec(int **A,int *x,int n)
+{
+	int i,j;
+	int *y=(int*)malloc(n*sizeof(int));
+	for(i=0;i&lt;n;i++)
+		for(j=0;j&lt;n;j++)
+			y[i]+=A[i][j]*x[j];
+	return y;
+}
+</pre>
+<p>在该示例中，不正确地假设向量y被初始化为零，造成计算结果错误。正确的方 式是显式地将y[i]设置为零，或者使用calloc。</p>
+<p>知识点：calloc在动态分配完内存后，自动初始化该内存空间为零，而malloc 不初始化，里边数据是随机的垃圾数据。</p>
+<h4>3、栈缓冲区溢出</h4>
+<p>如果一个程序不检查输入串的大小就写入栈中的目标缓冲区，那么这个程序就 会有缓冲区溢出错误（buffer overflow bug）。如下面的函  数就有缓冲区溢出错 误，因为gets函数复制一个任意长度的串到缓冲区。为纠正这个错误，需使用 fgets函数，这个函数限制了输入串的大小  。</p>
+<pre>
+void bufoverflow()
+{
+	char buf[24];
+	gets(buf);//gets无长度检查
+}
+</pre>
+<p>知识点：fgets函数读取指定大小的数据，避免gets函数从stdin接收字符串而 不检查它所复制的缓存的容积导致缓存溢出的问题。</p>
+<h4>4、假设指针和它们指向对象的大小相同</h4>
+<p>一种常见的错误是假设指向对象的指针和它们所指向的对象是相同大小的。 </p>
+<pre>
+int** makeArray(int n, int m)
+{
+	int i;
+	int **A=(int **)ma
+	for(i=0;i&lt;n;i++)
+		A[i]=(int*)malloc(m*sizeof(int));
+	return A;
+}
+</pre>
+<p>这里的目的是创建一个由n个指针组成的数组，每个指针都指向一个包含m个int 的数组。然而在第5行中将sizeof(int *)写成了sizeof  (int)，代码实际创建的是 一个int的数组。</p>
+<p>这段代码只有在int和int的指针大小相同的机器上运行良好。但是，在像Core  i7这样的机器上运行这段代码，其中指针大于int，那么第7  、8行的循环将写到超 出A数组结尾的地方。</p>
+<p>知识点：指针和它们指向对象的大小不相同</p>
+<h4>5、错位错误</h4>
+<p>错位错误是另一种常见的造成覆盖错误的来源。</p>
+<pre>
+int** makeArray2(int n, int m)
+{
+	int i;
+	int **A=(int **)malloc(n*sizeof(int*));//int*
+	for(i=0;i&lt;=n;i++)//1个元素的错误
+		A[i]=(int*)malloc(m*sizeof(int));
+	return A;
+}
+</pre>
+<p>这里在第5行创建了一个n个元素的指针数组，但是随后在第7、8行试图初始化 这个数据的n+1个元素，在这个过程中覆盖了A数组后面的某  个内存位置。</p>
+<p>知识点：注意在C语言中，对于含有n个元素的数组，数组下标从0开始，最大到 n-1。</p>
+<p>6、引用指针而不是它所指向的对象</p>
+<p>如果不注意C操作符的优先级和结合性，就会错误地操作指针，而不是指针所指 向的对象。比如下面的函数，其目的是删除一个有*size项  的二叉堆里的第一项， 然后对剩下的*size-1项重新建堆。</p>
+<pre>
+int* binheapDel(int** binheap, int* size)
+{
+	int *packet = binheap[0];
+	binheap0]=binheap[*size-1];
+	*size--; //(*size)--
+	heapify(binheap, *size,0);
+	return packet;
+}
+</pre>
+<p>在第5行，目的是减少size指针所指向的整数的值。然而一元运算符--和*的优 先级相同，从右向左结合，所以第6行中的代码实际减少的是  指针自己的值，而不 是它所指向的整数的值。如果幸运的话，程序会立即失败；但更有可能发生的是， 当程序在执行过程后很久才产生一个  不正确的结果，而我们只有一头雾水。</p>
+<p>知识点：当对优先级和结合性有疑问的时候，就使用括号。比如第6行，使用表 达式(*size)--，更能清晰地表明意图。</p>
+<p>7、误解指针运算</p>
+<p>常见的错误是忘记指针的算术操作是以它们指向的对象的大小为单位来进行的 ，而这种大小单位不一定是字节。如下面函数的目的是扫描  一个int的数组，并返 回一个指针，指向val的首次出现。</p>
+<pre>
+int* search(int* p, int val)
+{
+	while(*p && *p!=val)
+		p+=sizeof(int); //p++;
+	return p;
+}
+</pre>
+<p>但是，因为每次循环时，第4行都把指针加了4（int的字节数），函数就不正确地扫描数组中每4个整数。</p>
+<p>8、引用不存在的变量</p>
+<p>没有经验的C程序员不理解的栈的规则，有时会引用不合法的本地变量，如下图 所示。</p>
+<pre>
+int* stackref()
+{
+	int val;
+	return &val;
+}
+</pre>
+<p>这个函数返回一个指针（比如p），指向栈里的一个局部变量，然后弹出它的栈 帧。尽管p仍然指向一个合法的内存地址，但是它已经不再  指向一个合法的变量了 ，从而带来灾难性的、令人困惑的后果。</p>
+<p>知识点：局部变量只在本函数内有效。</p>
+<p>9、引用空闲堆块中的数据</p>
+<p>同上相似的一个错误是引用已经释放了的堆块中的数据。如下图，这个函数在 第5行分配了一个整数数组x，在第6行释放了块x，然后在第 7行中又引用了它。 </p>
+<pre>
+int* heapref(int n, int m)
+{
+	int i;
+	int *x,*y;
+	x=(int*)malloc(n*sizeof(int));
+	free(x);
+	y=(int*)malloc(m*sizeof(int));
+	for(i=0;i&lt;m;i++)
+		y[i]=x[i]++;//x已释放，变成了野指针，另y[i]是一随机值
+	return y;
+}
+</pre>
+<p>当程序在第7行引用x[i]时，数组x可能是某个其他已分配块的一部分了，因此 其内容被重写了。</p>
+<p>10、内存泄露</p>
+<p>内存泄露是缓慢、隐形的杀手，当程序员 不小心忘记释放已分配的块，而在堆 里创建了垃圾时，就会发生这种问题。如下面的函数分配了  一个堆块，然后不释放 它就返回。</p>
+<pre>
+void leak(int n)
+{
+	int* x=(int*)malloc(n*sizeof(int));
+	return; //x所占用的空间没有释放，函数调用后，也没有释放的机会
+}
+</pre>
+<p>如果不及时释放堆里的垃圾，慢慢地堆里就充满了垃圾，最糟糕的情况下，会 占用整个虚拟地址空间。</p>
+<p style='float:right;'>本页共67段，2910个字符，6868 Byte(字节)</p>?
+
+
+<p style='float:right;'>本页共140段，4063个字符，8223 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+<p>用操纵符实现格式化输入输出，操纵符算子manipulator是一系列特殊的函数，它不属于任何类的成员，主要用来格式化输入输出，定义在iostream.h和iomanip.h两个头文件中。endl插入一个新行并刷新流；flush刷新流；</p>
+
+<p>cout<&lt;"你的出生年月是："<&lt;birth<&lt;endl;</p>
+<p>1 文本：""2 变量：直接的变量名；3 换行：endl</p>
+
+<p>字符数据char s[25];</p>
+
+<p>cout<&lt;"请输入字符串：\n";</p>
+<p>cin.getline(s,25);</p>
+
+<p>cout<&lt;s<&lt;"\n";
+<p>#include "iostream";
+<p>string s1="张三";
+<p>cout<&lt;s1.c_str()<&lt;endl;</p>
+
+<p>C或C++的控制台程序的输入函数，空格或回车都表示一个值输入的结束；</p>
+
+
+<p>在C++中，setw(int n)用来控制输出间隔。</p>
+
+
+<p>cin（发音为 see-in）：读入标准输入的 istream 对象。</p>
+<p>包含其的库事先从类istream实例化的一个对象，该类有重载>>，且因为其返回值也是istream对象，所以可以被链式使用，同样的cout也是如此。</p>
+
+
+
+
+<p>endl 操纵符，用于输出一个换行符并刷新缓冲区。除此之外，C++ 语言还提供了另外两个类似的操纵符。第一个经常使用的 flush，用于刷新流，但不在输出中添加任何字符。第二个则是比较少用的 ends，这个操纵符在缓冲区中插入空字符 null，然后后刷新它：</p>
+
+
+<p>用C++读写文件</p>
+<pre>
+#include&lt;iostream>
+#include&lt;fstream>
+using namespace std;
+int main()
+{
+    fstream file("test.txt",ios::out);
+        if(!file.fail())
+        {
+            cout&lt;&lt;"star write"&lt;&lt;endl;
+            file&lt;&lt;"1 name:"&lt;&lt;"\r\n";
+            file&lt;&lt;"2 sex:"&lt;&lt;endl;
+            cout&lt;&lt;"successfully writed!"&lt;&lt;endl;
+        }
+        else
+            cout&lt;&lt;"can not open"&lt;&lt;endl;
+        file.close();
+        system("pause");
+        return 0;
+}
+</pre>
+
+<pre>
+// reading a text file
+#include&lt;iostream.h>
+#include&lt;fstream.h>
+#include&lt;stdlib.h>
+int main () 
+{
+    char buffer[256];
+    ifstream in("test.txt");
+    if (! in.is_open())
+    {
+        cout <&lt; "Error opening file"; 
+        exit (1); 
+    }
+    while (!in.eof() )
+    {
+        in.getline (buffer,100);
+        cout <&lt; buffer <&lt; endl;
+    }
+    system("pause");
+    return 0;
+}
+</pre>
+
+<p>endl表示输入一个换行符，同时刷新流。</p>
+
+<p>输出a的16进制：cout&lt;&lt;hex&lt;&lt;a&lt;&lt;endl;</p>
+
+
+<p>cout&lt;&lt;a;</p>
+
+<p>cout是对象，&lt;&lt;是操作符，a是操作数。</p>
+
+
+<p>cin对象的默认输入设备是键盘；cout对象的默认输出设备是屏幕；</p>
+
+<p>不同数据类型的输入和输出是对插入操作符和抽取操作符的重载。</p>
+
+<p>操作后的返回结果仍然是输入输出流的对象，便于连续输入或输出。</p>
+
+<p>在C++中有ifstream和ofstream类，它们的默认输入/输出设备都是磁盘文件。</p>
+
+<p>cin以空格作为字符串的结束依据，不会被读入；</p>
+
+<p>成员函数getline可以将空格一起读入；</p>
+
+<p>istream& getline(char *, int, char = '\n');</p>
+
+<p>第一个参数用于指定字符数组的首地址；</p>
+
+<p>第二个参数用于指定允许诗篇的最多字符个数；</p>
+
+<p>第三个参数用于指定表示输入结束的字符，默认为回车；</p>
+
+<p>C++语言本身是不提供输入输出操作的，它的输入/输出（input/output）由标准库提供。标准库定义了一组类型，支持对文件和控制窗口等设备的读写（IO）。还定义了其他一些类型，使string 对象能够像文件一样操作，从而使编程者无须IO 就能实现数据与字符之间的转换。这些IO 类型都定义了如何读写内置数据类型的值。此外，类的设计者还可以很方便地使用IO 标准库设施读写自定义类的对象。类类型通常使用IO 标准库为内置类型定义的操作符和规则来进行读写。</p>
+<p><strong>输入输出作为库载入，也是为了空间效率的考量，当你不需要时，就可以不载入，让程序更轻量级。</strong></p>
+<p>标准库的输入输出功能就涉及了流的使用。C++的输入输出流是指由若干字节组成的字节序列，这些字节中的数据按顺序从一个对象传送到另一个对象。流实际上是程序中输入或者输出设备的一种抽象表示，它表示了信息从源端到目的端的运动。在输入操作时， 字节流从输入设备（如键盘、磁盘）流向内存；在输出操作时，字节流从内存流向输出设备（例如屏幕、打印机、磁盘等）。流中的内容可以是ASCII 字符、二进制形式的数据、图形图像、数字音频视频或其他形式的信息。 </p>
+
+<p>实际上，在内存中为每个数据流开辟一个内存缓冲区，是用来存放流中的数据。流是与内存缓冲区相对应的，或者可以说，缓冲区中的数据就是流。</p>
+
+
+<p>C++有哪4个预定义的流？ </p>
+
+<p>C++预定义了四个流对象：cin、cout、cerr和clog，分别对应于标准输入流、标准输出流、无缓冲的标准错误流以及有缓冲的标准错误流。 </p>
+
+<p>什么时候用输入方式打开文件？什么时候应该用输出方式打开文件？什么时候该用app方式打开文件？ </p>
+
+<p>程序需要从文件读取信息时，以输入方式打开。如果需要把程序中的某些信息写到文件中去，以输出方式打开文件。当以输出方式打开某个文件时，文件中原有的内容会被清除。如果想保留文件中原有的内容，将新加入的内容添加在原内容后面，可以用app方式打开。 </p>
+
+<p>哪些流操纵符只对下一次输入/输出有效？哪些流操纵符是一直有效直到被改变？ </p>
+
+<p>常用的流操纵符中，setw和setFill只对下一次输入输出有效。设置整型数的基数和设置浮点数的精度是一直有效，直到被改变为止。 </p>
+
+<p>各编写一条语句完成下列功能： </p>
+
+<p>a．使用流操纵符输出整数100的八进制、十进制和十六进制的表示。 </p>
+
+<p>b．以科学计数法显示实型数123.4567。 </p>
+
+<p>c．将整型数a输出到一个宽度为6的区域，空余部分用’$’填空。 </p>
+
+<p>d．输出char *类型的变量ptr中保存的地址。 </p>
+
+
+
+<p>a、 cout &lt;&lt; oct &lt;&lt; 100 &lt;&lt; ‘\t’ &lt;&lt; dec &lt;&lt; 100 &lt;&lt; ‘\t’ &lt;&lt; hex &lt;&lt; 100 &lt;&lt; endl; </p>
+
+<p>b、 cout &lt;&lt; scientific &lt;&lt; 123.456 &lt;&lt; endl; </p>
+
+<p>c、 cout &lt;&lt; setw(6) &lt;&lt; setfill(‘$’) &lt;&lt; a &lt;&lt; endl ; </p>
+
+<p>d、 cout &lt;&lt; (void *)ptr &lt;&lt; endl;</p>
+
+
+
+
+<p>printf()、scanf()不能“智能”地处理类型，这个任务交给程序员去完成。同时，也无法直接用预定义的库函数来完成类类型的输入输出。这使得程序员不得不用更多的代码来完成新类型数据的输入输出。作为比C更好的语言，C++当然会提出解决问题的方式，这就是流（Stream）。</p>
+
+<p>C++采用继承的方法建立了比较实用的流库。</p>
+
+<p>输入输出流被定义为类，C++的I/O库中的类称为流类，用流类定义的对象称不流对象，例如，cin是输入流对象，cout是输出流对象。</p>
+
+<p>C++流库中的所有流、对象和函数都定义在标准名字空间std中，因此，使用I/O流需要用到以下名字限定语法。</p>
+
+<p>std::cout</p>
+
+<p>输入是数据从输入设备（如键盘、磁盘和鼠标等）到内存的过程，输出是内存中的数据输出到输出设备（如显示屏幕、打印机和磁盘等）的过程。输入输出过程中，数据像流水一样从一处流到另外一处，C++形象地描述该过程为流。流的内容可以是ASCII码字符、二进制形式的数据、图形图像、数字音频视频或者其他形式的信息。</p>
+
+<p>当开始执行C++程序时，C++会有几个自动打开的预定义流，分别是：cin（相当于C的stdin）、cout（相当于C的stdout）、cerr和clog（相当于C的stderr）。</p>
+
+<p>cerr没有被缓冲，而clog有被缓冲。</p>
+
+<p>默认情况下，C++标准流cin和cout被连到控制台上，但它也可以被重新定向。cerr和clog与标准错误设备相关连，它不能被重新定向，因此，输出到cerr和clog的信息总是能在屏幕上显示。</p>
+
+<p>istream流类将运算符>>重载为输入运算符。</p>
+
+<p>istream和ostream两个类提供了流库的主要输入输出界面。</p>
+
+
+<p>输出运算符&lt;&lt;也称为插入（Inserting）运算符，通过输出运算符传送到输出设备。输出运算符有两个操作数，左操作数为ostream类类型的对象，右操作数是存储输出数据的变量，可以是一个预定义类型的变量，也可以是重载了该运算符（&lt;&lt;）的类的对象。输出运算符采用左结合方式，允许多个输出操作组合到一个语句中。</p>
+
+<p>输入出运算符>>也称为提取（Extraction）运算符，通过输入运算符传送到输入设备。输入运算符有两个操作数，左操作数为istream类类型的对象，右操作数是存储输出数据的变量，可以是一个预定义类型的变量，也可以是重载了该运算符（>>）的类的对象。输出运算符采用左结合方式，允许多个输出操作组合到一个语句中。</p>
+
+<p>在默认情况下，运算符>>跳过空白符，然后读入对应于输入变量类型的值。对于类型char*（作为串看待），运算符>>的作用也是跳过空白，读入以下非空白字符，直到发现另一个空白字符为止，并在串尾放一个字符'\0'，要小心避免串溢出。</p>
+
+<p>重载运算符函数operator>>的第二个参数必须是一个引用。</p>
+
+<p>在C++中，要进行文件I/O，首先必须创建一个流，然后将这个流与文件相关联（称为打开文件），这时才能进行读写操作。使用完后，需要关闭文件。</p>
+
+<p>ofstream ofile("test.txt");</p>
+
+<p>ofstream类自动打开文件的构造函数，该构造函数的参数和默认值与open()函数相同。</p>
+
+<p>可用文件保存程序输入或接收程序输出。用于程序I/O 的“文件”和用于保存程序的“文件”没有区别。利用“流”，程序可以采用统一的方式处理文件输入与键盘输入，并可采用统一的方式处理文件输出与屏幕输出。</p>
+
+<p>流(stream)是由字符(或其他类型的数据)构成的“流”(flow)。流向程序，称为输入流(inputstream)。流出程序，则称为输出流(output stream)。如输入流来自键盘，表明程序要从键盘获取输入。如输入流来自文件，表明程序要从文件获取输入。类似地，输出流可发送给屏幕或文件</p>
+
+<p>可将流连接到的文件视为这个流的值。可以将流与文件断开，再连接到另一个文件，换言之，可以更改流变量的值。然而，必须使用专门处理流的函数才能完成这些更改。不能像使用int 或char 类型的变量那样在赋值语句中使用流变量。虽然流是变量，但它们是特殊的变量。</p>
+
+<p>cin 和cout 流是系统已经为你声明好的。要将流连接到文件，必须像声明其他任何变量那样声明流。“输入文件流”(input-file stream)变量的类型名称是ifstream；“输出文件流”(output-file stream)变量的类型名称是ofstream。所以，要将inStream 声明为用于文件的输入流，将outStream 声明为用于另一个文件的输出流，需要使用如下所示的语句：</p>
+
+<p>ifstream inStream;</p>
+
+<p>ofstream outStream;</p>
+
+<p>流变量(例如前面声明的inStream 和outStream)必须连接到一个文件。这称为打开文件，用open 函数完成该操作。例如，假定希望输入流inStream 连接到infile.dat 文件，程序首先执行以下语句，然后才能从该文件读取输入：</p>
+
+<p>inStream.open("infile.dat");</p>
+
+<p>程序使用的每个输入和输出文件都有两个名称。外部文件名是文件真实名称，但只在open函数调用中使用一次，该函数将文件连接到一个流。一旦调用了open，就必须将流名称作为文件名使用。</p>
+
+<p>程序完成从文件输入或者向文件输出之后，应该将文件关闭。关闭文件导致流与文件断开。调用close 函数关闭文件。：inStream.close();</p>
+
+<p>如程序正常终止，但没有关闭文件，系统会自动为你关闭。但最好养成主动关闭文件的好习惯，原因有二。</p>
+
+<p>其一，只有在程序正常终止的前提下，系统才会为你关闭文件。假如程序因为错误而异常终止，文件就不会关闭，并可能损坏。程序在结束文件处理后立即关闭文件，文件损坏的几率就大大降低。</p>
+
+<p>其二，你可能希望程序将输出发送给一个文件，以后又将那些输出读回程序。为此，程序应该在完成向文件的写入之后立即关闭文件，再用open 函数将文件连接到一个输入流(也可以打开一个文件，并同时进行输入和输出，但方式稍有区别)。</p>
+
+
+<p>操作符>>和&lt;&lt;可像应用于cin 和cout 那样应用于连接到文件的流。但文件I/O 的编程风格有别于屏幕和键盘I/O。（读取键盘输入应提示并回显用户输入）</p>
+
+<p>可同时打开多个流进行输入输出。因此，一个程序可以既从键盘获取输入，也从一个或多个文件获取输入。同一个程序可以既向屏幕发送输出，也向一个或多个文件发送输出。另外，还可从键盘获取所有输入，并将输出同时发送到屏幕和文件。输入流和输出流可任意组合。</p>
+
+<p>流可作为函数实参使用。唯一限制就是形参必须传引用。</p>
+
+<p>每个输入文件流都有名为eof 的成员函数，用于判断何时读完文件的全部内容，没有更多的输入。</p>
+
+<p>ifstream 类型的流可通过调用成员函数open 连接到文件。之后就可从文件读取输入。</p>
+
+<p>ofstream 类型的流可通过调用成员函数open 连接到文件。之后就可将输出发送到文件。</p>
+
+<p> 应使用成员函数fail 检查open 函数调用是否成功。</p>
+
+<p>对象是关联了函数的变量。这些函数称为成员函数。类是其变量为对象的一种类型。例如，一个流是一个对象，而ifstream 和ofstream 是类。</p>
+
+<p>流的一些成员函数(比如width，setf 和precision)可用于格式化输出。这些输出函数同时适用于连接到屏幕的cout 流和连接到文件的输出流。</p>
+
+<p>每个输入流都有名为get 的成员函数，用于读取一个字符输入。get 不会忽略空白字符。每个输出流都有名为put 的成员函数，用于将一个字符写到输出流。</p>
+
+<p>成员函数eof 测试是否抵达输入文件末尾。eof 适合文本处理。</p>
+
+<p>函数可以有流类型的形参，但参数只能传引用而不能传值。</p>
+
+<p>将istream(没有f)用作输入流参数的类型，与该参数对应的实参既可以是cin流，也可以是ifstream(有f)类型的输入文件流。将ostream(没有f)用作输出流参数的类型，与该参数对应的实参既可以是cout 流，也可以是ofstream(有f)类型的输出文件流。</p>
+
+<p>文件和程序变量都可存储值，而且都可从中检索(获取)值。程序变量只存在于程序运行期间，而文件在程序运行前就可能存在，而且在程序终止之后可继续存在。简单地说，文件可以是永久性的，变量则不然。文件能存储大量数据，变量则不能提供如此大的存储量。</p>
+
+
+
+<p>文件：如直接处理而不需显示的数据一般以二进制形式存储，字符串显示数据通常以文本形式存储。</p>
+
+<p>如何对文件进行读写操作：实例化一个流对象，利用流对象方法open打开一个文件（参数是路径+打开方式），这样就可以对文件进行读写了。如果某些文件因为某些原因不能打开（如欲写文件的磁盘已满，或想写到U盘，但U盘沿未插好等），流对象的值为0.在对文件进行操作前，必须确保文件已打开，否则 要进行相应的处理。为确认打开文件是否成功，通常固定采用好下程序段。</p>
+
+
+<pre>
+ifstream ex4("test.txt");
+if(!ex4)
+{ 
+    cout&lt;&quot;Can't open the file!\n&quot;;
+    exit(1);  //标准库函数，在stdlib.h中，程序结束，并返回1作为错误代码
+}
+</pre>
+
+
+<p>用cin输入时是以空格、回车或Tab键作为结束符。因此无法输入包含空白字符的字符串</p>
+
+<p>在用cin输入时，要注意输入的字符串的长度不能超过数组的长度。因此，最好在输出的提示信息中告知允许的最长字符串长度。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

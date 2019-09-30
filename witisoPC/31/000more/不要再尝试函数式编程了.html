@@ -1,0 +1,573 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>不要再尝试函数式编程了</h3>
+
+<p>程序员小冰冰 2019-08-20 10:49:52</p>
+<p>也许你曾听说过所谓的“函数式”编程，也许你甚至在想接下来是否要尝试一下。但是，函数式编程有很多缺陷，并不适用于现实项目的开发，并且会造成工作效率的下降。欲知详情，且听本文娓娓道来。【译者注：本篇采用了讽刺的写法，若急于知道真相，请拉至文末。】</p>
+<p>也许你曾听说过所谓的“函数式”编程。也许你甚至在想接下来是否要尝试一下。</p>
+<p>答案是别 ！它简直是地狱！</p>
+<p>函数式编程有很多缺陷，并不适用于现实项目的开发，并且会造成工作效率的下降。为什么呢？且听本文娓娓道来！</p>
+<p>1</p>
+<p>函数式编程无法满足复杂的企业需求</p>
+<p>现实世界中的企业级软件需要满足一系列复杂的、严格的、强制性的需求，这些需求与大量内嵌于软件解决方案中的抽象预期相关。换句话说，面向对象编程有助于程序员使用多种抽象机制，这些抽象机制完全能够满足企业的复杂需求。</p>
+<p>这读起来有点拗口，但请先忍一下！接下来将做清晰地解释。</p>
+<p>所谓的“函数式”编程，由于是基于数学的，所以没有合适的抽象机制（显然，这么做不太好，除了在学术界，数学在现实世界中没有任何应用）。与 OOP 不同，函数式编程并没有试图去满足企业所要求的众多严格而复杂的需求。</p>
+<p>这段代码演示了函数式编程中普遍存在的问题：</p>
+<p>import { filter, first, get } from 'lodash/fp';</p>
+<p> const filterByType = type =></p>
+<p> filter( x => x.type === type );</p>
+<p> const fruits = [</p>
+<p> { type: 'apple', price: 1.99 },</p>
+<p> { type: 'orange', price: 2.99 },</p>
+<p> { type: 'grape', price: 44.95 }</p>
+<p> ];</p>
+<p> const getFruitPrice = type => fruits =></p>
+<p> fruits</p>
+<p> |> filterByType(type)</p>
+<p> |> first</p>
+<p> |> get('price');</p>
+<p> const getApplePrice = getFruitPrice('apple');</p>
+<p> console.log('apple price', getApplePrice(fruits));</p>
+<p>fp-sucks-apples-fp.js</p>
+<p>看着它生不生气？没事，不光是你！</p>
+<p>函数式编程并没有像所有严肃的企业通常所要求的那样，尝试对功能进行适当的抽象和封装。</p>
+<p>任何一个有自尊心的软件工程师都不会写这样的代码！如果他们这样做了，那么他们可能会被那些严肃的大型企业立即解雇，以防止进一步的损失。在下一节中，我们将研究一个适当抽象的 OOP 程序。</p>
+<p>2</p>
+<p>函数式软件解决方案并不是面向未来的</p>
+<p>大家都清楚，一个专业且有自尊心的软件工程师的首要职责是，编写能够满足复杂业务需求且面向未来的代码。</p>
+<p>与上面那段灾难性的函数式代码相比，让我们快速地看一个适当抽象的 OOP 程序。它做的事情完全相同，但采取的却是一种抽象且面向未来的方式：</p>
+<p>class Fruit {</p>
+<p> constructor(type, price) {</p>
+<p> this.type = type;</p>
+<p> this.price = price;</p>
+<p> }</p>
+<p> }</p>
+<p> class AbstractFruitFactory {</p>
+<p> make(type, price) {</p>
+<p> return new Fruit(type, price);</p>
+<p> }</p>
+<p> }</p>
+<p> class AppleFactory extends AbstractFruitFactory {</p>
+<p> make(price) {</p>
+<p> return super.make("apple", price);</p>
+<p> }</p>
+<p> }</p>
+<p> class OrangeFactory extends AbstractFruitFactory {</p>
+<p> make(price) {</p>
+<p> return super.make("orange", price);</p>
+<p> }</p>
+<p> }</p>
+<p> class GrapeFactory extends AbstractFruitFactory {</p>
+<p> make(price) {</p>
+<p> return super.make("grape", price);</p>
+<p> }</p>
+<p> }</p>
+<p> class FruitRepository {</p>
+<p> constructor() {</p>
+<p> this.fruitList = [];</p>
+<p> }</p>
+<p> locate(strategy) {</p>
+<p> return strategy.locate(this.fruitList);</p>
+<p> }</p>
+<p> put(fruit) {</p>
+<p> this.fruitList.push(fruit);</p>
+<p> }</p>
+<p> }</p>
+<p> class FruitLocationStrategy {</p>
+<p> constructor(fruitType) {</p>
+<p> this.fruitType = fruitType;</p>
+<p> }</p>
+<p> locate(list) {</p>
+<p> return list.find(x => x.type === this.fruitType);</p>
+<p> }</p>
+<p> }</p>
+<p> class FruitPriceLocator {</p>
+<p> constructor(fruitRepository, locationStrategy) {</p>
+<p> this.fruitRepository = fruitRepository;</p>
+<p> this.locationStrategy = locationStrategy;</p>
+<p> }</p>
+<p> locatePrice() {</p>
+<p> return this.fruitRepository.locate(this.locationStrategy).price;</p>
+<p> }</p>
+<p> }</p>
+<p> const appleFactory = new AppleFactory();</p>
+<p> const orangeFactory = new OrangeFactory();</p>
+<p> const grapeFactory = new GrapeFactory();</p>
+<p> const fruitRepository = new FruitRepository();</p>
+<p> fruitRepository.put(appleFactory.make(1.99));</p>
+<p> fruitRepository.put(orangeFactory.make(2.99));</p>
+<p> fruitRepository.put(grapeFactory.make(44.95));</p>
+<p> const appleLocationStrategy = new FruitLocationStrategy("apple");</p>
+<p> const applePriceLocator = new FruitPriceLocator(</p>
+<p> fruitRepository,</p>
+<p> appleLocationStrategy</p>
+<p> );</p>
+<p> const applePrice = applePriceLocator.locatePrice();</p>
+<p> console.log("apple", applePrice);</p>
+<p>file-fp-sucks-apples-oop-js</p>
+<p>正如我们所看到的那样，它 SOLID 对所有的核心功能都进行了适当的抽象。这段代码是 SOLID 的。</p>
+<p>不要让简单的东西愚弄了你！它完全满足通常任何大型企业所要求的所有的复杂业务需求。</p>
+<p>这个健壮的解决方案完全是面向未来的，并且适当地利用了企业级依赖注入。</p>
+<p>3</p>
+<p>严肃的管理需要严肃的功能</p>
+<p>希望到目前为止，开发团队已经按照企业的规定，完成了与代码抽象相关的复杂业务需求。开发人员现在应该把资源重点投入到实现项目经理定义的功能上。</p>
+<p>现实中的任何企业产品经理都知道，只有交付的新功能才是真正具有业务价值的。开发人员不应该将资源浪费在诸如单元测试、重构等耗时的事情上。</p>
+<p>很显然，所谓的“函数式”编程是有缺陷的，它没必要使像重构、单元测试等多余的工作变得那么简单。这反过来又会分散开发团队的注意力，开发人员可能会不小心地将时间浪费在那些无用的活动上，而不是提供新的功能。</p>
+<p>下面的例子非常清楚地展示了函数式编程的劣势，它使重构变得过于简单了：</p>
+<p>// 重构之前:</p>
+<p> // calculator.js:</p>
+<p> const isValidInput = text => true;</p>
+<p> const btnAddClick = (aText, bText) => {</p>
+<p> if (!isValidInput(aText) || !isValidInput(bText)) {</p>
+<p> return;</p>
+<p> }</p>
+<p> }</p>
+<p> // 重构之后:</p>
+<p> // inputValidator.js:</p>
+<p> export const isValidInput = text => true;</p>
+<p> // calculator.js:</p>
+<p> import { isValidInput } from './inputValidator';</p>
+<p> const btnAddClick = (aText, bText, _isValidInput = isValidInput) => {</p>
+<p> if (!_isValidInput(aText) || !_isValidInput(bText)) {</p>
+<p> return;</p>
+<p> }</p>
+<p> }</p>
+<p>file-fp_refactoring-js</p>
+<p>如果这样的重构让你对它的简单性感到不安，你并不是唯一的一个！重构前有六行代码，重构后只有七行代码？你一定是在开玩笑吧！</p>
+<p>让我们将其与面向对象代码的适当重构进行对比：</p>
+<p>// 重构之前:</p>
+<p> public class CalculatorForm {</p>
+<p> private string aText, bText;</p>
+<p> private bool IsValidInput(string text) => true;</p>
+<p> private void btnAddClick(object sender, EventArgs e) {</p>
+<p> if ( !IsValidInput(bText) || !IsValidInput(aText) ) {</p>
+<p> return;</p>
+<p> }</p>
+<p> }</p>
+<p> }</p>
+<p> // 重构之后:</p>
+<p> public class CalculatorForm {</p>
+<p> private string aText, bText;</p>
+<p> private readonly IInputValidator _inputValidator;</p>
+<p> public CalculatorForm(IInputValidator inputValidator) {</p>
+<p> _inputValidator = inputValidator;</p>
+<p> }</p>
+<p> private void btnAddClick(object sender, EventArgs e) {</p>
+<p> if ( !_inputValidator.IsValidInput(bText)</p>
+<p> || !_inputValidator.IsValidInput(aText) ) {</p>
+<p> return;</p>
+<p> }</p>
+<p> }</p>
+<p> }</p>
+<p> public interface IInputValidator {</p>
+<p> bool IsValidInput(string text);</p>
+<p> }</p>
+<p> public class InputValidator : IInputValidator {</p>
+<p> public bool IsValidInput(string text) => true;</p>
+<p> }</p>
+<p> public class InputValidatorFactory {</p>
+<p> public IInputValidator CreateInputValidator() => new InputValidator();</p>
+<p> }</p>
+<p>file-oop_refactoring-cs</p>
+<p>这才是正确编程的样子！重构前 9 行代码，重构后 22 行代码。重构需要付出更多的努力，这将促使企业开发人员在进行诸如重构之类的浪费资源的活动之前能三思而后行。</p>
+<p>4</p>
+<p>声明式代码的谬论</p>
+<p>所谓的“函数式”程序员错误地以编写声明式代码为荣。这没什么值得骄傲的，这种代码只是制造了一种生产力的假象。</p>
+<p>任何开发人员的核心职责都应该包括进行适当且严格的面向对象抽象（这也是任何大型企业所要求的）。</p>
+<p>让我们来看一段适当抽象的 OOP 代码：</p>
+<p>class CountryUserSelectionStrategy {</p>
+<p> constructor(country) {</p>
+<p> this.country = country;</p>
+<p> }</p>
+<p> isMatch(user) {</p>
+<p> return user.country === this.country;</p>
+<p> }</p>
+<p> }</p>
+<p> class UserSelector {</p>
+<p> constructor(repository, userSelectionStrategy) {</p>
+<p> this.repository = repository;</p>
+<p> this.userSelectionStrategy = userSelectionStrategy;</p>
+<p> }</p>
+<p> selectUser() {</p>
+<p> let user = null;</p>
+<p> for (const u in users) {</p>
+<p> if ( this.userSelectionStrategy.isMatch(u) ) {</p>
+<p> user = u;</p>
+<p> break;</p>
+<p> }</p>
+<p> }</p>
+<p> return user;</p>
+<p> }</p>
+<p> }</p>
+<p> const userRepository = new UserRepository();</p>
+<p> const userInitializer = new UserInitializer();</p>
+<p> userInitializer.initialize(userRepository);</p>
+<p> const americanSelectionStrategy = new CountryUserSelectionStrategy('USA');</p>
+<p> const americanUserSelector = new UserSelector(userRepository, americanSelectionStrategy);</p>
+<p> const american = americanUserSelector.selectUser();</p>
+<p> console.log('American', american);</p>
+<p>file-fp-sucks-imperative-js</p>
+<p>请关注第 20 行的循环命令。忽略次要的样板 OOP 代码，它与当前任务无关。为了使代码示例符合严肃企业提出的严格抽象要求，必须包含它。</p>
+<p>另一方面，声明式代码过于简洁，并且错误地引导开发人员将注意力集中在不太重要的事情上，比如业务逻辑。将上述健壮的企业解决方案与下面这段较差的“声明式”代码进行对比：</p>
+<p>SELECT * FROM Users WHERE Country=’USA’;</p>
+<p>SQL 每次都让我感到害怕，因为它是声明式的。为什么选择 SQL 呢？为什么它们不能让开发人员使用适当的企业级抽象并编写正常的面向对象的代码呢？特别是当我们已经拥有了这些工具时。这真让人吃惊。</p>
+<p>5</p>
+<p>现实世界建模</p>
+<p>面向对象编程简直是天才。与“函数式”编程不同，它使用继承、多态和封装等高级技术能完美地为现实世界建模。</p>
+<p>任何有自尊心的软件开发人员都应该每天使用继承来实现代码的可重用性。正如我之前所说，继承完美地模拟了现实世界。例如，猫总是从一个抽象的现实世界中的动物身上继承它们的特性和行为。生命起源于几十亿年前的海洋。因此，所有哺乳动物（包括猫）都继承了原始鱼类的特性（如 garfield.fishHead ）以及方法（如 garfield.swim 和 garfield.layCaviar ）。难怪猫这么喜欢洗澡和游泳！人类其实是一样的，如果我们愿意，我们也可以很容易地开始产卵！</p>
+<p>对于代码组织，我们的程序应该始终遵循类似的分层方法。函数式编程错误地将开发人员从受现实世界启发所得到的如此惊人的代码共享结构中解脱出来。这会产生深远的影响，特别是在非常复杂的企业软件中。</p>
+<p>6</p>
+<p>函数应始终与对象绑定</p>
+<p>这只是常识，也是对现实世界的完美建模。你在 Chapters 购买的笔记本带有内置的“写方法”。每当你打算写东西的时候，都要调用这个方法。你可能没有意识到这一点，但你还有其他一些方法，比如.eat(veggies)）、doHomeWork。这只是常识，不然你妈妈怎么能让你吃蔬菜，让你完成家庭作业呢？当然，她过去常常直接调用这些方法！</p>
+<p>在现实世界中，如果没有一个专门负责协调任务的 Manager，工作是不可能完成的。年轻人可能需要一个管理者来满足他们基本需求，比如“netflix-n-chill”。到底由谁来协调整个过程？如果他们聪明的话，就会像 OOP 推荐的那样，雇佣多个管理者。</p>
+<p>在现实世界中，创造任何新的、酷的东西也都需要有一个专门的 Factory。Leonardo 拥有一个 MonaLisaFactory，Trump 建造了一个秘密的 WallFactory。俄罗斯过去有一个 CommunismFactory，现在主要维护它隐藏在克里姆林宫地下深处的 CorruptionFactory。</p>
+<p>我们可以清楚地看到，这只是“函数式”棺材中的另一颗钉子，因为它没有试图模拟现实世界。允许函数独立于对象存在，这显然是错误的。显然，函数编程不适用于任何现实际的编码。</p>
+<p>6</p>
+<p>函数式编程没有提供成长的机会</p>
+<p>首先最重要的是，软件工程师应该专注于持续的提升和成长。为了真正掌握面向对象的编程，软件工程师必须掌握大量的知识。</p>
+<p>首先，他们必须学习高级 OOP 技术，如继承、抽象、封装和多态。然后，他们应该熟悉各种设计模式（比如单例模式）并在代码中使用。大约有 30 种基本的设计模式需要学习。此外，理想情况下，开发人员也应该在代码中使用各种企业级抽象技术。</p>
+<p>其次，是熟悉领域驱动设计之类的技术，并学习如何分解单体应用。还建议他们学习下合适的重构工具，比如 Resharper，因为 OOP 代码重构起来并不容易。</p>
+<p>至少需要 20-30 年的时间才能熟练掌握 OOP。即使如此，大多数有 30 年 OOP 经验的人也还没有真正掌握它。学习之路坎坷不平，充满了不确定性。OOP 开发者需要终生学习，这是多么令人兴奋啊!</p>
+<p>那么可怜的函数式程序员呢？很不幸的，没什么可学的。我曾亲自教过一些初级开发人员用 JavaScript 进行函数式编程，他们只用大约半年的时间就变得非常擅长了。他们只需要理解一些基本概念，然后很快就能学会怎么应用它们了。终生学习的乐趣在哪里？我不会羡慕他们的。</p>
+<p>7</p>
+<p>成功是一段旅程，而不是终点</p>
+<p>我们承认，我们的程序员是靠时间获取报酬的。就像过去两年在我家附近挖洞的建筑工人一样（顺便说一句，他们正在修建一堵墙，啊不，一条路）。</p>
+<p>我们来定义下程序员的生产力。每个在大型企业工作过的人都知道取得成功的简单公式：</p>
+<p>生产力 = 代码行数 x 修复 bug 数</p>
+<p>修复 bug</p>
+<p>人脑在处理状态方面真的很差，在给定的时间内，我们只能在大脑中记住大约五项工作。编程过程中的状态可以是内存中的任何数据，例如 OOP 中的字段 / 变量。使用可变状态就像是在玩杂耍。我认识的人里，没有几个能同时玩三个球的，更不用说五个了。</p>
+<p>OOP 很好地利用了这个弱点。在 OOP 中，几乎所有的东西都是可变的。感谢上帝，OOP 非常重视开发人员的生产力问题！在 OOP 中，所有的可变状态也都能通过引用来共享！这意味着，我们不仅要考虑当前正在处理的对象的可变状态，还要考虑与之交互的其他 10-50 个对象的可变状态！这就类似于同时玩 50 个球，而且它还有一个额外的好处，那就是它能很好地锻炼大脑肌肉。</p>
+<p>Bug？是的，最终我们会丢掉一些我们一直在玩的球。在这 50 个对象之间的交互中，我们可能会漏掉一些小细节。但谁在乎呢，真的吗？在生产过程中，客户应该上报 Bug，任何大型企业都是这么做的。然后把这些 bug 录入到 JIRA 里，嗯，相当严肃的一款企业级软件。几年后，这些 bug 将被修复。问题解决了！</p>
+<p>天哪，我喜欢使用我的手机银行应用程序。它非常先进，银行也很重视我的业务，他们很认真地对待我的隐私。但我被告知，这些 bug 只是一些特性！</p>
+<p>所谓的“函数式”编程错误地隔离了状态，并使状态不可变。这有一个不幸的结果，那就是降低了复杂性，从而减少了 bug 的数量。代码库中的 bug 越少意味着我们需要修复的 bug 也就越少。承包商将无法继续向他们的客户收取修复这些 bug 的费用。任何大型企业中工作的开发人员在他们的经理眼中将会变得很糟糕，并且可能会严重影响他们在组织中晋升的机会。</p>
+<p>代码行数</p>
+<p>我们也应该向管理层不断展示我们取得的进步。最有效的方法是什么呢？当然是代码行数！如果我们都转向函数式编程，我们会让管理层非常不安和疑惑。“声明式”代码将使我们的代码更加简洁，代码行数也将大幅减少。实现完全相同的目标，最多可以减少 3-5 倍的代码，这是不可接受的！</p>
+<p>换言之，面对严肃的企业管理，我们的生产力将大幅下降，我们的工作也将再次面临危险。远离“函数式”编程符合我们的最大利益。</p>
+<p>同样的建议也适用于向客户收取工作时间费用的承包商。以下是取得成功的简单公式：</p>
+<p>代码行数 = 编码实践 = $$$ 纯利润 $$$</p>
+<p>当然，这个取得成功的公式也直接适用于那些按照代码行收费的软件承包商：</p>
+<p>if (1 == '1') {</p>
+<p> doStuff();</p>
+<p>} else {</p>
+<p> // pure profit</p>
+<p>}</p>
+<p>“意大利面”是我们的谋生之道</p>
+<p>与函数式编程不同，OOP 为我们提供了一种一致的方式来编写意大利面代码，这对开发人员的工作效率是一个真正的福音。意大利面代码意味中更多的计费时间，它能转化成 OOP 工程师的纯利润。意大利面不仅味道鲜美，而且是 OOP 程序员的谋生之道！</p>
+<p>面向对象对于承包商和严肃企业的员工来说都是一个真正的福音。</p>
+<p>8</p>
+<p>Bug 预防部门</p>
+<p>我们不应该害怕使用 OOP。再说一遍，那些讨厌的 bug 没什么好担心的！任何一个严肃的企业都有一个完整的 bug 预防部门（又称客户支持部门），其主要工作是保护他们开发人员的资源免受愤怒客户的影响。毕竟，不能正确使用应用程序是客户自己的错。</p>
+<p>开发人员不应该为诸如 bug 报告之类无关紧要的事情而烦恼。这样可以确保没有浪费任何企业资源，并且允许开发人员在使用适当的企业级面向对象抽象和复杂设计模式的同时，集中精力实现新功能。</p>
+<p>Bug 报告过程</p>
+<p>为了保护企业资源，通常会精心设计一个详细而严格的流程。一旦客户遇到 bug，他们通常必须在线查找客户支持的电话号码。客户将看到一个包含各种选项的高级交互式电话菜单。通常需要两到五分钟来听菜单并选择正确的选项。缺乏耐心的客户通常在这一步就放弃了。</p>
+<p>然后，客户通常会被告知，公司正在处理“意外的大量呼叫”或“平均等待时间是 56 分钟”。他们通常会为由此带来的不便而道歉，并表达他们对客户业务的重视程度。在这个步骤中，大多数客户通常会放弃报告 bug。为了取悦顾客，通常会播放鼓舞人心的音乐。他们还会让客户去关注这款很棒的新应用程序。这款应用程序就是客户最初遇到问题的那个。</p>
+<p>在等了 56 分钟之后，呼叫被路由到了位于北美洲某处的呼叫中心。当地的美国雇员通常都是经过严格培训的，他们能够用浓重的印度或保加利亚口音说话。代理会说，应用程序的这个问题不是他的责任，但是很高兴帮客户转交到另一个部门。</p>
+<p>又等了 42 分钟之后，一个代理很高兴地告诉客户这个 bug 实际上是一个功能，并建议用户浏览应用程序的帮助部分。如果客户仍然坚持，代理可能会创建一个支持通知单，甚至可能会给客户回电！这个 bug 不能被复现。</p>
+<p>我希望你现在已经确信，担心 bug 不是开发人员的工作。企业通常会采取严格的措施来保护开发人员资源。</p>
+<p>8</p>
+<p>避免新手面试的错误</p>
+<p>如果你正在积极地寻找工作，那么花点精力把你的简历中那些“函数式”的废话都删掉吧，否则没有人会认真对待你。在现实的企业世界中，没有人受过“函数组合”、“纯函数”、“单子”或“不变”等幼稚事物的训练。你不想看起来像个局外人。谈论这些事情会让你的面试官哑口无言，而且会彻底毁掉你成功的机会。</p>
+<p>企业的技术招聘人员也是要经过严格培训的，这使他们能够正确地区分 Java 和 JavaScript 等技术。</p>
+<p>一定要在你的简历中穿插一些词来证明你了解各种严格的企业级抽象技术，比如类、继承、设计模式、依赖注入、实体、抽象工厂和单例等。</p>
+<p>当被要求在白板上实现经典的冒泡（FizzBuzz）求职面试问题时，请确保你做好了充分的准备。这是你展示自己严谨的企业级系统设计能力的机会。第一步是充分设计解决方案，同时使用适当的 OOP 设计模式和严格的企业级抽象技术。FizzBuzz 企业版是一个很好的起点。很多人犯了一个新手易犯的错误，那就是依赖诸如函数之类的劣质设计技术。难怪他们从来没有收到潜在雇主的回复。</p>
+<p>9</p>
+<p>函数式编程不能用于构建严肃的软件解决方案</p>
+<p>在考虑了上面所有严肃且严谨的论点之后，我们现在可以清楚地看到，这种所谓的“函数式”编程并没有带来任何好处。很明显，我们应该不惜一切代价避免它。</p>
+<p>所谓的“函数式”编程是近几年来的一种流行趋势。很高兴，它正在消亡！像 Facebook 和 Microsoft 这样的大公司早就意识到了函数式编程的局限性，以及面向对象方法在代码组织中的明显优势。他们正在将资源转移到新一代面向对象语言上，即 ReasonOL 和 BosqueOOP。这些语言将状态的可变性带到了一个全新的高度，幸运的是，它们不支持诸如不可变数据结构之类的无用的函数式的东西。</p>
+<p>10</p>
+<p>上帝的恩惠</p>
+<p>因此，你可能会问，除了所谓的“函数式”编程，还有什么其他替代方案吗？面向对象编程，傻瓜！它是由一位真正的编程之神赐予我们的。OOP 是一种不可忽视的力量。它是开发人员生产力的终极工具，能让你和你的团队成员一直忙着工作（就业）。</p>
+<p>愿（面向对象）的力量与你同在。还有你的代码。我是这种原力的一员。祝安好。</p>
+
+
+<p style='float:right;'>本页共277段，12728个字符，24055 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

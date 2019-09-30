@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="solar_moon" width="600" height="600" style="background: black">
+    您的浏览器不支持canvas！
+</canvas>
+<script>
+    var sm = document.getElementById("solar_moon");
+    var c = sm.getContext("2d");
+    var W = sm.width/2, H = sm.height/2;
+    var time = 0;
+
+    setInterval(function(){
+        c.clearRect(0, 0, W*2, H*2);
+
+        //太阳
+        c.fillStyle = "yellow";
+        c.beginPath();
+        c.arc(W, H, 40, 0, 360, false);
+        c.closePath();
+        c.fill();
+        //地球轨道
+        c.strokeStyle = "gray";
+        c.beginPath();
+        c.arc(W, H, 180, 0, 360, false);
+        c.closePath();
+        c.stroke();
+        //地球
+        c.save();
+        c.translate(W, H);
+        c.rotate(time*Math.PI*2/365.25636);
+        c.fillStyle = "lightblue";
+        c.beginPath();
+        c.arc(0, -180, 15, 0, 360, false);
+        c.closePath();
+        c.fill();
+        //月球轨道
+        c.strokeStyle = "gray";
+        c.beginPath();
+        c.arc(0, -180, 50, 0, 360, false);
+        c.closePath();
+        c.stroke();
+        //月球
+        c.save();
+        c.translate(0, -180);
+        c.rotate(time*Math.PI*2/27.32);
+        c.fillStyle = "salmon";
+        c.beginPath();
+        c.arc(0, -50, 10, 0, 360, false);
+        c.closePath();
+        c.fill();
+        c.restore();
+        c.restore();
+
+        ++time;
+    }, 50);
+</script>
+</body>
+</html>

@@ -1,0 +1,672 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>窗口应用程序的事件驱动、消息响应、映射、自定义</h3>
+
+<p>控制台程序的流程是由代码编写的顺序来控制，是过程驱动，而窗口程序却是事件驱动。
+</p>
+
+<p>在Win32的窗口程序中，采用switch_case结构进行消息处理，在MFC中通过消息映射的方法，将消息映射到各个处理函数。
+</p>
+
+<p>窗口是位于屏幕中的一个矩形区域，它用于接收用户的输入，然后以文本或图形的形式显示输出。	窗体（控件）类就要是对输入输出界面的封装。
+</p>
+
+<p>1 Windows的编程模型与MS-DOS编程模型之比较
+</p>
+
+<p>第一，用C语言编写基于MS-DOS的应用程序时，唯一绝对需要的是一个名为main的函数。而当Windows操作系统启动一个程序时，调用的是WinMain函数。
+</p>
+
+<p>第二，许多MS-DOS程序直接写显存和打印机接口。这种技术的不利之处是对每一种设备需要其支持的驱动程序软件。Windows引入了一个名为图形设备接口（GDI）的抽象化外层，所以用户不必知道有关系统设备的类型。Windows程序不是寻址硬件，而是调用GDI函数。
+</p>
+
+<p>第三，要在MS-DOS环境下进行数据驱动编程，必须或者为把数据编码成为初始化常量或者提供独立的数据文件让程序来读。进行Windows编程时，使用大量已经确立的格式在资源文件中存储数据。
+</p>
+
+<p>第四，在MS-DOS环境下一个程序的所有对象模块在建立过程中是静态连接的。Windows允许动态链接，这意味着特别创建的库可以在运行时加载和链接。多个应用程序可以共享动态链接库（DLLs），它节省内存和磁盘空间。动态链接增加了程序的模块性。
+</p>
+
+<p>2 事件驱动、消息响应
+</p>
+
+<p>所谓消息就是用于描述某个事件发生的信息，而事件是对于Windows的某种操作，消息相当于事件的数据化，一般通过一个结构体来描述。
+</p>
+
+<p>事件和消息密切相关，事件是因，消息是果，事件产生消息，消息对应事件。所谓消息的响应，其实质就是事件的响应。
+</p>
+
+<p>消息驱动是Windows应用程序的核心，所有的外部响应（如键盘、鼠标和计时器等）都被Windows先拦截，转换成消息后再发送到应用程序中的目标对象，应用程序根据消息的具体内容进行处理。
+</p>
+
+<p>消息是操作系统将事件传递给用户程序的数据格式，由消息类型和相关数据组成，如当鼠标单击了一个按钮时，应用程序就会接到一个消息，消息的类型是WM_COMMAND，而数据是一个按钮的ID，应用程序根据ID可以判断用户单击的是哪个按钮。
+</p>
+
+<p>消息不仅可由Windows发出，它也可由应用程序本身或其它程序产生。Windows为每一个应用程序都维护一个或多个消息队列，发送到每个程序窗口的消息都排成一个队列。
+</p>
+
+<p>图片描述(最多50字)
+</p>
+
+<p>Windows本身维护一个系统消息队列，对于每一个正在运行的Windows应用程序，系统都会为其建立一个消息队列，用于存放该应用程序可能创建的各种消息。消息队列是一个先进先出的缓冲区，通常是一个某种变量类型的数组。消息队列里的每一个元素都是一条消息。操作系统将生成的每个消息按先后顺序放进队列里。
+</p>
+
+<p>一般来说，应用程序都包含一段消息循环代码，用于从消息队列中检索这些消息。应用程序总是先取走第一条消息。消息取走后，第二条消息成为第一条，剩余的消息依次往前推。应用程序取得消息后，便能够知道用户的操作和程序状态的变化，并把它们分发到相应的函数中进行处理。
+</p>
+
+<p>图片描述(最多50字)
+</p>
+
+<p>消息响应是用户通过编码实现的，这也是Windows程序的主要代码。
+</p>
+
+<p>在消息响应代码中，很可能又要调用操作系统提供的API函数，以便完成特定的功能。如果用户收到窗口的WM_CLOSE消息，可以调用API函数DestroyWindow来关闭该窗口，或是用MessageBox函数来提示用户是否真的要关闭窗口。
+</p>
+
+<p>Windows程序设计中，在应用程序中要完成某个功能，都是以函数调用的形式实现的。同样，应用程序也是以函数调用的方式来通知操作系统执行相应的功能。Windows操作系统所能够完成的每一个特殊功能通常都有一个函数与其对应。也就是说，操作系统把它所能够完成的功能以函数的形式提供给应用程序使用。应用程序对这些函数的调用就叫做系统调用。这些函数的集合就是Windows操作系统提供给应用程序编程的接口（Application Programming Interface），简称Windows API。
+</p>
+
+<p>Windows编程的主要代码都集中在对消息的处理上，或者说编写消息响应（处理）函数是进行Windows编程的主要工作。
+</p>
+
+<p>3 消息类别
+</p>
+
+<p>当用户需要完成某种功能时会调用操作系统的某种支持，然后操作系统将用户的需要包装成消息，并投递到消息队列中，最后应用程序从消息队列中取得消息并进行响应。
+</p>
+
+<p>在应用程序中，用户所有的操作都是通过消息机制（Message）来传递给操作系统的。操作系统将每个事件都包装成一个称为消息的结构体MSG来传递给应用程序。例如用户在某个程序活动时按了一下键盘，操作系统马上能感知到这一事件，并且能够知道用户按下的是哪一个键。操作系统并不决定对这一事件如何作出反应，而是将这一事件转交给应用程序。由应用程序决定如何对这一事件作出反应，对事件作出反应的过程就是消息响应。
+</p>
+
+<p>消息用一个结构体来描述，区别消息一般是对结构体中的主消息message、附加参数wParam和lParam3个字段进行判断。
+</p>
+
+<p>typedef struct tagMSG {
+</p>
+
+<p>HWND hWnd; // 消息来源的窗口句柄
+</p>
+
+<p>UINT message; // 消息ID
+</p>
+
+<p>WPARAM wParam; // 消息附加参数1（附加信息，16位）
+</p>
+
+<p>LPARAM lParam; // 消息附加参数2（附加信息，32位）
+</p>
+
+<p>DWORD time; // 消息发送时间
+</p>
+
+<p>POINT pt; // 消息发送时鼠标的屏幕坐标
+</p>
+
+<p>} MSG;
+</p>
+
+<p>在MFC中，消息分为窗口消息，命令消息和控件消息三种类型。
+</p>
+
+<p>图片描述(最多50字)
+</p>
+
+<p>许多情况下，Windows编程也就是编写消息处理函数。Windows程序设计中最常用的一些消息有：
+</p>
+
+<p>1) 键盘消息
+</p>
+
+<p>2) 鼠标消息
+</p>
+
+<p>3) 窗口消息
+</p>
+
+<p>4) 焦点消息
+</p>
+
+<p>5) 定时器消息
+</p>
+
+<p>6) 命令
+</p>
+
+<p>4 基于资源的程序设计
+</p>
+
+<p>Windows应用程序常常包含众多图形元素，例如光标、菜单、工具栏、位图、对话框等，在Windows环境下，每一个这样的元素都作为一种可以装入应用程序的资源来存放。这些资源就像C++程序中的常量一样，可以被编辑、修改，也可以被其他应用程序所共享。VisualC++中就提供这样的编辑器，可“所见即所得”地对这些不同类型的资源进行设计、编辑等。
+</p>
+
+<p>Windows程序中产生的任何资源（要占用某一块或大或小的内存），如图标、光标、窗口和应用程序的实例（已加载到内存运行中的程序）等，都要将它们放入相应的内存，并为这些内存指定一个唯一的标识号。这个标识号即是该资源的句柄。
+</p>
+
+<p>操作系统要管理和操作这些资源，都是通过句柄来找到对应的资源的。一般来说，按资源的类型，可以将句柄细分成图标句柄（HICON）、光标句柄（HCURSOR）、窗口句柄（HWND）、应用程序实例句柄（HINSTANCE）等各种类型的句柄。例如，操作系统给每一个窗口指定的一个唯一的标识号即窗口句柄。
+</p>
+
+<p>在Visual C++中所有诸如对话框、菜单等都称为资源。资源由资源编辑器进行管理。资源编辑器存在于Workspace工作区中。它提供了一个所见即所得的菜单编辑器和一个强大的对话框图形编辑器。另外，它还包含了编辑图标（Icon）、位图（BMP）和字符串（String）等资源的工具。
+</p>
+
+<p>每一个工程通常有一个文本格式的资源脚本（RC）文件来描述工程的菜单、对话框、字符串等资源。RC文件也可以通过#include语句（包含库文件语句）从其他子目录中引进资源。这些资源包括位图、图标以及所有Visual C++程序共用的资源。用户可以通过直接编辑文本形式的RC文件来编辑各种资源。但是一般来说，推荐使用通过资源编辑器来编辑资源。
+</p>
+
+<p>Visual C++的资源编译器从资源编辑器中读取ASCII资源脚本文件，并且向链接程序提供一个二进制RES文件。
+</p>
+
+<p>链接器从C/C++编译器和资源编译器产生的目标文件OBJ 文件和资源文件RES 文件中读取信息，连同Windows 运行库和MFC 库，访问LIB 文件，最后生成工程的EXE 文件。链接时间的长短取决于对源文件改动的大小。
+</p>
+
+<p>5 在类中实现事件
+</p>
+
+<p>在许多语言中都有对事件的定义，事件的作用是可以在类外实现一个事件，然后在类中调用这个事件。这样在设计类时就可以不必实现某些功能，而这些功能可以交给外部函数来处理，这样更增加了程序的灵活性。
+</p>
+
+<p>在C++语言中实现事件可以使用函数回调的方法，而函数回调就是使用函数指针来实现的。注意这里针对的是普通的函数，不包括完全依赖于不同语法和语义规则的类成员函数。声明函数指针回调函数是一个程序员不能显式调用的函数，通过将回调函数的地址传给调用者从而实现调用。要实现回调，必须首先定义函数指针。尽管定义的语法有点不可思议，但如果你熟悉函数声明的一般方法，便会发现函数指针的声明与函数声明非常类似。
+</p>
+
+<p>6 MFC编程与消息映射
+</p>
+
+<p>无论是API还是MFC编程，程序员最关心的内容有三个：
+</p>
+
+<p>1) 程序入口；
+</p>
+
+<p>2) 窗口、资源等的创建和使用；
+</p>
+
+<p>3) 键盘、鼠标等所产生的事件或消息的接收和处理；
+</p>
+
+<p>从MFC的角度看一个对话框是由对话框资源和对话框类共同生成的。
+</p>
+
+<p>1) 创建对话框模板资源，并向对话框模板资源添加控件；
+</p>
+
+<p>2) 生成对话框类，并添加与控件关联的成员变量和消息处理函数(类的成员函数包括普通成员函数和消息响应函数)；
+</p>
+
+<p>3) 在程序中显示对话框并访问与控件关联的成员变量。
+</p>
+
+<p>Win32工程的消息处理机制是每个窗口都关联一个全局的消息回调函数，在消息回调函数中，通过对消息类型的判别来响应不同的消息。MFC的消息处理不是使用一个全局的回调函数，而是创建一个与窗口关联的派生类，用于消息关联的成员函数来接收和处理窗口的消息。
+</p>
+
+<p>MFC采用消息映射（Message Map）机制取代C/C++语言中的switch-case结构来处理消息。
+</p>
+
+<p>MFC消息映射机制包括一组消息映射宏。一条消息映射宏把一个Windows消息和其消息处理函数联结起来。
+</p>
+
+<p>当窗口接收到消息时，会到消息映射表中查找该消息对应的消息处理函数，然后由消息处理函数进行相应的处理。SDK编程时需要在窗口过程中一一判断消息值进行相应的处理，相比之下MFC的消息映射机制要方便好用的多。
+</p>
+
+<p>在Win32的消息处理机制中，每一个消息类型发送到窗口时，可能在wParam和lParam中携带一些相关的数据。例如，在WM_COMMAND的消息中，在wParam中记录了单击的按钮或者菜单项等ID号码。而在WM_LBUTTONDOWN消息中，在lParam中记录了单击界面的(x,y)坐标等。Win32解析这些附带的数据比较繁琐，而MFC的消息映射机制，一般不需要开发者解析这些复杂的数据，因为消息映射函数会自动在参数中将解析好的数据传递过来。如OnMouseMove(UINT nFlags, CPoint point)函数。
+</p>
+
+<p>除了一些没有基类的类或CObject的直接派生类外，其他的类都可以自动生成消息映射表。
+</p>
+
+<p>在类（如Records）声明中用DECLARE_MESSAGE_MAP()宏来声明使用消息映射:：
+</p>
+
+<p>//{{AFX_MSG(Records)
+</p>
+
+<p>afx_msg void OnButton18();
+</p>
+
+<p>……
+</p>
+
+<p>//}}AFX_MSG
+</p>
+
+<p>DECLARE_MESSAGE_MAP()
+</p>
+
+<p>用BEGIN_MESSAGE_MAP()和END_MESSAGE_MAP()宏来定义消息映射：
+</p>
+
+<p>BEGIN_MESSAGE_MAP(Records, CDialog)
+</p>
+
+<p>//{{AFX_MSG_MAP(Records)
+</p>
+
+<p>ON_BN_CLICKED(IDC_BUTTON18, OnButton18)
+</p>
+
+<p>……
+</p>
+
+<p>//}}AFX_MSG_MAP
+</p>
+
+<p>END_MESSAGE_MAP()
+</p>
+
+<p>然后实现OnButton18()函数：
+</p>
+
+<p>void Records::OnButton18()
+</p>
+
+<p>{
+</p>
+
+<p>……
+</p>
+
+<p>}
+</p>
+
+<p>7 添加自定义消息
+</p>
+
+<p>MFC允许用户自己定义消息，自定义消息必须在WM_USER的基础上定义，且自定消息的消息映射使用ON_MESSAGE。
+</p>
+
+<p>7.1. 定义自定义消息
+</p>
+
+<p>#define WM_MYMESSAGE (WM_USER + 1)
+</p>
+
+<p>7.2. 声明自定义消息处理函数
+</p>
+
+<p>void CMymsgDlg::OnMyFunction();
+</p>
+
+<p>//可以有参数WPARAM wParam, LPARAM lParam
+</p>
+
+<p>7.3. 实现自定义消息处理函数
+</p>
+
+<p>void CMymsgDlg::OnMyFunction()
+</p>
+
+<p>{
+</p>
+
+<p>ShellExecute(m_hWnd,"open", "https://www.baidu.com/", NULL, NULL, SW_SHOW);
+</p>
+
+<p>}
+</p>
+
+<p>这是一个普通成员函数，非消息响应函数，什么时候有机会执行呢？被消息响应函数调用，或者在消息响应函数中发送自定义消息，通过消息映射得以执行。
+</p>
+
+<p>7.4. 用宏实现消息映射
+</p>
+
+<p>BEGIN_MESSAGE_MAP(CMymsg2Dlg, CDialog)
+</p>
+
+<p>……
+</p>
+
+<p>ON_MESSAGE(WM_MYMESSAGE, OnMyMessage)
+</p>
+
+<p>END_MESSAGE_MAP()
+</p>
+
+<p>7.5. 发送自定义消息到消息队列
+</p>
+
+<p>可以在一切普通成员函数、消息响应函数，重写的事件响应函数中发送自定义消息，如OnInitDialog()、OnPaint()等。
+</p>
+
+<p>void CMymsgDlg::OnButton1()
+</p>
+
+<p>{
+</p>
+
+<p>PostMessage(WM_MYMESSAGE); //将自定义消息插入消息队列并返回
+</p>
+
+<p>SendMessage(WM_MYMESSAGE); //将自定义消息插入消息队列并返回
+</p>
+
+<p>}
+</p>
+
+<p>或者：
+</p>
+
+<p>//可以重写OnKeyUp()等键盘、鼠标事件中发出消息
+</p>
+
+<p>void CMymsgDlg::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+</p>
+
+<p>{
+</p>
+
+<p>HWND hWnd = GetSafeHwnd(); //接收消息的窗口句柄
+</p>
+
+<p>if(nChar == VK_UP) //光标上移键
+</p>
+
+<p>{
+</p>
+
+<p>::PostMessage(hWnd, WM_MYMESSAGE, 0, 0); //将自定义消息插入消息队列并返回
+</p>
+
+<p>return ;
+</p>
+
+<p>}
+</p>
+
+<p>CDialog::OnKeyUp(nChar, nRepCnt, nFlags);
+</p>
+
+<p>}
+</p>
+
+<p>－End－
+</p>
+
+
+
+<p style='float:right;'>本页共126段，5994个字符，14108 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

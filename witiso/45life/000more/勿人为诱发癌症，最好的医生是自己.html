@@ -1,0 +1,685 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>勿人为诱发癌症，最好的医生是自己</h4>
+
+<p>▲本文观点来自如下院士：曾益新、樊代明、陈可冀、孙燕、葛均波、邱贵兴、钟南山、陈君石。</p>
+
+<p>致中文化按+</p>
+
+<p>寿命的长短15%决定于遗传，但60%决定于自己，所以从年轻时就要养生保健。人的24小时，12个时辰都是变化的，中午12点是午时，生命力最强。晚上12点生命力最差，所以该睡觉的时候一定要睡觉。</p>
+
+<p>1</p>
+
+<p>最好的医生是自己</p>
+
+<p>▲曾益新中国科学院院士</p>
+
+<p>机器旧了、坏了，需要经常除锈、上油、疏通、修理；人同此理，人生病了，需要吃药、打针、动手术──这就是治疗。特别是在科学技术越来越发达的今天，只要我们每个人能做到平时积极预防，有病坦然面对、正确治疗，就可以做到健康、快乐、长寿。</p>
+
+<p>很多人都对健康的四大基石了如指掌：合理膳食、适量运动、戒烟限酒、心理平衡。然而，现实生活中呢？</p>
+
+<p>有不少人依旧在不健康的生活方式中“埋头苦干”，吸烟、喝酒、大鱼大肉、通宵熬夜、吃宵夜、不吃早餐、吃饭不定点、饱一顿饿一顿、不锻炼、长期闷闷不乐……直到生病了，身体累垮了，才被迫停下来！</p>
+
+<p>怎么治怎么防？答案是预防得走在前面。</p>
+
+<p>首先就要对吸烟、酗酒、暴饮暴食、长期熬夜、不重视锻炼等不健康生活方式大声说“不”；其次，生病了，不要讳疾忌医，也不要病急乱投医，应该以坦然的心态和医生沟通，配合医生积极治疗；再次，要掌握一些基本的防病治病科普常识，请务必记住：“最好的医生是自己，最好的处方是知识。”</p>
+
+<p>2</p>
+
+<p>别和自己过不去</p>
+
+<p>▲樊代明中国工程院副院长、中国工程院院士</p>
+
+<p>别和自己较真儿，别和自己过不去。健康生活就是顺应自然，随遇而安，想吃什么了、想去哪儿玩儿了，都要满足一下自己。</p>
+
+<p>凡事都有规律，人离不开自然。天冷了加几件衣服，天热了脱几件衣服，反其道而行之，吃再好的药都没有用。不仅人是这样，植物也是这样：向日葵围绕着太阳转，含羞草白天合，晚上开，这就是规律。</p>
+
+<p>人的24小时，12个时辰都是变化的，中午12点是午时，生命力最强。晚上12点生命力最差，所以该睡觉的时候一定要睡觉。</p>
+
+<p>与人相处不猜忌、不设防也是健康生活的一部分，毕竟我们每天最主要的是和人打交道，只有相处和谐自己才能快乐。</p>
+
+<p>3</p>
+
+<p>寿命长短60%取决于自己！</p>
+
+<p>▲陈可冀中国科学院院士、国医大师</p>
+
+<p>寿命的长短15%决定于遗传，但60%决定于自己，所以从年轻时就要养生保健。</p>
+
+<p>二十养生正当年，四十指标都正常，</p>
+
+<p>六十以前没有病，八十游泳人未老，</p>
+
+<p>九十犹能半小跑，轻轻松松一百岁。</p>
+
+<p>官再大，钱再多，阎王照样土里拖。家财万贯，一日不过三餐；广厦万间，夜眠不过三尺。养心莫善于寡欲，好好活，不要攀，不要比，不要自己气自己。</p>
+
+<p>人老了，心态比碰到的事要紧要得多；年纪大了，要珍惜并热爱生活，多做自己喜欢做的事，心境不可以乱，不可以偷懒和厌倦生活。</p>
+
+<p>遇事不钻牛角尖，人也舒坦，心也舒坦；</p>
+
+<p>每天领取谋生钱，多也喜欢，少也喜欢；</p>
+
+<p>少荤多素日三餐，粗也香甜，细也香甜；</p>
+
+<p>新旧衣服不挑拣，好也御寒，赖也御寒。</p>
+
+<p>好好活，不要攀，不要比，不要自己气自己。</p>
+
+<p>遇事不钻牛角尖；</p>
+
+<p>不管每天赚多少钱都要开开心心；</p>
+
+<p>不管每天吃荤或吃素都觉得香；</p>
+
+<p>穿衣打扮只要能御寒保暖。</p>
+
+<p>4</p>
+
+<p>不要人为地给自己“诱发”肿瘤</p>
+
+<p>▲孙燕：中国工程院院士、中国医学科学院肿瘤医院肿瘤内科主任医师</p>
+
+<p>我是个临床肿瘤学方面的专家，可是我也不知道自己身体内什么时候会发生癌变。举个例子：我们的身体就像一部精良的汽车，每个脏器24小时都在辛苦工作，当然需要保养和检修。</p>
+
+<p>不少肿瘤，可以说是被自己不良的生活习惯“诱发”出来的。比如过多食用高脂饮食、喜欢吃肉、不吃蔬菜就容易诱发出越来越多的肠癌患者；吸烟人增多则会导致很多无辜的“二手烟”肺癌患者；性生活混乱、感染HPV（人乳头状病毒）则使得宫颈癌发病上升——然而这些不良因素完全是可以控制的。</p>
+
+<p>以前，医学界还质疑精神因素怎么会跟癌症有关呢？后来一个研究发现，长期不良情绪会使人体产生应激反应，过强的应激反应就会降低人体免疫力，使癌细胞有可乘之机。</p>
+
+<p>该睡觉时睡觉、该吃饭时进食，每天有一定时间锻炼，不要抽烟喝酒。养成规律的生活习惯，保持良好的生活节奏。“总之，不要人为给自己制造很多不利因素，才有利于防癌控癌。</p>
+
+<p>5</p>
+
+<p>肉多了、动少了，病就来了</p>
+
+<p>▲葛均波中国科学院院士、中华医学会心血管病学分会主任委员</p>
+
+<p>几十年前我们一年都吃不了几口肉，而现在大部分家庭几乎顿顿都要有肉。我所在的上海中山医院心内科的病床数，十年前有88张病床，病人要排半年才能进，而现在增加到192张病床，却排半年绝对排不进来。</p>
+
+<p>这很能说明问题。肉类吃得过多造成了高血脂、高血压等问题，随之而来的就是心脑血管疾病、糖尿病等慢性病。吃得不健康，运动量少了，疾病自然就多了。</p>
+
+<p>6</p>
+
+<p>腿痛再补钙，晚了</p>
+
+<p>▲邱贵兴中国工程院院士、北京协和医院骨科教授</p>
+
+<p>很多人以为，人到老年腿脚疼痛是“缺钙”造成的，甚至认为这种疼痛不用治疗，挺一挺就能熬过去。其实，骨质疏松症一旦出现明显疼痛症状，骨骼中的骨量已经丢失30%-50%以上了，这时再单纯补钙，已经晚了。</p>
+
+<p>最好的办法当然是“防患于未然”。年轻时努力提高身体的骨峰值、保持正常的骨钙量和骨密度，就能缓解骨质过早流失。这需要不断的运动刺激。缺乏运动会使骨丢失加快，容易出现骨质疏松。</p>
+
+<p>走路时讲究挺胸提臀，就可以预防骨关节病。一挺胸、一提臀，自然肩部和胯部就都往后走了。再比如坐着的时候，我们要尽量让下腰椎部位贴住座椅靠背，或者在腰部垫个小枕头。因为这样能帮助保持腰椎曲线向前，避免劳腰。所以说，坐立行你都得顺着脊椎的型，才不容易得病。</p>
+
+<p>别嫌这么走这么坐费劲，习惯就好了。而且千万记住，越不舒服越要坚持，因为这说明脊椎已经不习惯正常的弯曲了，就应该赶紧调整。</p>
+
+<p>7</p>
+
+<p>像量血压一样常给你的肺做体检</p>
+
+<p>▲钟南山中国工程院院士、著名呼吸病专家</p>
+
+<p>在中国，排名前十的疾病，如高血压、糖尿病、慢阻肺等，一般都是先有一些小的指标异常，往往要经过5年、10年、15年后才慢慢发展成为致命问题。</p>
+
+<p>健康如堤坝保养，当最初发现有渗漏时，只需很少力量便可堵塞漏洞；如待要崩堤时才作补救，则纵使花费更多的人力物力，亦未必能挽回。人的肺功能损害尚未超过50%时，身体一般都不会有感觉。等到超过50％再找医生诊治，就已经失去最佳时机了。</p>
+
+<p>常常会遇到一些尚未出现症状的患者，苦口婆心劝对方早点吃药控制，不要等气促得很厉害时再来看，但总有一些患者不太愿意。我们要像量血压一样做肺功能的检查，就像对血压实时检测，发现血压高时，按照医嘱服用一些降压药就维持得很好。</p>
+
+<p>8</p>
+
+<p>我从来不贪吃</p>
+
+<p>▲中国工程院院士</p>
+
+<p>陈君石院士始终保持着健康的标准体重，说起来，他有自己的一套“饮食经”。在陈君石院士看来，没有不健康的饮食，只有不健康的搭配。</p>
+
+<p>“什么都吃，饮食多样化，这样就能很好地保障食品安全与健康。”</p>
+
+<p>“拿韭菜来说，确实存在一些农药残留的现象，但一星期吃一次，能吃进去多少农药？什么都吃一些，什么都不多吃，即使摄入的食物中含有一些有毒、有害物质，只要总量不超标，对人体仍然是安全的。”</p>
+
+<p>除了饮食多样化，陈君石院士的“饮食经”还有吃得少、会搭配两个特点。他饭量一直都比较小，从来不“贪吃”，所以几十年来体重波动一直没有超过5公斤。此外，他很会搭配食物，比如红烧肉，很多人怕油，不敢吃，他却照吃不误，只是注意当天别的高脂食物尽量少吃或不吃，另外多摄入一些蔬菜水果平衡一下。</p>
+
+<p>9</p>
+
+<p>延伸阅读</p>
+
+<p>8位顶级肿瘤专家推荐，</p>
+
+<p>让你受益终生的“防癌计划”</p>
+
+<p>指导专家：</p>
+
+<p>北京大学肿瘤医院院长季加孚</p>
+
+<p>中国医学科学院肿瘤医院防癌科主任徐志坚</p>
+
+<p>中华医学会泌尿外科学分会主任委员那彦群</p>
+
+<p>中国胸外科医师协会常务副会长兼总干事支修益</p>
+
+<p>军事医学科学院附属医院乳癌科主任江泽飞</p>
+
+<p>中国医学科学院肿瘤医院内科教授徐兵河</p>
+
+<p>中日友好医院肿瘤科教授李沛文</p>
+
+<p>北京协和医院胸外科教授郭慧琴</p>
+
+<p>01你是“癌症候选人”吗？</p>
+
+<p>美国华盛顿大学医学院病理和免疫学教授罗伯特·史莱伯发现，如果一些不良生活习惯维持10年，那你就会成为“癌症候选人”，因为在这10年中，癌细胞不仅产生，而且会发展壮大，最终“攻城掠地”，侵犯身体其他器官。</p>
+
+<p>专家指出，如果减少以下10种不良生活习惯，就能将我们从“癌症候选人”的名单里删除。</p>
+
+<p>①老喝滚烫水</p>
+
+<p>很多人喜欢闲暇时泡杯功夫茶，殊不知，这现冲现泡“趁热喝”的茶，可能为食道癌埋下隐患。原因就在于，滚烫的水会烫伤食道黏膜，引发口腔黏膜炎、食管炎等，时间久了，可能发生癌变。</p>
+
+<p>调查表明，新疆哈萨克族人常喝滚烫的奶茶、潮汕人喜欢功夫茶、太行山区的人爱喝大碗烫粥，目前这些地区都成为食管癌、贲门癌、口腔癌的高发区。</p>
+
+<p>专家建议：食物或饮料如果觉得烫，千万别性急往下咽。带馅儿的食物可能外面不烫里面烫，吃的时候尤其要当心。喝热饮千万不要用吸管。</p>
+
+<p>②蔬果吃得少</p>
+
+<p>大鱼大肉吃不够，蔬菜水果吃得少，已经成了现代人的通病。千万别小看这一生活习惯带来的危害。</p>
+
+<p>由着性子吃一是会造成肥胖，近年来的研究表明，肥胖和乳腺癌、前列腺癌等多种癌症有关。二是蔬菜水果含有很多膳食纤维，它们能促进肠道蠕动，带走有害物质。老不吃蔬菜水果，会增加患结肠癌的风险。三是导致缺乏维生素。</p>
+
+<p>研究显示，不吃胡萝卜的人比大量食用胡萝卜的人，因为缺少β—胡萝卜素，肺癌发病率要高7倍；缺乏维生素A，患肺癌、胃癌的可能性很大；叶酸与维生素B2缺乏，是食管癌高发的重要原因。</p>
+
+<p>专家建议：要保证身体需要，每天应吃400克以上的蔬菜，吃肉不要超过75克，体积相当于一副扑克牌大小。粗茶淡饭才是远离癌症的最好办法。</p>
+
+<p>③老是憋大便</p>
+
+<p>想去大便，可偏偏工作太忙走不开，或一时找不到卫生间，只能使劲憋着。一回两回还行，时间长了，就会出问题。</p>
+
+<p>粪便里含有硫化氢、粪臭素、胆固醇代谢产物等多种致癌物，在肠道里积存久了，就会被重复吸收，刺激肠黏膜。天津市肿瘤医院一项调查显示，没时间排便已成为不少年轻人患上大肠癌的主要原因。</p>
+
+<p>专家建议：一定要抓住一天中“便意”最浓的时刻，一个是早晨起床后不久，一个是吃饭后。便意一般只会持续几分钟，一旦错过很难再捕捉到。</p>
+
+<p>早上实在没时间排便，可以调整到较空闲的晚上。吃完晚饭后散散步，对腹部进行顺时针按摩，然后无论有无便意，定时去蹲蹲厕所。一般3~5分钟没有大便排出，就应该放弃，不要长时间呆在厕所看书看报。</p>
+
+<p>④夜晚不睡觉</p>
+
+<p>很多人因为工作不得不熬夜加班；还有人赶时髦，天天泡酒吧，成了昼伏夜出的“派对动物”。英国科学癌症研究中心研究了世界各地1000余名30~50岁的癌症患者，发现99.3%的人常年熬夜，凌晨后才会休息。</p>
+
+<p>熬夜一方面会造成生物钟紊乱，另一方面，夜间灯光会破坏人体褪黑素形成，而这是保护人体免疫功能的重要一环，缺少它容易让白血病、乳腺癌、前列腺癌等找上门来。</p>
+
+<p>专家建议：熬夜最好不要超过12点。如果加班到凌晨，最好找一间窗帘有遮光布的房间睡觉，漆黑的环境有助于身体中褪黑素的生成。</p>
+
+<p>⑤坐下不想动</p>
+
+<p>上班一坐就一天，回家陷在沙发里不想动……千万别以为久坐的危害只是伤颈椎、脊椎。</p>
+
+<p>德国专家指出，人体免疫细胞的数量随活动量的增加而增加，久坐的人体内免疫细胞减少，大大增加患癌几率；日本医学家发现，胃癌患者大多平时吃得太饱和久坐不动；美国研究表明，久坐的人比常运动的人患结肠癌的可能性高40%~50%，男性还易罹患前列腺癌。</p>
+
+<p>专家建议：工作每2个小时，必须起来活动15分钟以上。</p>
+
+<p>⑥爱钻牛角尖</p>
+
+<p>如果你觉得生活中让你生气的事像道坎一样，怎么也迈不过去，思想钻了牛角尖，而且抑郁的心态持续一两年以上，就要小心了。</p>
+
+<p>临床发现，生活中爱较真、生气又不擅表达的人，植物神经、内分泌与免疫系统长期处于高度亢奋和紧张状态，是导致乳腺癌和卵巢癌的重要原因。工作中爱较真、过于追求完美的人，患胃癌与胰腺癌的较多。</p>
+
+<p>专家建议：豁达的心胸、愉悦的心情是癌细胞的“天敌”，平时要多培养兴趣爱好，遇到不快时做做深呼吸。</p>
+
+<p>⑦不用安全套</p>
+
+<p>近年研究证实，人乳头瘤病毒（HPV）是宫颈癌的元凶，而这种病毒的传播往往通过性行为。</p>
+
+<p>专家建议：尽量减少婚前性行为和婚外恋中不安全的性行为，必要时使用安全套，是保护女性减少宫颈癌风险的一个重要方法。</p>
+
+<p>⑧常吸二手烟</p>
+
+<p>除了众所周知的肺癌，吸烟还会导致鼻咽癌、口腔癌、食道癌，甚至膀胱癌、肾癌、胰腺癌和胃癌等，可谓“一支烟在手，全身都遭殃”。</p>
+
+<p>另外，研究表明，二手烟对身体的危害比一手烟有过之而无不及。因此，最好赶紧掐灭手中的烟卷，离烟雾越远越好。</p>
+
+<p>⑨装修太豪华</p>
+
+<p>除吸烟外，装修的刺鼻气味也是导致肺癌的罪魁祸首。很多建材里都含有致癌化学成分，装修越豪华，让身体受伤害的几率越大。对儿童来说，装修污染更有可能让他们患上白血病。</p>
+
+<p>专家建议：装修买家具、建材，千万别图便宜，一般来说，质量越次的产品味道越刺鼻；装修期间一定要开窗通风；装修结束后至少要晾两三个月才能入住。</p>
+
+<p>⑩家人有癌症</p>
+
+<p>如果上一代患有乳腺癌、肺癌、食道癌、结肠癌等，后代患上癌症的风险比一般人高很多。此外，上海癌症研究合作中心指出，每100对死亡夫妻中，至少有5对患“夫妻癌“。这与夫妻常年保持相同的生活习惯有关。</p>
+
+<p>专家建议：一旦反省到两人有不健康生活习惯，夫妻应认真对待，一起改正。有癌症家族史的人最好定期做个癌症检查，比别人更好地保持健康的生活习惯。</p>
+
+<p>02贯穿一生的防癌体检计划</p>
+
+<p>在医学技术飞速发展的今天，癌症治愈率却不尽如人意，远没有人们期望的那样高。为什么会这样？石远凯指出，最重要的原因在于，多数病人到医院看病时，都已经是中晚期了。可癌症是需要“未雨绸缪”的事，只有早期发现，这一病魔才有可能被真正打败。</p>
+
+<p>不过，常规体检并不足以捕捉癌症的蛛丝马迹。因此制订计划，有针对性地进行防癌检查，非常必要。那么，人在各个年龄段需要进行哪些防癌体检？</p>
+
+<p>20岁后：结婚两年查宫颈癌</p>
+
+<p>结婚给人类带来的不仅是甜蜜，也带来了一些疾病，宫颈癌便是其中之一。作为妇科最常见的恶性肿瘤之一，宫颈癌每年大约会夺去20多万女性的生命。</p>
+
+<p>但由于宫颈癌早期没有任何症状，因此，许多女性一发现就已经是晚期。那么，如何才能尽力避免这一情况呢？</p>
+
+<p>“首先要弄清宫颈癌的高发人群。”徐志坚指出，宫颈癌与性生活关系密切，国内外大量资料证实，早婚、早育、多产、性生活卫生差及性生活紊乱的妇女，患病率较高。</p>
+
+<p>“40~60岁是宫颈癌的高发年龄；不过，近些年宫颈癌发病趋向年轻化，小于30岁的宫颈癌患者人数有明显上升趋势。”徐志坚表示，妇女进行第一次性生活两年后，最好就开始做巴氏涂片进行宫颈癌筛查，并坚持做到一年一次。</p>
+
+<p>30岁以后可依据风险因素检查，如果三次或多次结果连续为阴性的受检者，可以减少受检次数，这样便可以很好地预防癌症入侵。</p>
+
+<p>需要提醒大家的是，在一些单位的年度体检中，常会包含“肿瘤标记物”的项目。徐志坚提醒，肿瘤标记物可以协助诊断和监测肿瘤复发，虽然不能作为诊断依据，但如发现数值升高，则提示可能有肿瘤存在，此时需做进一步检查明确诊断，千万不要掉以轻心。</p>
+
+<p>30岁后：三道防线阻击乳腺癌</p>
+
+<p>乳房是女人的标志，却也成为了其生命的最大杀手。现在，在女性罹患的肿瘤中，乳腺癌已位列榜首。但江泽飞表示，如果能通过早诊及时治疗，患者痊愈的希望依然很大。因此，从30岁开始，女性就要对自己的乳房倍加呵护。</p>
+
+<p>江泽飞说，月经异常，过晚婚育，有家族遗传，喜欢吃高脂肪、高热量食物，滥用雌激素，精神压力过大的女性都是乳腺癌的高发人群，这些女性最好从年轻时就开始乳腺癌的筛查。</p>
+
+<p>自检。这是最方便、易行的检查方法。徐红介绍说，女性月经结束后的7~10天最适合自检；停经或更年期妇女最好确定每月的固定一天进行自检。</p>
+
+<p>自检主要是看和摸，一是站在镜前看，主要看乳房的大小形状是否对称、轮廓有无改变、乳头是否有分泌物以及是否回缩等。二是摸，用食指、中指和无名指的指腹，以按压、螺旋或滑动的方式检查乳房有无肿块。</p>
+
+<p>当发现自己的乳房出现无痛肿块、乳房局部或乳头凹陷、腋窝淋巴结肿大等异常时，应及时到医院检查。</p>
+
+<p>B超检查。无损伤，可反复应用。我国女性乳腺组织较致密，通过B超检查更能够看清乳腺所有结构的变化，也适用于30岁以下的女性。</p>
+
+<p>X线检查。恶性肿块影像常不规则，边缘有毛刺，密度较周围腺体高，这些特质都能通过X线检查辨别出来。但如果乳腺组织过于致密，就不易通过X射线检出疾病，因此适合于40岁以上女性。</p>
+
+<p>40岁后：烟民千万盯着肺</p>
+
+<p>人到中年，很多疾病都会不请自来。而在癌症家族中，肺癌和胃癌是此时最有可能“发威”的两大成员。要想预防和发现这两种癌症，要落实哪些体检计划呢？</p>
+
+<p>“肺癌占世界癌症发生率和死亡率的首位，而中国的肺癌发生率是世界第一。”支修益指出，40岁以上，有吸烟史的人，工矿职工、长期接触放射性物质及有家族肿瘤病史的人都是肺癌的高发人群。</p>
+
+<p>肺癌在早期并没有什么特殊症状，很容易被病人和医生所忽略。因此，中老年人，尤其是嗜烟者，应列为肺癌重点普查人群，每半年至1年检查1次。胸部X线照片或CT等检查，可以及时发现多变的圆形阴影、肺炎、肺不张、胸腔积液等，对早期发现肺癌有积极的意义。</p>
+
+<p>此外，季加孚还提醒，70％以上的早期胃癌也没有明显症状，因此体检就显得更加重要了。胃癌的筛查方法很多，包括胃蛋白酶检查、幽门螺旋杆菌检查、胃肠X线检查等。</p>
+
+<p>内镜检查可直接观察胃内各部位，尤其对早期胃癌的诊断价值很大。徐志坚指出，早期胃癌肿瘤较小，手术切除后，5年生存率可达70％以上。</p>
+
+<p>50岁后：指检派上大用场</p>
+
+<p>虽然癌症日渐瞄上了年轻人，但它对老年人的“钟爱”却也并未减少。特别是结肠癌、前列腺癌等老年人多发的肿瘤，近年来发病率也在不断提高。</p>
+
+<p>徐志坚认为，指检对于发现结肠癌和前列腺癌都有一定作用，而且操作起来非常方便、简单。不过，最准确的方法还是筛查。</p>
+
+<p>徐志坚说，50岁后，有结、直肠息肉，结肠癌家族史，腹泻、便秘、便血病史的病人，最好做肠镜进行结肠病变的筛查；而那些不能作结肠镜检查的，如高龄、体质衰弱及有严重心肺疾病者，可以定期用CT检查结肠。</p>
+
+<p>至于前列腺癌，那彦群指出，我国前列腺癌病人确诊时一般都是晚期了，这极大影响了其生存率。“患者确诊晚的原因就是缺少普查。其实，普查的方法非常简单，就是抽血查一下前列腺特异抗原（PSA），或者由医生进行肛诊。</p>
+
+<p>因此，50岁以上的男性都应该在体检时增加这项检查。”他同时强调，如果一次前列腺特异抗原阳性，不能草率确诊，需复查2~3次，并排除炎症，必要时进行穿刺检查。</p>
+
+<p>03世界上最便宜的防癌处方</p>
+
+<p>每个人的身上都有一种“原癌基因”，只要受到外因刺激，也许就会被激活。这种外因往往来自于我们的生活。</p>
+
+<p>国际抗癌联盟曾发表报告称，全球每年有1200万新发癌症病例，其中高达四成原本可以在生活中防住。和得了癌症后高昂的治疗费用相比，以下12种堪称世界上最便宜的防癌处方。</p>
+
+<p>①喝豆浆可防“女性癌”</p>
+
+<p>大豆异黄酮是一种植物雌激素，它对女性体内雌激素水平起到的是双向调节作用：当人体内雌激素水平低时，大豆异黄酮表现出提高雌激素水平的功效；而当体内雌激素水平偏高时，它会表现出降低体内雌激素水平的作用。</p>
+
+<p>流行病学研究结果显示，亚洲女性的大豆类食品摄入量和乳腺癌的风险之间呈现负相关。</p>
+
+<p>大豆异黄酮主要来源于大豆（黄豆、黑豆）和豆制品（如豆腐、豆浆等）。建议每天摄入30~50克大豆或相当量的豆制品（以其所提供的蛋白质计，40克大豆分别约相当于200克豆腐、100克豆腐干、800克豆浆）</p>
+
+<p>②每天走路1小时</p>
+
+<p>美国《读者文摘》杂志曾告诉大家，每天饭后散步30分钟，或者每周散步四小时，能使患胰腺癌的风险减少一半。</p>
+
+<p>哈佛大学公共卫生学院针对7万人的长期研究也发现，每天只要走路一小时，就可以降低一半患大肠癌的几率。</p>
+
+<p>这是因为胰腺癌和身体热量过高有关，走路可以消耗热量，可直接预防胰腺癌。此外，运动后出汗可使体内的铅、锶等致癌物质随汗水排出体外，从而起到防癌作用。</p>
+
+<p>③每天喝6杯水</p>
+
+<p>世界上最权威的医学杂志之一《新英格兰医学杂志》研究表明，每天喝6杯水（每杯240克）的男性，患膀胱癌风险将减少一半，女性患结肠癌风险将降低45%。</p>
+
+<p>这是因为喝水可以增加排尿、排便次数，把其中可能刺激膀胱黏膜、结肠的有害物质，如尿素、尿酸等排出体外。40岁以上的人最好每隔两三年查一下肠镜，如果有息肉，早点发现能减少其癌变几率。</p>
+
+<p>④就着葱蒜来吃饭</p>
+
+<p>在我国，胃癌发病率最低的省份，是葱蒜种植大省山东。长江以北胃癌死亡率最低的4个县中，第一位的是山东苍山县，那里人均每年要吃掉6公斤大蒜。</p>
+
+<p>王兴国指出，这和大蒜素有抗氧化作用，可降低人体内致癌物亚硝酸盐的含量有关。有研究表明，多吃大蒜的人得胃癌的风险会降低60%。</p>
+
+<p>大蒜只有被碾碎和氧气充分结合后才会产生蒜素，而且非常不稳定，一旦遇热很快会失去作用。因此最好将大蒜碾碎生吃，或剁成蒜泥放在凉拌菜中。</p>
+
+<p>⑤晒15分钟太阳</p>
+
+<p>在最便宜的防癌处方里，晒太阳算是做到了极致，不用任何花费，就能通过增加人体维生素D的含量起到防癌作用。</p>
+
+<p>维D不足会增加患乳腺癌、结肠癌、前列腺癌、卵巢癌及胃癌的风险。为避免暴晒增加皮肤癌风险，每天只要晒15分钟太阳就足够了。</p>
+
+<p>⑥每天四杯绿茶</p>
+
+<p>爱喝茶的日本人曾花费9年的时间做过一项调查，发现每天只要喝四五杯茶，就能将癌症风险降低40%。</p>
+
+<p>中国疾病预防控制中心营养与食品安全所研究员韩驰教授对茶叶的防癌作用进行过17年研究，他发现乌龙茶、绿茶、红茶对口腔癌、肺癌、食道癌、肝癌等都有不错的预防作用。其中，包括龙井、碧螺春、毛峰在内的绿茶效果最显著，其防癌成分是其他茶叶的5倍。</p>
+
+<p>不过，茶水最好不要喝太浓太烫的，否则会影响其防癌效果。最佳饮茶温度应该是60摄氏度左右，茶水浸泡5分钟后，其中有效成分才能溶在水里。</p>
+
+<p>⑦最少开窗半小时</p>
+
+<p>很少有人知道，装修污染除了甲醛外，还有一种很强的致癌气体——氡及其子体。它一般藏在花岗岩、水泥、瓷砖里，沿着这些地方的裂隙扩散到室内，通过呼吸道进入人体，时间长了，就会诱发肺癌。</p>
+
+<p>其实，只要每天开窗半个小时，氡的浓度就可以降低到与室外相同。另外，天然气燃烧后也会产生氡，所以厨房烧水时，最好打开窗户，关闭与居室连接的门。</p>
+
+<p>⑧用干毛巾擦背</p>
+
+<p>日本曾掀起过一股用干毛巾擦背的热潮。东京大学副校长水野教授研究指出，这可以起到防癌作用，因为摩擦受热会激活背部皮下肌肉组织里一种细胞，能起到吞蚀并破坏癌细胞的作用。</p>
+
+<p>对于中老年人来说，不管是搓、擦还是挠背部，都是一种很好的保健方法。或者用干毛巾两端，直式、横式反复摩擦整个背部10分钟左右，直到皮肤通红发热为止。</p>
+
+<p>⑨一口饭嚼30次</p>
+
+<p>有调查证明，吃饭老是囫囵吞枣的人，患胃癌的几率比较高。而多咀嚼可以减少食物对消化道的负担，降低患胃肠道癌症风险。</p>
+
+<p>此外，美国佐治亚大学实验发现，唾液有很强的“灭毒”作用，能让导致肝癌的罪魁祸首黄曲霉素的毒性，在30秒内几乎完全消失。因此，按照一秒钟咀嚼一次来计算，一口饭最好嚼30次，才具有防癌作用。</p>
+
+<p>⑩睡够7小时</p>
+
+<p>美国癌症研究会调查发现，每晚睡眠时间少于7小时的女性，患乳腺癌的几率高47%。这是因为睡眠中会产生一种褪黑激素，它能减缓女性体内雌激素的产生，从而起到抑制乳腺癌的目的。</p>
+
+<p>最好晚上10点半前就开始洗漱，做好睡前准备工作，保证11点前入睡，早上6-7点起床。</p>
+
+<p>此外，德国睡眠专家指出，中午1点是人在白天一个明显的睡眠高峰，这时打个小盹，也能增强体内免疫细胞的活跃性，起到一定的防癌作用。</p>
+
+<p>⑪少吃点糖</p>
+
+<p>癌细胞最喜欢的“食物”就是糖。日本《怎样防治癌症》一书中指出，当血液流过肿瘤时，其中约57%的血糖都会被癌细胞消耗掉，成为滋养它的营养成分。</p>
+
+<p>《美国临床营养学杂志》指出，每天只要喝两杯甜饮料，患胰腺癌的风险就会比不喝的人高出90%。因此，最好少吃或不吃含糖食品。国际上一般认为，每人每天糖的摄入量应在50克内。</p>
+
+<p>⑫吃肉时喝杯红酒</p>
+
+<p>用来酿造红酒的葡萄皮中，含有一种物质叫白藜芦醇，对消化道癌症有一定预防作用。另外，美国癌症研究协会对猪肉、牛肉、羊肉等红肉的推荐食用量是每周500克左右，吃得过多，就会增加患结肠癌的风险。</p>
+
+<p>不过，最近一项研究发现，如果吃肉的时候喝杯红酒，其中的多酚就可以防止肉在胃里分解为有害物质。■</p>
+
+
+
+<p style='float:right;'>本页共197段，9826个字符，28730 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

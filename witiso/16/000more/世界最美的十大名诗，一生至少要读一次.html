@@ -1,0 +1,677 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>世界最美的十大名诗，一生至少要读一次</h4>
+
+<p></p>
+
+<p>《假如生活欺骗了你》</p>
+
+<p>普希金（俄国）</p>
+
+<p>假如生活欺骗了你</p>
+
+<p>不要悲伤，不要心急</p>
+
+<p>忧郁的日子里需要镇静</p>
+
+<p>相信吧，快乐的日子将会来临</p>
+
+<p>心儿永远向往着未来</p>
+
+<p>现在却常是忧郁</p>
+
+<p>一切都是瞬息，一切都将会过去</p>
+
+<p>而那过去了的</p>
+
+<p>就会成为亲切的回忆</p>
+
+<p>《当你老了》</p>
+
+<p>叶芝（爱尔兰）</p>
+
+<p>当你老了，头白了，睡意昏沉</p>
+
+<p>炉火旁打盹，请取下这部诗歌</p>
+
+<p>慢慢读，回想你过去眼神的柔和</p>
+
+<p>回想它们昔日浓重的阴影</p>
+
+<p>多少人爱你青春欢畅的时辰</p>
+
+<p>爱慕你的美丽，假意或真心</p>
+
+<p>只有一个人爱你那朝圣者的灵魂</p>
+
+<p>爱你衰老了的脸上痛苦的皱纹</p>
+
+<p>垂下头来，在红光闪耀的炉子旁</p>
+
+<p>凄然地轻轻诉说那爱情的消逝</p>
+
+<p>在头顶的山上它缓缓踱着步子</p>
+
+<p>在一群星星中间隐藏着脸庞</p>
+
+<p>《雨巷》</p>
+
+<p>戴望舒（中国）</p>
+
+<p>撑着油纸伞，独自</p>
+
+<p>彷徨在悠长、悠长</p>
+
+<p>又寂寥的雨巷</p>
+
+<p>我希望逢着</p>
+
+<p>一个丁香一样的</p>
+
+<p>结着愁怨的姑娘</p>
+
+<p>她是有</p>
+
+<p>丁香一样的颜色</p>
+
+<p>丁香一样的芬芳</p>
+
+<p>丁香一样的忧愁</p>
+
+<p>在雨中哀怨</p>
+
+<p>哀怨又彷徨</p>
+
+<p>她彷徨在这寂寥的雨巷，</p>
+
+<p>撑着油纸伞</p>
+
+<p>像我一样</p>
+
+<p>像我一样地</p>
+
+<p>默默彳亍着，</p>
+
+<p>冷漠、凄清，又惆怅</p>
+
+<p>她静默地走近</p>
+
+<p>走近，又投出</p>
+
+<p>太息一般的眼光</p>
+
+<p>她飘过</p>
+
+<p>像梦一般的</p>
+
+<p>像梦一般的凄婉迷茫</p>
+
+<p>像梦中飘过</p>
+
+<p>一枝丁香的</p>
+
+<p>我身旁飘过这女郎</p>
+
+<p>她静默地远了，远了</p>
+
+<p>到了颓圮的篱墙</p>
+
+<p>走尽这雨巷</p>
+
+<p>在雨的哀曲里</p>
+
+<p>消了她的颜色</p>
+
+<p>散了她的芬芳</p>
+
+<p>消散了，甚至她的</p>
+
+<p>太息般的眼光</p>
+
+<p>丁香般的惆怅</p>
+
+<p>撑着油纸伞，独自</p>
+
+<p>彷徨在悠长、悠长</p>
+
+<p>又寂寥的雨巷</p>
+
+<p>我希望飘过</p>
+
+<p>一个丁香一样的</p>
+
+<p>结着愁怨的姑娘</p>
+
+<p>《自由与爱情》</p>
+
+<p>裴多菲（匈牙利）</p>
+
+<p>生命诚可贵</p>
+
+<p>爱情价更高</p>
+
+<p>若为自由故</p>
+
+<p>二者皆可抛</p>
+
+<p>《一棵开花的树》</p>
+
+<p>席慕容（中国）</p>
+
+<p>如何让你遇见我</p>
+
+<p>在我最美丽的时刻</p>
+
+<p>为这</p>
+
+<p>我已在佛前求了五百年</p>
+
+<p>求佛让我们结一段尘缘</p>
+
+<p>佛于是把我化作一棵树</p>
+
+<p>长在你必经的路旁</p>
+
+<p>阳光下</p>
+
+<p>慎重地开满了花</p>
+
+<p>朵朵都是我前世的盼望</p>
+
+<p>当你走近</p>
+
+<p>请你细听</p>
+
+<p>那颤抖的叶</p>
+
+<p>是我等待的热情</p>
+
+<p>而当你终于无视地走过</p>
+
+<p>在你身后落了一地的</p>
+
+<p>朋友啊</p>
+
+<p>那不是花瓣</p>
+
+<p>是我凋零的心</p>
+
+<p>《再别康桥》</p>
+
+<p>徐志摩（中国）</p>
+
+<p>轻轻的我走了，正如我轻轻的来</p>
+
+<p>我轻轻的招手，作别西天的云彩</p>
+
+<p>那河畔的金柳，是夕阳中的新娘</p>
+
+<p>波光里的艳影，在我的心头荡漾</p>
+
+<p>软泥上的青荇，油油的在水底招摇</p>
+
+<p>在康河的柔波里，我甘心做一条水草</p>
+
+<p>那榆荫下的一潭，不是清泉，是天上虹</p>
+
+<p>揉碎在浮藻间，沉淀着彩虹似的梦</p>
+
+<p>寻梦？撑一支长篙，向青草更青处漫溯</p>
+
+<p>满载一船星辉，在星辉斑斓里放歌</p>
+
+<p>但我不能放歌，悄悄是别离的笙箫</p>
+
+<p>夏虫也为我沉默，沉默是今晚的康桥</p>
+
+<p>悄悄的我走了，正如我悄悄的来</p>
+
+<p>我挥一挥衣袖，不带走一片云彩</p>
+
+<p>《致》</p>
+
+<p>雪莱（英国）</p>
+
+<p>有一个字经常被人亵渎</p>
+
+<p>我不会再来亵渎</p>
+
+<p>有一种感情被人假意鄙薄</p>
+
+<p>你也不会再来鄙薄</p>
+
+<p>有一种希望太似绝望</p>
+
+<p>何须再加提防</p>
+
+<p>你的怜悯之情无人能比</p>
+
+<p>温暖着我的心</p>
+
+<p>我不能给你人们所谓的爱情</p>
+
+<p>但不知你能否接受</p>
+
+<p>这颗心对你的仰慕之情</p>
+
+<p>连上天也不会拒绝</p>
+
+<p>犹如飞蛾扑向星星</p>
+
+<p>又如黑夜追求黎明</p>
+
+<p>这种思慕之情</p>
+
+<p>早已跳出了人间苦境</p>
+
+<p>《我喜欢你是寂静的》</p>
+
+<p>聂鲁达（智利）</p>
+
+<p>我喜欢你是寂静的，仿佛你消失了一样</p>
+
+<p>你从远处聆听我，我的声音却无法触及你</p>
+
+<p>好像你的双眼已经飞离去</p>
+
+<p>如同一个吻，封缄了你的嘴</p>
+
+<p>如同所有的事物充满了我的灵魂</p>
+
+<p>你从所有的事物中浮现，充满了我的灵魂</p>
+
+<p>你像我的灵魂，一只梦的蝴蝶</p>
+
+<p>你如同忧郁这个词</p>
+
+<p>我喜欢你是寂静的，好像你已远去</p>
+
+<p>你听起来像在悲叹，，一只如鸽悲鸣的蝴蝶</p>
+
+<p>你从远处听见我，我的声音无法触及你</p>
+
+<p>让我在你的沉默中安静无声</p>
+
+<p>并且让我借你的沉默与你说话</p>
+
+<p>你的沉默明亮如灯，简单如指环</p>
+
+<p>你就像黑夜，拥有寂寞与群星</p>
+
+<p>你的沉默就是星星的沉默，遥远而明亮</p>
+
+<p>我喜欢你是寂静的，仿佛你消失了一样</p>
+
+<p>遥远而且哀伤，仿佛你已经死了</p>
+
+<p>彼时，一个字，一个微笑，已经足够</p>
+
+<p>而我会觉得幸福，因那不是真的而觉得幸福</p>
+
+<p>《女孩的心思》</p>
+
+<p>李洋（中国）</p>
+
+<p>我怕你两个身姿</p>
+
+<p>一个月色里模糊到头</p>
+
+<p>一个日光下透彻见底</p>
+
+<p>我怕你两副俏模样</p>
+
+<p>一个笑得桃花弯枝</p>
+
+<p>一个扪胸的忧郁，仿若西施</p>
+
+<p>我怕这细分辨</p>
+
+<p>水中的云来</p>
+
+<p>山中的云去</p>
+
+<p>却哪一片是你</p>
+
+<p>经多少梦中影像</p>
+
+<p>才看彼岸花开竟是路过的莲子</p>
+
+<p>这里空荡</p>
+
+<p>那里惬意</p>
+
+<p>《乘着歌声的翅膀》</p>
+
+<p>海涅（德国）</p>
+
+<p>乘着那歌声的翅膀</p>
+
+<p>心爱着的人</p>
+
+<p>我带你飞翔</p>
+
+<p>走到恒河的岸旁</p>
+
+<p>那里有最美的好地方</p>
+
+<p>一座红花盛开的花园</p>
+
+<p>笼罩着寂静的月光</p>
+
+<p>莲花在那儿等待</p>
+
+<p>她们亲密的姑娘</p>
+
+<p>紫罗兰轻笑耳语</p>
+
+<p>抬头向星星仰望</p>
+
+<p>玫瑰花把芬芳的童话</p>
+
+<p>偷偷地在耳边谈讲</p>
+
+<p>跳过来静静里倾听的</p>
+
+<p>是善良聪颖的羚羊</p>
+
+<p>在远的地方喧嚣着</p>
+
+<p>圣洁河水的波浪</p>
+
+<p>我们要在这里躺下</p>
+
+<p>在那棕榈树的下边</p>
+
+<p>沐浴着爱情和恬静</p>
+
+<p>沉醉于幸福的梦幻</p>
+
+
+
+<p style='float:right;'>本页共193段，1910个字符，5538 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

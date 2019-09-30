@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+<p>当我们考虑怎么逻辑地组织数据时，应该将一个人的所有信息项放在一起，即保持相关性。</p>
+
+<p>一旦定义了一个结构体类型的变量，系统在分配内存时就会分配一块连续的空间，依次存放它的每一个分量。这块空间总的名字就是结构体变量的名字。内部还有各自的名字</p>
+
+
+
+
+<p>引入结构体有什么好处？ </p>
+
+<p><strong>引入结构体可以将一组逻辑上相关的变量组合成一个有机的整体，表达更复杂的对象。</strong> </p>
+
+
+
+<p>单链表中为什么要引入头结点？ </p>
+
+<p>消除插入或删除第一个结点的特殊情况。 </p>
+
+<p>结构体类型定义的作用是什么？结构体类型的变量定义的作用是什么？ </p>
+
+<p>结构体类型定义是告诉C++这种类型的变量是如何组成的，需要多少空间。结构体变量的定义是告诉C++程序中需要存储和处理一个某结构体类型的变量，这时C++根据结构体类型的定义为这个变量分配空间。</p>
+
+
+<p>结构体类型允许程序员把一些分量聚合成一个整体，用一个变量表示。</p>
+
+<p>一个结构体的各个分量都有名字，把这些分量称为成员(member)。</p>
+
+<p>由于结构体的成员可以是各种类型的，程序员能创建适合于问题的<strong>数据聚合</strong>。</p>
+
+<p><strong>一旦定义了一个结构体类型的变量，系统在分配内存时就会分配一块连续的空间，依次存放它的每一个分量。</strong><strong>这块空间总的名字就是结构体变量的名字。内部还有各自的名字。</strong> </p>
+
+<p>可以在定义结构体类型的同时定义指向结构体的指针或变量。</p>
+
+
+<p><strong>结构体类型是存储空间尺寸的描述，不会预先分配内存空间。</strong></p>
+
+<p>对于批量数据，一个形式是数组，如一年12个月的天数，有存储的规律性或叫连续性，通过数组下标体现出来(通过数组名和下标访问)。另一个形式是结构体，可以将多个数据集中到同一个对象，当然也是集中存储，但数据的访问通过属性体现出来（通过结构体实例名+属性名访问）。</p>
+
+<p>另一种批量数据处理的方式：链表，通过指针将单个数据连续起来。</p>
+
+
+<p>结构体实例化的元素与对象的属性其实质也是变量，只是其隶属于某个集合而已。</p>
+<p>结构体变量名是大内存空间的地址，则元素是其中小内存空间的地址。</p>
+<p>结构是一个或多个变量的集合，该集合有一个单独的名称，便于操作。与数组不同，结构可以储存不同类型（C语言的任意数据类型，包括数组和其他结构）的变量。结构中的变量被称为结构的成员（member）。</p>
+<p>int arr[]={1,2,3,5,6};sizeof(arr);测试的是整个数组所占用的字节数，其长度可以写成：sizeof(arr)/sizeof(arr[0])</p>
+
+
+<p>C遵循的基本的内存布局假设：<strong>通过对象的基地址和数据成员的偏移量获取数据成员的地址</strong>。</p>
+
+
+
+<p>基本数据类型：其值不可以理解为其它类型，也就是说，它是自我说明的；</p>
+
+<p>构造数据类型：由若干成员或元素（基本数据类型或构造数据类型）构成的复合数据类型，分为数组类型、结构类型、联合类型；</p>
+
+
+<p>编译器会自动对齐结构体数据成员以提高运行效率；</p>
+
+<p>第一个成员的地址与整个结构的地址相同；</p>
+
+
+<h4>结构体中使用构造函数</h4>
+
+<p>如果不使用构造函数也是可以的，只定义一般的结构体，里面包含两个参数：</p>
+
+<p>struct Node{</p>
+
+<p>……int u,step; // u为顶点，step为源点到顶点u的最短路径</p>
+
+<p>};</p>
+
+<p>那么在变量参数赋值时，需要这样赋值：</p>
+
+<p>Node vs ; //先定义一个Node结点类型变量</p>
+
+<p>vs.u =3 ,vs.step = 5; //分别对该变量的两个成员进行赋值</p>
+
+<p>采用构造函数的形式定义结构体：</p>
+<pre>
+struct Node{
+    int u,step;
+    Node(){};
+    Node(int a,int sp){
+        u = a; //参数传递u为顶点
+        step = sp; //参数传递step为源点到顶点u的最短路径
+    }
+};
+</pre>
+
+<p>则变量参数赋值就可以直接通过参数传递：</p>
+
+<p>Node vs(3,5)</p>
+
+<p>上面语句等价于：</p>
+
+<p>vs.v =3 ,vs.step = 5;</p>
+
+<hr />
+
+
+<p>C11允许采用（type_name）{xx,xx,xx} 类似于 C++ 的构造函数的形式构造匿名的结构体。复合字面量：初始化结构的时候允许对特定的元素赋值，形式为：
+<p></p>
+<pre>
+struct test
+{
+	int a[3]，b;
+} foo[] = { [0].a = {1}, [1].a = 2 };
+
+struct test{int a, b, c, d;} 
+foo = { .a = 1, .c = 3, 4, .b = 5 }; // 3,4 是对 .c,.d 赋值的
+</pre>
+
+
+
+
+<p>储存一年来看过的所有电影的信息，应该用什么样的数据结构：用一个结构体存储一部电影的所有信息，用一个数组来存储看过的电影。也就是数组元素是结构体，表示电影信息。如果想储存不同用户的数据呢？数组表示用户，用数组的数组存储，最后的元素是结构体。</p>
+
+
+
+<pre>
+union one4all
+{
+    int int_val;
+    long long_val;
+    double double_val;
+};
+one4all pail;
+pail.int_val = 15;
+pail.double_val = 3.14;
+// at this time, int value is lost
+</pre>
+
+
+
+<p>在C++中，结构体是纯数据的定义，如果还涉及到这些数据的操作，则更建议考虑类类型；</p>
+
+<p>结构体和类都是对基本类型的扩展，用于提高编程的颗粒度；</p>
+
+
+
+<p><h4>Unions</h4></p>
+
+<p>A union is a data format that can hold different data types but only one type at a time.</p>
+
+<p></p>
+<pre>
+union one4all
+{
+    int int_val;
+    long long_val;
+    double double_val;
+};
+
+one4all pail;
+pail.int_val = 15; //  store an int
+cout &lt;&lt; pail.int_val;
+pail.double_val = 1.38;  // store a double, int value is lost
+cout &lt;&lt; pail.double_val;
+</pre>
+<p>A union can hold a single value, but it can be of a variety of types, with the member name indicating which mode is being used.</p>
+
+
+<p>结构体的字节对齐是指编译器在为结构体变量分配内存时，保证下一个成员的偏移量为成员类型的整数倍。因此，对于一些结构体变量来说，其大小并不等于结构体中每一个成员大小的总和。</p>
+
+
+
+<p>结构体是一组变量的集合，它能够将不同数据类型的对象组合为一个整体，以描述一个新的对象。例如，描述一个学生信息。学生信息需要包括姓名、年龄、性别、地址等信息。这样，由姓名、年龄、性别、地址等内容就构成了学生对象。在程序中为了描述类似于“学生”这样的复合对象（由多个成分构成），可以使用结构体类型。在C++中，结构体类型的声明使用struct关键字。</p>
+
+<p>两个结构体变量之间是否可以相互赋值呢？答案是可以的。</p>
+
+<p>编译器在为结构体变量分配空间时，保证下一个成员的偏移量应为该成员数据类型长度的整数倍。</p>
+
+
+
+<p>共用体类型提供了一种机制，使得多个变量（公用体中的成员）可以共享同一个内存地址。</p>
+
+<p>当定义一个共用体变量时，编译器会根据共用体成员中占用最多内存空间的变量分配空间，这样使得共用体中所有成员的都能够获得足够的空间。</p>
+
+
+<p>C语言中通过定义由基本数据类型组合而成的“构造数据类型”表示这种集合数据。构造数据类型有数组、结构体、共用体三种类型。</p>
+
+
+<p>共用体类型数据的特点</p>
+
+<p>(1)同一个内存段可以用来存放几种不同类型的成员，但在每一瞬时只能存放其中一种，而不是同时存放几种。</p>
+
+<p>(2) 共用体变量中起作用的成员是最后一次存放的成员，在存入一个新的成员后原有的成员就失去作用。  </p>
+
+<p>(3) 共用体变量的地址和它的各成员的地址都是同一地址。</p>
+
+<p>设有若干个人员的数据，其中有学生和教师。</p>
+
+<p>学生：姓名、号码、性别、职业、班级。</p>
+
+<p>教师：姓名、号码、性别、职业、职务。</p>
+<p></p>
+<pre>
+struct
+    {
+    int num;
+    char name[10];
+    char sex;
+    char job;
+    union
+    {
+        int banji;
+        char position[10];
+    }category;
+    }person[2];/*先设人数为2*/
+</pre>
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

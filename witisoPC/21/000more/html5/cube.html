@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Cube</title>
+<script type="text/javascript">
+function gra2htm(clr,a,b,c,d){
+var result='';
+var maxx=Math.max(a[0],b[0],c[0],d[0]),minx=Math.min(a[0],b[0],c[0],d[0]);
+var maxy=Math.max(a[1],b[1],c[1],d[1]),miny=Math.min(a[1],b[1],c[1],d[1]);
+x=new Array(a[0],b[0],c[0],d[0],a[0],b[0],c[0],d[0],a[0],b[0]);
+y=new Array(a[1],b[1],c[1],d[1],a[1],b[1],c[1],d[1],a[1],b[1]);
+/*/begin
+for(var i=0;i<=3;i++){
+result+='<div style="position:absolute; overflow:hidden; left:'
++x[i]+'px; top:'+y[i]+'px; width:2px; height:2px; background-color:#FFF"></div>';
+}
+//end*/
+if(maxx-minx>=maxy-miny){
+for(var i=3;i<=6;i++)
+if(y[i]==miny){
+var k=l=i;
+break;
+}
+if(y[k]==y[k-1]) k--;
+xa=(x[k-1]-x[k])/(y[k-1]-y[k]);
+if(y[l]==y[l+1]) l++;
+xb=(x[l+1]-x[l])/(y[l+1]-y[l]);
+pl=x[k];pw=x[l]-x[k];
+for(var i=miny+1;i<=maxy;i++){
+if(i>y[k-1]){
+k--;
+xa=(x[k-1]-x[k])/(y[k-1]-y[k]);
+}
+if(i>y[l+1]){
+l++;
+xb=(x[l+1]-x[l])/(y[l+1]-y[l]);
+}
+result+='<div style="overflow:hidden; top:'+i
++'px; left:'+Math.round(pl+=xa)
++'px; width:'+Math.round(pw+=xb-xa)
++'px; height:1px; position:absolute; background-color:'+clr
++';"></div>';
+}
+} else {
+for(var i=3;i<=6;i++)
+if(x[i]==minx){
+var k=l=i;
+break;
+}
+if(x[k]==x[k+1]) k++;
+ya=(y[k+1]-y[k])/(x[k+1]-x[k]);
+if(x[l]==x[l-1]) l--;
+yb=(y[l-1]-y[l])/(x[l-1]-x[l]);
+pt=y[k];ph=y[l]-y[k];
+for(var i=minx+1;i<=maxx;i++){
+if(i>x[k+1]){
+k++;
+ya=(y[k+1]-y[k])/(x[k+1]-x[k]);
+}
+if(i>x[l-1]){
+l--;
+yb=(y[l-1]-y[l])/(x[l-1]-x[l]);
+}
+result+='<div style="overflow:hidden; left:'+i
++'px; top:'+Math.round(pt+=ya)
++'px; height:'+Math.round(ph+=yb-ya)
++'px; width:1px; position:absolute; background-color:'+clr
++';"></div>';
+}
+}
+return result;
+}
+function remx(type,theta,omx){
+var sinA=Math.sin(theta),cosA=Math.cos(theta);
+var m=new Array();
+switch(type){
+case 'rx':
+m[0]=omx[0];m[1]=omx[1];m[2]=omx[2];
+m[3]=omx[3]*cosA-omx[6]*sinA;m[4]=omx[4]*cosA-omx[7]*sinA;m[5]=omx[5]*cosA-omx[8]*sinA;
+m[6]=omx[3]*sinA+omx[6]*cosA;m[7]=omx[4]*sinA+omx[7]*cosA;m[8]=omx[5]*sinA+omx[8]*cosA;
+break;
+case 'ry':
+m[0]=omx[0]*cosA-omx[6]*sinA;m[1]=omx[1]*cosA-omx[7]*sinA;m[2]=omx[2]*cosA-omx[8]*sinA;
+m[3]=omx[3];m[4]=omx[4];m[5]=omx[5];
+m[6]=omx[0]*sinA+omx[6]*cosA;m[7]=omx[1]*sinA+omx[7]*cosA;m[8]=omx[2]*sinA+omx[8]*cosA;
+break;
+}
+return m;
+}
+function p2d(x,y,z){
+var l=100,t=100;
+var result=new Array();
+result[0]=Math.round(l+x/(z*0.004+1.25));
+result[1]=Math.round(t+y/(z*0.004+1.25));
+return result;
+}
+</script>
+<script type="text/javascript">
+//const
+var pa=new Array();
+pa[1]=new Array(50,50,-50);
+pa[2]=new Array(50,50,50);
+pa[3]=new Array(50,-50,50);
+pa[4]=new Array(50,-50,-50);
+pa[5]=new Array(-50,50,-50);
+pa[6]=new Array(-50,50,50);
+pa[7]=new Array(-50,-50,50);
+pa[8]=new Array(-50,-50,-50);
+var idx=new Array();
+idx[0]=new Array(1,2,3,4);
+idx[1]=new Array(1,4,8,5);
+idx[2]=new Array(1,5,6,2);
+idx[3]=new Array(7,3,2,6);
+idx[4]=new Array(7,8,4,3);
+idx[5]=new Array(7,6,5,8);
+var clr=new Array('#03c','#c00','#fc0','#f60','#fff','#090');
+//end
+function cube(id){
+if(!document.getElementById(id)) return false;
+this.id=document.getElementById(id);
+this.angle=new Array();
+this.angle2=new Array();
+for(i=1;i<=8;i++) this.angle[i]=new Array(3);
+//  alert('success');
+}
+cube.prototype={
+matrix:new Array(1,0,0,0,1,0,0,0,1),
+paint:function(){
+var result='';
+for(i=1;i<=8;i++){
+this.angle[i][0]=this.matrix[0]*pa[i][0]+this.matrix[1]*pa[i][1]+this.matrix[2]*pa[i][2];
+this.angle[i][1]=this.matrix[3]*pa[i][0]+this.matrix[4]*pa[i][1]+this.matrix[5]*pa[i][2];
+this.angle[i][2]=this.matrix[6]*pa[i][0]+this.matrix[7]*pa[i][1]+this.matrix[8]*pa[i][2];
+this.angle2[i]=p2d(this.angle[i][0],this.angle[i][1],this.angle[i][2]);
+}
+for(i=0;i<6;i++){
+if((this.angle2[idx[i][2]][0]-this.angle2[idx[i][1]][0])*
+(this.angle2[idx[i][0]][1]-this.angle2[idx[i][1]][1])-
+(this.angle2[idx[i][2]][1]-this.angle2[idx[i][1]][1])*
+(this.angle2[idx[i][0]][0]-this.angle2[idx[i][1]][0])<0){
+result+=gra2htm(clr[i],this.angle2[idx[i][3]],this.angle2[idx[i][2]],this.angle2[idx[i][1]],
+this.angle2[idx[i][0]]);
+}
+}
+//    document.getElementById('aa').value=result;
+this.id.innerHTML=result;
+},
+roll:function(type,theta){
+this.matrix=remx(type,theta,this.matrix);
+//    this.paint();
+}
+}
+</script>
+<script type="text/javascript">
+var tmr=(new Date()).getTime();
+function drag(obj,e){
+e=e?e:window.event;
+var setx=e.clientX,sety=e.clientY;
+if(document.addEventListener){
+document.addEventListener('mousemove', inFmove, true);
+document.addEventListener('mouseup', inFup, true);
+} else if(document.attachEvent){
+document.attachEvent('onmousemove', inFmove);
+document.attachEvent('onmouseup', inFup);
+}
+function inFmove(e){
+tmr2=(new Date).getTime();
+if(tmr2-tmr<100) return false;
+tmr=tmr2;
+cc.roll('ry',(e.clientX-setx)/50);
+setx=e.clientX;
+cc.roll('rx',(e.clientY-sety)/50);
+sety=e.clientY;
+cc.paint();
+return false;
+}
+function inFup(){
+if(document.removeEventListener){
+document.removeEventListener('mousemove', inFmove, true);
+document.removeEventListener('mouseup', inFup, true);
+} else if(document.detachEvent){
+document.detachEvent('onmousemove', inFmove);
+document.detachEvent('onmouseup', inFup);
+}
+} // shawl.qiu script
+}
+</script>
+</head>
+<body>
+<div id="t" style="width:200px;height:200px;background-color:#000000;" oncontextmenu="return false" onmousedown="drag(this,event)"></div>
+<br />
+<input type="button" onClick="clearInterval(tt)" value="Stop" />
+<input type="button" onClick="clearInterval(tt);tt=setInterval('cc.roll(\'rx\',0.2);cc.paint();',100)" value="Down" />
+<input type="button" onClick="clearInterval(tt);tt=setInterval('cc.roll(\'ry\',0.2);cc.paint();',100)" value="Right" />
+<script type="text/javascript">
+var tt,cc=new cube('t');
+cc.roll('ry',1);
+cc.paint();
+</script>
+</body>
+</html>

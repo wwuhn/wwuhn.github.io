@@ -1,0 +1,998 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>带您走进VBA字典的使用世界</h4>
+
+<p></p>
+
+<p>把自己近一段时间学习字典的心得写出来,高手就飘过,菜鸟级,入门的朋友和我一起来.当然有说的不对的地方,请大家指正.谢谢,申明我不是高手,因为我看过一些朋友写的字典,我也看不懂,真是羡慕他们.下面是我对字典学习一些心得分享给想了解学习这方面的朋友.</p>
+
+<p>一、字典的作用</p>
+
+<p>1.由于字典的关键词具有唯一性,所以字典有去重的作用,应用到按列拆分成工作表,按列拆分成工作簿,后面我们在应用的案列中讲解</p>
+
+<p>2.由于字典里一个关键字对应着一个条目,我们经常用条目来编号,结合数组,应用案例有分类汇总,后面我们也用一个案例来讲解</p>
+
+<p>3.速度快,在代码中用来提速</p>
+
+<p>二、引用字典的方法(字典不是Excel程序里对象,是外部对象)</p>
+
+<p>1.前期绑定：方法 Alt+F11 打开VBE编辑窗口--&gt;工具菜单--&gt;引用--&gt;浏览--&gt;找到scrrun.dll--&gt;选择它--&gt;打开--&gt;确定</p>
+
+<pre>
+Sub 前期绑定()
+    Dim dic As New Dictionary
+End Sub
+</pre>
+
+<p>2.后期绑定</p>
+
+<pre>
+sub 后期绑定()
+	Dim dic
+	Set dic= CreateObject("Scripting.Dictionary")
+End Sub
+</pre>
+
+<p>两者的区别,前期绑定优点会弹出列表,当您输入dic.之后,后面会弹出成员列,6个方法和4个属性,方便入门的朋友学习,缺点就是把带有字典代码的工作簿发给朋友,朋友不能直接用,也要像前面讲的一样----Alt+F11 打开VBE编辑窗口--&gt;工具菜单--&gt;引用--&gt;浏览--&gt;找到scrrun.dll--&gt;选择它--&gt;打开--&gt;确定,这样就给不会VBA用户带来极不方便.恰恰相反的,后期绑定的优点就是前期绑定的缺点,后期绑定的缺点就是前期绑定的优点为,因此建议大家两都结合起来,如果你是新手的朋友,前期绑定把代码写好之后,最后再用后期绑定发给朋友.</p>
+
+<p>三、字典的6个方法4个属性</p>
+
+<p>dic.Add '添加关键词，方法</p>
+
+<p>dic.CompareMode = 1'不区分大小写,如果等于0区分大小写</p>
+
+<p>dic.Count '数字典里的关键词有多少个</p>
+
+<p>dic.Exists '判断关键词在字典里是否存在</p>
+
+<p>dic.Item '是指条目</p>
+
+<p>dic.Key '是指关键词</p>
+
+<p>dic.Items '可以返回所有条目的集合，也可以说返回一个从0开始编号的一维数组,是方法，大家不要理解为属性，不能当作对象</p>
+
+<p>dic.Keys '可以返回所有的关键字词集合，也可以说返回一个从0开始编号的一维数组，也是方法</p>
+
+<p>dic.Remove '清除某一个关键词</p>
+
+<p>dic.RemoveAll '清除全部关键词，而数组只能清除数组的值，但不是不能清数组空间结构</p>
+
+<p>而字典里的这个Removeall可以清除的结构和值，6个方法4个属性具体我们用实例来学习它。</p>
+
+<p>6个方法和4个属性</p>
+
+<p>1.方法add 是添加的意思</p>
+
+<pre>
+
+Sub test1() '给字典添加关键词和条目
+	'格式字典对象+空格 +点号+add+空格+关键词+逗号+条目
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+
+	With dic
+		.Add "不及格", 0
+		.Add "及格", 60
+		.Add "良好", 70
+		.Add "优秀", 80
+	End With
+
+End Sub
+</pre>
+
+<p>备注:'把上面的代码复制到模块里,大家一定要学会在本地窗口查看,这个是学习VBA的秘密,相当于学习数组函数要会按F9一样查看运算的结果,记住,千万要记住,一般人我不告诉的,呵呵,开了一下玩笑,把光标点到代码任何一行,视图</p>
+
+<p>'菜单,本地窗口,F8逐步运行,大家可以看到关键词在不断增加,这里我没有用循环语句,当然在我们真正把数据装入关键词和条目会用到循环语句 ,有的朋友可能会说,我还没有理解这种装法,其实大家可以把字典看作多行二列的二维数组一样,一列是关键词,一列是条目,有时我们条目不装,为空,可以写成下面这样的</p>
+
+<pre>
+
+Sub Test2()'条目为空
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+
+	With dic
+		.Add "不及格", ""
+		.Add "及格", ""
+		.Add "良好", ""
+		.Add "优秀", ""
+	End With
+
+End Sub
+</pre>
+
+<p>现在我们来提一个问:如果要装入字典关键词重复会出现一个什么现象呢? 如</p>
+
+<pre>
+
+Sub Test2()'关键词重复会报错
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+
+	With dic
+		.Add "不及格", ""
+		.Add "不及格", ""
+	End With
+
+End Sub
+</pre>
+
+<p>我们运行上面的代码发现,重复装入关键字会报错,那怎么办呢,难道放在一边,让它凉拌,当然不是呢,在写程序时,有的错误是避免不了的,那我们就要想起这一句On Error Resume Next</p>
+
+<pre>
+Sub Test3() '解决了关键词重复会报错
+	Dim dic
+	On Error Resume Next
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+
+	With dic
+		.Add "不及格", ""
+		.Add "不及格", ""
+	End With
+
+	On Error GoTo 0 '如果后面的代码有错,让它继续报错
+End Sub
+</pre>
+
+<p>这里啰嗦一个On Error Resume Next这一句,好用少用,为什么呢,如果你不在用完它后添加一句On Error GoTo 0,后面有错误它也把错误忽略掉了,这样就不便于大家找错,也就是错了也不会提醒你,所以新手要注意这个,除了用这种方法装入字典关键词和条目还有一种方法</p>
+
+<p>格式字典对象(关键字)=条目</p>
+<pre>
+Sub test4() '另一种方法添加关键词和条目
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic("不及格") = 0
+	dic("不及格") = 0
+	dic("及格") = 60
+End Sub
+</pre>
+
+<p>第二种方法添加我是这样理解的,也许我理解错了,dic("不及格") = 0,完整的语句应该是修改条目,由于修改条目的关键词不存在,会自动添加关键词,如果存在就会覆盖原来的,这样就会报错了,只是覆盖,完整的语句如下</p>
+
+<p>dic.Item("不及格") = 0,省略了一个点号和一个item</p>
+
+<p>有的朋友可能会问?</p>
+
+<p>这两种有什么区别呢?</p>
+
+<p>答案是肯定的,肯定有区别,区别大着呢,第一种方法是取得一个出现的,再出现重复的装不进去的,第二种方法是取得最后一次的出现的,前面出现会被覆盖.包括条目</p>
+
+<p>因此利用它们的区别,我们可以应用到查找最后一次进货的和第一次出货的日期,当然前提条件我们的日期是排序的</p>
+
+<p>2.Count属性:前面我们讲过,它可以统计关键词的个数</p>
+
+<pre>
+Sub test5() '
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic("不及格") = 0
+	dic("不及格") = 0
+	dic("及格") = 60
+	MsgBox dic.Count
+End Sub
+</pre>
+
+<p>大家运行代码,结果显示2,也就是说字典dic里的关键是2个,不是3个,上面我们讲过,因此字典有去重作用</p>
+
+<p>3.Keys方法</p>
+
+<p>4.Item方法</p>
+
+<p>Keys的作用是把关键词从字典里读出来,一般我们把它赋一个数组,这个数组是一维的,且它的第一个编号是0,也就是它的上标是从0开始的</p>
+
+<p>Items的作用是把条目从字典里读出来,一般我们把它赋一个数组,这个数组是一维的,且它的第一个编号是0,也就是它的上标是从0开始的</p>
+
+<p>具体我们看一个实例</p>
+<pre>
+
+Sub test6() '验证Keys和Items方法
+	Dim dic
+	Dim arr1
+	Dim arr2
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic("不及格") = 0
+	dic("不及格") = 0
+	dic("及格") = 60
+	arr1 = dic.Keys '把字典里的所有关键词赋值给数组arr1
+	arr2 = dic.Items '把字典里的所有条目赋值给数组arr2
+
+	With Sheets("keys和Items")
+		.[A1].Resize(dic.Count, 1) = Application.Transpose(arr1)
+		.[B1].Resize(dic.Count, 1) = Application.Transpose(arr2)
+		'上面的代码为什么要转,因为通过keys和Items方法读到数组都是一维的
+		'如果读到单元格是横向的就不用转置,因为是纵向的,所以调用工作表内置数
+		'Transpose函数转置一下
+	End With
+
+End Sub
+
+</pre>
+
+<p>接下来我们讲解2个自定义函数</p>
+
+<p>一个是统计区域唯一值的个数</p>
+
+<p>一个是去重函数</p>
+<pre>
+
+Function counting(Rg As Range)
+	Dim dic
+	Dim arr1
+	Dim ar
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	arr1    = Rg '把单元格区域装入到数组arr1里,因为装到数组里速度快一些
+
+	For Each ar In arr1
+		If ar <> "" Then ' 排除空单元格
+			dic(ar) = "" ' 把数组arr1里的每一个元素依次装进字典dic里,进行去重
+		End If
+
+	Next ar
+	counting = dic.Count'把结果赋值给函数名'
+End Function
+</pre>
+
+<pre>
+Function quChong(Rg As Range, x As Integer) '去重
+	Dim dic
+	Dim arr1
+	Dim ar
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	arr1    = Rg '把单元格区域装入到数组arr1里,因为装到数组里速度快一些
+	
+	For Each ar In arr1
+		If ar <> "" Then ' 排除空单元格
+			dic(ar) = "" ' 把数组arr1里的每一个元素依次装进字典dic里,进行去重
+		End If
+	Next ar
+	
+	arr1 = dic.Keys
+	If x <= dic.Count Then '如果函数的第二参数小于等于字典里的关键词个数,那么
+		quChong = arr1(x - 1) '把数组arr1(x)这个元素赋值给函数去重
+	Else '否则函数去重的值为空
+		quChong = ""
+	End If
+
+End Function
+
+</pre>
+
+<p>' 备注,自定义去重这个函数,第一参数是单元格区域,且要加绝对引用,可以是多行多列,</p>
+
+<p>'好过我们函数写的那个长长的去重公式,第二参数,如果大家是下拉就要用Row(A1),</p>
+
+<p>'如=quChong($A$1:$B$4,ROW(A1))</p>
+
+<p>'如果右拉就用借助Column (A1)</p>
+
+<p>5.方法Exists,判断关键词在字典里是否存在</p>
+<pre>
+
+Sub test7() 'Exists方法
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic("不及格") = 0
+	dic("不及格") = 0
+	dic("及格") = 60
+	If dic.Exists("不及格") Then '判断"不及格"关键词是否存在
+		MsgBox "不及格--关键词存在"
+	Else
+		MsgBox "不及格--关键词不存在"
+	End If
+
+	If dic.Exists("优秀") Then '判断"不及格"关键词是否存在
+		MsgBox "优秀--关键词存在"
+	Else
+		MsgBox "优秀--关键词不存在"
+	End If
+
+End Sub
+
+</pre>
+
+<p>6、Remove,清除字典里某一个关键词,且还清除其结构,而数组里的Erase,只能清除其值,不能清除数组空间结构</p>
+
+<p>格式 dic.Remove "某一个关键词"</p>
+
+<p>7'RemoveAll清除字典里所有关键词,且还清除其结构</p>
+
+<p>格式 dic.RemoveAll</p>
+
+<pre>
+
+Sub test8() '方法Remove和RemoveAll
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic("不及格") = 0
+	dic("不及格") = 0
+	dic("及格") = 60
+	dic("良好") = 70
+	dic("优秀") = 80
+	MsgBox dic.Count '显示字典里有4个关键词
+	dic.Remove "不及格"
+	MsgBox dic.Count '显示字典里有3个关键词,因为关键词"不及格"被删除了
+	dic.RemoveAll '显示字典里有0个关键词,因为关键词全部被删除了
+	MsgBox dic.Count
+End Sub
+
+</pre>
+
+<p>8、Key 属性,修改字典里的关键词</p>
+
+<p>9、Item属性,修改字典里的某关键词的条目</p>
+
+<pre>
+Sub test9() '属性Key和Item
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic("不及格") = 0
+	dic.Key("不及格") = "D" '把关键词"不及格"修改为"D"
+	dic.Item("D") = 59 '把关键词"D"的条目修改为59
+End Sub
+</pre>
+
+<p>备注:至于在本地窗口的变化,自己去查看,我不再多说了</p>
+
+<p>10.'CompareMode '属性比较模式如 Dic.CompareMode=1不区分大小写，Dic.CompareMode=0区分大小写</p>
+<pre>
+
+Sub test10() '区分大小写,默认不写是区分的,因此我们只有在不区分时才补上这句
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic.Add "D", 0
+	dic.Add "d", 0
+	'因为默认的是区域大小写的,所以不报错
+End Sub
+</pre>
+<pre>
+Sub test11() '不区分大小写,
+	Dim dic
+	Set dic = CreateObject("Scripting.Dictionary") '后期绑定引用字典对象
+	dic.CompareMode = 1
+	dic.Add "D", 0
+	dic.Add "d", 0
+	'上面的代码报错了,因为dic.CompareMode = 1不区分大小写,所以
+	'你装后大写的D之后,再装小写的d,重装了,报错
+End Sub
+
+</pre>
+
+<p>6个方法和4个属性我们就讲完了,谢谢大家，后面我们用大家在工作常用的实例来讲解</p>
+
+<p>第一个案例:</p>
+
+<p>1.多行2列分类汇总</p>
+
+<p>2.多行多列分类汇总</p>
+<pre>
+Option Explicit
+
+Sub 二列多行()
+	Dim arr1
+	Dim dic
+	Dim x
+	Dim arr2(1 To 10, 1 To 2)
+	Dim m%
+	Dim k% '定义变量
+	Set dic = CreateObject("Scripting.dictionary") '后期绑定引用字典
+	arr1    = Range("A1").CurrentRegion '把单元区域装到数组arr1
+
+	For x = 2 To UBound(arr1, 1) '循环数组arr1的行
+		If dic.Exists(arr1(x, 1)) Then '判断数组元素arr1(x,1)在字典关键词里是否存在,
+			m = dic(arr1(x, 1)) '如果存在,把关键词arr1(x,1)的条目读出来,在原来的
+			'基础上累加,通过读取关键词arr1(x,1)的条目,找到在数组arr2那一行上累加
+			arr2(m, 2) = arr2(m, 2) + arr1(x, 2) '在数组arr2第m行,第2列上累加
+		Else '如果关键词arr1(x,1)不存在,那么
+			k = k + 1 '计数
+			dic(arr1(x, 1)) = k '把数组arr1(x,1)装到字典dic里,条目装一个k,
+			'这个k的作用来给数组arr2中找到存放那一行
+			arr2(k, 1) = arr1(x, 1) '把数组arr1里的第x行第1列装到数组arr2的第k行,第1列
+			arr2(k, 2) = arr1(x, 2) '把数组arr1里的第x行第2列装到数组arr2的第k行,第2列
+		End If
+
+	Next x
+	
+	Range("E1:F" & Rows.Count) = "" '清空区域,用来存放新的数据
+	[E1:F1] = Array("产品名称", "数量") '填充表头
+	[E2].Resize(k, 2) = arr2 '把数组arr2读到单元格区域
+End Sub
+</pre>
+<pre>
+Sub 多列多行汇总()
+	Dim dic
+	Dim arr1
+	Dim x%
+	Dim MySt
+	Dim k%
+	Dim arr2(1 To 15 1 To 3)
+	Dim y%
+	Dim m%
+	Set dic = CreateObject("Scripting.dictionary")
+	arr1    = Range("A1").CurrentRegion
+	
+	For x = 2 To UBound(arr1, 1)
+		MySt   = arr1(x, 1) & arr1(x, 2)
+	
+		If dic.Exists(MySt) Then
+			m     = dic(MySt)
+			arr2(m, 3) = arr2(m, 3) + arr1(x, 3)
+		Else
+			k         = k + 1
+			dic(MySt) = k
+	
+			For y = 1 To 3
+				arr2(k, y) = arr1(x, y)
+			Next y
+	
+		End If
+	
+	Next x
+	
+	Range("E1:G" & Rows.Count) = ""
+	[E1:G1] = Array("产品名称", "款号", "数量")
+	[E2].Resize(k, 3) = arr2
+End Sub
+</pre>
+<pre>
+Sub 清空1()
+	Range("E1:F" & Rows.Count) = ""
+End Sub
+</pre>
+<pre>
+Sub 清空2()
+	Range("E1:G" & Rows.Count) = ""
+End Sub
+
+</pre>
+
+<p>第二个代码我就不加注解了,同第一个代码差不多,区别是</p>
+
+<p>由于关键字只能装1列,如果有多列怎么办呢?</p>
+
+<p>我们可以把多列用&串起来,多串字符串就变成了一串字符串</p>
+
+<p>第二个案例用字典做查询表</p>
+<pre>
+Option Explicit
+
+Sub 查询()
+	Dim dic
+	Dim arr1
+	Dim arr2
+	Dim arr3
+	Dim arr4(1 To 100 1 To 2)
+	Dim x & 
+	Dim y & 
+	Dim k & '定义变量
+	Set dic           = CreateObject("Scripting.Dictionary") '后期绑定引用字典
+	Range("H2:I100") = "" '清空原有的数据
+	arr1              = Range("A1").CurrentRegion '把区域装到数组arr1
+	arr2              = Range("F1").CurrentRegion '把区域装到数组arr2
+
+	For x = 2 To UBound(arr1, 1) '循环数组arr1的行
+		dic(arr1(x, 1) & "|" & arr1(x, 2)) = arr1(x, 3) & "|" & arr1(x, 4)
+		'由于两个条件,而关键字只能装一个条件,所以用&把两件条件连起来,中间用"|"分开
+		'同理,由于有二个条目,而一个关键词只能对应一个条目,因此我也是用&连接起来,中间用"|"分开
+		'这样就解决了多行多列装入到字典,间接的突破了字典只能装两列
+	Next x
+
+	For y = 2 To UBound(arr2, 1) '循环数组arr2的行
+		arr3 = VBA.Split(dic(arr2(y, 1) & "|" & arr2(y, 2)), "|")
+		'根据arr2(y, 1) & "|" & arr2(y, 2))读字典dic里的条目出来,其实它的条目就是我们
+		'刚才arr1后面两列的用"|"的数据,然后用函数Split切开,根据"|",赋值给数组arr3
+		'大家一定要明白,Split通过"|"切开,赋值给数组arr3 数组arr3是一维数组,且它的上标从0开始
+		k = k + 1 '累加k
+		arr4(k, 1) = Val(arr3(0)) '把切开出来的数据放到数组arr4里
+		arr4(k, 2) = Val(arr3(1))
+	Next y
+
+	[H2].Resize(k, 2) = arr4
+End Sub
+
+Sub 清空()
+	Range("H2:I100") = ""
+End Sub
+
+</pre>
+
+<p>第三个案例</p>
+
+<p>透视表式的字典</p>
+<pre>
+Option Explicit
+
+Sub 透视表式的汇总()
+	Dim arr1
+	Dim dica
+	Dim dicb
+	Dim x & 
+	Dim k & 
+	Dim y & 
+	Dim m & 
+	Dim n & 
+	Dim a & 
+	Dim b & 
+	Dim arr2() '定义相关的变量
+	Set dica = CreateObject("Scripting.Dictionary") '创建两个字典
+	Set dicb = CreateObject("Scripting.Dictionary")
+	arr1     = Range("A1").CurrentRegion '把区域装入数组arr1
+
+	For x = 2 To UBound(arr1, 1) '循环数组arr1的行
+		If Not dicb.Exists(arr1(x, 2)) Then '如果关键字arr1(x,2)不存在,那么
+			'就把它装入字典dicb里,目的就是为了去重
+			k = k + 1 '累加k,目的给dicb做条目
+			dicb(arr1(x, 2)) = k + 1 '这里为什么还要加1呢? 原因在数组arr2里第一列是产品名称
+			'第二放型号"大号",第三列放型号"中号",第四列放型号"小号",第五列是行汇总
+		End If
+
+	Next x
+	
+	ReDim arr2(1 To 100, 1 To dicb.Count + 2)
+	
+	For y = 2 To UBound(arr1, 1)
+		If dica.Exists(arr1(y, 1)) Then '如果字典dica里关键字arr1(y,1)存在,那么就累加arr2数据列
+			a = dica(arr1(y, 1)) '字典dica里关键词arr1(y,1)的条目读出来,目的在是在数组arr2
+			'里找到累加数组arr2那一行,而数组arr2有五列,具体累加到那一列呢?
+			b = dicb(arr1(y, 2)) '字典dicb里的关键词arr1(y,2)的字典读出来,来定位到具体累加到数组arr2那一列
+			arr2(a, b) = arr2(a, b) + arr1(y, 3)
+			arr2(a, 5) = arr2(a, 2) + arr2(a, 3) + arr2(a, 4) '同一行三种型号相加
+		Else
+			m = m + 1 '累加m,目的给dica做条目和数组arr2定位
+			dica(arr1(y, 1)) = m '把arr1(y,1)装入字典dic2,条目为m
+			n = dicb(arr1(y, 2))
+			arr2(m, 1) = arr1(y, 1) '把数组arr1的第一列装入arr2里的第一列
+			arr2(m, n) = arr1(y, 3) '把数组arr1的第三列装入arr2里的第n列
+		End If
+	
+	Next y
+	
+	Range("F1:J" & Rows.Count) = ""
+	[F1] = "产品名称"
+	[G1].Resize(1, dicb.Count) = dicb.Keys
+	[G1].Offset(0, dicb.Count) = "行总计"
+	[F2].Resize(dica.Count, dicb.Count + 2) = arr2
+End Sub
+	
+Sub 清空()
+	Range("F1:J" & Rows.Count) = ""
+End Sub
+
+</pre>
+
+<p>按列拆分成工作表</p>
+
+<p>按列拆分成独立的工作簿</p>
+<pre>
+Option Explicit
+
+Sub 按列拆分成工作表()
+	Dim x%
+	Dim Rg As Range
+	Dim ColNum & 
+	Dim dic
+	Dim arr1
+	Dim y & 
+	Dim arr2
+	Dim z & 
+	Set dic = CreateObject("scripting.dictionary")
+	Sheets("总表").Activate
+
+	For x = Sheets.Count To 2 Step - 1 '删除工作表时要从大到小循环
+		Application.DisplayAlerts = False '关闭询问对话框
+		Sheets(x).Delete '删除工作表
+		Application.DisplayAlerts = True '打开询问对话框
+	Next x
+
+	'通过InputBox这个方法确定你要拆分的列
+	On Error GoTo 100 '如果有错误跳转到100外
+	Set Rg = Application.InputBox("请选择您要拆分的列", "选择", Type: = 8) '用了这句不可以关闭屏幕刷新
+	ColNum = Rg.Column '把要拆分的列赋值变量 ColNum
+	On Error GoTo 0 '下面的代码有错误,继续报错
+	arr1   = Range("a1").CurrentRegion
+
+	For y = 2 To UBound(arr1)
+
+		If dic(arr1(y, ColNum)) = "" Then
+		End If
+
+	Next y
+
+	arr2 = dic.Keys '把字典里的关键词一次性赋值给数组arr2，且是一维数组，编号从0开始
+
+	For z = 0 To dic.Count - 1 '循环字典的关键词
+		Sheets.Add after: = Sheets(Sheets.Count)
+		Sheets(Sheets.Count).Name = arr2(z)
+		Sheets("总表").Activate '由于新建后活动表会转到最后一个工作表，要重新选择“总表”为活动工作表进行筛选
+		Range(Cells(1, 1), Cells(UBound(arr1, 1), UBound(arr1, 2))).AutoFilter ColNum, arr2(z)
+		'方法AutoFilter第一参数筛选哪一列，第二参数筛选关键词
+		Range(Cells(1, 1), Cells(UBound(arr1, 1), UBound(arr1, 2))).SpecialCells(xlCellTypeVisible).Copy Sheets(Sheets.Count).Range("A1") '定位可见单元格
+		'如果那一列是数据化,大家一定要注意,不能用sheets(arr2(z)表示工作表,要用sheets(sheets.count)表示
+		'这样程序就通用
+	Next z
+
+	Range(Cells(1, 1), Cells(UBound(arr1, 1), UBound(arr1, 2))).AutoFilter
+
+	Exit Sub
+	100:
+	MsgBox "您选择了取消或者是关闭，即将退出程序", 64, "温馨提示"
+End Sub
+</pre>
+<pre>
+Option Explicit
+
+Sub 按列拆分成独立的工作簿()
+	Dim x%
+	Dim Rg As Range
+	Dim ColNum & 
+	Dim dic
+	Dim arr1
+	Dim y & 
+	Dim arr2
+	Dim z & 
+	Dim St
+	Dim StFile$
+	Dim a%
+	Dim b%
+	Dim wb As Workbook
+	Set dic = CreateObject("scripting.dictionary")
+	St      = Application.FileDialog(msoFileDialogFolderPicker).Show '如果你选择了文件夹就返回-1,不选择文件夹
+	'就返回0,相当于你按了取消和关闭按钮
+
+	If St & lt; & gt; 0 Then
+		StFile = Application.FileDialog(msoFileDialogFolderPicker).SelectedItems(1)
+		'取得你选择的那个文件夹路径
+	Else
+
+		Exit Sub
+	End If
+
+	Sheets("总表").Activate
+
+	For x = Sheets.Count To 2 Step - 1 '删除工作表时要从大到小循环
+		Application.DisplayAlerts = False '关闭询问对话框
+		Sheets(x).Delete '删除工作表
+		Application.DisplayAlerts = True '打开询问对话框
+	Next x
+
+	'通过InputBox这个方法确定你要拆分的列
+	On Error GoTo 100 '如果有错误跳转到100外
+	Set Rg = Application.InputBox("请选择您要拆分的列", "选择", Type: = 8) '用了这句不可以关闭屏幕刷新
+	ColNum = Rg.Column '把要拆分的列赋值变量 ColNum
+	On Error GoTo 0 '下面的代码有错误,继续报错
+	arr1   = Range("a1").CurrentRegion
+
+	For y = 2 To UBound(arr1)
+
+		If dic(arr1(y, ColNum)) = "" Then
+		End If
+
+	Next y
+
+	arr2 = dic.Keys '把字典里的关键词一次性赋值给数组arr2，且是一维数组，编号从0开始
+
+	For z = 0 To dic.Count - 1 '循环字典的关键词
+		Sheets.Add after: = Sheets(Sheets.Count)
+		Sheets(Sheets.Count).Name = arr2(z)
+		Sheets("总表").Activate '由于新建后活动表会转到最后一个工作表，要重新选择“总表”为活动工作表进行筛选
+		Range(Cells(1, 1), Cells(UBound(arr1, 1), UBound(arr1, 2))).AutoFilter ColNum, arr2(z)
+		'方法AutoFilter第一参数筛选哪一列，第二参数筛选关键词
+		Range(Cells(1, 1), Cells(UBound(arr1, 1), UBound(arr1, 2))).SpecialCells(xlCellTypeVisible).Copy Sheets(Sheets.Count).Range("A1") '定位可见单元格
+		'如果那一列是数据化,大家一定要注意,不能用sheets(arr2(z)表示工作表,要用sheets(sheets.count)表示
+		'这样程序就通用
+	Next z
+
+	Range(Cells(1, 1), Cells(UBound(arr1, 1), UBound(arr1, 2))).AutoFilter '取消筛选
+	Application.DisplayAlerts = False '关闭询问对话框
+
+	For a = 2 To Sheets.Count '循环总表后面的分表
+		Sheets(a).Copy '依次复制分表成独立的工作簿
+		Set wb = ActiveWorkbook '把分表折成的独立的工作簿设置为活动工作簿
+
+		With wb
+			.SaveAs Filename: = StFile & "" & Sheets(1).Name & ".xls", FileFormat: = xlExcel8 '把新的工作簿保存为规定的文件夹下
+			.Close True '关闭工作簿,且保存
+		End With
+
+	Next a
+
+	For b = Sheets.Count To 2 Step - 1 '删除"总表"工作表后面所有工作表
+		Sheets(b).Delete
+	Next b
+
+	Application.DisplayAlerts = True '打开询问对话框
+	MsgBox "亲,拆分完毕,请查阅", 64, "温馨提示"
+	Shell "explorer.exe " & StFile, 1 '显示拆分后的,便于查询,大家要注意思exe后面有一个空格
+
+	Exit Sub
+	100:
+	MsgBox "您选择了取消或者是关闭，即将退出程序", 64, "温馨提示"
+End Sub
+
+</pre>
+
+<p style='float:right;'>本页共440段，13532个字符，22580 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

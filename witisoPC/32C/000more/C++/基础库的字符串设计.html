@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>基础库的字符串设计</h3>
+
+<p>
+</p>
+
+<p>C++在字符串上表现，一直以来很受人诟病，没有一个库的字符串类的表现能让人满意， std的string，mfc的CString，Qt的QString等等字符串类，都存在这样那样的问题，以至于字符串处理竟然成为C++的弱项，这也太不应该了。
+</p>
+
+<p>话说回来，C++对待字符串的态度也很奇葩，其他语言都将字符串当做是内建类，在编译器层面来实现，只有C++是通过库的形式来提供字符串的抽象，也就是说，C++的语言层面上并没有字符串类，而是提供制造字符串轮子的语言机制。这样有两个好处，一方面既然这些语言机制能实现字符串，说不定还能干点别的什么事情，授人以鱼不如授人以渔；另一方面，更重要的是，字符串内部的缓冲区涉及到动态内存分配，一旦涉及到内存资源管理，在C++下从来就不是简单的事情，最明显的一点，就是稍微处理方式不恰当，就势必影响应用层对字符串全方位的粒度控制，这就违背了C++的语言哲学了。
+</p>
+
+<p>虽说字符串类的设计不容易，C++面世到现在，未曾出现过差强人意的相关库即是明证。但也不至于困难到语言都面世几十年了，还在字符串处理上灰头土脸的地步。其实，只要牢牢把握以下几点，还是有希望做出来好用的字符串库的。
+</p>
+
+<p>1、采用utf8编码，这个就不解释太多了，字符串不可能搞成支持多种字符编码的模板类（不必要的麻烦太多），所以自然要选择一种Unicode编码，在空间性能、时间性能、跨平台（大端小端）、api设计等这些因素，utf8的综合表现最为杰出。要操作其他编码的字符串时，都要求先临时转换为utf8编码，操作完成后，再将结果转回为原始编码的字符串，效率上稍微存在损失，但是真的不打紧；
+</p>
+
+<p>2、空间效率与时间效率上的最高要求，哪怕由此导致api使用上的丑陋，也在所不惜。只因字符串的应用范围太广了，不能让它成为影响性能的因素。std的string之所以存在那么多的成员函数，还不是为了性能上的需要，其中大部分都只是函数重载，仅仅只是为了避免临时string的诞生，标准库string的这种应对方式也太实诚了
+</p>
+
+<p>3、使用上的方便性，不必遵从什么最小完整接口的戒条，只管往里面添加各种各样的成员函数，怎么方便就怎么来，当然也不能无节制，QString就太过分了，啥都往里面塞。
+</p>
+
+<p>有鉴于此，我们将string设计为两个类，U8View和U8String，分别代表只读字符串和字符缓冲区生命周期管理类，这类似于Java的String和StringBuilder，其实这也对应着C++17的string_view和string，这个方案既简单直观又灵活高效，奇怪的是，C++社区竟然要到17才会有这样的认识，并且，就算这样，std的字符串表现也还是垃圾。
+</p>
+
+<p>U8View代表着一段连续字符的只读内存块，单个的char也可以看成是长度为1的U8View，不要求字符缓冲以0结束，这一点很关键，标准库的string就是在此放不开手脚，才导致那么蹩脚的设计。U8View很轻量级，它只有两个字段，分别代表字符缓冲的起始地址以及长度，常量字符串，U8String，字符数组这些内部有着连续字符缓冲的对象，全部都可以看成是U8View。U8View不得修改其缓冲区的任何内容。
+</p>
+
+<p>显然，U8View有一个很好的特性，那就是U8View的任何一部分也都是U8View，因此，U8View提取子字符串的操作必然很轻量级，简直不存在任何性能上的损失，一步到位就做好了，无须搞任何内存分配的事情。所以，U8View自然就不必理会其缓冲区的生命周期，缓冲区的有效性由应用层代码来保证，U8View在其使用期间，都假设了字符缓冲的有效性。
+</p>
+
+<p>bool IsValidUtf8Text(const char* str, size_t len);
+</p>
+
+<p>struct U8View
+</p>
+
+<p>{
+</p>
+
+<p>typedef const char* const_pointer;
+</p>
+
+<p>const_pointer mStr;
+</p>
+
+<p>size_t mLength;
+</p>
+
+<p>U8View(const_pointer str, size_t len) :mStr(str), mLength(len)
+</p>
+
+<p>{
+</p>
+
+<p>assert(IsValidUtf8Text(str, len));
+</p>
+
+<p>}
+</p>
+
+<p>U8View(const_pointer start, const_pointer last);
+</p>
+
+<p>U8View(const_pointer str);
+</p>
+
+<p>template<size_t _Size> U8View(const char(&str)[_Size]);
+</p>
+
+<p>bool empty()const { return mLength == 0; }
+</p>
+
+<p>char operator[](size_t index)const;
+</p>
+
+<p>//...
+</p>
+
+<p>};
+</p>
+
+<p>U8View里面有大量的成员函数，大致可分为这6类，所有的成员函数几乎为const属性。
+</p>
+
+<p>1、 构造函数，通过各种常量字符指针来初始化U8View，各个函数体内部要assert字符串utf8的有效性。
+</p>
+
+<p>2、 查找函数，Find，RFind（查找字符，查找子字符串，正向查找，反向查找），FindOneOf查找字符串参数里面的任何一个unicode字符；
+</p>
+
+<p>3、 比较函数，CompareTo大小写方式比较，CompareTo忽略大小写比较，StartsWith, EndsWith，各种比较操作符的重载函数，empty可空判断
+</p>
+
+<p>4、 截取子字符串，不管时间空间，都是O（1），零惩罚。这里又分为3类，a）直接通过字节数来截取，Sub，Left，Right，Trim，TrimLeft，TrimRight，关键的一点是返回时候，都要assert其utf8字符串的完整性；b）以Unicode的codepoint数目来截取子字符串，SubPoints,LeftPoints等；c）以Unicde的glyph数目来截取。
+</p>
+
+<p>5、 迭代器，正常的begin、end函数， Points返回一对访问codepoint的迭代器，Glyphs返回迭代glyph的迭代器，正向迭代，反向迭代；返回各个位置上（比如字符串头尾）的char值或者codepoint值
+</p>
+
+<p>6、 生成U8String：Replace替换已有子字符串以生成新的U8String，U8View的加号操作符重载，Concat多个U8View等。
+</p>
+
+<p>至于U8View转换为各类数字类型的转换函数，就不在这里出现了，另有更好的安排。有了U8View之后，基本上所有同步函数的字符串参数，都可以为U8View的类型。其实，很多字符串运算的场合下，只要U8View就完全足够，效率（时间空间）以及易用性，均能达到最优。U8View其实为值类型，C++在抽象值类型时，不管是性能还是api使用形式，每一项的表现都很杰出，其他任何猿语都很难再超过大C++了。
+</p>
+
+<p>由于U8View已经剥离出来很多常见的字符串操作，U8String的设计就很简单了，只需老老实实本本分分管理字符缓冲的生命周期就好了，也就是实现析构函数，复制移动构造函数，赋值操作符重载，这没什么好说的，只是要注意到U8String内部的字符缓冲，必须以0结束。U8String的成员函数无非就是替换，追加，修改，交换等。其中很重要的一个成员函数View，用以返回U8View对象，之后就能以只读形式操作U8String的字符缓冲。这里要强调的一点就是，除了移动构造和移动赋值函数，所有其他成员函数的字符串参数类型都是U8View类型，因此我们就无须为了效率，要对每一个操作都重载那么多成员函数，何其简洁。
+</p>
+
+<p>不知道大家发现没有，U8View和U8String这两个类型互相依赖，你中有我，我中有你，相依为命。这种相互纠缠的设计方案，一般情况下避之唯恐不及，但是在字符串这里必须这样搞，用起来才方便。但是，编译器可不喜欢这种设计，这可怎么办？只好让U8View成为U8String的内部类，并将其命名为TextView。然后再在外面将U8String的TextView typedef为U8View，代码如下。
+</p>
+
+<p>struct U8String
+</p>
+
+<p>{
+</p>
+
+<p>struct TextView
+</p>
+
+<p>{
+</p>
+
+<p>char* mStr;
+</p>
+
+<p>size_t mLength;
+</p>
+
+<p>//...
+</p>
+
+<p>};
+</p>
+
+<p>MemoryAllocator* mAlloc;
+</p>
+
+<p>size_t mCapacity;
+</p>
+
+<p>char* mStr;	//故意保持跟TextView一样的内存布局
+</p>
+
+<p>size_t mLength;
+</p>
+
+<p>//...
+</p>
+
+<p>};
+</p>
+
+<p>typedef U8String::TextView U8View;
+</p>
+
+<p>字符串的故事就这样结束了吗？不，这才刚刚开始，U8String U8View必须配套格式化，字符串解析，字符串流的输入输出，正则表达式（运行时以及编译时）等功能之后，才真正好用起来，然后就可以发现，C++其实还是很擅长于处理字符串的。但是，在此之前，我们必须先解决几个基础问题，那就是反射、Trait（非侵入式的接口）、allocator、甚至stl各个容器的重新设计。
+</p>
+
+
+
+<p style='float:right;'>本页共54段，3711个字符，8313 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

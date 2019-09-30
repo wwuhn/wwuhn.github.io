@@ -1,0 +1,41 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>在 canvas 上呈现其他 canvas 的 demo</title> 
+    </head> 
+    <body> 
+        <canvas id="canvas" width="300" height="300" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <canvas id="canvas2" width="300" height="300" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">在画布上呈现其他画布</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            var ctx2 = document.getElementById('canvas2').getContext('2d');  
+            function drawIt() {  
+                clearIt();  
+                var img = new Image();  
+                img.onload = function () {  
+                    ctx.drawImage(img, 0, 0, 300, 300);  
+                    /*  
+                     * context.drawImage() 的可绘制对象包括：HTMLImageElement, HTMLVideoElement, HTMLCanvasElement  
+                     *  
+                     * 呈现指定的 canvas 的当前图像，其他参数说明详见 image.html  
+                     */  
+                    ctx2.drawImage(document.getElementById('canvas'), 0, 0);  
+                }  
+                img.src = "http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png";  
+                // img.src = "http://www.cnblogs.com/assets/html5_logo.png";  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 300, 300);  
+                ctx2.clearRect(0, 0, 300, 300);  
+            }  
+        </script> 
+    </body> 
+    </html> 

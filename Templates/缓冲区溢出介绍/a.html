@@ -1,0 +1,586 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="center">网络渗透与防护之缓冲区溢出介绍 </p>
+  <p align="left">一、前言：</p>
+
+<p>最近在找pwn的学习资料，发现在学校的安全知识库里面，有老师录制的几节缓冲区溢出视频，决定好好学习一下。</p>
+
+<p>二、概念：</p>
+
+<p>1、缓冲区：</p>
+
+<p>缓冲区就是应用程序用来保存用户输入的数据、临时数据的内存空间</p>
+
+<p>2、缓冲区溢出：</p>
+
+<p>如果用户输入的数据长度超出了程序为其分配的内存空间，这些数据就会覆盖程序为其它数据分配的内存空间，形成缓冲区溢出。</p>
+
+<p>3、利用：</p>
+
+<p>人为利用一出来执行代码（shellcode）,从而获得习题的控制权</p>
+
+<p>例如：</p>
+
+<p>通过制造缓冲区溢出使得程序运行一个用户shell,再通过shell执行其他命令，</p>
+
+<p>如果该shell程序属于root（或者system）权限的话，攻击者可以对系统进行任意的操作。</p>
+
+<p></p>
+
+<p>三、程序在内存中的映像</p>
+
+<p>&nbsp;<img width="913" height="477" src="a_clip_image002.gif" alt="https://img2018.cnblogs.com/blog/1529609/201901/1529609-20190110014555032-1294589045.png" /></p>
+  <p align="left">1、内存有三个部分，分别是堆栈段、数据段和文本（代码）段。</p>
+
+<p>2、内存从上往下，从内存低地址到内存高地址，呈现递增的方向。&nbsp;</p>
+
+<p>3、在堆栈段中，具有三部分，自上往下分别是：堆、函数所使用的局部变量所需要的的缓冲区和栈。</p>
+
+<p>4、堆的增长方向是自上而下，由内存低地址向内存高地址增长。</p>
+
+<p>5、栈的增长方向是自下而上，由内存高地址向内存低地址增长。</p>
+
+<p>6、缓冲区溢出的原理主要是利用了栈的溢出。</p>
+
+<p>7、数据段有两部分，分为非初始化数据段和初始化数据段。</p>
+
+<p>8、文本（代码）段分为代码段、系统DLL、PEB&amp;TEB和内核数据代码。 </p>
+  <p align="left">四、栈：</p>
+
+<p>1、概念：</p>
+
+<p>栈是一块连续的内存空间。 </p>
+  <p align="left">2、特点：</p>
+
+<p>1）先入后出：</p>
+
+<p>数据首先压入栈的最后才弹出，以此类推。</p>
+
+<p>2）增长方向：</p>
+
+<p>栈增长方向和内存增长方向相反。内存自上而下，栈自下而上。</p>
+
+<p>3）一个函数或一个线程有各自的一个栈，提供临时存放数据的区域。这个区域称为缓冲区。 </p>
+  <p align="left">3、操作：对栈的操作</p>
+
+<p>1）使用POP指令将数据压入栈中</p>
+
+<p>2）使用PUSH指令将数据从栈中弹出来。 </p>
+  <p align="left">4、指针：</p>
+
+<p>1）CPU中有两个重要的指针，一个叫ESP，另一个叫EBP。</p>
+
+<p>2）ESP寄存器指向栈顶。</p>
+
+<p>3）EBP寄存器指向栈底。 </p>
+  <p align="left">5、栈中内容：缓冲区</p>
+
+<p>1）函数的参数：</p>
+
+<p>当调用某个函数的时候，会把该函数所需要的参数压入栈中。 </p>
+  <p align="left">2）函数的返回地址：</p>
+
+<p>当函数结束的时候，返回到调用函数前要执行的下一条指令的地址。 </p>
+  <p align="left">3）EBP（栈底指针）的值：</p>
+
+<p>4）一些通用寄存器（EDI,ESI,等）的值</p>
+
+<p>5）当前正在指向函数的局部变量： </p>
+  <p align="left">五、CPU中的三个重要寄存器：ESP、EBP、EIP</p>
+
+<p>1、ESP：栈顶指针</p>
+
+<p>随着数据入栈、出栈而发生变化。 </p>
+  <p align="left">2、EBP：基地址指针或栈底指针</p>
+
+<p>用于标识栈中一个相对稳定的位置。</p>
+
+<p>通过EBP可以方便地引用函数参数以及局部变量 </p>
+  <p align="left">3、EIP：指令寄存器</p>
+
+<p>在将某个函数的栈帧压入栈时，其中就包含当前的EIP值，</p>
+
+<p>即函数调用返回下一个执行语句的地址。</p>
+
+<p>缓冲区溢出就是要将EIP的值改为shellcode的值。 </p>
+  <p align="left">六、函数的调用过程： </p>
+  <p align="left">&nbsp;</p>
+  <p align="left">1、将参数压入栈。</p>
+
+<p>2、保存指令寄存器中（EIP）的内容，作为返回地址。</p>
+
+<p>3、放入堆栈当前的基地址寄存器（EBP）</p>
+
+<p>4、把当前的栈指针（ESP）拷贝到基地址寄存器（EBP），作为新的基地址。</p>
+
+<p>5、为本地变量留出一定的空间，把ESP减去适当的数值。 </p>
+  <p align="left">七、函数调用中栈的工作过程： </p>
+  <p align="left">&nbsp;</p>
+  <p align="left">1、调用函数前，压入栈：</p>
+
+<p>1）上级函数传给A函数的参数</p>
+
+<p>2）返回地址EIP</p>
+
+<p>3）当前的EBP</p>
+
+<p>4）函数的局部变量（缓冲区）</p>
+
+<p>2、调用函数后：</p>
+
+<p>1）恢复EBP</p>
+
+<p>2）恢复EIP</p>
+
+<p>3）局部2变量不作处理 </p>
+  <p align="left">八、调用例子：</p>
+
+<p>1、代码： </p>
+<pre>
+int AFunc(int i , int j)
+{
+    int m = 3;
+    int n = 4;
+    m = i;
+    n = j;
+    return 8;
+}
+int main()
+{
+    AFunc(5,6);
+    return 0;
+}
+</pre>
+  <p align="left">2、解释：</p>
+
+<p>&nbsp;(1)进入： </p>
+  <p align="left"><img src="a_clip_image004.gif" alt="https://img2018.cnblogs.com/blog/1529609/201901/1529609-20190110191919445-2106317236.png" /> </p>
+  <p align="left">（2）退出： </p>
+  <p align="left"><img src="a_clip_image006.gif" alt="https://img2018.cnblogs.com/blog/1529609/201901/1529609-20190110192123752-1475106228.png" /></p>
+
+<p>（3）解释： </p>
+<pre>
+int AFunc(int i , int j)
+{
+    int m = 3;
+    int n = 4;
+    m = i;
+    n = j;
+    return 8;
+}
+int main()
+{
+    AFunc(5,6);
+    return 0;
+}
+</pre>
+  <p align="left">3、利用：</p>
+
+<p>（1）利用思路：</p>
+
+<p>&nbsp;<img src="a_clip_image008.gif" alt="https://img2018.cnblogs.com/blog/1529609/201901/1529609-20190110192152187-1540843873.png" /></p>
+
+<p>覆盖EIP值（函数被调用后恢复到main()函数的下一条的指令）&nbsp;</p>
+
+<p>（2）shellcode:</p>
+
+<p>&nbsp;<img width="667" height="345" src="a_clip_image010.gif" alt="https://img2018.cnblogs.com/blog/1529609/201901/1529609-20190110192246097-2029619021.png" /></p>
+
+<p>&nbsp;功能：安装木马，提示权限，添加用户和组，开启远程shell，下载。 </p>
+
+<p></p>
+<pre>
+#include &lt;stdio.h>
+#include &lt;string.h>
+#define PASS_WORD "1234567"
+
+int verify_password(char * password)
+{
+	int authentitated;
+	char buffer[8];
+	authentitated = strcmp(password,PASS_WORD);
+	strcpy(buffer,password);
+	return authentitated;
+}
+
+int main()
+{
+	int valid_flag = 0;
+	char password[1024] = {0};
+	while (1)
+	{
+		printf("please input password:");
+		scanf("%s",password);
+		valid_flag = verify_password(password);
+		if(valid_flag)
+		{
+			printf("incorrect password!\r\n");
+		}
+		else
+		{
+			printf("Congratulation ! you have passed the verification !\r\n");
+		}
+	}
+	return 0;
+}
+</pre>
+<p>1）main函数输入password，调用verify_password函数验证输入的password是否等于1234567，相等返回0，否则返回1。</p>
+<p> </p>
+<p>2）strcpy函数存在漏洞和buffer[8]，构造利用条件。</p>
+<p> </p>
+<p>3）利用缓冲区溢出，修改值，返回0，完成验证。</p>
+<p>思路：在verify_password栈帧中</p>
+<pre>
+-----------------
+| buffer        |
+-----------------
+| authenticated |
+-----------------
+| EBP           |
+-----------------
+</pre>
+<p>authenticated位于buffer[8]的下方。</p>
+<p>authenticated是int型，在内存中占4个字节。</p>
+<p>buffer[8]占8个字节。</p>
+<p>控制buffer[]填满8个字节，然后越界1个字节，缓冲区溢出，使得原authenticated的1覆盖为0，返回通过。 </p>
+<p> </p>
+<p>6、例子C:修改函数返回地址</p>
+<p> 控制buffer[8]越界，覆盖其他值，修改eip。</p>
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+</p>
+
+<p>
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

@@ -1,0 +1,513 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>内存的几个分区</h3>
+
+<p>原创 ccc云志 2019-03-12 17:59:40
+</p>
+
+<p>指针的使用，一直是c语言面试题中必考的部分，
+</p>
+
+<p>C语言面试题详解指针篇，不知道内存分几个区，不是合格的程序员
+</p>
+
+<p>因为指针本身使用的复杂性与普适性，所以考点非常多，而且也可以与其他知识相互结合，
+</p>
+
+<p>因此我们将会使用五篇专题的篇幅来介绍指针。分析下面的程序,指出程序中的错误：
+</p>
+
+<p># include <stdio.h>
+</p>
+
+<p>int main( void)
+</p>
+
+<p>{
+</p>
+
+<p>char a;
+</p>
+
+<p>char *str=&a;
+</p>
+
+<p>strcpy(str,"hello");
+</p>
+
+<p>printf("%s ",str);
+</p>
+
+<p>return 0;
+</p>
+
+<p>}
+</p>
+
+<p>本题解析
+</p>
+
+<p>没有正确为str分配内存空间，将会发生异常。
+</p>
+
+<p>问题出在将一个字符串复制进一个字符变量指针所指地址。
+</p>
+
+<p>虽然编译的时候没有报错，但是在运行过程中，因为越界访问了未被分配的内存，而导致段错误。
+</p>
+
+<p>相关知识点
+</p>
+
+<p>在处理与指针相关的问题时，首先需要搞明白的就是内存，因为指针操作的就是内存。
+</p>
+
+<p>第一个，就是内存的分区。这也是经常会被考察的一个考点。
+</p>
+
+<p>写出内存分为几大区域
+</p>
+
+<p>对于这个问题，有几种不不同的说法。
+</p>
+
+<p>有的说内存分为五大分区，有的说分为四大分区，我们先来先看五个分区的说法：
+</p>
+
+<p>认为内存分为五大分区的人，通常会这样划分：
+</p>
+
+<p>1、BSS段( bss segment )
+</p>
+
+<p>通常是指用来存放程序中未初始化的全局变量和静态变量 （这里注意一个问题:一般的
+</p>
+
+<p>书上都会说全局变量和静态变量是会自动初始化的,那么哪来的未初始化的变量呢?变量的初始化可以分为显示初始化和隐式初始化,全局变量和静态变量如果程序员自己不初始化的话的确
+</p>
+
+<p>也会被初始化,那就是不管什么类型都初始化为0,这种没有显示初始化的就是我们这里所说的未初始化。
+</p>
+
+<p>既然都是0那么就没必要把每个0都存储起来,从而节省磁盘空间,这是BSS的主要作用）的一块内存区域。
+</p>
+
+<p>BSS是英文Block Started by Symbol的简称。BSS段属于静态内存分配。
+</p>
+
+<p>BSS节不不包含任何数据,只是简单的维护开始和结束的地址,即总大小。
+</p>
+
+<p>以便内存区能在运行时分配并被有效地清零。BSS节在应用程序的二进制映象文件中并不存在,
+</p>
+
+<p>即不占用磁盘空间而只在运行的时候占用内存空间 ,所以如果全局变量和静态变量未初始化那么其可执行文件要小很多。
+</p>
+
+<p>2、数据段(data segment)
+</p>
+
+<p>C语言面试题详解指针篇，不知道内存分几个区，不是合格的程序员
+</p>
+
+<p>通常是指用来存放程序中已经初始化的全局变量和静态变量的一块内存区域。
+</p>
+
+<p>数据段属于静态内存分配,可以分为只读数据段和读写数据段。
+</p>
+
+<p>字符串常量等,但一般都是放在只读数据段中。
+</p>
+
+<p>3、代码段(code segment/text segment)
+</p>
+
+<p>通常是指用来存放程序执行代码的一块内存区域。
+</p>
+
+<p>这部分区域的大小在程序运行前就已经确定,
+</p>
+
+<p>并且内存区域通常属于只读, 某些架构也允许代码段为可写,即允许修改程序。
+</p>
+
+<p>在代码段中,也有可能包含一些只读的常数变量,例例如字符串常量等,但一般都是放在只读数据段中 。
+</p>
+
+<p>4、堆(heap)
+</p>
+
+<p>堆是用于存放进程运行中被动态分配的内存段,它的大小并不固定,可动态扩张或缩减。
+</p>
+
+<p>当进程调用malloc等函数分配内存时,新分配的内存就被动态添加到堆上(堆被扩张);
+</p>
+
+<p>当利用free等函数释放内存时,被释放的内存从堆中被剔除(堆被缩减)
+</p>
+
+<p>5、栈 (stack)
+</p>
+
+<p>栈又称堆栈, 是用户存放程序临时创建的局部变量,也就是说我们函数括弧“{}” 中定义
+</p>
+
+<p>的变量(但不不包括static声明的变量,static意味着在数据段中存放变量)。
+</p>
+
+<p>除此以外, 在函数被调用时,其参数也会被压入发起调用的进程栈中,并且待到调用结束后,
+</p>
+
+<p>函数的返回值也会被存放回栈中。由于栈的先进先出特点,所以栈特别方便用来保存/恢复调用现场。
+</p>
+
+<p>从这个意义上讲,我们可以把堆栈看成一个寄存、交换临时数据的内存区。
+</p>
+
+<p>而四大分区的说法，则这么认为：
+</p>
+
+<p>1、堆区：
+</p>
+
+<p>由程序员手动申请，手动释放，若不手动释放，程序结束后由系统回收，生命周期是整个程序运
+</p>
+
+<p>行期间。使用malloc或者new进行堆的申请，堆的总大小为机器器的虚拟内存的大小。
+</p>
+
+<p>说明：new操作符本质上是使用了malloc进行内存的申请，new和malloc的区别如下：
+</p>
+
+<p>（1）malloc是C语言中的函数，而new是C++中的操作符。
+</p>
+
+<p>（2）malloc申请之后返回的类型是void*，而new返回的指针带有类型。
+</p>
+
+<p>（3）malloc只负责内存的分配而不会调用类的构造函数，而new不仅会分配内存，
+</p>
+
+<p>而且会自动调用类的构造函数。
+</p>
+
+<p>2、栈区：
+</p>
+
+<p>由系统进行内存的管理理。主要存放函数的参数以及局部变量。
+</p>
+
+<p>在函数完成执行，系统自行释放栈区内存，不需要用户管理。
+</p>
+
+<p>整个程序的栈区的大小可以在编译器器中由用户自行设定，
+</p>
+
+<p>VS中默认的栈区大小为1M，可通过VS手动更改栈的大。
+</p>
+
+<p>64bits的Linux默认栈大小为10MB，可通过ulimit-s临时修改。
+</p>
+
+<p>3、静态存储区：
+</p>
+
+<p>静态存储区内的变量在程序编译阶段已经分配好内存空间并初始化。这块内存在程序的整个运行
+</p>
+
+<p>期间都存在，它主要存放静态变量、全局变量和常量。
+</p>
+
+
+
+<p style='float:right;'>本页共73段，2135个字符，5486 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

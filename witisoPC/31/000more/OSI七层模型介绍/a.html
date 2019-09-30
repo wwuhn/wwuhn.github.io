@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>osi</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+  <p align="left"><strong>OSI</strong><strong>七层模型介绍-尽我最大能力整理成通俗易懂，不妨试看一下 </strong></p>
+
+<p>阳光男孩GW&nbsp;2018-10-31 14:46:02</p>
+
+<p>干货！没那么多时间废话，网上介绍OSI七层模型的很多，也很专业，但是看着像天书对不？不妨来看看我整理的这篇，也许有所收获，声明：我整理的也不见得全面，细节的地方还是得你去结合详细的信息去理解。开始！</p>
+
+<p><strong>OSI</strong><strong>七层模型介绍</strong></p>
+
+<p>1、首先 osi 七层模型是什么？</p>
+
+<p>OSI 是英文 Open System Interconnection 的简写，翻译成中文叫做 (开放系统互连参考模型)，他是一个国际标准化组织制定的一个用于计算机或通信系统间互联的标准体系</p>
+
+<p>怎么理解呢？你可以这么想，在之前很早的时候，世界上有各种生产计算机硬件和网络设备的厂家，大家你做你的我做我的，弄的很乱而且还都互不兼容，这时候国际上有一个很牛很牛的公认的组织，为了统一互联网，让他不那么复杂，更加容易管理而制定了一个规则，而这个规则大家必须都要遵守，这个就是 OSI 七层模型。</p>
+
+<p>2、那七层是什么意思？</p>
+
+<p>首先，这个七层模型呢他是一个虚拟的，就是理论上的规则，并不是一个什么摸得到的物理形状的类似于汽车模型的那种模型，那它具体是什么样的呢？你看下图</p>
+
+<p><img width="640" height="419" src="a_clip_image001.jpg" alt="OSI七层模型介绍-尽我最大能力整理成通俗易懂，不妨试看一下" /></p>
+
+<p>【纯个人手打，替老师传道，不求多大成就但愿 能帮到大家，在闲暇的时间里为大家共享一些工作经验和各种技术资源文章，希望帮助大家共同进步  也希望我的发布对你有所帮助，我的发布里有更多类似的文章可以查阅，喜欢的请点关注，谢谢。你们的关注是我不停发布的最大动力】</p>
+
+<p>3、那这两个七层模型到底是怎么回事呢？</p>
+
+<p>首先，你要把这两边的七层模型看成是两个人在写信，你给人家写信人家是不是得给你回信？这个就是两个模型中间的箭头。意思是有来有回。而你们两个人的来回信件呢都得经过这七个步骤，然后才能到达各自的手中。这就是为什么两边都画了七层模型</p>
+
+<p>4、OSI七层模型基本功能是什么?</p>
+
+<p>OSI模型通过七个层次化结构的模型，使不同的系统不同的网络之间实现可靠的通讯，因此，其最主要的功能就是帮助不同类型主机之间实现数据传输</p>
+
+<p>5、那这七个层到底都对应了哪些东西呢？</p>
+
+<p>(1)物理层：它对应了，网卡、网线、光纤，等</p>
+
+<p>(2)数据链路层：它对应了，网桥、交换机、等</p>
+
+<p>(3)网络层：路由器、三层交换机</p>
+
+<p>(4)传输层、会话层、表示层、应用层、这些个在软件层面上和虚拟层面上的，所以他不 对应相关的物理设备，这四个层面呢，它对应的是相关的协议了。</p>
+
+<p>比如说：传输层有：TCP UDP 协议 ；应用层有 http ftp 协议等，就是这个意思</p>
+
+<p>但实际网管需要日常维护的只有：物理层、数据链路层、网络层、应用层 这五层</p>
+
+<p>6、那这七层在网络界都有什么作用呢？</p>
+
+<p>1、<strong>物理层</strong>：设备之间比特流（01010100）的传输，定义物理接口和电气特性等</p>
+
+<p>（1）定义物理接口：指明接口所用接线器的形状和尺寸引脚数目和排列、固定</p>
+
+<p>和锁定装置等等，平时常见的各种规格的件标准等</p>
+
+<p>怎么理解?</p>
+
+<p>就是说，你是厂家要生产网线，那网线我们osi规定的里面是7股的两两相绕的双绞线，你就不能做成8股。</p>
+
+<p>（2）电气特性：指明某条线上出现的某一种电平电压表示何种意义</p>
+
+<p>怎么理解?</p>
+
+<p>比如：你文字在文档中显示的是你看得懂的，但是在电线里能传输文字吗？显然是不行的，那怎么办呢？计算机把文字转成比特流，就是像这种的数字串</p>
+
+<p>01010100 全部由 0 和 1 组成，且8位为一个比特。比特流就是极其庞大的这种数字组成的，这些数字，在电线上比方说 0 代表 1伏电压，0代表不带电。</p>
+
+<p><strong>2</strong><strong>、数据链路层</strong>: 通过MAC地址转发数据帧，将数据封装成帧，进行错误检测与修正</p>
+
+<p>每个电脑都有一个网卡，就是插网线的那个口，你知道吧，它有一个唯一的由数字和字母组成的一串文字，这个就叫做MAC地址，当物理层将比特流发过来之后呢，他就可以根据这个MAC地址找到你要发给的那个电脑是哪一台。当然这个是电脑跟你在一个局域网内的情况下。</p>
+
+<p><strong>3</strong><strong>、网络层</strong>：转发不同网段之间的数据包，提供逻辑地址（IP地址），网络最优路径选择，数据从源端口到目的地端口的传输</p>
+
+<p>这个怎么理解?</p>
+
+<p>这个就是当你发送和接收的数据包，不再同一个局域网下的时候，就需要路由器来转发了，你说我不想这么走!不行，osi就是这么规定的。这个路由器就是帮你来回倒腾的中介</p>
+
+<p><strong>4</strong><strong>、传输层</strong>：实行包的检测与丢包重传，提供可靠与不可靠的传输, 进行流量控制协商合适传输范围避免崩溃,实现网络不同主机上用户进程之间的数据通信</p>
+
+<p>这个怎么理解？</p>
+
+<p>就是说，当两个路由器之间进行收发数据时它得有个限度吧？你说我这个路由器一次性只能收发100个数据包，你给我发1000个数据包！那不炸了！咱俩商量一下怎么收发。这个就是自动协商。也就是传输层的基本意义</p>
+
+<p>5、<strong>会话层</strong>：提供通信模式：单工，双工，全双工；将不同应用程序数据分离，建立客</p>
+
+<p>户端与服务端，或不同主机上的用户之间的虚拟连接</p>
+
+<p>(1)单工双全工：这个是之前老设备的区分了，现在一般都是全双工了</p>
+
+<p>什么是单工和双工？他是一种传输模式</p>
+
+<p>。单工：只能发不能收（类似于电台）</p>
+
+<p>。双工：就是能发能收，但是不能同时进行（类似于对讲机）</p>
+
+<p>。全双工：一边收着一边发着，同时进行（类似于打电话）</p>
+
+<p>(2)什么是数据分离？</p>
+
+<p>这个可以这样理解：当QQ和微信同时在收发消息时，总不能把微信的消息传给QQ把QQ的消息传给微信吧？那不是乱套了？这得把他俩的信息分开不是</p>
+
+<p><strong>6</strong><strong>、表示层</strong>：对传输的数据进行基本的加密解密，对于相关的数据进行压缩，代码格式</p>
+
+<p>化，数据格式转换等</p>
+
+<p>这个怎么理解？</p>
+
+<p>。 加密解密：你在网上给朋友传个密码比如说：123456 ，那这个不是直接就这么传出去的，要经过基本加密成比如：1d2dsa3sa4a5dzx6 类似于乱码的方式发过去，然后到他那头时会自动进行解密，变成 123456 ，当然，这个过程你是感觉不到的。</p>
+
+<p>。压缩：比方说你传个大的图片，是不是很占网络资源？那么在传之前会自动进行压缩，然后到对方在自动解压缩，然后把图片展示出来，当然这个只是基本的压缩</p>
+
+<p><strong>7</strong><strong>、应用层</strong>：数据用户接口，提供用户程序接口，应用层让应用程序能够将信息沿协议</p>
+
+<p>栈向下传输。</p>
+
+<p>应用层在最上面的一层，这个有两个意思：</p>
+
+<p>(1)当作为发送端时：就是让应用程序能够将信息沿协议栈向下传输，就是你用QQ发个消息  之类的，首先是经过应用层的，然后再继续往下一层一层的传。</p>
+
+<p>(2)作为接受端时：也就是QQ的另一头，他会把消息展现给用户，提供界面交互的这么一个  过程。</p>
+
+<p>8、既然这些都讲完了，那么消息究竟是怎么传输的呢？和这七层之间的关系到底是怎样的呢？</p>
+
+<p>我们通过这个生活中的案例来套一下这个模型，你来看一下。</p>
+
+<p>案例：</p>
+
+<p>假设你在北京，要给上海的朋友写一封信寄给他，那么你看这个信是怎么到他手的，那么网络上的消息也就是大概这么传的。</p>
+
+<p><img width="640" height="339" src="a_clip_image002.jpg" alt="OSI七层模型介绍-尽我最大能力整理成通俗易懂，不妨试看一下" /></p>
+
+<p>嗯，这个就是我理解的大概全过程了，欢迎评论区留言指教，共同进步，谢谢 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

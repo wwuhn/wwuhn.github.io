@@ -1,0 +1,591 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>﻿Python｜全面细说Python的类与对象</h4>
+
+<p>函数是抽象层，封装了算法的流程细节。模块是抽象层，可以用模块名称来组织或思考一个整体功能，而类可能将对象的状态（数据或属性）与功能（方法或对象的函数）“粘”（封装）在一起。将数据分类、数据操作（数据上的算法）、数据结构的逻辑关系（继承、多态）等结合到了一起（封装）。</p>
+
+<p>目录</p>
+
+<p>1 The benefits of class</p>
+
+<p>2 创建类</p>
+
+<p>3 创建实例对象</p>
+
+<p>4 访问对象成员</p>
+
+<p>5 类的内置类属性</p>
+
+<p>6 类的__new__()、构造函数__init__()方法、析构函数__del__等特殊方法</p>
+
+<p>7 实例属性和类属性</p>
+
+<p>8 私有成员和公有成员</p>
+
+<p>9 动态增加类或对象成员</p>
+
+<p>10 以函数的方式访问对象属性</p>
+
+<p>11 类的继承</p>
+
+<p>12 方法的重载</p>
+
+<p>13 运算符重载</p>
+
+<p>14 单下划线、双下划线、头尾双下划线的使用</p>
+
+<p>1 The benefits of class:</p>
+
+<p>1.1 for protecting data ;</p>
+
+<p>1.2 for easy to maintain the class.</p>
+
+<p>1.3 for reusing of code.</p>
+
+<p>1.4 self-defining data type.</p>
+
+<p>2 创建类</p>
+
+<p>使用 class 语句来创建一个新类，class 之后为类的名称并以冒号结尾:</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>Define the initializer, create data fields, and define methods.</p>
+
+<p>The name of the initializer is __init__.</p>
+
+<p>The self refers to the object itself. Through self, the members of the object can be accessed.</p>
+
+<p>在类的内部，使用 def 关键字可以为类定义一个方法，与一般函数定义不同，类方法必须包含参数 self，且为第一个参数。</p>
+
+<p>Python中的所有类都派生于object类，所以类定义时也可以写成class myclassname(object):</p>
+
+<p>3 创建实例对象</p>
+
+<p>Python在创建对象是，分为两个阶段：第一个阶段，对象是通过调用__new__()方法来创建的。__new__()方法并不会立即返回一个对象实例，__new__()方法之后，会调用__init__()方法来给对象增加初始的属性。</p>
+
+<p>The syntax for constructing an object is</p>
+
+<p>wh01 = Employee('wwu',5000)</p>
+
+<p>实例化一个类的语法，其他编程语言中一般用关键字 new，但是在 Python 中并没有这个关键字，类的实例化类似函数调用方式。</p>
+
+<p>The arguments of the constructor match the parameters in the __init__ method without self.</p>
+
+<p>The constructor first creates an object in the memory and then invokes the initializer. Initializer is a special method that is called when creating an object.</p>
+
+<p>Given the declaration x = Circle(),  x contains a reference to a Circle object.</p>
+
+<p>4 访问对象成员</p>
+
+<p>The object member access operator is the dot (.)</p>
+
+<p>可以使用点号 . 来访问对象的属性。使用如下类的名称访问实例变量:</p>
+
+<p>print(wh01.name)</p>
+
+<p>wh01.displayEmployee()</p>
+
+<p>还可以以函数的方式访问属性，见第10节 。</p>
+
+<p>5 类的内置类属性</p>
+
+<p>类的内置类属性包括：</p>
+
+<p>__doc__ :类的文档字符串</p>
+
+<p>__name__: 类名</p>
+
+<p>__module__: 类定义所在的模块（类的全名是'__main__.className'，如果类位于一个导入模块mymod中，那么className.__module__ 等于 mymod）</p>
+
+<p>__bases__ : 类的所有父类构成元素（包含了一个由所有父类组成的元组）</p>
+
+<p>__dict__ : 类的属性（包含一个字典，由类的数据属性组成）</p>
+
+<p>如：class_name = self.__class__.__name__</p>
+
+<p>参考：http://www.runoob.com/python/python-object.html</p>
+
+<p>6 类的__new__()、构造函数__init__()方法、析构函数__del__等特殊方法</p>
+
+<p>__new__()方法可以返回对象，如果返回的对象是第一个参数的类实例，接下来就会执行__init__()方法，__init__()方法的第一个参数就是__new__()返回的对象。__new__()如果没有返回第一个参数的类实例（返回别的实例或None），就不会执行__init__()方法。</p>
+
+<p>当第一次创建一个新的类的实例时，Python会检查是否定义了一个__init__函数。如果已经定义了，将运行这个函数，可以通过类似self.name = 'wwu'的格式让对象初始化值；</p>
+
+<p>能够创建一个带有值的实例非常有用。__init__函数除了初始化对象以外，还可以做其它普通成员方法可以做的事件（定义代码）。</p>
+
+<p>__init__()方法使用双下划线，是为了尽量确保名字的唯一性；</p>
+
+<p>在Python中，对象方法的第一个参数一定是对象本身self。在类的成员函数中访问实例属性时需要以self为前缀，但在外部通过对象名调用对象成员函数时并不需要传递这个参数，如果在外部通过类名调用对象成员函数需要显式为self参数传值。</p>
+
+<p>7 实例属性和类属性</p>
+
+<p>在构造函数__init__()中定义的，以self为前缀的属性称为实例属性，可以在类的外部，通过对象名访问。</p>
+
+<p>类属性是指在类的内部、类方法的外部定义的属性，可以通过对象名也可以通过类名进行访问。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>上面的num是一个类属性或叫类变量，它的值将在这个类的所有实例之间共享。你可以在类内部或类外部使用Person.num访问。</p>
+
+<p>8 私有成员和共有成员</p>
+
+<p>Python并没有对私有成员提供严格的访问保护机制。在定义类的成员时，如果成员名以两个下划线“__”开头则表示私有成员（相当于C++的private），否则是公有成员。私有成员只能在类的成员方法（类的内部）访问，在类的外部不能直接访问，需要通过调用对象的公有成员方法来访问，或者通过Python支持的特殊方式来访问。如：</p>
+
+<p>对象名_类名+私有成员</p>
+
+<p>如访问Car类私有成员__weight</p>
+
+<p>car1._Car__weight</p>
+
+<p>(注意类名的前面是单下划线)</p>
+
+<p>8.1 私有数据成员和公有数据成员</p>
+
+<p>两个下划线开头，声明该属性为私有，不能在类的外部被使用或直接访问（实例化之后不能被调用）。</p>
+
+<p>定义内部属性：self.__privateAttrs</p>
+
+<p>Analyze the following code:</p>
+
+<p>class A:</p>
+
+<p>....def __init__(self):</p>
+
+<p>........self.x = 1</p>
+
+<p>........self.__y = 1</p>
+
+<p>....def getY(self):</p>
+
+<p>........return self.__y</p>
+
+<p>a = A()</p>
+
+<p>print(a.__y)</p>
+
+<p>The program has an error because y is private and cannot be access outside of the class.</p>
+
+<p>print(a._A__y) is right.</p>
+
+<p>8.2 公有方法、私有方法、静态成员</p>
+
+<p>私有方法的名字以两个下线划线"__"开始，声明该方法为私有方法，不能在类的外部调用（实例化之后不能被调用）。在类的内部调用 self.__privateMethods()</p>
+
+<p>私有方法在外部只能通过Python支持的特殊方式来调用。</p>
+
+<p>如果通过类名来调用属于对象的公有方法，需要显式为该方法的self参数传递一个对象名，用来明确指定访问哪个对象的数据成员。</p>
+
+<p>静态方法可以通过类名和对象名调用，但不能直接访问属于对象的成员，只能访问属于类的成员。静态方法定义时，需在定义前标注为@staticmethod。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>定义在类中，没有定义任何参数的方法被称为未绑定方法（Unbound method），这类方法充其量只是将类名称作为命名空间，可以通过类名称来调用它，或用函数对象进行调用。</p>
+
+<p>如果在定义类时希望某个方法不被拿来作为绑定方法，可用使用@staticmethod加以标注。</p>
+
+<p>9 动态增加类或对象成员</p>
+
+<p>在Python中比较特殊的是，可以动态地为类和对象增加成员，这一点和很多面向对象程序设计语言不同，也是Python动态类型特点的一种重要体现。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>10 以函数的方式访问对象属性</p>
+
+<p>对象属性除于可以通过以实例名称和句点符号“.”做为前缀来访问以外，也可以通过函数的方式来访问</p>
+
+<p>getattr(obj, name) 访问对象的属性；</p>
+
+<p>hasattr(obj, name) 检查是否存在一个属性；</p>
+
+<p>setattr(obj, name, value) 设置一个属性，如果属性不存在，会创建一个新属性；</p>
+
+<p>delattr(obj, name) 删除属性</p>
+
+<p>11 类的继承</p>
+
+<p>面向对象的编程带来的主要好处之一是代码的重用，实现这种重用的方法之一是通过继承机制。</p>
+
+<p>编写类时，并非总是要从空白开始。如果你要编写的类是另一个现成类的特殊版本，可使用继承。一个类继承另一个类时，它将自动获得另一个类的所有属性和方法；原有的类称为父类，而新类称为子类 。子类继承了其父类的所有属性和方法，同时还可以定义自己的属性和方法。</p>
+
+<p>通过继承创建的新类称为子类或派生类，被继承的类称为基类、父类或超类。</p>
+
+<p>类名称旁边多了个括号，并指定了类，这在Python中代表着继承了该类。</p>
+
+<p>类继承语法：</p>
+
+<p>class 派生类名(基类名):</p>
+
+<p>....派生类成员</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>子类调用父类的方法可以使用super()，如super().parentMethod()</p>
+
+<p>12 方法的重载</p>
+
+<p>重载必须出现在继承中。它是指当派生类继承了其类的方法之后，如果基类方法的功能不能满足需求，需要对基类中的某些方法进行修改，可以在派生类重写基类的方法。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>以下一些特殊方法也可以重载：</p>
+
+<p>I __init__ ( self [,args...] )</p>
+
+<p>构造函数</p>
+
+<p>简单的调用方法: obj = className(args)</p>
+
+<p>II __del__( self )</p>
+
+<p>析构方法, 删除一个对象</p>
+
+<p>简单的调用方法 : del obj</p>
+
+<p>III __repr__( self )</p>
+
+<p>转化为供解释器读取的形式</p>
+
+<p>简单的调用方法 : repr(obj)</p>
+
+<p>IV __str__( self )</p>
+
+<p>用于将值转化为适于人阅读的形式</p>
+
+<p>简单的调用方法 : str(obj)</p>
+
+<p>V __cmp__ ( self, x )</p>
+
+<p>对象比较</p>
+
+<p>简单的调用方法 : cmp(obj, x)</p>
+
+<p>13 运算符重载</p>
+
+<p>修改操作符的行为以便它能够作用于用户定义类型，这个过程称为操作符重载。对每一个操作符，Python都提供了一个对应的特殊方法，如__add__对应+号操作符。</p>
+
+<p>操作符重载就是修改一个类似+号这样操作符的行为，使之可以用于用户定义的类型。</p>
+
+<p>操作符重载的本质还是一个函数，一个引用用户自定义类型的对象作为参数的函数。</p>
+
+<p>对象常见的+-*/等操作分别由__add__、__sub__、__mul__、__truediv__方法来定义或重写。</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>To concatenate two strings s1 and s2 into s3, use _________.</p>
+
+<p>s3 = s1 + s2 或</p>
+
+<p>s3 = s1.__add__(s2)</p>
+
+<p>To retrieve the character at index 3 from string s, use _________.</p>
+
+<p>s<sup>[3]</sup> 或</p>
+
+<p>s.__getitem__(3)</p>
+
+<p>To return the length of string s, use _________.</p>
+
+<p>s.__len__() 或</p>
+
+<p>len(s)</p>
+
+<p>14 单下划线、双下划线、头尾双下划线的使用</p>
+
+<p>__foo__: 定义的是特殊方法，一般是系统定义名字，类似 __init__() 之类的。</p>
+
+<p>_foo: 以单下划线开头的表示的是 protected 类型的变量，即保护类型只能允许其本身与子类进行访问，不能用于 from module import *</p>
+
+<p>__foo: 双下划线的表示的是私有类型(private)的变量, 只能是允许这个类本身进行访问了，子类内部成员方法也不能访问到这个私有成员。变通的方法是可以通过“对象名_类名__xxx”这样的特殊方式访问。</p>
+
+<p>－End－</p>
+
+
+
+本页共150段，5443个字符，10967 Byte(字节)﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

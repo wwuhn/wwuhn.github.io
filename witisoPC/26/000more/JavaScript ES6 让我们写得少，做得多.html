@@ -1,0 +1,709 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>JavaScript ES6 让我们写得少，做得多</h4>
+
+<p>萧然啦啦啦 2018-09-29 12:01:46</p>
+
+<p>JavaScript ES6 带来了新的语法和新的强大功能，使您的代码更现代，更易读。它允许您编写更少的代码并执行更多操作。 ES6 向我们介绍了许多强大的功能，如箭头函数，模板字符串，对象结构，模块等，让我们来看看。</p>
+
+<p>const and let</p>
+
+<p>const 是 ES6 中用于声明变量的新关键字。 const 比 var 更强大。使用后，无法重新分配变量。换句话说，它是一个不可变的变量，除非它与对象一起使用。</p>
+
+<p>这对于定位选择器非常有用。例如，当我们有一个触发事件的按钮时，或者当您想在 JavaScript 中选择 HTML 元素时，请使用 const 而不是 var。这是因为 var 会被提升，当不想重新分配变量时，最好使用 const。</p>
+
+<p>// ES5</p>
+
+<p>var MyBtn = document.getElementId('mybtn');</p>
+
+<p>// ES6</p>
+
+<p>const MyBtn = document.getElementById('mybtn');</p>
+
+<p>在上面的代码中，const 不会更改，也不能重新分配。如果您尝试为其赋予新值，则会返回错误。</p>
+
+<p>let name = "Said";</p>
+
+<p>name = "Rick";</p>
+
+<p>console.log(name); // Rick</p>
+
+<p>let 可以重新分配并获得新的价值。它创建了一个可变变量。</p>
+
+<p>let 与 const 相同，因为两者都是块级作用域，这意味着该变量仅在其块级范围内可用。</p>
+
+<p>箭头函数</p>
+
+<p>箭头函数非常棒，使您的代码更具可读性，更具结构性，并且看起来像现代代码，而不是使用这个：</p>
+
+<p>// ES5</p>
+
+<p>function myFunc(name) {</p>
+
+<p>return 'Hello ' + name;</p>
+
+<p>}</p>
+
+<p>console.log(myFunc('said')); // Hello said</p>
+
+<p>而使用 ES6 的写法：</p>
+
+<p>// ES6 Arrow function</p>
+
+<p>const myFunc = name =&gt; {</p>
+
+<p>return `Hi ${name}`;</p>
+
+<p>}</p>
+
+<p>console.log(myFunc('Said')); // Hi Said</p>
+
+<p>// 或者不要 return 关键字</p>
+
+<p>const myFunc = name =&gt; `Hi ${name}`;</p>
+
+<p>console.log(myFunc('Said'));// Hi Said</p>
+
+<p>如您所见，箭头功能似乎更具可读性和清洁性！您将不再需要使用旧语法。</p>
+
+<p>此外，您可以使用箭头功能与 map，filter 和 reduce 内置函数。</p>
+
+<p>const myArray = ['tony', 'Sara', 'Said', 5];</p>
+
+<p>// ES5</p>
+
+<p>let Arr1 = myArray.map(function(item) {</p>
+
+<p>return item;</p>
+
+<p>});</p>
+
+<p>console.log(Arr1);// ["tony", "Sara", "Said", 5]</p>
+
+<p>// ES6</p>
+
+<p>let Arr2 = myArray.map(item =&gt; item);</p>
+
+<p>console.log(Arr2);// ["tony", "Sara", "Said", 5]</p>
+
+<p>带箭头的 map 函数看起来比 ES5 中的 map 更清晰可读。使用 ES6，您可以编写更短的代码，你也可以用相同的方法使用 reduce 和 filter。</p>
+
+<p>模板字符串</p>
+
+<p>模板字符串非常酷，当我们想在字符串中使用变量时我们不必使用加号（+）运算符来连接字符串。</p>
+
+<p>旧语法：</p>
+
+<p>// ES5</p>
+
+<p>function myFunc1(name, age) {</p>
+
+<p>return 'Hi ' + name + ' Your age is ' + age + ' year old';</p>
+
+<p>}</p>
+
+<p>console.log(myFunc('Said', 22)); // Hi Said, Your age is 22 year old</p>
+
+<p>用 ES6 新语法：</p>
+
+<p>// ES6</p>
+
+<p>const myFunc = (name, age) =&gt; {</p>
+
+<p>return `Hi ${name}, Your age is ${age} year old`;</p>
+
+<p>}</p>
+
+<p>// or</p>
+
+<p>const myFunc = (name, age) =&gt; `Hi ${name}, Your age is ${age} year old`;</p>
+
+<p>console.log(myFunc1('Said', 22)); // Hi Said, Your age is 22 year old</p>
+
+<p>很简单！这是旧语法和 ES6 之间的巨大差异。使用字符串时，ES6 中的文字字符串看起来比 ES5 更有条理，结构更好。</p>
+
+<p>默认参数</p>
+
+<p>当您忘记编写参数时，它不会返回未定义的错误，因为该参数已在默认值中定义。因此，当您使用遗漏参数运行函数时，它将采用默认参数的值，并且不会返回错误！</p>
+
+<p>看看这个例子：</p>
+
+<p>const myFunc = (name, age) =&gt; `Hi ${name}, Your age is ${age} year old`;</p>
+
+<p>console.log(myFunc('Said')); // Hi Said, Your age is undefined year old</p>
+
+<p>上面的函数返回 undefined，因为我们忘了给它第二个参数 age。</p>
+
+<p>但是如果我们使用默认参数，当我们忘记分配参数时,它将使用它的默认值，将不会返回 undefined！</p>
+
+<p>const myFunc = (name, age = 22) =&gt; `Hi ${name}, Your age is ${age} year old`;</p>
+
+<p>console.log(myFunc('Said')); // Hi Said, Your age is 22 year old</p>
+
+<p>如您所见，即使我们错过了第二个参数，该函数也会返回一个值。现在使用默认参数我们可以提前处理错误。</p>
+
+<p>数组和对象解构</p>
+
+<p>解构使得将数组或对象的值分配给新变量更容易。</p>
+
+<p>旧语法：</p>
+
+<p>const contacts = {</p>
+
+<p>name: 'said',</p>
+
+<p>famillyName: 'Hayani',</p>
+
+<p>age: 22</p>
+
+<p>};</p>
+
+<p>let name = contacts.name;</p>
+
+<p>let famillyName = contacts.famillyName;</p>
+
+<p>let myAge = contacts.age;</p>
+
+<p>console.log(name); // said</p>
+
+<p>console.log(famillyName); // Hayani</p>
+
+<p>console.log(myAge); // 22</p>
+
+<p>ES6 新语法：</p>
+
+<p>const contacts = {</p>
+
+<p>name: 'said',</p>
+
+<p>famillyName: 'Hayani',</p>
+
+<p>age: 22</p>
+
+<p>};</p>
+
+<p>let {name, famillyName, age} = contacts;</p>
+
+<p>console.log(name); // said</p>
+
+<p>console.log(famillyName); // Hayani</p>
+
+<p>console.log(age); // 22</p>
+
+<p>使用 ES5，我们必须为每个变量分配每个值。使用 ES6，我们只需将我们的值放在大括号中以获取对象的任何属性。</p>
+
+<p>注意：如果指定的变量与属性名称不同，则返回 undefined。例如，如果属性的名称是 name，我们将其分配给 username变量，它将返回undefined。</p>
+
+<p>我们总是必须将变量命名为与属性名称相同。但是如果我们想要重命名变量，我们可以使用冒号：代替。</p>
+
+<p>const contacts = {</p>
+
+<p>name: 'said',</p>
+
+<p>famillyName: 'Hayani',</p>
+
+<p>age: 22</p>
+
+<p>};</p>
+
+<p>let {name:otherName, famillyName, myAge} = contacts;</p>
+
+<p>console.log(otherName);// said</p>
+
+<p>对于数组，我们使用与对象相同的语法。我们只需用方括号替换花括号。</p>
+
+<p>const Arr = ['Lionel', 'John', 'Layla', 20];</p>
+
+<p>let [value1, value2, value3] = Arr;</p>
+
+<p>console.log(value1); // Lionel</p>
+
+<p>console.log(value2); // John</p>
+
+<p>console.log(value3); // Layla</p>
+
+<p>Import and export</p>
+
+<p>在 JavaScript 应用程序中使用 import 和 export 使其更强大。它们允许您创建单独的可重用组件。</p>
+
+<p>如果您熟悉任何 JavaScript MVC 框架，您将看到他们使用 import 和 export 出来在大多数时间处理组件。那么它们如何真正起作用呢？</p>
+
+<p>很简单！ export 允许您导出要在另一个 JavaScript 组件中使用的模块。我们使用 import 导入该模块以在我们的组件中使用它。</p>
+
+<p>例如，我们有两个文件。第一个名为 detailComponent.js，第二个名为 homeComponent.js。</p>
+
+<p>在 detailComponent.js 中，我们将导出 detail 函数。</p>
+
+<p>// ES6</p>
+
+<p>export default function detail(name, age) {</p>
+
+<p>return `Hello ${name}, your age is ${age} year old!`;</p>
+
+<p>}</p>
+
+<p>如果我们想在 homeComponent.js 中使用此函数，我们将只使用 import</p>
+
+<p>import { detail } from './detailComponent';</p>
+
+<p>console.log(detail('Said', 20)); // Hello Said, your age is 20 year old!</p>
+
+<p>如果我们要导入多个模块，我们只需将它们放在大括号内。</p>
+
+<p>import {detail, userProfile, getPosts} from './detailComponent';</p>
+
+<p>console.log(detail('Said', 20));</p>
+
+<p>console.log(userProfile);</p>
+
+<p>console.log(getPosts));</p>
+
+<p>Promis</p>
+
+<p>Promise 是 ES6 的新功能。这是编写异步代码的方法。例如，当我们想要从 API 获取数据时，可以使用它，或者当我们有一个需要时间执行的函数时。Promise 使解决问题更容易，所以让我们创建我们的第一个 Promise！</p>
+
+<p>const myPromise = () =&gt; {</p>
+
+<p>return new Promise((resolve, reject) =&gt; {</p>
+
+<p>resolve('Hi the Promise execute successfully');</p>
+
+<p>})</p>
+
+<p>}</p>
+
+<p>console.log(myPromise()); // Promise {&lt;resolved&gt;: "Hi the Promise execute successfully"}</p>
+
+<p>如果您登录控制台，它将返回一个 Promise。因此，如果我们想在获取数据后执行一个函数，我们将使用 Promise。 Promise有两个参数： resolve 和 reject 来处理预期的错误。</p>
+
+<p>注意：fetch函数返回一个Promise本身！</p>
+
+<p>const url='https://jsonplaceholder.typicode.com/posts';</p>
+
+<p>const getData=(url)=&gt;{</p>
+
+<p>return fetch(url);</p>
+
+<p>}</p>
+
+<p>getData(url).</p>
+
+<p>then(data=&gt; data.json()).</p>
+
+<p>then(result=&gt; console.log(result));</p>
+
+<p>现在，如果您登录控制台，它将返回一个数据数组。</p>
+
+<p>Rest 参数和 Spread 运算符</p>
+
+<p>Rest 参数用于获取数组的参数，并返回一个新数组。</p>
+
+<p>const arr = ['said', 20, 'Javascript enthusiast', 'Hi', 'Said', 'How are you?'];</p>
+
+<p>// 通过解构获取值</p>
+
+<p>const [val1, val2, val3, ...rest] = arr;</p>
+
+<p>const Func = (restOfArr) =&gt; {</p>
+
+<p>return restOfArr.filter(item =&gt; {return item}).join(" ");</p>
+
+<p>}</p>
+
+<p>console.log(Func(rest)); // Hi Said How are you?</p>
+
+<p>const arr = ['said', 20, 'Javascript enthusiast', 'Hi', 'Said', 'How are you?'];</p>
+
+<p>const Func = (...anArray) =&gt; anArray;</p>
+
+<p>console.log(Func(arr)); // ['said', 20, 'Javascript enthusiast', 'Hi', 'Said', 'How are you?']</p>
+
+<p>spread 运算符与 rest 参数具有相同的语法，但是 spread 运算符采用数组本身而不仅仅是参数。我们可以使用 Spread 参数来获取数组的值，而不是使用 for 循环或任何其他方法。</p>
+
+<p>const arr=['said',20,'JavaScript enthusiast','Hi','Said','How are you?'];</p>
+
+<p>const Func=(...anArray)=&gt;{</p>
+
+<p>return anArray;</p>
+
+<p>}</p>
+
+<p>console.log(Func(arr)); //["said", 20, "JavaScript enthusiast", "Hi", "Said", "How are you?"</p>
+
+<p>Class</p>
+
+<p>类是面向对象编程（OOP）的核心。它们使您的代码更安全和封装。使用类可以为代码提供一个很好的结构并使其保持面向对象。</p>
+
+<p>class myClass {</p>
+
+<p>constructor() {</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>要创建一个类，请使用 class 关键字，后跟带有两个大括号的类的名称。</p>
+
+<p>class myClass {</p>
+
+<p>constructor(name, age) {</p>
+
+<p>this.name = name;</p>
+
+<p>this.age = age;</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>const user = new myClass('Said', 22);</p>
+
+<p>console.log(user.name); // Said</p>
+
+<p>cosnole.log(user.age); // 22</p>
+
+<p>现在我们可以使用 new 关键字访问类方法和属性。</p>
+
+<p>class myClass{</p>
+
+<p>constructor(name,age){</p>
+
+<p>this.name=name;</p>
+
+<p>this.age=age;</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>const Home= new myClass("said",20);</p>
+
+<p>console.log(Home.name)// said</p>
+
+<p>要从其他类继承，请使用 extends 关键字，后跟要继承的类的名称。</p>
+
+<p>class myClass {</p>
+
+<p>constructor(name, age) {</p>
+
+<p>this.name = name;</p>
+
+<p>this.age = age;</p>
+
+<p>}</p>
+
+<p>sayHello() {</p>
+
+<p>cosnole.log(`Hi ${this.name} your age is ${this.age} `);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>// 继承 myClass 方法和属性</p>
+
+<p>class UserProfile extends myClass {</p>
+
+<p>username() {</p>
+
+<p>console.log(this.name);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>const profile = new UserProfile('Said', 22);</p>
+
+<p>profile.sayHello();// Hi Said your age is 22;</p>
+
+<p>profile.username();// Said</p>
+
+
+
+<p style='float:right;'>本页共209段，6729个字符，10168 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

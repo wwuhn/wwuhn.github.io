@@ -1,0 +1,99 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>像素操作</title> 
+    </head> 
+    <body> 
+        <div id="msg"></div> 
+        <canvas id="canvas" width="300" height="300" style="background-color: black"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">Demo</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <br /><br /> 
+        <canvas id="canvas2" width="300" height="300" style="background-color: black"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="syncIt();">同步第一个Demo</button> 
+        <button type="button" onclick="redIt();">变红</button> 
+        <script type="text/javascript"> 
+            var canvas = document.getElementById('canvas');  
+            var canvas2 = document.getElementById('canvas2');  
+            var ctx = canvas.getContext('2d');  
+            var ctx2 = canvas2.getContext('2d');  
+            var timer = -1;  
+            var width = parseInt(canvas.width, 10);  
+            var height = parseInt(canvas.height, 10);  
+            function drawIt() {            
+                clearIt();  
+                /*  
+                 * context.createImageData(width, height) - 按指定的宽和高创建并返回 ImageData 对象，其内所有像素的默认值为 rgba(0,0,0,0)  
+                 *  
+                 * context.createImageData(imageData) - 按指定的 ImageData 对象的宽和高创建一个新的 ImageData 对象并返回此对象，其内所有像素的默认值为 rgba(0,0,0,0)  
+                 *   相当于 context.createImageData(imageData.width, imageData.height)  
+                 *  
+                 * context.getImageData(x, y, width, height) - 获取画布的指定范围内的 ImageData 对象，并返回此对象  
+                 *   x - 需要获取的 ImageData 对象矩形框相对于画布的左上角的 x 坐标  
+                 *   y - 需要获取的 ImageData 对象矩形框相对于画布的左上角的 y 坐标  
+                 *   width - 需要获取的 ImageData 对象矩形框的宽  
+                 *   height - 需要获取的 ImageData 对象矩形框的高  
+                 *  
+                 * putImageData(imagedata, x, y, [dirtyX, dirtyY, dirtyWidth, dirtyHeight]) - 在画布上写入指定的数据  
+                 *   imagedata - 需要写入的 ImageData 对象  
+                 *   x, y - 指定需要写入的 ImageData 对象矩形框相对于画布左上角的坐标  
+                 *   [dirtyX, dirtyY, dirtyWidth, dirtyHeight] - 显示 ImageData 对象上指定范围内像素  
+                 */  
+                /*  
+                 * ImageData - 像素对象  
+                 *   width - 像素对象的宽  
+                 *   height - 像素对象的高  
+                 *   data - 像素数据，CanvasPixelArray 类型的对象  
+                 *  
+                 * CanvasPixelArray - 像素数据对象，可以数组方式进行操作  
+                 *   数组中每 4 个元素代表一个像素，每个元素为一个字节，4 个元素按照 rgba 的方式描述一个像素  
+                 *   length - 元素总数，即像素总数 * 4  
+                 */  
+                var imageData = ctx.createImageData(width, height);  
+                document.getElementById("msg").innerHTML = "CanvasPixelArray.length: " + imageData.data.length;  
+     
+                // 随机生成颜色不一样的像素，并写入到画布上  
+                timer = setInterval(randomPixel, 1);  
+                function randomPixel() {  
+                    var x = parseInt(Math.random() * width, 10);  
+                    var y = parseInt(Math.random() * height, 10);  
+                    var index = (y * width + x) * 4;  
+                    imageData.data[index + 0] = parseInt(Math.random() * 256);  
+                    imageData.data[index + 1] = parseInt(Math.random() * 256);  
+                    imageData.data[index + 2] = parseInt(Math.random() * 256);  
+                    imageData.data[index + 3] = parseInt(Math.random() * 256);  
+                    ctx.putImageData(imageData, 50, 50, 0, 0, 200, 200);  
+                }  
+            }  
+            function clearIt() {  
+                clearInterval(timer);  
+                ctx.clearRect(0, 0, width, height);  
+            }  
+            // 将 canvas 上的像素数据复制到 canvas2 上  
+    function syncIt() {  
+                var imageData = ctx.getImageData(0, 0, width, height);  
+                ctx2.putImageData(imageData, 0, 0);  
+            }  
+            // 将 canvas2 上的非 rgba(0,0,0,0) 的点都变成红色  
+    function redIt() {  
+                var imageData = ctx2.getImageData(0, 0, width, height);  
+                for (var i = 1; i < imageData.data.length / 4; i++) {  
+                    var iindex = i * 4;  
+                    if (imageData.data[index + 0] + imageData.data[index + 1] + imageData.data[index + 2] + imageData.data[index + 3] > 0) {  
+                        imageData.data[index + 0] = 255;  
+                        imageData.data[index + 1] = 0;  
+                        imageData.data[index + 2] = 0;  
+                        imageData.data[index + 3] = 255;  
+                    }  
+                }  
+                ctx2.putImageData(imageData, 0, 0);  
+            }  
+        </script> 
+    </body> 
+    </html> 

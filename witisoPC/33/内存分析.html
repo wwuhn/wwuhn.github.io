@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>内存分析</title>
+
+ <style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.4em;
+}
+P{
+margin:8px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 100px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 70px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+ img{
+ border:0;
+ }#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+padding-left:3px;
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+.floatr{
+float:right;
+padding-right:5px;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+ \s*<br />\s*
+ 
+ 
+</p>
+
+<p>
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<p>内存分析</p>
+
+<p>In Java,we(programmers) care about two areas of  memory-the one where objects live(the heap),and the one where method  invocations and local variables live(the stack).When a JVM starts up,it gets a  chunk of memory from the underlying os,and uses it to run you Java program.How  much memory,and whether or not you can tweak it,is dependent on which version  of the JVM(and on which platform) you're running.But usually you won't have  anything to say about it.</p>
+
+<p>method are stached;</p>
+<table id="tbrowser" >
+  <col width="60" />
+  <col width="30" />
+  <col width="220" />
+  <tr height="19">
+    <td>内存区</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr height="19">
+    <td height="19">heap </td>
+    <td>→</td>
+    <td>new出来的对象</td>
+  </tr>
+  <tr height="19">
+    <td height="19">stack </td>
+    <td>→</td>
+    <td>局部变量，方法；或语句块内的对象</td>
+  </tr>
+  <tr height="19">
+    <td height="19">data    segment </td>
+    <td>→</td>
+    <td>静态变量</td>
+  </tr>
+  <tr height="19">
+    <td height="19">code    segment </td>
+    <td>→</td>
+    <td>程序代码</td>
+  </tr>
+</table>
+<p>写程序就是做内存存取，先把数据暂存在内存中，等需要的时候再将数据取出来做数据运算和逻辑运算；</p>
+
+<p>内存分析贯穿始终.</p>
+
+<p>在Java的内存分配中，对象和实例是不同的，前者分配在内存堆里，后者分配在栈里；</p>
+
+<p>变量的生命周期：</p>
+
+<p>局部变量在方法调用时创建，在方法返回时销毁；</p>
+
+<p>实例变量在创建对象时创建，在垃圾回收对象时销毁；</p>
+
+<p>类变量在程序开始执行时创建，并在程序结束时才销毁；</p>
+
+<p>Java在内存中开辟了五块内存区：</p>
+
+<p>１　方法区</p>
+
+<p>２　本地方法区</p>
+
+<p>３　寄存器</p>
+
+<p>４　栈</p>
+
+<p>５　堆</p>
+
+<p>检查内存中哪些内存不再被使用，垃圾回收保持对不可到达对象的跟踪，作为一个低优先级的线程在后台运行；</p>
+
+<p>产生对象实例时不仅会将属性值导入，也会将方法内容所在的内存地址导入；而真正的方法内容会放在另一个内存空间供不同对象重复利用（对象不同所调用的方法内容会相同，所以没有必要在每个对象内部导入方法内容。利用指向方式即可重复利用方法内容）。抽象类中的抽象方法根本没有任何内容可以在运行时间被加载，而且在编译阶段就可以预知这样的结果，所以如果使用new来实例化，将会导致编译失败；</p>
+
+<p>Java程序内容，绝大部分是在处理内存数据。</p>
+
+<p>1 基本数据类型的调用：在执行时把要执行的数据存入内存，之后在计算时适时地把值取出来，交给CPU计算；之后再把运算结果存回内存；</p>
+
+<p>2 引用类型的调用：目的与基本数据类型相同，只不过所要处理的是一列或更多列的大量数据；</p>
+
+<p>不能只是一味地占用内存，而应该将不需要存储的数据从内存中移除，这样才可以重复利用内存空间；</p>
+
+<p>3 生命周期的定义：变量可以在内存中存储的时间就是该变量的生命周期。变量的调用就代表该变量生命周期的开始；符合某一条件后，该变量生命周期就会结束；</p>
+
+<p>4 生命周期的指定：如果相要指定生命周期的长短，可以通过调用不同等级的变量来实现；</p>
+
+<p>Java程序内容，绝大部分是在处理内存数据；</p>
+
+<p>任何一种开发语言都会涉及到内存的管理与使用。</p>
+
+<p>对象成为“垃圾”的条件</p>
+
+<p>1 对于非线程对象来说，当所有的活动线程都不可能访问到该对象时，该对象便成为“垃圾”；</p>
+
+<p>2 对于线程对象来说，除了以上条件外，还要求此线程本身已经死亡或者还处于新建状态。</p>
+
+<p>（活动线程是指已经启动但还没有死亡的线程。）</p>
+
+<p>对于非线程的单个对象来说，使其成为垃圾的方法很简单，只要将指向对象的所有引用不再指向对象即可。这样任何活动线程都无法访问到该对象了。</p>
+
+<p>1 将指向该对象的引用设置为null值；</p>
+
+<p>2 将引用指向别的对象；</p>
+
+<p>3 随着语句块或方法体的退出局部引用消亡。</p>
+
+<p>垃圾收集器的工作策略有很多种，如标识与清除算法、引用算法等。</p>
+
+<p>垃圾收集器是一个后台守护线程，在内存充足的情况下，其优先级很低，一般不出来运行，当垃圾充斥着内存，严重影响程序的执行时，其优先级会提高，并出来运行收集垃圾，清理内存。</p>
+
+<p>申请垃圾收集器运行</p>
+
+<p>System.gc();</p>
+
+<p>在一个对象被作为垃圾收集之前，垃圾收集器会首先调用垃圾对象的finalize()方法，然后再清除垃圾对象。如果在对象被垃圾收集时希望系统执行特定的代码，就需要重写finalize()方法。</p>
+
+<p>Garbage collection查找无引用的对象并回收它们所占用存储空间的过程，如果对象不被任何变量所引用，那么我们将无法读取对象中的数据，也无法调用对象上的方法；</p>
+
+<p>处理内存数据</p>
+
+<p>常量→变量→对象→数组→字符串→集合</p>
+
+<p>存储到什么地方</p>
+
+<p>1 寄存器：处理器内部；</p>
+
+<p>2 堆栈：位于RAM，可以通过堆栈指针上下移动来释放、分配内存；</p>
+
+<p>3 堆：位于RAM，new代码自动分配，垃圾收集器自动收集；</p>
+
+<p>4 静态存储：RAM中，存储程序执行时一直存在的数据；</p>
+
+<p>5 静态存储：RAM中，常量值通常直接存入在程序代码内部；</p>
+
+<p>6 非RAM：如果数据完全存活于程序之外，那么它可以不受程序的任何控制，在程序没有运行时也可存在，其中两个基本的例子是“流对象”和持久化对象；</p>
+
+<p>方法执行完毕，其局部变量（包括对象变量）在stack内分配的空间消失，包括main()方法执行完毕，也就是程序执行完毕，其开辟的stack、heap空间全部消失；</p>
+
+<p>Java字节码文件加载到内存时，类变量分配了内存单元，类方法分配了内存入口地址，当创建对象时，实例变量分配空间，实例方法分配入口地址； </p>
+<p>
+
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>

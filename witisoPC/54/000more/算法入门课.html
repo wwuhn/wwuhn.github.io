@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>算法入门课</h4>
+
+<p>原创科技千里眼2018-10-2715:09:25</p>
+
+<p>听起来高大上的“算法”，其实一点也不难学！</p>
+
+<p>本专栏用最简洁的语言和逻辑，脱离编程语言的束缚，在最短时间内，从算法概念/程序结构/数据结构/算法思想/应用方法这五个方面，跟您一起，轻松地理解算法知识，掌握算法思维。</p>
+
+<p>算法太重要了</p>
+
+<p>“人工智能”，“机器学习”，“大数据”，这些越来越常听到的字眼，背后其实都是一个个“算法”。</p>
+
+<p>诸多高新科技，似乎都离不开“算法”的“加持”。</p>
+
+<p>科学家/工程师/技术人员，现在如果不懂点算法，都不太好意思了。</p>
+
+<p>算法其实很容易</p>
+
+<p>听着这么高大上的“算法”其实一点也不难学！</p>
+
+<p>为啥讲算法的书却很难看懂？</p>
+
+<p>就是讲得太复杂了么，不同编程语言还都不一样。</p>
+
+<p>专栏特点</p>
+
+<p>1.语言和逻辑极简，化复杂为通俗易懂，极速掌握；</p>
+
+<p>2.不使用编程语言！是的，这才是算法入门的最速方法；</p>
+
+<p>3.直击算法思维的核心点，不在次要知识上浪费时间。</p>
+
+<p>什么是“算法”</p>
+
+<p>算法，一看字面就知道，肯定是“计算方法”的简称啦，特指“计算机的计算方法”，所以，算法是由电脑程序来实现的。</p>
+
+<p>算法，英文叫Algorithm，就是为了让电脑解决一个问题而设计出来的一套计算方法，这套计算方法的设计是依靠“数学模型”的建立。</p>
+
+<p>也就是说，程序员在设计算法之前，会将实际问题理解分析，归纳为一个“具体的数学问题”。</p>
+
+<p>算法是解决问题的计算方法</p>
+
+<p>算法有这么几个特征</p>
+
+<p>1确定</p>
+
+<p>算法的每一个步骤都有“明确的意义”，对于算法结果的预期也是明确的。</p>
+
+<p>2有穷</p>
+
+<p>算法不能一直算，停不下来是不行的；要有一个明确的结束条件，要不然算到“天荒地老”还有什么意义呢？</p>
+
+<p>3可行</p>
+
+<p>有个笑话说一个人面试会计师，算数特别快瞬间出结果，但是就是算得不对。</p>
+
+<p>4输入输出</p>
+
+<p>算法就是用来解决问题的，问题的来源就是输入，问题的结果就是输出。</p>
+
+<p>再复杂的算法也是由一个个小算法组合成的</p>
+
+<p>怎么设计一个算法程序呢</p>
+
+<p>算法有三个要素——</p>
+
+<p>数学模型，输入输出方法，算法步骤。</p>
+
+<p>所以说，怎么设计一个算法呢？</p>
+
+<p>首先，先对要解决的问题建立一个数学模型，把原问题化为数学问题；</p>
+
+<p>然后，将问题的“已知条件”化为“数据”输入到数学模型中；</p>
+
+<p>再然后，通过对输入一步一步的转化/处理/计算，得到结果；</p>
+
+<p>最后，把结果按照希望的形式，输出出来。</p>
+
+<p>举个例子吧</p>
+
+<p>比如我们要解决一个问题——班级里有30个同学，我们现在知道他们的姓名和考试分数，比如小红90分，小刚97分，小明60分等等，求班级里面哪位同学成绩最好？</p>
+
+<p>谁的成绩最好呢？</p>
+
+<p>那么我们按照上面的步骤来设计一个小算法吧。</p>
+
+<p>1把原问题转化为数学问题</p>
+
+<p>求30个成绩值中的最大值及对应的姓名；</p>
+
+<p>2已知条件化为输入数据</p>
+
+<p>依次输入30个名字和30个成绩值；（其中名字的数据类型为字符串，成绩值的数据类型为整数型，关于数据类型我们将在后面详细讲解）</p>
+
+<p>3分步计算</p>
+
+<p>这是一个典型的求最大值的问题，方法很多，这里举一种方法：</p>
+
+<p>3-1取出第1个同学和第2个同学的姓名和成绩，比较大小，将那个较大的成绩值储存在一个位置，这个位置我们给他起个名字，就叫&lt;当前最大成绩值&gt;吧，再把这个较好的成绩对应的同学姓名存到另一个位置，就叫&lt;当前最好成绩的同学姓名&gt;；</p>
+
+<p>3-2这样，第1个同学和第2个同学成绩比较完成，得到了这2名同学中的成绩最好的同学，信息储存在：&lt;当前最大成绩值&gt;和&lt;当前最好成绩的同学姓名&gt;中；</p>
+
+<p>3-3下面就是重复性的工作了，把得到的&lt;当前最大成绩值&gt;和&lt;当前最好成绩的同学姓名&gt;与第3位同学进行比较，仍然是把较大的成绩值储存在&lt;当前最大成绩值&gt;里，把这个较好的成绩对应的同学姓名存到&lt;当前最好成绩的同学姓名&gt;里；</p>
+
+<p>3-4这个过程一直进行，直到把30个同学的信息都比较完，这时&lt;当前最大成绩值&gt;里存的值就是最好的成绩，&lt;当前最好成绩的同学姓名&gt;里存的值就是这位最厉害的同学的姓名。</p>
+
+<p>4输出</p>
+
+<p>按照你想要的格式，将上面两个储存的值显示出来，就完成了！</p>
+
+<p>借上面的例子有几点要说明一下</p>
+
+<p>1解决同一个问题，可能有各种各样的算法。不同的算法，可能执行速度不同，可能编写难易度不同，可能占用的资源不同，甚至可能计算准确度都不同；很多时候并没有最好的算法，只有在特定条件下最适合的算法。</p>
+
+<p>2每一个算法都有适用的条件，条件变了，算法可能就用好用了。比如上面例子，如果这个班级中有2个同学的成绩刚好一样，那么按理说就应该输出两个姓名和成绩，上面的算法就需要改进一下了。</p>
+
+<p>算法——一个强逻辑体</p>
+
+<p>3能把问题具体化为一个或几个数学问题，问题就解决了一半。就如同学习和工作中一样，所谓解决问题的能力，有一半是分析问题的能力，能够将大问题分解成小问题，将抽象问题等价为具体问题。</p>
+
+
+
+<p style='float:right;'>本页共60段，1976个字符，5535 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+</script> 
+<script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<script type="text/javascript">
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>配送路线优化</title>
+
+ <style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.4em;
+}
+P{
+margin:8px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 100px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 70px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+ img{
+ border:0;
+ }#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+padding-left:3px;
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:2px 0px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:1.1em;
+margin-top:24px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+.floatr{
+float:right;
+padding-right:5px;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}.box{
+border:1px solid #FFCC00;
+}
+.p2{
+
+font-size:.9;
+color:blue;
+line-height:24px;
+padding-bottom:4px;
+margin:0;
+text-indent:4em;
+}
+.p3{
+
+font-size:.8;
+
+color:#CC6666;
+line-height:22px;
+padding-bottom:4px;
+margin:0;
+text-indent:6em;
+}
+ </style>
+</head>
+
+<body> 
+<div class="container">
+<!--
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+-->
+
+<!--
+height="*\w*"
+width="*\w*"
+
+<p>
+-->
+<p><strong>配送路线优化</strong><strong>:</strong><strong>车辆线路安排问题</strong><strong>vehicle  routing problem</strong></p>
+
+<p>是指物流配送的车辆进行优化调度，对一系列装货点和卸货点组织适当合理的行车路线，使车辆有序地通过它们，在满足一定的条件下（如货物需求量、发送量、交发货时间、车辆容量、数目限制车辆行驶里程、时间限制等），达到一定的目标（如最短路程、最小费用、最短时间、最小车辆）;</p>
+
+<p><strong>确定配送路线的约束条件</strong></p>
+
+<p>a 客户要求：客户常对配送运输提出自己的要求：“在正确的时间，将正确的物品以正确的数量送到正确的地点”；</p>
+
+<p>b 道路限制：车辆运送所经道路状况，如限行、限高、限速等都是影响路线设计必须考虑的因素；路程的远近是否超过了驾驶员所能承受的范围；</p>
+
+<p>c 车辆限制：车辆载重量的大小、数量的多少、功能的区别等因素都是配送时安排车辆的限制条件；</p>
+
+<p>d 人员限制：出于安全的考虑，驾驶员必须有合理的间隔休息时间。</p>
+
+<p>配送问题的最优解实际就是一个有效的车辆调度问题，它应该明确地规定在满足约束条件下派车的数量、类型和各个车辆的路线，在完成运输任务的前提下，便得目标最大化；</p>
+
+<p>1 节约里程法的基本设定</p>
+
+<p class="p2">1.1  配送的是同一种货物；       </p>
+
+<p class="p2">1.2  各客户的坐标及需求量均为已知；</p>
+
+<p class="p2">1.3  配送中心有足够的运输能力；</p>
+
+<p>2 绘制配送中心与配送点以及配送点之间的坐标及最短距离的标注；</p>
+
+<p>3 配送中心有两种货车：1.5T，4T；     </p>
+
+<p>4 各配送点的两点之间距离及配送量
+
+
+
+<table id="tbrowser">
+  <tr>
+    <td width="133">两点连线 </td>
+    <td>AB</td>
+    <td>AC</td>
+    <td>AD</td>
+    <td>AF</td>
+    <td>AE</td>
+    <td>AG</td>
+    <td>BC</td>
+    <td>CD</td>
+    <td>DF</td>
+    <td>EF</td>
+    <td>EG</td>
+    <td>FG</td>
+  </tr>
+  <tr>
+    <td>距离（ km） </td>
+    <td>9</td>
+    <td>12</td>
+    <td>12</td>
+    <td>24</td>
+    <td>20</td>
+    <td>21</td>
+    <td>9</td>
+    <td>10</td>
+    <td>19</td>
+    <td>6</td>
+    <td>1</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>配送量（ T） </td>
+    <td>0.8</td>
+    <td>0.7</td>
+    <td>1</td>
+    <td>1.1</td>
+    <td>1.75</td>
+    <td>1.15</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<img width="214" height="232" src="配送路线优化_clip_image002.gif" alt="配送中心与配送点以及配送点之间的坐标及最短距离的标注.bmp" />
+
+
+<p>5 计算配送中心A到各配送点、各配送点之间的最短距离 </p>
+<table id="tbrowser">
+  <tr>
+    <td width="43" nowrap="nowrap"></td>
+    <td>A</td>
+    <td>B</td>
+    <td>C</td>
+    <td>D</td>
+    <td>E</td>
+    <td>F</td>
+    <td>G</td>
+  </tr>
+  <tr>
+    <td>A</td>
+    <td>0</td>
+    <td>9</td>
+    <td>12</td>
+    <td>12</td>
+    <td>20</td>
+    <td>24</td>
+    <td>21</td>
+  </tr>
+  <tr>
+    <td>B</td>
+    <td></td>
+    <td>0</td>
+    <td>9</td>
+    <td>19</td>
+    <td>29</td>
+    <td>33</td>
+    <td>30</td>
+  </tr>
+  <tr>
+    <td>C</td>
+    <td></td>
+    <td></td>
+    <td>0</td>
+    <td>10</td>
+    <td>32</td>
+    <td>29</td>
+    <td>33</td>
+  </tr>
+  <tr>
+    <td>D</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0</td>
+    <td>25</td>
+    <td>19</td>
+    <td>25</td>
+  </tr>
+  <tr>
+    <td>E</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0</td>
+    <td>6</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>F</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0</td>
+    <td>6</td>
+  </tr>
+  <tr>
+    <td>G</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>0</td>
+  </tr>
+</table>
+<p>6 计算各配送点组合的节约的里程数，并将之进行排序。</p>
+
+<p>如DE之间的节约里程数＝(2AD+2AE)-(AD+DE+AE)=AD+AE-DE=12+20-25=7(两点之间都应以最短距离计算)</p>
+<table id="tbrowser">
+  <tr>
+    <td width="113" nowrap="nowrap">序号 </td>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+    <td>7</td>
+    <td>8</td>
+    <td>9</td>
+    <td>10</td>
+    <td>11</td>
+    <td>11</td>
+    <td>11</td>
+    <td>11</td>
+    <td>11</td>
+  </tr>
+  <tr>
+    <td>组合 </td>
+    <td>EG</td>
+    <td>FG</td>
+    <td>EF</td>
+    <td>DF</td>
+    <td>CD</td>
+    <td>BC</td>
+    <td>DG</td>
+    <td>CF</td>
+    <td>DE</td>
+    <td>BD</td>
+    <td>BE</td>
+    <td>BF</td>
+    <td>BG</td>
+    <td>CE</td>
+    <td>CG</td>
+  </tr>
+  <tr>
+    <td>里程数 </td>
+    <td>40</td>
+    <td>39</td>
+    <td>38</td>
+    <td>17</td>
+    <td>14</td>
+    <td>12</td>
+    <td>8</td>
+    <td>7</td>
+    <td>7</td>
+    <td>2</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+</table>
+<p>7 按以上顺序考虑路线（即客户组合），同时考虑车辆的最大载重，形成车辆的线路安排；</p>
+<p class="p2">7.1  第一条线路：AEGFA,配送货物量为：1.75+1.15+1.1＝4T，全程为：20+1+6+24=51km;</p>
+<p class="p2">7.2  第二条线路：ADCBA,配送货物量为：1.7+0.8＝2.5T，全程为：9+9+10+12=40km;</p>
+<p>  AEGFDCBA=74km</p>
+<p>  91km-24(AF)-12(AD)+19(FD)=74km;     
+<p> 
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>

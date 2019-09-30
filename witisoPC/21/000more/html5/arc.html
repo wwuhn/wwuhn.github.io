@@ -1,0 +1,80 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>以路径的方式在 canvas 上绘制圆和弧的 demo</title> 
+    </head> 
+    <body> 
+        <img alt="" src="arcTo.png" /> 
+        <br/> 
+        <canvas id="canvas" width="260" height="360" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">在画布上绘制一些圆和弧</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            function drawIt() {  
+                clearIt();  
+                /*  
+                 * context.beginPath() - 准备绘制一条路径  
+                 *  
+                 * context.arc(x, y, radius, startRadian, endRadian, anticlockwise) - 根据指定的参数绘制一条弧线  
+                 *   x - 弧线的中心点的 x 坐标  
+                 *   y - 弧线的中心点的 x 坐标  
+                 *   radius - 弧线的半径  
+                 *   startRadian - 弧线起始点的弧度（以 X 轴正半轴的三点钟方向为弧度 0）  
+                 *   endRadian - 弧线结束点的弧度（以 X 轴正半轴的三点钟方向为弧度 0）  
+                 *   anticlockwise - 是否以逆时针方向绘制路径  
+                 *  
+                 * context.fill() - 使用当前的颜色或渐变色等来填充当前路径的内部  
+                 *  
+                 * context.stroke() - 绘制当前路径  
+                 *  
+                 * context.isPointInPath(x, y) - 判断指定的点是否在当前路径内  
+                 */             
+                // 绘制一个以黑色为填充色的圆形  
+                ctx.beginPath();  
+                ctx.arc(50, 50, 50, 0, 2 * Math.PI, true);  
+                ctx.fill();  
+                alert(ctx.isPointInPath(50, 50));  
+                // 绘制一个以半透明蓝色为填充色的圆形  
+                ctx.beginPath();  
+                ctx.fillStyle = "rgba(0, 0, 255, 0.5)";  
+                ctx.arc(150, 50, 50, 0, 2 * Math.PI, true);  
+                ctx.fill();  
+                ctx.lineWidth = 10;  
+                // 演示按顺时针方向绘制弧线（以 X 轴正半轴的三点钟方向为弧度 0）  
+                ctx.beginPath();  
+                ctx.strokeStyle = "rgb(0, 255, 0)";  
+                ctx.arc(50, 150, 50, 0, 1.5 * Math.PI, false);  
+                ctx.stroke();  
+                // 演示按逆时针方向绘制弧线（以 X 轴正半轴的三点钟方向为弧度 0）  
+                ctx.beginPath();  
+                ctx.strokeStyle = "rgb(0, 255, 0)";  
+                ctx.arc(150, 150, 50, 0, 1.5 * Math.PI, true);  
+                ctx.stroke();  
+     
+                /*  
+                 * context.moveTo(x, y) - 新开一个路径，并指定路径的起点  
+                 *  
+                 * context.arcTo(x1, y1, x2, y2, radius) - 通过指定切点和半径的方式绘制弧线。  
+                 *   x1, y1 - 路径当前点与 (x1, y1) 的连接线为弧线起点的切线。详见图片 arcTo.png  
+                 *   x2, y2 - (x1, y1) 与 (x2, y2) 的连接线为弧线终点的切线，此切点即为弧线的终点。详见图片 arcTo.png  
+                 *   radius - 弧线半径  
+                 */  
+                ctx.beginPath();  
+                ctx.strokeStyle = "rgb(0, 0, 255)";  
+                ctx.moveTo(50, 250);  
+                ctx.arcTo(150, 250, 150, 1000, 50);  
+                ctx.stroke();  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 260, 360);  
+                ctx.fillStyle = "Black";  
+                ctx.strokeStyle = "Black";  
+                ctx.lineWidth = 1;  
+            }  
+        </script> 
+    </body> 
+    </html> 

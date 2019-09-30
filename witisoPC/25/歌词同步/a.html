@@ -1,0 +1,225 @@
+<html>
+    
+    <head>
+        <meta http-equiv=Content-Type content=text/html; charset=utf-8>
+        <!--charset=utf-8-->
+        <title>
+            音乐歌词同步测试
+        </title>
+        <style>
+            <!-- .div { width:460px; height:200px; overflow-y:scroll; padding-top:80px;
+            text-align:left; padding-left:100px; line-height:25px; font-size:13px;
+            padding-bottom:50px; } -->
+        </style>
+
+
+        <script language="javascript">
+            var scrollt = 0;
+            var tflag = 0; //存放时间和歌词的数组的下标
+            var lytext = new Array(); //放存汉字的歌词
+            var lytime = new Array(); //存放时间
+            var delay = 10;
+            var line = 0;
+            var scrollh = 0;
+//2
+            function getLy() //取得歌词
+            {
+                var ly = "[00:00]21个人.[00:10]制作:小黑.[00:20]歌手:游鸿明.[02:02][00:24]没想到是你.[00:29]看着，想着，说着失去.[02:12][00:35]想结束关系，又觉得可惜.[02:20][00:44]你红着双眼，试着，做着，想着改变. [02:30][00:54]但激情沉淀，结局更明显.[02:41][01:04]我看过温柔凋萎.[02:46][01:09]也听过诺言. [02:48][01:11]似玻璃破碎.[02:50]][01:14]我看过情人憔悴.[02:56][01:19]就好像刺猬为分离流泪. [03:00][01:23]伤心人负心人.[03:03][01:26]天下人痴情人.[03:05][01:28]只要是被伤心的人喝一杯. [01:33]自已人爱别人.[01:36]什么人狠心人.[01:38]不要再等,喝醉的灵魂.[03:46][01:45]music……. [02:06]谈著想著说著失去.[03:10]自已人爱别人.[03:12]什么人狠心人.[03:15]不要再等.[03:18]喝醉的灵魂. [03:56][03:23]多情人无心人.[03:59][03:25]无情人多伤人.[04:01][03:28]只要是被伤心的人喝一杯. [04:06][03:32]有心人无缘人.[04:08][03:34]有缘人断肠人.[04:11][03:37]何必再问新人换旧人. [04:20]music again……."
+                return ly;
+            }
+
+//02
+            function show(t) //显示歌词
+            {
+                var div1 = document.getElementById("lyr"); //取得层
+                document.getElementById("lyr").innerHTML = " "; //每次调用清空以前的一次
+                if (t < lytime[lytime.length - 1]) //先舍弃数组的最后一个
+                {
+                    for (var k = 0; k < lytext.length; k++) {
+                        if (lytime[k] <= t && t < lytime[k + 1]) {
+                            scrollh = k * 25; //让当前的滚动条的顶部改变一行的高度
+                            div1.innerHTML += "<font color=red style=font-weight:bold>" + lytext[k] + "</font><br>";
+                        } else if (t < lytime[lytime.length - 1]) //数组的最后一个要舍弃
+                        div1.innerHTML += lytext[k] + "<br>";
+                    }
+                } else //加上数组的最后一个
+                {
+                    for (var j = 0; j < lytext.length - 1; j++) 
+			div1.innerHTML += lytext[j] + "<br>";
+                    div1.innerHTML += "<font color=red style=font-weight:bold>" + lytext[lytext.length - 1] + "</font><br>";
+                }
+            }
+
+
+
+//5
+            function scrollBar() //设置滚动条的滚动
+            {
+                if (document.getElementById("lyr").scrollTop <= scrollh) document.getElementById("lyr").scrollTop += 1;
+                if (document.getElementById("lyr").scrollTop >= scrollh + 50) document.getElementById("lyr").scrollTop -= 1;
+                window.setTimeout("scrollBar()", delay);
+            }
+
+//1
+            function getReady() //在显示歌词前做好准备工作
+            {
+                var ly = getLy(); //得到歌词 2
+                //alert(ly);
+                var arrly = ly.split("."); //转化成数组
+                for (var i = 0; i < arrly.length; i++) 
+			sToArray(arrly[i]);	//循环执行左边函数 3
+                sortAr();
+
+
+
+                /*for(var j=0;j<lytext.length;j++)
+		{
+			document.getElementById("lyr").innerHTML+=lytime[j]+lytext[j]+"<br>";
+		}*/
+                scrollBar();  //5
+            }
+
+
+
+//3
+            function sToArray(str) //解析如“[02:02][00:24]没想到是你”的字符串前放入数组
+            {
+                var left = 0; //"["的个数
+                var leftAr = new Array();
+                for (var k = 0; k < str.length; k++) {
+                    if (str.charAt(k) == "[") {
+                        leftAr[left] = k;
+                        left++;
+                    }
+                }
+                if (left != 0) {
+                    for (var i = 0; i < leftAr.length; i++) {
+                        lytext[tflag] = str.substring(str.lastIndexOf("]") + 1); //放歌词,tflag的初始值是0
+                        lytime[tflag] = conSeconds(str.substring(leftAr[i] + 1, leftAr[i] + 6)); //放时间，conSeconds()是自定义函数；4
+                        tflag++;
+                    }
+                }
+                //alert(str.substring(leftAr[0]+1,leftAr[0]+6));
+            }
+
+
+
+
+
+            function sortAr() //按时间重新排序时间和歌词的数组
+            {
+                var temp = null;
+                var temp1 = null;
+                for (var k = 0; k < lytime.length; k++) {
+                    for (var j = 0; j < lytime.length - k; j++) {
+                        if (lytime[j] > lytime[j + 1]) {
+                            temp = lytime[j];
+                            temp1 = lytext[j];
+                            lytime[j] = lytime[j + 1];
+                            lytext[j] = lytext[j + 1];
+                            lytime[j + 1] = temp;
+                            lytext[j + 1] = temp1;
+                        }
+                    }
+                }
+            }
+
+
+//4
+            function conSeconds(t) //把形如：01:25的时间转化成秒；
+            {
+                var m = t.substring(0, t.indexOf(":"));
+                var s = t.substring(t.indexOf(":") + 1);
+                s = parseInt(s.replace(/\b(0+)/gi, ""));
+                if (isNaN(s)) s = 0;
+                var totalt = parseInt(m) * 60 + s;
+                //alert(parseInt(s.replace(/\b(0+)/gi,"")));
+                if (isNaN(totalt)) return 0;
+                return totalt;
+            }
+
+
+            function getSeconds() //得到当前播放器播放位置的时间
+            {
+                var t = getPosition();
+                t = t.toString(); //数字转换成字符串
+                var s = t.substring(0, t.lastIndexOf(".")); //得到当前的秒
+                //alert(s);
+                return s;
+            }
+
+
+
+
+
+//01
+
+            function getPosition() //返回当前播放的时间位置
+            {
+                var mm = document.getElementById("MediaPlayer1");
+                //var mmt=;
+                //alert(mmt);
+                return mm.CurrentPosition;
+            }
+
+
+//0
+            function mPlay() //开始播放
+            {
+                var ms = parseInt(getSeconds());
+                if (isNaN(ms)) 
+			show(0);
+                else 
+			show(ms);
+                window.setTimeout("mPlay()", 100)
+            }
+
+
+//0
+            window.setTimeout("mPlay()", 100) 
+	    
+	    function test() //测试使用，
+            {
+                alert(lytime[lytime.length - 1]);
+            }
+        </script>
+    </head>
+    
+    <body onLoad="getReady()">
+        <object id="MediaPlayer1" width="460" height="68" classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95"
+        codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,4,5,715"
+        align="baseline" border="0" standby="Loading Microsoft Windows Media Player components..."
+        type="application/x-oleobject">
+            <param name="FileName" value="21个人.mp3">
+            <param name="ShowControls" value="1">
+            <param name="ShowPositionControls" value="0">
+            <param name="ShowAudioControls" value="1">
+            <param name="ShowTracker" value="1">
+            <param name="ShowDisplay" value="0">
+            <param name="ShowStatusBar" value="1">
+            <param name="AutoSize" value="0">
+            <param name="ShowGotoBar" value="0">
+            <param name="ShowCaptioning" value="0">
+            <param name="AutoStart" value="1">
+            <param name="PlayCount" value="0">
+            <param name="AnimationAtStart" value="0">
+            <param name="TransparentAtStart" value="0">
+            <param name="AllowScan" value="0">
+            <param name="EnableContextMenu" value="1">
+            <param name="ClickToPlay" value="0">
+            <param name="InvokeURLs" value="1">
+            <param name="DefaultFrame" value="datawindow">
+            <embed src="21个人.mp3" align="baseline" border="0" width="460" height="68"
+            type="application/x-mplayer2" pluginspage="http://www.microsoft.com/isapi/redir.dll?prd=windows&sbp=mediaplayer&ar=media&sba=plugin&"
+            name="MediaPlayer" showcontrols="1" showpositioncontrols="0" showaudiocontrols="1"
+            showtracker="1" showdisplay="0" showstatusbar="1" autosize="0" showgotobar="0"
+            showcaptioning="0" autostart="1" autorewind="0" animationatstart="0" transparentatstart="0"
+            allowscan="1" enablecontextmenu="1" clicktoplay="0" invokeurls="1" defaultframe="datawindow">
+            </embed>
+        </object>
+        <div id=lyr class=div>
+            歌词加载中……
+        </div>
+    </body>
+
+</html>

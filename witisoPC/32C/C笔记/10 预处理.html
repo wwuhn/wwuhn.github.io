@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<p>为什么头文件要包含#ifndef...#endif这对编译预处理指令？这对编译预处理命令表示：如果#ifndef后的标识符已经定义过，则跳过中间的所有指令，直接跳到#endif。一个程序可能由很多源文件组成，每个源文件都可能调用到库中的函数，因此每个源文件都需要包含库的头文件。如果没有#ifndef...#endif这对编译预处理指令，头文件中的内容在整个程序中可能出现很多遍，将造成编译或连接错误。有了#ifndef...#endif这对编译预处理指令可以保证头文件的内容在整个程序中只出现一遍。</p>
+
+<p>为什么头文件要包含#ifndef...#endif这对编译预处理指令？ </p>
+
+<p>避免重复编译或包含相同的内容。这对编译预处理命令表示：如果#ifndef后的标识符已经定义过，则跳过中间的所有指令，直接跳到#endif。一个程序可能由很多源文件组成，每个源文件都可能调用到库中的函数，因此每个源文件都需要包含库的头文件。如果没有#ifndef...#endif这对编译预处理指令，头文件中的内容在整个程序中可能出现很多遍，将造成编译或连接错误。有了#ifndef...#endif这对编译预处理指令可以保证头文件的内容在整个程序中只出现一遍。 </p>
+
+
+
+
+<p>#define标识符，用于替换文本</p>
+
+<p> 如：</p>
+<p></p>
+<pre>
+#define RADIUS 5
+#define PI 3.14159
+#define AREAPI*RADIUS*RADIUS
+</pre>
+
+<p>带参数的宏宏定义格式：</p>
+
+<p>#define宏名（参数表）替换文本</p>
+
+<p>如：#defineCIRCLE_AREA (x) (PI＊ (x) * (x)) </p>
+
+<p>当程序中出现语句area = CIRCLE_AREA (4)，</p>
+
+<p>就会被替换成 area = （3.14159 * （4）* （4）） </p>
+
+<p>用define定义宏是C语言的习惯，在C++中有更好的解决方案</p>
+
+
+
+<p>函数如何完成预定功能的过程。它说明了如何从输入（参数）得到输出的（返回值）的过程。</p>
+
+
+<p>stdio：standard input and output.</p>
+
+<p>system函数包含在stdlib.h头文件中。</p>
+
+
+<p>预处理写法：#define SECONDS_PER_YEAR (60*60*24*365)UL</p>
+
+<p>#include <filename>：包含了一个系统库</p>
+
+<p>#include “filename”：包含了一个用户自定义的库</p>
+
+
+<p>#include <stdio.h>把所有函数原型都被预处理器包含至当前C程序中。</p>
+
+<p>#define PI 3.14159叫做宏替换，在预编译时，会做一个查找替换，将所有出现PI的地方替换为3.14159。</p>
+
+<p>条件编码：#if...#elif...#else...#endif，可以指示预处理器根据某些条件插入一些代码至程序中。#ifndef则刚好相反。</p>
+
+
+<p>文件包含的一般格式：</p>
+
+<p>文件可以是系统提供的，也可是用户编写的。</p>
+
+<p>#include<文件名>系统直接到系统指定的路径支搜索文件；</p>
+
+<p>#include "文件名"：系统先在当前目录搜索被包含的文件，若没找到，再到系统指定的路径去搜索。</p>
+
+
+
+<p>#define明示常量manifest constatn也叫符号常量；</p>
+
+
+
+<p>通过预处理器可以控制编译过程，列出要替换的内容，指明要编译的代码行和影响编译器其他方面的行为。</p>
+
+
+
+<p>条件编译：</p>
+
+<p></p>
+<pre>
+#ifndef _FUN_H_
+#define _FUN_H_
+//...
+#endif
+</pre>
+
+<p>这几句属于条件编译语句，意思是如果没有 define FUN_H 就 define FUN_H ，如果之前 define 过，#ifndef 到 #endif 的代码段就不参与编译了，这样可以避免 #ifndef 到 #endif 的代码段被重复包含。在本例中，就是防止 add 和 cnt 的重复声明。FUN_H 当然也可以取其他名字，只需要确保唯一性就可以了。</p>
+
+
+<p>为什么不直接包含 .c 文件呢？ 我在 main.c 文件里直接 #include“fun.c”不更方便吗？当然，这样编译也能通过，可是以后要是又有一个模块需要用到 fun.c 中定义的函数呢？再包含一次 fun.c ？这样不就相当于 add 函数有多处定义了吗？这样在程序链接阶段就会有麻烦，或者根本无法生成可执行程序。如果包含的是头文件，那无论包含多少次，add 函数也只有一处定义，链接是不会有问题的了。（多次声明，一次定义；）</p>
+
+
+<p>所有的预处理指令都是以#开头，包括宏定义、文件包含、条件编译；</p>
+
+
+
+<p></p>
+<pre>
+#include 包含一个源文件，把文件中的#include扩展为正文，即把包含.h文件找到并扩展到#include所在处。
+#define 定义宏；
+#undef 取消已定义宏；
+#if 如果给定条件为真，则编译下面的代码；
+#indef 如果宏已经定义，则编译下面的代码；
+#infdef 如果宏没有定义，则编译下面的代码；
+#elif 如果前面#if给定条件不为真，当前条件为真，则编译下面的代码；
+#endif 结束一个#if……#else条件编译块；
+#error 停止编译并显示错误信息；
+</pre>
+
+<p>预处理：文件包含、宏定义、条件编译；</p>
+
+<p>C没有模板语法，其解决的办法就是使用宏。</p>
+
+<h4>2</h4>
+
+<p>The preprocessor directive #define can be used to create compile-time flags. You have two choices: you can simply tell the preprocessor that the flag is defined, wthout specifying a value, like</p>
+
+<p>#define FLAG</p>
+
+<p>or you can give it a value (which is the typical C way to define a constant), like</p>
+
+<p>#define PI 3.14159</p>
+
+<p>In either case, the label can now be tested by the preprocessor to see if it has been defined.</p>
+
+<p>#ifdef FLAG</p>
+
+<p>This will yield a true result, and the code following the #ifdef will be included in the package sent to the compiler. This inclusion stops when the preprocessor encounters the statement</p>
+
+<p>#endif</p>
+
+<p>or</p>
+
+<p>#endif // FLAG</p>
+
+<p>Any non-comment after the #endif on the same line is illegal, even though some compilers may accept it.</p>
+
+<p>The #ifdef/#endif pairs may be nested within each other.</p>
+
+
+
+<p>宏是一个字符串，当一个字符串被定义为一个宏之后，如果程序中使用到这个字符串，即可以使用宏名代替，从而简化程序设计，提高程序的可维护性。</p>
+
+<p>在C程序中使用宏，实际上是经过了宏定义、宏调用、宏展开三个步骤。宏定义就是使用#define命令定义一个宏标识符所代表的字符串，而宏调用则是在程序中使用宏标识符代替相应的字符串，宏展开是指在开始编译源程序之前，将程序所有的宏调用使用相应的字符串来代替。</p>
+
+<p>宏只做简单的字符替换。</p>
+
+<p>带参宏和函数能等价吗？	</p>
+
+<p>不能。带参宏和函数虽然在外形上有相似之处，但二者是完全不同的，区别如下：</p>
+
+<p>（1）函数调用时，要先求出实参表达式的值，然后再代入形参；而宏只做简单的字符替换，不进行运算。</p>
+
+<p>（2）函数调用是在程序运行时处理的，为形参分配临时的存储单元；而宏的展开是在编译前进行，且展开时也不分配内存，不进行值的传递，更没有返回值的概念。</p>
+
+<p>（3）函数中的形参和实参都必须定义数据类型，并且要求两者类型一致，如果不一致，要进行相应的类型转换；而宏不存在任何类型问题，宏名称和参数都不需要类型，仅仅是一个符号。</p>
+
+<p>一般情况下，在对C语言源程序进行编译时，编译程序将编译程序中的所有代码。有时为了调试程序的需要，可能需要只编译程序的一部分，或者根据不同的应用需要产生不同的可执行程序等，这就是条件编译。条件编译有三种形式：</p>
+
+<p>	（1）#ifdef 标识符</p>
+
+<p>			程序段1</p>
+
+<p>		 #else</p>
+
+<p>			程序段2</p>
+
+<p>		 #endif</p>
+
+<p>如果定义有以指定的标识符为名称的宏，则编译程序段1，否则编译程序段2。</p>
+
+<p>（2）#ifndef 标识符</p>
+
+<p>			程序段1</p>
+
+<p>		 #else</p>
+
+<p>			程序段2</p>
+
+<p>		 #endif</p>
+
+<p>如果未定义有以指定的标识符为名称的宏，则编译程序段1，否则编译程序段2。</p>
+
+<p>（3）#if 表达式</p>
+
+<p>			程序段1</p>
+
+<p>	  	 #else</p>
+
+<p>			程序段2</p>
+
+<p>		 #endif</p>
+
+<p>如果表达式值为真，则编译程序段1，否则编译程序段2。</p>
+
+
+
+<p>在预编译时将宏名替换成字符串的过程称为“宏展开”。＃define是宏定义命令。</p>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>美国程序员爸爸：我不会教我的孩子学编程</h3>
+
+<p>
+</p>
+
+<p>“每个人都应该学习编程，就像每个人都应该学习读书写字一样。” 在“未来已来 ”的当下，“编程 ”被认为是孩子适应人工智能时代的切入口之一。
+</p>
+
+<p>然而前两天，美国知名在线杂志Slate上刊登了一篇文章——《我是程序员，我不会教孩子学编程，你也别教》。这位名叫Joe Morgon的美国程序员爸爸在文章中写道：成年人可以学习语法，但只有孩子才能学会拥抱好奇心。您是否同意文中的观点？欢迎在留言区讨论。
+</p>
+
+<p>01
+</p>
+
+<p>父母为什么要让孩子学编程
+</p>
+
+<p>最近一次夜跑时，我路过一个很大的橱窗，里面展示的是教孩子们学编程的书。其中有些书我看到过，但我从来没有见过这么多针对小学生编程的书。
+</p>
+
+<p>而这些书不过是冰山一角，市面上还有大量跟编程相关的资源——夏季编程训练营、课后编程俱乐部、教幼儿园孩子JavaScript基础知识的APP——它们都在向孩子传授面向未来的技能。
+</p>
+
+<p>父母为什么要让孩子学编程呢？
+</p>
+
+<p>美国程序员爸爸：我不会教我的孩子学编程
+</p>
+
+<p>新加坡一个编程校外班
+</p>
+
+<p>答案显而易见。
+</p>
+
+<p>除了学习开发软件之外，还有什么更好的方法，能让我们的孩子迎接一个由软件统治的未来世界？如果一切都将自动化，那么做控制自动化的人会更安全。如果学习编程有用，那么宜早不宜迟。
+</p>
+
+<p>虽然这些学习编程的产品可能教孩子们特定的编程语言，但却与真正的软件开发关系不大。
+</p>
+
+<p>02
+</p>
+
+<p>不教孩子编程
+</p>
+
+<p>等于不教他们读书写字？
+</p>
+
+<p>我的一位前同事曾经在一个编程训练营接受过训练，这个训练营的口号是“编程是一种新的读写能力”。这种刻意营造的焦虑感是所有编程书和游戏的核心。
+</p>
+
+<p>正如一本很火的书中所描述的：尽早学习编程“是孩子为未来做好准备必不可少的一步”。这话给人的印象是，不教孩子编程在某种程度上等同于不教他们读书写字。
+</p>
+
+<p>美国程序员爸爸：我不会教我的孩子学编程
+</p>
+
+<p>这种说法显然是荒谬的，编程不等同于读书写字。虽然大多数父母都受过教育，并且知道给孩子读书，但他们大多数并不是程序员，也不知道程序员需要什么样的技能。
+</p>
+
+<p>儿童编程书将编程看作能够为一系列问题找到“正确”解决方案的能力。如果你的孩子能够掌握编程语法(syntax)，就能够快速轻松地完成任务。
+</p>
+
+<p>但，这并不是程序员的工作方式。
+</p>
+
+<p>03
+</p>
+
+<p>学会编程语法
+</p>
+
+<p>就算学会编程了吗
+</p>
+
+<p>软件开发是一项艰难的工程，是创造力和决心的结合。开发人员需要掌握的远远不止语法这么简单。
+</p>
+
+<p>杰出的程序员不光是让软件能够运行，他们还希望开发出优秀的软件。
+</p>
+
+<p>在职业生涯的早期，我编写了一些代码来配置和运行一组远程服务器。我的代码运行得很顺利——至少我是这么想的——直到大约18个小时后，夜半铃响，我得到通知：一组服务器宕机了。
+</p>
+
+<p>我从床上爬起来，走到笔记本前，又运行了一遍代码来替换宕机的服务器。几小时后，又有一组服务器宕机了。
+</p>
+
+<p>宕机并不是由语法引发的，如果有的话，服务器一开始就无法搭建起来。宕机的原因非常复杂，经过好几周和无数个被叫醒的夜晚，我终于解决了问题。
+</p>
+
+<p>编程就是这样：先写代码，看看它是否有效。失败了就再试一次。如果问题很简单，有些开源代码就能解决。剩下的就是需要独创性的艰巨任务。没有书可以教你如何解决前所未有的问题。
+</p>
+
+<p>这就是为什么我不希望我的孩子学习编程语法——我希望他们学会解决问题，深入研究问题，发挥创造力。
+</p>
+
+<p>美国程序员爸爸：我不会教我的孩子学编程
+</p>
+
+<p>04
+</p>
+
+<p>为什么说比起学编程
+</p>
+
+<p>掌握这些能力更重要？
+</p>
+
+<p>那我们该怎么教这些能力呢？
+</p>
+
+<p>有一天，我的儿子有点担心他那把摇摇晃晃的椅子。我们一起观察了下椅子，儿子帮我找到了问题：有一个螺钉松了。我在家里找到一个适合的六角扳手，并演示怎么把螺钉拧紧。
+</p>
+
+<p>之后，儿子很好奇：如果反方向拧会发生什么？他试了试，直到螺钉被拧出来为止。最后，我们反复将椅子拆开，再装回去——中间还装错过——直到儿子满意为止。
+</p>
+
+<p>先试试，看结果如何，不行就再试一次。
+</p>
+
+<p>当然，让软件运行只是开发者的第一步。下一步是使代码清晰、可重复使用、简洁。
+</p>
+
+<p>在我职业生涯的早期，我曾经开发了一项功能，交给一位高级开发人员审核。他看了一眼我草率的间距、错乱的代码行和混乱的命名规范，说：“重写！”
+</p>
+
+<p>我编写的代码可以运行，语法有效，但仍然是错的。优秀的程序员并不满足于让代码能运行，他们希望开发出优秀的软件。
+</p>
+
+<p>对于许多开发人员来说，这种追求品质的感觉是最难掌握的。精心设计的代码让人赏心悦目，而丑陋的代码让人退避三舍。
+</p>
+
+<p>一流的开发人员学会将抽象的逻辑与艺术家的敏锐融合在一起。程序员也要学着信奉一点，那就是代码的美感，与算法以及代码模式一样重要。
+</p>
+
+<p>美国程序员爸爸：我不会教我的孩子学编程
+</p>
+
+<p>最近，我和妻子与儿子一起制作糖饼干。每次把配料混合在一起，我们就会停下来查看面团，讨论它的质地和颜色。面团是否光滑？所有配料是否已经均匀地混合在一起？
+</p>
+
+<p>我们擀面团时，儿子摸了摸面团的表面，然后看妈妈演示如何让材料铺得均匀而且厚薄适中。
+</p>
+
+<p>然而，最难的部分是切出形状。像所有的孩子一样，他本能地将模具推到铺开的面团的中间，而每次，我们都会解释如何将模子挨个放在一起以便有最大化地利用面团。
+</p>
+
+<p>精确称量材料、如何在压面团时保持光滑度和延展性、怎样放置模具减少面团的浪费——每一步都让儿子知道什么是追求品质。
+</p>
+
+<p>如果只是按照步骤操作，孩子就很难理解遵循菜谱和追求优秀的差别在哪里。
+</p>
+
+<p>美国程序员爸爸：我不会教我的孩子学编程
+</p>
+
+<p>这些只能通过感受和体验来传递。每当你让孩子参与你认为重要的事时，就在向他们言传身教如何做好一件事，包括编程。
+</p>
+
+<p>不仅如此，你还告诉他们，这个世界充满有趣的事等待我们去发现。你向孩子展示了如何保持激情，无论做什么，都要寻找那种转瞬即逝的品质感。
+</p>
+
+<p>这样的好处是，即使他们将来不会成为程序员——实际上，大多数人不应该也不会成为程序员——同样的技能适用于几乎任何职业、任何爱好和任何人的生活。
+</p>
+
+<p>当我们强迫孩子们学习编程时，我们其实向孩子灌输了这样一种观点：如果某些技能不是公认能赚到钱，就毫无价值。
+</p>
+
+<p>成年人可以学习语法，只有孩子才能学会拥抱好奇心。
+</p>
+
+<p>作者：杰宝麻麻，为俩娃痛并快乐着的麻麻，哈佛硕士毕业，十年科技媒体从业经验，热爱分享有关科技与教育的一切。个人公众号：鲸鱼与蜗牛
+</p>
+
+
+
+<p style='float:right;'>本页共59段，2520个字符，7403 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

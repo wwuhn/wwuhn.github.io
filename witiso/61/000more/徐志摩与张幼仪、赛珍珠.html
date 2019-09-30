@@ -1,0 +1,891 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>徐志摩与张幼仪、</h3>
+
+<p>1 徐志摩伤她4 次，她却为他做这9 件大事！是爱？她的答案出人意料
+</p>
+
+<p>原创记者李满2019 -06 -01 00 :03 :43 若一个人在你没犯错的情况下四次扇你巴掌，且每一次的巴掌“啪”声都强过人落水的“啪”声。你会还击吗？若不还击，愤恨总该有吧？即便不愤恨，总也该生气吧？
+</p>
+
+<p>可有人偏偏就：通通都没有！
+</p>
+
+<p>这个人就是民国四大弃妇之一的张幼仪，在民国所有弃妇中，她也是唯一一个最终把人生活成圆满模样的女子。
+</p>
+
+<p>或许，张幼仪后半生的圆融丰满，也多少和她对待伤害的态度有关。
+</p>
+
+<p>地里长出花，长出草，还是长出藤蔓，从来与地里被播撒的种子有关。徐志摩和张幼仪的一生运命，也在冥冥中被因果着。
+</p>
+
+<p>张幼仪生于1900 年，15 岁这年，她的照片被以未婚妻的名义送到了18 岁的徐志摩手中。徐志摩看到后，头一偏，鼻子哼唧着吐出“乡下土包子”五个字。
+</p>
+
+<p>这五个字徐志摩说过不止一次，而他对这个不符合他审美的“乡下土包子”的鄙夷，则似乎无处不在。
+</p>
+
+<p>对于张幼仪而言，这样的鄙夷无疑是深深的伤害，但诗人徐志摩似乎并不觉得。或许，在他眼里张幼仪本是个没有喜怒哀乐的木头女人。
+</p>
+
+<p>1921 年，在家里替徐志摩照顾父母、抚养小孩多年后，在哥哥张君劢的提醒下，徐志摩父亲徐申如将她送到了丈夫身边。
+</p>
+
+<p>张幼仪抵达国外后，徐志摩做的第一件事情便是带张幼仪去“换装”：买衣服、买鞋子。至于张幼仪千挑万选从家里带过来的服装，通通被徐志摩用“土气”做了概述。
+</p>
+
+<p>后来，在一次坐飞机时，张幼仪因晕机呕吐，徐志摩鼻子里哼唧着吐出了那句“乡下土包子”。头晕呕吐中的张幼仪听到这样的话，不心寒是假的。
+</p>
+
+<p>但相比接下来徐志摩对张幼仪做出的种种伤害，“乡下土包子”这类事，顶多只能算是蒙蒙细雨了。
+</p>
+
+<p>1921 年，就在徐志摩陷入对16 岁才女林徽因的热恋时，张幼仪怀孕了。
+</p>
+
+<p>妻子怀孕本是好事，但对于已经出轨的徐志摩而言，妻子张幼仪肚子里的孩子只会是个巨大的障碍。生命=障碍，这就是被情欲冲昏大脑的徐志摩的逻辑。
+</p>
+
+<p>“打掉，打掉！”徐志摩对着张幼仪声嘶力竭地喊！“我听说有人打胎死掉了！”张幼仪心一阵阵地痛。
+</p>
+
+<p>“还有人坐火车死掉了，难道就不坐火车了！”徐志摩的声音丝毫未因他牵强的诡辩而有任何发虚。徐志摩的声嘶力竭，让张幼仪错觉自己肚子里的真的是障碍，而不是生命。
+</p>
+
+<p>张幼仪怀孕后不久，徐志摩悄无声息地离家出走了。这一走，他便再也没回来。
+</p>
+
+<p>起先，张幼仪以为丈夫是有情绪出外散心或者上课去了，可当几天后传话人过来告诉她“徐志摩不要你了”时，她终于意识到：自己和肚子里的孩子已经被无情抛弃了。
+</p>
+
+<p>此时的张幼仪身在英国沙世顿，不会英语，没有钱。摆在张幼仪面前的路有三条，一条是回国，一条是留在沙世顿，一条是求助德国的哥哥张君劢。
+</p>
+
+<p>这三条路里，第一条和第二条基本都属于死路。所以张幼仪最终只剩下了投靠德国哥哥一条路，好在天无绝人之路，张君劢很快回信说：
+</p>
+
+<p>“孩子要生下来，我来收养。”
+</p>
+
+<p>之后，张幼仪冒着流产的风险一个人揣着地址摸到了德国哥哥处。这一路的跌沛流离，非笔墨所能叙述。
+</p>
+
+<p>徐志摩第三次伤害张幼仪又比前两次更甚，如果第一次算是切入真皮层，第二次算是切入了皮下组织，那么第三次伤害则应该算是切入了五脏六腑。
+</p>
+
+<p>徐志摩伤人的功夫和他给陆小曼、林徽因写情诗的深情劲儿，完全可以划等号。
+</p>
+
+<p>徐志摩曾经在后来写给陆小曼的情书里写到：“龙龙，有时候，我真想拉你一块死去。”这要死要活的徐志摩，到了自己不爱的女人张幼仪这儿，却变成了“不管其死活”。
+</p>
+
+<p>1922 年，张幼仪在德国柏林产下幼子彼得，彼得出生后，徐志摩大喜过望。但他的“大喜”是因为：这意味着他可以前往离婚了，毕竟跟孕妇离婚多少有损他“正人君子”的形象，可跟产妇离婚就不一样了啊。
+</p>
+
+<p>张幼仪刚刚产下彼得后不久，孩子尚在医院时，徐志摩带着几个压场子的证人出现了，他还带着一份《离婚协议》。被逼签字时，张幼仪用近乎低到自己都听不到的声音道：
+</p>
+
+<p>“这么大的事，该问爸妈的意见。”
+</p>
+
+<p>徐志摩一听立马着了急，他近乎喊着道：
+</p>
+
+<p>“不行，我等不了了，林徽因要回（国了）。.。.。.”。
+</p>
+
+<p>张幼仪听到后心滴着血，他这么迫切地赶来和刚刚为他生下孩子的自己离婚，竟然只是为了去追那个女人。
+</p>
+
+<p>张幼仪签下离婚协议后，徐志摩和众证人握手互相祝贺。那情形，让张幼仪错觉他们是干了一件大喜事。
+</p>
+
+<p>割完这一刀子后，徐志摩又在张幼仪的刀口上加了把盐：他写了首叫《笑解烦恼结》的诗歌送给张幼仪和自己。这诗很美啊，离婚后的舒畅被他演绎的淋漓尽致。
+</p>
+
+<p>徐志摩第四次伤张幼仪是“有意的误伤”，但这伤的厉害程度却也最甚，相当于在她身上剜下了一块肉。
+</p>
+
+<p>离婚时，徐志摩只给了5000 块的赡养费给张幼仪和孩子。5000 块要在国外独自养育自己和孩子彼得，显然是不够的。
+</p>
+
+<p>张幼仪是个不喜给人添麻烦的人，自然在人生最困难的时候，她也并那么想去求人，哪怕这个人是她的亲哥哥。
+</p>
+
+<p>不求人且带着孩子还要进学校学习的结果是：自己和孩子都没被照顾好。1925 年，就在徐志摩与朋友妻陆小曼陷入热恋时，年两三岁的幼子彼得因感染腹膜炎离世了。
+</p>
+
+<p>多年后，张幼仪在提起这段过往时第一次有了类似于抱怨的言辞，她说：
+</p>
+
+<p>“他从来没关心过我们孤儿寡母的钱够不够用，也从不过问我们过得怎么样。”
+</p>
+
+<p>从这话可以听出：当时独自带儿子在国外的张幼仪曾遇到了严重的经济问题。彼得的死在很大程度上是因为抵抗力低下被感染所致，想来，如果能得到良好的照抚，这样的悲剧绝不会发生。
+</p>
+
+<p>彼得死后，张幼仪在很长的时间里都未能走出阴影。
+</p>
+
+<p>彼得过世后不久，浑身是伤的张幼仪回到了国内。公公徐申如第一时间将她叫了回来，公公召她回来的目的是想要挽回他们的婚姻，他并不赞同徐志摩与陆小曼的婚事。为此，徐申如明确地对张幼仪说：
+</p>
+
+<p>“只要你说不同意他们结婚，有我在这婚他们绝对成不了，之前你们的离婚也不作数。”
+</p>
+
+<p>听到这话，徐志摩紧张极了，这意味着只有前妻成全他和陆小曼才有可能成婚。张幼仪感觉到了徐志摩哀求的眼神，她看向公公一字一句地道：
+</p>
+
+<p>“我同意他们结婚。”
+</p>
+
+<p>徐志摩听完高兴得几乎要跳起来，他深情地喊道“幼仪，谢谢你”。然后他走到窗边将双手举起做了“欢呼”的姿势，可不想陆小曼送他的那枚珍贵的绿色戒指竟掉落了。
+</p>
+
+<p>这是离婚后张幼仪第一次与徐志摩正面接触，此时的她对他而言是近乎救世主般的存在。
+</p>
+
+<p>让徐志摩没有想到的是，此后数年里，张幼仪一直在扮演他生命中救世主一般的角色。
+</p>
+
+<p>婚后不久，一心想要孩子的徐志摩发现陆小曼始终生不出孩子。显然，两人一直无所出这事并不在徐志摩身上。
+</p>
+
+<p>很快，徐志摩发现，他和张幼仪所生于的长子徐积锴竟成了徐家唯一的后人。若不是因为徐家已有后，徐申如夫妻极有可能逼他与陆小曼离婚。这便也意味着，张幼仪为徐家传了后这件大事间接帮助了徐志摩和陆小曼。
+</p>
+
+<p>世人未曾料想到的是，这以后，张幼仪还帮这夫妻两解决了另外两件大事。
+</p>
+
+<p>陆小曼婚后恋上了鸦片，加之她喜欢出入舞厅等高级场所且生活奢侈，即便同时做几份兼职徐志摩也经常入不敷出。
+</p>
+
+<p>此时，张幼仪凭借努力在上海创办的云裳服装公司走上了正轨。她后来甚至还成为了上海女子商业储蓄银行的副行长，成为了第一个以女人身居银行高层的人。
+</p>
+
+<p>为了缓解徐志摩的经济负担，在看到徐志摩经常穿旧衣且衣服有破洞时，她为他做了几身高级西装。后来，她还一次次以徐志摩父亲的名义转钱给他，之所以这样做，全是为了顾及前夫的面子。
+</p>
+
+<p>关于徐志摩是否知道张幼仪给他的钱并非出自徐申如这点，想来，他是清楚的。父亲若真要给儿子钱，在汇款已经盛行的当时，她何必要在张幼仪处转一道手呢！
+</p>
+
+<p>1931 年4 月，徐志摩母亲病逝，终年57 岁。按照徐志摩家乡浙江海宁的传统，治丧需要有女人操办丧事。这事儿，陆小曼是绝对办不来的，一来身子弱二来她对这些也一无所知且没兴趣。
+</p>
+
+<p>徐志摩和徐申如经商议后决定请张幼仪主持，最初她是拒绝的，但因禁不起他们的请求她最终应允了。
+</p>
+
+<p>回到硖石后，张幼仪在徐母的口中塞块布，为她穿丧服，把她移入棺材，请和尚到家里给她诵经超度。
+</p>
+
+<p>每一桩每一件，她都按照礼节一一办妥了。完成这件大事后，张幼仪迎来了一件更大的事。
+</p>
+
+<p>1931 年11 月19 日，徐志摩在搭乘中航免费班机北上时因遭遇飞机失事辞世了。这一年，徐志摩年仅34 岁。
+</p>
+
+<p>事故发生几个小时后，徐志摩一生中的三个女人做出了完全不同的反应。
+</p>
+
+<p>沉迷鸦片的陆小曼因不肯接受事实而赶走了报信人，林徽因沉浸在悲痛中她随即还写了悼文，而张幼仪则在电报上得知前夫死讯后以循序渐进的方式告诉了徐申如。
+</p>
+
+<p>随即，张幼仪安排自己哥哥和儿子徐积错，去坠机地点同已到达现场的几个文人一起为徐志摩收尸。
+</p>
+
+<p>为前夫收尸后，张幼仪还在徐申如的请求下主持了徐志摩的葬礼。
+</p>
+
+<p>按理，徐志摩既然已死，张幼仪对他的付出应该也就可以停止了。然而真相却是：在此后20 多年的时间里，她又为徐志摩完成了几件大事。
+</p>
+
+<p>徐志摩死后，徐申如在胡适等的斡旋下答应给陆小曼相应的补助。但在眼见她与翁瑞午同居后，徐申如在寄出一笔钱后宣布从此将不再资助陆小曼。
+</p>
+
+<p>见到陆小曼生活陷入困境，张幼仪开始按月给陆小曼银行账户汇钱，这一做便是多年。后来，在《小脚与西服》这本自传里，张幼仪对作者张邦梅说：
+</p>
+
+<p>“我觉得，赡养她（陆小曼）也是我儿子的义务。”
+</p>
+
+<p>这种资助直到后来时局动荡张幼仪搬迁后才被迫终止，相比对徐志摩遗孀陆小曼的照顾，她还在徐志摩死后替他照顾了老父。
+</p>
+
+<p>早在徐志摩婚后不久，徐申如和妻子便因陆小曼不和搬到了张幼仪处与她比邻而居，后来张幼仪囤积货物等方式挣了钱后便给徐申如买了一套房安顿他们。
+</p>
+
+<p>徐志摩曾经有些酸地说：“你们这个小家庭倒是挺好！”
+</p>
+
+<p>后来，儿子徐积锴成年与儿媳张粹文结婚后生下四子女后，为了帮助儿子、儿媳，她又在他们出国留学后毅然承担起了照顾四子女的负担。
+</p>
+
+<p>因为张幼仪，徐家终没有因徐志摩生前死后的缺席而有任何闪失，相反，他们这个大家在张幼仪的努力下一步步走向了繁盛。今天，徐家后代枝繁叶茂，他们都在国外的各行业发着光、发着热。
+</p>
+
+<p>张幼仪为徐志摩做的第八件大事看似与徐志摩无关，却又与他有着极其重要的关联。
+</p>
+
+<p>与徐志摩离婚25 年后，他昔日爱慕的女子林徽因病重，临终前她提出想见张幼仪。这样的会面，张幼仪本可以避免，但她最后却同意并依约前往了。
+</p>
+
+<p>走时，张幼仪带上了时年29 岁的儿子徐积锴。张幼仪猜想林徽因实是不忘情，所以想见见她这个酷似徐志摩的青年以了却心愿。
+</p>
+
+<p>果然，两人见面的当日互相并未说话，林徽因看看张幼仪又将目光放在了徐积锴身上。这场默默的会面后，面对外界对林徽因见她的原因的问询，她却只半调侃说：“哦，她也许只是想看我又丑又不会说话吧！”
+</p>
+
+<p>张幼仪这样讲述的目的之一，必然是出于保护林徽因的考虑。毕竟，此时她尚在病中，并且有丈夫、儿女，她不想林徽因在这种时候还面临感情方面的各种非议。
+</p>
+
+<p>这次会面的另一个重大意义在于：林徽因从此放下了对张幼仪的歉意。对于林徽因而言，她多少对自己曾导致张幼仪离婚心怀内疚。可张幼仪的愿意相见，已经表明：她并不记恨她。
+</p>
+
+<p>这样的结果正是林徽因最想要的，或许是张幼仪的出现解开了林徽因内心的心结，奇迹般本已病危的她，竟在治疗后又多活了数年。
+</p>
+
+<p>1958 年，年58 岁的张幼仪为前夫徐志摩做了最后一件事：帮助出版了《徐志摩全集》。出版徐志摩的全集一直是她心里的一件大事，因为她的坚持，最后在她和徐志摩生前好友蒋复璁和梁实秋的合力下，全集终得以在台湾出版。
+</p>
+
+<p>回头看，徐志摩与张幼仪之间的天平始终是完全倾斜的状态。这样失衡的天平看似是因爱的多少导致，实际却似乎并非如此。
+</p>
+
+<p>多年后，张幼仪的子孙突然问向她：“你为他做那么多，那你很爱他吧”！张幼仪低头想了想反问道：
+</p>
+
+<p>“那你先回答我，什么是爱呢”？
+</p>
+
+<p>在一次采访中，张幼仪在面对关于“她爱不爱徐志摩的追问”时，说道：
+</p>
+
+<p>“我对这问题很迷惑，因为每个人总是告诉我，我为徐志摩做了这么多事，我一定是爱他的。可是，我没办法说什么叫爱，我这辈子从没跟什么人说过‘我爱你’。如果照顾徐志摩和他家人叫做爱的话，那我大概是爱他吧。”
+</p>
+
+<p>实际上，一个人对另一个人有爱是断然不会迷惑的，因为真正的爱从来坚定。张幼仪对徐志摩或许曾有爱，但这爱后来更多的则是责任、担当等等。
+</p>
+
+<p>裹挟着激情的爱消失后，能支撑一个人去不断付出的，绝对只有责任和担当。而责任和担当是否去承担，又承担到何种地步，全由一个人的良知决定。
+</p>
+
+<p>后半生里，支撑张幼仪为徐志摩照顾老父、为他赡养遗孀、为他出全集甚至为他去了却情敌心结等等，都只因为“良知”二字。
+</p>
+
+<p>在王阳明的学说里：良知是知道为善，致良知是极致善大。良知是悟，致良知是知行合一。
+</p>
+
+<p>每一次选择里，张幼仪的选择从来无一例外地是以善为先，也正因此：她才会在被他伤害无数次后，依然为他完成人生最大的九件事。
+</p>
+
+<p>极致的善可以化解仇怨，也正因为张幼仪的极致善，她才从未沉浸在被抛弃的痛苦情绪中。相比民国史上其他被抛弃后陷入抑郁情绪，并最终草草了结一生的弃妇，张幼仪是极致的圆满。
+</p>
+
+<p>而民国那些弃妇之所以未能完成逆袭、在被抛弃后活出自己的精彩，有时代的因素，也有她们将大量精力时间花在处理情绪上有关。
+</p>
+
+<p>这些被其他弃妇用来抱怨、愤恨的时间和精力，张幼仪全用在了人生突围上！
+</p>
+
+<p>不对一个男人过多愤恨的女子，自然也更容易从过去走到阳光下开始真正的新生活。
+</p>
+
+<p>1954 年，将孙子养大后的她与医生苏纪之结成了姻缘。婚后，她为他整理预约信息，记录财务收支，还说服他戒了酒。婚后的日子两人始终相依相伴，他们的爱情平淡却真实。
+</p>
+
+<p>懂得致良知的极致善良之人除了对身边人满满爱意，对陌生人也是如此。这点，张幼仪的孙辈给予了佐证，他们在回忆成年后去香港看望祖母的情形时说：
+</p>
+
+<p>“我们和她一同走在马路上，沿路不断有人感谢她无私助人、乐善好施的善举，这让我们惊讶不已。”
+</p>
+
+<p>原来，在香港生活期间，张幼仪一直热心公益，她还曾多次为改善贫苦儿童生活捐款。这样的张幼仪，她得到周围人的尊崇自是必然。
+</p>
+
+<p>这样的张幼仪，有善报自也是必然。
+</p>
+
+<p>苏纪之辞世后，张幼仪被子孙接到美国，在这里的每一天里，她都沉浸在天伦之乐里，直到88 岁安静辞世。
+</p>
+
+<p>去世后，她叮嘱后人，墓碑上要刻“苏张幼仪”四字。从墓碑上的这四字便可看出，对于徐志摩，她更多的只是担当、责任，对于苏纪之的情感则是全然不同的。
+</p>
+
+<p>今天，张幼仪的墓碑坐落于纽约的韦斯特切斯特(Westchester)墓园，与其儿子和儿媳的坟茔相邻。
+</p>
+
+<p>晚年的张幼仪，更喜欢“苏太太”这个称呼，这足见，对于昔日徐志摩对自己的抛弃：她有遗憾，却也仅仅只有遗憾。
+</p>
+
+<p>有一种圆满叫“无悔一生”，这样的人生，正是张幼仪的人生。
+</p>
+
+<p>本原创文相关参考书目：
+</p>
+
+<p>《志在摩登：我的祖父徐志摩》徐善曾
+</p>
+
+<p>《小脚与西服》张邦梅
+</p>
+
+<p>《张幼仪传》夏墨
+</p>
+
+<p>《情浓化不开：徐志摩》韩石山
+</p>
+
+<p>《徐志摩的20 个细节》韩石山等等
+</p>
+
+<p><h4 >2 好看的皮囊和有趣的灵魂对于男人而言，哪个更重要？
+</p>
+
+<p></h4 >
+</p>
+
+<p>多数男人会选“好看的皮囊”，少数男人则会选择后者。但如诗人徐志摩这般的男子，却非得两样都有，他才会选。
+</p>
+
+<p>纵观徐志摩一生钟情过的林徽因、陆小曼和暧昧过的凌淑华等，每一位都无一例外的兼有“好看皮囊”和“有趣灵魂”。
+</p>
+
+<p>这样的徐志摩注定是要让美国女作家失望的，因为，相比同样爱慕徐志摩的陆小曼等而言，她在他眼里：缺了一副“好看的皮囊”。
+</p>
+
+<p>是一个以中文为母语的美国人，她在中国生活了整整40 年，也是凭借着在中国所见所闻写成的《大地》，她才斩获了诺贝尔文学奖，成为第一个获得诺贝尔文学奖的女作家。
+</p>
+
+<p>这样的女子，灵魂自然不缺“有趣”。的有趣，从她中文名的由来便可见一斑。原本并不叫，她原名叫珀尔·巴克，因为崇拜中国传奇妓女赛金花而改名“”。
+</p>
+
+<p>寻常中国女子，唯恐避妓女于千里之外而不及，却偏偏往上靠。很显然，这个女子并不活在世俗里。
+</p>
+
+<p>不活在世俗里的想要的无非是轰轰烈烈的爱情罢了，至于后来足以轰动天下的名利，若可以用它换爱情，她八成是肯的。
+</p>
+
+<p>原本，也是一个安分的女人，可她的安分却终在1924 年4 月遇见徐志摩以后，被击得粉碎。
+</p>
+
+<p>这年，中国文化界发生了一件大事：印度诗人泰戈尔访华。
+</p>
+
+<p>负责这次泰戈尔访华的人，正是精通英文、法文的青年才俊徐志摩。此时的徐志摩已离婚且与才、美女林徽因分手，有意思的是，这次接待泰戈尔的人里，也有林徽因。
+</p>
+
+<p>这样的情境下，徐志摩的余光自然全部落在了林徽因身上。为什么是余光不是目光呢，因为此行，林徽因的未婚夫梁思成也同行了。
+</p>
+
+<p>作为泰戈尔好友的徐志摩充当了他的翻译，4 月20 日，泰戈尔前往南京东南大学讲学，白人女子也参加这次活动。
+</p>
+
+<p>然而，此行，却并非为泰戈尔，而只为听徐志摩的翻译。
+</p>
+
+<p>看过徐志摩的诗集，对他过人的翻译水平也略有耳闻，此次现场感受后，她更是佩服至极。这样精准的翻译，竟是出自一个中国诗人之口，这怎不让同样精通英语、中文的惊叹。
+</p>
+
+<p>当晚的宴会上，带着满满的倾慕走近了这位儒雅且风度翩翩的青年。领着走到徐志摩跟前后，东南大学负责人半调侃地这样将她介绍给徐志摩：
+</p>
+
+<p>“布克夫人，我们的英国文学教师。因为喜欢名妓赛金花，现在她有一个让我们听起来心热的中国名字。”
+</p>
+
+<p>徐志摩望向，这个身材高大的白皮肤女人谈不上漂亮，却有一双摄人心魄的眸子，他当即断定，这个女人不是一般人。
+</p>
+
+<p>第一次交谈后，对这个黄皮肤、黑眼睛的俊秀青年更加倾慕了，而徐志摩对更多的则是敬重。两人相识这年，徐志摩28 岁，31 岁。
+</p>
+
+<p>两人相识后，开始频繁地打探徐志摩的消息。
+</p>
+
+<p>都说女人一旦动情，便是纯粹的感性动物，这点在才华卓绝的身上竟也得到了应验，当她得知徐志摩为追求林徽因而不惜与原配离婚时，她的反应竟不是觉得他的做法有违道德人伦，而是打心眼里觉得：他真真是个敢爱敢恨的男子。
+</p>
+
+<p>此时的与丈夫约翰·洛辛·布克结婚已有7 年，对于这段婚姻她一开始就并不那么满意。只是，因为所信仰宗教不允许离婚和孩子的缘故，她一直与丈夫厮守着。
+</p>
+
+<p>遇见徐志摩以后，以为，既然他是单身且并不是那么世俗的人，或许，他是愿意和她共赴一段轰轰烈烈的。
+</p>
+
+<p>被点燃的显然顾不上其他了，思来想去后，她给徐志摩写了一封告白信。信上她隐晦地向他表白道：
+</p>
+
+<p>“我的心掩藏在语言的背后，但从你眼里频频掷来的刺激，使我痛苦不安……”
+</p>
+
+<p>但这封信还未来得及寄出，就听到了风声：徐志摩在北京恋上了好友王赓的妻子陆小曼，他们的爱情把整个北京城都引爆了。
+</p>
+
+<p>这样的消息对而言显然不是好消息，她喃喃道：他果然不是那么管顾世俗的人，哎！
+</p>
+
+<p>是个聪慧的女子，她自然知道此时的徐志摩即便看到她的告白信也掀不起半点涟漪了。哀叹过后，她将信锁进了箱子。
+</p>
+
+<p>“信”可以锁住，但情却锁不住。这以后不久眼见徐志摩与陆小曼两情相悦、结成连理，心里的落寞越发深重了。
+</p>
+
+<p>文人排解寂寞的方式，通常是文字。在思念里煎熬的开始将这段未曾有过开始的苦恋揉进文字里，1925 年，徐志摩与陆小曼热恋这年，她写成了短篇小说《一个中国女子的话》，这部爱情小说里男女主角是异族，一如她与徐志摩。
+</p>
+
+<p>1925 年到1928 年间，又接连创作了多部多部中国题材小说，明眼人很快发现：她的每部小说里，几乎都有徐志摩的影子。
+</p>
+
+<p>1928 年，应美国出版社的邀请，开始着手翻译《水浒传》。
+</p>
+
+<p>动笔前，听闻徐志摩与陆小曼感情有嫌隙的给他写了一封信，名义上是商量翻译的细节问题。最后，在《水浒传》翻译成英文后的名字上，两人也在信里进行了推敲。后来，《水浒传》书名最终被译成《四海之内皆兄弟》，也是二人通力合作的结果。
+</p>
+
+<p>这期间的两人书信频繁，往来信笺多了，聊的话题自然也就多了。
+</p>
+
+<p>一次，在信里，似有意无意地问徐志摩：
+</p>
+
+<p>“水浒里为何没有一段英雄美人的生死缠绵呢？“
+</p>
+
+<p>看到这封信时的徐志摩，正对陆小曼陆迷失洋场，爱上鸦片的巨大消费而失望。这种情况下看到这样的问话，徐志摩忍不住在信里半吐槽地答道：
+</p>
+
+<p>“这恰说明了他们看透世事的通达，好汉们知道世间只有“情”字最累人。”
+</p>
+
+<p>只一个“累”字，的心便彻底被击中了，她拿着信件久久出神。文人对文字终究敏感过普通人，透过这个“累”字，嗅到了徐志摩对婚姻的失望，她那颗本就不安分的心瞬间躁动起来。
+</p>
+
+<p>一段男女情最容易被插足的时候，是什么时候，不用说自然是两人感情出现裂缝时，这道理，写过无数爱情小说的自是再清楚不过了。
+</p>
+
+<p>当即，便意识到：这可能是老天给她和他的机会。丝毫未犹豫地，给徐志摩回了一封信，随信附上的还有那封4 年前未来得及寄出的告白信。
+</p>
+
+<p>这次的信里，言辞比4 年前露骨多了，她写到：
+</p>
+
+<p>“我不想凭此得到你的爱，只希望你能从中找到力量……狂乱如你，沉静如我，其实大家都一样，在痛苦的婚姻中，更加期待真爱的到来。”
+</p>
+
+<p>在信里，还发挥她过人的才智，似安慰又似说服地对他说：
+</p>
+
+<p>“你不应该做女人的信徒，而应该是爱情的信徒”。
+</p>
+
+<p>这句话是有趣灵魂的终极体现，它的意思非常耐人寻味：伤害你的是女人，不是爱情！
+</p>
+
+<p>这话套到徐志摩与陆小曼婚姻里便是：陆小曼伤害了你，你不能因此否认爱情啊。这话的言外之意是：你看看我，看看我，我会给你最好的爱情。
+</p>
+
+<p>信寄出后的每一天里，都在焦急地等待着回信。这年的7 月，终于等待了心爱之人的回信。打开信后，不自主跟着念到：
+</p>
+
+<p>“我跌倒在生命的荆棘里，只有康河的水能为我疗伤。”
+</p>
+
+<p>文人说话总是这般委婉，明明是几个字能解决的问题，偏偏要这么诗情画意地弄几行。徐志摩这段话翻译成人类语言其实就几个字：不要你！
+</p>
+
+<p>这封明明是拒绝的信，在诗人生花的笔下，却愣生生生出了事端。
+</p>
+
+<p>按道理，女人尤其婚内的女人表白男人被拒绝后，通常都会死心并安生地待在婚姻里。可被拒绝后，竟然做出了一个惊人的决定：和丈夫分居。
+</p>
+
+<p>造成这种反差的原因，还是在徐志摩的拒绝信上。说来，徐志摩的信多少还是因为有“诗意”打底的缘故，显得不那么决绝。徐志摩的不够决绝，加之又是外国人的思维，其结果自然颇为有些让人意外。
+</p>
+
+<p>这种不赤裸裸拒绝不仅未让断了念想，还让她越发地对徐志摩有些难以放下了。
+</p>
+
+<p>收到徐志摩回信后，端着信含泪低语：他竟伤的如此重，女人都不能为他疗伤了，非要去国外的康水边？天，他是不是永远不回中国这片伤心地了，他是不是想不开要做什么事？
+</p>
+
+<p>这般揣想的结果是，日日担心焦虑竟致最后无法面对丈夫。逃一般地，不再平静的转身便以为女儿做康复治疗为借口，前往了美国。不久后，再度回国时她与丈夫感情破裂并最终离婚（后二度嫁人）。
+</p>
+
+<p>其实徐志摩此次在信里提及前往英国剑桥，仅仅是因为：学校有事。真相八成是东方思维的他觉得太直接拒绝不好，毕竟也是朋友，于是就想出了这个借口搪塞。
+</p>
+
+<p>徐志摩对的拒绝绝不是回信中那般“受伤太重要先去康水疗伤”，真相是：的长相不对他的胃口。
+</p>
+
+<p>徐志摩虽然很西化，也曾留过洋，可毕竟骨子里还是传统的中国男人，他喜欢的女子，自然也是那种“美目盼兮、巧笑倩兮”、“翩若惊鸿，婉若游龙”的灵秀女子，身形高大、五官大气且有些发福的显然不属于此列。
+</p>
+
+<p>徐志摩在悼念好友林长民时曾夸林徽因是“天才”，她也曾赞陆小曼的“才”有如“太阳一般的光辉”，却他却独独未曾对真正的天才有过只字褒奖。这背后的原因，显然只有一个：徐志摩和天底下大多数男人一样，很难有耐心去看见没有好看皮囊包裹的“有趣灵魂”。
+</p>
+
+<p>徐志摩的不欣赏并没有阻碍对徐志摩的爱慕，她继续在创作的同时关注着徐志摩的动态。她一直铭记着徐志摩对她说过的那句话：
+</p>
+
+<p>“不要为钱写作，要为内心的渴望写作。”
+</p>
+
+<p>1931 年，满怀对中国农民的同情写下的小说《大地》被出版，也是在这一年徐志摩遭遇飞机失事身亡。
+</p>
+
+<p>徐志摩的死讯传来后，几日闭门谢客痛哭流涕。她怎么也没想到，年轻的徐志摩就这样永远离他而去了。
+</p>
+
+<p>后来，知道，原来徐志摩当日乘飞机前往北京，除了是听林徽因演讲外还是为了参加抗日活动。这个结果深深震撼了，从此，她便将徐志摩的死与日本入侵中国扯上了关联。
+</p>
+
+<p>中国对于而言，绝非只有她所爱的人那般简单，另一方面，这片土地曾养育了她。她成名后曾不止一次地公开说：“中国是我的第一故乡，其次才是美国”。
+</p>
+
+<p>真正做到了把中国当故乡，抗日战争爆发后，公开发表了著名的政论《日本必败》。1941 年，她又自创一个民间团体——东西方协会，这个协会的主要目的：是进行广泛的抗日宣传。
+</p>
+
+<p>的种种行为背后，是徐志摩的死的作用更多，还是更多出于对这片土地的爱恋呢？如今，这个答案已经不得而知了。
+</p>
+
+<p>可以肯定的是，对中国的挚爱和他对徐志摩的痴恋一直伴随着她，直到生命最后一刻。
+</p>
+
+<p>徐志摩死后，不忘情的又写了好几部爱情小说，主人公无一例外地与徐志摩神似。其中一部小说里的主人公连死法都与徐志摩一模一样：死于空难。
+</p>
+
+<p>凡尘的爱有千千万万种，如这般的爱恋，何尝不失为一种美好呢。
+</p>
+
+<p>1971 年，阔别中国36 年后年已80 的因思念中国心切而请求前往中国。为了得到一份邀请和入境签证，她不惜向当时的美国总统尼克松求助。
+</p>
+
+<p>1972 年，在焦急的等待之后，得到了中国方的回复，打开后等待她的却是失望：
+</p>
+
+<p>“我被授权告诉您我们无法答应您访问中国的请求。”
+</p>
+
+<p>的被拒一方面与当时中美关系有关，另一方面也与她写作的无数反映中国的著作有关。
+</p>
+
+<p>但被拒绝“回故乡”的事实并未影响对中国的热爱，被拒后，她依旧说：
+</p>
+
+<p>“我一生到老，从童稚到少女再到成年，都属于中国。”
+</p>
+
+<p>1973 年3 月6 日，年82 岁的与世长辞。死后，她的墓碑上是她曾亲手书写的三个篆书汉字—。
+</p>
+
+<p>传言，死时穿着的那件丝绸旗袍，正是她第一次见徐志摩时所穿的那件。
+</p>
+
+<p>死后不久，她与中国神秘诗人的一段恋情被广为传说，替写传记的美国传记作家斯特林认为，这个男子，正是有中国雪莱之称的徐志摩。他和她之间，定有过真正的爱恋，而不止是单恋这般简单。
+</p>
+
+<p>然而，让人颇感遗憾的是，徐志摩的日记诗文里，竟连一丝的痕迹都找不到。不知，要知道这般结果，会作何感想。
+</p>
+
+<p>相关参考书目：
+</p>
+
+<p>《与中国：中西文化冲突与共融》陈敬
+</p>
+
+<p>《一个真实的》怡青
+</p>
+
+<p>《传》郝志刚等
+</p>
+
+
+
+<p style='float:right;'>本页共199段，10440个字符，30632 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

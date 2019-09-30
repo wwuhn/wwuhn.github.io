@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>上步</title>
+<style type="text/css">
+*{
+    margin:0px;
+    padding:0px;
+}
+body, button, input, select, textarea {
+    font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+}
+p{
+    width:603px;
+    padding-top:3px;
+    margin-top:10px;
+    overflow:hidden;
+}
+</style>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script>
+var searchService,map,markers = [];
+var init = function() {
+    var center = new qq.maps.LatLng(23.169928,113.240392);
+    map = new qq.maps.Map(document.getElementById('container'),{
+        center: center,
+        zoom: 13
+    });
+    new qq.maps.Circle({
+        center:new qq.maps.LatLng(23.169928,113.240392),
+        radius: 200,
+        map: map
+    });
+    var latlngBounds = new qq.maps.LatLngBounds();
+    searchService = new qq.maps.SearchService({
+        complete : function(results){
+            var pois = results.detail.pois;
+            for(var i = 0,l = pois.length;i < l; i++){
+                var poi = pois[i];
+                latlngBounds.extend(poi.latLng);  
+                var marker = new qq.maps.Marker({
+                    map:map,
+                    position: poi.latLng
+                });
+
+                marker.setTitle(i+1);
+                
+                markers.push(marker);
+            }
+            map.fitBounds(latlngBounds);
+        }
+    });
+}
+
+function searchKeyword() {
+    var keyword = document.getElementById("keyword").value;
+    region = new qq.maps.LatLng(23.169928,113.240392);
+   
+    searchService.setPageCapacity(5);
+    searchService.searchNearBy(keyword, region, 200);
+}
+</script>
+</head>
+<body onLoad="init()">
+<div>
+<input id="keyword" type="textbox" value="酒店">
+<input type="button" value="search" onClick="searchKeyword()">
+</div>
+<div style="width:803px;height:600px" id="container"></div>
+<p>输入关键词，点击search查寻，查寻范围这一个圆形区域。</p>
+</body>
+</html>

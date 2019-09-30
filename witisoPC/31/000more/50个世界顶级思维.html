@@ -1,0 +1,794 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>50个世界顶级思维</h3>
+
+<p>
+</p>
+
+<p>细说管理2019 -03 -31 20 :27 :00 点击右上角【关注】，每天获取企业管理智慧，管理，其实很简单！
+</p>
+
+<p>1 、关于素养
+</p>
+
+<p>蓝斯登原则：在你往上爬的时候，一定要保持梯子的整洁，否则你下来时可能会滑倒。
+</p>
+
+<p>提出者：美国管理学家蓝斯登。
+</p>
+
+<p>点评：进退有度，才不至进退维谷；宠辱皆忘，方可以宠辱不惊。
+</p>
+
+<p>卢维斯定理：谦虚不是把自己想得很糟，而是完全不想自己。
+</p>
+
+<p>提出者：美国心理学家h.卢维斯。
+</p>
+
+<p>点评：如果把自己想得太好，就很容易将别人想得很糟。
+</p>
+
+<p>托利得定理：测验一个人的智力是否属于上乘，只看脑子里能否同时容纳两种相反的思想而无碍于其处世行事。
+</p>
+
+<p>提出者：法国社会心理学家h.m.托利得。
+</p>
+
+<p>点评：思可相反，得须相成。
+</p>
+
+<p>2 、关于统御
+</p>
+
+<p>刺猬理论：刺猬在天冷时彼此靠拢取暖，但保持一定距离，以免互相刺伤。
+</p>
+
+<p>点评：保持亲密的重要方法，乃是保持适当的距离。
+</p>
+
+<p>鲦鱼效应：鲦鱼因个体弱小而常常群居，并以强健者为自然首领。将这条首领鲦鱼脑后控制行为的部分割除后，此鱼便失去自制力，行动也发生紊乱，但其他鲦鱼却仍像从前一样盲目追随。
+</p>
+
+<p>提出者：德国动物学家霍斯特。
+</p>
+
+<p>点评：1 、下属的悲剧总是领导一手造成的。2 、下属觉得最没劲的事，是他们跟着一位最差劲的领导。
+</p>
+
+<p>雷鲍夫法则：在你着手建立合作和信任时要牢记我们语言中：
+</p>
+
+<p>1 、最重要的八个字是：我承认我犯过错误。
+</p>
+
+<p>2 、最重要的七个字是：你干了一件好事！
+</p>
+
+<p>3 、最重要的六个字是：你的看法如何？
+</p>
+
+<p>4 、最重要的五个字是：咱们一起干！
+</p>
+
+<p>5 、最重要的四个字是：不妨试试！
+</p>
+
+<p>6 、最重要的三个字是：谢谢您！
+</p>
+
+<p>7 、最重要的两个字是：咱们。
+</p>
+
+<p>8 、最重要的一个字是：您。
+</p>
+
+<p>提出者：美国管理学家雷鲍夫。
+</p>
+
+<p>点评：记住经常使用，它会让你事半功倍。
+</p>
+
+<p>洛伯定理：对于一个经理人来说，最要紧的不是你在场时的情况，而是你不在场时发生了什么。
+</p>
+
+<p>提出者：美国管理学家r.洛伯。
+</p>
+
+<p>点评：如果只想让下属听你的，那么当你不在身边时他们就不知道应该听谁的了。
+</p>
+
+<p>3 、关于沟通
+</p>
+
+<p>斯坦纳定理：在哪里说得愈少，在那里听到的就愈多。
+</p>
+
+<p>提出者：美国心理学家s.t.斯坦纳。
+</p>
+
+<p>点评：只有很好听取别人的，才能更好说出自己的。
+</p>
+
+<p>费斯诺定理：人两只耳朵却只有一张嘴巴，这意味着人应该多听少讲。
+</p>
+
+<p>提出者：英国联合航空公司总裁兼总经理l.费斯诺。
+</p>
+
+<p>点评：说得过多了，说的就会成为做的障碍。
+</p>
+
+<p>牢骚效应：凡是公司中有对工作发牢骚的人，那家公司或老板一定比没有这种人或有这种人而把牢骚埋在肚子里公司要成功得多。
+</p>
+
+<p>提出者：美国密歇根大学社会研究院
+</p>
+
+<p>点评：1 、牢骚是改变不合理现状的催化剂。2 、牢骚虽不总是正确的，但认真对待牢骚却总是正确的。
+</p>
+
+<p>避雷针效应：在高大建筑物顶端安装一个金属棒，用金属线与埋在地下的一块金属板连接起来，利用金属棒的尖端放电，使云层所带的电和地上的电逐渐中和，从而保护建筑物等避免雷击。
+</p>
+
+<p>点评：善疏则通，能导必安。
+</p>
+
+<p>4 、关于协调
+</p>
+
+<p>氨基酸组合效应：组成人体蛋白的8 种氨基酸，只要有一种含量不足，其他7 种就无法合成蛋白质。
+</p>
+
+<p>点评：当缺一不可时，一就是一切。
+</p>
+
+<p>米格-25 效应：前苏联研制的米格-25 喷气式战斗机的许多零部件与美国的相比都落后，但因设计者考虑了整体性能，故能在升降、速度、应急反应等方面成为当时世界一流。
+</p>
+
+<p>点评：所谓最佳整体，乃是个体的最佳组合。
+</p>
+
+<p>磨合效应：新组装的机器，通过一定时期的使用，把磨擦面上的加工痕迹磨光而变得更加密合。
+</p>
+
+<p>点评：要想达到完整的契合，须双方都做出必要的割舍。
+</p>
+
+<p>5 、关于指导
+</p>
+
+<p>波特定理：当遭受许多批评时，下级往往只记住开头的一些，其余就不听了，因为他们忙于思索论据来反驳开头的批评。
+</p>
+
+<p>提出者：英国行为学家l.w.波特
+</p>
+
+<p>点评：总盯着下属的失误，是一个领导者的最大失误。
+</p>
+
+<p>蓝斯登定律：跟一位朋友一起工作，远较在父亲之下工作有趣得多。
+</p>
+
+<p>提出者：美国管理学家蓝斯登
+</p>
+
+<p>点评：可敬不可亲，终难敬；有权没有威，常失权。
+</p>
+
+<p>吉尔伯特法则：工作危机最确凿的信号，是没有人跟你说该怎样做。
+</p>
+
+<p>提出者：英国人力培训专家b.吉尔伯特
+</p>
+
+<p>点评：真正危险的事，是没人跟你谈危险。
+</p>
+
+<p>权威暗示效应：一化学家称，他将测验一瓶臭气的传播速度，他打开瓶盖15 秒后，前排学生即举手，称自己闻到臭气，而后排的人则陆续举手，纷纷称自己也已闻到，其实瓶中什么也没有。
+</p>
+
+<p>点评：迷信则轻信，盲目必盲从。
+</p>
+
+<p>6 、关于组织
+</p>
+
+<p>奥尼尔定理：所有的政治都是地方的。
+</p>
+
+<p>提出者：美国前众议院院长奥尼尔
+</p>
+
+<p>点评：只有能切身体会到的，群众才认为那是真实的。
+</p>
+
+<p>定位效应：社会心理学家曾作过一个试验：在召开会议时先让人们自由选择位子，之后到室外休息片刻再进入室内入座，如此五至六次，发现大多数人都选择他们第一次坐过的位子。
+</p>
+
+<p>点评：凡是自己认定的，人们大都不想轻易改变它。
+</p>
+
+<p>艾奇布恩定理：如果你遇见员工而不认得，或忘了他的名字，那你的公司就太大了点。
+</p>
+
+<p>提出者：英国史蒂芬。约瑟剧院导演亚伦。
+</p>
+
+<p>点评：摊子一旦铺得过大，你就很难把它照顾周全。
+</p>
+
+<p>7 、关于培养
+</p>
+
+<p>吉格勒定理：除了生命本身，没有任何才能不需要后天的锻炼。
+</p>
+
+<p>提出者：美国培训专家吉格？吉格勒
+</p>
+
+<p>点评：水无积无辽阔，人不养不成才。
+</p>
+
+<p>犬獒效应：当年幼的藏犬长出牙齿并能撕咬时，主人就把它们放到一个没有食物和水的封闭环境里让这些幼犬自相撕咬，最后剩下一只活着的犬，这只犬称为獒。据说十只犬才能产生一只獒。
+</p>
+
+<p>点评：困境是造就强者的学校。
+</p>
+
+<p>8 、关于选拔
+</p>
+
+<p>近因效应：最近或最后的印象对人的认知有强烈的影响。
+</p>
+
+<p>提出者：美国社会心理学家洛钦斯。
+</p>
+
+<p>点评：结果往往会被视为过程的总结。
+</p>
+
+<p>酒井法则：在招工时用尽浑身解数，使出各种方法，不如使自身成为一个好公司，这样人才自然而然会汇集而来。
+</p>
+
+<p>提出者：日本企业管理顾问酒井正敬。
+</p>
+
+<p>点评：不能吸引人才，已有的人才也留不住
+</p>
+
+<p>美即好效应：对一个外表英俊漂亮的人，人们很容易误认为他或她的其他方面也很不错。
+</p>
+
+<p>提出者：美国心理学家丹尼尔？麦克尼尔。
+</p>
+
+<p>点评：印象一旦以情绪为基础，这一印象常会偏离事实。
+</p>
+
+<p>9 、关于任用
+</p>
+
+<p>奥格尔维法则：如果我们每个人都雇用比我们自己都更强的人，我们就能成为巨人公司。
+</p>
+
+<p>提出者：美国奥格尔维。马瑟公司总裁奥格尔维。
+</p>
+
+<p>点评：如果你所用的人都比你差，那么他们就只能做出比你更差的事情。
+</p>
+
+<p>皮尔卡丹定理：用人方面一加一不等于二，搞不好等于零。
+</p>
+
+<p>提出者：法国著名企业家皮尔？卡丹。
+</p>
+
+<p>点评：组合失当，常失整体优势，安排得宜，才成最佳配置。
+</p>
+
+<p>10 、关于激励
+</p>
+
+<p>马蝇效应：再懒惰的马，只要身上有马蝇叮咬，它也会精神抖擞，飞快奔跑。
+</p>
+
+<p>点评：有正确的刺激，才会有正确的反应。
+</p>
+
+<p>倒u形假说：当一个人处于轻度兴奋时，能把工作做得最好。当一个人一点儿兴奋都没有时，也就没有做好工作的动力了;相应地，当一个人处于极度兴奋时，随之而来的压力可能会使他完不成本该完成的工作。世界网坛名将贝克尔之所以被称为常胜将军，其秘诀之一即是在比赛中自始至终防止过度兴奋，而保持半兴奋状态。所以有人也将倒u形假说称为“贝克尔境界”。
+</p>
+
+<p>提出者：英国心理学家罗伯特？耶基斯和多德林。
+</p>
+
+<p>点评：1 、激情过热，激情就会把理智烧光。2 、热情中的冷静让人清醒，冷静中的热情使人执着。
+</p>
+
+<p>11 、关于调研
+</p>
+
+<p>特伯论断：在数字中找不到安全。
+</p>
+
+<p>提出者：美国经济学家w.s.特伯。
+</p>
+
+<p>点评：数字是死的，情况是活的。
+</p>
+
+<p>摩斯科定理：你得到的第一个回答，不一定是最好的回答。
+</p>
+
+<p>提出者：美国管理学家r.摩斯科。
+</p>
+
+<p>点评：刨根得根，问底知底。
+</p>
+
+<p>12 、关于预测
+</p>
+
+<p>罗杰斯论断：成功的公司不会等待外界的影响来决定自己的命运，而是始终向前看。
+</p>
+
+<p>提出者：美国IBM公司前总裁p.罗杰斯。
+</p>
+
+<p>点评：只想随波逐流，难有理想彼岸。
+</p>
+
+<p>萨盖定律：戴一块手表的人知道准确的时间，戴两块手表的人便不敢确定几点了。
+</p>
+
+<p>提出者：英国心理学家p.萨盖。
+</p>
+
+<p>点评：若选错误参照，必无正确比较。
+</p>
+
+<p>隧道视野效应：一个人若身处隧道，他看到的就只是前后非常狭窄的视野。
+</p>
+
+<p>点评：1 、不拓心路，难开视野。2 、视野不宽，脚下的路也会愈走愈窄。
+</p>
+
+<p>13 、关于目标
+</p>
+
+<p>巴菲特定律：在其他人都投了资的地方去投资，你是不会发财的。
+</p>
+
+<p>提出者：美国股神巴菲特。
+</p>
+
+<p>点评：1 、善于走自己的路，才可能走别人没走过的路。2 、特色不特，优势无优。
+</p>
+
+<p>古特雷定理：每一处出口都是另一处的入口。
+</p>
+
+<p>提出者：美国管理学家w.古特雷。
+</p>
+
+<p>点评：上一个目标是下一个目标的基础，下一个目标是上一个目标的延续。
+</p>
+
+<p>14 、关于计划
+</p>
+
+<p>列文定理：那些犹豫着迟迟不能作出计划的人，通常是因为对自己的能力没有把握。
+</p>
+
+<p>提出者：法国管理学家p.列文。
+</p>
+
+<p>点评：如果没有能力去筹划，就只有时间去后悔了。
+</p>
+
+<p>弗洛斯特法则：在筑墙之前应该知道把什么圈出去，把什么圈进来。
+</p>
+
+<p>提出者：美国思想家w.p.弗洛斯特
+</p>
+
+<p>点评：开始就明确了界限，最终就不会作出超越界限的事来。
+</p>
+
+<p>15 、关于参谋
+</p>
+
+<p>波克定理：只有在争辩中，才可能诞生最好的主意和最好的决定。
+</p>
+
+<p>提出者：美国庄臣公司总经理詹姆士？波克。
+</p>
+
+<p>点评：无磨擦便无磨合，有争论才有高论。
+</p>
+
+<p>韦奇定理：即使你已有了主见，但如果有十个朋友看法和你相反，你就很难不动遥。
+</p>
+
+<p>提出者：美国洛杉矶加州大学经济学家伊渥？韦奇。
+</p>
+
+<p>点评：1 、未听之时不应有成见，既听之后不可无主见。2 、不怕开始众说纷纭，只怕最后莫衷一是。
+</p>
+
+<p>16 、关于决策
+</p>
+
+<p>福克兰定律：没有必要作出决定时，就有必要不作决定。
+</p>
+
+<p>提出者：法国管理学家d.l.福克兰。
+</p>
+
+<p>点评：当不知如何行动时，最好的行动就是不采取任何行动。
+</p>
+
+<p>王安论断：犹豫不决固然可以免去一些做错事的机会，但也失去了成功的机遇。
+</p>
+
+<p>提出者：美籍华裔企业家王安博士。
+</p>
+
+<p>点评：寡断能使好事由好变坏，果断可将危机转危为安。
+</p>
+
+<p>17 、关于执行
+</p>
+
+<p>格瑞斯特定理：杰出的策略必须加上杰出的执行才能奏效。
+</p>
+
+<p>提出者：美国企业家h.格瑞斯特。
+</p>
+
+<p>点评：好事干实更好，实事办好愈实。
+</p>
+
+<p>吉德林法则：把难题清清楚楚地写出来，便已经解决了一半。
+</p>
+
+<p>提出者：美国通用汽车公司管理顾问查尔斯？吉德林。
+</p>
+
+<p>点评：杂乱无章的思维，不可能产生有条有理的行动。
+</p>
+
+<p>18 、关于信息
+</p>
+
+<p>沃尔森法则：把信息和情报放在第一位，金钱就会滚滚而来。
+</p>
+
+<p>提出者：美国企业家s.m.沃尔森。
+</p>
+
+<p>点评：你能得到多少，往往取决于你能知道多少。
+</p>
+
+<p>塔马拉效应：塔马拉是捷克雷达专家弗。佩赫发明的一种雷达，它与其他雷达的最大不同是不发射信号而只接收信号，故不会被敌方反雷达装置发现。
+</p>
+
+<p>点评：善藏者人不可知，能知者人无以藏。
+</p>
+
+<p>19 、关于监督
+</p>
+
+<p>小池定理：越是沉醉，就越是抓住眼前的东西不放。
+</p>
+
+<p>提出者：日本管理学家小池敬。
+</p>
+
+<p>点评：自我陶醉不易清醒，自以为是不喜批评。
+</p>
+
+<p>赫勒法则：当人们知道自己的工作成绩有人检查的时候会加倍努力。
+</p>
+
+<p>提出者：英国管理学家h.赫勒。
+</p>
+
+<p>点评：只有在相互信任的情况下，监督才会成为动力。
+</p>
+
+<p>人与人之间的差距，不在能力，而在思维。要成为合格的管理者，就要不断主动地学习。借此，推荐一款个人成长课程：涵盖“运营、销售、管理、领导力、激励、团队、文案”等，实用落地。</p>
+
+
+
+<p style='float:right;'>本页共167段，4516个字符，13012 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

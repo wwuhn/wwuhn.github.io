@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ 
+<title>字符编码</title>
+<script language="JavaScript">
+<!-- Begin
+function scrollit() {
+for (I=1; I<=750; I++){
+parent.scroll(1,I)
+   }
+}
+
+function scrollit1() {
+for (I=750; I>1; I=I-1){
+parent.scroll(1,I)
+   }
+}
+// End -->
+</script>
+ <style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"mv boli","宋体";
+width:75.29%;
+line-height:1.4em;
+}
+P{
+margin:8px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:5px;
+margin-bottom:-15px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<input type=button value="向下滚屏" onClick="scrollit()" name="button"> 
+<input type=button value="向上滚屏" onClick="scrollit1()" name="button"> 
+
+  <p>平凡的世界 在地址栏中的两种编码</p>
+  <p>http://www.soso.com/q?sc=web&amp;site=book.qq.com&amp;cid=w.q.book&amp;w=%C6%BD%B7%B2%B5%C4%CA%C0%BD%E7<br />
+  说明：网页的字符utf-8,一个字符用三位16进制进行%编码：meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <p>http://www.soso.com/q?sc=web&amp;site=book.qq.com&amp;cid=w.q.book&amp;w=%E5%B9%B3%E5%87%A1%E7%9A%84%E4%B8%96%E7%95%8C </p>
+	说明：网页的字符集是GB2312,一个字符用两位16进制进:meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<div>地址栏中文参数</div>
+<p>在应用中经常使用的编码是 GB2312 和 UTF-8，一个汉字在 GB2312 编码下占 2 个字节，在 UTF-8 编码下占 3 个字节，因此通过对比这两种编码更容易看出区别。下面的例子中将分别使用这两种编码测试。     <p>
+	测试使用的非 ASCII 字符均为中文字符“汉”，“汉”在 GB2312 编码中的字节码为“BA BA”，在 UTF-8 编码中的字节码为“E6 B1 89”。</p>
+  <p>&nbsp;</p>
+  <p>另外，当声明一段测试代码是 GB2312 编码时，其含义为该 HTML 文件的编码为 GB2312，并且在该文件中声明了： &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;/&gt; 同样，当声明一段测试代码是 UTF-8 编码时，其含义为该 HTML 文件的编码为 UTF-8，并且在该文件中声明了： &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;/&gt; </p>
+  <p>&nbsp;</p>
+  <p>可见，对于 URI 中的非 ASCII 字符：      <p>
+	在 path 部分，所有浏览器都使用了 UTF-8 并做了百分比编码。       <p>
+	在 query 部分，IE 使用了 GB2312，未做百分比编码；Firefox 和 Opera 使用了 GB2312，做了百分比编码；Chrome 和 Safari 则仍使用 UTF-8 并做了百分比编码。  注： 1. 因各浏览器的地址栏使用的编码未能确定，本测试仅强调 URI 中 非 ASCII 字符最终使用使用使用使用的字符集。</p>
+  <p>IE 无视页面编码设置，将任意编码的字符转换为 GB2312 发送请求，并且对于 URI 中的非 ASCII 字符处理如下：       <p>
+	在 path 部分，IE6 并未处理；IE7 IE8 则做百分比编码。       <p>
+	在 query 部分，IE 并未对其处理。       <p>
+	其他浏览器对于 URI 中的非 ASCII 字符处理如下：       <p>
+	在 path 部分，均转换为 UTF-8 并做百分比编码。       <p>
+	在 query 部分，Firefox Opera 转换为 UTF-8 并做百分比编码，Chrome Safari 则使用当前编码做百分比编码</p>
+  <p>&nbsp;</p>
+  <p>encodeURI和encodeURIComponent会用utf-8编码，如“我”编码后是“%E6%88%91”。据实验，似乎没有参数指定编码的地方。只有另寻他法。 <br />
+    <strong>大致分析有如下几种解决方案：</strong> <br />
+    1.   用js创建一个隐藏的iframe并指定其为gb2312编码，将需要转换的文本放到iframe的form的一个input中，将form指定为get方式并提交， <br />
+    然后获取其url并解析，应该可以得到其gb2312编码后的文本。 <br />
+    2. 用ajax传到服务器上编码，然后传回来。 <br />
+    3.   在js中创建一个gb2312编码表。 <br />
+    <br />
+    <strong>实现</strong> <br />
+    第一种方案个人感觉太折腾，需要在多个不同的浏览器下测试。 <br />
+    第二种方案需要有服务器配合。 <br />
+    下面是第三种方案的实现： <br />
+    最开始打算使用数组存储编码表，后来为了减小js文件大小，改用string来存储。（见DATAISO文件夹） <br />
+  </p>
+  <div>
+    <h2>字符编码笔记：ASCII、Unicode、UTF-8、UTF-16、UCS、BOM、Endian</h2>
+  </div>
+  <div id="content">
+    <p><strong>1. ASCII码</strong> </p>
+    <p>我们知道，在计算机内部，所有的信息最终都表示为一个二进制的字符串。每一个二进制位（bit）有0和1两种状态，因此八个二进制位就可以组合出256种状态，这被称为一个字节（byte）。也就是说，一个字节一共可以用来表示256种不同的状态，每一个状态对应一个符号，就是256个符号，从0000000到11111111。 </p>
+    <p>上个世纪60年代，美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为ASCII码，一直沿用至今。 </p>
+    <p>ASCII码一共规定了128个字符的编码，比如空格“SPACE”是32（二进制00100000），大写的字母A是65（二进制01000001）。这128个符号（包括32个不能打印出来的控制符号），只占用了一个字节的后面7位，最前面的1位统一规定为0。 </p>
+    <p><strong>2、非ASCII编码</strong> </p>
+    <p>英语用128个符号编码就够了，但是用来表示其他语言，128个符号是不够的。比如，在法语中，字母上方有注音符号，它就无法用ASCII码表示。于是，一些欧洲国家就决定，利用字节中闲置的最高位编入新的符号。比如，法语中的é的编码为130（二进制10000010）。这样一来，这些欧洲国家使用的编码体系，可以表示最多256个符号。 </p>
+    <p>但是，这里又出现了新的问题。不同的国家有不同的字母，因此，哪怕它们都使用256个符号的编码方式，代表的字母却不一样。比如，130在法语编码中代表了é，在希伯来语编码中却代表了字母Gimel   (ג)，在俄语编码中又会代表另一个符号。但是不管怎样，所有这些编码方式中，0—127表示的符号是一样的，不一样的只是128—255的这一段。 </p>
+    <p>
+	
+	至于亚洲国家的文字，使用的符号就更多了，汉字就多达10万左右。一个字节只能表示256种符号，肯定是不够的，就必须使用多个字节表达一个符号。比如，简体中文常见的编码方式是GB2312，使用两个字节表示一个汉字，所以理论上最多可以表示256×256=65536个符号。 </p>
+    <p>中文编码的问题需要专文讨论，这篇笔记不涉及。这里只指出，虽然都是用多个字节表示一个符号，但是GB类的汉字编码与后文的Unicode和UTF-8是毫无关系的。 </p>
+    <p><strong>3.Unicode</strong> </p>
+    <p>正如上一节所说，世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号。因此，要想打开一个文本文件，就必须知道它的编码方式，否则用错误的编码方式解读，就会出现乱码。为什么电子邮件常常出现乱码？就是因为发信人和收信人使用的编码方式不一样。 </p>
+    <p>可以想象，如果有一种编码，将世界上所有的符号都纳入其中。每一个符号都给予一个独一无二的编码，那么乱码问题就会消失。这就是Unicode，就像它的名字都表示的，这是一种所有符号的编码。 </p>
+    <p>Unicode当然是一个很大的集合，现在的规模可以容纳100多万个符号。每个符号的编码都不一样，比如，U+0639表示阿拉伯字母Ain，U+0041表示英语的大写字母A，U+4E25表示汉字“严”。具体的符号对应表，可以查询<a href="http://www.unicode.org/" target="_blank">unicode.org</a>，或者专门的<a href="http://www.chi2ko.com/tool/CJK.htm" target="_blank">汉字对应表</a>。 </p>
+    <p><strong>4. Unicode的问题</strong> </p>
+    <p>需要注意的是，Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。 </p>
+    <p>比如，汉字“严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。 </p>
+    <p>这里就有两个严重的问题，第一个问题是，如何才能区别unicode和ascii？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。 </p>
+    <p>它们造成的结果是：1）出现了unicode的多种存储方式，也就是说有许多种不同的二进制格式，可以用来表示unicode。2）unicode在很长一段时间内无法推广，直到互联网的出现。 </p>
+    <p><strong>5.UTF-8</strong> </p>
+    <p>互联网的普及，强烈要求出现一种统一的编码方式。UTF-8就是在互联网上使用最广的一种unicode的实现方式。其他实现方式还包括UTF-16和UTF-32，不过在互联网上基本不用。<strong>重复一遍，这里的关系是，UTF-8是Unicode的实现方式之一。</strong> </p>
+    <p>UTF-8最大的一个特点，就是它是一种变长的编码方式。它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。 </p>
+    <p>UTF-8的编码规则很简单，只有二条： </p>
+    <p>1）对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。 </p>
+    <p>2）对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。 </p>
+    <p>下表总结了编码规则，字母x表示可用编码的位。 </p>
+    <p>Unicode符号范围 | UTF-8编码方式<br />
+      (十六进制) | （二进制）<br />
+      ——————–+———————————————<br />
+      0000   0000-0000 007F | 0xxxxxxx<br />
+      0000 0080-0000 07FF | 110xxxxx 10xxxxxx<br />
+      0000   0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx<br />
+      0001 0000-0010 FFFF | 11110xxx   10xxxxxx 10xxxxxx 10xxxxxx </p>
+    <p>下面，还是以汉字“严”为例，演示如何实现UTF-8编码。 </p>
+    <p>已知“严”的unicode是4E25（100111000100101），根据上表，可以发现4E25处在第三行的范围内（0000 0800-0000   FFFF），因此“严”的UTF-8编码需要三个字节，即格式是“1110xxxx 10xxxxxx   10xxxxxx”。然后，从“严”的最后一个二进制位开始，依次从后向前填入格式中的x，多出的位补0。这样就得到了，“严”的UTF-8编码是“11100100   10111000 10100101”，转换成十六进制就是E4B8A5。 </p>
+    <p><strong>6. Unicode与UTF-8之间的转换</strong> </p>
+    <p>通过上一节的例子，可以看到“严”的Unicode码是4E25，UTF-8编码是E4B8A5，两者是不一样的。它们之间的转换可以通过程序实现。 </p>
+    <p>在Windows平台下，有一个最简单的转化方法，就是使用内置的记事本小程序Notepad.exe。打开文件后，点击“文件”菜单中的“另存为”命令，会跳出一个对话框，在最底部有一个“编码”的下拉条。</p>
+<div id="blog_text">
+        <p>先解释下，什么是地址栏用中文参数。地址栏用中文参数的更确切的说法应该是，GET请求中参数直接使用中文字符串，而不做任何URLEncode。</p>
+        <p> </p>
+        <div>
+          <p>举个例子，在www.google.com中搜索“我”，请求是用的GET方式发送的，页面打开后，地址栏（用的Safari，苹果上的网页浏览器）显示的是“<a href="http://www.google.com/search?client=safari&amp;rls=zh-cn&amp;q=%E6%88%91&amp;ie=UTF-8&amp;oe=UTF-8">http://www.google.com/search?client=safari&amp;rls=zh-cn&amp;q=我&amp;ie=UTF-8&amp;oe=UTF-8</a>”，这就是一个GET请求参数直接用中文字符串的例子。用IE的同志注意了，上面的链接点击后到达的页面是不正常的，显示的不是搜索“我”的页面，把这个链接复制了，然后粘贴到IE的地址栏里，访问到的页面也是不正常的，问题是这次的不正常和刚才的不正常还不一样。这个例子告诉我们，地址栏用中文参数还真的有可能是“不可能的任务”。</p>
+          <p>我先分析下问题产生的原因，然后再谈一谈解决这个问题的最佳实践。</p>
+          <p>原因分析：</p>
+          <p>如果我们的用户都用的是一种浏览器，那么问题要简单的多，只要弄明白这个浏览器到底是怎么表现的，针对这个做一些编码的转换就行了，但是问题就在于，我们的用户用了至少是IE，Firefox和Safari这三种浏览器（注：奥游和腾讯TT本质都是IE），而这三个浏览器的表现很不一样。</p>
+          <p>1.首先说Firefox，在Firefox的地址栏中用中文参数，它的表现是用UTF-8编码进行URLEncode，并且把encode之后得到的字符串显示在地址栏。</p>
+          <p>2.然后是Safari，Safari和Firefox基本一致，也是用UTF-8编码进行URLEncode，但是Safari会自作聪明一点，如果参数里有它认识的URLEncode后的字符串，如“%E6%88%91”（注：这段是“我”经过URLEncode得到的），什么是Safari认识的呢，就是可以用UTF-8编码进行URLEncode得到的，它就会恢复原始中文的显示。所以开篇safari中得到的地址栏链接就是含中文的。</p>
+          <p>3.最后是IE，IE表现的最无语，上面大家都看到了，同样的链接，在页面中打开和在地址栏输入得到的都不一样。这是怎么造成的呢？IE在处理中文参数的时候，对于直接输入在地址栏里的，使用的是系统平台对应的编码，比如我们用的Windows中文版，那就是用的GB18030编码，而对于页面链接里的，使用的是页面的编码，比如这篇文章的页面编码是UTF-8，所以从这个页面打开上面的链接，中文是用UTF-8编码进行URLEncode的，而在地址栏，直接输入，使用的是GB18030的编码。处理的不同也就罢了，但是不能在地址栏里一点区别也看不出来阿，所以IE是表现的最无语的。</p>
+          <p>那么，如何解决这个问题呢？处理过浏览器兼容问题的同志应该会想到对不同浏览器区别对待，这个想法是可行的，因为用户用的什么浏览器在服务端是可以获得的。但是IE使这个问题复杂了许多，我们并不知道用户是点击的页面中的链接，还是在地址栏里直接输入的，而且我们也未必知道页面的编码和系统的语言环境。</p>
+          <p>看起来，我们只能根据原始内容“动态识别字符编码”了。其实“动态识别字符编码”对于我们来说并不陌生，我们的浏览器都是支持我们自己指定用什么编码来打开页面的，用的最多的情况是Web邮箱，有的邮件我们可能要换一个编码才能看，否则全是乱码，网页的编码在没有指定的情况下，浏览器会猜一个编码，这就是“动态识别字符编码”。另外，有些文本编辑器也是支持多种文件编码的，打开一个文件时，也会“动态识别字符编码”。</p>
+          <p>如何实现“动态识别字符编码”呢？cpdetector是一个开源项目，这个项目的主页是<a href="http://cpdetector.sourceforge.net/">http://cpdetector.sourceforge.net/</a>，这个项目提供了“动态识别字符编码”我已经适用，基本是可以识别的。</p>
+          <p>这里还需要解释一个服务器端用Java相关技术时的问题，Tomcat默认的URIEncodeing用的是ISO-8859-1编码，这造成的是在Firefox或Safari这样的不是很无语的浏览器上，对于中文数据，POST请求和GET请求也表现的不一样，如果页面用UTF-8编码，GET时是乱码的。这事实上是另一个“地址栏用中文参数”的问题，这个问题我们一般搜索到的解决办法是修改tomcat的URIEncodeing参数为UTF-8。</p>
+          <p>当然我们不是一定要做这样一个操作，我们既然知道数据是用ISO-8859-1编码的，我们大可getBytes(&quot;ISO-8859-1&quot;)。但是我这样做，然后配合用cpdetector“动态识别字符编码”的方案，又发现了问题，有时候IE下对一些字符串做了一些编码转换操作之后就出现问题了，我试出来的例子是，在编码是UTF-8的页面上提供了一个包含参数为“我是谁”的链接，点击后，经过了getBytes(&quot;ISO-8859-1&quot;)和cpdetector“动态识别字符编码”，得到了我是口（注：口是个表示不能识别的框框），有些参数直接识别字符编码都失败，比如“你我他”被识别成了“x-EUC-TW”。这些问题基本是不可解决的。我也尝试了修改tomcat的URIEncodeing参数为UTF-8，问题依然，而且cpdetector居然也识别不出来直接输入地址栏时的编码GB18030。这终于是个名符其实的不可能的任务了。</p>
+          <p>最佳实践：</p>
+          <p>由于无语的IE，我们放弃了地址栏用中文参数，我们乖乖的使用URLEncode，但是URLEncode就可以了吗？答案是否定的，要知道，自作聪明的Safari会吧URLEncode后的字符串还原称原来的中文，那么Safari的地址栏里常常是有中文的，那么一个Safari用户把这个链接发给一个IE用户，后者不又Shit了吗？所以我们要对中文字符串进行两次URLEncode，由于服务器会自动进行一次URLDecode，所以我们在服务端编程再进行一次URLDecode。这就是最佳实践，放弃了友好的URL，放弃了简洁和清晰，技巧近乎变态，但这是唯一的能够充分避免无效链接的方法。<a href="http://www.schoolnetsuite.com/">校园网络套餐</a>中<a href="http://edu.yizin.com/courses">课程</a>的文件柜中的中文参数就采取了这种方法。</p>
+          <p>总结：</p>
+          <p>本篇基本实践了“地址栏用中文参数”的努力中的各种问题，实践证明“地址栏用中文参数”是不可能的任务，然后以一种极度为用户负责的态度提出了一个有点变态的最佳时间。</p>
+          <p>最后忍不住说一句：IE给程序开发造成的不便，绝对不仅仅是这个，下次请个做前端开发的同志谈一谈。</p>
+        </div>
+  </div>
+<p>&nbsp;</p>
+<p>地址栏中出现汉字的情况有两种，一种是汉字出现在URL的路径部分，一种是汉字出现在URL的传参的部分，第二种情况的时候必须采用编码后传参，接受时解码的方式完成传参。js中编码有escape(),encodeURI(),encodeURIComponent()三个常用的方法，escape()常常用在提交页面和处理页面的编码格式相同的情况下（比如它们都是GB2312），encodeURI()和encodeURIComponent()的用法基本相同，区别在encodeURIComponent()也对&quot;?&quot;等特殊字符进行编码。 <br />
+        
+    一开始遇到中文参数的时候，使用encodeURI()进行了一遍编码，传过去后，发现解码出现问题，于是想到可能是编码方法使用错误，于是使用escape()方法，这时发现解码时抛出isHexDigit异常。借助百度搜索isHexDigit异常，发现原来，是escape()方法造成了异常，同时了解了浏览器传递地址的一些原理，在浏览器地址栏里，浏览器认为%是个转义字符，浏览器会把%与%之间的编码，两位两位取出后进行解码,然后再传递给处理页面，然后由处理页面进行再次解码。由此我想到一直使用encodeURI方法是正确的，只是需要使用两次encodeURI方法，例如encodeURI(encodeURI(&quot;中文&quot;));第一次是把中文编码成%xy的格式，第二次是对%xy中的%进行编码,%编码成%。整个传参过程大体应该是：提交页面使用encodeURI(encodeURI(&quot;中文&quot;))编码,把最后的编码结果%xy传递给处理页面的过程中，浏览器获取URL地址 （注意openModelDialog方法，浏览器获取不到参数编码）后解码成%xy，然后把%xy传递给处理页面,处理页面使用URLDecoder.decode(request.getParameter(&quot;参数名&quot;),&quot;UTF-8&quot;);完成解码。 <br />
+    总结： <br />
+    1、汉字出现在URL路径部分的时候不需要编码解码; <br />
+    2、使用encodeURI进行2次编码; <br />
+    3、在openModelDialog()打开的模式窗体里没办法用request.getParameter正确获取参数; <br />
+    <br />
+    <br />
+    客户端和服务器在传递数据时可以用过滤器filter解决字符编码问题，但filter只能解决post方式提交的数据。对于get方式，可以使用两次encodeURI(encodeURI(“中文”))并在服务器中使用URLDecoder.decode(“中文”,   &quot;UTF-8&quot;); <br />
+    <br />
+    今天用Ajax校验数据时也遇到这个问题，尽管页面、类和web容器都统一了字符编码，提交的数据依然是乱码，所以就采用了2次encodeURI()编码方式，乱码问题就解决了。 <br />
+    页面 <br />
+    /exportExcel.topinfo?ls=&quot;+encodeURI(encodeURI(_tmplsgx))+&quot;&amp;zt=&quot;+encodeURI(encodeURI(_tmpzt))saction中<br />
+     
+    String   ls=request.getParameter(&quot;ls&quot;);<br />
+      
+    ls = new String(ls.getBytes(&quot;iso-8859-1&quot;),&quot;utf-8&quot;);<br />
+      
+    ls   = java.net.URLDecoder.decode(ls,&quot;UTF-8&quot;);   这样乱码就解决了。<br />
+  </p>
+  <p>&nbsp;</p>
+  <p>在IE地址栏中经常会出现许多奇怪的编码，请问这些是什么编码？在何处有方面的资料？<br />
+    http://www.google.com/search?q=%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%2B%E5%85%B1%E4%BA%AB%E5%85%A5%E4%BE%B5&amp;hl=zh-CN&amp;lr=lang_zh-CN&amp;ie=UTF-8&amp;oe=UTF-8&amp;start=10&amp;sa=N<br />
+</p>
+  <hr />
+  <br />
+  学的太多了<br />
+  <hr />
+  <br />
+  那是编码后的中文字符或特殊字符。<br />
+  <hr />
+  <br />
+  网上哪有这方面的学习资料？<br />
+  <hr />
+  <br />
+  这些是把你的数据输入之后，再编译后的特殊符号<br />
+  <hr />
+  <br />
+  这也想学呀？编译技术<br />
+  <hr />
+  <br />
+  有无对照的转换表<br />
+  <hr />
+  <br />
+  这是网页的自动生成的编码。 如果你想知道的话。得先看看它是用什么语言编成的<br />
+  <hr />
+  <br />
+  search是网站上的的处理程序的入口，可以是cgi、php、asp等编程的程序，常见的如search.asp?XXXXX道理一样，？后边跟的是参数，%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%2B%E5%85%B1%E4%BA%AB%E5%85%A5%E4%BE%B5是Unicode编码编码的字符，&amp;后边连结的是其他参数。<br />
+  <hr />
+  <br />
+  工具÷选项÷高级，最下面有个总是以 UTF－8 发送 URL，下面详述：<br />
+  由 Unicode   协会开发的能表示几乎世界上所有书写语言的字符编码标准。Unicode 字符清单有多种代表形式，包括 UTF-8、UTF-16 和 UTF-32。大多   Windows 界面使用 UTF-16。 <br />
+  Unicode 传输格式 8 (UTF-8)<br />
+  在 ASCII 码基础上发展的协议字符设置。UTF-8   协议提供 ASCII 码的扩展支持，UCS-2 码的翻译，国际 16 进制 Unicode 编码字符设置。与使用字符数据的 ASCII 或扩展 ASCII   编码相比，UTF-8 可获得更大范围的名称。<br />
+  <p>规范中建议，用户端在这种情况下应采取以下方式处理非 ASCII 字符： 1. 将每个字符转换为 UTF-8 编码的相同字符，每个字符将有一或多个字节。  2. 用 URI 编码机制对这些字节进行编码。如：每个字节转换为 %HH，其中的 HH 为这些字节的值的十六进制表示。这种方式称为“百分号编码”。  关于 URI 类型及 URI 属性值中的非 ASCII 字符（Non-ASCII characters in URI attribute values）的详细信息，请参考 HTML4.01 规范 6.4 URIs 及 附录B.2.1 中的内容。 关于“百分号编码”的详细信息，请参考 RFC-3986 2.1. Percent-Encoding 中的内容。 关于 URI 组成的更多信息，请参考 RFC-3986 3. Syntax Components 中的内容。 问题描述 对于 URI 中非 ASCII 字符，并非所有浏览器都是按照 HTML 4.01 规范中的建议实现的，而且不同浏览器在处理不同形式的 URI 时，表现也有差异。 造成的影响 这个问题将导致在服务端或客户端通过代码获取 URI 中的非 ASCII 字符信息时无法分辨编码信息，并产生乱码。 </p>
+  <p>&nbsp;</p>
+  
+  </div>
+  <p><br />
+  </p>
+  <p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,539 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>描述问题求解思路的三种思维模式：过程化、面向对象、泛型</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+.container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay{
+    background-color: #bbb;
+    color: #000;
+}
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+</style>
+</head>
+
+<body> 
+<div class="container">
+<!--
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+-->
+
+<!--
+height="*\w*"
+width="*\w*"
+</p>
+<p>
+-->
+<h3>描述问题求解思路的三种思维模式：过程化、面向对象、泛型
+</h3>
+<p>C++｜描述问题求解思路的三种思维模式：过程化、面向对象、泛型。C++提供了相应的语法工具来服务三种求解问题的思路：过程化、面向对象、泛型。</p>
+<table id="tbrowser">
+<col width="10%" />
+<col width="35%" />
+<col width="55%" />
+  <tr>
+    <td>&nbsp;</td>
+    <td>需要描述的内容</td>
+    <td>语法工具</td>
+  </tr>
+  <tr>
+    <td>过程化编程</td>
+    <td>数据及其处理过程</td>
+    <td>1 变量和数据类型系统</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>2 基本运算符和表达式</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>3 流程控制语句</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>4 输入输出流以及函数</td>
+  </tr>
+  <tr>
+    <td>面向对象</td>
+    <td>对象以及对象之间的协作过程</td>
+    <td>1 类</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>2 抽象、封装、数据隐藏、继承、多态</td>
+  </tr>
+  <tr>
+    <td>泛型</td>
+    <td>类型泛化的过程或对象类</td>
+    <td>1 函数模板和类模板</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>2 基于模板机制实现了STL标准模板库</td>
+  </tr>
+</table>
+<p>1 过程化编程</p>
+
+<p>1.1 描述数据</p>
+
+<p>针对描述数据，C++语言首先提供了变量的概念，用来记住数据所在的存储空间的地址，通过变量我们可以方便地对数据进行存取访问。</p>
+
+<p>同时，C++提供了丰富的数据类型，用以约定数据的规格，包括数据的存储空间大小、编码和解码方式以及数据可接受的运算处理行为。</p>
+
+<p>1.1.1 内置数据类型：描述常用的整型、字符型、浮点型数据。</p>
+
+<p>1.1.2 复合数据类型：描述常变量、数组、指针、引用等复合数据。</p>
+
+<p>1.1.3 定制数据类型：定制我们自己的数据类型、约定数据的规格，包括存储空间大小、编码和解码方式及其可接受运算处理行为。</p>
+
+<p>1.2 描述数据处理</p>
+<table id="tbrowser">
+<col width="10%" />
+<col width="35%" />
+<col width="55%" />
+  <tr>
+    <td>    1 </td>
+    <td>描述最基本的数据运算行为：</td>
+    <td>运算符和表达式语句</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>描述数据处理的控制流程：</td>
+    <td>流程控制语句</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>描述数据的输入和输出：</td>
+    <td>输入输出流类库</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>描述复杂的数据处理过程：</td>
+    <td>复合语句和函数</td>
+  </tr>
+</table>
+<p>其中，函数是C++语言核心的语法工具，用于将一个数据处理过程包装成一个逻辑独立的、可重复使用的语法单元。本质上，函数就是一种数据处理的机器，它把数据处理过程封装到机器内部，对外提供一个入口和一个出口。如果需要使用函数处理数据，那么，只需要把我们的数据放到机器入口，则机器就会自动运转对数据进行加工处理，最后，在机器的出口我们就可以拿到数据处理的结果。</p>
+
+<p>通过函数，我们可以比较轻松地就会规模较大问题的编程求解。譬如，在求解一些较大的问题时，往往会遇到其中一些环节或者子问题暂时难以处理，此时，我们就假设存在函数（机器）可以解决这些子问题，即使它们实际上并不存在；然后通过调用这些函数完成问题的整体编程求解。之后，再在合适的时机给出这些函数的实现。</p>
+
+<p>这种自上而上将复杂问题不断细分，产生一系列更易于求解的子问题，然后再针对这些子问题进行求解的思维，就是结构化的编程思想(Structured Programming)，或者说，自顶向下，逐步求精的编程思想。</p>
+
+<p>2 面向对象思维</p>
+
+<p>2.1 描述对象</p>
+
+<p>针对描述对象，C++语言提供了类(class)的语法设施用来描述对象的属性和行为能力。类描述了具有相同属性和行为能力的一类对象，称为对象类型，简称类。在类中，对象的属性称为类的数据成员，对象的行为能力称为类的成员函数。C++语言提供了多种形式的成员函数，用来说明对象不同的行为能力。</p>
+<table id="tbrowser">
+<col width="10%" />
+<col width="35%" />
+<col width="55%" />
+  <tr>
+    <td>     1 </td>
+    <td>描述对象产生和消亡的行为：</td>
+    <td>构造函数和析构函数</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>描述对象运算操作的行为：</td>
+    <td>操作符重载函数，用于说明对象的运算操作行为</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>描述对象的其他行为：</td>
+    <td>普通的成员函数</td>
+  </tr>
+</table>
+<p>当然，在对象的世界中对象之间还存在着相互关系。例如，“家庭”是由“人”组成的，即“家庭”和“人”之间存在组合关系；而“学生”是“人”，则表达了“学生”和“人”之间的类属关系。“家庭”、“学生”、“人”是不同类型的对象，但是可以利用“人”来描述“家庭”和“学生”，实际已有对象类型的重复利用。为此，C++语言提供了组合和继承两种语法工具，用于支持对象之间组合和类属关系的表达。</p>
+
+<p>假设我们定义了Person类用于描述“人”这类对象，那么，在定义Family类描述“家庭”类型时就可以通过组合机制重用Person类。不过，如果需要定义Student类描述“学生”这类对象，组合机制就不再适用，因为Student是Person，而非由Person对象组成，它们之间是类属关系。此时，就需要通过继承机制从Person类派生出Student类，并称Student是Person的派生类，Person是Student的基类，派生类的对象会自动继承来自基类的属性和行为，同时也可以改造和发展出新的属性和行为。</p>
+
+<p>从同一个基类继承而来的多个派生类，可能都会对基类的某种行为进行发展创新。譬如，Student从Person类中继承了学习行为，同时，Worker也从Person类继承了学习行为，但是，学生的专职学习不同于工人的兼职学习。同一种行为，在面对不同派生类的对象时，却表现出多种不同的形态特征，这就是多态现象(polymorphism)。C++语言提供了重载函数和虚函数用于支持编译其和运行期的对象多态行为。</p>
+
+<p>3 泛型思维</p>
+
+<p>也就是在数据或者对象参数化的情况下描述和应用问题求解思路。</p>
+
+<p>3.1 泛化环节：基于泛化的数据或者对象类型来描述通用的问题求解思路。</p>
+
+<p>3.2 应用环节：设定通用求解思路的泛化参数，描述特定具体问题的求解过程。</p>
+
+<p>C++语言提供了模板机制来支持数据类型的参数泛化，包括处理过程泛化的函数模板和处理对象泛化的类模板。另外，C++语言基于模板实现了常用的一些算法和数据结构，形成了一个具有工业级强度、健壮可靠的泛型程序库，称为标准模板库(Standard Template Library)，是我们进行泛型编程的基础。</p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+
+

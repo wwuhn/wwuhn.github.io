@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>用fread()函数读取文件内容时，怎么获取一个文件的长度信息？</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+.container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+	background-color:white;
+	border:#ccc 1px solid;
+	color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+	 background-color:white;
+	 border:#ccc 1px solid;
+	 color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:4em;
+}sub,sup{
+font-size:80%;
+color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<p>fseek(fp, 0, SEEK_END);<br />
+  unsigned long len = ftell(fp);  //这就是长度了.</p>
+<hr />
+<p>使用函数filelength(FILE*)就行了。</p>
+<p>filelength是系统相关的，头文件io.h</p>
+<p>#include &lt;stdlib.h&gt;<br />
+  #include &lt;io.h&gt;<br />
+  <br />
+  FILE *fpFile;<br />
+  char *cpTemp;<br />
+  long lFileLen;<br />
+  fpFile = fopen(&quot;file.txt&quot;, &quot;rb&quot;);<br />
+  lFileLen = filelength(fpFile-&gt;fd);<br />
+  cpTemp = (char*)malloc(lFileLen*sizeof(char));   //文件长度超过64k的话要分多段<br />
+  fread(cpTemp, sizeof(char), iFileLen, fpFile);</p>
+<p>---------------------------------------------------</p>
+<p>filelength函数原型：long filelength(int handle) 　<br />
+  <br />
+  按搂上方式...<br />
+  FILE *fpFile;         // FILE标识的定义在头文件&lt;stdio.h&gt;中<br />
+  long lFileLen;<br />
+  fpFile = fopen(&quot;file.txt&quot;, &quot;rb&quot;);<br />
+  lFileLen = filelength(fpFile);  // 在tc2.0中调试有错误！参数不匹配！<br />
+  fclose(fpFile);<br />
+  <br />
+  修改之后...<br />
+  int handle;<br />
+  long lFileLen;<br />
+  handle = open(&quot;file.txt&quot;, O_RDONLY);  // O_RDONLY标识在&lt;fcntl.h&gt;中<br />
+  lFileLen = filelength(handle);       // OK!<br />
+  ......</p>
+<p>----------------------------------------------------------------</p>
+<p>噢，忘了filelength是使用低级句柄的。不过也可以不使用open来打开文件，可以：<br />
+  <br />
+  iFileLen = filelength(fpFile-&gt;fd);<br />
+  <br />
+  转换为低级句柄，就OK了。</p>
+<p>试了不行</p>
+<p>&nbsp;</p>
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－</p>
+<p>void Cv12e1_FileView::OnFileRead()<br />
+  {<br />
+  // TODO: Add your command handler code here<br />
+  //FILE * pFile = fopen(&quot;1.txt&quot;, &quot;r&quot;);<br />
+  FILE * pFile;<br />
+  fopen_s(&amp;pFile, &quot;1.txt&quot;, &quot;r&quot;);<br />
+  // TCHAR ch[100];<br />
+  // memset(ch, 0, 100);<br />
+  // fread(ch, 1, 100, pFile);<br />
+  // MessageBox(ch);<br />
+  TCHAR * pBuf;<br />
+  fseek(pFile, 0, SEEK_END);<br />
+  int len = ftell(pFile);<br />
+  pBuf = new TCHAR[len + 1];<br />
+  //fseek(pFile, 0, SEEK_SET);<br />
+  rewind(pFile);<br />
+  fread(pBuf, 1, len, pFile); <br />
+  pBuf[len] = 0;<br />
+  MessageBox(pBuf);<br />
+  fclose(pFile);<br />
+  文件是以unicode编码保存的<br />
+  Debug的时候:<br />
+  如果用数组来保存读取的信息,ch就是文件中的数据,<br />
+  如果用pBuf,pBuf里面除了原有的数据,后面还加上了一串乱码,<br />
+  是这里fread(pBuf, 1, len, pFile);有问题吗?<br />
+  有人知道是怎么回事吗?</p>
+<p>&nbsp;</p>
+<pre id="best-content-475305852" accuse="aContent">#define _UNICODE<br /><br /> <a href="https://www.baidu.com/s?wd=fopen_s&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YkuAPhPjRdPWwBuWmdPjPh0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHmsn1mvP1b3" target="_blank" rel="nofollow">fopen_s</a>(&amp;pFile, &quot;1.txt&quot;, &quot;r&quot;);<br />unicode编码 要用 2 进制方法打开。  &quot;rb&quot;.<br /><br />len = ftell(pFile) ; -- 单位 byte<br /><br />fread(pBuf, sizeof(TCHAR), len/sizeof(TCHAR), pFile);</pre>
+<p>&nbsp;</p>
+<p>-------------------------------------------------------------</p>
+<pre id="best-content-1056044440" accuse="aContent">文件的读写还涉及到文件的编码问题，最常见的莫过于<a href="https://www.baidu.com/s?wd=UNICODE&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1dhuj-huWf4P1K-uW6vrHT10ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPjc3P1cYPHDY" target="_blank" rel="nofollow">UNICODE</a>和<a href="https://www.baidu.com/s?wd=ANSI&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1dhuj-huWf4P1K-uW6vrHT10ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPjc3P1cYPHDY" target="_blank" rel="nofollow">ANSI</a>了，因此你用ReadString读取一行当然会出错.<br />参考以前写的一个:<br />bool CReadFile::ReadLine(char* buffer, int count)<br />{<br />	assert(fp);<br />	assert((buffer)&amp;&amp;count&gt;0);<br />	if(feof(fp))<br />		return false;<br />	string s;<br />	if(GetFileCodeType()==<a href="https://www.baidu.com/s?wd=ansi&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1dhuj-huWf4P1K-uW6vrHT10ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPjc3P1cYPHDY" target="_blank" rel="nofollow">ansi</a>)//单字节文件<br />	{<br />		char c;<br />		while(!feof(fp))<br />		{<br />			c=fgetc(fp);<br />			if(c==13)<br />			{<br />				fgetc(fp);//跳过一个字节char(10)<br />				break;<br />			}<br />			s.append(1,c);<br />		}<br />	}<br />	else //宽字节编码文件<br />	{<br />		if(GetPos()==0)<br />			fseek(fp,2,0);//跳过文件开始的编码声明的两个字节<br />		wchar_t wc;<br />		wstring ws;<br />		while(!feof(fp))<br />		{<br />			fread(&amp;wc,1,2,fp);<br />			locale loc(&quot;chs&quot;);<br />		     wcout.imbue(loc);<br />			if(wc==0x000A)<br />				break;<br />			ws.append(1,wc);<br />		}<br />		CUser u;<br />		s=u.WstringToString(ws);<br />	}<br />	int len=s.size();<br />	if(len&gt;count)//截断处理<br />		len=count;<br />	memcpy(buffer,s.c_str(),len);<br />	buffer[len]='\0';<br />	return true;<br />}</pre>
+<p>&nbsp;</p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

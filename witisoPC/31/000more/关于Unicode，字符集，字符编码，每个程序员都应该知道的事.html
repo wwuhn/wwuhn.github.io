@@ -1,0 +1,594 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>关于Unicode，字符集，字符编码，每个程序员都应该知道的事</h3>
+
+<p>
+</p>
+
+<p>cpp软件架构狮 2019-03-28 17:48:20
+</p>
+
+<p>李笑来的文章如何判断一个人是否聪明？中提到：
+</p>
+
+<p>必要、清晰、且准确的概念，是一切思考的基石。所谓思考，很大程度上，就是在建立那些概念与概念之间的关联。概念是必要、清晰、且准确的，它们之间的关联也应该是准确的。
+</p>
+
+<p>确实很认同这两句话，搞清楚字符集，字符编码，Unicode等关键词的意义，基本上也就能搞明白遇到的编码问题了。本文力求通俗易懂，但涉及的内容比较多，而且编码问题又不是那么容易理解的，所以如果大家看完之后还是对编码问题一知半解，那也不要灰心，下次遇到编码问题时回过头来再看看本文。我也是断断续续花了很长时间才理解清楚编码问题的。
+</p>
+
+<p>基本概念
+</p>
+
+<p>字符[character]
+</p>
+
+<p>字符代表了字母表中的字符，标点符号和其他的一些符号。在计算机中，文本是由字符组成的。
+</p>
+
+<p>字符集合[character set]
+</p>
+
+<p>由一套用于特定用途的字符组成，例如支持西欧语言的字符集合，支持中文的字符集合。字符集合只定义了符号和他们的语意，其实跟计算机没有直接关系。
+</p>
+
+<p>现实生活中，不同的语系有自己的字符集合，例如藏文有自己的字符集合，汉文有自己的字符集合。到计算机的世界中，也有各种字符集合，例如ASCII字符集合，GB2312字符集合，GBK字符集合。还有一个其他字符集合的超集--Unicode字符集定义了几乎绝大部分现存语言需要的字符，是一种通用的字符集，来支持多语言环境(可以同时处理多种语言混合的情况）。各个国家和地区在制定编码标准的时候，“字符集合”和“字符编码”一般都是同时制定的。所以像ASCII字符集合一样，它也同时代表了一种字符的编码。
+</p>
+
+<p>字符编码[character encoding]
+</p>
+
+<p>是一套规则，定义了在计算机内存中如何表示字符，是字符集中的每个字符与计算机内存中字节之间的转换关系，也可以认为是把字符数字化，规定每个“字符”分别用一个字节还是多个字节存储，用哪些字节来存储。例如ASCII编码[你没看错，它既是一种字符集合，也是一种字符编码]，定义了英文字母和符号在计算机中的表示方式，是用一个字节来表示。Unicode字符集合，有好几种字符编码方式，例如变长度编码的UTF8，UTF16等。中文字符集也有很多字符编码，例如上文提到的GB2312编码，GBK编码等。
+</p>
+
+<p>知乎上的这篇介绍字符编码，字体，iconv的文章很赞，内容浅显易懂。还有一篇很有名的有关Unicode和字符集的文章可以看看：The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!),网上有中文版。
+</p>
+
+<p>UCS和ISO 10646标准
+</p>
+
+<p>ISO 10646标准定义了通用字符集UCS[Universal Character Set]，是其他所有字符集合的超集。它保证了和其他字符集合之间可以来回转换，不会丢失信息。
+</p>
+
+<p>UCS不仅给每个字符做了编码，而且还定义了一个官方的名称。用来表示一个UCS或者Unicode的十六进制数字通常是用"U+"来作为前缀的，例如用"U+0041"来表示拉丁文中的大写字母A。
+</p>
+
+<p>UCS[Universial Character Set]和Unicode的关系
+</p>
+
+<p>简单粗暴的总结一下，就是两拨人搞的同一套标准。具体经过如下：
+</p>
+
+<p>在1980年代后期，有独立的两拨人想创建一个通用的字符集合。一个是国际化标准组织ISO[Internaltional Organization for Standardization]，另外一个是最初成员大部分是美国多语言软件服务提供商的财团发起的Unicode项目。幸运的是在1991年左右，两个项目的成员都意识到世界不需要两个统一的字符集。于是他们一起合作制定了一个字符表。虽然两个项目至今仍然存在并独立发布各自的标准，但是Unicode财团和国际化标准组织都已经同意会让Unicode和ISO 10646标准互相兼容并会在未来紧密协作。具体两者之间的区别，见这里
+</p>
+
+<p>什么是UTF8
+</p>
+
+<p>Unicode/UCS只是字符集合，虽然为每个字符分配了一个唯一的整数值，但具体怎么用字节来表示每个字符，是由字符编码决定的。Unicode的字符编码方式有UTF-8, UTF-16, UTF-32。由于UTF-16和UTF-32编码中包含"",或者"/"这样对于文件名和其他C语言库函数来说具有特殊意义的字符，所以不适合在Unix下用来做文件名称，文本文件和环境变量的Unicode编码。UTF-8没有这样的问题，它有很多优点：可以向前兼容ASCII码，是变长的编码，由于编码没有状态，所以很容易重新同步，在传输过程中丢失了一些字节后，具有鲁棒性。
+</p>
+
+<p>POSIX语系[locale]机制
+</p>
+
+<p>语系[locale]就是软件运行时的语言环境，它是语言和文化规则的一个集合，包含字符编码，日期/时间的表示方式，字符排序的规则等。语系的名称通常是由ISO 639-1规定的语言[language]和ISO 3166-1规定的国家代码[country code]以及额外的字符编码名称[character encoding]共同组成，例如zh_TW.UTF-8语系，zh代表语言是汉语，TW是台湾地区，UTF-8是字符编码。而zh_CN.GBK中，CN是指中国大陆地区，采用GBK编码。
+</p>
+
+<p>Linux下语系由几个类别的环境变量组成，指定了在软件中跟语言惯例相关的行为信息。例如LC_CTYPE决定字符编码方式，LC_COLLATE决定字符排序的规则。LANG环境变量用来设置所有类别的默认语系，但是LC_*这些变量能够覆盖每个单独的类别。
+</p>
+
+<p>理解了上述概念，咋们就可以去实践一下了。
+</p>
+
+<p>实战
+</p>
+
+<p>C语言对Unicode和UTF-8的支持
+</p>
+
+<p>多字节字符和宽字符
+</p>
+
+<p>C语言中用单独的一个char类型的变量是无法唯一地表示像汉语这样的自然语言的。C语言标准支持两种不同的方式来处理扩展的自然语言编码方式：宽字符[wide characters]和多字节字符[multibyte characters]。
+</p>
+
+<p>宽字符是一种内部表示方式，每个字符是用一个单独的wchar_t类型来表示的。
+</p>
+
+<p>多字节字符是用来做输入和输出的，每个字符用C语言中char类型的序列来表示。所以每个字符会用一个或多个(最多MB_LEN_MAX)字节来表示
+</p>
+
+<p>wchar_t这种类型是从GNU glibc 2.2开始引入的，目的是在运行时用单个的对象来表示字符，跟当前使用的语系无关。ISO C99标准要求通过宏__STDC_ISO_10646__来告诉程序支持wchar_t类型，并且保证所有的宽字符处理函数都会把宽字符当作Unicode字符。C语言中处理宽字符的函数多数是在处理char类型字符的函数名基础上，添加了"w"或者是把"str"替换成"wcs",例如wprintf(),wscpy()等。字符串常量之前添加L前缀就可以告诉让编译器用wchar_t类型来存储字符串常量，例如printf("%ls ", L"Sch?ne Grü?e")，如果用宽字符来表示字符串，此时的字符串长度就是以wchar_t为单位的，而不是字节;
+</p>
+
+<p>。
+</p>
+
+<p>2011版的C和C++标准都各自引入了固定大小的字符类型char16_t和char32_t来明确提供16位和32位Unicode编码格式，让wchar_t成为实现相关的类型。ISO 10646:2003 Unicode 4.0标准说:
+</p>
+
+<p>wchar_t类型的宽度是由编译器指定的，可以小到只有8位。因此对于需要在C或C++编译器之间可移植的程序不应该使用wchar_t来存储Unicode文本。wchar_t类型的目的是存储编译器定义的宽字符，有可能不是用Unicode编码的。
+</p>
+
+<p>多字节字符的字符编码方式，是由当前系统的语系[locale]来决定的，例如当前语系中字符编码是UTF-8，那么多字节字符编码就是UTF-8。因此语系也控制着宽字符和多字节之间的转换。
+</p>
+
+<p>glibc2.2及更高版本完整地实现ISO C语言多字节转换函数（mbsrtowcs(), wcsrtomb()等）。这些函数用来在wchar_t和任何语系相关的多字节编码，包括UTF-8,ISO 8859-1等之间进行转化。
+</p>
+
+<p>建议是使用这些函数中可重启动的[restartable,函数名中有字母r],是多线程安全的函数，例如wcsrtombs(), mbsrtowcs()。
+</p>
+
+<p>使用这些函数的好处是：
+</p>
+
+<p>是跟厂商无关的标准
+</p>
+
+<p>函数会根据用户的语系做正确的事情。程序需要做的是在程序开头调用setlocale(LC_ALL, "")来根据环境变量来设置用户语系
+</p>
+
+<p>例如可以写出如下代码：
+</p>
+
+<p>#include &lt;stdio.h>
+</p>
+
+<p>#include &lt;locale.h>
+</p>
+
+<p>int main()
+</p>
+
+<p>{
+</p>
+
+<p>if (!setlocale(LC_CTYPE, "")) {
+</p>
+
+<p>fprintf(stderr, "Can't set the specified locale! "
+</p>
+
+<p>"Check LANG, LC_CTYPE, LC_ALL.
+</p>
+
+<p>");
+</p>
+
+<p>return 1;
+</p>
+
+<p>}
+</p>
+
+<p>printf("%ls
+</p>
+
+<p>", L"Sch?ne Grü?e");
+</p>
+
+<p>return 0;
+</p>
+
+<p>}
+</p>
+
+<p>setlocale(LC_CTYPE, "")函数，会依次测试环境变量 LC_ALL, LC_CTYPE和 LANG的值，如果有值，就用这个值来决定用哪个语系数据来加载LC_CTYPE这个分类(控制着多字节转换的函数）。
+</p>
+
+<p>printf中的%ls格式说明符是用来指定把宽字符形式的字符串参数转化成由语系决定的多字节编码来输出。printf函数是不知道输出的字符的编码方式的，它会把传给它的字节原封不动地输出出去。在显示的时候，操作系统会根据当前的语系来将这些字节解码到对应的字符，所以只有当传给printf的字符编码方式和用户环境变量指定的字符编码方式相同，用printf打印出的字符才不会乱码。
+</p>
+
+<p>使用这些函数的坏处：
+</p>
+
+<p>有些函数是非线程安全的，因为两次函数调用之间有隐藏的内部状态
+</p>
+
+<p>不能同时支持多种语系或编码方式
+</p>
+
+<p>通过上述的分析可以看到，如果全部都使用C语言库中多字节的函数来进行外部字符编码和程序内部使用的wchar_t类型之间的转换，那么C语言库会根据环境变量LC_CTYPE的值来选择正确的字符编码，你的程序甚至不用显示地知道当前多字节编码是什么。
+</p>
+
+<p>然而，有一些情况下你可能不会全部都用C语言库中的多字节函数，此时程序不得不知道当前语系是什么。此时需要首先在程序开始处调用setlocale(LC_TYPE, ""函数来根据环境变量设置语系。之后利用函数nl_langinfo(CODESET)函数来获得当前语系指定的字符编码的名称。
+</p>
+
+<p>C语言如何书写采用了某种字符编码的字符串常量
+</p>
+
+<p>对于一坨字节数据来说，字符编码就相当于是有色眼镜一样，我们可以戴上UTF-8编码的眼镜去解读这片字节数据，也可以戴上GBK编码的眼镜去解读它。只有当我们采用了跟写入时的编码一致的编码去解读，才能读取出有意义的字符串，否则可能就是乱码了。
+</p>
+
+<p>转义序列
+</p>
+
+<p>转义序列[escape sequences]：转义是以多个字符的有序组合来表示原本很难直接表示出来的字符的技术。转义序列指在转义时使用的有序字符组合。
+</p>
+
+<p>需要了解C语言中如下的几个转义方式：
+</p>
+
+<p>'98':值为十进制值798的字符
+</p>
+
+<p>'\x7D':值为十六进制7D的字符
+</p>
+
+<p>'\u0041':代表字符名称中名为U+0041的这个Unicode字符，可能最终编译器会用几个字节来存储这个字符。这种方式只有C99以后才支持。由编译器来决定具体用什么方式存储。
+</p>
+
+<p>有了这几个转义字符这样就很容易书写出特定编码的字符串了，例如"我是Jack47"，采用各种编码形式的值如下：
+</p>
+
+<p>char gbk_name[] = "\xced2\xcac7Jack47";
+</p>
+
+<p>char unicode_name[] = "\u6211\u662FJack47"
+</p>
+
+<p>char utf8_name[] = "\xe6\x88\x91\xe6\x98\xafJack47"
+</p>
+
+<p>上述的这种方式，是直接把编码后的字节写入到了数组里，是一种"硬编码"[hard code]的方式。
+</p>
+
+<p>知道了上述的知识后，问题就来了，当前软件要支持UTF8，要如何修改？
+</p>
+
+<p>如何修改软件来支持UTF8
+</p>
+
+<p>有两种办法，可以这样划分：
+</p>
+
+<p>1. 软转换：数据在所有地方都是以UTF-8的形式存储的。
+</p>
+
+<p>2. 硬转换：程序读取的输入是UTF-8数据，在程序内部转换成宽字符后进行处理，只有在最终输出的时候转换成UTF-8编码。在内部一个字符是一个固定大小的内存对象。
+</p>
+
+<p>也可以这样划分：
+</p>
+
+<p>1. 硬编码的方法
+</p>
+
+<p>把UTF-8相关的信息硬编码到程序中。这样能够在某些场景下显著提高程序执行效率。这或许是那些只需要支持ASCII和UTF-8编码的程序的最好办法。
+</p>
+
+<p>2. 取决于语系的方法
+</p>
+
+<p>C语言提供了可以处理任意特定语系，采用多字节编码的字符串的处理函数。依赖于这些函数的程序员可以不用感知到UTF-8编码的实际细节。通过仅仅改变语系设置，就可以自动支持其他的多字节编码（例如EUC）。
+</p>
+
+<p>如果使用了UTF-8或者其他类似的多字节编码，需要程序员清楚地区分以下概念：
+</p>
+
+<p>1. 字节[Byte]
+</p>
+
+<p>2. 字符[Character]
+</p>
+
+<p>3. 显示时候的宽度
+</p>
+
+<p>如何在不同编码间转换
+</p>
+
+<p>可以使用iconv函数在两个不同的编码之间进行转换，例如从GBK编码转换到UTF-8编码。
+</p>
+
+<p>Java与Unicode
+</p>
+
+<p>Java语言内部使用的就是Unicode编码。char类型表示一个Unicode字符[这是跟C语言不一样的地方]，java.lang.String类表示一个从Unicode字符构建的字符串。
+</p>
+
+<p>java.io.DataInput和java.io.DataOutput接口分别有叫做readUTF和writeUTF的方法。但记住他们使用的不是UTF-8；他们用的是修改后的UTF-8编码：NUL字符不是用一个字节的0x00来表示，而是用两个字节的0xC0 0x80来表示的，在最后添加一个字节的0x00。这样编码，字符串包含NUL字符而不需要增加表示字符串长度的前缀字段--这样C语言<string.h>中定义的strlen()和strcpy这些函数就可以用来操作这些数据了。
+</p>
+
+<p>一些练习
+</p>
+
+<p>如何处理输入的中文参数，例如中文参数的字符个数打印出来？
+</p>
+
+<p>在json串中遇到了这样的字符串，是什么意思呢？"\u82f9\u679c\u624b\u673a"
+</p>
+
+
+
+<p style='float:right;'>本页共100段，6080个字符，13998 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

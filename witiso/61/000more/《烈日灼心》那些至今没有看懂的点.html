@@ -1,0 +1,557 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>《烈日灼心》那些至今没有看懂的点</h3>
+
+<p>
+</p>
+
+<p><h4 >揭秘一：辛小丰（邓超饰）为什么要回鱼排拿小金鱼？</h4 >
+</p>
+
+<p>电影中交代的较为粗陋，原著中这个桥段发生在尾巴晕倒在医院抢救过来之后。
+</p>
+
+<p>尾巴在重症监护室抢救出来，见到辛小丰的第一句话是我要我的小金鱼。这是辛小丰半年前给她买的，一个有盖子的长方形透明塑料盒子，一本书大小，有提手。里面有三条小金鱼。分别有名字：白雪公主、小巫婆、红蝴蝶，尾巴和比觉一起命名的。确定住院那天，尾巴就说要把小金鱼接来一起住院，比觉说，小金鱼不喜欢医院的味道。在低心排并发症抢救过来后，乔教授和一个漂亮护士都肯定地告诉她说，小金鱼不会讨厌医院的味道。
+</p>
+
+<p>尾巴知道辛小丰和杨自道一向都比老陈好说话，果然，她一说，辛小丰就说，好的。我拿。
+</p>
+
+<p>回到鱼排上后，发现金鱼都死了，辛小丰回到伊谷春的车上。
+</p>
+
+<p>辛小丰提着空盒子，上了汽车。伊谷春醒了，说，怎么，空的，都死了？辛小丰点头，说，没有人换水。
+</p>
+
+<p>汽车驶离码头。伊谷春说，早知道这样，你直接在花鸟市场给她再买几条不就好了。这么傻跑一趟，真是一根筋！
+</p>
+
+<p>辛小丰勉强笑笑，想说对不起，但没有说。一边开，伊谷春一边觉得辛小丰这事真是有点过分。在人群里，辛小丰怎么说，也是脑子比普通人清醒的人，这么一根筋的事，竟然把他伊谷春也带进了。
+</p>
+
+<p>辛小丰没有说话，伊谷春以为他不会回答了，却听到他说，我总觉得，小金鱼好，尾巴就会康复。
+</p>
+
+<p>电影中伊谷春问辛小丰记没记得金鱼的样子，回到市里后他们一起了花鸟市场买金鱼。
+</p>
+
+<p>所以电影中后续情节，尾巴和老陈一直在为是不是白雪公主、小巫婆打嘴仗。
+</p>
+
+<p><h4 >揭秘二：伊谷夏（王珞丹饰）在病房为什么要跟杨自道（郭涛饰）要二十块钱打车费？</h4 >
+</p>
+
+<p>这不是情侣间的打情骂俏，而是伊谷夏在替尾巴付完医药费后确实身无分文（一毛硬币就不要说了吧……），需要钱打车回家。
+</p>
+
+<p>一个老护士进来了，一看到一屋顶的气球就笑了，说，嗬，每个气球都像扑了粉啊，真好看！老护士过来对比觉小声说，你要楼下结账一下，我们医务科是没有放假休息的。比觉听了，声音倒很大，说，这么快呀，好像才交的两千。老护士从手里的几张单子中，挑出陈杨辛的那张，递给比觉。
+</p>
+
+<p>比觉看了，说，教授说，我们后天大概能出院，这三千多能不能到那时一起交？全部的费用，最好现在就给我们匡算一下，好有个准备。
+</p>
+
+<p>这个恐怕不行。老护士说，国庆到现在，已经逃跑了好几个病人，快二十万的费用都没着落了。院长非常生气，缴费管理更加严格规范了。要即时结清。现在，你这孩子的开支也比较稳定了，我估计，到后天最多五千多吧。
+</p>
+
+<p>比觉的声音不小，伊谷夏全部都听到了。床头，辛小丰和尾巴，在给气球写过年好，辛小丰拽下一个，扶着，尾巴就小心写一个。写好一放，就飞上一个。伊谷夏走出病房，按了电梯下了。
+</p>
+
+<p>正如比觉所料的，伊谷夏直奔一楼收费台窗口。
+</p>
+
+<p>报了陈杨辛的病床号和名字，就把三千八百七十多元缴纳了。听比觉和护士对话，伊谷夏以为就是三千，她没带卡，但口袋里有这个钱，下才发现，三千之外还要八百七十多。她把零钱包里的钱全部都倒了出来。幸好，还够。她口袋里只有一枚一毛硬币了。她在手心里翻转这一小枚硬币，回味着这样的惊险救助，一路得意地笑起来。
+</p>
+
+<p>伊谷夏上时，看到辛小丰抱着尾巴，尾巴手里拿着一个气球，正兴致勃勃地从一个病房出来。比觉拽着一把未送出的气球。他们又进入一个病房，远远听到尾巴的声音，大家过年好，我来送气球呀——
+</p>
+
+<p>有很多回致的问候声嘈杂欢乐地响起来。尾巴把新年的欢乐和憧憬，天真地送到了一个个沉闷的病房。伊谷夏没有再跟下。等她转回病房，杨自道正好进来了。
+</p>
+
+<p>杨自道劈头说，你怎么又来了？他们人呢？
+</p>
+
+<p>伊谷夏心里有美好秘密支撑着，便大度地说，嗨，都给大家拜年了。我也要走了。再见吧。
+</p>
+
+<p>果然，杨自道有点意外地看看，然后说，哦，走好啊。
+</p>
+
+<p>伊谷夏走出了病房。可是，直到下了电梯，她才想起自己口袋里只有一毛钱。犹豫着，是不是叫哥哥来接，但怕伊谷春骂。大过年的，爸爸的司机也不好叫。最后想，还是打的回家，到了再上楼拿钱。这以前也是有的，找不开钱的时候。不过，今天要是打的回家，家里人肯定要问，钱呢？也麻烦。
+</p>
+
+<p>伊谷夏又上楼回到尾巴病房。尾巴他们还没有回来。
+</p>
+
+<p>杨自道抬头一见她，很是奇怪。伊谷夏说，给我二十块钱吧。杨自道以为自己听错了，纳闷地偏着头看她。我要打的回家。伊谷夏说。
+</p>
+
+<p>杨自道开始掏钱包，说，那你怎么来的？
+</p>
+
+<p>我跟的士司机讲故事来着。
+</p>
+
+<p>杨自道疑惑地看着伊谷夏，把钱递给她。
+</p>
+
+<p>“谢谢啦，老头……”伊谷夏夸张地说，“我会还你的，别担心。”
+</p>
+
+<p><h4 >揭秘三：辛小丰为什么会在吊坠上留下自己的指纹？</h4 >
+</p>
+
+<p>当时，撤离现场的时候，他们把所有能想到的痕迹都清除了，比如指纹、脚印。包括屋子后面的防蚊纱门。但是，三人逃离现场的时候，最后的辛小丰，忽然呆立在那个赤裸的女孩尸体前。更不可思议的是，他伸手拉了一下她脖子上的枫叶饰品。他自己后来解释是想把它带走。他们紧张忙碌了那么多时间，所做的消除痕迹的努力，就被辛小丰莫名其妙的伸手给毁了。但所有这些，都不过是丝丝燃烧的引信，它更重要的是，引爆了比觉满腔的怨恨和绝望。他痛恨辛小丰把他们带进这么个灭顶之灾中。杨自道看当时的比觉，就像TNT炸弹，他把辛小丰往死里打。杨自道冲过挡架的时候，也被比觉打得眼冒金星、满嘴流血，比觉完全像个失控的野兽。他哭叫着，狠狠掐着辛小丰的脖子，连声吼，为什么你为什么为什么你他妈不扯下项链！！！
+</p>
+
+<p>关于辛小丰为什么要拉女孩脖子上的饰品，他在原著中有自己的解释：
+</p>
+
+<p>有一次，杨自道也忍不住问了，说，你真的想要那个饰品？那并不值钱啊。辛小丰的回答让他震撼，他说，我突然想记住那个女孩。当时觉得，我枪毙后，可以找她说对不起。那你为什么不扯下它？辛小丰说，心慌。绳子太牢。
+</p>
+
+<p><h4 >揭秘四：伊谷春的师傅为什么能天神一般地急速降临？</h4 >
+</p>
+
+<p>伊谷春其实早就判断出辛小丰三人是在逃人员，下面是原著中他和妹妹伊谷夏的对话，让人唏嘘不已。
+</p>
+
+<p>接下来，你要怎么办？
+</p>
+
+<p>让我师傅来画句号吧。
+</p>
+
+<p>等尾巴过完生日，好吗？不到半个月！伊谷夏说。求你了哥！
+</p>
+
+<p>伊谷春无语。
+</p>
+
+<p>原著里，正义铁血的伊谷春其实也柔情了，没有立马辛小丰。最终是房东的，让辛小丰被捕在尾巴生日前两天。
+</p>
+
+<p>伊谷春接到师傅协助缉捕电话的时候，辛小丰在火车站正好截住了江洋大盗毛某。
+</p>
+
+<p>警车往所里驱驰。姓毛的手上还带着台湾人失窃的、秒针坏掉的劳力士。伊谷春看到辛小丰嘴角上有血迹，白色的T恤上也都是脚印。伊谷春说，没事吧？辛小丰说没事。一下车，姓毛的没有料到的是，两个衣着时尚的便衣，冲着辛小丰就咔地上了手铐。辛小丰默然站着。姓毛的反应贼快，他嘿——嘿地叫起来，喂——你自己都这样，何苦先弄我？
+</p>
+
+<p>伊谷春抬起腿，一脚猛踹，姓毛的栽跌在两米远的水泥地上，被人再拎起来，门牙已经没了，下巴像半个血包子，哀哀叫。在辛小丰的记忆里，伊谷春好像没有对嫌疑人动粗过，而且下手这么狠。伊谷春过对便衣说了什么，便衣看着辛小丰的手铐，似乎很为难。这时，伊谷春的师傅进来了。西陇的刑警要马不停蹄地抓杨自道。伊谷春对师傅说，我来吧。没事。伊谷春把电话给辛小丰，说，你问他在哪里。
+</p>
+
+<p>辛小丰打通了，他看了一眼伊谷春，说，阿道，楼上那只鞋子终于掉下来了。
+</p>
+
+<p>姓伊的在你身边吗？
+</p>
+
+<p>是。
+</p>
+
+<p>电话给他。
+</p>
+
+<p>伊谷春接过电话。杨自道说，我到伊谷夏店里一下，可以给我二十分钟吗？
+</p>
+
+<p>伊谷春点头，给你三十分钟吧。我等你。
+</p>
+
+<p>西陇刑警瞪大了眼睛，伊谷春师傅看看伊谷春，对他们打了安静的手势。伊谷春一指辛小丰说，我想和他到我办公室呆几分钟。师傅点头。便衣刑警看着伊谷春和辛小丰上楼。
+</p>
+
+<p>原著中，伊谷春的师傅其实已经在路上了好些天才赶到火车站抓捕到辛小丰，电影中的突然出现让观众大呼不满，是因为时间限制，没有把情节说清楚。
+</p>
+
+<p><h4 >揭秘五：沉溺在“上帝视角”中的房东背后的窃听风云</h4 >
+</p>
+
+<p>两年前，造船厂宿舍发生过一起伤亡多人的大火。有家人的岳父母、妻子、五岁的儿子都在大火中死，只有男主人和一只狗幸免于难。当时，那户人家的女方亲眷认为那男人见死不救。而那男人辩解说，他遛狗，回来已经大火熊熊了，消防员已经控制了火场，无法出入。而据消防部门的笔录调查，那个男人遛狗回来的时候，后面门卫说，当时的火势并不大，男主人如果勇敢地冲上楼的话，有足够的时间，救出一家人。女方家人因此闹得很厉害，怀疑女婿故意见死不救好赢得保险。
+</p>
+
+<p>糟糕的流言很快四起，一说，男的是发现起火后，带着心爱的狗溜之大吉的；二是，那男人故意纵火骗保，已经被传讯多次；流言蜚语在造船厂满天飞，无论是故意纵火、懦弱、贪生怕死，还是见死不救、骗取保险赔偿，任何一种，那个男人都吃不消了。最后他拿了高额保险，辞职走人了。
+</p>
+
+<p>这个男人就是房东卓生发。
+</p>
+
+<p>电影中房东卓生发骑着自行车给鸡看病后便消失不见，仅仅充当了一个搞笑的路人甲角色。在原著中，卓生发可没有这么平淡无奇。
+</p>
+
+<p>抱着的这只鸡，还是一根重要的导火索：尾巴出院后其实被三人带回出租房住过一段时间，尾巴从小怕鸡，刚照面就被吓得摔倒在地，被啄伤眉毛鼻子。辛小丰为了帮尾巴解气，用脚踹飞过鸡，用衣叉打过鸡，就此跟房东结下梁子。卓生发在窃听时，更是听到“我弄死他的鸡！”“那就让他陪葬他的鸡吧。”这样令人惊恐不安的话语。
+</p>
+
+<p>卓生发通过窃听，终于推断出“1988 年，8 月19 日，在一个叫宿安的水库，发生了一起强奸灭门大案，五人被杀。三名作案人负案潜逃十四年。现在。这个作案团伙成员，就住在天界山3 号。”的结论，公安局了辛小丰三人。
+</p>
+
+<p>三人注射执行死刑后，伊谷夏找过卓生发：
+</p>
+
+<p>伊谷夏说，你知道楼下我那几个朋友现在在哪里吗？
+</p>
+
+<p>卓生发看着伊谷夏，歪头表示纳闷和好奇。
+</p>
+
+<p>今天晚上他们要回来。
+</p>
+
+<p>卓生发跳起来，不可能！他们杀了五个人！还强奸！
+</p>
+
+<p>伊谷夏说，你为什么要他们？
+</p>
+
+<p>谁说我的？卓生发说，是他们自己恶有恶报！
+</p>
+
+<p>现在，你安心了吗？
+</p>
+
+<p>跟我有什么关系？你这天真的女孩，你根本不知道人性的复杂和阴暗，根本不知道你和什么样的人，交了一场朋友！
+</p>
+
+<p>记得吧，有一天，我俩在那上面，伊谷夏指着石屋天台，你说，你会得到神的宽宥。那时，我也相信你。我觉得你孤单而善良。但是现在，和他们三个相比，我认为你得不到神的宽恕。你瞧不起山下的人，说那些人从小到老，都没有罪过心、负疚心，从来不知道忏悔。可是，现在，我告诉你，神也未必宽恕你，因为你心里只有恨，你心里装满了恨，你只想证明每一个人都是比你更恶的人！
+</p>
+
+<p>你这么说不公平！卓生发站起来。
+</p>
+
+<p>伊谷夏站起来说，你从来就没有光明磊落过，你没有责任感、不敢担当，没有牺牲精神、没有勇气也没有人心美好的真情！除了挑剔别人，热衷发现别人的恶，你什么都没有！我就是来告诉你，你是好人，阴暗的好人，到处都有你这样阴暗的好人，而我，——讨厌你！
+</p>
+
+<p>阴暗的好人，有偷窥欲的好人，违规做好事的好人，真真切切应了那句“可怜之人必有可恨之处”。比起阴暗的好人，你是否会更喜欢坦荡的坏人？
+</p>
+
+<p><h4 >揭秘六：辛小丰三人那天到底做了啥？</h4 >
+</p>
+
+<p>一次偶然，一次突发，毁掉三个青年一生，毁掉一个五口之家。
+</p>
+
+<p>阿道带我们水库钓鱼，要回来的时候，我们看见了山下一幢小别墅，比觉很好奇想下看。下阿道被院子里的黑色凌志车吸引，我们进了院子，我又被屋子吸引。我从后门进的时候，那个女孩湿着长发，赤裸着刚走出浴室。可能是地上湿，她滑了一下，抓着墙，那个姿势，让我彻底失控了。我毫无经验，不知道她心脏病突发，我很野蛮疯狂。我不能理解她怎么死了。比觉阿道进来的时候，已经发生了，我们想跑，可是她外公进来了，不能让他看见，只好掐住他，她外婆又进来了，接着是她父母。我们没有一点时间退出，越陷越深。如果没有我，阿道和比觉会生活得很好，我把他们害了；如果那天她不是赤裸的，不是那么美，也许，这一切都会改写……
+</p>
+
+<p><h4 >Ps：尾巴的眼泪</h4 >
+</p>
+
+<p>尾巴转身看着伊谷春，眼睛里竟然泪水汪汪。伊谷春吓了一跳，赶紧过抱住孩子。尾巴的嘴巴扁着撇着，下巴渐渐抽搐抖动起来，抖得她几乎说不好话：……我爸爸……都不要我了……
+</p>
+
+<p>谁说的！伊谷春把她抱起来，要不了多久，他们就回来了……
+</p>
+
+<p>尾巴摇头，……他们走了……老陈走了，小爸爸走了，道爸爸也走了……都不要我了……
+</p>
+
+<p>伊谷春一手抚摸着尾巴柔软的头发，说，你搞错了，他们要你，他们托我先陪你，我，还有小夏姐姐、爷爷、奶奶都要你……
+</p>
+
+<p>你骗人！这么久了……他们不会来找我了……
+</p>
+
+<p>等我联系上了，我带你找他们。
+</p>
+
+<p>尾巴摇头，不断摇头，……他们……都不要我了……
+</p>
+
+<p>伊谷春身后，伊谷夏泪流满面。
+</p>
+
+<p>这是原著的结尾，尾巴的哭泣，真的灼到我们心里了。</p>
+
+
+
+<p style='float:right;'>本页共88段，5115个字符，15068 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

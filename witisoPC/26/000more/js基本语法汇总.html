@@ -1,0 +1,849 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>js基本语法汇总</h4>
+
+<p></p>
+
+<h4>1、分类</h4>
+
+<p>ECMAScript js基本语法与标准</p>
+
+<p>DOM Document Object Model文档对象模型</p>
+
+<p>BOM Browser Object Model浏览器对象模型</p>
+
+<h4>2、注释方式</h4>
+
+<p>style / /</p>
+
+<p>body &lt;!-- --!&gt;</p>
+
+<p>script //</p>
+
+<p>/ /</p>
+
+<p>/**</p>
+
+<p>* js说明文档注释</p>
+
+<p>*/</p>
+
+<h4>3、简单指令</h4>
+
+<p>alert(""); 提示框；</p>
+
+<p>confirm(""); 确认框，点击后会响应返回true或false；</p>
+
+<p>prompt(); 弹出一个输入框；</p>
+
+<p>document.write("");</p>
+
+<p>console.log(""); 在控制台打印相应的信息；</p>
+
+<p>console.dir(""); 在控制台打印出该对象的所有信息；</p>
+
+<h4>4、变量命名</h4>
+
+<p>数字（0-9）、字母（a-z，A-Z）、下划线（_）；</p>
+
+<p>tips:应避免保留字和关键字；</p>
+
+<h4>5、NaN和isNaN</h4>
+
+<p>isNaN(number),如果number不是数字，则为true；</p>
+
+<p>Number(number),在转换为数字类型时，若number不是数字，则返回NaN；</p>
+
+<h4>6、转义字符</h4>
+
+<p>r 回车</p>
+
+<p>n 空格</p>
+
+<p>t 缩进</p>
+
+<p>反斜杠</p>
+
+<h4>7、逻辑短路、逻辑中断</h4>
+
+<p>true || 6; 逻辑或短路，左边为ture返回右值；</p>
+
+<p>6 && true; 逻辑与短路，左边false返回右值；</p>
+
+<h4>8、优先级</h4>
+
+<p>* / %</p>
+
+<p>+ -</p>
+
+<p>&&</p>
+
+<p>||</p>
+
+<p>?</p>
+
+<p>tips：自上而下优先级越来越高</p>
+
+<h4>9、类型转换（type）</h4>
+
+<p>parseInt("12a3"); 转为数字，尝试强转；</p>
+
+<p>parseFloat("123.123");</p>
+
+<p>data.toString();</p>
+
+<p>String(data);</p>
+
+<p>tips:变量声明未赋值，其值为undefined；</p>
+
+<p>对象为空，其值为null；</p>
+
+<h4>10、三元表达式</h4>
+
+<p>eg : a&gt;b?a=1:a=2;</p>
+
+<p>格式:</p>
+
+<p>判断条件？true的时候执行的操作：false的时候执行的操作；</p>
+
+<h4>11、数组Array</h4>
+
+<p>（1）、定义法</p>
+
+<p>构造函数：</p>
+
+<p>var arr = new Array("123","abc","xxx");</p>
+
+<p>字面量：</p>
+
+<p>var arr = ["123","646","abc"];</p>
+
+<p>数组长度：</p>
+
+<p>var arr = new Array(6);(数组长度为6)；</p>
+
+<p>（2）、赋值</p>
+
+<p>arr[0]=1;</p>
+
+<h4>12、形参和实参</h4>
+
+<p>定义函数时，function funcA(a,b,c){}，其中的a、b、c即为形参；</p>
+
+<p>调用函数时，funcA(1,2,3);其中的1、2、3即为实参；</p>
+
+<p>tips：function里面有一个arguments对象，里面存有所有传进函数的实参；</p>
+
+<h4>13、函数function</h4>
+
+<p>（1）、函数命名</p>
+
+<p>1、 可以使用字符、数字、下划线、$；</p>
+
+<p>2、 不能以数字开头；</p>
+
+<p>3、 不能使用关键字和保留字；</p>
+
+<p>4、 区分大小写；</p>
+
+<p>5、 建议要有意义 -- 动词+名字结构；</p>
+
+<p>6、 驼峰命名法；</p>
+
+<p>7、 函数名不能重名，后面写的重名函数会把前面写的函数给覆盖掉；</p>
+
+<p>（2）、函数的返回值</p>
+
+<p>返回值：</p>
+
+<p>当函数执行完毕之后，所得到的结果就是一个函数返回值</p>
+
+<p>任意函数都有返回值</p>
+
+<p>1、 在函数内部没有显示的写有return的时候，函数的返回值是undefined；</p>
+
+<p>2、 当函数内部有return，但是return后面没有跟着任何内容或者数据的时候，</p>
+
+<p>函数的返回值是undefined，并且return后面的代码不会执行；</p>
+
+<p>3、 当return后面跟着内容或者数据的时候，函数的返回值就是这个跟着的内容或者数据；</p>
+
+<p>（3）、函数的四种形式：</p>
+
+<p>1、没有参数，没有return；</p>
+
+<p>通常在于封装一段过程；</p>
+
+<p>2、没有参数，有return；</p>
+
+<p>通常用于内部封装引用其他函数（闭包，回调）；</p>
+
+<p>3、有参数，没有return；</p>
+
+<p>通常用于执行操作的封装；</p>
+
+<p>4、有参数，有return；</p>
+
+<p>常见形式；</p>
+
+<p>（4）、匿名函数</p>
+
+<p>匿名函数的name属性值为anonymous；</p>
+
+<p>函数仅用一次的情况，即用即废；</p>
+
+<p>eg:</p>
+
+<p>setTimeout(function(){</p>
+
+<p>console.log(this.name);</p>
+
+<p>},1000);</p>
+
+<p>tips:在1秒后在控制台打印出本函数的名称；</p>
+
+<p>（5）、回调函数</p>
+
+<p>在一个函数当中，另一个函数作为参数传入该函数中，另一个的这个函数即为回调函数；</p>
+
+<p>eg:</p>
+
+<p>function atack(callback){</p>
+
+<p>return callback;</p>
+
+<p>}</p>
+
+<p>tips:在调用该函数时，指定callback是哪个函数；</p>
+
+<p>atack（func）；</p>
+
+<p>（6）、短路运算</p>
+
+<p>作用：防止传入函数的数据不足，造成无法运行；</p>
+
+<p>eg：</p>
+
+<p>function getResult(a,b,fn) {</p>
+
+<p>fn && fn();</p>
+
+<p>}（通常使用逻辑与的短路来决定是否执行回调函数；）</p>
+
+<p>function getResult_2(a,b){</p>
+
+<p>a || 0;</p>
+
+<p>}（通常用逻辑或的短路来防止实参不足的情况，强行赋值；）</p>
+
+<p>（7）、自执行函数</p>
+
+<p>（function func2(){</p>
+
+<p>}）()</p>
+
+<p>tips:在函数定义的结束最后写入一个（），该函数定义完成后直接被调用执行；</p>
+
+<p>（8）、递归</p>
+
+<p>在函数执行的最后再一次的调用自身；</p>
+
+<p>tips:递归是一种非常耗资源的做法，通常为了简化运算，还会结合缓存进行；</p>
+
+<p>并且注意，递归必须要有结束判断条件（if），否则该函数被调用后就是死循环；</p>
+
+<h4>14、数据类型</h4>
+
+<p>（1）、简单数据类型</p>
+
+<p>string、number、boolean</p>
+
+<p>（2）、复杂数据类型</p>
+
+<p>String、Number、Boolean、Array、Math、Date、Obeject、function、RegExp(正则表达式)</p>
+
+<p>（3）、空数据类型</p>
+
+<p>* Null ---→Null的数据类型会返回一个Object</p>
+
+<p>* undifined</p>
+
+<p>tips：用typeof可以进行判断数据类型；</p>
+
+<p>tips：定义的简单数据类型变量，其数据保存在变量中；</p>
+
+<p>而复杂数据类型，其变量保存的是数据所在的内存地址；</p>
+
+<h4>15、内置对象</h4>
+
+<p>Array、Date、Math、String；</p>
+
+<h4>16、（Math）数学对象</h4>
+
+<p>向上取整 Math.ceil(number);</p>
+
+<p>向下取整 Math.floor(number);</p>
+
+<p>四舍五入 Math.round(number);</p>
+
+<p>求多个数字之间的最大值 Math.max();</p>
+
+<p>求多个数字之间的最小值 Math.min();</p>
+
+<p>求x的y次幂 Math.pow(x,y);</p>
+
+<p>求正弦值 Math.sin(x);</p>
+
+<p>example:</p>
+
+<p>求一个角度的正弦值，要求x必须是一个额弧度值</p>
+
+<p>角度和弧度的转换公式：</p>
+
+<p>弧度 = 角度 2 Math.PI / 360;</p>
+
+<p>Math.sin(30*2*Math.PI/360)</p>
+
+<p>Math.abs(x); 得到一个数字的绝对值</p>
+
+<h4>17、（Array）数组对象</h4>
+
+<p>（1）、arr1.concat(arr2);</p>
+
+<p>数组拼接，结果为将arr2拼接到arr1的最后；</p>
+
+<p>（2）、arr.join()；</p>
+
+<p>数组字符串输出，括号内可以指定元素连接的符号；</p>
+
+<p>eg:</p>
+
+<p>arr=["a","b","c","d"];</p>
+
+<p>console.log(arr.join("|")); (结果为"a|b|c|d")</p>
+
+<p>（3）、arr.pop();</p>
+
+<p>切除数组的最后一个元素，返回值为该元素；</p>
+
+<p>（4）、arr.slice(start,end)</p>
+
+<p>获取，获取数组的指定片段，start必须有，如果参数为负数则从末尾开始选取；</p>
+
+<p>返回值为该片段组成的，一个新的数组；</p>
+
+<p>（5）、arr.push</p>
+
+<p>添加，用于向数组的末尾添加新的元素，参数可以是多个；</p>
+
+<p>返回值为数组的新长度；</p>
+
+<p>（6）、arr.splice</p>
+
+<p>1、用于向数组中指定的索引添加元素；</p>
+
+<p>arr.splice(2, 0, "William","asdfasdf");</p>
+
+<p>在第2个元素开始，删除的元素个数（可以为0，为0到结尾），</p>
+
+<p>加入元素为"William"、"asdfasdf"；</p>
+
+<p>2、用于替换数组中的元素；</p>
+
+<p>arr.splice(2,1,"William")；</p>
+
+<p>3、用于删除数组中的元素；</p>
+
+<p>arr.splice(2,2);</p>
+
+<p>（7）、arr.indexOf(element);</p>
+
+<p>查找，在数组中查找element，返回值为索引，如果没有该元素返回-1；</p>
+
+<p>（8）、arr.sort(function);</p>
+
+<p>排序，function为一个函数；</p>
+
+<p>eg:</p>
+
+<p>function sortNumber(a,b){</p>
+
+<p>return a-b;</p>
+
+<p>}</p>
+
+<p>arr.sort(sortNumber);(从小到大排序)</p>
+
+<p>tips：如果a-b改成b-a，那么执行的操作为从大到小；</p>
+
+<p>tips:字符串对象（String）的方法与Array的方法类似；</p>
+
+<h4>18、（Date）日期对象</h4>
+
+<p>date.getTime()</p>
+
+<p>date.getMilliseconds()</p>
+
+<p>date.getSeconds()</p>
+
+<p>date.getMinutes()</p>
+
+<p>date.getHours()</p>
+
+<p>date.getDay()</p>
+
+<p>date.getDate()</p>
+
+<p>date.getMonth()</p>
+
+<p>date.getFullYear()</p>
+
+<p>tips:很多，查文档</p>
+
+<h4>19、（String）对象</h4>
+
+<p>charAt(index)</p>
+
+<p>str[index] 获取字符串指定位置的字符</p>
+
+<p>concat() 拼接字符串</p>
+
+<p>slice(start,end)/</p>
+
+<p>substring(start,end) 截取从start开始，end结束的字符，</p>
+
+<p>返回一个新的字符串，若start为负数，那么从最后一个字符开始；</p>
+
+<p>substr(start,length) 截取从start开始，length长度的字符，得到一个新的的字符串</p>
+
+<p>indexOf(char) 获取指定字符第一次在字符串中的位置</p>
+
+<p>lastIndexOf(char) 获取指定字符最后一次出现在字符串中的位置</p>
+
+<p>trim() 去除字符串前后的空白</p>
+
+<p>toUpperCase()</p>
+
+<p>toLocaleUpperCase() 转换为大写</p>
+
+<p>toLowerCase()</p>
+
+<p>toLocaleLowerCawse() 转换为小写</p>
+
+<p>replace() 替换字符</p>
+
+<p>split() 分割字符串为数组</p>
+
+<h4>20、自定义对象</h4>
+
+<p>对象：无序属性的集合；</p>
+
+<p>特征：属性（key）；</p>
+
+<p>行为：方法（value）；</p>
+
+<p>js是基于对象的弱类型语言；</p>
+
+<p>继承：基于类，子类可以从父类得到的特征；</p>
+
+<p>工厂模式：定义一个function构造函数，作为对象，要创建对象直接调用该构造函数，加new关键字；</p>
+
+<p>构造函数：定义对象的函数，里面存有该对象拥有的基本属性和方法；</p>
+
+<p>命名首字母大写，this会自动指代当前对象；</p>
+
+<p>访问对象属性：</p>
+
+<p>obj[key];</p>
+
+<p>obj.key;</p>
+
+<p>遍历对象：</p>
+
+<p>for(key in obj){</p>
+
+<p>key 为属性名；</p>
+
+<p>obj[key] 为属性值（value）；</p>
+
+<p>}</p>
+
+<h4>21、JSON</h4>
+
+<p>{</p>
+
+<p>"name" : "李狗蛋",</p>
+
+<p>"age" : 18,</p>
+
+<p>"color" : "yellow"</p>
+
+<p>}</p>
+
+<p>1、 所有的属性名，必须使用双引号包起来；</p>
+
+<p>2、 字面量侧重的描述对象，JSON侧重于数据传输；</p>
+
+<p>3、 JSON不支持undefined；</p>
+
+<p>4、 JSON不是对象，从服务器发来的json一般是字符串，</p>
+
+<p>通过JSON.parse(jsonDate.json)可以将其转换成js对象；</p>
+
+<h4>22、JS解析</h4>
+
+<p>（1）、作用域</p>
+
+<p>全局作用域：整个代码所有地方都可以调用；</p>
+
+<p>局部作用域：在函数内部声明的变量，只可以在函数内部使用；</p>
+
+<p>（2）、变量提升和函数提升</p>
+
+<p>预解析：在解析的时候，var和function都会被提升到代码的最顶端；</p>
+
+<p>但是赋值操作不会被提升，定义和函数才会被提升；</p>
+
+<p>if里面的变量定义也会被提升，但是赋值操作不会；</p>
+
+<h4>23、其他细节（tips）</h4>
+
+<p>(1)、元素由对象组成的数组进行排序</p>
+
+<p>eg：</p>
+
+<p>var data = [</p>
+
+<p>{title: "老司机", count: 20},</p>
+
+<p>{title: "诗人", count: 5},</p>
+
+<p>{title: "歌手", count: 10},</p>
+
+<p>{title: "隔壁老王", count: 30},</p>
+
+<p>{title: "水手", count: 7},</p>
+
+<p>{title: "葫芦娃", count: 6},</p>
+
+<p>];</p>
+
+<p>//该数组的元素都为对象。我们需求为根据count的值给数组重新排序。</p>
+
+<p>//解决方案：使用sort方法，对传入的函数做手脚。</p>
+
+<p>function sortArr(a,b){</p>
+
+<p>return a.count &gt; b.count;</p>
+
+<p>}</p>
+
+<p>data.sort(sortArr);</p>
+
+<p>//原本的a和b的比较方法变成a.count和b.count；</p>
+
+<p>//原本的比较方法可以参见17，数组对象</p>
+
+<p>//至此，data将以count值从小到大排列。</p>
+
+<p>tips:Array对象的sort方法传入的为比较函数，比较函数里return排序比较的方法；</p>
+
+<p>原始的sort方法传入的函数内部return的值为a&gt;b，</p>
+
+<p>通过修改sort传入的函数，可以实现对元素为对象的数组的排序！</p>
+
+<p>百度前端技术学院</p>
+
+<p>作者：宋少卿</p>
+
+<p>出处：http://ife.baidu.com/note/detail/id/1398</p>
+
+
+
+<p style='float:right;'>本页共279段，5424个字符，10527 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

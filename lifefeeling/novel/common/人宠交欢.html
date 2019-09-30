@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>﻿人宠交欢</h4>
+
+<p>小寡妇侯小美**艳丽，肌肤滑腻如雪，身段尤为骄人，可是她常怨自己的命薄可不是吗她现在正是二十五岁罢了。</p>
+
+<p>这时期，正是她春情勃发期，对男子的需求正浓，对肉欲正觉无限滋味。</p>
+
+<p>可是，她为了一笔巨大的遗产，未能容许她去再嫁，困处春闺，倍觉寂寞，未免容颜憔悴。</p>
+
+<p>尤幸她的家中，蓄养猫犬甚多，那些猫犬原是看管门户，别无他途，侯小美忽然灵机一触，看中了一头雄壮巨大的「多利」雄性狼狗。</p>
+
+<p>夜幕低垂的时侯，小寡妇侯小美换个了睡衣，出了房门口，穿过了走廊绕出花径，来到园旁花丛里，娇声唤了一声「多利」。</p>
+
+<p>只见那头巨大的狼犬，听了女主人呼叫后，立即摇头摆尾，汪汪轻吠，表示欢迎的样子，侯小美把手一招，多利便跟住她的身后，返回香闺里。</p>
+
+<p>侯小美关闭了房门后，便将睡衣脱掉，抛在椅子上。</p>
+
+<p>登时她的娇美**、涨美的一对**、细细的腰、肥大的臀部、绷胀的**、柔软乌亮的阴毛、鲜红色的**、亮晶晶的一双大腿全部显露出来。</p>
+
+<p>啊！好看极了！真是说不出的美丽呀！</p>
+
+<p>这时侯小美一拍床中，多利便一跃跳上床来，眼睛望住了它的女主人。</p>
+
+<p>侯小美即时用手抱住了它的长脸子，满脸风骚的娇笑，一双眼珠子也朦胧成一线，显出无限高兴的神色来。</p>
+
+<p>「哎唷！多利真是作怪呀。」</p>
+
+<p>它给侯小美轻轻的搂著它的颈项，也就昂起了头来，用那鼻子嗅著她的乳胸，同时伸出那长长的舌头，舐著她那对丰满的**，那摇摆著的尾巴，扫著侯小美的腿缝内的**，扫得她吃吃的笑了起来，大抵她这时感到骚痒得紧。</p>
+
+<p>突然，侯小美伸出玉手，去掏它那毛茸茸的奶儿。</p>
+
+<p>侯小美一边掏弄它的奶儿，一边笑骂道：「哎哟！你也会这样顽皮，把嘴儿嗅著我的**，那尾巴又扫弄得人家好不酥痒，哎哟我的骨子里也骚痒到了，底下那**也给你作弄得流出**来了啦！」</p>
+
+<p>侯小美一面说，一面现出了情急分万分的样子。</p>
+
+<p>玉手用功，狠狠的抽弄著它的**，她那酥胸也急得起伏著不停，娇喘喘的，好不肉紧，好不急刹的呀！</p>
+
+<p>侯小美那玉手一玩弄它那**时，只见多利的**，果然给她玩弄得直伸了出来，从那柔和的灯光照耀下，啊！那**是那么红鲜鲜的、尖尖的、湿湿滑滑的、看那尺码足有好多寸长，那**沿著直上，一路由尖转到粗大。</p>
+
+<p>侯小美一见它的**伸了出来，登时欢喜到了极点，意态骚荡的指著它说道：「多利，你倒会弄手段啦！你吮弄我的**、用尾巴擦我的**，亏你也想得到。好吧，我给你作弄得够了，还不去将**替我弄一弄**呀！」</p>
+
+<p>她一面说，一面将身子仰卧在床上，把那些软枕垫在臀下，垫得高高的，挺起了**来。</p>
+
+<p>多利那狼狗，见了她那挺高的**，****的，发出一阵肉的幽香，不禁馋涎欲滴，连忙低下了头，伸出那条长大粗厚、而又柔软有韧力的舌头，一下一下的吮著她的**。</p>
+
+<p>有时还用舌尖子，对著那阴缝儿欲想吮入去，可是却又吮不入，因为它那舌头厚大的缘故，因此只能舐吃到她那流出来的**罢了。</p>
+
+<p>侯小美流出来的**，它想到又甜又香，多么的好吃啊！它欲将舌头伸入，多舐吃一些，却总是不可能。</p>
+
+<p>多利那条宽阔的舌头，在密密频频的舐弄中，触到了她的阴蒂时，侯小美立即感到一阵强烈而刺激的骚痒，忙将臀儿缩了一缩，不由得握紧了粉拳，而那心里感到有无限的舒畅，她那娇小口儿在吃吃的笑著。</p>
+
+<p>多利的舌头舐了片刻，又是心儿不死的，将舌尖撬开了她的**，紧贴著她的阴缝直想**入去，可是仍舐不进去，这样一来，使到多利肉紧不过便将那根舌头使劲儿连阴缝带阴核，用力的刮擦了数下。</p>
+
+<p>这一用力刮擦著阴蒂，可把侯小美擦得满身的骨头像是散了一般似的，真有说不出的筋酥骨软，身子痕痒。</p>
+
+<p>因为她那阴缝内那些娇嫩的肉儿，与那最富敏感的阴蒂，给多利那条粗糙不滑的舌头使劲的刮擦了数下，使她感觉受用非常，连那心脏儿也乐到了。</p>
+
+<p>侯小美在下乱蹬两条**，身躯摆动像风吹柳枝一般，连那肥臀也不住的掀动著，没命似的叫道：</p>
+
+<p>「哎唷！你这东西，想是作死了不成人家那个娇嫩的**，也能给你这般的乱舐的么？啊唷！我真给你舐死了呀！我的心也给你摘下来了，骚痒得要命哩！唔，多利，你舐就舐吧！你这般用力，作甚么呀！雪，雪，刮得我的**痕痒极了！」</p>
+
+<p>这时，侯小美的**给他用力刮擦了数下后，那些**竟然滔滔不止的流了出来多利那狼狗，听见女主人要它慢慢来，它真的就慢慢舐著、舐著……</p>
+
+<p>侯小美这时觉得有无限的滋味，便用力的挺起了那**，给它尽情吮刮著。</p>
+
+<p>这样的过了一些时候，侯小美低下头来瞧它，只见多利在伸出舌子在刮著自己的**，便吃吃的无限风骚地说道：「多利，歇歇罢。我想那**也给你舐得淡了啦！看你那副样子，不过是想来整弄整弄吧！哎哟！就给你来弄弄好了。快将那个毛茸茸的长脸子昂起来吧！看了令我不舒服哩！」</p>
+
+<p>说罢，将腿儿夹了一夹，正欲坐起，将身子转过来改回正常的姿势才恭后它整弄。</p>
+
+<p>侯小美用手扶著它的**，继续说道：「多利，现在和你来弄吧！你可不要刁钻才好呀。不然，我的**也会给你弄破的。」</p>
+
+<p>侯小美边说边分开了两条**，用手握著它那根长长的**送至**口，还用玉手擘开了两片**，然后将它那根**放在自己的**外，还用手扶著自己底下的肥臀，挺起了**的凑了上来。</p>
+
+<p>原来多利这狼狗的**，虽然是很长的，可是前一段比较后一段的幼细了许多。</p>
+
+<p>多利的**，给侯小美用手拿著，以及那肥臀助著姿势的迎凑著，这样的一来，巳经弄进了二寸许。</p>
+
+<p>侯小美登时觉得自己的**里，像给放进了一根火辣的热铁条一般，烫得她自己骚痒极了的**，**辣、酥麻麻，确是受用非凡。</p>
+
+<p>只见侯小美朦胧了那双媚眼，嘴儿「咦咦唔唔」的不住在哼叫，似是弱不禁弄的样子，不过，她的那张芙蓉脸，全是布满了桃花红色的风采，一张骄人艳丽的动人脸颊，最可惜的就是那头多利是看不懂的。</p>
+
+<p>假如换了常人，见了这么一个美丽的女人在怀里，和她真个**，看见了侯小美那张迷人的脸颊，怎不教人连骨子里也酥痒了起来呢</p>
+
+<p>侯小美突然的发出了一阵吃吃的浪笑声，看她把媚眼一转，水汪汪的注视著多利的长脸颊，似嗔非嗔的笑骂道：</p>
+
+<p>「哎唷！你这东西真是不好啦！还未入尽了啊！你这么快的将那根**转动了起来做甚么呀！哎唷，不……不要动吧！我的**快给撬爆了呀！哎唷！你这多利，短毛的畜性，你这般的不顾人家，弄过了这一回之后，看我还和你来整弄吧！雪，搅得人家的**又酥痒、又疼痛，简直想把我撬死了吗？咦，你又来了。」</p>
+
+<p>侯小美说完了之后，只见她肉紧非常的样子，两手握住了露出在外的那根长长的狗儿**，像抽出回来又不舍得似的，只是闭上了媚眼「唔唔咦咦」的低叫。</p>
+
+<p>肉酥筋颤，滋味无穷，不胜好味的神情，那握捏著**的手，自然的将那条**放入，这样的放入著，渐惭的入至四寸，不过只这四寸馀的长度，也够她受用了。</p>
+
+<p>只瞧见侯小美的**使劲撑住了床的柄子，将**挺得高高的凑著那**，她那条细腰不歇的扭扭拧拧，把胸前的两个**，也扯得摇摇摆摆，有些像波浪的起伏一样。</p>
+
+<p>多利这时的**，已经将她的**填塞得满满的，把那个肉桃似的饱满**，分开了两片，连那些骚骚的**也给塞得挤出不止。</p>
+
+<p>侯小美这时只觉自己的**已经被它的**撑得火辣火热，更把她那一口欲火挑逗得像狂了一般，口里胡里胡涂的**著，一面又用手握住了它露出在**外的那一段**，学男子们一般的抽上送下，</p>
+
+<p>侯小美的**，紧紧吞下了多利的**后，因为她自己抽送起来，多利的**，就能紧贴著她**内的肉壁儿了。</p>
+
+<p>在不住的刮擦下，登时刮擦得侯小美那个白腻身子，有如触电流似的抖颤起来，口里的浪语，也就更加的不歇叫唤著，她那捏住**在抽送的玉手，也就越来越紧、越抽越密，登时那一片「吱吱衔唧」的水响，大嚷怪叫般的发了出来。</p>
+
+<p>侯小美给多利的**又刮又擦的，弄得她好不畅快、舒适，直插得侯小美媚眼儿挤挤，小嘴儿嘻嘻的发笑，腰肢密密的款摆，还把胸前那一双**，扯动得颤颤抖抖，摇摇欲坠。</p>
+
+<p>只见侯小美还把那个圆圆饱满、娇美白嫩的肥臀，像人家舞狮子头一般的密密掀动著，而又情不自禁，清脸淫意的叫道：</p>
+
+<p>「哎唷，可乐死我了酥你的**儿胀大了许多的哩酥你看看，将我的**插得满满的呀酥咦，又硬了许多啦酥今夜我得到的滋味儿，真是甜蜜呢？我的**给你插得又酥又痒，把我的骨头也酥得全散了。真的呀酥把我快乐得…魄飘飘，竟像死了一般的啦酥多利，你虽然弄得我怪受用的，不过，我的手也抽送得疲累够了，唔，我也没有气力的了！」</p>
+
+<p>侯小美淫声浪语，呼叫得娇响，看她那手足无措的模样，边呼边叫的把玉手密密的将多利那根**不住的抽**插，弄得那支多利，竟然立定了身子不动一下的，任由侯小美握著它的**不住的插插送送。</p>
+
+<p>可不是么，那头狼狗，虽然是不懂甚么人性的畜牲，不过它也有的是性的感觉，此时得与女主人那个聚紧狭狭的**交欢，虽然它也感觉到没有和同类交欢时那样称心如意的将**全根插了进去罢了，不过侯小美这时的**，也将多利的**吞没了三份之二了。</p>
+
+<p>多利那狼狗，也感觉到受用起来，那根**也会有滑液分泄出来的，还夹杂了侯小美那大量的**，把侯小美的**润滑得有如油桶一般所以侯小美稍为用力，便可以用她那个窄窄狭狭的**紧紧将**夹著，经过了它像狂了一般的疾抽猛送，渐渐便抽送自如了。</p>
+
+<p>大凡狗类每逢交欢的时侯，它的**一感快美之时，那根****在**内必定会胀大了七倍至八倍，所以它这时像生了根似的，无论怎样也不能拔出甩脱的，一俟它那根**上的**消除了快美时，才可以从容抽出脱离的。同时，在胀大的**上，那一个**输精管道也张开了小嘴，来吸吮**的花心的。</p>
+
+<p>侯小美在这时像狂了一般的将它的**握住，密密狂抽推送，双方那得到的兴味，真是有说不出口的乐趣多利一感到有无限的快美后，那**也就借著侯小美插去的势子，每逢点著她的花心时，也就用**那胀大的孔道，吸吮她的花心一下。</p>
+
+<p>侯小美受到多利这种意外的袭击，登时只觉得花心儿微微麻痒了一下，她身子也不由自主的将一股股**流了个不休，流出到**外的肥臀也不少。</p>
+
+<p>侯小美又是照常的抽送著，只听得一片「呼呼啦啦」、「吱吱唧唧」，**给这根狗**抽送得发出了这般的声音时，感到异常动听。侯小美捏住了多利的**，抽著、插著她那个小小的花心儿，又顿时的给它吮了一下重的。</p>
+
+<p>只见侯小美的细腰，用力地的挺了一挺，肥臀也扭动了一下，接著便上气不接下气的叫道：</p>
+
+<p>「哎唷，真好了！今晚我的命根子，可能给你弄掉了啊！哎唷，多利，弄得好端端的，干么你把那**的**，吮得我的花心…怪骚痒的呀！我看你这支畜牲，成心是作难我的罢了。多利，你看看，水儿也给你弄出不少的了。把我的大腿和臀部也湿得淋淋漓漓的，哎唷！你又来了吗？我可死给你了！唔，给你吮碎了我的花心呀！不……不好啦，我要丢了！我可受不了哩！多利，我求求你，不要将****发大出来吧！」</p>
+
+<p>侯小美那双闭上了的媚眼，也就睁了开来，她满脸布上了妩媚的红晕，嘴儿咿咿似嗔非嗔的笑骂道：</p>
+
+<p>「哎唷你这个刁钻的多利，人家己经给你弄到筋软骨酥，疲倦到了极处，让人家休息一下也好，你偏要用尾巴扫扰人家，我实在是恨透了你这畜牲了！」</p>
+
+<p>这时，侯小美只恨恨打了它一记腿儿，还抛给它一个恨意的白眼，玉手又伸下去，掏弄它那根**，边掏弄著、边将那条腰扭扭拧拧的松动筋骨，腿儿摆摆蹬蹬的，有时送用手抚摸它那毛茸茸的身躯，脸颊上露出又恨又爱的神情，把那双骚得出水的媚眼，意态淫淫的瞧著多利。</p>
+
+<p>突然，侯小美像是被那头狼狗的**搔著她的痒根似的，骚声姣气的说道：</p>
+
+<p>「多利，安静一点吧！歇会儿，我才和你爽爽快快的弄呀？这么急急的干么！弄得人家的**，不酥、不痒的，令人难受得紧呢？不过，我还没有尽兴的，现在的身子委实疲倦极了，就是吊颈……也得让人家缓缓气啊！」</p>
+
+<p>侯小美说完，还斜了它一个眼波儿。</p>
+
+<p>不料那头多利狼狗今夜给侯小美引发了它的兽性，已经急得它有些不耐烦了，还是将**向著侯小美的花心儿不住的点点吮吮，这样的点得侯小美笑声吃吃的将那肥臀使劲的左摇右扭，闪避著它的**，可是它将**跟著吮的形势，还是这么的点吮著她的花心。</p>
+
+<p>侯小美刚才休息了一会，大气也消了，疲倦的身子也回复过来了，现在见到它这样子，也知道多利也等得急了，便吃吃的笑道：「多利，我看你是等得急了罢。现在就和你来啦，谁还怕你不成。多利，你瞧著看吧！这回我不能弄得你弃甲曳兵，我就不算是姓侯的！」</p>
+
+<p>说完之后，便又无限浪意似的握住了它那**，重新抽**插了起来。</p>
+
+<p>侯小美这时的情形，又不似先时那么馋急的神情，而是稳打稳扎的凑合著，还将两条白白净净的**一夹一夹的，细腰又是这么轻盈盈的款摆，媚眼斜斜的闪耀著，口里还哼著「咿咿唔唔」的**起来。</p>
+
+<p>休息后的侯小美，确是比先前大大不同，她这时使出浑身解数，依著房术的次序使了出来。</p>
+
+<p>侯小美这一手，好不利害！你瞧瞧，那头多利被她夹著了小小的一段**，给她夹夹磨磨，**的收收合合，而至到腰肢扭拧、**摇动，还从毛茸茸的肉缝瞧见它的身躯正在抖抖颤颤的呢那条长尾巴，先前是不停地在左右摆动，现在却已经歇住了。</p>
+
+<p>侯小美边弄著多利的**，一边把玉手轻轻的抚摸它那后腿缝的嫩肉，这样一来，真是奇怪的呀！那条长长的**，除了插在侯小美**里四寸馀长的看不到外，留在外面那长长的一段，这时也抖抖颤颤的伸缩起来。</p>
+
+<p>那头多利狼狗给侯小美没紧没要的使出了手段来，也就将它弄成了这般模样儿，假若是男子来和她整弄时，被侯小美这样的玩弄，我想他就是身壮力健的伟男子，一定也是抵挡不住的，而至被她玩弄得神魂颠倒、骨软筋酥，受不过来而泄身败北，抱头羞惭而走的了</p>
+
+<p>玩了好一会之后，侯小美忽然的笑嘻嘻道：「多利，刚才我不是怕你的呀？瞧你这里……唔，你不要这么快就泄出来啦！我还要再弄一下子的呀！多利，羞也不羞，人家一发动，你便抵受不住了？还刁痕的使狡猾作甚么呢？」</p>
+
+<p>这时，侯小美和那多利，又是感到了有些疲倦了，她便浪意骚骚的说道：「多利，你这样的整弄，我的手儿也快要折断了，还是换换姿势吧！」</p>
+
+<p>侯小美说时，便把**用力的拉了出来，身子使一个转侧俯伏在床上，像是一只狮子般的伏著，将那个粉白滑腻的大屁股高高的昂起，笑声吃吃的伸过玉手，捏住了它那根**，从腿缝的中间插入了自巳的**内里而去。</p>
+
+<p>侯小美笑口吃吃的说道：「多利，这样来好么？因为刚才这个姿势，我的手儿太困倦，不得不要转换的了，现在你自己来**吧！不要死板板的放在**里面，要将你那个**头吸吮人家的花心呢？我也要乐上一会儿，才泄身子给你呀！你不听我的话，可不要怪我用手段才好！」</p>
+
+<p>侯小美边说边将肥臀向后坐凑过来，还把酥胸扭歪，用粉乳擦著它的毛腿。</p>
+
+<p>可是侯小美虽然是这么的说，不过那头狼狗要学她讲的模样，将**灵灵活活的运用，把**插送著她的**，那又怎样做得到呢所以，它只好使出了和同类交欢的惯技，把放入侯小美**里的**，发胀得大大的装满了她的**，又将它的孔儿吮著了花心，一阵阵的吮吸，如此一来，可把她乐得够了。</p>
+
+<p>你瞧侯小美身子摆动、粉臀摇曳，口里嚷著道：「哎唷，多利，我给你弄得痒死了！哎唷，我的……也出来了！」</p>
+
+<p>她哼完了数声，那身子再也无力挺起，而至软软的贴伏在床上，那个举得高高的肥臀，变作没气没力的愈低愈下了。</p>
+
+<p>那头多利，想是给侯小美泄出来热黏的淫精烫得快美，它也禁不住的把狗精射了出来，那多利射完了精液后，一条长长的**，这才回入腹中去。</p>
+
+<p>侯小美软软无力的伏著好一会，才见她伸伸腰肢、坐起身子，取过巾儿揩抹流出来的**及狗精，收拾过后，这才穿回衣服。</p>
+
+<p>一幕人狗交欢图，也便收场了。</p>
+
+
+
+本页共87段，6219个字符。文本字节数：17995 Byte(字节)﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

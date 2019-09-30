@@ -1,0 +1,1834 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript"> 
+//bg_even("表格ID属性名","奇数行背景色","偶数行背景色","鼠标经过背景色","点击后背景色");
+function bg_even(o,a,b,c,d){
+        var t=document.getElementById(o).getElementsByTagName("tr");
+        for(var i=0;i<t.length;i++){
+                t[i].style.backgroundColor=(t[i].sectionRowIndex%2==0)?a:b;
+                t[i].onclick=function(){
+                        if(this.x!="1"){
+                                this.x="1";
+                                this.style.backgroundColor=d;
+                        }else{
+                                this.x="0";
+                                this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                        }
+                }
+                t[i].onmouseover=function(){
+                        if(this.x!="1")this.style.backgroundColor=c;
+                }
+                t[i].onmouseout=function(){
+                        if(this.x!="1")this.style.backgroundColor=(this.sectionRowIndex%2==0)?a:b;
+                }
+        }
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>MFC笔记</title>
+
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+</style>
+</head>
+
+<body> 
+<div id="container">
+<!--
+<table id="tbrowser">
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+-->
+
+<!--
+height="*\w*"
+width="*\w*"
+</p>
+<p>
+-->
+
+
+<p></p>
+
+
+<h4>如何鼠标点击一下可以选中edit中的一行数据？怎样可以获得这行数据的内容？ </h4>
+<p></p>
+<pre>
+int n = pmyEdit->CharFromPos(myPt);  
+//  通过鼠标坐标得到行号
+int nLineIndex = HIWORD(n);
+int nCharIndex = LOWORD(n); 
+if ((nBegin = pmyEdit->LineIndex(nLineIndex)) != -1)  
+// 得到行起始位置
+{
+    nEnd = nBegin + pmyEdit->LineLength(nLineIndex);
+    // 结束位置
+    pmyEdit->SetSel(nBegin, nEnd);
+    // 选中
+}
+</pre>
+
+<p>在同一个exe里建立了两个Dialog，分别是IDD_A和IDD_B，在IDD_A里有一个按钮，如何编程实现点击按钮后打开IDD_B？</p>
+
+<p>1 先为 IDD_B对话框建立一个基于对话框的类，比如Dlg1；
+<p>2 在 IDD_A的按键中添加如下代码：Dlg1 dlg;dlg.DoModal(); 就可以打开 IDD_B 对话框了，当然你要在文件中加入头文件 Dlg1.h。</p>
+
+
+<p>无模式对话框：
+<p>1、首先创建对话框模板资源；
+<p> 2、从CDialog类派生自己的无模式对话框类:CModelessDlg；
+<p> 3、在合适的位置动态创建（new）CModelessDlg的对象：pDlg；
+<p>4、调用pDlg的Create函数创建无模式对话框；
+<p>5、调用pDlg的ShowWindow函数显示无模式对话框；
+<p>6、覆盖OnOK和OnCancel函数，执行DestroyWindow函数销毁无模式对话框
+<p>7、覆盖PosNcDestroy函数，执行delete this；</p>
+
+<p>VC6 SDK 创建和显示非模式对话框创建用CreateDialog或CreateDialogIndirect或CreateDialogParam或CreateDialogIndirectParam。显示用ShowWindow()，交互用SendMessage()，关闭用DestroyWindow，记住绝不能用EndDialog</p>
+
+<p>对话框与窗口的区别，它没有最大化按钮、没有最小化按钮、不能改变形状大小。</p>
+
+<p>对话框主要由两部分组成：</p>
+
+<p>对话框资源：可以使用对话框编辑器来配置对话框的界面，如对话框的大小、位置、样式，对话框中控件的类型和位置等。另外，我们还可以在程序的执行过程中动态创建对话框资源。</p>
+
+<p>对话框类：在MFC程序中，可以使用向导帮助用户建立一个与对话框资源相关联的类，通常这个类由CDialog类派生。</p>
+
+<p>对话框的类型对话框可以分为模式对话框和无模式对话框两种类型。</p>
+
+<p>从CDialog的定义代码可以看出，Cdialog提供了两套构建Cdialog对象的系统，分别用于模式对话框和无模式对话框。</p>
+
+<p>无模式对话框对象的构建过程，它首先调用缺省的构造函数生成对话框对象，然后调用Create函数创建和初始化对话框。Cdialog类中的Create函数有两种函数原型：</p>
+
+<p>BOOL Create( LPCTSTR lpszTemplateName, CWnd* pParentWnd = NULL );</p>
+
+<p>BOOL Create( UINT nIDTemplate, CWnd* pParentWnd = NULL );</p>
+
+<p>VC6添加成员变量：类视图的类名上右击，选择添加成员变量；</p>
+
+
+
+<p>单文档：主框架，对应于类CMainFrame，而其中的“编辑区域”叫用户区，对应于视图类CMyNoteView，而被编辑的文本对应于一个文档类CMyNoteDoc。另外，每个程序还有一个对应于应用程序本身的类，本例中是CMyNoteApp。这四个类就是向导自动生成的应用程序框架类</p>
+
+
+<p>使用ShellExecute打开文件夹并选中文件  ShellExecute(NULL, "open", "explorer.exe", "/select,C:\\a.txt", NULL, SW_SHOWNORMAL);</p>
+
+
+<h4>添加消息映射</h4>
+
+<p>1 使用类向导</p>
+
+<p>Message Maps→class name→Objects IDs→Messages→edit code.</p>
+
+<p>2 手动创建</p>
+
+<p>2.1 在类声明中添加消息函数声明，消息函数前要有afx_msg宏，用来区分函数是普通还是消息函数。</p>
+
+<p>2.2 在类的实现文件中的GEGIN_MESSAGE_MAP与END_MESSAGE_MAP之间映射宏。消息映射宏必须定义为ON_MESSAGE（消息ID,消息函数）。</p>
+
+<p>2.3 编写消息函数。</p>
+<hr />
+<p>MFC库还包含了一些全局函数，这些函数不属于任何一个类，可以直接使用，一般以"Afx"为前缀，如AfxBeginThread(),AfxGetMainWnd()获得程序主窗口的指针。</p>
+
+<p>在VC 6中，资源和源文件是分别被编辑的，源代码编译成中间代码时，资源则被编译成二进制文件，连接程序通过一个“资源的标记”将源代码和资源文件联系起来，这个“资源标记”就是资源符号。可通过“string table”资源项查看。</p>
+<p>CString对象提供了动态内存分配机制。有6种初始化方法的构造函数或复制构造函数。</p>
+
+
+<h4>Windows编程特点</h4>
+
+<p>1 消息驱动机制在Windows操作环境中，无论是系统产生的动作或是用户运行应用程序产生的动作，都称为事件(Events)产生的消息(Message)。例如，在Windows 桌面(传统风格)上，双击应用程序的快捷图标，系统就会执行该应用程序。在Windows的应用程序中，也是通过接收消息、分发消息、处理消息来和用户进行交互的。这种消息驱动的机制是Windows编程的最大特点。需要注意的是，许多Windows消息都经过了严格的定义，并且适用于所有的应用程序。例如，当用户按下鼠标的左键时系统就会发送WM_LBUTTONDOWN消息，而当用户敲了一个字符键时系统就会发送WM_CHAR消息，若用户进行菜单选择或工具按钮单击等操作时，系统又会相应地发送WM_COMMAND消息给相应的窗口等等。</p>
+<p>函数调用和触发的方式变成了事件或消息触发。</p>
+<p>2 图形设备接口(GDI)在传统的DOS环境中，想要在打印机上打印一幅图形是一件非常复杂的事情，因为用户必须根据打印机类型和指令规则向打印机输送数据。而Windows则提供了一个抽象的接口，称为图形设备接口(Graphical Device Interface，简称GDI)，使得用户直接利用系统的GDI函数就能方便实现输入或输出，而不必关心与系统相连的外部设备的类型。</p>
+
+<p>3 基于资源的程序设计Windows应用程序常常包含众多图形元素，例如光标、菜单、工具栏、位图、对话框等，在Windows环境下，每一个这样的元素都作为一种可以装入应用程序的资源来存放。这些资源就像C++程序中的常量一样，可以被编辑、修改，也可以被其他应用程序所共享。Visual C++ 6.0中就提供这样的编辑器，可“所见即所得”地对这些不同类型的资源进行设计、编辑等。</p>
+<hr />
+<p>把常用的项列在列表框中以供选择，而同时提供编辑框，允许用户输入列表框中所没有的新项。组合框正是这样的一种控件，它结合列表框和编辑框的特点，取二者之长，从而完成较为复杂的输入功能。</p>
+
+<p>窗口、文档和视图是MFC的基础，框架窗口可分为两类：一类是应用程序主窗口，另一类是文档窗口。</p>
+
+<p>文档窗口对于单文档应用程序来说，它和主框架窗口是一致的，即主框架窗口就是文档窗口；而对于多文档应用程序，文档窗口是主框架窗口的子窗口</p>
+
+<p>用MFC AppWizard创建的单文档(SDI)或多文档(MDI)应用程序均包含应用程序类、文档类、视图类和框架窗口类，这些类是通过文档模板来有机地联系在一起。</p>
+
+<p>画刷的属性通常包括填充色、填充图案和填充样式三种。</p>
+<p>ClassView提供了工程中所有的类的层次列表，用来显示工程中的类信息、结构信息和全局变量等。通常，在程序中利用类视图来查看类的数据成员、定位类的方法以及向类中添加数据成员、方法等。不同类别的成员函数与成员变量有不同的图标。且有一个快捷菜单对应。</p>
+
+<p>VC++中提示计算机丢失MFC42D.DLL文件.工程->设置->常规，把Microsoft基础类改为：使用MFC作为静态链接库</p>
+
+<p>if(GetDlgItem(控件ID)->GetSafeHwnd() == ::GetFocus())</p>
+
+
+<p>Unhandled exception in exe (MFC42D.Dll):oxc0000005:Access violationbResult = m_pCtrlSite->DestroyControl();</p>
+
+<p>上面的错误提示可以通过尝试“全部重建解决方案”，重新运行后异常消失了！</p>
+
+<p>如果你真的不想用指针，也是可以的，用下面的代码：</p>
+<p>static CEdit ed;
+<p>ed.SubclassDlgItem(IDC_EDIT1,this);这时ed就和IDC_EDIT1关联起来了，不过上面的static千万不能少了。</p>
+
+<p>C++中如何设置某个对话框作为应用程序的主窗口：在app类的InitInstance()方法里初始化主窗口。比如你要设为主窗口的对话框类为Dialog,这样写就行……</p>
+
+<p>类向导：对话框、控件类→类→变量、方法；
+<p>无类向导的类，如CstatusBar,MFC类→实例化，如CStatusBar m_StatusBar;→应用类提供的数据和方法，如： m_StatusBar.Create(this);//创建状态栏 m_StatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT)); //设置状态栏数目</p>
+
+<p>在Visual C++中可以利用向导生成基于对话框、单文档或多文档的应用程序。整个应用程序是利用向导将一系列的MFC的类组合在一起，构成应用程序框架。在这个应用程序框架中，封装了整个Windows应用程序所需要的大部分元素，包括消息的循环、界面的显示等。Microsoft基础类库基本包含了Windows应用程序的所有方面，了解Windows基础类库的组成，掌握常用类的使用可以加快程序开发的效率，提高代码的重复利用率。</p>
+<h4>句柄</h4>
+
+<p>句柄是指Windows使用的唯一的整数值，是一个4字节长的数值。它用于标识应用程序中不同的对象和同类对象的不同实例。应用程序通过句柄可以访问相应对象的信息。Windosw系统中对于不同的Windows内容的句柄使用了不同的句柄类型，例如窗口句柄类型为HWND等。</p>
+<p>句柄的实质是一个特殊的结构体指针。</p>
+<p>Microsoft Windows 运行环境，通过给应用程序中的每个窗体和控件分配一个句柄（或 hWnd）来标识它们。hWnd 属性用于Windows API调用。许多 Windows 运行环境函数需要活动窗口的 hWnd 作为参数。注意 由于该属性值在程序运行时可以改变，绝对不要将 hWnd 存储在变量中。如果 User Control 的 Windowless 属性设为 True, 则 hWnd 属性将返回 0 。</p>
+
+<p>HWND简单的说就是窗口的句柄。也就是说为什么窗口是通过一个HWND来表示的。从程序的角度看，什么是窗口？实际上窗口是一堆的数据。这堆数据非常的复杂。不可能每个人都能懂，也没必要每个人都懂，所以设计者给了一个HWND来做为程序访问这堆数据的入口。这样就很好的保证了数据的容易访问，和数据的封装。</p>
+
+<p>一般来说，HWND不认为是指针，因为指针表示对象的地址，根据地址我们总能找到这个对象，但是HWND的值对我们来说毫无意义，通过它我们找不到对象本身。应该这样看，窗口是一个对象，这个对象的细节是不需要我们知道的。而HWND是这个对象的某种标识，系统会根据它来找到对象，我的想法是系统也许在某个地方放有一个表格，这个表格中放有各种对象的描述，而HWND应该是相应对象在表格中的索引。</p>
+
+<p>可以这样去理解句柄，Windows程序中产生的任何资源（要占用某一块或大或小的内存），如图标，光标，窗口，应用程序的实例（已加载到内存运行中的程序）。操作系统每产生一个这样的资源时，都要将它们放入相应的内存，并为这些内存指定一个唯一的标识号，这个标识号即该资源的句柄。操作系统要管理和操作这些资源，都是通过句柄来找到对应的资源的。按资源的类型，又可将句柄细分成图标句柄（HICON)，光标句柄（HCURSOR），窗口句柄（HWND），应用程序实例句柄（HINSTANCE），等等各种类型的句柄。操作系统给每一个窗口指定的一个唯一的标识号即窗口句柄。</p>
+
+<p>HANDLE即是句柄,是一个特殊的整数,Windows利用它标志应用程序创建和使用的资源，是Windows内部表资源数据存储的内存索引值，Windows可利用它访问表中的信息。</p>
+
+<p>Usually, the main information of a handle is an integer index into an internal table. But this is not always true. GDI handles have extra information like object type and a re-use count. Some handles are actually pointers.There are three major groups of handles: 1) kernel handles, exposed by KERNEL32.DLL. Files, thread, process, ..2) user handles, exposed by USER32.DLL. Icons, menus, windows, cursors, ...3) GDI handles, exposed by GDI32.DLL. DC, font, region, DDB, DIB section, pen, brush.</p>
+
+<hr />
+<p>MFC不仅提供了用于界面开发的类库，还提供了很多类库用于Windows环境下实现内部处理的类，比如数据库访问、线程管理等；</p>
+
+<p>InitInstance()函数：每次启动应用程序的一个实例时，由WinMain()函数调用。</p>
+
+<p>MFC消息分为窗口消息、控件通知消息和命令消息；</p>
+
+<p>VC6编程库主要有4方面的内容，分别是C++标准库CSL、C运行时库CRT、活动模板库ATL和微软基础类库MFC</p>
+
+<p>ShellExecute函数用来执行应用程序。</p>
+
+<p>HINSTANCE ShellExecute(HWND hwnd,LPCTSTR lpOperation,LPCTSTR lpFile,LPCTSTR lpParameters, LPCTSTR lpDirectory,INT nShowCmd)</p>
+
+<p></p>
+<pre>
+hwnd:应用程序窗体句柄
+lpOperation：具体操作命令，如open,print,explore
+lpfile:其他应用程序名
+lpParameters:应用程序调用的参数
+lpDirectory：默认的目录地址
+nShowCmd：窗体显示参数
+</pre>
+<h4>部分乱码</h4>
+<p>“烫”是未初始化的栈空间，“屯”是申请后未做过内存清零或COPY的堆内存。</p>
+
+<p>写入文件是“屯”，则需要找下你申请的内存是不是没经过内存复制而直接写入文件里了。</p>
+
+<p>在windows平台下，ms的编译器（也就是vc带的那个）在 Debug 模式下，会把未初始化的栈内存全部填成 0xcc，用字符串来看就是”烫烫烫烫烫烫烫”，未初始化的堆内存全部填成0xcd，字符串看就是“屯屯屯屯屯屯屯屯”。</p>
+
+<p>定义的字符串没有初始化就会出现这样的情况</p>
+
+<p>解决办法：初始化一下 </p>
+
+<p>1、char p[] = “0”; </p>
+
+<p>2、ZeroMemory </p>
+
+<p>3、memset</p>
+
+<p>在 Debug 模式下，VC 、VS会默认把未初始化的栈内存按字节全部填成 0xcc，当一段初始化为0xcccc的内存被当做字符输出的时候，就会出现ansi码0xcccc对应的中文字“烫”；</p>
+
+<p>把未初始化的堆内存全部填成 0xcd，当一段初始化为0xcdcd的内存被当做字符输出的时候，就会出现ansi码0xcdcd对应的中文字“屯”。</p>
+
+<p>因此，如果内存没初始化或者字符数组溢出就可能出现这种情况。</p>
+
+<p>但是在 Release 模式下不会出现这些汉字，原来那块内存里是什么就输出什么。</p>
+<p>跟字符串中'0\'位置有关系，在此之前可能有一段未初始化的内存空间。</p>
+<hr />
+
+<h4>调用API创建窗体主要分为这么4个主要步骤</h4>
+
+<p>1 首先是用API的一个结构体来指定要创建一个啥样的窗体。比如窗体的图标啊，菜单栏等一些属性</p>
+
+<p>2 注册窗口</p>
+
+<p>3 调用API函数创建窗体，第一步创建的结构体会做为参数传进来。最后显示出来</p>
+
+<p>4 获取程序的windows信息。这里有点特殊的是，获取到了message之后不会直接调用程序MyProc，而且先把message转换下，然后先传给windows API，然后windows再去调用MyProc。之所以没直接调用此函数的原因貌似是由于windows上会同时运行很多程序。同时使用CPU，windows会做一些调度，只要当轮到该应用程序用CPU了才调用你的MyProc函数去作相应的处理</p>
+
+<p>main函数中的while循环会一直循环去获取信息，只有当MyProc函数中调用了PostQuitMessage(0)后，while条件才会为假，结束循环，从而退出整个应用程序</p>
+
+<p>这是用MFC创建一个简单的窗体，代码少了很多，因为MFC对windows API做了很多封装，由于封装的太厉害，我们也不容易从这里看出调用API那样流程和原理了。</p>
+
+<p>连程序的入口点都不知道哪去了，据说是在CWinApp或者它的父类里面封装了Main函数，所以一个MFC应用程序中哪个类是继承了CWinApp，就可以把它当作是整个应用程序的入口点吧。</p>
+
+<p>由于那些API都被封装了，我们只要重写CWinApp继承下来的虚函数InitInstance来创建窗口了，像之前那些指定啥窗体样式，注册窗体啊都不用管了。然后此处还定义了一个类继承</p>
+
+<p>CFrameWnd，就实例化这个类来创建窗体。</p>
+
+<p>我猜上面调用API时的四大步骤封装后在这里，可能就是第一步的操作封装到CFrameWnd中去了，2，3步封装到了CWinApp了，第四步就不知道跑哪去了。</p>
+
+<p>不过在MFC，处理信息就简单的用这样的宏就行了。发现MFC到处是宏，大部分东东都是用宏搞来搞去给你封装了。</p>
+
+<p>BEGIN_MESSAGE_MAP</p>
+
+<p>END_MESSAGE_MAP</p>
+<hr />
+<h4>VC、MFC、API</h4>
+<p>C++是一种编程语言，用C++语言编写的程序可以用C++编译器来编译成可运行的执行程序。C++编译器有很多。 </p>
+
+<p>VC是一个编程工具软件，它集成了C++编译器和编辑环境，全称叫做：Virsual C++，即“可视化的C++编程工具”。 </p>
+<p>可视化主要表现在：1 UI资源；2 框架，如appWizard，classWizard。</p>
+<p>MFC是一个微软提供的基础类库，它封装了WINDOWS里的API，对于开发者来说，用MFC会比直接用Windows的API来得容易一些。（所有Windows应用程序都得通过使用Windows API来实现）MFC中还提供了很好的应用程序框架，最突出的就是"文档/视图"结构。 </p>
+
+<p>C++语言与操作系统环境是没有关系的，由于Windows操作系统太过普及，所以一般大家都在开发基于Windows操作系统的应用程序。 目前用于开发Windows应用程序的编程语言、编程环境很多，而用C++开发程序的编程环境中，VC是比较好用的，尤其是开发Windows应用程序，再加上VC对MFC应用开发支持的最好（都是微软的产品），所以，现在相当多数的人在VC上用MFC来开发Windows应用程序。 </p>
+
+<p>你提到的“windows编程和windows API编程”还是有一点不同，前者比较泛指开发Windows应用程序，而后者比较强调直接调用Windows API进行编程，前者包括后者，现在直接用Windows API编程的比较少，而是用封装了API的类库来开发的比较多，比如MFC。 </p>
+
+<p>总之，VC，C++，MFC之间是没有什么直接关系，要说有的话，就是： </p>
+
+<p>1 VC支持C++编程语言，也支持用MFC开发Windows应用程序 </p>
+
+<p>2 MFC本身就是C++类库 </p>
+
+<p>另外：</p>
+
+<p>1 VC也可以开发C程序，可以完全不用到MFC </p>
+
+<p>2 VC可以用C或者C++开发非Windows程序，比如Dos程序等</p>
+
+<p>如果你想用C++编Windows程序的话，建议你先把C++学好，然后试着在VC环境中学习用MFC框架开发Windows程序，可以参考《Virsual C++技术内幕》（现在已经搞不清到多少版了），当然，你手上还得必备一本MFC参考手册，随时可以查找类以及类成员函数的说明(有MSDN也可以)。 刚开始学不要太紧张，也不要太急于求成，循序渐进，最好先把一些概念搞清楚，还有就是操作系统的消息机制一定要多下功夫去理解，有了这些基础，再实践起来就会容易和轻松的多。 </p>
+
+<p>windows API 编程用VC也是合适的，创建工程的时候选择Win32 App，并且不使用MFC。 Windows API编程肯定需要使用一种编程语言的，选择C或者C++都是不错的选择，只要在程序里不使用MFC，而是直接调用Windows 提供的最基本的API，都可以叫做Window API编程的。 至于选择开发环境，VC还是相当不错的（虽然稍微复杂一点），可以利用VC为你生成应用程序框架，可以大大提高开发效率，也可以自己从WinMain()开始一点一点地写（即应用程序的唯一入口点，相对而言，非Windows程序是以main()开始的），就跟写DOS程序一样。 总之，Windows API编程并不复杂，你可以看看几个简单的例子，然后慢慢的增加代码和应用的复杂度。如果你用VC，就让VC帮你生成一个最简单的应用程序框架，你一句代码也不用写，就可以运行了，然后你再仔细看看VC帮你生成的源代码，你就可以开始在这个基础上慢慢的加些新的代码进去了。 编程的时候，在VC缺省的情况下是默认为C++的，至于你用C还是C++就随你了，一般人都是混着用的，C++完全包含了C，现在一般区分C和C++，无非就是简单的看看是否使用了类，是否使用了引用（&）等等……</p>
+
+
+<p>先学以下一个方面的内容： </p>
+
+<p>1 编程语言 </p>
+
+<p>2 熟悉Windows API，理解Windows的消息机制 </p>
+
+<p>3 VC开发环境</p>
+
+<p>C/C++都是一种编程语言，程序员用它来创作（我喜欢用创作这个词，让写代码有一些艺术气息。。。）各种各样的程序，简单如计算闰年，复杂到一个系统地实现。当然， 编写标准C程序的时候，我们还经常会调用各种库函数来辅助完成某些功能；初学者使用得最多的C库函数就是printf了，这些库函数是由你所使用的编译器厂商提供的。在Windows平台下，也有类似的函数可供调用；不同的是，这些函数是由Windows操作系统本身提供的。</p>
+
+<p>Windows操作系统提供了各种各样的函数，以方便我们开发Windows应用程序。这些函数是Windows操作系统提供给应用程序编程的接口（Application Programming Interface），简称为API函数。我们在编写Windows程序时所说的API函数，就是指系统提供的函数，所有主要的Windows函数都在Windows。h头文件中进行了声明。使用windows API创建的能在windows上运行的程序统称为windows程序。</p>
+
+<p>这些API随着系统的更新升级，他们也是在不断更新和扩充，但是，其行为基本保持不变以保证不同平台对应用程序的兼容性，面对越来越多地API，我们怎么获取可靠的帮助呢？最大的帮助就是MSDN，你可以把MSDN理解为微软向开发人员提供的一套帮助系统，其中包含大量的开发文档、技术文章和示例代码。MSDN包含的信息非常全面，程序员不但可以利用MSDN来辅助开发，还可以利用MSDN来进行学习，从而提高自己。对于初学者来说，学会使用MSDN并从中汲取知识，是必须要掌握的技能。</p>
+
+<p>我们还经常听人说Win32 SDK开发，那么什么是SDK呢。SDK的全称是Software Development Kit，中文译为软件开发包。假如现在我们要开发呼叫中心，在购买语音卡的同时，厂商就会提供语音卡的SDK开发包，以方便我们对语音卡的编程操作。这个开发包通常都会包含语音卡的API函数库、帮助文档、使用手册、辅助工具等资源。也就是说，SDK实际上就是开发所需资源的一个集合，再具体点说，你知道CreatePorcess这个API，那怎么使用，你需要有头文件，当然还需要提供功能的系统DLL库的引出库lib，这些都在SDK中。现在读者应该明白Win32 SDK的含义了吧，即Windows 32位平台下的软件开发包，包括了API函数、帮助文档、微软提供的一些辅助开发工具。</p>
+
+<p>提示：API和SDK是一种广泛使用的专业术语，并没有专指某一种特定的API和SDK，例如，语音卡API、语音卡SDK、Java API、Java SDK等。自己公开的DLL函数也可以叫API！！！  </p>
+
+<p>一般来讲，狭义上的API指 MS公开的函数。比如MSDN中介绍的函数。广义的API可以包括所有的函数，你自己的函数也算，未公开的也是。指世界上一切函数。都可以叫API--Application Programming Interface ；SDK也不仅仅指MS的开发包，你自己的程序如果需要让别人作二次开发，你就会提供一些函数接口让别人编程，你提供的材料也叫SDK。  </p>
+
+<p> 有了语言(C/C++)，有了开发资源(SDK)、有了帮助文档(MSDN)，ok，我们可以编写windows程序了，等等、工具有没有更好的工具呢，人类之所以进步就在于会使用工具，所以，为了更加高效的开发程序，一些集成开发环境诞生了，其中，VisualC++就是一个支持C/C++语言开发的集成开发环境（IDE）。记住，Vc++不是什么新的编程语言，他只是 IDE，只是一个编程的辅助工具，具体来说，VisualC++包含了源程序编辑器、C/C++编译器、MFC和ATL等，其中，MFC和ATL可以简单的理解为再次封装的Windows的系统接口，原生接口就是API 。</p>
+
+<p>其中，MFC，微软基础类(Microsoft Foundation Classes)，实际上是微软提供的，用于在C++环境下编写应用程序的一个框架和引擎，也可以说，MFC是Win API与C++的结合后的再一次封装。</p>
+
+<p>OWL（borland公司，其已经逐渐淡处）、VCL（Borland公司--现在已和Inprise合并专--为DELPHI设计的，其是由OWL演变的）和MFC（ms专为vc++设计的）是不同公司提供的三大类库，更确切点说，他们都是应用框架。</p>
+
+<p>DELPHI：也是一种集成开发环境，不过他支持的语言是源至于pascal的Object Pascal。他使用的框架就是VCL。</p>
+
+<p>BCB：就是Inprise公司使用了Delphi的IDE和VCL，再配上C++语言推出的开发环境C++Builder，很多人很念旧，所以冠以Borland C++ Builder之名，简称为BCB。</p>
+
+<p>ATL是全新的COM 开发工具 ：---- ATL 是ActiveX Template Library 的缩写，它是一套C++模板库。 使用ATL 能 够 快速地开发出高效、简洁的代码， 同时对COM 组件的开发提供最大限度 的代码自动生成以及可视化支 持。从Microsoft Visual C++ 5。0 版本开始，Microsoft 把ATL 集成 到Visual C++ 开发环境中。</p>
+
+<p>SDK + C 完全可以进行所有的windows程序开发，当然，你还可以采用MFC + C++，当然，你要用SDK + C++ 也是你的自由，但是MFC + C可是impossible的事情，因为，MFC就是C++写的，C可不支持类哦……</p>
+
+<p>两个都是开发在windows平台上运行的程序，能用mfc开发的，为什么要用win32api来开发呢，象一些windows上运行的3d引擎，都是用win32 api开发的，所以进行二次开发肯定是用win32 api，但是其他一些MS系统好像没有必要用api，用mfc就可以了，反正编译出来的exe都是可以运行的。</p>
+
+<p>mfc是封装的类，最后还是会调用win32api win32api开发效率是低一些，但比较自由。 有时候mfc是封装的类不能满足我们的要求，这时就需要我们自己用api来开发啦</p>
+
+<p>win32和mfc编程的最大不同是</p>
+
+<p>win32是编程者自己把消息和响应函数联系在一起。</p>
+
+<p>mfc是编程者采用微软做好了的MESSAGE-MAP机制，来处理消息。</p>
+
+<p>mfc是便利的，为什么有人不用呢？</p>
+
+<p>不用mfc的人群往往是从DOS时代开始从事窗口编程的人，他们早在mfc出世之前就编得一手好程序。</p>
+
+<p>长期的编程过程中，每人，每个Team都拥有了自己的消息处理机制程序库或类库。</p>
+
+<p>当然有很多人认为他的类库比mfc使用方便。他们开始为窗口编程的时候，mfc的Team里的很多人还在学校里读书呢。</p>
+
+<p>如果不是从那个年代过来的人，还是用mfc吧！</p>
+
+<p>MFC是专注于用户界面的，而Windows SDK专注于UI， console，Windows服务，嵌入式，驱动多种类型的程序。</p>
+
+<p>MFC是一套类库，适应范围窄，可以搞ERP软件，但效率不如其他语言高，而且类库并没有对DDK，openGL，D3D等专项领导的函数库进行封装。而Windows SDK提供了专题开发的平台。</p>
+
+<p>MFC中对所有的句柄，对象，消息都进行了严格的检测，如果你不知道它的内部机制，随便调用函数很容易出错，而SDK提供的是一种宽松的开发环境，你可以用面向对象的思想定义自己的类，对界面控件进行封装。</p>
+
+<p>在一些专题开发项目，你可以不懂MFC，但是在一些常规的软件开发，你必须熟悉MFC，同时还要懂SDK。</p>
+
+
+
+<p>不要把sdk(win32)和mfc当成两件事……</p>
+
+<p>不使用mfc并不等于不使用类哟！</p>
+
+<p>本人是从sdk起步进入窗口设计的，但现在所有的新项目如果我能决定的我都用mfc的框架。</p>
+
+<p>以前移植很多美国的软件，当时mfc的地位还比较低，大部分工程都是sdk(win32)的。</p>
+
+<p>每做一个移植，就得解读带着强烈个性的类群，很痛苦。</p>
+
+<p>现在的移植工作就轻松多了，因为大家大多都用mfc了。</p>
+
+<p>除非你个人（你的公司）有一套你（你的公司）自己积累起来的类库，不然的话，不要对mfc有负面的评价，尽可能使用它。</p>
+
+<p>另外，mfc的达人一定是sdk(win32)的达人。</p>
+
+<p>只会mfc而不懂sdk(win32)的程序员几乎没有，当然初学者不计其中。</p>
+
+<p>在使用mfc的同时，还要重载/派生它，以满足我们的要求。如果不懂sdk(win32)，就无法做到这一点。</p>
+
+<p>win32是windows下的最基本的编程方式，使用它得到的代码最干净最有效率，也是最底层，它是其它所有方式实现的基础。一般指只使用API和SDK。</p>
+
+<p>MFC是对win32的封装，使用win32编程方法，写了一个又一个类，让我们不用再重复大量劳动。但毕竟是封装，所以不可能完全实现win32所有功能。用着虽然方便，但距离细节毕竟远了，在个性、特殊化方面还有差距。</p>
+
+<p>两者相比，win32更本质，MFC更抽像。从软件工程来看，MFC更符合要求，更人性化。我们在正常使用中，优先使用MFC</p>
+
+<p>1 MFC的功能正常情况下可以满足绝大部分的需要。特殊需要，也可以直接用API和SDK实现。但反过来，win32下想用MFC的东西，却是非常困难的。MFC下开发，是包融了win32。</p>
+
+<p>2 MFC和VC融合，拥有大量人性化的东西，会极大增加开发效率。如界面、通用对话框等。而且它的代码是微软写的，比你自己用win32实现更值得让公司信赖。而且代码量会降低很多，更容易调试和维护。</p>
+
+<p>3 很多功能你自己实现起来非常麻烦，甚至你的技术没达到那标准，而使用MFC很简单，这会迫使你使用它。</p>
+
+<p>有些场合下不要使用MFC：</p>
+
+<p>1 三维游戏等，这些东东MFC并没有包含，这时需要使用其它库。使用MFC反而不好，会造成臃肿和拖累。</p>
+
+<p>2 特殊程序，如病毒等后台工具。它们根本不需要什么界面，需要的就是效率，而且要求体积小。这些无疑Win32比MFC强，甚至连win32都可以不用。</p>
+
+<p>3 简单的实现，win32上简陋的东西就够用了，或者就算不够用，但有STL等C++自带的，那么MFC就可以不需要了。win32更符合老编程员的习惯。而且如STL，同样功能下，事实上比MFC更优秀</p>
+
+<p>mfc在d3d，opengl，ddk开发的弊端:</p>
+
+<p>1 MFC是一种封装类，是个宠然大物。当你使用d3d，opengl等没有被封装的进行开发时，使用它完全是种浪费，不需要它为何要挂上它呢？如编d3d时，它本身已经实现了几乎所有的需求，不用再拖个油瓶。</p>
+
+<p>2 MFC不仅是一种封装类，更是封装了一种MFC编程思想。它具有特有的文档视图结构和消息影射。我们在做普通程序时，这些会给我们带来方便。但做d3d时，编程思想又回归win32，那样更直接和有效。这时MFC的编程思想和方式就不合适了。特别是DDK，那是跟底层打交道，要短小高效，跟MFC是两种不同追求风格。</p>
+
+<p>3 事无绝对，选择合适的也就是最好的，如果你在进行D3D开发时，还要使用MFC的东西也是可以的。如果不是大量使用，可以把MFC中你需要的部份扒开单独使用。</p>
+
+<p>SDK 編程需要自己建立消息處理機制！mfc是直接做消息映射</p>
+
+<p>MFC 是對 SDK 的更高一層的封裝，使用起來肯定要方便了，要不封裝了幹嗎！</p>
+
+<p>如果想了解消息循環機制，還是使用 SDK</p>
+
+<p>如果一般應用，MFC 很好</p>
+
+<p>VC利用类将与用户界面设计有关的Window API函数封装起来。</p>
+
+<p>通过MFC类库的方式提供给开发人员。</p>
+<hr />
+
+
+
+<h4>对话框程序：</h4>
+<p>要使用对话框资源，还需要为对话框创建一个窗口类，Base class：CDialog</p>
+<p>1 为控件关联变量：控件右击→添加类向导→Member variable</p>
+
+<p>或者：view（查看）→class wizard（建立类向导）</p>
+
+<p>2 添加普通成员：class view右击要添加成员的类→Add Member variable</p>
+
+<p>3 添加成员函数：class view右击要添加成员的类→Add Member Function</p>
+
+<p>4 添加消息处理函数：控件右击→添加类向导→Message Map→Project→Class name→Object IDs→Messages→Member Function→Add Function→Edit code</p>
+<hr />
+
+<p>静态文本控件用函数显示文本：m_Static.SetWindowText("需要显示的文本");</p>
+
+<p>文档视图结构：文档负责数据的存储、装载与保存，视图负责数据的显示。</p>
+
+<p>vc，一个基于windows操作系统的可视化IDE。</p>
+
+<p>在MFC应用程序中，绘制图形操作通常涉及三类对象：</p>
+
+<p>1 输出对象，亦即设备上下文对象，CDC及其派生对象</p>
+
+<p>2 绘制工具对象，即图形对象，如CFont、ＣPen、ＣＢrush</p>
+
+<p>3 Windows编程中需要用到的基本数据类型，如CPoint、CSize和CRect等；</p>
+
+<p>CDC类是MFC对DC结果及其相关绘图和状态设置的C++类封装。CDC是CObject的直接派生类，CDC类自己也有若干派生类。</p>
+
+<p>在获得设备环境对象后，具体的绘图工作是由绘图函数完成的。CDC类提供了一些基本的绘图函数供用户使用。SetPixel()、LineTo()、MoveTo()、Polyline()、Rectangle()、RoundRect()、Arc()、Ellipse()、Pie()、Polygon()。</p>
+
+<p>为了支持GDI绘图，MFC提供了两种重要的类：</p>
+
+<p>设备环境类CDC，用于设置绘图属性和绘制图形；</p>
+
+<p>绘图对象类CGdiObject，封装了各种GDI绘图对象，包括画笔CPen、画刷CBrush、字体CFont、位图CBitmap、调色板Cpalette和区域CRgn。</p>
+
+<h4>GDI绘图过程包括：</h4>
+
+<p>1 获取设备环境</p>
+
+<p>CPaintDC dc(this);</p>
+
+<p>//CPaintDC是CDC的一个派生类，只是在OnPaint()函数中使用；</p>
+
+<p>2 设置坐标映射SetMapMode</p>
+
+<p>3 创建绘图工具</p>
+
+<p>CPen pen1(PS_SOLID, 1, RGB(198, 198, 198)); </p>
+
+<p>dc.SelectObject(&pen1);  </p>
+
+<p>4 调用CDC绘图函数绘图</p>
+
+<p>dc.MoveTo(0,455);</p>
+
+<p>dc.LineTo(877,455);</p>
+
+<p>另一种方式：</p>
+
+<p>CDC *pDC = GetDC();</p>
+
+<p>CDC memDC; //定义一个设备上下文</p>
+
+<p>memDC.CreateCompatibleDC(pDC); //创建兼容的设备上下文</p>
+
+<p>CBitmap bmp; //定义位图对象</p>
+
+<p>bmp.LoadBitmap(IDB_bg2);//梅 加载位图</p>
+
+<p>memDC.SelectObject(&bmp);//选中位图对象</p>
+
+<p>pDC->BitBlt(0, 0, 280, 197, &memDC, 1, 1, SRCCOPY);//绘制位图</p>
+
+<hr />
+
+<p>VC提供了一个可视化的编程环境，有三个视图，类视图、资源视图、文件视图，提供了类向导，可以自动完成一些类成员方法的映射。</p>
+
+
+<p>&lt;string>是C++特化的字符容器，内含string类。</p>
+
+<p>&lt;string.h>是标准C提供的字符处理函数集。面向char *.</p>
+
+<p>&lt;cstring>是C++为兼容C提供的<string.h>的C++版本，里面的主要改进应该是有：将一些隐藏变量编入命名空间；修正一些C++编译器认为Bug的代码。其余没发现很多改变。</p>
+
+<p>CString位于头文件afx.h中。CString是MFC中的一个类，很大程度上简化了MFC中的许多字符串的操作。</p>
+
+
+<p>MFC如何向文件中间位置插入数据而不覆盖原来的数据</p>
+
+<p>所谓修改删除文件a某位置的内容，其实是读打开文件a，再将‘a中修改删除位置之前的内容＋修改删除的内容＋a中修改删除位置之后的内容’保存到文件b，关闭文件a，删除文件a，将文件b改名为与之前文件a相同的名字，仅此而已。</p>
+
+<p>CSize sz=dc.GetTextExtent(m_strLine);//下面设置光标跟在字的后面</p>
+
+<p>CPoint pt;</p>
+
+<p>pt.x=m_ptOrigin.x+sz.cx;</p>
+
+<p>pt.y=m_ptOrigin.y;</p>
+
+<p>SetCaretPos(pt);</p>
+
+<p>这里m_strLine是你已经输出的文字，用GetTextExtent()函数(它是CDC的函数)得到文字的长度sz（定义为CSize类型），然后用SetCaretPos()函数（它是全局函数）将光标设置在文字末尾的点。</p>
+
+<p>POINT cp = GetCaretPos();//获取光标相对于控件的位置</p>
+
+<p>int xy = CharFromPos(cp);//获取光标位置</p>
+
+<p>int CharIndex = LOWORD(xy);//获取光标所在的字符</p>
+
+<p>构造函数决定了对象实例化的方式，有多个构造函数则就有多种实例化方式。如果有默认参数，则构造函数亦有所区别。函数和函数重载及函数调用也是如此。</p>
+
+<p>事件驱动程序以窗口为中心，根据用户的不同操作激活处理相应事件的代码并完成相应的任务。事件驱动编程方式是一种全新的程序设计方法，它不是由事件的顺序来控制的，而是由事件的发生来控制，而这种事件的发生是随机的、不确定的，并没有预定的顺序，这样就允许程序的用户用各种合理的顺序来安排程序的流程。</p>
+
+<p>对于需要用户交互的应用程序来说，事件驱动的程序设计有着过程驱动方法无法替代的优点。它是一种面向用户的程序设计方法，它在程序设计过程中除了完成所需功能之外，更多地考虑了用户可能的各种输入，并针对性地设计相应的处理程序。它是一种“被动”式的程序设计方法，程序开始运行时，处于等待用户输入事件状态，然后取得事件并做相应的反应，处理完毕又返回并处于等待事件状态。</p>
+
+<p>因此，我们可以得出这样的结论：DOS（单任务系统）程序是面向批命令或事务的过程驱动程序，Window（多任务系统）程序<strong>是面向用户的基于消息的事件驱动程序</strong>（Message Based，Event Driven）。而Windows应用程序设计的核心就是消息的传递和处理。</p>
+
+<p>MFC中除了MFC类（封装API）以外，还包括部分宏和全局成员，这些都不属于类的成员，比如全局函数和全局变量。</p>
+
+<p>工作区workspace→项目project→类class→对象object→消息message；</p>
+
+<p>程序中的每个对话框，都需要创建一个与对话框资源一起工作的对话框类。基于CDialog类，可以使用classWizard去创建，快捷键是Ctrl+W</p>
+
+<p>类创建完成后会自动添加两个文件，cpp和h文件。然后可以在类中的控件添加消息交互。</p>
+
+<p>也可以添加成员变量（关连到控件）</p>
+
+<p>属性表，选项卡，用于完成信息分组；</p>
+
+<p>消息对话框：MessageBox();</p>
+
+<p>公用对话框：</p>
+
+<p></p>
+<pre>
+颜色 CColorDialog，可以返回选择的颜色值；
+文件 CFileDialog，可以返回选择的文件的路径或文件名；
+字体 CFontDialog，可以返回选择的字体；
+查找替换对话框 CFindReplaceDialog，让用户执行查找替换功能；
+打印对话框 CPrintDialog，让用户执行打印功能；
+</pre>
+
+
+<p>MFC如何向文件中间位置插入数据而不覆盖原来的数据：用变量m_textbox关连到变量，然后用其内置方法即可：m_textbox.ReplaceSel(str);</p>
+
+<p>SQL Server Compact Edition Database File (.sdf)文件，是工程的信息保存成了数据库文件，如果你没有参加大型的团队项目，不涉及到高深的调试过程，这个文件对于你来说没什么用了，可以放心的删除，如果你后来又需要这个文件了，简单，打开工程里的.sln文件重新编译链接就ok了。</p>
+
+<p></p>
+
+<p>新建console程序时，可以选择创建一个支持MFC（如支持CString类型）的程序，在工程中会增加一个stdafx的.h和.cpp文件，包含了以下头文件。</p>
+
+<pre>
+#include &lt;afx.h>
+#include &lt;afxwin.h>			// MFC core and standard components
+#include &lt;afxext.h>         // MFC extensions
+#include &lt;afxdtctl.h>		// MFC support for Internet Explorer 4 Common Controls
+#ifndef _AFX_NO_AFXCMN_SUPPORT
+#include &lt;afxcmn.h>			// MFC support for Windows Common Controls#include &lt;iostream>
+</pre>
+
+
+所以，如果你创建了一个console文件后，如果当时没有选择MFC支持，只需加入上述头文件即可以得到MFC支持。</p>
+
+
+<pre>
+nLength = 你要显示字串的长度
+if (pmyEdit->GetLimitText() < nLength)
+{
+   pmyEdit->SetLimitText(nLength);
+}
+pmyEdit->SetWindowText(lpszmyString);
+</pre>
+
+<p>CListBox是列表框，ClistCtrl是列表控件；</p>
+
+<p>所以控件的本质其实都是子窗口，而所有的控件类都是CWnd类的派生类。因此，可以使用CWnd类的成员函数来实现控件的控制，比如ShowWindow()、EnableWindow()和MoveWindow()等。</p>
+
+<p>传统控件是通过WM_COMMAND消息发送通知消息给父窗口的，而WM_COMMAND消息却无法满足新型控件的需要，因此，新型控件的通知消息是通过WM_NOTIFY消息发送的。在父容器对象中，控件对象一般是以成员变量的形式嵌入使用。</p>
+
+<p>手工创建控件对象：首先创建一个控件对象，然后调用相应的Create()函数来实现。</p>
+
+<p>访问控件的方法包括：</p>
+
+<p>1 通过对话框的数据交换功能来查询和设置控件；</p>
+
+<p>2 通过控件对象来访问控件；</p>
+
+<p>3 利用CWnd类的一些管理控件的成员函数来访问控件；</p>
+
+<p>输出文本的两个函数：textout()，一般用于输出单行文本；drawtext()，一般用于多行文本；</p>
+
+<p>在对话框的调用过程中，首先显示的是对话框，然后进行对话框的初始化，接下来才会处理对话框的消息，以入响应一些按钮的单击事件等等。</p>
+
+<p>FindWindow()函数根据窗口的类名和容器标题返回指定窗口句柄，该功能只查询进程窗口，不查找子窗口。</p>
+
+<p>FindWindowEx()函数还可以查找子窗口句柄。</p>
+
+<p>在Windows API中，使用Windows数据类型定义函数的返回值类型、参数类型和消息参数以及结构成员的类型。主要分为字符型、整形、布尔型、指针和句柄5种类型。如HANDLE，HDC，HBRUSH，HBITMAP，HFILE，HICON，HKEY，HINSTANCE，HMENU，HPEN，HWND。</p>
+
+<p>在派生类（如对话框是基于对话框类的派生类）中使用全局函数，如FindWindow()，前面使用::定义域符号，用来区别全局函数和成员函数；</p>
+
+<p>构成应用程序GUI的所有元素都必须调用操作系统函数，以编程方式建立。</p>
+
+<p>Windows程序，其交互的下一层就是Windows操作系统，所以需要用到诸多的Windows API。</p>
+
+<p><strong>Windows API是在C还是主要通用语言的年代开发的，很久以后C++才出现，因此经常用在Windows和应用程序之间传递数据的是结构而不是类。</strong></p>
+
+<p>Windows API覆盖了Windows与应用程序之间通信的所有方面。VC以面向对象的方式重新组织了这些API函数，并提供了在C++中使用该接口更容易的方法，且带有更多的默认功能，也就是MFC。</p>
+
+<p>最简单的仅使用Windows API的Windows程序而言，需要编写两个函数。一个是WinMain()函数，程序的执行是从这里开始的，基本的程序初始化工作也是在这里完成的。另一个是WindowProc()函数，该函数是由Windows调用的，用来给应用程序传递消息，应用程序的大多数专用代码都在这里。</p>
+<h4>返回文本框中的行数、每行内容</h4>
+<p>CRichEditCtrl::GetLineCount</p>
+
+<p>CRichEditCtrl::GetLine</p>
+
+<p>int GetLineCount( ) const;</p>
+
+<p>返回值：返回此CRichEditCtrl对象中的行数。</p>
+
+<p>此成员函数用来获取CRichEditCtrl对象中的行数。</p>
+
+<p>CRichEditCtrl::GetLine</p>
+
+<p>int GetLine( int nIndex, LPTSTR lpszBuffer ) const;</p>
+
+<p>int GetLine( int nIndex, LPTSTR lpszBuffer, int nMaxLength ) const;</p>
+
+<p>此成员函数用来从此CRichEditCtrl对象中获取一行文本。此拷贝的行不包含用于结尾的空字符。</p>
+
+<p></p>
+<pre>
+int nLineIndex, nLineLength, i = m_textblock.LineFromChar(-1);
+for(;i>=0; i--)
+{
+    nLineIndex = m_textblock.LineIndex(i);
+    nLineLength = m_textblock.LineLength(nLineIndex);
+    char* achLine=new char[nLineLength+4];    //缓冲区必须足够大，否则读取中文时可能会有乱码
+    int nLen = m_textblock.GetLine(i, achLine, nLineLength+4);
+    MessageBox(achLine);
+    delete[] achLine;
+}
+//分段有问题，换行就是一段，有乱码
+int i = m_textblock.LineIndex(); //行号
+int lines = m_textblock.GetLineCount();//行数
+for (i = 0; i&lt;lines;++i)
+{
+    int len = m_textblock.LineLength(i);// - 获取0行字符数
+    CString str;
+    m_textblock.GetLine(i,str.GetBuffer(len*2),len*2);// - 获取0行的字符
+    
+    //char ints[25];
+    //MessageBox(::itoa(lines,ints,10));
+    MessageBox(str);
+    str.ReleaseBuffer(len);
+}
+</pre>
+
+<hr />
+
+<p>消息循环中的DispatchMessage 把消息分配到哪里呢？它透过USER 模块的协助，送到该窗口的窗口函数去了。窗口函数通常利用switch/case 方式判断消息种类，以决定处置方式。由于它是被Windows 系统所调用的（我们并没有在应用程序任何地方调用此函数），所以这是一种call back 函数，意思是指「在你的程序中，被Windows 系统调用」的函数。这些函数虽然由你设计，但是永远不会也不该被你调用，它们是为Windows 系统准备的。</p>
+
+<p>RC 文件是一个以文字描述资源的地方。常用的资源有九项之多，分别是ICON、CURSOR、BITMAP、FONT、DIALOG、MENU、ACCELERATOR、STRING、VERSIONINFO。还可能有新的资源不断加入，例如Visual C++ 4.0 就多了一种名为TOOLBAR 的资源。这些文字描述需经过RC 编译器，才产生可使用的二进制代码。</p>
+
+<p>在Visual C++ 中写纯种的C/C++ 程序？当然可以！不牵扯任何窗口、对话窗、控制组件，那就是console 程序!</p>
+
+<p>Console程序可以调用部份的Win32 API（尤其是KERNEL32.DLL 模块所提供的那一部份），所以它可以使用Windows 提供的各种高级功能。它可以产生进程（processes），产生执行线程（threads）、取得虚拟内存的信息、刺探操作系统的各种资料。但是它不能够有华丽的外表-- 因为它不能够调用与GUI 有关的各种API 函数。DOS 程序和console 程序两者都可以做printf 输出和cout 输出，也都可以做scanf 输入和cin 输入。</p>
+
+<p>撰写console 程序，有几个重点请注意：1. 进入点为main。2. 可以使用printf、scanf、cin、cout 等标准输出入装置。3. 可以调用和GUI 无关的Win32 API。</p>
+
+<p>一般而言，成员变量通常由成员函数处理之。</p>
+
+<p>其它语言欲完成封装性质，并不太难。以C 为例，在结构（struct）之中放置资料，以及处理资料的函数的指针（function pointer），就可得到某种程度的封装精神。</p>
+
+<p><p><strong>AppWizard：这是一个程序代码产生器。基于application framework 的观念，相同类型（或说风格）的MFC 程序一定具备相同的程序骨干</strong>，AppWizard 让你挑选菜色（利用鼠标圈圈选选），也为你把菜炒出来（产生各种必要文件）。</p> <p>Resource Editor：这是一个总合资源编辑器，RC 档内的各种资源它统统都有办法处理。Resource Editor 做出来的各类资源与你的程序代码之间如何维系关系？譬如说对话框中的一个控制组件被按下后程序该有什么反应？ 这就要靠ClassWizard 搭起鹊桥。</p></p>
+
+<p>ClassWizard：AppWizard 制作出来的程序骨干是「起手无悔」的，接下来你只能够在程序代码中加油添醋（最重要的工作是加上自己的成员变量并改写虚拟函式），或搭起消息与程序代码之间的鹊桥（建立Message Map），这全得仰仗ClassWizard。以一般文字编辑器直接修改程序代码当然也可以，但你的思维必须非常缜密才不会挂一漏万。</p>
+
+<p>Application Framework ：an extended collection of classes that cooperate to support a complete application architecture or application model, providing more complete application development support than a simple set of class libraries.</p>
+
+<p>事实上，在「真正做事」这一点，整个application framework 是无能为力的，也就是说对于数据结构的安排，数据的处理，数据的显示，Application Framework 所能提供的，无一不是单单一个空壳而已-- 在C++ 语言来讲就是个虚拟函数。软件开发人员必须想办法改造（override）这些虚拟函数，才能符合个人所需。基于C++ 语言的特性，我们很容易继承既有之类别并加上自己的特色，这就是物件导向程序设计的主要精神。也因此，C++ 语言中有关于「继承」性质的份量，在MFC程序设计里头占有很重的比例，在学习使用MFC 的同时，你应该对C++ 的<strong>继承性质和虚拟函数</strong>有相当的认识。</p>
+
+<p>Application Framework -- 建立Windows 应用软件所用的C++ 类别库-- 如今已行之有年，因为对象导向程序设计已经快速地获得了接受度。Windows API 是程序性的，Application Framework则让你写对象导向式的Windows程序.它们提供预先写好的机能（以C++ 类别型式呈现出来），可以加速应用软件的开发。</p>
+
+<p>MFC帮助我们把这些浩繁的APIs，利用对象导向的原理，逻辑地组织起来，使它们具备抽象化、封装化、继承性、多态性、模块化的性质。</p>
+
+<p>1989年微软公司成立Application Framework技术团队，名为AFX小组，用以开发C++对象导向工具给Windows应用程序开发人员使用。AFX的"X"其实没有什么意义，只是为了凑成一个响亮好念的名字。</p>
+
+<p>面向对象的一个重要特点，<strong>不但是数据与处理这些数据的函数的关联性很强，同时，函数之间也可以形成逻辑关系。前者是封装，后者是继承与多态。</strong></p>
+
+<p>Document/View 的观念是希望把资料的本体，和资料的显像分开处理。由于文件产生之际，必须动态生成Document/View/Frame 三种对象，所以又必须有所谓的Document Template 管理之。</p>
+
+<p>CDocument-当你为自己的程序由CDocument衍生出一个子类别后，应该在其中加上成员变量，以容纳文件资料；并加上成员函数，负责修改文件内容以及读写档。读写文件由<strong>虚拟函数Serialize</strong>负责。</p>
+
+<p>CView-此类别负责将文件内容呈现到显示装置上：也许是屏幕，也许是打印机。文件内容的呈现由<strong>虚拟函数OnDraw</strong>负责。由于这个类别实际上就是你在屏幕上所看到的窗口（外再罩一个外框窗口），所以它也负责使用者输入的第一线服务。</p>
+
+<p><strong>C++ 并不是纯种的对象导向语言（SmallTalk 和Java 才是）。所以，MFC之中得以存在有不属于任何类别的全域函数，它们统统在函数名称开头冠以Afx。</strong></p>
+
+<p>AfxMessageBox 类似Windows API 函数MessageBox。</p>
+<p></p>
+<pre>
+int AfxMessageBox( LPCTSTR lpszText, <font color="#FF0000">UINT nType = MB_OK,</font> UINT nIDHelp = 0 );
+int AFXAPI AfxMessageBox( UINT nIDPrompt, <font color="#FF0000">UINT nType = MB_OK</font>, UINT nIDHelp = (UINT) –1 );
+int MessageBox( LPCTSTR lpszText,<font color="#FF0000">LPCTSTR lpszCaption = NULL</font>,UINT nType = MB_OK );
+</pre>
+<p>Serialization是指将对象内容写到文件中，或从文件中读出。如此一来对象的生命就可以在程序结束之后还延续下去，而在程序重新激活之后，再被读入。这样的对象可说是"persistent"（永续存在）。</p>
+
+<h4>数据类型定义</h4>
+<pre>
+数据类型 意义
+BOOL Boolean 值（布尔值，不是TRUE 就是FALSE）
+BSTR 32-bit 字符指针
+BYTE 8-bit 整数，未带正负号
+COLORREF 32-bit 数值，代表一个颜色值
+DWORD 32-bit 整数，未带正负号
+LONG 32-bit 整数，带正负号
+LPARAM 32-bit 数值，做为窗口函数或callback 函数的一个参数
+LPCSTR 32-bit 指针，指向一个常数字符串
+LPSTR 32-bit 指针，指向一个字符串
+LPCTSTR 32-bit 指针，指向一个常数字符串。此字符串可移植到Unicode 和DBCS（双字节字集）
+LPTSTR 32-bit 指针，指向一个字符串。此字符串可移植到Unicode 和DBCS（双位组字集）
+LPVOID 32-bit 指针，指向一个未指定类型的资料
+LPRESULT 32-bit 数值，做为窗口函数或callback 函数的回返值
+UINT 在Win16 中是一个16-bit 未带正负号整数，在Win32 中是一个32-bit未带正负号整数。
+WNDPROC 32-bit 指针，指向一个窗口函数
+WORD 16-bit 整数，未带正负号
+WPARAM 窗口函数的callback 函数的一个参数。在Win16 中是16 bits，在Win32中是32 bits。
+POSITION 一个数值，代表collection 对象（例如数组或串行）中的元素位置。常使用于MFC collection classes。
+LPCRECT 32-bit 指针，指向一个不变的RECT 结构。
+#define WINAPIV __cdecl //
+#define APIENTRY WINAPI //
+#define APIPRIVATE __stdcall
+#define PASCAL __stdcall
+#define FAR far
+#define NEAR near
+#define CONST const
+typedef unsigned long DWORD;
+typedef int BOOL;
+typedef unsigned char BYTE;
+typedef unsigned short WORD;
+typedef float FLOAT;
+typedef FLOAT *PFLOAT;
+typedef BOOL near *PBOOL;
+typedef BOOL far *LPBOOL;
+typedef BYTE near *PBYTE;
+typedef BYTE far *LPBYTE;
+typedef int near *PINT;
+typedef int far *LPINT;
+typedef WORD near *PWORD;
+typedef WORD far *LPWORD;
+typedef long far *LPLONG;
+typedef DWORD near *PDWORD;
+typedef DWORD far *LPDWORD;
+typedef void far *LPVOID;
+typedef CONST void far *LPCVOID;
+typedef int INT;
+typedef unsigned int UINT;
+typedef unsigned int *PUINT;
+/* Types use for passing & returning polymorphic values */
+typedef UINT WPARAM;
+typedef LONG LPARAM;
+typedef LONG LRESULT;
+typedef DWORD COLORREF;
+typedef DWORD *LPCOLORREF;
+typedef struct tagRECT
+{
+	LONG left;
+	LONG top;
+	LONG right;
+	LONG bottom;
+} RECT, *PRECT, NEAR *NPRECT, FAR *LPRECT;
+typedef const RECT FAR* LPCRECT;
+typedef struct tagPOINT
+{
+	LONG x;
+	LONG y;
+} POINT, *PPOINT, NEAR *NPPOINT, FAR *LPPOINT;
+typedef struct tagSIZE
+{
+	LONG cx;
+	LONG cy;
+} SIZE, *PSIZE, *LPSIZE;
+</pre>
+
+
+<p>SDK 程序只要包含WINDOWS.H 就好，所有API 的函数声明、消息定义、常数定义、宏定义、都在WINDOWS.H 档中。除非程序另调用了操作系统提供的新模块（如CommDlg、ToolHelp、DDEML...），才需要再各别包含对应的.H 档。</p>
+
+<p>WINDOWS.H 过去是一个巨大文件，大约在5000 行上下。现在已拆分内容为数十个较小的.H 档，再由WINDOWS.H 包含进来。也就是说它变成一个"Master included file for Windows applications"。</p>
+
+<p>每一个MFC 程序都想从MFC 中衍生出适当的类别来用（ 不然又何必以MFC 写程序呢），其中两个不可或缺的类别CWinApp 和CFrameWnd 在Hello程序中会表现出来。</p>
+
+<p>MFC 类别中某些函数一定得被应用程序改写（例如CWinApp::InitInstance），这在Hello 程序中也看得到。</p>
+
+<p>一般习惯为每个类别准备一个.H（ 声明）和一个.CPP（实作）。</p>
+
+<p><h4>程序的诞生：</h4></p>
+
+<p>Application object 产生（从一个对象开始），内存于是获得配置，初值亦设立了。</p>
+
+<p>Afx <strong>WinMain</strong> 执行AfxWinInit，后者又调用AfxInitThread，把消息队列尽量加大到96。</p>
+
+<p>Afx WinMain 执行InitApplication。这是CWinApp 的虚拟函数，但我们通常不改写它。</p>
+
+<p>AfxWinMain 执行InitInstance。这是CWinApp 的虚拟函数，我们必须改写它。</p>
+
+<p><strong>CMyWinApp</strong>::InitInstance 'new' 了一个CMyFrameWnd 对象。</p>
+
+<p><strong>CMyFrameWnd </strong>构造式调用Create，产生主窗口。我们在Create 参数中指定的窗口类别是NULL， 于是MFC 根据窗口种类， 自行为我们注册一个名为"AfxFrameOrView42d" 的窗口类别。</p>
+
+<p>回到InitInstance 中继续执行ShowWindow，显示窗口。</p>
+
+<p>执行UpdateWindow，于是发出WM_PAINT。</p>
+
+<p>回到AfxWinMain，执行Run，进入消息循环。</p>
+
+<p><h4>程序开始运作：</h4></p>
+
+<p>程序获得WM_PAINT 消息（藉由CWinApp::Run 中的::GetMessage 循环）。</p>
+
+<p>WM_PAINT 经由::DispatchMessage 送到窗口函数CWnd::DefWindowProc 中。</p>
+
+<p>CWnd::DefWindowProc 将消息绕行过消息映射表格（Message Map）。</p>
+
+<p>绕行过程中发现有吻合项目，于是调用项目中对应的函数。此函数是应用程序利用BEGIN_MESSAGE_MAP 和END_MESSAGE_MAP 之间的宏设立起来的。</p>
+
+<p>标准消息的处理例程亦有标准命名，例如WM_PAINT 必然由OnPaint 处理。</p>
+
+<p><h4>以下是程序的死亡：</h4></p>
+
+<p>使用者选按【File/Close】，于是发出WM_CLOSE。</p>
+
+<p>CMyFrameWnd 并没有设置WM_CLOSE 处理例程，于是交给预设之处理例程。</p>
+
+<p>预设函数对于WM_CLOSE 的处理方式是调用::DestroyWindow， 并因而发出WM_DESTROY。</p>
+
+<p>预设之WM_DESTROY 处理方式是调用::PostQuitMessage，因此发出WM_QUIT。</p>
+
+<p>CWinApp::Run 收到WM_QUIT 后会结束其内部之消息循环， 然后调用ExitInstance，这是CWinApp 的一个虚拟函数。</p>
+
+<p>如果CMyWinApp 改写了ExitInstance ， 那么CWinApp::Run 所调用的就是CMyWinApp::ExitInstance，否则就是CWinApp::ExitInstance。</p>
+
+<p>最后回到AfxWinMain，执行AfxWinTerm，结束程序。</p>
+<hr />
+
+<p><strong>凡是由你设计而却由Windows 系统调用的函数，统称为callback 函数</strong>。这些函数都有一定的类型，以配合Windows的调用动作。某些Windows API 函数会要求以callback 函数作为其参数之一，这些API 例如SetTimer、LineDDA、EnumObjects。</p>
+
+<p>通常这种API 会在进行某种行为之后或满足某种状态之时调用该callback 函数。</p>
+
+<p>MFC 应用程序代码一开始是一个衍生自CWinApp 的全域对象application object，然后是一个隐藏的WinMain 函数，调用application object 的InitInstance 函数，将程序初始化。初始化动作包括构造一个窗口对象（CFrameWnd 物件），而其构造式又调用CFrameWnd::Create 产生真正的窗口（并在产生之前要求MFC注册窗口类别）。窗口产生后WinMain 又调用Run 激活消息循环，将WM_COMMAND（IDM_ABOUT）和WM_PAINT 分别交给成员函数OnAbout 和OnPaint 处理。</p>
+
+<p>Document/View 的价值在于，这些MFC 类别已经把一个应用程序所需的「数据处理与显示」的函数空壳都设计好了，这些函数都是虚拟函数，所以你可以（也应该）在衍生类别中改写它们。有关文件读写的动作在CDocument 的Serialize 函数进行，有关画面显示的动作在CView 的OnDraw 或OnPaint 函数进行。当我为自己衍生两个类别CMyDoc和CMyView，我只要把全付心思花在CMyDoc::Serialize 和CMyView::OnDraw 身上，其它琐事一概不必管，整个程序自动会运作得好好的。</p>
+
+<p>如果按下【File/Open】，Application Framework 会激活对话框让你指定文件名，然后自动调用CMyDoc::Serialize 读档。Application Framework 还会调用CMyView::OnDraw，把资料显示出来。</p>
+
+<p>如果屏幕状态改变， 产生了WM_PAINT ， Framework 会自动调用你的CMyView::OnDraw，传一个Display DC 让你重新绘制窗口内容。</p>
+
+<p>如果按下【File/Print...】，Framework 会自动调用你的CMyView::OnDraw，这次传进去的是个Printer DC，因此绘图动作的输出对象就成了打印机。</p>
+
+<p>MFC 已经把程序大架构完成了，模块与模块间的消息流动路径以及各函数的功能职司都已确定好（这是MFC 之所以够格称为一个Framework 的原因），所以我们写程序的焦点就放在那些必须改写的虚拟函数身上即可。软件界当初发展GUI 系统时，目的也是希望把程序员的心力导引到应用软件的真正目标去，而不必花在使用者接口上。MFC 的Document/View 架构希望更把程序员的心力导引到真正的数据结构设计以及真正的数据显示动作上，而不要花在模块的沟通或消息的流动传递上。今天，程序员都对GUI 称便，Document/View 也即将广泛地证明它的贡献。</p>
+
+<p><font color="#0000FF">对象必须能够永续生存，也就是它们必须能够在程式结束时储存到文件中，并且在程序重新激活时再恢复回来。储存和恢复对象的过程在MFC 之中就称为serialization。负责这件重要任务的，是MFC CObject 类别中一个名为Serialize 的虚拟函数，文件的「读」「写」动作均透过它。</font></p>
+
+<h4>VC中可调用的函数大致可分三类</h4>
+
+<p>1、类自己的函数，只对类自己的数据成员有作用。例如MFC中 MessageBox的原型，它是属于 CWnd 类的成员函数，只能在 CWnd 和CWnd的派生类的对象中调用；当然，也可以直接调用类中的其他成员函数；</p>
+
+<p>2、AFX小组在设计Application Framworks 时设计的全局函数，多冠在Afx前缀，在包含了MFC库/框架的工程中可用。例如AfxMessageBox可在任何地方调用。</p>
+
+<p>3、Windows API的全局函数。对所有Windows平台下的程序设计都可以调用，如Vb，Vc，Dephi等等。</p>
+<hr />
+
+<p>各种消息之中，来自菜单或工具栏者，都以WM_COMMAND 表示，所以这一类消息我们又称之为命令消息（Command Message），其wParam 记录着此一消息来自哪一个菜单项目。</p>
+
+<p>除了命令消息，还有一种消息也比较特殊，出现在对话框函数中，是控制组件（controls）传送给父窗口（即对话框）的消息。虽然它们也是以WM_COMMAND 为外衣，但特别归类为「notification 消息」。</p>
+
+<p>Windows 的消息都是以WM_xxx 为名，WM_ 的意思是"Windows Message"。消息可以是来自硬件的「输入消息」，例如WM_LBUTTONDOWN，也可以是来自USER 模块的「窗口管理消息」，例如WM_CREATE。这些消息在MFC 程序中都是隐晦的（我的意思是不像在SDK 程序中那般显明），我们不必在MFC 程序中撰写switch case 指令，不必一一识别并处理由系统送过来的消息；所有消息都将依循Framework 制定的路线，并参照路中是否有拦路虎（你的消息映射表格）而流动。WM_PAINT 一定流往你的OnPaint 函数去，WM_SIZE 一定流往你的OnSize 函数去。</p>
+<h4>MFC消息映射机制</h4>
+<p>如何分辨来自各处的命令消息？<strong>SDK程序主要靠消息的wParam 辨识之，MFC 程序则主要靠菜单项目的识别码（menu ID）辨识之</strong>-- 两者其实是相同的。</p>
+
+<p><strong>会产生命令消息的，不外就是UI 对象</strong>：菜单项目和工具栏按钮都是。命令消息必须有一个对应的处理函数，把消息和其处理函数「绑」在一块儿，这动作称为CommandBinding，这个动作将由一堆宏完成。通常我们不直接手工完成这些宏内容，也就是说我们并不以文字编辑器一行一行地撰写相关的码，而是藉助于ClassWizard。</p>
+
+<p>试着思考这个问题：<strong>C++ 的继承与多态性质，使衍生类别与基础类别的成员函数之间有着特殊的关联。但这当中并没有牵扯到Windows 消息。</strong>的确，C++ 语言完全没有考虑Windows 消息这一回事（那当然）。如何让Windows 消息也能够在对象导向以及继承性质中扮演一个角色？既然语言没有支持，只好自求多福了。<strong>消息映射机制的三个相关宏</strong>就是MFC 自求多福的结果。</p>
+<p></p>
+
+
+<table cellspacing="0" cellpadding="0">
+  <col width="165" />
+  <col width="116" />
+  <col width="108" />
+  <tr height="19">
+    <td height="19" width="165">宏名称</td>
+    <td width="116">对映消息</td>
+    <td width="108">消息处理函数</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_CHAR</td>
+    <td>WM_CHAR</td>
+    <td>OnChar</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_CLOSE</td>
+    <td>WM_CLOSE</td>
+    <td>OnClose</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_CREATE</td>
+    <td>WM_CREATE</td>
+    <td>OnCreate</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_DESTROY</td>
+    <td>WM_DESTROY</td>
+    <td>OnDestroy</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_LBUTTONDOWN</td>
+    <td>WM_LBUTTONDOWN</td>
+    <td>OnLButtonDown</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_LBUTTONUP</td>
+    <td>WM_LBUTTONUP</td>
+    <td>OnLButtonUp</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_MOUSEMOVE</td>
+    <td>WM_MOUSEMOVE</td>
+    <td>OnMouseMove</td>
+  </tr>
+  <tr height="19">
+    <td height="19">ON_WM_PAINT</td>
+    <td>WM_PAINT</td>
+    <td>OnPaint</td>
+  </tr>
+</table>
+<p>当窗口接收到消息时，会到消息映射表中查找该消息对应的消息处理函数，然后由消息处理函数进行相应的处理。</p>
+
+<p>Windows消息分为系统消息和用户自定义消息。Windows系统消息有三种：</p>
+
+<p>1 标准Windows消息。除WM_COMMAND外以WM_开头的消息是标准消息。例如，WM_CREATE、WM_CLOSE。</p>
+
+<p>2 命令消息。消息名为WM_COMMAND，消息中附带了标识符ID来区分是来自哪个菜单、工具栏按钮或加速键的消息。</p>
+
+<p>3 通知消息。通知消息一般由列表框等子窗口发送给父窗口，消息名也是WM_COMMAND，其中附带了控件通知码来区分控件。</p>
+
+<p>CWnd的派生类都可以接收到标准Windows消息、通知消息和命令消息。命令消息还可以由文档类等接收。</p>
+
+<p>用户自定义消息实际上就是用户定义一个宏作为消息，此宏的值应该大于等于WM_USER，然后此宏就可以跟系统消息一样使用，窗口类中可以定义它的处理函数。</p>
+
+<p>窗口消息一般由三个部分组成：1.一个无符号整数，是消息值；(2)消息附带的WPARAM类型的参数；(3)消息附带的LPARAM类型的参数。其实我们一般所说的消息是狭义上的消息值，也就是一个无符号整数，经常被定义为宏。</p>
+
+<p>三个宏通过两个静态变量把类和基类、把消息和对应的消息处理函数关联起来，这种关联保证了消息处理的顺序（当前类->基类），保证了消息能够正确的找到对应的函数。</p>
+
+<hr />
+
+<p>一旦完成了对话框的外貌设计，再来就是设计其行为。我们有两件事要做：</p>
+
+<p>1 从MFC 的CDialog 中衍生出一个类别，用来负责对话框行为。</p>
+
+<p>2 利用ClassWizard 把这个类别和先前你产生的对话框资源连接起来。通常这意味着你必须声明某些函数，用以处理你感兴趣的对话框消息，并将对话框中的控制组件对应到类别的成员变量上，这也就是所谓的Dialog Data eXchange（DDX）。如果你对这些变量内容有任何「确认规则」的话，ClassWizard 也允许你设定之，这就是所谓的Dialog Data Validation（DDV)。</p>
+
+<p>制作对话框，我们需要为此对话框设计模板（Dialog Template），这可藉Visual C++ 整合环境之对话框编辑器之助完成。我们还需要一个衍生自CDialog 的类别（本例为CPenWidthsDlg）。ClassWizard 可以帮助我们新增类别，并增加该类别的成员变量，以及设定对话框之DDX/DDV 。以上都是透过ClassWizard 以鼠标点点选选而完成，过程中不需要写任何一进程序代码。</p>
+
+<p>谓DDX 是让我们把对话框类别中的成员变量与对话框中的控制组件产生关联，于是当对话框结束时，控制组件的内容会自动传输到这些成员变量上。</p>
+
+<p>一段可执行的程序（包括EXE 和DLL），其程序代码、资料、资源被加载到内存中，由系统建置一个数据结构来管理它，就是一个模块。这里所说的数据结构，名为Module Database（MDB），其实就是PE 格式中的PE 表头，你可以从WINNT.H 档中找到一个IMAGE_NT_HEADER 结构，就是它。</p>
+
+
+<p>幾乎每一家編譯器廠商都會提供一套現成的類別庫（class libraries），讓程式員站在這個基礎開發應用軟體。MFC 就是這樣一套類別庫。如果以物件導向的嚴格眼光來看，MFC 是比類別庫更高一級的所謂application framework。</p>
+
+<p>MFC能够屏蔽底层的平台API。</p>
+
+<p>tchar.h头文件中的_T()宏定义，如果为该应用程序定义UNICODE,则将LPCTSTR类型定义为const wchar_t *，反之则定义为const char。<strong>_T()宏会自动创建正确类型的字符串。</strong></p>
+
+<p>除应用程序的通用外观以外,WinMain()函数不包含任何应用程序特有的代码。使应用程序以我们希望的方式运转的所有代码都位于程序的消息处理部分－即在传递给Windows的WindowClass结构中标识的WindowProc()函数。每次分派主应用程序窗口的消息时，都要调用该函数。因为Windows通过函数指针标识WindowProc()函数，所以可以给该函数使用何意名称。</p>
+
+<p>编写Windows程序的过程涉及创建和使用MFC对象或者MFC的派生类对象。大体上，将根据MFC派生自己的类,VC中的专用工具使派生过程相当简单。这种基于MFC的类的对象包括与Windows通信的成员函数、处理Windows消息的成员函数以及相互发送消息的成员函数。当然，这些派生类将继承基类的所有成员。这些继承的函数几乎要做所有使Windows程序工作所必需的普通工作。我们只需要添加数据和函数成员来定制这些类，以提供在程序中需要的专用功能。</p>
+
+<p>消息是指发生了某种事件，需要应用程序做出响应。</p>
+
+<p>Windows API提供了标准的编程接口，应用程序通过该接口与Windows操作系统通信。</p>
+
+<p>所有Windows桌面应用程序都必须包含两个函数WinMain()和WindowProc()，它们由操作系统调用。</p>
+
+<p>消息=通信协议=类型+数据=ID+WM_COMMAND</p>
+
+<p><strong>Windows数据类型是对C数据类型的重定义，是为了增强程序的可读性、为了便于移植。</strong></p>
+
+<p>MFC是用C++对Windows API和结构体的封闭。</p>
+
+<p>任何应用程序启动的过程，都是从操作系统内核（kernel32.dll）调用可执行文件的主函数开始的。控制台或者DOS程序的主函数是main()，而Windows程序的主函数是WinMain()。MFC程序和Win32程序一样，都是从WinMain()函数启动斩，只不过MFC将WinMain函数封装了起来。</p>
+
+<p>CWnd类很多成员函数之间，都有一些功能是相似的或者功能有些重叠的，有些函数可以通过几个函数组合起来实现：</p>
+
+<p></p>
+<pre>
+获取编辑框中的字符串：
+CString str;
+GetDlgItemText(id,str);
+等价于：
+GetDlgitem(id)->GetWindowText(str);
+等价于：
+CEdit* pEdit = (CEdit*)GetDlgItem(id);
+pEdit->GetWindowText(str);
+</pre>
+
+<p>获取编辑框中的整数：</p>
+
+<p>int n = GetDlgItemInt(id);</p>
+
+<p>等价于：</p>
+
+<p>CString str;</p>
+
+<p>GetDlgItemText(id,str);</p>
+
+<p>int n = atoi(str);</p>
+
+<p>早期开发图形程序都是直接针对具体设备进行的，要开发一个图形软件必须先了解是什么型号的显示卡或者打印机，根据每个厂家提供的接口编写不同的代码来开发。进入Windows时代，操作系统通过对驱动程序的统一管理，将设备接口细节隐藏于操作系统内部。程序员在编写图形程序时，只要调用一个公用的虚拟设备即可，这个虚拟设备也就是DC。</p>
+
+<p><font color="#FF0000">在Windows应用程序中，设备环境（DC，<strong>绘图模式</strong>）与<strong>图形对象</strong>协同进行绘图显示工作。就像画家绘图一样，设备环境（绘图模式）好比是画家的画布，图形对象好比是画家的画具，画家可以使用不同的画布、不同的画笔、画刷、颜料等，画出不同色彩、不同线条 、不同材料的画。</font></p>
+
+
+<p>实际上并没有数据写到屏幕上，所有显示屏的输出都是图形，而不管它是直线、圆还是文本。</p>
+
+<p>画笔实际上是一个8*8的像素块，它在要填充的区域上重复应用。</p>
+
+<p>COLORREF是由RGB()宏返回的糊弄；</p>
+
+<p>所有的应用程序都是通过操作系统与与硬件交互。控制台程序的操作系统是DOS，Windows应用程序的操作系统是Window。</p>
+
+<p>操作系统会提供用于某种语言编程的API接口，编程就要使用这些API函数进行。</p>
+
+<p>因为Windows API是在C++还未出发出来的的C语言时代开发出来的，所以经常用来Windows和应用程序之间传递数据的结构而不是类。</p>
+
+<p>尽管平时可以绘制临时实体，但是在响应WM_PAINT消息时，程序始终应当在容器的工作区中绘制永久性内容。对应用程序文档的所有绘制都应当在视图类的OnDraw()成员函数中进行控制。在应用程序接收到WM_PAINT消息时，将调用这个函数。</p>
+
+<p>对话框可以建立基于CDialog的类，控件都有默认的自定义类，当然也可以自定义自己的控件类，让自定义类派生自控件类即可。</p>
+
+<p>对话框的编程有两个方面，第一是显示对话框，第二是处理对话框中控件的用户交互操作。</p>
+
+<p>在显示对应于创建资源的对话框之前，必须首先定义一个对话框类。</p>
+
+<p>CDialog类是专门用于显示和管理对话框的窗口类（是从CWnd类中派生的）。对话框资源会自动关联到新建的类的对象，因为类成员IDD是用对话框资源的ID初始化的。</p>
+
+<p>可以通过重写基类CDialog中定义的OnInitDialog()函数来初始化对话框及控件；</p>
+
+<p>句柄在Windows API中用作函数参数。</p>
+
+<p><strong>句柄是使用了宏定义，指向一个被隐藏了结构的数据区域的指针。</strong></p>
+
+<p>Windows API的数据类型为了增加程序的可读性和可移植性，使用typedef重新定义了数据类型或复合数据类型。</p>
+
+<p><strong>句柄也是用typedef对结构体的重新定义。</strong></p>
+
+<p><strong>类封装的是数据和算法，且相互之间有了联系（继承与多态），这是没有联系的全局函数所不能比拟的。</strong></p>
+
+<p>窗口消息按照消息的来源可以分为系统定义的消息和应用程序自定义的消息。系统消息编号的范围是0-WM_USER-1，也就是0-1023。常用的如WM_CLOSE、WM_MOUSEOVER等。</p>
+
+<p>MFC封装了一些CDialog的派生类，提供常用的对话框功能，称之为系统对话框或者通用对话框。</p>
+
+<p></p>
+<pre>
+1 Cfiledialog 选择要打开或者保存的文件；
+2 CColorDialog 选择颜色；
+3 CFongDialog 选择字体；
+4 CPrintDialog 打印方式设置；
+5 CPageSetupDialog 打印页面设置；
+6 CFindReplaeDialog 在文本中查找或者替换；
+</pre>
+
+
+<p>任何Windows应用程序与Windows本身之间的所有通信，都要使用Windows应用程序编程接口，也称为Windows API。该接口由多达数百个函数组成，它们是Windows操作系统提供的标准函数，可以提供应用程序与Windows相互通信的方法。</p>
+<p>windows应用程序为什么叫windows应用程序，因为是一个与windows操作系统交互的应用程序，windows操作系统提供了用某种语言编写的应用程序接口，应用程序的开发就要利用这些API为基础进行开发。</p>
+<p>Windows API是在C还是主要通信语言的年代开发的，很久以后C++才出现，因此经常用来在Windows和应用程序之间传递数据的是结构而不是类。</p>
+
+<p>创建窗口的第一步是定义希望创建的窗口的种类。Windows定义了名为WNDCLASSEX的一种特殊的struct类型，以包含用来指定窗口的数据。存储在该结构实例中的数据定义了一个窗口类，这个类用来确定窗口的类型。需要创建一个WNDCLASSEX类型的变量，并给该变量的每个成员赋值。</p>
+
+<p>CreateWindow()函数将返回所创建窗口的句柄，可以存储该句柄，以便稍后能够引用这个特定的窗口。</p>
+
+<p>有许多API调用都要求指定窗口句柄作为参数。</p>
+
+<p>CreateWindow()中的第五个参数如果是NULL，表明创建的窗口不是子窗口（依赖父窗口的窗口），如果希望该窗口是子窗口，则应当将该实参设置为父窗口的句柄。如果需要菜单，则需要设置菜单句柄，否则也是NULL，如果需要创建MDI窗口，则最后一个实参应当指向某个与此相关的结构。</p>
+
+<p><strong>编写某种操作系统的应用程序，一般需要调用该操作系统为某种编程语言提供的API函数。这样，应用程序只需与该操作系统交互，由该操作系统与硬件交互。</strong></p>
+
+<p>文档类对象存储应用程序特有的数据，视图类对象显示文档类对象的内容；</p>
+
+<p>在包含DECLARE_MESSAGE_MAP()的类定义中，其.cpp文件必须包括宏BEGIN_MESSAGE_MAP()和END_MESSAGE_MAP()。在程序中定义的宏不需要用;作为结尾，编译器在编译前会做一些替换；</p>
+
+<p><strong>实际上并没有数据写到显示屏上，所有到显示屏的输出都是图形，不管是直线，圆，还是文本。</strong></p>
+
+<p>通过类向导为控件关联控件派生类成员变量。</p>
+
+<p>除了使用各控件类默认提供的属性、方法操作以外，你也可以重载这些控件类，实现自己想要的功能，如重载CEdit类，添加一个CEditBox派生类。</p>
+
+<p>重载PreSubclassWindow()</p>
+
+<p>void CEditBox::PreSubclassWindow()</p>
+
+<p>{</p>
+
+<p> SetLimitText( -1 ); //设置编辑控件可接收的最大字节数</p>
+
+<p> CEdit::PreSubclassWindow();</p>
+
+<p>}</p>
+
+<p>添加一个编辑框，在testDlg.h加入#include "EditBox.h"，为控件关联CEditBox类（control，不是value）。</p>
+
+<p>CEditBox m_editc1;</p>
+
+<p>利用控件的消息响应函数通过派生类对象去响应上述的成员函数：</p>
+
+<p>Windows API和MFC都是使用的 .lib 文件。</p>
+
+<p>.lib 分两种, 一种是 .lib 文件里面包含了 cpp 编译出来的代码, 链接的时候把需要的代码拷贝到 exe 里面，mfc,、crt在选择静态的时候使用这种方式。</p>
+
+<p>另外一种是.lib中不包含代码, 只是描述该到哪个dll里面怎么找对应的代码. 这种编译出来的exe就需要dll一起才能运行。mfc、crt使用共享库的时候, 以及 Windows API 就是使用的这种方式。</p>
+
+<p>API 的 dll 在 windows 系统的 system32 目录下, 图形界面相关的 API 在 USER32.dll 里，进程、文件之类的操作在 kernel32.dll 里。MSDN 的每个函数都会说明它在哪个头文件, 哪个 lib, 哪个 dll 里的。</p>
+
+<p>AppWizard：这是一个程序代码产生器。基于applicationframework的观念，相同类型（或说风格）的MFC程序一定具备相同的程序骨干，AppWizard让你挑选菜色（利用鼠标圈圈选选），也为你把菜炒出来（产生各种必要文件）。别忘记，化学反应是不能够还原的，菜炒好了可不能反悔（只能加油添醋），所以下手前需三思--每一个project使用AppWizard的机会只有一次。</p>
+
+<p>AppWizard 制作出来的程序骨干是「起手无悔」的，接下来你只能够在程序代码中加油添醋（最重要的工作是加上自己的成员变量并改写虚拟函式），或搭起消息与程序代码之间的鹊桥（建立Message Map），这全得仰仗ClassWizard。</p>
+
+<p>AppWizard可以为我们做出一致化的骨干程序出来。以此种方式应付（我的意思是产生）标准接口十分合适。</p>
+
+<p>字符串表格编辑器非常好用，允许你编辑RC 文件中的字符串资源（STRINGTABLE），这可增进国际化的脚步。怎么说？我们可以把程序中出现的所有字符串都集中在RC 文件的字符串表格，日后做中文版、日文版、法文版时只要改变RC 文件的字符串表格即可。</p>
+
+<p>Application Framework 带来的革命精神是，程序模型已经存在，程序员只要依个人需求加料就好：在衍生类别中改写虚拟函数，或在衍生类别中加上新的成员函数。这很像你在火锅拼盘中依个人口味加盐添醋。</p>
+
+<p>MFC 已经把程序大架构完成了，模块与模块间的消息流动路径以及各函数的功能职司都已确定好（这是MFC 之所以够格称为一个Framework 的原因），所以我们写程序的焦点就放在那些必须改写的虚拟函数身上即可。软件界当初发展GUI 系统时，目的也是希望把程序员的心力导引到应用软件的真正目标去，而不必花在使用者接口上。MFC 的Document/View 架构希望更把程序员的心力导引到真正的数据结构设计以及真正的数据显示动作上，而不要花在模块的沟通或消息的流动传递上。今天，程序员都对GUI 称便，Document/View 也即将广泛地证明它的贡献。</p>
+
+<p>消息的组成：<strong>一个消息由一个消息名称（UINT），和两个参数（WPARAM，LPARAM）。当用户进行了输入或是窗口的状态发生改变时系统都会发送消息到某一个窗口。</strong></p>
+
+<p>在MFC中对消息的处理利用了消息映射的方法，该方法的基础是宏定义实现，通过宏定义将消息分派到不同的成员函数进行处理。</p>
+<h4>如何选择应用类别：</h4>
+<p>1、开发需要读写文件的应用程序并且有简单的输入和输出可以利用单文档视结构。</p>
+
+<p>2、开发注重交互的简单应用程序可以使用对话框为基础的窗口，如果文件读写简单这可利用CFile进行。</p>
+
+<p>3、开发注重交互并且文件读写复杂的的简单应用程序可以利用以CFormView为基础视的单文档视结构。</p>
+
+<p>4、利用对话框得到用户输入的数据，在等级提高后可使用就地输入。</p>
+
+<p>5、在对多文档要求不强烈时尽量避免多文档视结构，可以利用分隔条产生单文档多视结构。</p>
+
+<p>6、在要求在多个文档间传递数据时使用多文档视结构。</p>
+
+<p>7、学会利用子窗口，并在自定义的子窗口包含多个控件达到封装功能的目的。</p>
+
+<p>8、尽量避免使用多文档多视结构。</p>
+
+<p>9、不要使用多重继承并尽量减少一个类中封装过多的功能。</p>
+<h4>MFC没落了吗？</h4>
+<p>可以认为，MFC是一种中级语言，不是低级，也不是高级语言，目前还没有发现第二种Windows下的中级语言。所以，没有什么可以取代它。</p>
+
+<p>现在的高级语言都是以类为单位进行编程的。不同的编译软件提供了不同的类库，不同的高级语言之区的最主要区别，就是这种语言的编译程序提供的不同的类。</p>
+
+<p>MFC只提供了基本的类库，主要是视窗方面的类，要实现名种功能，一般来说，需要你使用API函数，自己做，当然也可以用人家已经做好的，现成的，比较成熟的类。</p>
+
+<p>实现特殊的功能，需要自己做类来完成的话，还是MFC比较方便。</p>
+
+<p>说mfc存在问题，是肯定的。类库复杂，程序结构不太清晰，深入开发困难大。</p>
+
+<p>但是下功夫吃头mfc，改用其他平台基本不存在什么难度。所以如果是短期上手的话VC肯定是不行的，不过如果深入学习写代码，尤其和windows相关的，vc/mfc肯定不会没落(个人观点) </p>
+
+<p>另外就是算法和数据结构和开发语言和框架没有任何关系，再有就是现在高校里据我所知没有VC/mfc相关的课程了，基本上都是有门软件工程之类的课程，作个类似于管理系统，大部分人用的确实是java</p>
+
+<p>个人觉得ｍｆｃ的缺点有很多：１.会的人少２.类库简单，一旦涉及到自绘，控件使用等问题上，团队没有熟手的话，基本等着死翘翘。３.业务和界面不好分离。４.最糟糕的一点：大把时间耗在ｕｉ上，精力投入其他上面较少。程序员难以提高技术。５.老项目，不值钱，程序员水平低，跑了一堆人，招人过来就是没完没了的做维护。</p>
+
+<p>除了MFC，还有谁不跨平台呀。</p>
+
+<p>作为新人，我也不建议学mfc，原因有两点：1、难度大，容易打击你们的信心；2、可能其他语言更容易找工作；</p>
+
+<p>在我这儿客户端代码方式的程序，只占很小的比重了。</p>
+
+<p>计算机组成原理→DOS命令→汇编语言→C语言（不包括C++）、代码书写规范→数据结构、编译原理、操作系统→计算机网络、数据库原理、正则表达式→其它语言（包括C++）、架构……</p>
+
+<p>请牢记：源代码本身的书写是否结构化或面向对象或符合设计模式或敏捷…并不重要，重要的是你是否使用结构化或面向对象或符合设计模式或敏捷…的方法命名标识符、阅读、修改、检查、测试源代码。</p>
+
+<p>C#不是开源的，而且破解C#程序轻而易举，公司一般都不会使用C#开发程序的。Qt需要遵循LGPL协议，是需要将你的程序的部分源代码公布出来的，而且，打包程序的时候，还要携带比mfc大的多的库文件。</p>
+
+<p>我现在参与的一个单机界面软件，我写后台算法，C++，VS2015，但与MFC一点关系没有，界面是其他人做的，使用的是WPF，这玩意比MFC开发效率不知快了多少数量级，你用MFC做界面，想漂亮，只有华山一条道——自绘，累得跟狗一样，还很难完美，而WPF只要不是非常非常特殊的需求，就跟写网页的样式表一样，美工和写界面的配合，速度飞快，效果高端大气上档次。要是MFC做，不做的你吐血才怪。</p>
+
+<p>PC单机软件早就没落了，现在都是移动端应用，云计算，大数据，这些领域MFC有屁地位。你混个大数据的应用经验，会Hadoop MapReduce、HBase、spark、redis、Kafka等等这些乱七八糟的，跳个槽，工资翻几番都不奇怪。</p>
+
+<p>死抱着MFC的，都错过了互联网大潮，移动端应用，互联网应用，这些才是黄金矿。</p>
+
+<p>前面有几位说工控领域，MFC还有用武之地，可以这么说，大多数这些企业软件技术人员，除了行业知识，技术都非常落后，比如电力电网关联企业的，根本和互联网企业的技术人员技术不能比，思维老旧，技术过时。那些上位机软件，都是重复造轮子，几家公司的大型组态软件足够解决绝大多数界面问题了，剩下的协议、业务处理，根本与MFC无关，下位机软件，与MFC更没有毛关系。</p>
+
+<p>如果你把太多的精力放在MFC上，你的视野就会像井底的青蛙一样只能看见井口那么大。</p>
+
+<p>所以，新人不要再花大量的时间浪费在MFC上了，去选择一些能快速应用的软件技术，现在的软件技术更新越来越快，做个全栈式工程师，你才能跟得上脚步。</p>
+
+<p>新人学什么？</p>
+
+<p>1、前端的，学学HTML5，JS之类的，各种开源库，可以让你很快做出很炫的效果。</p>
+
+<p>2、后端的，学学C++、java、ruby、python、以及其他脚本语言，（C++，只能谈情怀了，现在的计算性能，绝大部分场景下已3经不需要计较太多了，一台不行，上多台，多台不行，上集群了（参见下面的各种框架）……java相对c++优势是什么，各种开源库，各种框架，让你超多选择，免于造轮子）</p>
+
+<p>3、各种框架：Hadoop MapReduce、HBase、spark、redis、Kafka，框架是给你用的，不是让你研究的，知道它的长处短处，基本原理，适用场景，快速的去摸清楚如何使用。</p>
+
+<p>学习mfc确实是浪费时间，一点收获都没有，今天mfc，明天qt，你还可以开发自己的类库，取名Mymfc，学习这些mfc，qt都是浪费时间，要学就学不变的，什么不变，数据结构，汇编语言，操作系统内核，编译原理。</p>
+
+<p>用了十几年mfc，后来用qt了。不过，现在很多科研院所特别是和硬件打交道的，遗留了大量mfc的积累，有些很有用，很稳定。作为新人，要求他们能阅读，能集成即可。</p>
+
+<p>Hadoop、Spark、HBase及Redis等几个主流大数据技术的使用。</p>
+
+<p>Kafka是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。 这种动作（网页浏览，搜索和其他用户的行动）是在现代网络上的许多社会功能的一个关键因素。 这些数据通常是由于吞吐量的要求而通过处理日志和日志聚合来解决。 对于像Hadoop一样的日志数据和离线分析系统，但又要求实时处理的限制，这是一个可行的解决方案。Kafka的目的是通过Hadoop的并行加载机制来统一线上和离线的消息处理，也是为了通过集群来提供实时的消息。</p>
+
+<p>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。概念"Map（映射）"和"Reduce（归约）"，是它们的主要思想，都是从函数式编程语言里借来的，还有从矢量编程语言里借来的特性。它极大地方便了编程人员在不会分布式并行编程的情况下，将自己的程序运行在分布式系统上。 当前的软件实现是指定一个Map（映射）函数，用来把一组键值对映射成一组新的键值对，指定并发的Reduce（归约）函数，用来保证所有映射的键值对中的每一个共享相同的键组。</p>
+
+<p>通过MFC，再去玩WTL、纯API开发，就简单多了，这是我的经历，我不知道其他人是什么情况。</p>
+
+<p>1、MFC是一个C++的基础类库，封装了绝大多数的API函数，主要是用来创建带UI的应用程序，服务端程序或着不带UI的模块用STL更好，不建议MFC；</p>
+
+<p>2、MFC是一个框架型类库，封装复杂，为简化代码使用了大量的宏，隐藏了大量底层细节，初期接触会感觉晦涩难懂，对使用者的要求较高，学习周期长；</p>
+
+<p>3、MFC中创建程序主要是SDI、MDI两种主要应用框架（对话框程序简单，不认为是框架），熟悉之后可以灵活扩展，同时自动获得了动态创建，序列化等通而重要的机制，不熟悉则会感觉无从下手；</p>
+
+<p>4、MFC类库开放全部源码，在VC6配套的4.2版中连make文件都有，用户可以自行定制修改编译出自己的版本，之前就曾经为一直一个大量应用MFC的程序到LINUX平台，自行编译了一个跨平台的裁剪版MFC；</p>
+
+<p>5、MFC诞生比较早，最终的4.0版好像是win95时代随着vc5发布的吧，后面的一系列版本感觉都没有颠覆性的变化，在PC满天下的时代，对PC端UI程序开发的支持，几乎是MFC的全部，对移动设备、触屏设备、嵌入式设备等平台的开发，尽管也有，但一直没成为主流，所以如果是非PC应用开发的话，建议您最好离MFC远一点；</p>
+
+<p>6、MFC自身带的UI类，界面不够绚丽，一些复合型的复杂控件不够丰富，使用的时候最好搭配一些扩展类库BCG等；</p>
+
+<p>7、个人感觉MFC只是一个擅长于PC平台UI应用程序开发的一套类库，QT感觉更倾向于写一些跨平台UI应用；</p>
+
+<p>8、C#这些年也有所涉猎，但主要用来写WEB程序，桌面程序也写过，各种类封装的非常多，开发效率高，但是有时感觉封装过度，而且让使用者远离事情真相，有一种隔靴搔痒的感觉，对于我这种操作系统都想自己编译完跟进去调试的人来说，感觉超级别扭，另外一个就是运行期即时编译的方式也感觉很不爽，还有就是安全性，不混淆的代码用工具一分钟就能把源码逆出来，即便是混淆后的，如果抽一天时间学习以下IL，也是轻而易举的事情，凡此种种吧，.net基本上也是能不用则不用。</p>
+
+<p>MFC的优势：比直接使用WINDOWS API开发界面快，有对象概念；</p>
+
+<p>MFC的缺点：  </p>
+
+<p>1 不能跨平台（QT｜.net）</p>
+
+<p>2 只是PC端，现在流行的是移动端、web端、嵌入端、大数据应用（Java、python）</p>
+
+<p>3 不支持界面数据分离 容易写出不可维护的代码（WPF）</p>
+
+<p>4 偏底层，开发速度慢，C、C++、API、MFC各种混用（WTL）</p>
+
+<p>5 只提供视窗方面的类，自绘功能支持不足；</p>
+
+<p>6 窗口太多需要关心双缓冲闪屏问题</p>
+
+<p>对任何一个库，作为程序员大致可以分成几个修炼阶段：</p>
+
+<p>1、基础使用者。掌握了库的基本使用方法和概念，运用IDE的向导能熟练地上手写代码。对于MFC来说，知道怎么创建一个应用、窗口，怎么添加消息响应函数，怎么使用DDX/DDV，了解常用的消息，了解模式和非模式的区别，了解DOC-VIEW的作用及含义，当然一些常用的工具也会使用，比如线程、动态创建、RTTI的使用。</p>
+
+<p>2、熟练使用者。对库的全局功能有较清晰的认识，即使某些功能暂时还没用过，但MSDN不是在身边么，知道有这么个功能，要用的时候可以随时查阅。总之开发效率相当高，学习也极快，各种相关工具都比较了解，比如数据库、网络、COM组件使用和基本组件创作、各种容器模板类也得心应手、子类化超类化不再晦涩、了解各种控件自绘原理、随时对系统控件进行功能扩展、GDI/GDI+使用娴熟（大有天下漂亮界面没有我绘制不出来的成就感）……当然可能还有很多。</p>
+
+<p>3、基础设计者。对库的原理和概念有一定的探究精神，通过阅读库代码、读有用的书、单步跟踪进入内裤（库的内部^_^），逐步了解了这个库的工作原理，至少开始对原生API的封装使用方式逐步深入。到了这个阶段，很多以前懵懂的东西豁然贯通，啊，原来这个API是这么个意思，应该这么用，现在就是脱离这个库，我也可以直接用原生API写代码了。当然遇到运行中的BUG，也能很容易地分析出问题原因并快速找到解决办法，因为我知道它内部是如何运作的。</p>
+
+<p>4、熟练设计者。本着打破沙锅问到底的精神，开始全盘学习库的核心代码和框架，更多深层次的问题迎刃而解，至少我知道了这个库当初为何要这么设计，每个设计都有其作用和必要，比如RTTI、动态创建是如何实现的，为何要实现如此复杂的各种全局链表呢？TLS为何在MFC中是必须的？为何MFC使用COM必须使用STA而不能使用MTA呢？……如果你还是不清楚原因，可能你还没修炼到这个层次，或者你应该把自己想象成MS的设计者，多问问自己到底需要解决哪些问题。这个阶段的人很多都在自己写库。</p>
+
+<p>5、看破红尘者。库仅仅只是一个“库”，能帮我解决问题的就是好库，不能解决问题的我会找更好的库，或者我自己写个库。库的优点、限制我一眼就能看明白，只要有条件，我可以设计一个比这个库更好的库……但是，我写的库真的比它更好吗？如果连这个问题都还在纠结，只能说明你还没看破红尘。我写的库不需要比它好，只需要满足我的目标就可以了，最好是刚刚满足目标，因为我掌握的设计思想、设计模式早就从各种“库”中提炼到我脑袋里了，想用哪个就用哪个，不受任何制约。</p>
+
+<p>境界不同，看到的东西绝对不同，不要人云亦云，MFC确实在走下坡，这是外部环境使然，客观条件所限。当然程序员为了混饭吃，当然需要纠结，但纠结之前就不能问问自己到底想吃什么样的饭么？现在流行的互联网公司招聘程序员时，都是有技术级别区别的，如果想一直走技术这条路，除非你想混日子，否则还是想办法提升级别吧，一个把熟练使用某个库作为终极目标的人，可能永远只是熟练使用，即使接触其它库也会局限在熟练使用层次上，你难道不想做一个设计师、架构师甚至一个开创性的架构师？</p>
+
+<p>喷吧喷吧，我都接着呢，最后回到正题结论，MFC至今对我影响深远！</p>
+
+<p>我们学习XX语言XX框架XX库实际上是为了解决具体问题的，而解决问题的能力就如同编程中的数据结构和算法一样是通用的东西，也应该成为我们特别关注的一点。</p>
+
+<p>其实，懂数据结构，在MFC的CWnd里一个遍历循环画出来，鼠标消息一响应，啥精妙绝伦的控件都有一个广义表，就是本质上的EXCEL，特性是可自由加的，比EXCEL强无限万倍</p>
+<hr />
+
+<p>对于VC++报错:fatal error C1001: INTERNAL COMPILER ERROR</p>
+
+<p>有以下两种可能：</p>
+
+<p>1、运算符重载时遇到以上错误代码</p>
+
+<p>将#include&lt;iostream> 改成 #include&lt;iostream.h></p>
+
+<p>然后去掉 using namespace std;</p>
+
+<p>或者你要前向声明类，然后声明友元函数（注意不要加friend），也可以顺利通过编译！</p>
+
+<p>或者你打上vc6.0的sp6补丁就可以了！</p>
+
+<p>2、如果你在用 VC6 编一个规模较大的工程，如果你在用 VC6 编译一个用到了模板的工程，那恭喜你，这个错误会时不时冒地出来和你打招呼，搞得你手足无措。</p>
+
+<p>很多C++程序员还在使用而不是用更新的标准的库。 </p>
+
+<p>这两者都有什么不同呢？首先，5年前我们就开始反对把.h符号继续用在标准的头文件中。继续使用过时的规则可不是个好的方法。从功能性的角度来讲，<iostream>包含了一系列模板化的I/O类，相反地<iostream.h>只仅仅是支持字符流。另外，输入输出流的C++标准规范接口在一些微妙的细节上都已改进，因此，<iostream>和<iostream.h>在接口和执行上都是不同的。最后，<iostream>的各组成都是以STL的形式声明的，然而<iostream.h>的各组成都是声明成全局型的。 </p>
+
+<p>因为这些实质上的不同，你不能在一个程序中混淆使用这两个库。做为一种习惯，在新的代码中一般使用<iostream>，但如果你处理的是过去编写的代码，为了继承可以用继续用<iostream.h>旧保持代码的一致性。 </p>
+
+<p><iostream>表示你使用的是标注命名空间，也就是在程序开始应该有这么一句话</p>
+
+<p>using namespace std ;这是遵循c++标准的。</p>
+
+<p><iostream.h>则没有遵循c++标准</p>
+
+<p><string.h>是旧的C头文件，对应的是基于char*的字符串处理函数； </p>
+
+<p><string>是包装了std的C++头文件，对应的是新的strng类； </p>
+
+<p><cstring>是对应旧的C头文件的std版本。</p>
+<hr />
+
+
+<p>下面是获取鼠标双击CEdit的那行文字
+
+<p></p>
+<pre>
+void MyEdit::OnLButtonDblClk(UINT nFlags, CPoint point)
+{    
+    CEdit::OnLButtonDblClk(nFlags, point) ;        
+    int nIndex = this->CharFromPos(point) ;    
+    int nCharIndex = LOWORD(nIndex) ;      
+    nIndex = HIWORD(nIndex) ;    
+    if (nIndex == -1)    
+        return ;
+    CString strText ;    
+    int nCharIndex = this->LineIndex(nIndex) ;       
+    int nlen = this->LineLength(nCharIndex) ;    
+    this->GetLine(nIndex, strText.GetBuffer(nlen), nlen) ;    
+    strText.ReleaseBuffer() ;
+}
+</pre>
+
+<p>资源指的是应用程序需要使用的数据，可以是字符串、图标、图像甚至音频剪辑。资源不是可执行文件，它仅提供支持应用程序运行的数据（例如，控件的位置、尺寸以及其他物理属性）。大多数资源通常是一些字符串、图像、音频剪辑以及图标，但资源也可以是支持序列化的复杂对象。</p>
+
+<p>有3种类型的资源文件可以编译到应用程序中：文本、XML资源文件以及资源文件格式（二进制资源文件）。</p>
+
+<p>文本文件是最简单的资源类型，它们只能提供字符串值。在需要管理大量字符串的应用程序中，简单的文本文件是最方便的管理方式，它们不会对应用程序的其他资源造成干扰。</p>
+
+<p>输入和输出通常称为I/O，是程序中用户可以看得见的。I/O设计不佳，就无法取悦于用户。</p>
+
+<p>如在控制台程序中，用printf()与cout()来进行适当的提示，而不会显得很突兀。在编辑框的前面用适当的静态文本框来提示说明。</p>
+<p>1 程序的诞生</p>
+<p>1.1 Application object 产生，内存于是获得配置，初值亦设立了。</p>
+<p>1.2 Afx WinMain 执行AfxWinInit，后者又调用AfxInitThread，把消息队列尽量加大到96。</p>
+<p>1.3 Afx WinMain 执行InitApplication。这是CWinApp 的虚拟函数，但我们通常不改写它。</p>
+<p>1.4 AfxWinMain 执行InitInstance。这是CWinApp 的虚拟函数，我们必须改写它。</p>
+<p>1.5 CMyWinApp::InitInstance 'new' 了一个CMyFrameWnd 对象。</p>
+<p>1.6 CMyFrameWnd 构造式调用Create，产生主窗口。我们在Create 参数中指定的窗口类别是NULL， 于是MFC 根据窗口种类， 自行地为我们注册一个名为"AfxFrameOrView42d" 的窗口类别。</p>
+<p>1.7 回到InitInstance 中继续执行ShowWindow，显示窗口。</p>
+<p>1.8 执行UpdateWindow，于是发出WM_PAINT。</p>
+<p>1.9 回到AfxWinMain，执行Run，进入消息循环。</p>
+<p>2 程序开始运作</p>
+<p>2.1 程序获得WM_PAINT 消息（藉由CWinApp::Run 中的::GetMessage 循环）。</p>
+<p>2.2 WM_PAINT 经由::DispatchMessage 送到窗口函数CWnd::DefWindowProc 中。</p>
+<p>2.3 CWnd::DefWindowProc 将消息绕行（routing）过消息映射表格（Message Map）。</p>
+<p>2.4 绕行过程中发现有吻合项目，于是调用项目中对应的函数。此函数是应用程序利用BEGIN_MESSAGE_MAP 和END_MESSAGE_MAP 之间的宏设立起来的。</p>
+<p>2.5 标准消息的处理例程亦有标准命名，例如WM_PAINT 必然由OnPaint 处理。</p>
+<p>3 程序的死亡</p>
+<p>3.1 使用者选按【File/Close】，于是发出WM_CLOSE。</p>
+<p>3.2 CMyFrameWnd 并没有设置WM_CLOSE 处理例程，于是交给预设之处理例程。</p>
+<p>3.3 预设函数对于WM_CLOSE 的处理方式是调用::DestroyWindow， 并因而发出WM_DESTROY。</p>
+<p>3.4 预设之WM_DESTROY 处理方式是调用::PostQuitMessage，因此发出WM_QUIT。</p>
+<p>3.5 CWinApp::Run 收到WM_QUIT 后会结束其内部之消息循环， 然后调用ExitInstance，这是CWinApp 的一个虚拟函数。</p>
+<p>3.6 如果CMyWinApp 改写了ExitInstance ， 那么CWinApp::Run 所调用的就是CMyWinApp::ExitInstance，否则就是WinApp::ExitInstance。</p>
+<p>3.7 最后回到AfxWinMain，执行AfxWinTerm，结束程序。Sub 格式化文本框()</p>
+
+
+<p>如果你学过C语言，应该知道文件操作使用的是文件指针，通过文件指针实现对它指向的文件的各种操作。这些文件操作函数中有的最终还是调用了操作系统的API函数或者处理过程与之类似，例如在Windows系统中，fread函数就调用了API函数ReadFile。</p>
+
+<p>Windows系统的API函数除了ReadFile，还有CreateFile、WriteFile等函数。而MFC基于面向对象的思想，将这些Windows API函数封装到了CFile类中，实现对文件的打开、关闭、读、写、获取文件信息等操作。使用CFile类对文件进行操作非常便捷。</p>
+
+<p>icon→导入import→IDE会自动把图标文件复制到res文件夹；</p>
+
+<p>引入import图标后，再用原图标在res文件夹内替换一下；</p>
+
+<p>CString类的Format函数：与C的Printf()函数类似，也可以实现将数字格式化为字符串；</p>
+
+<p>CString转换为整形：</p>
+
+<p>CString str("123");</p>
+
+
+<p>int iTempt = atoi(str);</p>
+
+<p>转换为char*型。因为MFC的很多函数的参数使用了char*数据类型，而用户能够提供的多是CString类型。有三种方法可以将CString转换为Char*类型；</p>
+
+<p>1 使用GetBuffer()函数</p>
+
+<p>char *P;</p>
+
+<p>CString str = "Good Morning";</p>
+
+<p>p = str.GetBuffer(str.GetLength());</p>
+
+<p>2 使用memcpy()函数</p>
+
+<p>CString str = "Good Morning";</p>
+
+<p>char mch[20];</p>
+
+<p>memcpy(mch,str,str.GetLength());</p>
+
+<p>3 使用LPCTSTR强制类型转换</p>
+
+<p>char *ch</p>
+
+<p>CString str = "Good Morning";</p>
+
+<p>ch = (LPSTR)(LPCTSTR)str;</p>
+
+<p>char*类型的数据则 可以直接赋值给CString对象；</p>
+
+<p>Application Framework技术团队，名为AFX小组，用以开发C++对象导向工具给Windows应用程序开发人员使用。AFX 的"X"没有什么意义，是比较流行的结尾字符,如activex等。</p>
+
+
+<p>Windows API有超过1000个函数，这些函数的类别不是特别清晰。MFC用C++的类进行封装，相同类别的函数封装到相同的类内，相互的关系便变得清晰起来。这就是类类型的思想，将数据和操作这些数据的函数聚合起来，但通过继承可以共享数据和代码。通过访问控制可以实现数据隐藏。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
+
+
+

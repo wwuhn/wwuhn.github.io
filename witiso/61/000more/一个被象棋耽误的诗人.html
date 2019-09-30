@@ -1,0 +1,676 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>一个被象棋耽误的诗人</h4>
+
+<p>孙浩宇，2007 年6 月全国象棋等级赛冠军，从而成为江西省首位国家象棋大师。转眼十年间，在国内大赛和象甲联赛中凭借“亦仙亦魔”的神之一手斩落无数国手，也收获了无数棋迷粉丝的追随。用棋友的话说，在当今象棋界，最有性格，也最悲情的棋手，莫过于象棋大师孙浩宇了。他的棋路，不同常人，看他的棋谱，可以读出其在象棋上的灵气，更能读出他在棋上的迷失。最为奇怪的是，他的好多棋，胜和负好像只在一念之间。他，在棋上，真的是天才，神仙和魔鬼的混合体。
+</p>
+
+<p>孙大师灵性不仅表现在比赛对弈上，来过象棋大师孙浩宇象棋直播间的网友都知道，孙大师除了讲棋下棋吸引人之外，还有三绝：喝酒背诗吹牛皮。
+</p>
+
+<p>在孙大的直播间，有时候会觉得进错房门，在这里饮酒吟诗的氛围更浓些。一首首名家名诗，一段段经典名篇，不时在直播间响起。李白杜甫苏东坡奔放豪迈的诗句，令人热血飞扬，荡气回肠；司马迁诸葛亮的名言，引人联想翩翩，扼腕赞叹。虽说诗文的内容与棋势并无多大联系，其气势意境却多少能激励斗志，活跃气氛。讲起孙大背诗，据说央视体育频道的象棋解说员也夸过，说他会背诗写诗。
+</p>
+
+<p>孙大能吹，在象棋直播界估计也是出了名的，算是不折不扣的网红。孙大自己戏言，人生有二大痛苦，一是输棋，一是不能够吹牛，可能也是有感而发。他年纪轻轻，却常常自称老夫，不熟悉的人听起来虽然可能会有些别扭，倒也可能是少年出道，十几年棋坪争雄经历的自况。“胯下赤兔马，手中青龙偃月刀”、“过五关，斩六将”、“问天下头颅几许？看老夫手段如何”、“谁有不服，提头来战”、“杀杀杀，杀无赦”、“自出洞来无敌手，美人一笑就出刀”，一句句戏文，成就了孙大的大刀名号和吹牛名言，也为直播间增加了不少人气。而那些诸如“炮要天炮地炮，马要挂角卧槽，车要宽敞明亮”的话，则为直播间的象棋特色，增添了不少技术含量。孙大会吹，网友自然响应，房间里常常话题百出，调侃不断。
+</p>
+
+<p>孙浩宇，是遗落民间的天之骄子，一个被象棋耽误的诗人，命该如此，还是造化弄人？孙浩宇大师每晚8 点在虎牙直播与各方棋友一同下棋吹水，讲解棋局，传授棋艺，展现他细致逆天的棋技，喜欢象棋的你可千万不要错过！
+</p>
+
+<p>孙浩宇大师直播间传送门：
+</p>
+
+<p>http://www.huya.com/21728 15183 虎牙房间号：21728 15813 下载虎牙APP，搜索孙浩宇
+</p>
+
+<p>“似水流年等闲度，如花美眷何处寻”，诗仙孙浩宇经常会带结发娇妻福娃一起来直播间与众多棋友吹水，现场气氛异常温馨可人，有棋友还专门为此盛况赋诗一首：
+</p>
+
+<p>海南有女初长成，
+</p>
+
+<p>慧质兰心耀梁门。
+</p>
+
+<p>家在青天白水外，
+</p>
+
+<p>横峰侧岭入云深。
+</p>
+
+<p>一路沿溪花复水，
+</p>
+
+<p>夹江飞瀑雾重山。
+</p>
+
+<p>灵山秀水出佳丽，
+</p>
+
+<p>宛若芙蓉蔻初开。
+</p>
+
+<p>我家碧玉单名栗，
+</p>
+
+<p>慕者纷纭挑指夸。
+</p>
+
+<p>皓齿星眸羞落雁，
+</p>
+
+<p>蛾眉螓首闭桃花。
+</p>
+
+<p>历来美女多别致，
+</p>
+
+<p>不爱红妆只爱棋。
+</p>
+
+<p>拟把青春托楚汉，
+</p>
+
+<p>一任衣袂落白云。
+</p>
+
+<p>炮碾丹砂清昼永，
+</p>
+
+<p>车驰马骤忘宵沉。
+</p>
+
+<p>但凡入境先无我，
+</p>
+
+<p>九宫深处悟乾坤。
+</p>
+
+<p>炮欺将胆车尤妙，
+</p>
+
+<p>马若蛟龙剑气泓。
+</p>
+
+<p>十年苦弈无人问，
+</p>
+
+<p>一举夺魁天下知。
+</p>
+
+<p>自古人生无定数，
+</p>
+
+<p>三分天注七分拼。
+</p>
+
+<p>为谋生计飞海外，
+</p>
+
+<p>从此棋香落梦萦。
+</p>
+
+<p>叶绿无非风染指，
+</p>
+
+<p>枫红乃是露凝妆。
+</p>
+
+<p>春来秋去他乡雁，
+</p>
+
+<p>望断云山踏返程。
+</p>
+
+<p>去时依旧来时路，
+</p>
+
+<p>此岸已非彼岸花。
+</p>
+
+<p>昔日同窗皆嫁娶，
+</p>
+
+<p>人间最远是故知。
+</p>
+
+<p>晓窗凝镜鱼鸿远，
+</p>
+
+<p>顾盼凭栏云水闲。
+</p>
+
+<p>寂寞空庭谁共语？
+</p>
+
+<p>孤身疏影话凄凉。
+</p>
+
+<p>幸是家山今有月，
+</p>
+
+<p>因缘恰似晚来风。
+</p>
+
+<p>孙家有子名浩宇，
+</p>
+
+<p>腹有华章品味高。
+</p>
+
+<p>于疏狂处馨傲骨，
+</p>
+
+<p>唯弈棋时肯低头。
+</p>
+
+<p>走南闯北无敌手，
+</p>
+
+<p>绰号大刀美誉扬。
+</p>
+
+<p>同是目高于顶人，
+</p>
+
+<p>奈何各眼入各花。
+</p>
+
+<p>相逢本是天注定，
+</p>
+
+<p>雁字向北水流东。
+</p>
+
+<p>千里来琼寄此生，
+</p>
+
+<p>欲从棋道系姻缘。
+</p>
+
+<p>寂寞梧桐堪入月，
+</p>
+
+<p>相思烟雨恰比肩。
+</p>
+
+<p>白头到老恒沙数，
+</p>
+
+<p>志趣相投有几人？
+</p>
+
+<p>一局品棋如品酒，
+</p>
+
+<p>满盘知己亦知心。
+</p>
+
+<p>是夜心花清到寂，
+</p>
+
+<p>那时月色静如恒。
+</p>
+
+<p>量云为缎月当尺，
+</p>
+
+<p>裁下今生前世情。
+</p>
+
+<p>一山二水三分月，
+</p>
+
+<p>万紫千红百色花。
+</p>
+
+<p>纵使百花争斗艳，
+</p>
+
+<p>不及梁栗到我家。
+</p>
+
+<p>最后，附上棋迷整理的孙浩宇大师直播间的经典诗篇语录，与君共赏。
+</p>
+
+<p>PART1 1 .东风吹，战鼓擂，这个世界谁怕谁，不是人民怕美帝，而是美帝怕人民。
+</p>
+
+<p>2 .名军大将莫自牢，千军万马避白袍。
+</p>
+
+<p>3 .我说刀枪无眼，莫怪老夫出刀很凶残。
+</p>
+
+<p>4 .来一个杀一个，来两个杀一双，来一串杀成烤肉串。
+</p>
+
+<p>5 .行霹雳手段，显菩萨心肠。
+</p>
+
+<p>6 .老夫手持金箍棒，上可九天揽月，下可五洋捉鳖，木有办法，老夫就是这么拽呀。
+</p>
+
+<p>7 .千里修书只为墙，让他三尺又何妨。万里长城今犹在，不见当年秦始皇。
+</p>
+
+<p>8 .你们真的不把村长当干部，不把老夫当老夫了。
+</p>
+
+<p>9 .十个男人九个吹，一个不吹有点呸。
+</p>
+
+<p>10 .不吹牛的人太卑鄙了，吹牛使人进步，吹牛是进步的一种重要途径啊。
+</p>
+
+<p>11 .月圆之夜，紫金之巅，一剑袭来，天外飞仙。
+</p>
+
+<p>12 .北斗七星高，哥舒夜带刀。至今窥牧马，不敢过临洮。
+</p>
+
+<p>13 .老夫通晓十八般兵器，刀枪棍棒，都耍得有模有样，对你们用烧火棍就行了。
+</p>
+
+<p>14 .我有秋水雁翎刀、有杀人不眨眼的飞刀、有倚天剑、有龙泉宝剑、有干将莫邪、有闭月羞花剑、有金丝大环刀、有杀威棒、有方天画戟、有北斗七星刀。
+</p>
+
+<p>15 .老夫外号东门吹牛。
+</p>
+
+<p>16 .老夫可能又要喜得贵子、多子多福、得子胜定。
+</p>
+
+<p>17 .老夫手段非常凶残、无比残忍。
+</p>
+
+<p>18 .岁在甲子，天下大吉。
+</p>
+
+<p>19 .老夫这么这么厉害呢，一般人我不告诉他老夫这么厉害。
+</p>
+
+<p>20 .老夫论下棋可以说是九段，论吹牛可以达到十三段，可以达到阿尔法狗的水平了。
+</p>
+
+<p>21 .老夫照五蕴皆空，度一切苦厄。
+</p>
+
+<p>22 .老夫一般是很低调的。
+</p>
+
+<p>23 .老夫要使出一剑封喉的天外飞仙，他叶孤城怎是我西门吹雪的对手，被我西门吹雪轻轻吹一口气便打败了。
+</p>
+
+<p>24 .手把青秧插满田，低头便见水中天，心底清净方为道，退步原来是向前。
+</p>
+
+<p>25 .两国争雄动战争，不劳金鼓便兴兵。马行二步鸿沟渡，将守三宫细柳营。摆阵出车当要路，隔河飞炮破重城，幄帷士相多机变，一卒功成见太平。
+</p>
+
+<p>26 .老夫见形势不妙，鸣金收兵，收手求和。
+</p>
+
+<p>PART2 1 .赵客缦胡缨，吴钩霜雪明。银鞍照白马，飒沓如流星。十步杀一人，千里不留行。事了拂衣去，深藏身与名。闲过信陵饮，脱剑膝前横。将炙啖朱亥，持觞劝侯嬴。三杯吐然诺，五岳倒为轻。眼花耳热后，意气素霓生。救赵挥金槌，邯郸先震惊。千秋二壮士，烜赫大梁城。纵死侠骨香，不惭世上英。谁能书阁下，白首太玄经。
+</p>
+
+<p>2 .整军队，排雁行，运帷幄，算周祥，一刹时便见楚弱秦强，九宫参谋待左右，五营貔貅戍边疆，叹英雄，勒勋立业类枰场。论形式，两相当，分彼此，各参商，倾刻间画出百计千方，得志纵横任冲击，未雨绸缪且预防，看世情，争先好胜似棋忙。
+</p>
+
+<p>3 .棋怕十六吃，吃完就要赢。
+</p>
+
+<p>4 .磨剑剑石石鼎裂，饮马长江江水竭。我军百万战袍，红尽是江南儿女血。
+</p>
+
+<p>5 .王杨卢骆当时体，轻薄为文哂未休。尔曹身与名俱灭，不废江河万古流。
+</p>
+
+<p>6 .朝游北海夜苍梧，袖里乾坤胆气粗。三醉岳阳人不识，朗吟飞过洞庭湖。
+</p>
+
+<p>7 .老夫也是醉了。。。
+</p>
+
+<p>8 .兵者，国之大事，死生之地，存亡之道，不可不察也。
+</p>
+
+<p>9 .月黑风高夜，杀人放火天。
+</p>
+
+<p>10 .仙佛茫茫两未成，只知独夜不平鸣。风蓬飘尽悲歌气，泥絮沾来薄幸名。十有九人堪白眼，百无一用是书生。莫因诗卷愁成谶，春鸟秋虫自作声。
+</p>
+
+<p>11 .功盖三分国，名成八阵图.江流石不转，遗恨失吞吴。
+</p>
+
+<p>12 .黄梅时节家家雨，青草池塘处处蛙.有约不来过夜半，闲敲棋子落灯花。
+</p>
+
+<p>13 .天子之怒，伏尸百万，流血千里，庶人之怒，伏尸二人，血溅五步。
+</p>
+
+<p>14 .金刚经有言：一切皆为法，如梦幻泡影。如露亦如电，应作如是观。开心就好。
+</p>
+
+<p>PART3 1 .春江一曲柳千条，二十年前旧板桥。曾与美人桥上别，恨无消息到今朝。
+</p>
+
+<p>2 .刀头百万英雄气，万里乾坤杀节操。
+</p>
+
+<p>3 .唯有鲜血与美酒，才能抚慰我们杀手的寂寞灵魂。
+</p>
+
+<p>4 .敌不动我不动，敌若动我就动5 .敌进我退，敌疲我扰，敌退我追，敌追我跑。
+</p>
+
+<p>5 .千古江山，英雄无觅，孙仲谋处，曹操和孙仲谋都是英雄。
+</p>
+
+<p>6 .一时胜负在于力，千秋胜负在于理。
+</p>
+
+<p>7 .下醉棋，先干为敬了。
+</p>
+
+<p>8 .我醉欲眠卿且去，明朝有意抱琴来。原诗：山中与幽人对酌两人对酌山花开，一杯一杯复一杯。我醉欲眠卿且去，明朝有意抱琴来。
+</p>
+
+<p>9 .春天总是会来临，我从来不抱别人大腿的。
+</p>
+
+<p>10 .长车直捣黑云城，策马扬鞭白水滩。
+</p>
+
+<p>11 .对酒当歌，人生几何，譬如朝露，去日苦多。慨当以慷，忧思难忘。何以解忧？惟有杜康。青青子衿，悠悠我心。但为君故，沉吟至今。呦呦鹿鸣，食野之苹。我有嘉宾，鼓瑟吹笙。明明如月，何时可掇？忧从中来，不可断绝。越陌度阡，枉用相存。契阔谈宴，心念旧恩。月明星稀，乌鹊南飞，绕树三匝，何枝可依？山不厌高，海不厌深。周公吐哺，天下归心</p>
+
+
+
+<p style='float:right;'>本页共129段，3614个字符，10202 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

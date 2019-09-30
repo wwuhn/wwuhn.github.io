@@ -1,0 +1,56 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>新颜色与画布当前已有颜色的合成方式</title> 
+    </head> 
+    <body> 
+        <div id="msg"></div> 
+        <canvas id="canvas" width="200" height="200" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">改变 globalCompositeOperation</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            var compositeOperationTypes = ['source-atop', 'source-in', 'source-out', 'source-over', 'destination-atop', 'destination-in', 'destination-out', 'destination-over', 'lighter', 'copy', 'xor'];  
+            var index = 0;  
+            function drawIt() {  
+                clearIt();  
+                ctx.fillStyle = "red";  
+                ctx.beginPath();  
+                ctx.rect(20, 20, 100, 100);  
+                ctx.fill();  
+     
+                /*  
+                 * context.globalCompositeOperation - 设置新颜色与画布当前已有颜色的合成方式  
+                 *   source-atop - 保留已有颜色，然后绘制新颜色与已有颜色重合的部分  
+                 *   source-in - 绘制新颜色与已有颜色重合的部分，其余全透明  
+                 *   source-out - 绘制新颜色与已有颜色不重合的部分，其余全透明  
+                 *   source-over - 在已有颜色的前面绘制新颜色。默认值  
+                 *   destination-atop - 在已有颜色的后面绘制新颜色，然后保留已有颜色与新颜色重合的部分  
+                 *   destination-in - 保留已有颜色与新颜色重合的部分，其余全透明  
+                 *   destination-out - 保留已有颜色与新颜色不重合的部分，其余全透明  
+                 *   destination-over - 在已有颜色的后面绘制新颜色  
+                 *   lighter - 混合重叠部分的颜色  
+                 *   copy - 删除已有颜色，只绘制新颜色  
+                 *   xor - 透明化重叠部分的颜色  
+                 */  
+                ctx.globalCompositeOperation = compositeOperationTypes[index];  
+                document.getElementById("msg").innerHTML = ctx.globalCompositeOperation;  
+                ctx.fillStyle = "blue";  
+                ctx.beginPath();  
+                ctx.rect(80, 80, 100, 100);  
+                ctx.fill();  
+                index++;  
+                if (index >= compositeOperationTypes.length)  
+                    index = 0;  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 200, 200);  
+                // source-over 是 context.globalCompositeOperation 的默认值  
+                ctx.globalCompositeOperation = "source-over";  
+            }  
+        </script> 
+    </body> 
+    </html> 

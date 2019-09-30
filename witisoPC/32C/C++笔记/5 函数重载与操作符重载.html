@@ -1,0 +1,648 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+<p>重载可以分为运算符的重载和函数的重载，但本质上都是一样的。</p>
+
+
+<p>在 C++ 中，函数可以重载。只要函数中形参的个数或类型不同，则同一个函数名可用于定义不同的函数。编译器将根据函数调用时的实参确定调用哪一个函数。在重载函数集合中选择适合的函数的过程称为函数匹配。</p>
+
+
+
+<p>通过操作符重载，可以重定义大多数操作符，使它们用于类类型对象。明智地使用操作符重载可以使类类型的使用像内置类型一样直观。标准库为容器类定义了几个重载操作符。这些容器类定义了下标操作符以访问数据元素，定义了 * 和 -> 对容器迭代器解引用。这些标准库的类型具有相同的操作符，使用它们就像使用内置数组和指针一样。允许程序使用表达式而不是命名函数，可以使编写和阅读程序容易得多。</p>
+
+<p>重载操作符是具有特殊名称的函数：保留字 operator 后接需定义的操作符号。像任意其他函数一样，重载操作符具有返回类型和形参表。</p>
+
+
+<p>大多数重载操作符可以定义为普通非成员函数或类的成员函数。</p>
+
+
+
+<p><strong>操作符其实就是一个函数</strong>，操作符有一元操作符、二元操作符、三元操作符，就如同一个函数名加一个参数、或二个相同类型参数、或三个相同类型参数；所以操作会可以重载，用于对象的操作，阅读起来更直观；</p>
+
+<p>可以从容器中检索单个元素的容器类一般会定义下标操作符，即 operator[]。标准库的类 string 和 vector 均是定义了下标操作符</p>
+
+<p>定义下标操作符比较复杂的地方在于，它在用作赋值的左右操作符数时都应该能表现正常。<strong>下标操作符出现在左边，必须生成左值，可以指定引用作为返回类型而得到左值。只要下标操作符返回引用，就可用作赋值的任意一方。</strong></p>
+
+<p>运算符重载定义了将运算符用于对象时应执行的操作。</p>
+
+
+
+<p>重载：一个类中多个方法相同名字不同参数；</p>
+
+<p>重写：分别属于父类和子类的两个方法同样的名字和参数；</p>
+
+
+
+<p>一个集合运算的问题，也就是针对复合数据类型（类也是）而言，结构体允许做为函数的参数和返回值，可以赋值操作，数组也是。对于对象，其集合操作有作为函数的参数或返回值，可以使用拷贝构造函数，对于其它类似普通变量的运算符操作，需要重载操作符。</p>
+
+<p>操作符重载就是让操作符有了多种用法。其<strong>实质如同定义成员函数</strong>，只是相对于使用成员函数调用，操作符的调用看起来更直观自然。</p>
+
+<p>重载后操作符的各个操作数必须要有一个是自定义数据类型。也就是说，重载操作符是对自定义数据类型操作的重载，如果有函数替换，也就是函数参数中必须有一个是自定义数据类型。</p>
+
+
+
+<p>重载运算符，就相当于用运算符来代替函数名。</p>
+
+
+<p>重载是指对于函数而言，通过函数名相同，而而函数的其它签名（函数名以外）不同；</p>
+
+<p>重写是指在类的继承关系中，在派生类中使用与其类完全相同的方法签名；</p>
+
+
+<p>重载（overload）和重写（overried）的区别 </p>
+
+<p>（1）重载：是指允许存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。 </p>
+
+<p>（2）重写：是指子类重新定义复类虚函数的方法。 </p>
+
+<p>从实现原理上来说： </p>
+
+<p>（1）重载：编译器根据函数不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（至少对于编译器来说是这样的）。例如，下面的代码有两个同名函数： </p>
+
+<p>function func(p:integer):integer； </p>
+
+<p>和 </p>
+
+<p>function func(p:string):integer; </p>
+
+<p>那么编译器做过修饰后的函数名称可能是这样的：int_func、str_func。对于这两个函数的调用，在编译器间就已经确定了，是静态的。也就是说，它们的地址在编译期就已经绑定了（早绑定），因此，重载和多态是没有关系的。 </p>
+
+<p>（2）重写：和多态真正相关。当子类重新定义了父类的虚函数后，父类指针根据赋给它的不同的子类指针，动态的调用属于子类的该函数，这样的函数调用在编译期间是无法确定的（<font color="#FF0000"><strong>调用的子类的虚函数的地址无法给出？？？</strong></font>）。因此，这样的函数地址是在运行期绑定的（晚绑定）。</p>
+
+
+<h4>类成员函数的重载、覆盖和隐藏的区别 </h4>
+
+<p>以下成员函数被重载的特征。 </p>
+
+<p>相同的范围（在同一个类中）； </p>
+
+<p>函数名字相同； </p>
+
+<p>参数不同； </p>
+
+<p>virtual关键字可有可无。 </p>
+
+<p>覆盖是指派生类函数覆盖基类函数，特征如下所示。 </p>
+
+<p>不同的范围（分别位于派生类与基类）； </p>
+
+<p>函数名字相同； </p>
+
+<p>参数相同； </p>
+
+<p>基类函数必须有virtual关键字。 </p>
+
+<p>隐藏是指派生类的函数屏蔽了与其同名的基类函数，规则如下： </p>
+
+<p>（1）如果派生类的函数与基类的函数同名，但是参数不同。此时，不论有无virtual关键字，基类的函数都将被隐藏（注意别与重载混淆）。 </p>
+
+<p>（2）如果派生类的函数与基类的函数同名，并且参数也相同，但是基类函数没有virtual 关键字。此时，基类的函数被隐藏（注意不要与覆盖混淆）</p>
+
+
+<pre>
+complex add(const complex &c1, const complex &c2)
+{
+    complex temp(c1.real + c2.real, c1.imag + c2.imag);
+    return temp;
+}
+complex operator+(const complex& c1, const complex& c2)
+{
+    complex temp(c1.real + c2.real, c1.imag + c2.imag);
+    return temp;
+}
+</pre>
+
+<p>c1+c2会被编译器理解为：</p>
+
+<p><strong>::operator+(c1,c2)</strong></p>
+
+
+<p>C++是如何实现函数重载的？ </p>
+
+<p>编译器为每个函数重新取一个内部名字。当遇到调用重载函数时，编译器分析实际参数的个数和类型，确定一个形式参数表与实际参数表一致的重载函数，将这个重载函数的内部名字替代函数调用时的函数名。 </p>
+
+<p>为什么要使用运算符重载？ </p>
+
+<p>运算符重载可以使内置的运算符用于类的对象，使C++的功能得到了扩展。 </p>
+
+
+
+<p>下标运算符为什么要重载成成员函数？下标运算符重载函数为什么要用引用返回？ </p>
+
+<p>下标运算符的第一个运算数是数组名，即当前类的对象。将下标运算符重载成成员函数时，编译器会将程序中诸如a[i]的下标变量的引用改为a.operator[](i)。如果a不是当前类的对象，编译器就会报错。<strong>下标变量是左值，所以必须用引用返回</strong>。 </p>
+
+
+<p>如何禁止同类对象之间的相互赋值？ </p>
+
+<p>将赋值运算符重载函数设为类的私有成员函数就可以了。</p>
+
+
+
+<p>运算符重载的限制</p>
+
+<p>不是所有的运算符都能重载</p>
+
+<p>重载不能改变运算符的优先级和结合性</p>
+
+<p>重载不能改变运算符的操作数个数</p>
+
+<p>不能创建新的运算符</p>
+
+<p>运算符重载就是写一个函数解释某个运算符在某个类中的含义</p>
+
+<p>要使得系统能自动找到重载的这个函数，函数名必须要体现出和某个被重载的运算符的联系。</p>
+
+<p>C++中规定，重载函数名为</p>
+
+<p>      operator@</p>
+
+<p>     其中，@为要重载的运算符。如要重载“+”运算符，该重载函数名为operator+。要重载赋值运算符，函数名为operator=。</p>
+
+<p>运算符的重载不能改变运算符的运算对象数。因此，重载函数的形式参数个数（包括成员函数的隐式指针this）与运算符的运算对象数相同 </p>
+
+<p>运算符重载可以重载成成员函数也可以重载成全局函数实现。重载成全局函数时，最好把此函数设为友员函数</p>
+
+
+<p>当把一个一元运算符重载成成员函数时，该函数没有形式参数。</p>
+
+<p>把一个二元运算符重载成成员函数时，该函数只有一个形式参数，就是右操作数，当前对象是左操作数。</p>
+
+<p>大多数运算符都可以重载成成员函数或全局函数。</p>
+
+<p>赋值（=）、下标（[]）函数调用（（））和成员访问（->）必须重载成成员函数。</p>
+
+<p>具有赋值意义的运算符，如复合的赋值运算符以及++和--，不一定非要定义为成员函数，但最好定义为成员函数。</p>
+
+<p>具有两个运算对象的运算符最好重载为全局函数，这样可以使得应用更加灵活。如果把加运算定义成全局函数，r是有理数类的对象，则2+r是一个合法的表达式。</p>
+
+<p>对任一类，如果用户没有自定义赋值运算符函数，那么系统为其生成一个缺省的赋值运算符函数，在对应的数据成员间赋值。</p>
+
+<p>一般情况下，这个缺省的赋值运算符重载函数能满足用户的需求。但是，当类含有类型为指针的数据成员时，可能会带来一些麻烦。</p>
+
+<p>在赋值运算符重载函数中，已经将参数的值赋值给了当前对象，那为什么还需要返回值呢？记住，在C++中，赋值是一个运算，它可以形成一个表达式，而该表达式的结果值就是赋给左边的对象的值。因此，赋值运算符重载函数必须返回赋给左边的对象值。</p>
+
+
+
+
+<p>重载函数是通过“名字压延”方法来实现。即在编译时将函数名和参数结合起来创造一个新的函数名，用新的名字替换原有名字。</p>
+
+<p>编译器从模板生成一个特定的类或函数的过程称为模板的实例化。</p>
+
+<p>一般情况下，重载的运算符函数（operator&lt;&lt;）是类的一个友元，而不是类的成员函数。</p>
+
+
+
+
+<p>可重载操作符+(以及其他许多操作符)来接受类类型的实参。重载操作符+与定义函数add的区别只涉及语法上的一处微小变动。对于重载的操作符+，它的定义与函数add 的定义基本相同。唯一区别是要使用名称+，而不是名称add。另外，要在操作符+之前附加关键字operator。</p>
+
+<p>包括+，-，/，%等在内的(二元)操作符本质上是函数。调用这种“函数”时，要以不同的语法列出实参。操作符函数的实参要在操作符前后列出；普通函数的实参则在函数名之后的圆括号中列出。操作符函数的定义与普通函数相似，只是要在操作符之前附加保留字operator。可为类类型重载预定义操作符(比如+)，为这些操作符赋予新含义。虽然并非必须，但操作符可作为类的友元。</p>
+
+<p>操作符重载规则</p>
+
+<p>重载操作符时，至少一个实参必须是类类型。</p>
+
+<p>重载的操作符可以是(但不一定是)类的友元；操作符函数可以是类的成员，也可以是普通(非友元)函数()。</p>
+
+<p>不能新建操作符。只能重载现有操作符，比如+，-，*，/，%等。</p>
+
+<p>不能改变操作符获取的实参数量。例如，重载%时，不能把它从二元操作符变成一元操作符；重载++时，不能把它从一元操作符变成二元操作符。</p>
+
+<p>不能改变操作符的优先级。重载的操作符具有和原始版本一样的优先级。例如，x * y + z 总是表示(x * y) + z，即使x，y 和z 是对象，而且操作符+和*已针对相应的类进行了重载。</p>
+
+<p>以下操作符不可重载：圆点操作符(.)、作用域解析操作符(::)以及本书没有讨论的操作符.*和?:。</p>
+
+<p>虽然赋值操作符=能重载，将它的默认含义转变成其他含义，但方式不同于本节描述的方式。</p>
+
+<p>如果类定义包含了恰当的构造函数，系统会自动执行特定的类型转换。例如，如果程序包含给出的 Money类定义，可以在程序中使用下面这些语句：</p>
+
+<p>Money baseAmount(100, 60), fullAmount;</p>
+
+<p>fullAmount = baseAmount + 25;</p>
+
+<p>fullAmount.output(cout);</p>
+
+<p>输出结果如下：</p>
+
+<p>125.60</p>
+
+<p>代码看起来简单和自然，但存在一个容易被忽视的问题。在表达式baseAmount+25中，25的类型不合适。如果只重载了操作符+，使其可用于Money类型的两个值。但没有重载操作符+，使其获取一个Money类型的值和一个整数作为参数。常量25是整数，不是Money类型。常量25可以是int或long，但不能作为Money值使用，除非类定义告诉系统如何将整数转换成Money值。为了让系统知道25的意思是$25.00，唯一的办法就是包括一个构造函数，它获取long类型的一个参数。一旦系统看到以下表达式：</p>
+
+<p>baseAmount + 25</p>
+
+<p>首先就会检查操作符+是否已针对Money类型的值和整数值的组合进行了重载。由于没有进行这种重载，所以系统接着检查是否有一个构造函数获取单个整数值参数。发现这样的构造函数，就用那个构造函数将整数25转换成Money类型的值。获取单个long值作为参数的构造函数告诉系统如何将整数(比如25)转换成Money值。单参数构造函数指出25应该转换成Money类型的一个对象，该对象的成员变量allCents等于2500；换言之，构造函数将25转换成Money类型的对象，该对象代表$25.00。注意，除非有合适的构造函数，否则类型转换不会成功。例如，Money类没有能获取单个double值的构造函数，所以假如将baseAmount和fullAmount声明为Money类型的对象，以下语句是非法的，将产生一条错误消息：</p>
+
+<p>fullAmount = baseAmount + 25.67;</p>
+
+<p>为了使上述语句合法，可更改Money 类的定义添加另一个构造函数。需添加的构造函数的声明如 下所示：</p>
+
+
+<pre>
+class Money
+{
+    public:
+    . . .
+    Money(double amount);
+    // 初始化对象，让它的值表示$amount
+    . . .
+</pre>
+
+
+<p>操作符(比如+和==)可以重载，使它们能应用于你定义的类类型的对象。</p>
+
+<p>重载操作符>>或&lt;&lt;时，返回的类型应该是一个流类型，而且返回的类型必须是引用(为返回类型名称附加后缀&)。</p>
+
+
+<h4>2</h4>
+
+
+<p>重载。重载是指允许同时存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。</p>
+
+<p>重写。重写是指子类重新定义父类虚函数的方法。</p>
+
+<p>从实现原理上来说，两者的区别如下。</p>
+
+<p>重载。重载编译器根据函数声明中的不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（至少对于编译器来说是这样的)。例如，有两个同名函数--void func(int n)和void func(string str)，虽然这两个函数的名称都是func，但是经过编译器修饰后的函数名称可能是这样的：int_func和str_func。对于这两个函数的调用，在编译期间就已经确定了，它们是諍态的。也就是说，它们的地址在编译期就绑定了（早绑定），因此，重载和多态无关。</p>
+
+<p>重写。重写和多态真正相关。当子类重新定义了父类的虚函数后，父类指针根据賦给它的不同子类指针动态地调用属于子类的该函数，这样的函数调用在编译期是无法确定的（无法给出调用子类的虚函数的地址)。因此，这样的函数地址是在运行期绑定的（晚绑定）。</p>
+
+
+<p>函数重写：在类的继承关系中，基类定义为virtual函数；</p>
+
+<p>函数隐藏：在类的继承关系中，基类没有定义为virtual函数；</p>
+
+
+<p>在C++中，系统提供的字符串处理能力比较弱，都是通过字符处理函数来实现的，并且不能直接对字符串进行加法、减法，字符串的拼接，字符串之间的相互赋值等操作。可以通过应用C++提供的运算符重载机制，可以提供字符串的直接操作能力，使得字符串的操作与一般的数据一样方便。</p>
+
+
+<p>为什么需要函数重载？</p>
+
+<p>1 用相同的函数名来定义一组功能相同或类似的函数，程序的可读性增强；</p>
+
+<p>2 这样做减少了函数名的数量，避免了名字空间的污染，而且减少对用户的复杂性；</p>
+
+<p>3 简化代码，有效提高代码的可重用性，且体现了面向对象编程的优越性；</p>
+
+<p>4 构造函数都与类名相同，如果没有函数重载，要想实例化不同对象将十分困难；</p>
+
+<p>5 操作符重载，本质上也是函数重载，极大丰富了已有操作符的含义，方便使用。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

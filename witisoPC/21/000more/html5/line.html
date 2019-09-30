@@ -1,0 +1,107 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>以路径的方式在 canvas 上绘制直线的 demo</title> 
+    </head> 
+    <body> 
+        <canvas id="canvas" width="340" height="300" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br/> 
+        <button type="button" onclick="drawIt();">在画布上绘制一些直线</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            function drawIt() {  
+                clearIt();  
+                ctx.strokeStyle = 'Green';  
+                /*  
+                 * context.lineWidth - 笔划的宽度，默认值是 1.0  
+                 */  
+                ctx.lineWidth = 10;              
+                /*  
+                * context.beginPath() - 准备绘制一条路径  
+                * context.stroke() - 绘制当前路径  
+                * context.moveTo(x, y) - 新开一个路径，并指定路径的起点  
+                * context.lineTo(x, y) - 将当前点与指定的点用一条笔直的路径连接起来  
+                */  
+                ctx.beginPath();  
+                ctx.moveTo(20, 20);  
+                ctx.lineTo(200, 20);  
+                ctx.stroke();  
+                /*  
+                 * context.lineCap - 指定线条末端的绘制方式  
+                 *   round - 线条末端有一个半圆形线帽  
+                 *   square - 线条末端有一个矩形线帽  
+                 *   butt - 线条末端无任何特殊处理，此值为默认值  
+                 */  
+                ctx.beginPath();  
+                ctx.lineCap = "round";  
+                ctx.moveTo(20, 40);  
+                ctx.lineTo(200, 40);  
+                ctx.stroke();  
+                ctx.beginPath();  
+                ctx.lineCap = "square";  
+                ctx.moveTo(20, 60);  
+                ctx.lineTo(200, 60);  
+                ctx.stroke();  
+                ctx.beginPath();  
+                ctx.lineCap = "butt";  
+                ctx.moveTo(20, 80);  
+                ctx.lineTo(200, 80);  
+                ctx.stroke();  
+                ctx.lineWidth = 20;              
+                /*  
+                 * context.lineJoin - 指定两条线段的连接方式  
+                 *   bevel - 两条线段的连接点用一个三角形填充  
+                 *   round - 两条线段的连接点用一个弧形填充  
+                 *   miter - 两条线段以斜接的方式连接，默认值  
+                 */  
+                ctx.beginPath();  
+                ctx.lineJoin = "bevel";  
+                ctx.moveTo(20, 120);  
+                ctx.lineTo(60, 120);  
+                ctx.lineTo(20, 160);  
+                ctx.stroke();  
+                ctx.beginPath();  
+                ctx.lineJoin = "round";  
+                ctx.moveTo(100, 120);  
+                ctx.lineTo(140, 120);  
+                ctx.lineTo(100, 160);  
+                ctx.stroke();  
+                ctx.beginPath();  
+                ctx.lineJoin = "miter";  
+                ctx.moveTo(180, 120);  
+                ctx.lineTo(220, 120);  
+                ctx.lineTo(180, 160);  
+                ctx.stroke();  
+                /*  
+                 * context.miterLimit - 当 lineJoin 为 miter 方式时，此值表示斜接长度与笔划宽度之间的所允许的最大比值，默认值为 10  
+                 */  
+                ctx.miterLimit = 2;  
+                ctx.beginPath();  
+                ctx.lineJoin = "miter";  
+                ctx.moveTo(260, 120);  
+                ctx.lineTo(300, 120);  
+                ctx.lineTo(260, 160);  
+                ctx.stroke();  
+                ctx.lineWidth = 2;  
+                /*  
+                 * context.closePath() - 如果当前路径是打开的则关闭它  
+                 */  
+                ctx.beginPath();  
+                ctx.moveTo(20, 180);  
+                ctx.lineTo(180, 180);  
+                ctx.lineTo(180, 280);  
+                ctx.closePath(); // 关闭打开的路径  
+                ctx.stroke();  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 340, 300);  
+                ctx.fillStyle = "Black";  
+                ctx.strokeStyle = "Black";  
+                ctx.lineWidth = 1;  
+            }  
+        </script> 
+    </body> 
+    </html> 

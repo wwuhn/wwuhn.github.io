@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>B站学习资源整</h3>
+
+<p>
+</p>
+
+<p>主要内容：
+</p>
+
+<p>英语课程*4
+</p>
+
+<p>办公软件教程*4
+</p>
+
+<p>纪录片*10
+</p>
+
+<p>名校公开课*19
+</p>
+
+<p>1 英语课程
+</p>
+
+<p>1.6个月从零学会英语【69全集】零基础入门
+</p>
+
+<p>这个课程是个歪果仁老师讲的，老师的中文特别好，讲了很多非常有用的学习英语的方法。课程名字叫从零学英语，但其实不是很适合完全没学过英语词汇量为0的人，或者说零基础不能只看这个视频。这个课程工作党看看也蛮好的，毕业之后如果用英语的机会很少英语水平会飞速下降的，把英语学好总是没错的。
+</p>
+
+<p>2.【英语听力】Daily English Dictation 1-281 （Coach Shane）(更新中)
+</p>
+
+<p>这个口语听力课b站up主已经更到300多期了，老师讲解的很细致，也很有趣。
+</p>
+
+<p>3.英语口音纠正课程【中英】
+</p>
+
+<p>这个教程本来是DVD，b站上的是盗版，在乎版权的朋友请自行买DVD。这个老师的语速偏慢，不看字幕也能听懂，对于纠正口音很有帮助。
+</p>
+
+<p>4.重头开始学英语，零基础语法入门
+</p>
+
+<p>这个课程是学渣的福音，很基础也很细致，弹幕里看到有一些人6级过了回来看这个，太真实了！小编高中是英语水平的巅峰时期，6级过了以后英语水平跳崖式降低，好多基础语法都忘了 。
+</p>
+
+<p>2 办公软件教程
+</p>
+
+<p>1.【Photoshop 教程】史上最容易听懂的PS入门基础教程
+</p>
+
+<p>这个教程适合PS小白，讲解的很清晰，up小姐姐的声音很好听。不过……很多人是PS从入门到摔门，没看完就撤了。
+</p>
+
+<p>2.【公开课】Excel基础大全（1-66集）【超高清版】
+</p>
+
+<p>前面的还比较简单，从函数开始就有点难度了。大学的时候考计算机国家二级（MS-Office）是自己考的，没报班，感觉最难的就是Excel的函数。Excel这个东西大家都会用，但用的好不好差别还是挺大的，有些操作学会了能省很多事。
+</p>
+
+<p>3.【全套】PPT教程PPT零基础 PPT入门小白脱白系列
+</p>
+
+<p>教程还不错，就是老师有口音。我做PPT都是模板搞定，如果想搞得高级点可以自己学学怎么做。不过我目前需要用到PPT的场景都是内容更重要，各种酷炫的效果没什么必要。
+</p>
+
+<p>4.【全套】Word自学教程从小白到高手超详细讲解（Word教程、Word零基础入门起步）
+</p>
+
+<p>Word比较简单，打开就能用，不过有些技巧不学可能还真用不明白。小白可以看这个教程学word基本操作，熟悉word但只知道基本操作可以学学怎么让文档更规范、更有说服力，也可以留着以后有急用的时候临时抱佛脚。
+</p>
+
+<p>3 纪录片
+</p>
+
+<p>1.我在故宫修文物
+</p>
+
+<p>这部片很出名，在央视播过。修文物的大佬们太牛掰了，凭着一双灵巧的手把破损的珍品修复得重焕生机。这部片很平静，自己窝着慢慢看挺舒服的。
+</p>
+
+<p>2.【央视纪录片】中国通史【1080P】
+</p>
+
+<p>这部纪录片以中华民族的发展历程为主线，其中也穿插了对地方历史风貌的介绍。片子的质量很高，不过b站的历史纪录片弹幕都不是很友好，可以关掉弹幕静静享用。
+</p>
+
+<p>3.【国宝档案】御膳房【2010】
+</p>
+
+<p>古代的皇帝也和老百姓一样得吃饭，但人家吃的就比普通老百姓讲究多了。国宝档案·御膳房记录了清朝御膳房的一些故事，内容挺有意思的，不过还是要提醒关闭弹幕观看。
+</p>
+
+<p>4.【CCTV纪录片】圆明园【720P】
+</p>
+
+<p>小时候在课文里第一次知道圆明园，当时很小，但也感觉很遗憾很难过。看了这个纪录片会更遗憾，那么美的圆明园啊 。这部片是央视的，大气精美，观感极好。
+</p>
+
+<p>5.纪录片《中国风水文化》100集全
+</p>
+
+<p>这部片画质非常狂野，更加深了神秘感 。小编大学课上也学过周易什么的，也经常和朋友开玩笑说毕业找不着工作就去天桥算命。本来我是抱着对中国传统风水文化的好奇心点进去的，但是看到第100P的标题我迟疑了。
+</p>
+
+<p>6.航拍中国第二季
+</p>
+
+<p>又是一部央视出品的超高质量纪录片，航拍视角看中国，美炸了，无论是设备、画面还是文案都诚意满满，堪称神作。
+</p>
+
+<p>7.梦与狂想的王国BD1280日语中字
+</p>
+
+<p>这是一部探索吉卜力手绘动画创作过程的纪录片，展现了宫崎骏、高畑勋、铃木敏夫三位大佬和新时代年轻人对动画的热爱。这部是被名字耽误的好片，要是名字取得直白点应该可以有更多人看到。
+</p>
+
+<p>8.第三极
+</p>
+
+<p>这部片是讲青藏高原人与自然和谐相处的，每集46分钟，共6集，以近40个故事的体量讲述青藏之美。这部片真是边看边感慨西藏太美了，那些景色、那些动物，偶买噶！
+</p>
+
+<p>9.【央视 1080P+高清】隐秘王国【3集纪录片】
+</p>
+
+<p>这部记录片的主角是动物们，介绍了一群小型动物的风采。你以为那些小小的动物没什么力量，但他们在自己的隐秘王国里可能是英雄！这部片很治愈，适合失恋、吃饭、家庭亲子等场景食用。
+</p>
+
+<p>10.企鹅群里有特务
+</p>
+
+<p>这部片是BBC出的，一个约50人的摄影团队花了一年对生活在热带秘鲁的洪堡企鹅、生活在亚南极海岛上的跳岩企鹅、以及生活在寒带南极的帝企鹅进行了跟踪拍摄。企鹅们超级可爱，有时还很好笑 。
+</p>
+
+<p>4 名校公开课
+</p>
+
+<p>b站上人文社科类的名校公开课也是非常好的资源，下面列了个推荐目录，大家可以挑感兴趣的看看。提前说一嘴，有的课年头比较老了，画质不太好。
+</p>
+
+<p>1.【合集】华东师范大学精品课程中国智慧
+</p>
+
+<p>中国智慧课是我们学校的慕课，由不同专业的几位老师一起上，其中也有我们系的老师。这个课好像本来是发在慕课网的，我在b站上搜了一下竟然也有。这门课的主题都蛮有意思的，我想放在第一个推荐，真的很不错！我导师也讲了其中的几讲，最帅的那个就是 。
+</p>
+
+<p>2.北京大学公开课：夏文化探索
+</p>
+
+<p>3.【网课】-《艺术学概论》网络正课视频
+</p>
+
+<p>4.悖论：思维的魔方(北京大学)
+</p>
+
+<p>5.【北京大学】朱青生：现代艺术及其理论
+</p>
+
+<p>6.【北大、央美】丁宁、朱青生、李建群等：古典与唯美系列
+</p>
+
+<p>7.北京大学西方技术文明全6讲主讲-吴国盛视频教程
+</p>
+
+<p>8.北京大学中国对外关系史全16讲主讲-牛大勇视频教程
+</p>
+
+<p>9.北京大学中国美学全55讲主讲-朱良志视频教程
+</p>
+
+<p>10.北京大学宗教改革史全52讲主讲-朱孝远视频教程
+</p>
+
+<p>11.【北大教授公开课】西方古典音乐概说与总体风格变迁
+</p>
+
+<p>12.北京大学印度社会与文化全39讲主讲-陈峰君视频教程
+</p>
+
+<p>13.【周玄毅】武汉大学公开课：辩论——说服的艺术
+</p>
+
+<p>14.名画百幅赏析
+</p>
+
+<p>15.复旦大学庄子精读全48讲主讲-陈引驰视频教程
+</p>
+
+<p>16.【复旦大学公开课】梁永安老师：当腐女遇上宅男——都市电影中的新人类
+</p>
+
+<p>17.【复旦大学讲座】沈弈斐老师影视中的性别文化——谈直男癌与玛丽苏
+</p>
+
+<p>18.南京大学占卜的性质与术数的起源全7讲主讲-赵益视频教程
+</p>
+
+<p>19.【幸福与心理学】共33集——南京大学费俊峰
+</p>
+
+<p>当我插入上面这条分割线的那一刻，我感觉自己被掏空辽，整理不易，大家且看且珍惜吧。
+</p>
+
+
+
+<p style='float:right;'>本页共69段，2671个字符，7279 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

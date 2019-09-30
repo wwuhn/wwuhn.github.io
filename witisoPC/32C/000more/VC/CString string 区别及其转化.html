@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>CString/string 区别及其转化 </title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.6em;
+}
+P{
+margin:16px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ 
+img{
+border:0;
+}
+.picsay{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+}
+.code0{
+color:red;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:0em;
+}
+.code2{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:2em;
+}
+.code4{
+color:blue;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:4em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <p>利用MFC进行编程时，我们从对话框中利用GetWindowText得到的字符串是CString类型，CString是属于MFC的类。而一些标准C/C++库函数是不能直接对CString类型进行操作的，所以我们经常遇到将CString类型转化char*等等其他数据类型的情况。这里总结备忘于此！</p>
+  <p>首先要明确，标准C中是不存在string类型的，string是标准C++扩充字符串操作的一个类。但是我们知道标准C中有string.h这个头文件，这里要区分清楚，此string非彼string。string.h这个头文件中定义了一些我们经常用到的操作字符串的函数，如：strcpy、strcat、strcmp等等，但是这些函数的操作对象都是char*指向的字符串。     而C++的string类操作对象是string类型字符串，该类重装了一些运算符，添加了一些字符串操作成员函数，使得操作字符串更加方便。有的时候我们要将string串和char*串配合使用，所以也会涉及到这两个类型的转化问题。</p>
+
+
+
+<p>1.CString<strong>和string的转化</strong></p>
+  <p>string str=&quot;ksarea&quot;;</p>
+
+<p>CString cstr(str.c_str());//或者CString cstr(str.data());初始化时才行</p>
+
+<p>cstr=str.c_str();或者cstr=str.data();</p>
+
+<p>str=cstr.GetBuffer(0); //CString -&gt; string</p>
+
+<p>cstr.format(&quot;%s&quot;, str.c_str()); //string-&gt;CString</p>
+
+<p>cstr.format(&quot;%s&quot;, str.data()); //string-&gt;CString</p>
+
+<p>str = LPCSTR(cstr); //CString-&gt;string</p>
+
+<p>/*c_str()和data()区别是：前者返回带'/0'的字符串，后者则返回不带'/0'的字符串*/</p>
+  <p><strong>2.CString</strong><strong>和int的转换</strong></p>
+  <p>inti=123;</p>
+
+<p>CString str;</p>
+
+<p>str.format(&quot;%d&quot;,i);//int-&gt;CString 其他的基本类型转化类似</p>
+
+<p>i=atoi(str);//CString-&gt;int 还有(atof,atol)</p>
+  <p><strong>3.char*</strong><strong>和CString的转换</strong></p>
+  <p>CString cstr=&quot;ksarea&quot;;</p>
+
+<p>char* ptemp=cstr.getbuffer(0);</p>
+
+<p>char* str;</p>
+
+<p>strcpy(str,ptemp);//CString-&gt;char*</p>
+
+<p>cstr.releasebuffer(-1);</p>
+
+<p></p>
+
+<p>char*str=&quot;lovesha&quot;;</p>
+
+<p>CString cstr=str;//char*-&gt;CString string类型不能直接赋值给CString</p>
+  <p>至于int与float、string与char*之间的转化可以使用强制转化，或者标准库函数进行。对于CString与其他类型的转化方法很多，但其实都殊途同归，朝着一个方向即将类型首先转化为char*类型，因为char*是不同类型之间的桥梁。得到char*类型，转化为其他类型就非常容易了。</p>
+  <p></p>
+
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

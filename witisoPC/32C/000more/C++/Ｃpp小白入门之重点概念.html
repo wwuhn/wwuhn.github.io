@@ -1,0 +1,744 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>Ｃpp小白入门之重点概念</h3>
+
+<p>
+</p>
+
+<p>1 Ｇetting started with C++
+</p>
+
+<p>As computers have grown more powerful, computer programs have become larger and more complex. In response to these conditions, computer languages have evolved so that it's easier to manage the programming process. The C language incorporated features such as control structures and functions to better control the flow of a program and to enable a more structured, modular approach. To these tools C++ adds support for object-oriented programming and generic programming. This enables even more modularity and facilitates the creation of reusable code, which saves time and increases program reliability.
+</p>
+
+<p>The popularity of C++ has resulted in a large of number of implementations for many computing platforms; The C++ ISO standards(C++98/03 and c++11) provide a basis for keeping these many implementations mutually compatible. The standards establishes the features the lanugage should have, the behavior the lanugage should display, and a standard language of functions, classes, and templates. The standards supports the goal of a portable language across different computing platforms and different implementations of the language.
+</p>
+
+<p>To create a C++ program, you create one or more source files containing the program as expressed in the C++ language. These are text files that must be compiled and linked to produce the machine-language files that constitute executable programs. These tasks are often accomplished in an IDE that provides a text editor for creating the source files, a compiler and a linker for producing executable files, and other resources, such as project management and debugging capabilities. But the same tasks can also be performed in a command-line environment by invoking the appropriate tools individually.
+</p>
+
+<p>图片描述(最多50字)
+</p>
+
+<p>2 Simple Variables
+</p>
+
+<p>int num;
+</p>
+
+<p>num = 5;
+</p>
+
+<p>These statements tell the program that it is storing an integer and that the name num represents the integer's value, 5 in this case, the program locates a chunk of memory large enough to hold an integer, notes the location, and copies the value 5 into the location. You then can use num later in your program to access that memory location. These statements don't tell you where in memory the value is stored, but the program does keep track of that information, too. Indeed, you can use the & operator to retrieve num's address in memory. You'll learn about that operator when you investigate a second strategy for indentifying data-using pointers.
+</p>
+
+<p>3 The char type: characters and small integers
+</p>
+
+<p>Characters are represented by their numeric codes. The I/O system determines whether a code is interpreted as a character or as a number.
+</p>
+
+<p>char ch;
+</p>
+
+<p>cin >>ch; // input a letter M
+</p>
+
+<p>cout &lt;&lt;ch;
+</p>
+
+<p>On input, cin converts the keystroke input M to the value 77. On output, cout converts the value 77 to the displayed character M.
+</p>
+
+<p>From smallest to largest, the integer types are bool, char, signed char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, and, with C++11, long long, and unsigned long long. There is also a wchar_t type whose placement in this sequence of size depends on the implementation.
+</p>
+
+<p>4 Arrays
+</p>
+
+<p>You can use the initialization from only when defining the array. You cannot use it later, and you cannot assign one array wholesale to another.
+</p>
+
+<p>However, you can use subscripts and assign values to the elements of any array individually.
+</p>
+
+<p>When initializing an array, you can provide fewer values than array elements. so, it's easy to initialize all the elements of an array to zero:
+</p>
+
+<p>long totals[111] = {0};
+</p>
+
+<p>The STL provides an alternative to arrays called the vector template class, and C++11 adds an array template class. These alternatives are more sophisticated and flexible than the built-in array composite type.
+</p>
+
+<p>5 String
+</p>
+
+<p>A string is a series of characters stored in consecutive bytes of memory. C++ has two ways of dealing with strings. The first, taken from C and often called a C-style string, then, an alternative method based on a string class library.
+</p>
+
+<p>C-style strings: a arrays of chars, the last character of every strings is the null character,written \0.
+</p>
+
+<p>图片描述(最多50字)
+</p>
+
+<p>char bird[11] = "cheeps"; // the \0 is understood
+</p>
+
+<p>char fish[] = "bubbles"; //let the compiler count
+</p>
+
+<p>char *str = "const string"; //the r-value is a const string, whcih is a literal constant
+</p>
+
+<p>The string class definition hides the array nature of a string and lets you treat a string much like an ordinary variable.
+</p>
+
+<p>C-style strings use functions library to process string with header file <string.h> or <cstring>, and string class use class member function to process string with header <string>.
+</p>
+
+<p>The string class, is more convenient and safe than using an array. For example, you can't simply assign one array to another, but you can assign one string object to another.
+</p>
+
+<p>The string class simplifies combining strings. You can use the + operator to add two string objects together and the += operator to take on a string to the end of an existing string object. (C-style string use strcat() to combine two strings)
+</p>
+
+<p>#include &lt;iostream>
+</p>
+
+<p>#include &lt;string> // make string class available
+</p>
+
+<p>#include &lt;cstring> // C-style string library
+</p>
+
+<p>int main()
+</p>
+
+<p>{
+</p>
+
+<p>using namespace std;
+</p>
+
+<p>char charr1[20];
+</p>
+
+<p>char charr2[20] = "jaguar";
+</p>
+
+<p>string str1;
+</p>
+
+<p>string str2 = "panther";
+</p>
+
+<p>// assignment for string objects and character arrays
+</p>
+
+<p>str1 = str2; // copy str2 to str1
+</p>
+
+<p>strcpy(charr1, charr2); // copy charr2 to charr1
+</p>
+
+<p>// appending for string objects and character arrays
+</p>
+
+<p>str1 += " paste"; // add paste to end of str1
+</p>
+
+<p>strcat(charr1, " juice"); // add juice to end of charr1
+</p>
+
+<p>// finding the length of a string object and a C-style string
+</p>
+
+<p>int len1 = str1.size(); // obtain length of str1
+</p>
+
+<p>int len2 = strlen(charr1); // obtain length of charr1
+</p>
+
+<p>cout &lt;&lt; "The string " &lt;&lt; str1 &lt;&lt; " contains "
+</p>
+
+<p>&lt;&lt; len1 &lt;&lt; " characters.\n";
+</p>
+
+<p>cout &lt;&lt; "The string " &lt;&lt; charr1 &lt;&lt; " contains "
+</p>
+
+<p>&lt;&lt; len2 &lt;&lt; " characters.\n";
+</p>
+
+<p>cin.get();
+</p>
+
+<p>return 0;
+</p>
+
+<p>}
+</p>
+
+<p>output:
+</p>
+
+<p>The string panther paste contains 13 characters.
+</p>
+
+<p>The string jaguar juice contains 12 characters.
+</p>
+
+<p>6 Unions
+</p>
+
+<p>A union can hold a single value, but it can be of a variety of types, with the member name indicating which mode is being used.
+</p>
+
+<p>A union is a data format that can hold different data types but only one type at a time.
+</p>
+
+<p>union one4all
+</p>
+
+<p>{
+</p>
+
+<p>int int_val;
+</p>
+
+<p>long long_val;
+</p>
+
+<p>double double_val;
+</p>
+
+<p>};
+</p>
+
+<p>one4all pail;
+</p>
+
+<p>pail.int_val = 15; // store an int
+</p>
+
+<p>cout &lt;&lt; pail.int_val;
+</p>
+
+<p>pail.double_val = 1.38; // store a double, int value is lost
+</p>
+
+<p>cout &lt;&lt; pail.double_val;
+</p>
+
+<p>7 Enumerations
+</p>
+
+<p>The C++ enum facility provides an alternative to const for creating symbolic constants. It also lets you define new types but in a fairly restricted fashion.
+</p>
+
+<p>enum spectrum{red, orange, yellow, green, blue, violent, indgo, ultraviolet};
+</p>
+
+<p>It establishes red, orange, yellow, and so on, as symbolic constants for the integer values 0-7. These constants are called enumerators.
+</p>
+
+<p>spectrum band;
+</p>
+
+<p>band = blue; //valid
+</p>
+
+<p>band = 22; //invalid
+</p>
+
+<p>int color = blue; //valid, spctrum type promoted to int
+</p>
+
+<p>8 Logical operator
+</p>
+
+<p>By using C++'s logical operators(&&,||,and !), you can combine or modify relational expressions to construct more elaborate tests.
+</p>
+
+<p>9 The function
+</p>
+
+<p>C++ provides many new function features that separate C++ from its C heritage. The new feature include inline functions, by-reference variable passing, default argument values, function overloading(polymorphism), and template functions.
+</p>
+
+<p>The function header describe the interface bewteen called function and calling function: how many and what kinds of values to pass to the function and what sort of return type, if any, to get from it.
+</p>
+
+<p>The main() function header describes the interface between program and the operating system.
+</p>
+
+<p>The function call causes the program to pass the function arguments to the function and to transfer program execution to the function code. A return statement sends a value from a called function back to the called function, also the type of return value must be consistent with the return type of called function.
+</p>
+
+<p>The augument is the value let calling function assign to the parameter of the called function. By default, C++ functions pass arguments by value. This means that the formal parameters in the function definition are new variables that are initialized to the values provided by the function call. Thus, C++ functions protect the integrity of the original data by working with copies.
+</p>
+
+<p>C++ treats an array name argument as the address of the first element of the array. Techinically, this is still passing by value because the pointer is a copy of the original address, but the function uses the pointer to access the contents of the original array. When you declare formal parameters for a function, the following two declarations are equivalent:
+</p>
+
+<p>typeName arr[];
+</p>
+
+<p>typeName * arr;
+</p>
+
+<p>The name of a C++ function acts as the address of the function. By using a function argument that is a pointer to a function, you can pass to a function the name of a second function that you want the first function to evoke.
+</p>
+
+<p>Inline function, instead of having the program jump to a separate section of code to execute the function, the compiler replaces the function call with the corresponding code inline. An inline facility should be used only when the function is short.
+</p>
+
+<p>A reference variable is a kind of disguised pointer that lets you create an alias(that is, a second name) for a variable. Reference variables are primarily used as arguments to functions that process structrues and class objects.
+</p>
+
+<p>10 Storage duration, scope, linkage and namespaces
+</p>
+
+<p>C++ offers many choices for storing data in memory. You have choices for how long data remains in memory(storage duration) and choices for which parts of a program have access to data(scope and linkage). and you can allocate memory dynamically by using new, the C++ namespace facility provides additional control over access. Larger programs typically consist of several source code files that may share some data in common.
+</p>
+
+<p>Automatic variables are variables that are defined within a block, such as a function body or block within the body, they exist and are known only while the program executes statements in the block that contains the definition.
+</p>
+
+<p>10.1 The one definition rule
+</p>
+
+<p>If you use an external variable in several files, only one file can contain a definition for that variable. But every other file using the variable needs to declare that variable using the keyword exter.
+</p>
+
+<p>double up ; //outer of function, definition, up is 0
+</p>
+
+<p>extern int cats = 20; //definition because of initialization ,extern can be omit
+</p>
+
+<p>extern int dogs; dogs defined elsewhere
+</p>
+
+<p>10.2 Global vs local variables
+</p>
+
+<p>I Automatic(local) variable hides a global variable of the same name in the block of a function;
+</p>
+
+<p>II Using scope-resolution operator(::) for using the global variable in block of function to avoid be hided by local variable which has the same name.
+</p>
+
+<p>11 Objects and classes
+</p>
+
+<p>OOP emphasizes how a program represents data. The first step toward solving a programming problem by using the OOP approach is to describe the data in terms of its interface with the program, specifying how the data is used. Next, you need to design a class that implements interface. Typically, private data members store the information whereas public member functions, also called methods, provide the only access to the data. The class combines data and methods into one unit, and the private aspect accomplishes data hiding.
+</p>
+
+<p>Usually, you separate a class declaration into two parts, typically kept in separate files. The class declaration proper goes into a header file, with the methods represented by function prototypes. The source code that defines the member functions goes into a methods file. This approach separates the description of the interface from the details of the implementation. In principle, you need to know only the public class interface to use the class.
+</p>
+
+<p>12 this pointer
+</p>
+
+<p>this pointer is a implicit parameter of a member function, this points to the object on which the function is invoked. It is a pointer to the class type. In a const member function the pointer is a pointer to const.
+</p>
+
+<p>以下三条语句的作用是相同的：
+</p>
+
+<p>void Point::setx(double inputx)
+</p>
+
+<p>{
+</p>
+
+<p>x=inputx;
+</p>
+
+<p>this->x = inputx;
+</p>
+
+<p>(*this).x = inputx;
+</p>
+
+<p>}
+</p>
+
+<p>对于CShape类：
+</p>
+
+<p>class CShape
+</p>
+
+<p>{
+</p>
+
+<p>...
+</p>
+
+<p>public:
+</p>
+
+<p>void setcolor(int color) { m_color = color; }
+</p>
+
+<p>};
+</p>
+
+<p>被编译器编译后，其实是：
+</p>
+
+<p>class CShape
+</p>
+
+<p>{
+</p>
+
+<p>...
+</p>
+
+<p>public:
+</p>
+
+<p>void setcolor(int color, (CShape*)this) { this->m_color = color; }
+</p>
+
+<p>};
+</p>
+
+<p>13 Multifiles and Namespace
+</p>
+
+<p>C++ encourages the use of multiple files in developing programs. An effective organizational strategy is to use a header file to define use types and provide function prototypes for functions to manipulate the user types. You should use a separate source code file for the function definitions. Together, the header file and the source file define and implement the user-defined type and how it can be used. Then, main() and other functions using those functions can go into a third file.
+</p>
+
+<p>Some things commonly found in header files:
+</p>
+
+<p>1 Function prototypes declarations;
+</p>
+
+<p>2 Symbolic constants defined using #define or const;
+</p>
+
+<p>3 Structure declarations
+</p>
+
+<p>4 Extern variables declarations;
+</p>
+
+<p>5 Class declarations
+</p>
+
+<p>6 Template declarations;
+</p>
+
+<p>7 Inline functions;
+</p>
+
+<p>It's okay to put structure declarations in a header file because they don't create variables; they just tell the compiler how to create a structure variable when you declare one in a source code file. Simlilarly, template declarations aren't code to be compiled; they are instructions to the compiler on how to generate function definitions to match function calls found in the source code. Data declared const and inline functions have special linkage properties that allow them to be placed in header files without causing problems.
+</p>
+
+<p>Namespaces let you define named regions in which you can declare identifiers. The intent is to reduce name conflicts, particularyly in arge programs that use code from several vendors. You can make available idntifiers in a namespace by using the scope-resolution operator. by a using declaration, or by using a using directive.
+</p>
+
+<p>-End-
+</p>
+
+
+
+<p style='float:right;'>本页共150段，14114个字符，14374 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,579 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>史上最全电影清单</h4>
+
+<p></p>
+
+<p>【最费脑力的14部电影】</p>
+
+<p>《盗梦空间》、《记忆裂痕》、《生死停留》、《死亡幻觉》、《禁闭岛》、《穆赫兰道》、《蝴蝶效应》、《恐怖游轮》、《伤城》、《盗走达芬奇》、《88分钟》、《万能钥匙》、《决胜21点》、《沉默的羔羊》</p>
+
+<p>【感动无数人的电影】</p>
+
+<p>《恋空》《婚纱》《比悲伤更悲伤的故事》《我脑中的橡皮擦》《属于你的我的初恋》《夏天协奏曲》《天使之恋》《分手信》《近在咫尺的爱恋》感动你的是哪部</p>
+
+<p>【15部让你哭的昏天暗地的电影】</p>
+
+<p>《假如爱有天意》《我脑海中的橡皮擦》《情书》《恋空》《等待，只为与你相遇》《我们的幸福时光》《请别相信她》《触不到的恋人》《菊花香》《剪刀手爱德华》《海上钢琴师》《恋恋笔记本》《美丽心灵的永恒阳光》《泰坦尼克号》</p>
+
+<p>【18部经典天才电影】</p>
+
+<p>《美丽心灵》、《雨人》、《波拉克》、《暗物质》、《想飞的钢琴少年》、《嫌疑人X的献身》、《天才瑞普利》、《猫鼠游戏》、《香水》、《一级恐惧》、《心灵捕手》、《莫扎特传》、《证据》、《海上钢琴师》、《电锯惊魂》、《沉默的羔羊》、《非常嫌疑犯》、《寻找弗罗斯特》</p>
+
+<p>【能够影响一生的十部电影】</p>
+
+<p>1.《阿甘正传》:执着；2.《东方不败》:才华；3.《美国往事》:人生；4.《罗马假日》:爱情；5.《勇敢的心》:勇气；6.《辛德勒的名单》:责任；7.《肖申克的救赎》:信念；8.《Ｅ.Ｔ》:童心；9.《现代启示录》:痛苦；10.《第七封印》:哲思。</p>
+
+<p>【人生必看的10部电影】</p>
+
+<p>爱情→《罗马假日》；执着→《阿甘正传》；哲理→《第七封印》；才华→《莫扎特传》；人生→《美国往事》；童心→《ET》；痛苦→《现代启示录》；信念→《肖申克的救赎》；责任→《辛德勒的名单》；勇气→《勇敢的心》</p>
+
+<p>【十部适合一个人静静看的电影】</p>
+
+<p>1。阿甘正传。2肖申克的救赎。3。触不到的恋人。4。海上钢琴师。5。千与千寻。6。雏菊。7。花样年华。8。幸福来敲门。9。蓝莓之夜。10。放牛班的春天</p>
+
+<p>【10部震撼狙击手电影】</p>
+
+<p>①《狙击电话亭》；②《最后的莫希干人》；③《敌人的荣誉》；④《兵临城下》；⑤《全金属外壳》、⑥《快枪手 》；⑦《双狙人》；⑧《杀手悲歌》；⑨《一号通缉令》；⑩《最后刺客》。</p>
+
+<p>【亚洲十大恐怖电影】</p>
+
+<p>1.《咒怨》；2.鬼娃娃花子；3.《午夜凶铃》；4.《鬼来电》；5.《笔仙》；6.《解剖学教室》；7.《邪降》；8.《四人餐桌》；9.《人形师》；10.《凶相》.</p>
+
+<p>【12部让你笑喷的电影】</p>
+
+<p>《神探飞机头》《我盛大的同志婚礼》《幸运库克》《校园卧底》《我的野蛮老师》《美女也烦恼》《疯狂的石头》《谋杀快乐》《XXXX》《我为玛丽狂》《美国派》《偷天情缘》。</p>
+
+<p>【18部讲述天才的电影】</p>
+
+<p>《美丽心灵》、《雨人》、《波拉克》、《暗物质》、《想飞的钢琴少年》、《嫌疑人X的献身》、《十一罗汉》、《猫鼠游戏》、《香水》、《一级恐惧》、《心灵捕手》、《莫扎特传》、《证据》、《海上钢琴师》、《电锯惊魂》、《沉默的羔羊》、《非常嫌疑犯》、《寻找弗罗斯特》。</p>
+
+<p>【最酷的狗】</p>
+
+<p>《101真狗》、最可爱的狗：《狗狗心事》、最红的狗：《史努比》、最搞怪的狗：《家有贱狗》、最苦命的狗：《龙龙与忠狗》、最懂孙子兵法的狗：《猫狗大战》、最大无畏的狗：《酷狗正传》、最会装傻的狗：《酷狗宝贝》、最忠心的狗：《导盲犬小Q》最早狗明星：《灵犬莱西》</p>
+
+<p>【哈佛商学院要求学生必看的10部经典电影】</p>
+
+<p>《华尔街》《大亨游戏》《颠倒乾坤》《抢钱大作战》《硅谷传奇》《可口可乐小子》《发达之路》《大公司小老板》《巴塞罗那》《社交网络》</p>
+
+<p>【最美的10部电影】</p>
+
+<p>1.《公民凯恩》、 2.《猎人之夜》、 3.《游戏规则》、 4.《日出》、 5.《亚特兰大号》、 6.《M就是凶手》、 7.《雨中曲》、 8.《迷魂记》、 9.《天堂的孩子》、 10.《搜索者》</p>
+
+<p>【国内10部经典同性恋电影】</p>
+
+<p>1.《蓝宇》；2. 《霸王别姬》；3. 《美少年之恋》；4. 《心动》；5. 《自梳》；6. 《喜宴》；7. 《春光乍泄》；8. 《夜奔》；9. 《今年夏天》；10. 《东宫西宫》；</p>
+
+<p>【15部治愈系温暖电影】</p>
+
+<p>《入殓师》、《大鱼》、《阳光小美女》、《放牛班的春天》、《天使爱美丽》、《菊次郎的夏天》、《天堂电影院》、《蝴蝶》、《蓝色大门》、《曾经》、《诺丁山》、《真爱至上》、《幸福终点站》、《西雅图夜未眠》、《当幸福来敲门》。</p>
+
+<p>【15部变态连环杀手的电影】</p>
+
+<p>《十二宫》，《七宗罪》，《沉默的羔羊》，《电锯惊魂》，《美国精神病人》，《看见恶魔》，《神秘拼图》，《可爱的骨头》，《天生杀人狂》，《机动杀人》，《香水》，《八面埋伏》，《十五号星期五系列》，《老无所依》，《女魔头》。</p>
+
+<p>【唯美如画的日本纯爱系电影】</p>
+
+<p>《花水木》《恋空》《现在只想爱你》《秒速5厘米》《情书》《花与爱丽丝》《泪光闪闪》《四月物语》《春之雪》《虹之女神》《燕尾蝶》《在世界心的中呼唤爱》《等待只为与你相遇》《属于你的我的初恋》《大约在雨季》《五年后的情书》《好想告诉你》</p>
+
+<p>【15部催泪电影】</p>
+
+<p>《假如爱有天意》,《我脑海中的橡皮擦》,《情书》,《恋空》,《等待，只为与你相遇》,《我们的幸福时光》,《请别相信她》,《触不到的恋人》,《菊花香》,《剪刀手爱德华》,《海上钢琴师》,《恋恋笔记本》,《美丽心灵的永恒阳光》,《泰坦尼克号》,《天使之恋》。</p>
+
+<p>【10部关于初恋的电影】</p>
+
+<p>1.《情书》；2. 《初恋50次》；3. 《牯岭街少年杀人事件》；4. 《这个杀手不太冷》；5. 《罗马假日》；6. 《蓝色大门》；7. 《心动》；8. 《教室别恋》；9. 《初恋这件小事》；10. 《初恋红豆冰》</p>
+
+<p>【美国好看的校园电影盘点】</p>
+
+<p>《牛仔裤的夏天》，《贱女孩》，《美国派》，《歌舞青春》，《朱诺》，《邻家女孩》，《回到17岁》，《暮光之城》，《足球尤物》，《平民天后》，《灰姑娘的玻璃手机》，《辣妈辣妹》，《公主日记》，《发胶》</p>
+
+<p>【当你失落时，不妨看看这10部电影，能带给你无尽勇气！】</p>
+
+<p>《听见天堂》《追梦女孩》《阳光小美女》《闻香识女人》《放牛班的春天》《百万宝贝》《跳出我天地》《永不妥协》《心灵捕手》《侧耳倾听》</p>
+
+<p>【全球十大魔幻电影榜】</p>
+
+<p>一、指环王系列；二、哈利波特系列；三、纳尼亚传奇系列；四、加勒比海盗系列；五、印第安纳琼斯(夺宝奇兵)三部曲；六、范海辛；七、狼族盟约；八、爱丽斯梦游仙境；九、暮光之城；十、画皮</p>
+
+<p>【最让人欲罢不能的15部美剧】</p>
+
+<p>《生活大爆炸》、《绯闻女孩》、《迷失》、《２４小时》、《老友记》、《越狱》、《豪斯医生》、《X档案》、《Lie to me》、《欲望都市》、《邪恶力量》、《吸血鬼日记》、《CSI》、《欢乐合唱团》、《ROME》</p>
+
+<p>【12星座推荐电影】</p>
+
+<p>金牛座《童梦失魂夜》狮子座《梦》天蝎座《我在伊朗长大》水瓶座《黑店狂想曲》白羊座《镜子面具》巨蟹座《科学睡眠》天秤座《Gil Alkabetz》摩羯座《漫长的婚约》双子座《人生七部曲》处女座《黑暗中的舞者》射手座《被嫌弃的松子的一生》双鱼座《The double life of Veronique》</p>
+
+<p>【五大悬疑电影推荐】</p>
+
+<p>NO.5万能钥匙：悬念迭起度:★★☆；NO.4恐怖油轮：悬念迭起度:★★★☆；NO.3灵异第六感：悬念迭起度:★★★★；NO.2空中危机：悬念迭起度:★★★★；NO.1致命ID：悬念迭起度:★★★★☆</p>
+
+<p>【让这些电影治愈你】</p>
+
+<p>1、缺乏学习动力：《幸福终点站》、《风雨哈佛路》；2、对爱失望：《偷天情缘》、《初恋50次 》；3、自卑失落：《阿甘正传》、《肖申克的救赎》；4、失败或绝望：《铁权男人》、《迫在眉梢》、《伊丽莎白镇》；5、厌倦生活：《在世界转角遇见爱》、《搏击俱乐部》</p>
+
+<p>【僵尸爱好者必看电影——真人大战僵尸】</p>
+
+<p>《生化危机》《惊变28天》《惊变28周》《活死人的黎明》《活死人之地》《僵尸肖恩》《我是传奇》《致命拜访》《隔山有眼》《毁灭战士》《丧尸出笼》《生化寿司》《群尸玩过界》《死亡航班》《厄夜三十》《活死人归来》</p>
+
+<p>【近期火爆的泰国青春浪漫电影】</p>
+
+<p>《yes or no》《初恋这件小事》《悲恋三人行》《初三大四我爱你》《亲爱的伽利略》《爱在暹罗》《爱久弥新》《季节变幻》《下一站，说爱你》《荷尔蒙》《让爱发光》《你好，陌生人》 《泰国派》《友谊我和你》</p>
+
+<p>【十四部塑造独立女性的电影】</p>
+
+<p>《走出非洲》《人在纽约》《阿黛尔·雨果的故事》《清洁》《时时刻刻》《乱世佳人》《征婚启事》《饮食男女》《蒙娜丽莎的微笑》《革命之路》《朗读者》《成为简·奥斯汀》《朱莉与朱莉娅》《希尔维亚》</p>
+
+<p>【电影名导3部曲】</p>
+
+<p>多纳托雷时空3部曲：《西西里的美丽传说》、《天堂电影院》、《海上钢琴师》；瑟吉欧·莱昂美国3部曲：《西部往事》、《革命往事》、《美国往事》；库布里克未来3部曲：《奇爱博士》、《发条橙》、《2001太空漫游》；阿加多隔阂3部曲：《爱情是狗娘》、《21克》、《通天塔》。</p>
+
+<p>【因为名字烂而被错过的好电影】</p>
+
+<p>《三傻大闹宝莱坞》《刺激1995》《搏击俱乐部》《机器人总动员》《杀死比尔》 《低俗小说》《落水狗》《午夜牛郎》《洋葱电影》《蝴蝶效应》《诺丁山》《两杆大烟枪》《摇滚黑帮》《十诫》《黑道当家》《一酷到底》《热带惊雷》《叫我第一名》《记忆碎片》《摇滚校园》</p>
+
+<p>【12星座的恐怖片】</p>
+
+<p>摩羯《鬼影》；水瓶《女高怪谈》；双鱼《孤儿》；白羊座《鬼怨》；金牛《死神的十字路口》；双子《怪谈新耳袋》；巨蟹《恐怖油轮》；狮子《孤堡惊情》；处女《死寂》；天秤《厉鬼将映》；天蝎《咒怨》；射手《死亡录像》</p>
+
+<p>【十部能让女生看透自己的电影】</p>
+
+<p>1.情欲《情迷六月花》 2.梦幻《天使爱美丽》 3.母性《黑暗中的舞者》 4.纯真《花与爱丽丝》5.痴爱《绿光》 6.尊严《永不妥协》 7.孤独《迷失东京》 8.压抑《钢琴教师》 9.恐惧《恐惧吞噬灵魂》 10.女权《射杀安迪霍尔》。</p>
+
+<p>【适合一个人看的电影】</p>
+
+<p>独自等待、天使之城、海上钢琴师、蓝色大门、触不到的恋人、假如爱有天意、蓝莓之夜、两小无猜、千与千寻、花样年华、放牛班的春天、当幸福来敲门、恋恋三季、雏菊、阿司匹林、四月物语。</p>
+
+<p>【结局最意外的20部电影】</p>
+
+<p>《搏击俱乐部》、《迷雾》、《心理游戏》、《第六感》、《蝴蝶效应》、《 电锯惊魂》、《赛末点》、《 穆赫兰道》、《非常嫌疑犯》、《魔术师》、《小岛惊魂》、《万能钥匙》、《火柴人》、《七宗罪》、《魔鬼代言人》、《孤儿》、《八面埋伏 》、《香水》、《偷拐抢骗》</p>
+
+<p>【十佳剧情电影】</p>
+
+<p>1、《肖申克的救赎》；2、《 教父1、2》；3、《美国往事》；4、《天堂电影院》；5、《无主之城》；6、《阿甘正传》；7、《勇敢的心》；8、《楚门的世界》；9、《音乐之声》；10、《辛德勒的名单》。</p>
+
+<p>【值得收藏的韩国电影】</p>
+
+<p>1.杀人回忆2. 老男孩3. 薄荷糖4. 八月照相馆5. 母亲6. 春夏秋冬又一春7. 生活的发现8. 我的野蛮女友9. 共同警备区10. 绿洲11. 太极旗飘扬12. 国家代表13. 空房间14. 蔷花，红莲15. 汉江怪物16. 马拉松17. 触不到的恋人18. 亲切的金子19. 朋友20. 实尾岛</p>
+
+<p>【因为名字烂而被错过的好电影】</p>
+
+<p>《三傻大闹宝莱坞》、《刺激1995》、《搏击俱乐部》、《机器人总动员》、《杀死比尔》、 《低俗小说》、《落水狗》、《午夜牛郎》、《洋葱电影》、《蝴蝶效应》、《诺丁山》、《两杆大烟枪》、《摇滚黑帮》、《十诫》、《黑道当家》、《一酷到底》、《热带雷》</p>
+
+<p>【15部让你哭的昏天暗地的电影】</p>
+
+<p>《假如爱有天意》,《我脑海中的橡皮擦》,《情书》,《恋空》,《等待，只为与你相遇》,《我们的幸福时光》,《请别相信她》,《触不到的恋人》,《菊花香》,《剪刀手爱德华》,《海上钢琴师》,《恋恋笔记本》,《美丽心灵的永恒阳光》,《泰坦尼克号》</p>
+
+<p>【全球十大禁播电影】</p>
+
+<p>1.《索多玛120天》 2.《下水道人鱼》 3.《殘酷的浪漫》 4.《粉红色的火烈鸟》 5.《不可撤消》 6.《罗曼史》 7.《地狱解剖》 8.《罗马帝国艳情史》 9.《感官世界》 10.《九歌》</p>
+
+<p>【10部影视原声极佳电影推荐】</p>
+
+<p>1.《音乐之声》2.《歌舞青春》3.《海上钢琴师》4.《八月迷情》5.《钢琴家》6.《星球大战》7.《芝加哥》8.《狮子王》9.《放牛班的春天》10.《加勒比海盗》</p>
+
+<p>【英国电影推荐】</p>
+
+<p>：《猜火车》《贫民窟的百万富翁》《两杆大烟枪》《月球》《跳出我天地》《秘密与谎言》《英国病人》《雾都孤儿》《哈利布朗》《摇滚黑帮》《好事夜未眠》《僵尸肖恩》《两小无猜》《希望与荣耀》《红色之路》《惊变28天》《傲慢与偏见》《两小无猜》《国王的演讲》《偷拐抢骗》</p>
+
+<p>【20部不可错过的经典系列电影】</p>
+
+<p>《加勒比海盗》《教父》《夺宝奇兵》《碟中谍》《虎胆龙威》《墨西哥往事》《大白鲨》《小鬼当家》《洛奇》《木乃伊》《终结者》《蝙蝠侠》《哈利波特》《指环王》《惊声尖叫》《星球大战》《侏罗纪公园》《异形》《第一滴血》《骇客帝国》</p>
+
+<p>【日本超级十大重口味电影】</p>
+
+<p>其中三部还是世界级重口味：《下水道的美人鱼》《大逃杀》《感官世界》《杀手阿一》《切肤之爱》《花与蛇》《不溶性侵犯》《禁室培欲》《女理发师之恋》《拜访者Q》</p>
+
+<p>【重口味·通缉令】</p>
+
+<p>1、《雾》日本 2、《邪恶外星人》英国 3、《乱步地域》日本 4、《恶魔的艺术2》泰国 5、《神秘马戏团》日本 6、《梦魇疯人院》捷克 7、《兽餐》美国 8、《2001个疯子》美国 9、《色情狂》美国 10、《最后的晚餐》日本</p>
+
+<p>【唯美爱情电影推荐】</p>
+
+<p>《假如爱有天意》《夏天协奏曲》《雏菊》《恋空》《海角七号》《情书》《触不到的恋人》《四月物语》《我脑海中的橡皮擦》《天使之恋》《比悲伤更悲伤的故事》《听说》《云中漫步》《七音符》《八月照相馆》《现在只想爱你》《恋爱小说》《向左爱向右爱》《二见钟情》</p>
+
+<p>【腐男腐女必看的10部电影】</p>
+
+<p>1、《霸王别姬》；2、《春光乍泄》；3、《蓝宇》；4、《美少年之恋》；5、《断背山》；6、《刺青》；7、《暹罗之恋》；8、《天佑鲍比》；9、《盛夏光年》；10、《蓝色大门》。</p>
+
+<p>【推荐十部青少年成长电影】</p>
+
+<p>《牯岭街少年杀人事件》、《牛仔裤的夏天》、《菊次郎的夏天》、《毕业生》、《花与爱丽丝》、《情书》、《十七岁的单车》、《阳光灿烂的日子》、《西西里的美丽传说》、《留级之王》</p>
+
+<p>【15部感人电影】</p>
+
+<p>《辛德勒的名单》、《恋空》、《假如爱有天意》、《情书》、《妈妈再爱我一次》、《我的兄弟姐妹》、《泰坦尼克号》、《忠犬八公》、《我是山姆》、《再见萤火虫》、《大鱼》、《这个杀手不太冷》、《比悲伤更悲伤故事》、《人鬼情未了》、《情书》</p>
+
+<p>【韩国十大喜剧电影】</p>
+
+<p>1、《家族荣誉》 2、《我的野蛮女友》 3、《色即是空》 4、《僵尸刑警》 5、《谁和她睡觉了》 6、《朝鲜男人在韩国》 7 、《麻婆岛》 8、《一号街的奇迹》 9、《银妆刀》 10、《浪漫刺客》</p>
+
+<p>【11部莱昂纳多经典电影】</p>
+
+<p>1.《罗密欧与朱丽叶之后现代激情篇》 2.《泰坦尼克号》 3.《铁面人》 4.《海滩》 5.《纽约黑帮》 6.《猫鼠游戏》 7.《飞行家》 8.《血钻》 9.《无间行者》 10.《革命之路》 11.《盗梦空间》</p>
+
+<p>【学生电影推荐榜】</p>
+
+<p>1、《阿甘正传》2、《天堂的颜色》3、《死亡诗社》4、《美国派》5、《英雄本色》6、《大话西游》7、《阳光灿烂的日子》8、《坏孩子的天空》9、《毕业生》10.《肖申克的救赎》11.《燃情岁月》</p>
+
+<p>【《电影手册》评选出的世上最美的10部电影】</p>
+
+<p>1.《公民凯恩》、 2.《猎人之夜》、 3.《游戏规则》、 4.《日出》、 5.《亚特兰大号》、 6.《M就是凶手》、 7.《雨中曲》、 8.《迷魂记》、 9.《天堂的孩子》、 10.《搜索者》</p>
+
+<p>【十大必看经典心理学电影】</p>
+
+<p>1、《钢琴教师》；2、《美丽心灵》；3、《死亡试验》；4、《海滩》；5.、《记忆碎片》；6、《搏击俱乐部》；7、《灵异第六感》；8、《圣女贞德》；9、《一树梨花压海棠》；10、《心灵捕手》</p>
+
+<p>【10部能使女性受益的经典电影】</p>
+
+<p>1.《牛仔裤的夏天》：友情 2《情书》：爱情 3.《天使爱美丽》：孤独 4.《隐形的翅膀》：坚强 5.《千与千寻》:成长 6.《穿普拉达的女王》：自我 7.《成为简奥斯汀》：尊严 8.《黑暗中的舞者》：母爱 9.《蓝》:自由 10.《律政俏佳人》:智慧</p>
+
+<p>【十大争议电影】</p>
+
+<p>1.《索多玛120天》(1975) 2.《基督最后的诱惑》(1988) 3.《发条橘子》(1971) 4.《畸型人》(1932) 5.《雌雄大盗》(1967) 6.《巴黎最后的探戈》(1972) 7.《虎口巡航》(1980) 8.《耶稣受难记》(2004) 9.《沉默的羔羊》(1991) 10.《本能》(1992)</p>
+
+<p>【十大经典儿童电影】</p>
+
+<p>1、《哈利波特与魔法石》 2、《星球大战前传1：幽灵的威胁》 3、《怪物史瑞克》 4、《哈利波特与火焰杯》 5、《外星人E.T.》 6、《海底总动员》 7、《小鬼当家》 8、《狮子王》 9、《绿野仙踪》 10、《小鬼当街/超能塞豆隆》</p>
+
+<p>【十大女性暴力电影】</p>
+
+<p>御姐当道，挡我者死：《末路狂花》 1991 《霹雳娇娃》2000 《多米诺》2005 《贴身恐惧》2002 《古墓丽影》2001 《杀死比尔》2003 《水果硬糖》2005 《切肤之爱》1999 《本能》1992 《死后就没人议论我们了》1995</p>
+
+<p>【提高听力口语能力，最值得欣赏的英式发音电影】</p>
+
+<p>《如果能再爱一次》《成长教育》《穿越时空爱上你》《生死朗读》《猜火车》《哈利波特》《女王》《真爱至上》《恋爱假期》《诺丁山》《真爱之吻》《傲慢与偏见》《莎翁情史》《成为简奥斯汀》《福尔摩斯》《雾都孤儿》《兵临城下》《英国病人》</p>
+
+<p>【盘点六大青春电影：永远漂泊在路上】</p>
+
+<p>1.《艋舺》：青春残酷往事。2.《朋友》：回首时物是人非。3.《在世界中心呼唤爱》：青春的爱与死。4.《猜火车》：无处安放的青春。5.《朱尔与吉姆》：三人行的青春。6.《观音山》：在路上的青春。</p>
+
+<p>【20部电影,让你足以胜任董事长、经理】</p>
+
+<p>《华尔街》《锅炉房》《硅谷传奇》《颠倒乾坤》《拜金一族》《可口可乐小子》《发达之路》《优势合作》《巴塞罗那》《甜心先生》《上班一条虫》《解构企业》《惊爆内幕》《影子大亨》《反垄断》《魔鬼营业员》《抢钱世界》《败露》《男人百分百》《门口的野蛮人》。</p>
+
+<p>【经典爱情电影推荐】</p>
+
+<p>无奈纯情之恋《罗马假日》、爱情史诗《乱世佳人》、生离死别的爱恋《人鬼情未了》、直到你爱我《捆着我绑着我》、凄美爱恋《卡萨布兰卡》、生活的细腻写真《东京日和》、爱情拯救人生《新桥恋人》、《大话西游》、青春的纯情《情书》、都市爱情童话《7月7日晴》</p>
+
+<p>【2010美国电影协会十佳电影】</p>
+
+<p>1，《黑天鹅》2，《斗士》3，《盗梦空间》4，《127小时》5，《社交网络》6，《城中大盗》7，《玩具总动员3》8，《大地惊雷》9，《冬天的骨头》10，《孩子们都很好》</p>
+
+<p>【将来你一定会让你的孩子看的10部电影】</p>
+
+<p>：1. 皮克斯制作的任何作品 2、《七宝奇谋》3、《公主新娘》 4、《夜魔水晶》 5、《大魔域》 6、《魔幻迷宫》 7、《捣蛋鬼》 8、《幽灵公主》 9、《圣诞夜惊魂》10、《E.T.外星人》。</p>
+
+<p>【十部声色俱佳的女人私房电影】</p>
+
+<p>1.《乐士浮生录》2.《纵情四海》3.《我心狂野》4.《芭蕾人生》5.《莎乐美》6.《舞动人生》7.《时时刻刻》8.《女人三步曲》9.《20 30 40》10.《一往无前》</p>
+
+<p>【女生成长必看九部电影】</p>
+
+<p>一，友情：《牛仔裤的夏天》、二，初恋：《情书》、三，孤独：《天使爱美丽》、四，成长：《千与千寻》、五，自信：《穿普拉达的女王》、六，尊严：《成为简奥斯汀》、七，母爱：《黑暗中的舞者》、八，自由：《蓝》、九，智慧：《律政俏佳人》</p>
+
+<p>【好电影推荐-温情篇】</p>
+
+<p>：《入殓师》、《大鱼》、《阳光小美女》、《放牛班的春天》、《天使爱美丽》、《菊次郎的故事》、《天堂电影院》、《蝴蝶》、《蓝色大门》、《曾经》、《诺丁山》、《真爱至上》、《幸福终点站》、《西雅图夜未眠》、《当幸福来敲门》</p>
+
+<p>【独立女性必看电影】</p>
+
+<p>《走出非洲》、《人在纽约》、《阿黛尔·雨果的故事》、《清洁》、《时时刻刻》、《乱世佳人》、《征婚启事》、《饮食男女》、《蒙娜丽莎的微笑》、《革命之路》、《朗读者》、《成为简·奥斯汀》、《朱莉与朱莉娅》、《希尔维亚》。</p>
+
+<p>【让你憋着尿直到看完的十部电影】</p>
+
+<p>：1《七磅》；2《小情人》；3《返老还童》；4《一生的唯一》；5《无耻混蛋》；6《珍爱人生》；7《盗梦空间》；8《婚纱》；9《怒火攻心》；10《马利与我》。</p>
+
+<p>【让这些电影给你“治病”】</p>
+
+<p>缺乏学习动力：《决战冰河》、《洛奇》；缺乏信心：《穆里尔的婚礼》、《心雨花露》；自卑失落：《阿甘正传》、《肖申克的救赎》；失败或绝望：《远大前程》、《功夫熊猫》、《小鞋子》；厌倦生活：《天生爱情狂》、《凡夫俗女》、《心理游戏》</p>
+
+
+
+<p style='float:right;'>本页共144段，8608个字符，23646 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

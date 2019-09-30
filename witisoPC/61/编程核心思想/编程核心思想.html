@@ -1,0 +1,799 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编程核心思想</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop属�?  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+}
+
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+	clear:both;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+.Wraper{ 
+font-size: 12px; 
+position: relative; 
+height:691px; 
+/*(58+15)*x;有没有滑块会影响到↓；*/
+} 
+.Box{
+padding-bottom:2px;
+text- align:center;
+color:#666;
+border:1px solid #C0C0C0;
+position:absolute;
+height:48px;
+padding:4px 4px;
+}
+.Box p {
+margin: 0;
+line-height: 16px;}
+
+.lineL{
+position:absolute;
+}
+.Wraper .orgtext{
+padding:10px;}
+.Box a{
+color:    #136EC2;
+text- decoration: none;}
+.Box a:hover{
+text-decoration: underline}
+
+.Wraper p{
+text-align:center;
+text-indent:0em;
+vertical-align:top;
+line-height:16px;
+
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+.box{
+border:thin #009966 solid;
+border:thin 1px #0066FF;
+}
+
+</style>
+</head>
+
+<body>
+<div class="Wraper">
+<h3></h3>
+<!--方框内容纳三行字-->
+<!--方框：height:48+8+2-->
+<!--方框：widhth:80+8+2px;-->
+<!--竖线：height:14.5px;-->
+
+<!--1 右边增加的横线：Top(左边内容div)+29-->
+<!--2 右边增加的横线：left(左边内容div)+左边内容div的width+8(padding)-->
+<!--3 右边增加的内容：Top(左边内容div)-->
+<!--4 右边增加的内容：Left(横线div)+60(横线长)-->
+<h4 style="text-align:left; padding-left:120px; margin:0;">编程思路</h3>
+<div class="Box" style="width:80px; left:209px; top:0px;">
+<!--第1行-->
+<p>提出<br />
+  问题</p>
+</div>
+
+<div class="Box" style="width:460px; left:328px; top:0px; ">
+<p style="text-align:left;">1 问题中要有已知条件及实现要求的描述；<br />
+
+2 问题涉及到的数据的收集、分析、数据表示(描述)<br />
+3 问题需要完成的功能；<br />
+<br />
+</div>
+<div class="lineL" style="top:58px; left:254px; overflow: 
+hidden; border-left-color: rgb(153, 153, 153); border-left-width:1px; border-left-style: solid; height: 30px; width:1px; ">
+|</div>
+
+<!--第2行-->
+<div class="Box" style="width:80px; left:209px; top:88px;">
+<p>建立<br />
+  数学模型</p>
+</div>
+<div class="lineL" style="top: 117px; left: 298px; overflow: 
+hidden; border-top-color: rgb(153, 153, 153); border-top-width: 1px; border-top-style: solid; width:30px; height: 0px;">-</div>
+
+<div class="Box" style="width:460px; left:328px; top:88px; ">
+<p style="text-align:left;">1 数学建模：通过数据收集、分析，确定变量及变量关系；<br />
+2 数值计算问题：建立表达式(公式、方程组)、矩阵；<br />
+3 非数值计算问题：重点在选择合适的数据结构（线性、层次、网状模型）；</p>
+</div>
+<div class="lineL" style="top:146px; left:254px; overflow: 
+hidden; border-left-color: rgb(153, 153, 153); border-left-width:1px; border-left-style: solid; height: 30px; width:1px; ">
+|</div>
+
+<!--第3行-->
+<div class="Box" style="width:80px; left:209px; top:176px;">
+
+<p>确定<br />
+  数据结构</p>
+</div>
+
+<div class="lineL" style="top: 205px; left: 298px; overflow: 
+hidden; border-top-color: rgb(153, 153, 153); border-top-width: 1px; border-top-style: solid; width:30px; height: 0px;">-</div>
+
+<div class="Box" style="width:460px; left:328px; top:176px;  height:62px;">
+<p style="text-align:left;">1 逻辑结构(线性、树形、图形、集合)<br />
+2 物理存储结构(顺序、链接、索引、散列)<br />
+3 运算(插入、删除、查询、更新、排序)<br />
+（数值计算使用的数据结构比较简单，“简单变量”加“数组”大致能满足需要。）</p>
+</div>
+
+<div class="lineL" style="top:234px; left:254px; overflow: 
+hidden; border-left-color: rgb(153, 153, 153); border-left-width:1px; border-left-style: solid; height: 30px; width:1px; ">
+|</div>
+<!--第4行-->
+
+<div class="Box" style="width:80px; left:209px; top:264px;">
+<p>确定<br />
+输入输出</p>
+</div>
+<div class="lineL" style="top: 293px; left: 298px; overflow: 
+hidden; border-top-color: rgb(153, 153, 153); border-top-width: 1px; border-top-style: solid; width:30px; height: 0px;">-</div>
+
+<div class="Box" style="width:500px; left:328px; top:264px; height:62px; ">
+<p style="text-align:left;">1 输入就是将自然语言或人类能够理解的其他表达方式描述的问题转换为数学模型中的数据；<br />
+2 输出就是将数学模型中表达的运算结果转换成自然语言或人类能够理解的其他表达方式。<br />
+3 键盘、扫描仪、磁盘文件→内存→屏幕、打印机、磁盘文件；<br />
+4 用户→图形用户界面或控制台→输入、处理、输出→图形用户界面→用户</p>
+</div>
+
+<div class="lineL" style="top:322px; left:254px; overflow: 
+hidden; border-left-color: rgb(153, 153, 153); border-left-width:1px; border-left-style: solid; height: 30px; width:1px; ">
+|</div>
+<!--第5行-->
+<div class="Box" style="width:80px; left:209px; top:352px;">
+
+<p>确定<br />
+  算法</p>
+</div>
+<div class="lineL" style="top: 381px; left: 298px; overflow: 
+hidden; border-top-color: rgb(153, 153, 153); border-top-width: 1px; border-top-style: solid; width:30px; height: 0px;">-</div>
+<div class="Box" style="width:300px; left:328px; top:352px; ">
+<p style="text-align:left;">1 算法=操作+控制结构<br />
+2 操作：逻辑运算、算术运算、数据比较、数据传送；<br />
+3 算法的控制结构：顺序、选择、循环；</p>
+</div>
+<div class="lineL" style="top: 381px; left: 638px; overflow: 
+hidden; border-top-color: rgb(153, 153, 153); border-top-width: 1px; border-top-style: solid; width:30px; height: 0px;">-</div>
+
+<div class="Box" style="width:415px; left:668px; top:352px; height:62px; ">
+<p style="text-align:left;">
+
+1 <strong>算法按照思路</strong>：递推、递归、穷举、贪婪、分治、动态规划、迭代算法；<br />
+
+2 <strong>算法按照应用</strong>：基本算法、数据结构相关算法、几何、图论、规划、数值分析、加密/解密、排序、查找、并行、数论算法；<br />
+
+3 <strong>算法按确定性</strong>：确定性算法、非确定性算法；</p>
+
+</div>
+
+<div class="Box" style="border:0; width:80px; left:245px; top:420px;"></div>
+<div class="lineL" style="top:410px; left:254px; overflow: 
+hidden; border-left-color: rgb(153, 153, 153); border-left-width:1px; border-left-style: solid; height: 30px; width:1px; ">
+|</div>
+<!--第6行-->
+<div class="Box" style="width:80px; left:209px; top:440px;">
+<p>选择<br />
+编程语言<br />
+</p>
+</div>
+<div class="lineL" style="top: 469px; left: 299px; overflow: 
+hidden; border-top-color: rgb(153, 153, 153); border-top-width: 1px; border-top-style: solid; width:30px; height: 0px;">-</div>
+
+<div class="Box" style="width:415px; left:329px; top:441px; height:62px; ">
+<p style="text-align:left;">
+1 语言设计人员设计的语言是为了解决特定的问题的目的而设计的（以用其编写的程序应用于特定领域）；<br />
+2 语言设计人员设计的语言在以下方面有侧重点的取舍：编程简单、程序易读、执行效率高；<br />
+</p>
+</div>
+<div class="lineL" style="top:498px; left:254px; overflow: 
+hidden; border-left-color: rgb(153, 153, 153); border-left-width:1px; border-left-style: solid; height: 30px; width:1px; ">
+|</div>
+
+
+<!--第7行-->
+<div class="Box" style="width:110px; left:209px; top:528px;">
+<p>选择<strong>编程语言工具</strong><br />
+并用<strong>编程语言</strong><br />
+描述<strong>算法</strong></p>
+</div>
+<div class="lineL" style="top: 553px; left: 329px; overflow: 
+hidden; border-top-color: rgb(153, 153, 153); border-top-width: 1px; border-top-style: solid; width:30px; height: 0px;">-</div>
+
+<div class="Box" style="width:385px; left:359px; top:528px; height:46px; ">
+<p style="text-align:left;">
+1 选择合适的IDE；<br />
+2 选择适当的模板库或类库；
+</p>
+</div>
+<div class="lineL" style="top:586px; left:254px; overflow: 
+hidden; border-left-color: rgb(153, 153, 153); border-left-width:1px; border-left-style: solid; height: 30px; width:1px; ">
+|</div>
+
+
+<!--第7行-->
+
+
+<div class="Box" style="width:80px; left:209px; top:615px;">
+
+<p>解释执行<br />
+或<br />
+编译后执行</p>
+</div>
+
+</div>
+
+
+<div id="container">
+<p>数据表示(描述)→数据结构→数据输入→数据操作(操作符、函数、类方法)→数据输出</p>
+
+
+
+<h4>编程核心概念</h4>
+<p>开发一个程序或一个系统首先都要了解需要哪些输入、输出数据，中间会产生哪些数据，此即数据内容。然后分析数据间的关系，形成数据模型，此即数据结构。接着考虑数据在程序或系统中如何传送和变换，此即数据流。
+<p>1 建模问题：主要是数值计算问题涉及到建模，如建立公式与方程组，而对于非数值计算问题，主要考虑的数据结构的问题；(数学模型（变量及逻辑关系）→抽象数据类型→数据结构)
+<p>2 数据结构（问题描述和数据处理的对象）；
+<p>数据表示→数据结构（关系、存、取）：数据与数据关系（表、树、图）的线性或链式存储；
+<p>3 确定输入、输出的数据(硬件、文件←→内存)及方式（控制台或图形界面的表单）
+<p>4 算法：输入到输出的操作与转换
+<p>5 程序语言的选择与对数据结构与算法的描述；
+<p>以上各个部分其实没有一个严格的先后顺序，都是相互影响，相互作用。
+<p>输入输出方式和算法步骤都是基于相应的数据结构设计的，相应的数据结构要能很方便地将原始问题转换成数据结构中的各个属性，也要能很方便地将数据结构中的结果以人们能够理解的方式输出。同时，也要为算法转换过程中各个步骤的演化提供便利的支持。使用线性表还是关联结构，使用树还是图，都是设计输入输出和算法步骤时就要考虑的问题。
+
+<p><a href="编程核心思想04.jpg" title="编程核心思想04.jpg"><img src="编程核心思想04.jpg" /></a>  
+
+<p>面向过程：程序 = 数据结构 + 算法，以函数形成模块化；
+
+
+<p><a href="编程核心思想06.jpg" title="编程核心思想06.jpg"><img src="编程核心思想06.jpg" /></a> 
+
+<p>面向对象：程序 = {对象}（对象 =(封装) 数据 + 操作），数据结构和算法体现在类或对象中；
+<p>OO=objects+classes+inheritance+communication with messages(事件触发)
+<p>a class defines both the type of data and the operations that can be applied to that data. Including both the data and functions into one unit, the class, is called encapsulation.
+<p>类同时定义了数据的类型和可作用于这些数据之上的操作。类把数据和函数包含在一起，成为一个整体。这个过程称为封装。
+
+<p><a href="编程核心思想07.jpg" title="编程核心思想07.jpg"><img src="编程核心思想07.jpg" /></a> 
+<p>grouping together data with the code that processes it, and having some fancy ways of treating it as a unit. Many programming languages refer to this type of thing as a "class".</p>
+<p>When you bundle together an abstract data type with its operations, it is termed "encapsulation". Non-OOP languages don't have adequate mechanisms for doing this. There is no way to tell a C compiler, "These three functions are the only valid operations on this particular struct type." There is no way to prevent a programmer from defining additional functions that access the struct in an unchecked or inconsistent manner.</p>
+<p>Object-oriented programming languages that enforce data integrity by bundling together the user-defined data structures plus the user-defined functions that are allowed to operate on them. No other functions are allowed to access the data. This extends strong typing from built-in data types to user-defined data types.
+
+A class is just a user-type with all the operations on it.
+
+A class is often implemented as a struct of data, groupd together with pointers-to-functions that operate on that data. The compiler imposes strong typing-ensuring that these functions are only invoked for objects of the class, and that no other functions are invoked for the objects.</p>
+<h4>面向过程与面向对象</h4>
+
+<table id="tbrowser">
+  <col width="226" />
+  <col width="146" />
+  <col width="306" />
+  <tr height="19">
+    <td height="19" width="226"><a name="RANGE!A1" id="RANGE!A1">程序任务</a></td>
+    <td width="146">面向过程</td>
+    <td width="306">面向对象(Object-Oriented)</td>
+  </tr>
+  <tr height="19">
+    <td height="19">任务（或问题）需要处理的数据</td>
+    <td>定义数据结构</td>
+    <td>定义类（对象）的属性（数据）</td>
+  </tr>
+  <tr height="19">
+    <td height="19">对定义的数据需要进行哪些操作</td>
+    <td>描述算法</td>
+    <td>对类的属性需要进行的操作定义为类的方法</td>
+  </tr>
+  <tr height="19">
+    <td height="19">数据与数据处理的结合性</td>
+    <td>较松散</td>
+    <td>较紧密</td>
+  </tr>
+  <tr height="19">
+    <td height="19">对数据的组织</td>
+    <td>数组、结构体等</td>
+    <td>限定到有共同属性的对象（类）</td>
+  </tr>
+  <tr height="19">
+    <td height="19">对数据的操作的组织</td>
+    <td>函数</td>
+    <td>类方法</td>
+  </tr>
+  <tr height="19">
+    <td height="19">解决问题的思想</td>
+    <td>过程步骤分解</td>
+    <td>任务对象分解</td>
+  </tr>
+</table>
+<h4><strong>数据结构(data structure)：</strong></h4>
+
+<p>逻辑结构：数据元素之间的逻辑关系：(一对一的线性关系，一对多的树形关系，多对多的图形关系)
+
+<p><a href="编程核心思想03.jpg" title="编程核心思想03.jpg"><img src="编程核心思想03.jpg" /></a> 
+
+<p>存储结构：是逻辑结构在存储器中的表现形式：（线性存储、链式存储、哈希存储（key map address space））；
+
+
+<p><a href="编程核心思想05.jpg" title="编程核心思想05.jpg"><img src="编程核心思想05.jpg" /></a> 
+
+
+<p>数据运算（数据结构的算法（小算法））：每种逻辑结构都可以归纳一个运算的集合，包括检索、插入、删除、更新、排序；
+
+<p>数据结构的分类：数组 (Array)、栈 (Stack)、 队列 (Queue)、链表 (Linked List)、树 (Tree)、堆 (Heap)、图（graph）、集合（set）、哈希表（hash）与映射（map）
+
+<h4><strong>算法(algorithm)</strong>：</h4>
+
+<p>算法按照应用分:基本算法、数据结构相关算法(小算法)、数论与代数算法、几何算法、图论算法、动态规划与数值算法、数值分析算法、加密/解密算法、排序算法、查找算法、并行算法、检索算法、随机化算法；
+
+<p>算法按思路分：递推(Recurrence)算法、递归(recursion)算法、穷举(Enumeration)算法、贪婪算法(Greedy)、分治(Divide and Conquer)算法、动态规划(Dynamic Programming)算法、迭代(iterated)算法、回溯法(Backtracking)、分枝界限(Branch and Bound Algorithm)算法、概率(
+probabilistic)算法。
+
+
+<p>算法都遵循特定的方法和模式，就算法的模式而言，处理各种求最优解问题时，人们常用贪婪法、动态规划法等算法模式，处理迷宫类问题时，穷举式的枚举和回溯是常用的模式。</p>
+
+
+<p>就算法的实现方式而言，如果算法需要频繁地查表操作，那么数据结构的设计通常会选择有序表来实现；反过来，当设计的算法用到了树和图这样的数据结构时，含有递归结构的方法就常常伴随它们左右。</p>
+
+<p>算法 = 操作 + 控制结构
+<table id="tbrowser">
+  <col width="64" span="2" />
+  <col width="391" />
+  <tr height="19">
+    <td height="19" width="64">算法</td>
+    <td width="64">操作</td>
+    <td width="391">操作符：针对特定数据类型的数据处理</td>
+  </tr>
+  <tr height="21">
+    <td height="21"></td>
+    <td></td>
+    <td>算术运算：加减乘除等运算</td>
+  </tr>
+  <tr height="21">
+    <td height="21"></td>
+    <td></td>
+    <td>逻辑运算：或、且、非等运算</td>
+  </tr>
+  <tr height="21">
+    <td height="21"></td>
+    <td></td>
+    <td>关系运算：大于、小于、等于、不等于等运算</td>
+  </tr>
+  <tr height="21">
+    <td height="21"></td>
+    <td></td>
+    <td>数据传输：输入、输出、赋值等运算</td>
+  </tr>
+  <tr height="19">
+    <td height="19"></td>
+    <td>控制结构</td>
+    <td>顺序（sequence）、选择（selection）及循环（repetition）</td>
+  </tr>
+</table>
+<p>
+<h4>模块与封装</h4>
+<p>面向过程的模块化思想：函数：功能、输入（局部变量与参数及全局变量）、输出（函数带出值的四种方法），输入的数据的操作与转换形成输出（函数内算法）；</p>
+
+<p>一个函数包装一段代码并给予命名，引进参数将其通用化。</p>
+<p>函数的内部观点：关心函数的定义，1 采用什么计算方法；2 采用什么实现结构；3 实际参数如何使用；4 怎样得到所需要的返回值；
+
+<p>函数的外部观点：关心函数的使用，1 实现了什么功能；2 名字是什么；3 要求几个参数，各参数的意义和作用；4 返回什么值；
+<p>面向对象的封装：对象的属性，类方法（处理对象的属性，事件触发）；</p>
+<h4>数据存储与访问</h4>
+<p>数据类型 变量</p>
+<p>类 对象</p>
+<p>基于值的变量（变量→值）与基于指针或引用地址的变量（变量→地址→值）；</p>
+
+
+<p>组合数据类型的访问：基于基准元素的地址：
+<p>1 用整数索引，如数组或列表；
+<p>2 结构体的指针域；
+<p>3 用key索引value，如字典、哈希表。（key map address sapce)
+<h4>编程思想：</h4>
+<p>1 避免冗余：自定义函数和类、继承、泛型、模板
+<p>2 不重复造轮子：利用内置函数、模板库函数、模板类；
+<p>数据模型、数据表示、数据结构、数据处理；</p>
+
+
+<p>数据结构、数据输入、数据转换（模型或算法）、数据输出；</p>
+
+
+<p>数据结构的算法（小算法）：对数据元素有如“增、查、删、改”等的运算并能保持原有的映射才能对数据进行进一步的利用。</p>
+
+
+<p><a href="https://www.toutiao.com/i6521523498207150605/">面向过程的函数调用与面向对象的消息传递（方法调用）</a></p>
+
+
+<p><a href="https://www.toutiao.com/i6460583818087629325/">Encapsulation: Grouping together related types, Data, and Functions</a></p>
+
+<p>方法和函数是一回事，只是它是调用在一个值上。例如，如果一个列表值存储在spam 中，你可以在这个列表上调用index()列表方法，就像spam.index('hello')一样。方法部分跟在这个值后面，以一个句点分隔。
+
+<p>每种数据类型都有它自己的一组方法。例如，列表数据类型有一些有用的方法，用来查找、添加、删除或操作列表中的值。
+
+<h4>数据（分类）与数据操作及其结合()</h4>
+<p>data and operations that manipulate the data;</p>
+<p>（基本数据类型 ← 运算符）→ 表达式</p>
+<p>(函数内部局部变量、函数参数、全局变量) ← 函数</p>
+<p>类的数据成员 ← 类方法(类实例名称.类成员，前缀相当于是对后缀的限定)</p>
+<p><img width="100%"  src="11.jpg" style="border:dotted 1px #0066FF;" /></p>
+<p><a href="编辑核心思想4.jpg" title="编辑核心思想4.jpg"><img style="border:dotted 1px #9900CC" src="编辑核心思想4.jpg" /></a>
+
+<h4>控制、抽象、分解：基本操作→组合机制→抽象机制</h4>
+<p>为计算机编写程序，编程者需要从实际问题出发，从高层开始设计程序，然后逐步分解程序功能。分解到一定细节程度后，就可以用编程语言的已有结构直接描述了。与之相对应，编程语言也需要为程序的分层构造提供支持。</p>
+<p>1 需要一组<strong>基本操作</strong>，作为复杂计算活动的基础。机器和汇编语言里的基本操作就是各种基本指令，高级语言也提供了一组基本操作。
+（基本类型+操作符）</p>
+<p>2 需要一套描述计算的流程如何进行的<strong>组合机制</strong>。机器的汇编语言里的基本机制是顺序执行，以及完成有条件转换或无条件转换的专门指令。高级语言也提供一套用于组合简单计算，构造出任意复杂的计算描述的结构。（选择和循环等控制结构）</p>
+<p>3 为了支持复杂开发，高级语言提供了<strong>抽象机制</strong>，能够把一些复杂的功能包装成为一个整体，用于支持程序的分层次构造。（函数和类封装）</p>
+<p>在设计一处程序时，经常需要根据问题的情况，将其划分为顺序的一系列小计算片段（顺序计算模式），每个片段看作一个抽象的操作。对每个较小片段，又可能需要按某种模式进一步分解，采用if、for、while结构进一步分解。这样分解下去，直至计算中的条件和操作都能用高级语言的基本功能描述。为避免冗余，需要使用函数或类封装的抽象机制，让众多的代码显得结构清晰。</p>
+（一些复杂的程序或软件一开始也可能只是一个简单的版本，然后功能逐渐增加，版本逐步更新换代。）
+<p><a href="编程核心思想01.jpg" title="编程核心思想01.jpg"><img src="编程核心思想01.jpg" /></a> 
+<h4>存储程序（stored program）概念</h4>
+<p>指令代码和数据同等存储到内存，随机访问。</p>
+<p><a href="编程核心思想02.jpg" title="编程核心思想02.jpg"><img src="编程核心思想02.jpg" /></a>
+<p>内存属于存储层次中较中间的位置：向内有缓存、寄存器；往外有外存储器，如硬磁盘、U盘等；</p>
+<h4>数据分类与操作</h4>
+<p>1 基本类型，C语言需要在变量前声明；</p>
+<p>2 复合数据类型，如结构体，先定义结构体，对元素的访问是，先声明结构体变量struct 结构体名，再通过结构体变量名、点号.去访问结构体成员；</p>
+<p>3 类，先定义类，对类成员的访问是，先声明类实例，再通过实例名、点号.去访问类成员；</p>
+
+<p>Each one of these data types has a unique range of allowable values and a set of allowable operations and functions. For example, the float data type has a range of positive and negative values which are different from the range of numbers that can be held with an int data type. An allowable operation on both the int and float data types is the square root function sqrt(). A string function such as length() is not applicable to either float or int and is consequently not allowed.
+<p>每一种数据类型都有一个唯一的允许聚会范围及一组允许的操作和函数。例如，浮点型所允许的正负取值范围与整型所允许的取值范围就是不同的。平方根函数sqrt()既适用于整型数据，也适用于浮点型数据。像length()这样的字符串处理函数就不能应用于整型或浮点型数据。
+
+<h4>计算的抽象</h4>
+<p>编程语言里的变量是最基本抽象机制，用于给对象命名。算出一个所需要的值，可能要做很多工作，如果不给它命名，用过就丢了，再次使用就必须重新计算，至少要花费一些代价，程序也会变得更长。把计算出的值（对象）赋给变量，就为其建立了一个抽象。后面再需要这个值就不必重新计算，只需要写出相应的变量名，就可以方便地使用了。这是建立抽象的第一层意义：一次计算，可以任意多次使用；</p>
+
+<p>函数定义能够建立起一般计算过程的抽象，写一次代码，任意多次重复使用，包括对不同的数据做同样计算；基于一段代码定义一个具有计算功能的实体并给予命名，就是定义函数抽象。函数调用也并不是简单重复，因为可以替代不同的参数。</p>
+<p>从字面量到常量，就如同从算术到代数，函数及其参数的引入，更是通用化的进一步抽象。</p>
+<p>类是一种更高层次的抽象，数据与数据操作的结合也更加紧密。</p>
+
+<p>Basic Type = Value set + Operation set
+<p>Data Structure = ①Data Elements + ②Data Logic Relation + ③Data Operation；
+<p>①可以是1个简单的基本数据类型，也可以是基本数据类型+一个或多个指针域；
+<p>Linear & Non-Linea Structure - Sequential & Non-Sequential Storage;
+<p>如果②是线性关系：对于③进行特殊定义就有栈、队列等数据结构；对于①进行特殊限制就有字符串等数据结构；对于①的数量和类型进行限定就是数组、广义表等数据结构；
+<p>如果②是非线性的层次关系，则是树这种数据结构；
+<p>如果②是非线性的网状关系，则是图这种数据结构；
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*
+<p>\s*
+------------------
+</p>
+
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+
+-->
+
+

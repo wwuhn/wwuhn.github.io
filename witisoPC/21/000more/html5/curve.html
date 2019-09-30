@@ -1,0 +1,53 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>以路径的方式在 canvas 上绘制曲线的 demo</title> 
+    </head> 
+    <body> 
+        <img alt="" src="curve.png" /> 
+        <br/> 
+        <img alt="" src="curve_quadratic.gif" /> 
+        <br/> 
+        <img alt="" src="curve_bezier.gif" /> 
+        <br/> 
+        <canvas id="canvas" width="260" height="300" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br/> 
+        <button type="button" onclick="drawIt();">在画布上绘制一些曲线</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            function drawIt() {  
+                clearIt();  
+                /*  
+                 * context.quadraticCurveTo(cpX, cpY, x, y) - 以当前点为曲线起点，按指定的参数绘制二次方贝塞尔曲线。见图 curve.png, curve_bezier.gif  
+                 *   cpX - 控制点的 x 轴坐标  
+                 *   cpY - 控制点的 y 轴坐标  
+                 *   x - 曲线终点的 x 轴坐标  
+                 *   y - 曲线终点的 y 轴坐标  
+                 */  
+                ctx.beginPath();  
+                ctx.moveTo(20, 100);  
+                ctx.quadraticCurveTo(40, 20, 180, 100);  
+                ctx.stroke();  
+                /*  
+                 * context.bezierCurveTo(cpX1, cpY1, cpX2, cpY2, x, y) - 以当前点为曲线起点，按指定的参数绘制三次方贝塞尔曲线。见图 curve.png, curve_quadratic.gif  
+                 *   cpX1 - 和曲线起点相关连的控制点的 x 轴坐标  
+                 *   cpY1 - 和曲线起点相关连的控制点的 y 轴坐标  
+                 *   cpX2 - 和曲线终点相关连的控制点的 x 轴坐标  
+                 *   cpY2 - 和曲线终点相关连的控制点的 y 轴坐标  
+                 *   x - 曲线终点的 x 轴坐标  
+                 *   y - 曲线终点的 y 轴坐标  
+                 */  
+                ctx.beginPath();  
+                ctx.moveTo(20, 200);  
+                ctx.bezierCurveTo(0, 160, 160, 120, 180, 200);  
+                ctx.stroke();  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 260, 300);  
+            }  
+        </script> 
+    </body> 
+    </html> 

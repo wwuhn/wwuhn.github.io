@@ -1,0 +1,570 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>VBA中四种自动运行的宏以及模块的含义</h3>
+
+<p>
+</p>
+
+<p>在Excel的“标准模块”中可以创建4种自动运行的宏，它们分别是Auto_Open（打开工作簿时自动运行)、Auto_Close、Auto_Activate、Auto_Deactivate。这些自动运行的宏是为了与Excel5和95兼容而保留下来的。现在可以使用工作簿的Open、Close、Activate、Deactivate事件来代替它们。
+</p>
+
+<p>那么，什么是“标准模块”呢？其实就是我们在VBE中插入的那个模块，微软称它为“标准模块”。而其余的三类：MicrosoftExcel对象、窗体、类模块也属于模块。
+</p>
+
+<p><h4>（一）什么是模块，VBA都包含什么模块呢？
+</p>
+
+<p></h4>
+</p>
+
+<p>首先我们来看微软VBA帮助中的三个定义：
+</p>
+
+<p>模块：一组声明集合，其后为过程；
+</p>
+
+<p>声明：不可执行的代码，它命名一常数、变量或过程，并且指定其特性，比如数据类型。对于DLLprocedures，声明指定名称、库和参数。
+</p>
+
+<p>过程：命名的语句序列，可作为单元来执行。例如，Function、Property和Sub都是过程类型。总是在模块级别定义过程的名称，所有可执行的代码必须包含在过程内，一过程不能套在其它过程中。
+</p>
+
+<p>通过这三个定义我们了解到了什么信息，我们平常写的代码是什么东西，对，就是声明和过程，也就是在Sheet1、Sheet2、Sheet3、ThisWorkbook、UserForm1、模块1、类1这些东西里面编写的代码，所以我们可以得出结论，Sheet1、Sheet2、Sheet3、ThisWorkbook、UserForm1、模块1、类1都是模块。
+</p>
+
+<p>这些虽然都叫做模块，但是却有所不同，其实微软是这样分类的：（微软这样分类是有根据的，后面我们会找到依据的）
+</p>
+
+<p>文档模块：Sheet1，Sheet2，Sheet3，ThisWorkbook
+</p>
+
+<p>窗体模块：UserForm1
+</p>
+
+<p>标准模块：模块1
+</p>
+
+<p>类模块：类1
+</p>
+
+<p>写到这里，有人可能会问，sheet1、sheet2这些本身就是微软为我们提供的内置对象，怎么能说是模块呢？诚然，在我们编写代码的过程中，它们确实是不同的对象。但是，由于微软单独把这些东西提取了出来，允许我们编写代码与这些对象进行关联，所以他们就具有了不同的意义，可以看作是微软自定义并已经嵌入的模块。由于我们能在他们内部编写并储存代码，所以，在这里，你就不要像看待range、cell等对象那样看待他们，而是要做为模块来看待他们。（这种思路的转变很重要，他们在这里我们是当作模块看待，而不是我们常用的对象）。
+</p>
+
+<p>其实，作为VBA语言，来源于VB，所以他继承了VB语言的大部分功能，只不过微软单独为VBA提供了Excel对象（或者Word对象、PPt对象等等）。因为在VB中本身就提供了三种类型的模块：窗体模块、标准模块和类模块。所以VBA中就有了这三种模块。为了能够对Excel对象进行操作，微软又为我们提供了文档模块，而且是直接嵌入进来的（Sheet1、Sheet2、ThisWorkbook这些文档模块不需要我们插入，只要存在这个对象，就有这个文档模块）。所以，也就解释了，VBA为什么会有这四种模块。
+</p>
+
+<p>我们通过上面的分析了解到了VBA的模块分为这四种，从什么地方可以看出微软是这样分类的呢，他们到底是不是对象（请一定和Excel模型中的Sheet1、Sheet2对象的概念分开，记住，在这里，他们已经是模块啦)，他们到底是什么对象呢，大家请往下看。
+</p>
+
+<p><h4>（二）模块属于什么对象？微软是如何来区分他的呢？</h4>
+</p>
+
+<p>从VBE资源管理器我们看出Microsoft Excel对象(文档模块)、窗体(窗体模块)、模块(标准模块)、类模块这些模块都在什么下边呢，对，都在在VBA Project的下面：
+</p>
+
+<p>VBA Project是什么呢，就是我们平常说得工程，实际上他是VBA Project对象，他下面的这些Microsoft Excel对象(文档模块)、窗体(窗体模块)、模块(标准模块)、类模块也都是对象，是什么对象呢，VB Component对象。现在可以告诉你，这些模块就是对象，是叫做VB Component的对象。
+</p>
+
+<p>为了说明这个问题，需要引入一个概念，VBA扩展模型（VBA Extensibility Model），他具有对VBA工程和模块进行操作的功能：
+</p>
+
+<p>（1）用代码添加和删除VBA模块（而不是手动插入和删除）；
+</p>
+
+<p>（2）用代码去创建代码（说起来有点绕，应该是用代码建立个模块，然后用代码在模块里面写代码）
+</p>
+
+<p>（3）创建用户窗体
+</p>
+
+<p>VBA扩展模型的简单层次结构是这样（只为说明问题，没有全部列出来）:
+</p>
+
+<p>VBE
+</p>
+
+<p>VB Project
+</p>
+
+<p>VB Component
+</p>
+
+<p>Code Module
+</p>
+
+<p>Designer
+</p>
+
+<p>Property
+</p>
+
+<p>Reference
+</p>
+
+<p>Window
+</p>
+
+<p>CommandBar
+</p>
+
+<p>其实VB Project对象就是我们在工程资环管理器经常看到的，下面的Sheet1、Sheet2、Sheet3、ThisWorkbook、UserForm1、模块1、类1就是VB Component对象。在这里我们得出了一个结论：文档模块、标准模块、类模块、窗体模块是对象，一种叫做VB Component的对象
+</p>
+
+<p>VB Component对象有个type属性，清楚的告诉了我们Sheet1、Sheet2、Sheet3、ThisWorkbook、UserForm1、模块1、类1分别属于什么模块，也就是上面所说的，微软是怎么对这些模块进行分类的呢，也就是type属性来告诉了我们这个问题。
+</p>
+
+<p>我们用以下代码来展示这些模块都属于哪些类型。
+</p>
+
+<p>Sub test()
+</p>
+
+<p>Dim VBComps As VBComponents ‘定义VBComponents类的对象变量
+</p>
+
+<p>Dim VBComp As VBComponent ‘定义VBComponent类的对象变量
+</p>
+
+<p>‘这里我们借用了Thisworkbook这个对象来说明
+</p>
+
+<p>Set VBComps = ThisWorkbook.VBProject.VBComponents ‘将对象的引用赋值给对象变量
+</p>
+
+<p>‘利用循环来获取工程内每个组件的名称和类型
+</p>
+
+<p>For Each VBComp In VBComps
+</p>
+
+<p>MsgBox "组件名称:" & VBComp.name & "  组件常量" & VBComp.Type
+</p>
+
+<p>Next
+</p>
+
+<p>End Sub
+</p>
+
+<p>通过代码的运行，我们发现Sheet1、Sheet2、Sheet3、Thisworkbook是一种类型，部件常数的值是100
+</p>
+
+<p>模块1是一种类型，部件常数的值是1
+</p>
+
+<p>类1是一种类型，部件常数的值是2
+</p>
+
+<p>UserForm1是一种类型，部件常数的值是3
+</p>
+
+<p>Vbext_ct_Document（常数）100（值）文档模块（描述）
+</p>
+
+<p>通过上面的叙述，总结起来只是一句话：
+</p>
+
+<p>文档模块、标准模块、类模块、窗体模块是对象，并且都是一个叫做VBComponent的对象，根据VBComponent属性"type"(类型)的不同，微软把他们分为了4类：Vbext_ct_StdModule、Vbext_ct_ClassModule、Vbext_ct_MSForm、Vbext_ct_Document。
+</p>
+
+<p><h4>（三）不同模块的介绍和模块之间的区别</h4>
+</p>
+
+<p>上面我们大致搞清楚了这些模块的身份，下面我们来讨论一下模块本身吧。
+</p>
+
+<p>以下是我应用了一篇叫做“vb中窗体模块，类模块，标准模块的区别”文章的内容，原文章链接见这里
+</p>
+
+<p>http://ykkykkl.blog.163.com/blog/static/718942282010717104046309/
+</p>
+
+<p>VB的代码存储在模块中。在VB中提供了三种类型的模块：窗体模块、标准模块和类模块。
+</p>
+
+<p>简单的应用程序可以只有一个窗体，所用的程序都驻留在窗体模块中，而当应用程序庞大复杂时，就要另外附加窗体。最终可能有几个窗体中有一些共同都要执行的代码，为了在两个窗体中不产生重复代码，可创建一个独立的模块，用它实现代码公用。该独立模块即是标准模块。此外还可以建立包含共享代码与数据的类模块。
+</p>
+
+<p>1.窗体模块
+</p>
+
+<p>由于VB是面向对象的应用程序开发工具，所以应用程序的代码结构就是该程序在屏幕上表示的对应模型。根据定义，对象包含数据和代码。应用程序中的每个窗体都有一个相对应的窗体模块（文件扩展名为.frm）
+</p>
+
+<p>窗体模块是VB应用程序的基础。窗体模块可以包含处理事件的过程、通用过程以及变量、常数、自定义类型和外部过程的窗体级声明。写入窗体模块的代码是该窗体所属的具体应用程序专用的；也可以引用该程序内的其它窗体和对象
+</p>
+
+<p>每个窗体模块都包含事件过程，在事件过程中有为响应该事件而执行的程序段。窗体可包含控件。在窗体模块中，对窗体上的每个控件都有一个对应的事件过程集。除了事件过程，窗体模块还可包含通用过程，它对来自该窗体中任何事件过程的调用都作出响应。
+</p>
+
+<p>2.标准模块
+</p>
+
+<p>标准模块是程序中的一个独立容器，包含全局变量、Function(函数)过程和Sub过程（子过程）。
+</p>
+
+<p>可将那些与特定窗体或控件无关的代码放入标准模块中。标准模块中包含应用程序内的允许其它模块访问的过程和声明。它们可以包含变量、常数、类型、外部过程和全局声明或模块级声明。
+</p>
+
+<p>3.类模块
+</p>
+
+<p>在VB中类模块是面向对象编程的基础。可以在类模块中编写代码建立新对象。这些新对象可以包含自定义的属性和方法。实际上，窗体正是这样一种类模块，在其上可安放控件，可显示窗体窗口。
+</p>
+
+<p>用类模块创建对象，这些对象可被应用程序内的过程调用。标准模块只包含代码，而类模块包含代码又包含数据，可视为没有物理表示的控件。
+</p>
+
+<p>上面写得很清楚，下面我只写一些个人的看法：
+</p>
+
+<p>我个人认为，首先我们要区分的是把标准模块和文档模块、窗体模块、类模块区分开。
+</p>
+
+<p>为什么我要这么说呢，其实微软本身也就是这样区分的，在vba帮助中有这样一个概念：
+</p>
+
+<p>对象模块：包含对象专用代码的模块，例如，类模块、窗体模块和文档模块。对象模块包含相关联对象之后的代码；对象模块的规则与标准模块不同。
+</p>
+
+<p>从上面概念我们可以看出，标准模块和文档模块、窗体模块是属于对象模块的，可以作为一类，标准模块则是不同的，属于另外一类。
+</p>
+
+<p>我个人认为标准模块和对象模块的区别主要有两点：
+</p>
+
+<p>1.首先，标准模块是不支持事件，对象模块都支持事件过程。
+</p>
+
+<p>标准模块本身是没有事件过程的，这也就是说，你想写事件过程，绝对不要写到标准模块中去，当然你也写不进去。
+</p>
+
+<p>2．标准模块是一个独立容器，标准模块中的全局变量、Function(函数)过程和Sub过程（子过程）是不与对象模块相关联的。
+</p>
+
+<p>同一个工程中的对象模块可以共享和使用标准模块中的全局变量和过程。但是对象模块的变量和过程，却是该对象模块专属的。如果想调用的话，必须以对象的方式访问。
+</p>
+
+<p>这也就告诉我们一个原则。通常我们在写VBA代码的时候，应该把公用的变量和过程写到标准模块中来，和对象模块相关的变量和过程写到相应的对象模块中去，这样才不容易出现问题。
+</p>
+
+<p><h4>（四）有关文档模块，窗体模块，和类模块的一些猜想</h4>
+</p>
+
+<p>窗体模块和文档模块，完全可以像类模块那样定义属性、方法和事件（这个大家可以自己试试，代码太繁琐，我就不贴啦），并且可以在其他模块中调用，于是我猜想窗体模块和文档模块其实也是一种类模块，不过是一种特殊的类模块而已。
+</p>
+
+<p>通过对象浏览器我们看出
+</p>
+
+<p>Sheet1、Sheet2、Sheet3、ThisWorkbook属于Class。
+</p>
+
+<p>UserForm1、类1属于PrivateClass。
+</p>
+
+<p>应该说文档模块和窗体模块确实都是一种特殊类模块，或者说具有类模块的部分功能，所以他们可以定义属性、方法和事件，并且在其他模块中调用。
+</p>
+
+<p>但是同标准类模块相比，窗体模块和文档模块不能像类模块那样被实例化成新的对象，他们本身已经是实例化的对象。
+</p>
+
+<p>文档模块可以看做是微软自定义并已经嵌入的类模块，窗体模块是我们手动插入的模块（但他是一个实例化的对象）。
+</p>
+
+<p>所以他们虽然可以定义属性、方法和事件，但也仅仅限于对象本身而已，并不能实例化为新的对象（如Sheet1模块定义的属性、方法，我们也只能对Sheet1调用的时候才能使用，不能像标准类模块一样，再创建一个Sheet1对象），这也就是文档模块、窗体模块和标准类模块最大的区别吧。
+</p>
+
+
+
+<p style='float:right;'>本页共92段，5050个字符，12344 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

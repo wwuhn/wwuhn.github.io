@@ -1,0 +1,553 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>﻿春色滿園</h4>
+
+<p></p>
+
+<p>「男有心，女有意，妙境仙乡何处寻，方寸原为销魂地。桃源洞内暖烘烘，引得渔郎来问津。」</p>
+
+<p>故事开始是男女双方小时同校读书，稍大时即分开各奔前程。数年后男的依然是孤家寡人一个，女的则已经罗敷有夫了。女的虽然有夫而等于守活寡一样，丈夫终年在外经商，三两个月才回来一趟。男女两人在偶然机会下相遇，在男有心女有心之下，好比乾柴烈火，一触可发。</p>
+
+<p>盘古初开，人类就有性，性是人类最快乐之泉源。禁慾，实在是人类最痛苦的事情。有什么的苦事，比得上对着一个女人，心头苦辣辣的想操她、痛痛快快的操她，但是不能如愿以偿，这种心情更加难受呢？</p>
+
+<p>学敏已忍受了一天一夜的煎熬了，尤其是昨天晚上。试想看，对着一个如此美貌又风骚，又如此饱满姣好豔丽的女人，好似明月当空；可望而不可摸。更何况自己现在的丑陋面孔，更不敢放肆，正是蛋家鸡见水，只能看那种滋味、真的是无法形容。</p>
+
+<p>但是对小娟来说，这种痛苦也是顶痛苦难受的味道。想起这乡下的鬼地方，自从丈夫远去他方之后，就是很少见到男人的地方。平日所遇到的，不是七老八十的老家伙与老太婆，再不然就是国校的男孩与女娃娃了。小娟想把自己贱卖一次以解决自己身心的饑荒，但也苦无对象可下手。</p>
+
+<p>女人，就是这么个的一种怪物呢！女人若还没尝试过那种颠鸾倒风、欲仙欲死的事情倒还没有怎么难过，一旦嚐过那欢味，及填充饱满充实每一个空间，又像火车隆隆轰轰慢慢推进时的情境时，一旦试过了而你想抛弃她，她不跟你拼命才怪呢！</p>
+
+<p>所以她未曾给你真入港时，见着你时扭扭捏捏的样子，又怕这样、又怕那样的。一会又说「给别人撞见时，对我怎样做人呀！」但是一试过了，有哪一个女人在男人玩过后就可以随便能够把她甩开、扔掉？操她的第一个男人就算要走，她也是死缠活缠的非要过足瘾头才能放手给你走。</p>
+
+<p>小娟最痛苦就是初嚐雨露之后花心已开，现在嚐过琼浆玉液，花心需时时滋润，变成一餐饱、百日饥了。</p>
+
+<p>午夜回想起来，「哎啊！真他妈的不知道怎样埋怨这个杀千刀的。」于是只好先抓一条蛇儿过瘾了，不过若没有，狗儿的味道也不错。</p>
+
+<p>接着春去夏来的，夏天，老天爷真是对女人特别亏待：男人热时，可以只一条短裤，把那不见人的地方包住就可以到处跑跑。但是女人呢？要出去就得全副武装、整整齐齐才敢迈出大门呢！</p>
+
+<p>这天，天气特别燠热。一个人呆在家中，热得要命的关係之下，中午时间，左右邻居都在做南柯大梦睡午觉。她只穿一条短裤，拿了把扇子，两腿分得开开的，扇子儘对着桃源洞口，最润湿的地方拼命的搧着。</p>
+
+<p>她这条短裤也是薄薄的，女人在热得要命的时候，真想连这条短裤也脱下来不要穿。热的真叫人想伸舌头，纳闷之余，一边搧着扇子，一边想沖一杯冰冻蜂蜜糖水来消暑。</p>
+
+<p>不知是心神不定，还是心中烦闷，或是思春的关係，蜜糖水倒进瓶子的时候一时心不在焉，突然把瓶子打翻了，一大瓶糖水就倒在雪白大腿之上！</p>
+
+<p>这突来的意外使小娟吓的一声叫了起来，用布把流在大腿内的蜜糖水抹掉，在这紧要关头，意外的事情发生了……</p>
+
+<p>她平时养着一头小狠狗叫「凯莉」，她兴牠俩相依为伴，这时牠嗅到蜜糖的香味，立即扑了上来。馋嘴的这头小畜牲，用那长长的舌头在小娟她雪白两条大腿间一舐一舐的，慢慢由下向上舐着。</p>
+
+<p>初时小娟觉得蛮有意思的，但是有趣慢慢变成觉得蛮过瘾的，凯莉的舌头好似鲨鱼皮一样，在小娟的大腿上一舐一舐的。蜜糖水是甜的，凯莉这小狼狗舌头好似是有节拍的，牠舐出味道来了，由慢慢突然变快起来了。</p>
+
+<p>这时的小娟，双目紧紧闭住，咬住下唇，只觉得身中阵阵麻麻痒痒的感受，由脚趾尾上直传送到神经中枢。</p>
+
+<p>她从来没有享受过如此的快感，就是与她丈夫来办事时，也没得到过这么痛快过。那个乡巴佬的丈夫，更没有用舌头为自己服务过，今天对这一瓶蜜糖水，应该大叫三声亲爷爷。</p>
+
+<p>今天她好像发现金矿似的，今天的发现，往后的日子就会变得甜蜜灿烂了。凯莉这小畜牲是不懂人性的，只知道美味可口，摇头摆尾的，愈舐愈有味道的样子。</p>
+
+<p>她的三角地带，沾上蜜糖量最多的地方就在她的大腿内侧，但是这块肉乃是女人最最敏感的地带。她若是未经过人道，你若是撞她这地方一下，则她神经都会发抖呢！可恨这头小畜牲好像故意和她过意不去的样子，就在那个地方一舐一舐的，舐的她紧闭双目、舐的她神魂蕩魄。真教她如牛的大口喘气「啊啊啊」的叫着：</p>
+
+<p>「你这可爱的小亲亲，有这么好的本领，我要特别的嘉奖你，今天晚上要特别为你加菜……」</p>
+
+<p>此时的小娟怎么样能形容她呢？她那小小的地方，就像用一条小小的羽毛，在她乳房及最敏感的阴蒂顶端轻轻地抚摸，轻轻地扫着，有时候凯莉用牠带刺的舌头重重的刮了两下，她就像针炙那样一阵一阵的抽搐，一阵一阵的神经从脚底痒到心头。</p>
+
+<p>那快感是无法形容的，所以她的小腿是合着的，现在也慢慢张开了，那两片迷人的小洞口、两片阴唇，也血红似的开了口。洞口已布满了濛濛的阴水，大阴唇已一伸一缩的。那阴水热热的渗漏了出来，桃源洞现在已全部开放可窥全貌，那阴水已汨汨的往外流。</p>
+
+<p>她这时候恨不得把凯莉的头插进去，来填补里面的空虚，但是眼前只有凯莉一条小肉棒，是不管用的，恨不得有一个男人马上真枪实弹来大干一场，以煞眼前的慾念。</p>
+
+<p>夏日炎炎，慾念一起便浑身娇柔乏力，懒洋洋的斜坐在椅子上，小娟只好挪关大腿，不时侧一侧身，摆出一个好的角度，好让凯莉舐着自己最敏感的地方。她时时变动坐的姿势，两条大腿一时向左、一时向右，好能够让凯莉把舌头舐得更深一层。</p>
+
+<p>无知的畜牲，把附近洞口的蜜糖水舐光后就收兵，恨得她牙痒痒的：「该死的畜牲！你……来吊老娘的胃口，不把你杀掉才怪！」</p>
+
+<p>小娟只得把没有用完的蜜糖全倒在大腿上，这次不只倒在大腿上，而是沿着一条蜜糖路线，由大腿内侧一直滴到那迷人的桃源洞口。凯莉果然受不住甜味的引诱，直朝桃源洞口舐上去。她浑身像触电似的，颤抖着、抽筋着，口中已「啊啊」的连声叫着。牠舐到那两片遮住迷人洞口的肉瓣时，更是如痴如醉地呆着，这般的滋味她至今难以忘怀。</p>
+
+<p>不过自渎的滋味除了得到短暂的快乐外，最终最痛苦不过的事这乃是甜去苦来。事实上，自渎不是解决「性」苦闷真正良方，在性慾方面暂时得到消退，换来的是更加难受了。</p>
+
+<p>小娟一次又一次如此自慰，所换来的代价是不是得不偿失呢？</p>
+
+<p>**********************************************************************</p>
+
+<p>有一天，小娟一个人在家感觉十分苦闷，夕阳快西下时，到附近郊外的田野散步，偶然间遇到同村小学的同学学敏。学敏、小娟二人互打招呼后，学敏侧身让小娟先过，但不知小娟是有意或无意，手肘撞学敏一下。结果呢……二人互相落于田中，俱都弄得一身泥鳅样，小娟觉得十二万分抱歉，但是脑中不禁遐思起来陷入了另一个世界。</p>
+
+<p>学敏身体强壮、身材魁伟，就是面孔丑陋，十分难看。女人心情在孤单时，就是猪八戒下凡，也觉得他很潇洒英俊。她坚邀他到屋内洗个澡，脱下衣服洗乾净，晒乾后再走也不晚呀。</p>
+
+<p>但是他的自卑感太重，嫌自己配不上她。再一方面，觉得她已有丈夫，自己更不能乱来，情愿把日思夜想的绮念，作后日的同忆。</p>
+
+<p>结果，事与愿违。</p>
+
+<p>古人言：「男追女，隔层山；女追男，隔层纸」，他在她坚邀之下，进入了她的家里。她反手就把门关上，外面濛濛的阳光，把门一关，顿时变得有点昏昏沉沉。</p>
+
+<p>学敏低头一看，自己一身的烂泥巴，一时之间也不知道如何是好，只有站在那发呆的份。她偷偷望他一眼，不知是难为情还是觉得好笑。</p>
+
+<p>女人要想偷汉子时，她所动的脑筋，真叫人无法捉摸，只见她鼓起了腮道：「今日真撞到邪魔了，这条路都走了十几年咯，也没有今天这么倒霉过！你看，现在我们两人成为这么样子！」</p>
+
+<p>学敏一声不吭，静静地听着，事实上，自己在这条路上也已走了十几二十年了，今天变成泥鳅，也觉得十分丢面子的事。而且还害小娟一身也髒兮兮的，总觉得不起她，内心中挺过意不去的。偷偷看了小娟一眼，心里在想：有怎么方法可以向她陪罪呢？有怎么方法能令她能对我能发生好感呢？……</p>
+
+<p>他想着想着，自己也不禁觉得是痴人梦想而已，唉……我能吃天鹅肉吗？因为他听别人说过，男人要降服女人只有一个方法：这个方法就是在床上能令女人死去活来、欲仙欲死之时，她就会叫你「亲哥哥」、「亲爹爹」等，那时叫她往东，她决不敢往西。你只要有这样雄厚的资本的话，那任一个母老虎似的女人她都会服服贴贴的听命于你了。</p>
+
+<p>学敏心里在想着想着，自己也不禁在好笑，真是异想天开！想到此际，突然一个幻想涌上心头：要是能肏她一次痛痛快快的，使她欲仙欲死，叫她舒舒服服一下，这也算是今天对她报答之恩吧！相信她对于自己不会太讨厌吧！但是想归想，到现在为止自己，还没有下手的机会呢！</p>
+
+<p>正想得入迷之际，小娟瞟了他一眼，道：「一身衣服那么髒，还不赶快脱下来，还站在那里干什么？」</p>
+
+<p>言者无心，听者有意，任何一个正常男人听到女人叫他脱衣服，这男人难免会想到另一邪门上去。他听到这话后，只觉得十分难为情的脱下衣服道：「真不好意思。」</p>
+
+<p>小娟道：「有什么不好意思！你先去洗个澡，把各地方洗洗乾净再说啦！」一面说着，一面抛给他一条大毛巾，他急忙把衣服除下，露出那一身雄壮结实的肌肉。</p>
+
+<p>她偷偷看了一眼那雄壮的身体胸前的胸毛下面露出一团东西，只看得她站在那儿呆呆的发愣！最令她心摇意动的，就是他胸前一撮胸毛，浓浓密密的充分表现出男性健康美。</p>
+
+<p>她想着想着，但觉喉头一阵燥热，有点儿乾渴想喝点水，脸上发烧，羞人答答的道：「赶快去洗个澡吧！」</p>
+
+<p>学敏抓起毛巾，唯唯诺诺的道：「不好意思吧，让客人先洗呢！」</p>
+
+<p>她道：「哪有什么不好意思，谁先洗不都是一样？这有什庆客气的。」</p>
+
+<p>他问道：「洗澡间在什么地方？」</p>
+
+<p>她答道：「在厨房的左边就是的。」</p>
+
+<p>他笑笑道：「对不起，我不知道你浴室是在厨房左边，我以为是跟我家里一样的是在右边呢！」</p>
+
+<p>她道：「每一家建筑的格调都不一样，那有可能和你家一样呢！」</p>
+
+<p>他傻不楞登的笑笑道：「那……那不是脱光衣服后什么都给人家看到了吗？那多难为情了。」</p>
+
+<p>小娟忍不住笑了起来，学敏给她这一笑，也跟着笑了起来。两人这一绽开笑容，本来硬梆梆的脸上此时也才稍微鬆懈下来，气氛才没有那么紧张。</p>
+
+<p>从进门到现在，学敏的心才稍为放宽一下，他得寸进尺的道：「你们这边地方，洗澡给别人看到都没有关係，别人不觉得奇怪吗？」</p>
+
+<p>小娟呶起了嘴，道：「呸！你们那边洗澡给别人看到没有关係，那才不要脸呀！」</p>
+
+<p>想不到绷起脸来的小娟仿如一个冷面皇后，但一笑起来时是那样娇媚可爱，两边的酒涡及那樱桃般小口，更是使男人想人非非。</p>
+
+<p>女人一笑百媚生，女人的笑容力量能使一个男人屈服软化的，美丽的女人哭的时候也能使男人同情的。哭时梨花带雨般的，就怕铁铮铮的男人在她面前也只怕硬不起来。</p>
+
+<p>学敏给小娟这一笑，深深的心中起了波浪，微微的震荡起来：「她真有女人味道！」</p>
+
+<p>有女人味道的女人，有时并不需要刻意去化妆打扮自己，女人韵味不知不觉中自然散发出来，给人一种美观和亲切感。他自己觉得自己对她已着迷，两眼睁睁望着她，两足巳举步维艰的困难，尤其对她的一举一动更觉得乾净俐落，觉得小娟住这个地方真是埋没她的一生。</p>
+
+<p>这时候小娟没有注意到他的表情，提了一筒水到浴室门口道：「水送来了，赶快洗吧！」</p>
+
+<p>他赶忙收摄思潮，连声道：「啊啊啊……谢谢您了！」</p>
+
+<p>学敏连忙接水进去脱光全身衣裤，此时他是清洁溜溜的，这间浴室也是简陋不堪的。那扇唯一进出的门，也是千疮百孔的，若经过门口时注意往里面一望，也一定可以看到里面一览无遗了。学敏进入后并未杷门拴上，只是随便将门掩上就算，留下了一大条缝隙，他也懒得去理。男人做事本来是粗心的，而且男人洗澡有时就算给别人看到也不会觉得怎么样的（甚至，有时是有意给别人看的，他就是故意这样吗？）。</p>
+
+<p>此时小娟忙进忙出地在準备晚餮。今天她的晚餐的菜肴是特别丰富的，不知是为了内疚或另有用意，再加上一瓶烈性的酒。但是她进进出出之际，是要经过浴室前的，她不是有心窥看他洗浴，但经过门口时总不能目不斜视。她捧了一盘抢水虾炒辣椒，有意无意斜目往浴室一看……</p>
+
+<p>乖乖！「叮咚」差点把一盘菜打掉。</p>
+
+<p>她这偶然一瞥，只见一柱擎天、七寸多长的大鸡巴，粗度有桿麵桿粗度，真把她吓了一大跳，心中如擂鼓般跳动着。女人的好奇心男人是赶不上的，尤其是对男人。</p>
+
+<p>上帝是不公平的，男人可以玩十个八个女人，甚至一百个不同的女人，只要你有胆量与钞票，是没有别人敢说你不对的；但是，女人就不同了。有些女人就是她貌美如花，可能一生一世只能玩过一个男人（她的丈夫）。从前在封建时代里，女人死了丈夫后为丈夫守活寡，那她这一辈子也享受不到别的男人，所以她午夜辗转反侧难以成眠。</p>
+
+<p>女人这种痛苦只有在封建时代有。现代的女人嘛，性方面，男人若不能使她满足，则她红杏则伸到墙外，可能延伸到千里外去，勾引或倒贴了。哎！现在是太空时代，不谈也罢。</p>
+
+<p>小娟自从丈夫出外经商，一去数月，她已数月不知肉味了。女人的生理反应及冲动，男人能在这时叫她上床，则十个女人九个肯的。小娟此时看见学敏的家伙特别粗大后，内心起了剧烈的反应，忐忑不安，尤其下面肉洞真如虫行蚁走般的难受。她还是第一次见到这样粗的家伙，若是插在自己穴肉里，那则真受用无穷了。</p>
+
+<p>她为了送菜，经过门口总要偷偷看个一次。他在里面擦着肥皂，躺在地上，面对着门口，故意把两脚张开，两手儘在紧要的地方搓、抓、套动着肉棒，更之坚硬如铁般立着，更作出一些使女人无法忍受的动作。</p>
+
+<p>男人也好，女人也好，往往会在洗浴时作出各种各样的动作，这些动作就像自渎一样。学敏现在在搓捏着自己的鸡巴，看得小娟的眼睛睁得大大的，洞内淫水已一阵阵的涌出，浑身乏力。他，再傻的人，她，来回数趟，偷偷看着自己洗浴及种种动作，不会无所觉的，何况他这还是故意给她看的。</p>
+
+<p>小娟勉强挨到饭桌坐下，故意大声喊道：「喂！你洗了半个钟头的澡，到底洗好了没有？桌上饭菜都凉了，还不快来吃，我一身泥巴也是要洗澡的！」</p>
+
+<p>他在里面以为她还在外面偷看，他还在表演着动作呢！此时经她一喊，急忙鸣金收兵，穿衣着裤出来。只见她满脸通红、娇媚欲滴、眼露春意盎然。</p>
+
+<p>此时的她妩媚极美，为了礼貌上，他不敢如此的大胆作为，他打圆场的道：「来了菜真的凉啰，今天蒙你招待，不好意思，改天我回请你好了。」</p>
+
+<p>她忙倒酒挟菜往他面前送，她三杯酒下肚，脸上更加锦上添花、春风满面、笑口常开，两边酒涡更显得特出，使得他如癡如醉的看她。</p>
+
+<p>酒能乱性，小娟在酒的催动之下内心更加难过，脑中儘是刚才看到的他雄伟的身体粗长的肉棒，她心中嘀咕着：「真他妈的，天地间真有这许巨大无比的东西？要是，要是……」一想到这里，小娟只有口水往内吞下去。</p>
+
+<p>真想不到，平时见到他时，总觉得对他十分讨厌，自从洗澡时见到他的巨无霸后，一切对他从前的看法完全改观了。原来上帝做人时，脸孔虽然丑陋不堪，但是好的蕴藏在里面有看不到的好地方呢！</p>
+
+<p>她想着想着，心怦怦在跳，胸前两颗蓓蕾慢慢发硬，肥大的乳房也突然膨胀加大起来。女人在亢奋时，各处敏地带俱起变化。这时的她，真想捉住他手来摸自己的两座乳峰，任由他狠狠去摸、去搓、去捏、去吮，甚至狠狠去咬。啊！这时想到那种欲仙欲死，充实了饥、渴，胀满了每一个的空间，每一个洞缝都填的满满的……</p>
+
+<p>这时她如癡如醉，面前也堆满了回挟的菜、肉、鸡等下酒的菜餚。她迷迷糊糊地一下警觉到，自己洞中的淫水，已从那个地方涌了出来，亵裤湿淋淋的一大片，像撒了尿似的流了出来。</p>
+
+<p>小娟，此时的她在天人交战中，女人在这种情形下，有几个能够在亢奋、幻想、道德、伦理之下，能抵抗得住如此遭遇的滋味吗？如果上帝此时能赐给她疯狂的勇气，她真想不顾一切的羞耻，扯下贞节的遮羞布，还我天体的兽性，上去抱住他，要求他给她最满足的爱，用最疯狂的手段来强姦她的男人。</p>
+
+<p>她这时的兴奋已到了无与伦比的地步了。学敏这时静静观察她的反应，只见她媚眼如丝、两颊绯红，好像一只熟透的苹果，那一份娇憨和平日的她真是不可同日而语。</p>
+
+<p>他、她二人俱已酒醉饭饱，他知道已经差不多了，鱼儿已吞下他的饵了，不怕她不上钩的。煮熟的鸭子，是不会飞跑的了。开口道：「现在酒饭菜已食得差不多了，我来帮妳收拾厨房，妳先去洗澡好吧！」</p>
+
+<p>她把头低低地点点道：「嗯，这里麻烦你啰！但是，你要老实点哦！这浴室是千疮百孔，到处都是破洞，你不能来偷看我洗澡。知道吗？」</p>
+
+<p>他诺诺连声，「噢、噢」的道：「你放心好了，快洗吧！」</p>
+
+<p>她急忙跑进厨房内，忙她洗澡的事去了。现在，经过洗澡间进进出出的是他了，借此机会浏览海棠出浴以饱眼福了。</p>
+
+<p>**********************************************************************</p>
+
+<p>小娟进了浴室后也只是把门虚掩着，不知她是无心还是故意的，没有把门拴上，留下一条缝。只要经过浴室门口，注意向里一看，就可一览无遗了。这在男有情，女有意，自然是水到渠成，现在只差是谁先主动打破这堵墙而已。</p>
+
+<p>此际浴室内的水已哗晔的响着了，他想她现在一定已经清洁溜溜，所以放轻脚步，蹑手蹑脚的到浴室边上从破洞中望着内面的一切。</p>
+
+<p>此时的她已变成白玉石膏像一般，她故意面向门口，水从高耸的酥胸乳间淋下。他只见满头秀髮披在肩上，虽然她已是有夫之妇，但胸前两对椒乳仍然像两座小山般坚挺、浑圆和结实；两粒乳尖向前挺着，小腹平坦，如一片平原般，毫无瑕疵之感觉；纤腰而下两条修长的玉腿尽处，一处鸟黑发亮的阴毛间，嫣红如火的肉缝中不知是水或是淫水，顺着大腿而流下。</p>
+
+<p>她更加搔首弄姿，仰着头掠理鬓边散髮，使胸前两座肉峰特别突出。站在外面的他，此时已呆若木鸡般站立着，胯下的鸡巴已向上勃翘成四十五度，坚硬如铁，差点没把裤档撑破一个洞而出之形态。</p>
+
+<p>她故意或无意之间，用手擦擦阴阜上一撮阴毛，挖挖下面大腿间两片阴唇，及用手指插入肉洞探探深浅之状，再举手向鼻子闻闻味道腥或香，这种撩拨男人的姿态，使任何男人都受不了。</p>
+
+<p>她如此矫揉做作的动作，可害苦了站在外面的他。本来他已慾火焚身，肉棒快把裤档撑破，但是为了顾及伦理道德及遭人非议之心，不敢採取遽然的行动，此时全部把他抛诸脑后。</p>
+
+<p>学敏此时决定要做坏事，故意在门外大声的道：「小娟，你忘记把围巾带进去，我给你送过来。」</p>
+
+<p>她「噢」应了一声后，久久没有出声了。她正在思潮起伏，脑中进行着惨烈的道德兴伦理的斗争：是不是该这样做，这样做又对不对呢？</p>
+
+<p>他这时巳冲进来，她迷迷糊糊的伸手去接他围巾。惊愕间侧转身子，她急忙用右手挡住下面阴阜的地方，而上面左手掩住两团肉峰。但是两座肉峰一只手怎能挡的住呢？只有任他尽情欣赏了。</p>
+
+<p>女人本是种怪动物，她见到他时已经数月不知肉味了，春心芳动，春水早已氾滥不知多少次了。此时面对现实，她又矫揉做作起来道：「你……怎么随便进来呢？……出去……」</p>
+
+<p>男人性冲动起来之下是无法压制下去的，这时你就是拿把刀子也赶不走他的了。何况她并非真的要赶他走，这是女人矜持的作态罢了。这时他不顾一切的一把把她搂在怀里，低下头来将厚唇印上她的香唇。</p>
+
+<p>她头左右扭动着道：「不要，不要……」最后还是无声的接着四片嘴唇。</p>
+
+<p>经过一阵吮吸后，她自动的把舌伸进他嘴里，尽情的狂吻着啧啧有声。男人敲开女人这一关后，则其他的就可随心所欲了接着学敏两手抓住她的两峰，但觉她的双峰坚挺而有弹性，乳尖尚是未经小孩吸过的样子，尚是尖尖的像两粒花生米。他这时两手握住双乳，轻揉、慢摸、小心奕奕的，就怕一不小心打破了什么宝贝似的摸搓着。</p>
+
+<p>小娟这时娇羞满面，一头扑进他的怀里，双手环抱住他道：「你还不把衣服脱掉！」</p>
+
+<p>他如奉纶音，三二下去除脱掉上下衣裤，两人此时毫无阻隔，光溜溜的身体拥抱在一起，肉与肉的接触，更能使慾焰燃烧到顶点。</p>
+
+<p>小娟这时媚眼如丝地斜目向前道：「抱我到房间里面。」</p>
+
+<p>他把她如抱小孩一样，双手捧起身体往前走，但是低下头来吮住她乳尖，时间上一点都捨不浪费掉。</p>
+
+<p>捧到前面房间内，即将她平放床上玉体横陈着。前在浴室偷看，未及此时无遮拦的欣赏。从上到下的看着，只见她该凹的地方凹，该凸的地方凸，乳尖以下一片雪白匀称；阴阜特别饱满，而似隆起半个馒头般大小；稀疏的阴毛如抹上一层油的发亮；阴阜尽端，就是削壁悬崖了，接住阴阜下端突起一粒花生米大的阴蒂，此时已发硬突出，触手时感觉得「噗噗」跳动。</p>
+
+<p>阴蒂，是女人最敏感的地带，他轻轻用手指抚摸牠，使她的身体起了轻微的颤抖，两腿左右的摆动抽搐着，口中发出：「嘤嘤、啊啊、哎哎、哼哼……」之声。</p>
+
+<p>她娇声娇气道：「轻点，不要大用力摸，『牠』会痛的。」</p>
+
+<p>扳开两条均匀大腿，现在她的人成为大字型，她此时紧闭双目，呼吸急促，上唇紧咬下唇，吐气如兰、慾火攻心，难过极矣。恨不得他马上提枪上马直捣黄龙，以解她数个月来不知「肉」味的性饑渴啊！</p>
+
+<p>小娟此时浑身乏力、媚眼微睁，随手往下一探，触到他的鸡巴一抓，乖乖！一把抓握不住，龟头尚露在外面，高高竖起握在手中，似支棒槌的粗。她吓得心慌意乱，若是肏进自己的小穴内，不叫她插穿子宫才怪呢！</p>
+
+<p>学敏此时箭在弦上，不得不发，即俯身扑上、举茅乱刺，但不得其门而入。她混身乱抖，急得如热锅上的蚂蚁，她道：「死人，不要乱闯啰！我带牠进洞好了，闯得人家怪难受的。」</p>
+
+<p>随即用手导至洞口，淫水早已湿润氾滥，一到洞口，一滑而进，一进去一半「三寸多长」。</p>
+
+<p>她这时长长的吐了一口气，内心长久以来的空虚现今已经填实了一半，她燃烧已久的春情慾火，似炸弹般爆发开来。填实一半，但尚有一半露在外面，她忙挺起屁股，肉洞口向上咬住鸡巴，怕穴内一半会溜走一样，双手抱住他的屁股用力往下压。</p>
+
+<p>他本来用的姿势是「老汉推车」，此时改用俯地挺身，上下起伏。但是两手也不闲着，双手抓住两座饱满结实的乳球，又搓、又抓、又捏，四片嘴唇也黏在一起。</p>
+
+<p>学敏整个人压在她身上，上下交战。两人能动的地方都在动着，上面舌头与舌头互相吮吸，下面则每一下尽根到底，直抵花心。</p>
+
+<p>「噗嗤」、「噗嗤」连声，如音乐似的，每一下都有节拍的演奏着。</p>
+
+<p>正是：「满园春色关不住，一枝红杏出墙来；花径不曾缘客扫，蓬门二度为君开。」</p>
+
+<p>此时他吐出舌头改吻她的鼻子、耳朵、颈子等，最终吻在乳尖上，含住乳尖用力吸吮着，如小孩吃乳似的吮着。小娟此时经过一、二百下抽插后，情慾之火已达到顶点，已被弄得上气不接下气地猛喘着，浪哼着。</p>
+
+<p>娇声的叫着：「哎啊……你真会肏……妹给你肏得要上天了……」</p>
+
+<p>但是她叫归叫，哼归哼，动作可没有停过。玉臀摇摆上迎下挺，两人配合得天衣无缝。穴内的淫水从屁股沟流下，如黄河决堤般流着，床单已被浪水浸湿了一大片。女人在这种欲仙欲死之际，哪顾得「羞耻」二字，就是天塌下来她也管不了，那怕别人听到笑话。她的淫声浪语越来越高声的叫着，浪水也越来越多，此刻自尊与矜持，一股脑儿抛到九霄云外去了。</p>
+
+<p>此时他一经抽插，更觉水有声，玉茎进出奴花官，苦味已过甜味出，今宵才始识人生。</p>
+
+<p>突然她杏眸微阖，蕩态百出，尤其肥厚的屁股拚命的摇摆着，双手紧抱他背后，愈抱愈紧，洞洞儘量的往上顶着，道：「敏哥……不要放鬆，用力……快点呀……」</p>
+
+<p>他知道她已差不多了。这时，他更加卖劲，动作亦随之加快，浅浅深深，斜抽直插，祗插得小娟牙齿咬得吱吱作晌，一股热流从子宫口喷出，可是学敏依然不停的抽插着。</p>
+
+<p>身下的小娟，娇柔无力的哼着，满头秀髮凌乱地散在枕头上，头是不停地左右摇摆，姿势非常狼狈。她已双目紧闭，汗珠已出现额际，脸如三月桃花红豔，微启樱唇、吐气如丝，一动不动的，任他摆布着。</p>
+
+<p>他是此中老手，知道女人痛快过后浪水流得太多的缘故，以致一时休克，所以必须用「阳」来救「阴」，只有继续抽插，慢慢的撩起她的慾念，才能恢复体力再战。</p>
+
+<p>女人在快感时所流出的淫水比男人精液多出数倍，她一波又一波的涌出。因女人是以逸待劳，所以不断有感觉。不比男人一洩如注后，阳具则垂头丧气，一厥不振，必须经过休息后方能重整旗鼓再战。</p>
+
+<p>二人经过了这一阵肉搏大战之后，一切藩篱尽折，无话不说。学敏问她道：「我比起你丈夫如何？」</p>
+
+<p>小娟抚着他结实的胸部，羞人答答的道：「他哪能跟你比！不过程咬金三把斧头而已。」</p>
+
+<p>他对这方面不大感兴趣，他的脑子只在生意方面打转，对我只能说应付应付罢了。女人在性慾能得到满足，她则平时不敢做的事情现在也能做，不敢说的话现在也能说得出口。她提议他每星期一、三、五一定要来她家过夜，二、四、六可自由活动，这样可以解决双方性的饥渴。</p>
+
+<p>学敏闭目沉思，「此事是否答应呢？」他在自己问自己。</p>
+
+<p>小娟见他半天不吶，以为他是不愿意，马上用出女人一套功夫，一面娇声连连，一面用手触摸男人最敏感地方。</p>
+
+<p>男人与女人，男人是船，船靠岸是不太容易；女人是岸，岸靠船是不大可能的。现在是岸靠船，学敏哪有不答应的道理。马上连声道：「好的，好的。就这么办！！」</p>
+
+
+
+本页共131段，9941个字符。文本字节数：29413 KB﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

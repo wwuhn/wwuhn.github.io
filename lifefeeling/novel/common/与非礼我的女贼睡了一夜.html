@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+
+<p>自從被那個公車上的女賊非禮過后，心中一直在不忿著，被一大堆朋友笑罵著不說，而且廣爲傳誦，成爲一時佳話，“今天你非禮了嗎？”更是成爲天天朋友們的見面必問語。</p>
+
+<p>我是一個把面子看的比性命還要重要的男人，向來認爲頭可破，血可流，面子不能丟，這次在這麽多人面前把面子當成一張廁紙擦來擦去，簡直恨不得把那個女賊象吃西紅柿一樣給生吞了而且一定不剝皮。可是到哪去找那個西紅柿呢，不得而知。</p>
+
+<p>想來想去，應該從哪兒跌倒再從哪兒爬起來，于是乎，我就決定以后天天坐公交，而且果斷不帶錢包，身上只裝幾個大洋，我讓你偷，再讓我碰上，我就非禮你，讓你偷雞不成反蝕一把米，占了光還可以正大光明，多好！我想著想著偷笑了起來，連口水都在嘴角蕩著快樂的秋千。</p>
+
+<p>于是公車是坐了一輛又一輛，硬幣是投了一次又一次，司機是換了一批又一批，女人是見了一個又一個，卻始終見不到我想見的人！你在哪里呢？</p>
+
+<p>塞翁失馬，焉知禍福。在我正心灰意冷的時候，我朝思慕想許久的那個網友來找我了，千里迢迢的奔來，住了一個晚上，又迢迢的別離了，雖然只是一天，卻也讓我無限感慨這世界的美好和網絡的神奇，連女賊偷東西都感覺那麽有創意！</p>
+
+<p>洋洋的漫了幾個日子，懶散了起來，天，卻整個漏了。不停的往下澆著，象一個積怨已久的婦人遇上了生命的第二春一樣，想把以前的委屈傾盆的排泄！可憐了我們這些只有兩條腿的生物只能在街上匆匆著。</p>
+
+<p>已是傍晚。天蒙蒙的黑。我踱在路上，在走過那段鐵路時，隱約中好象有人在爭吵著，好事的劣根性蹦了出來，偷偷的向聲音靠攏。</p>
+
+<p>近了一些，是一男一女在那里徘徊，是個家屬院的門口，都沒有打傘，在雨里晾著。幽暗中看不清面龐，男的個子不高，略些發福，女的倒是凹凸有致，雨水一澆，甚爲養眼。</p>
+
+<p>“你這個臭*子，幾天了，你一分錢都沒給我交，說，是不是在外面養了小白臉了？”男人的聲音撕破了黑夜，準確無誤的傳了過來，“沒有，我沒有，這兩天收成不好，明天我一定給您交，一定一定！”只是這纖弱的哀語就讓人心疼。</p>
+
+<p>“啪”，一個巴掌實實的落在了女人的臉上，“饒了你這一回，記住，明天這個時候，自覺一點，要是再沒有，可別怪我翻臉不認人，哼！”說完就扭頭沖著我這邊來了，我急忙裝作回家的樣子，往院里走去，和他擦肩而過。</p>
+
+<p>靜靜的回頭一瞥，剛看見那男子匆匆的打車而去，還沒有回頭，只聽這邊輕輕的哎了一聲，緊接著撲通響了一下，急忙扭頭，卻發現那女子已栽倒在地上，我慌忙奔了過去，想把她扶起來，她卻已經不省人事，無奈，我只好將她攔腰抱起，輕輕地放到了樓道口的台階上，讓她靠在我的臂彎里。</p>
+
+<p>這時才有機會仔細端詳女人，黑色的連衣裙已經全部濕透而且汙漬片片，纖細的腰身，豐滿的胸部，柳葉眉，櫻桃口，蒼白的臉蛋沒有一絲血色。</p>
+
+<p>怎麽有點面熟？</p>
+
+<p>我的胳膊差點松開，把她丟到地上。</p>
+
+<p>天，非禮的我的女賊！</p>
+
+<p>可能是我動了一下的緣故吧，她彎彎的睫毛眨動了兩下，緩緩地露出了水汪汪的眼睛，乍一睜開，就滿是驚異，“你是誰？你想干什麽？”努力地嘗試將我推開，卻沒有一絲力氣，我剛扶著她沿著牆根站了起來，就被她極其厭惡的打掉了我的手。</p>
+
+<p>“你剛才摔倒了，我把你扶了起來……”</p>
+
+<p>“不要你管！”竭底撕里的叫喊。</p>
+
+<p>“好，好，好，我不管，那請你把我的錢包還給我。”看著那副可憐，我也不忍心再去懲罰她什麽了，只是身份證是必須要的。</p>
+
+<p>“我，我什麽時候……拿你的錢包了？”沒有底氣的回答還在躲躲閃閃。</p>
+
+<p>“１０路車上，５月３０日。”我一點也不讓步。</p>
+
+<p>“５月３０日？我沒……”話還沒說完，人已經栽倒過來，我躲閃不及，只能用胸膛去頂住她，卻感覺到一片柔軟和彈力！</p>
+
+<p>又來這套！我急忙又摸了摸屁兜，只有兩個嘣子，愛拿拿去，我心中暗笑著，一手把她摟在懷中，光嘛，不沾白不沾，過了這村可就沒這店了！</p>
+
+<p>一邊逐漸加著手上的力道，感覺青春的動感，摩擦的刺激，一邊低下頭來向領口看去，乖乖，果然很有本錢，淡粉色的半罩杯根本掩蓋不住什麽，兩團嫩白嫩白的肉團讓我眼暈！</p>
+
+<p>“麻煩你，扶我上樓，好嗎？”低弱的聲音也只有我可以聽的到，上樓？進房間？求之不得呢？讓你偷我的錢，我還要偷你的人呢！</p>
+
+<p>很黑的樓道，恍惚還可以看到牆上的白皮還在脫落中，在高跟鞋的清脆伴奏下，到了三樓的西戶，聽著鑰匙扭動的聲音，心中憂如幾只老鼠在亂竄，有些癢，還有些慌，會怎樣呢？</p>
+
+<p>終于邁進了那道門，身后傳來輕輕上鎖的聲音，我隨著昏昏的燈光打量著這屋子，一居室，灰色的牆壁，淩亂的帖著些過氣明星的海報，一張大床，載滿了女人的內衣內褲，床頭櫃煙灰缸里的煙屁股和避孕套搶占著地盤，地上還躺著Ｎ雙各樣的鞋子用厚厚的灰蓋著，旁邊還縮著比Ｎ還要多的衛生紙團。</p>
+
+<p>有一種想吐的沖動！這是人住的地方嗎？是女人住的地方嗎？</p>
+
+<p>她邁到床邊，三下五除二的把那些衣褲甩到床下，麻利的讓我吃驚，連聲坐也不說，就開始伸手去拉身后連衣裙的拉鏈，在我還在目瞪口呆的功夫，身上已經 只剩下兩件包著要害的布條，“你，你，你要干什麽？”我的喉嚨有些發不出聲的感覺，盡管剛才設想了無數種可能，卻還是出乎我的意料。這女子的主動讓我措手無策，不由的咽了咽嘴里的東西。</p>
+
+<p>她還在繼續的脫著，竟嚇的我不敢睜眼去看，眨眼的時間吧，感覺到什麽東西砸到了我臉上，微微的眯出一條縫，原來是她的內衣，“我去洗澡了。”聽到這句時，忙打開眼睛，卻只瞥到了一個肉色的背影，逝去。</p>
+
+<p>我輕坐在床邊上，點上一枝煙，想來掩飾自己此刻的慌。馬列主義的精髓在此刻已在南天門，腦中想的只有我們魯迅先生說過的拿來主義，該用就用吧，既來之，則安之嘛！</p>
+
+<p>洗手間傳來的是嘩嘩的水的聲音，讓人很輕易浮想，幾天前的晚上和我第一次見面的寶貝也是如此，我們在賓館，她也在洗澡，然后讓我給她送毛巾，卻還沒等我進門，那雙保養極好的手就挂在了我的頸上，門縫里夾住的是長長的一段呻吟和喘息，接下來就是長時間的靜寂，此時無聲勝有聲就是那刻真實的寫照。</p>
+
+<p>正沈醉著，門咯吱一聲，一條印著小熊圖案的浴巾裹著女人來到了床前，浴巾不大，只能勉強的遮羞，正是這種若隱若現，猶抱琵琶半遮面的感覺最迷人，盡管我不想表現的太好色，但身體的變化已經泄露了一切。</p>
+
+<p>她竟有些微微的臉紅，一聲不作的從我身邊上了床，徑直的鑽進了毯子里，在扔出浴巾后，把眼睛一閉，大有任君采啄的陣勢。</p>
+
+<p>我越發的沖動起來，因爲我的寶貝也是如此的羞澀，把自己裹的好象個粽子般，當我的舌頭靈巧地滑過她的玉頸，濕潤著她的淑胸，輕咬著她的耳垂，細吻著她的鎖骨，一雙賊手沿她全身遊走時，她的呻吟如同蟻鳴，只是用她那白皙削薄的手緊緊的摟著我的脖子。</p>
+
+<p>想到這里，受不了了，終于我一個前撲，老鷹抓小雞般壓在那個女人身上，雖然有一層毯子，仍然可以感覺到她侗體的溫度，當我正欲提槍上馬時，腦子里忽然迸發一念，我這樣和強奸，嫖妓，勒索又有什麽區別呢，我這不真成了只用下半身思考的禽獸了嗎，雖然不打算爲自己立什麽牌坊，但這的確違反了我做人的一貫原則，不行！</p>
+
+<p>盤算中時下半身已不再沖動了，我一狠心，索性躺到了女人的身邊，再點一煙，悠悠的吐著圈兒。女人感覺到了異樣，睜眼看我，眼神里先是困惑，再者就是感激，我的心靈被她的眼神淨化了，刹那間覺得自己俨然一副偉人的模樣！</p>
+
+<p>時間在靜靜的走著，當我所有的煙已經被吞吐完的時候，女人正抱著我的胳膊，枕著我的肩膀夢著，我象邱少云一樣紋絲不動，生怕驚醒了南柯，我微微的低低頭，想看看她熟睡的模樣，卻腦部急速充血，全身該膨脹的都膨脹了，原來毯子向下滑動了不少，春光乍泄了許多！</p>
+
+<p>寶貝也是這樣不挂一絲的在我懷中的，那天在一浪接著一浪，綿延起伏之后，我壞壞的用手指拂著她的小肚子，回味著剛才的感覺，什麽飄飄欲仙、勾魂攝魄、欲仙欲死、欲罷不能，這些詞彙都不足以來形容那種漂亮，那好象是一把無形的鑰匙打開了欲望的寶藏之門，只是鑰匙的轉動就會讓人流連；又好象高山湖邊的波浪，不僅甯靜美妙，而且布滿了色彩和斑斓，在湖里歡快的遊著，完全沒有一絲的痛苦和不適。那種默契不知用了幾生幾世才能培養，那種震撼不知需要幾生幾世才能遇見！</p>
+
+<p>什麽做人原則，什麽禽獸，這時在我腦中已沒有了影蹤，熱血沸騰中的人哪還想的了什麽，只是純粹的欲望而已。</p>
+
+<p>然而當我翻過身來時，卻看到了兩行淚，涓涓的流，夢到了什麽，會如此傷心？</p>
+
+<p>男人的欲火總是來的快也去的快，我安慰自己，她也夠苦了，也有太多的不得已，我又怎麽能夠雪上加霜呢？算了吧！</p>
+
+<p>就這樣，我帶著些許的郁悶睡著了，臨睡前又檢查了一下自己的物品，把唯一值錢的手機緊緊攥在手中，吃一塹，長一智，防人之心不可無啊！</p>
+
+<p>不知過了多久，手機上的鬧鍾不失時機地提醒我它沒有丟，我揉了揉眼睛，６月的陽光已經灑在我的臉上，扭扭頭，女人不在，我伸了伸懶腰，爬了起來，哎，小偷也挺辛勞，這麽早就上班了，不輕易啊！</p>
+
+<p>這時，門鈴丁冬響起，難道她良心發現，給我買早點去了？我的虛榮極度膨脹！</p>
+
+<p>開門，失望，一四十多歲男人。</p>
+
+<p>“干嘛？這麽早敲門啊？”不耐煩的口氣問著。</p>
+
+<p>“還問干嗎？拖了２０天了，房租也不交，你老婆不是說了今天最后一天，一定給的，怕白天找不到你們，這不，我還不想起來呢！”男人嘟哝著。</p>
+
+<p>“房租，老婆，什麽老婆？”我迷糊著，忽然明白了，好象三九天被暴雨灌了兩次一樣的涼，“幾個月的房租啊？”我顫顫驚驚地問，連聲音都在發抖。</p>
+
+<p>“裝什麽糊塗，半年的，一共１８００塊！”</p>
+
+<p>ＭＭＤ，又被那個女賊騙了一把！</p>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+[\u4e00-\u9fa5]
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换年不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

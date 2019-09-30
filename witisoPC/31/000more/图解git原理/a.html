@@ -1,0 +1,602 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图解git原理</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+  <p align="left"><strong>图解git原理 </strong></p>
+
+<p>cpp软件架构狮&nbsp;2018-10-08 20:45:19</p>
+
+<p><strong>目录</strong> </p>
+  <ol>
+    <li>1.提交 代码到远程仓库 </li>
+    <li>2.将远程仓库代码更新到本地 </li>
+    <li>3.更新到本地仓库时， 出现冲突，解决冲突 </li>
+    <li>后记： </li>
+  </ol>
+  <p align="left"><strong>正文</strong></p>
+
+<p><img width="640" height="480" src="a_clip_image001.jpg" alt="图解git原理" /></p>
+
+<p>本文背景，在实际项目中使用git已有一年，发现不少同事虽然会使用常用git指令，但并不理解每个指令对应的作用原理。今天静下心总结下git 的基本理解：代码的存在区域；本文以实际项目出发，理清使用git过程中，代码的迁徙流程。</p>
+
+<p>git跟传统的代码管理器（如:svn）不同， 主要区别在于git多了个<strong>本地仓库</strong>以及<strong>缓存区</strong>，所以即使无法联网也一样能提交代码。术语解释：</p>
+
+<p><strong>工作区间:&nbsp;</strong>即我们创建的工程文件， 在编辑器可直观显示；</p>
+
+<p><strong>缓存区:&nbsp;</strong>只能通过git GUI或git shell 窗口显示，提交代码、解决冲突的中转站；</p>
+
+<p><strong>本地仓库:&nbsp;</strong>只能在git shell 窗口显示，连接本地代码跟远程代码的枢纽，不能联网时本地代码可先提交至该处；</p>
+
+<p><strong>远程仓库:&nbsp;</strong>即保存我们代码的服务器，本文以公共版本控制系统：<strong>github</strong>为例，登录github账号后可直观显示；</p>
+
+<p>接下来， 我们以三个实际操作的例子讲解git的日常，代码如何在上述4个区域流动。</p>
+
+<p>回到顶部</p>
+
+<p><strong>1.</strong><strong>提交 代码到远程仓库</strong></p>
+
+<p>首先在本地工作区间创建一个新工程：testGit，然后在项目里新建一个README.md， 工作区间的工程如下：</p>
+
+<p><img width="640" height="444" src="a_clip_image002.jpg" alt="图解git原理" /></p>
+
+<p>远程仓库创建一新工程，具体操作参见 如何在window上把你的项目提交到github</p>
+
+<p><img width="640" height="306" src="a_clip_image003.jpg" alt="图解git原理" /></p>
+
+<p>将该新建的工程提交至远程仓库，关键的git 指令如下： </p>
+  <div></p>
+
+<p>git init</p>
+
+<p>git add README.md</p>
+
+<p>git commit -m &quot;首次提交代码&quot;</p>
+
+<p>git remote add origin https://github.com/wteam-xq/testGit.git</p>
+
+<p>git push -u origin master </div>
+  <p align="left"><strong>指令解释：</strong></p>
+
+<p>`git init ` 表示在当前的项目目录中生成本地的git管理；</p>
+
+<p>`git add README.md` 将“README.md”文件保存至<strong>缓存区</strong>，实际开发中一般使用 `git add -A`，使用-A:将新增、删除、修改的文件改动全保存至缓存区；</p>
+
+<p>`git commit -m &quot;first commit&quot;`  将代码从<strong>缓存区</strong>保存至<strong>本地仓库</strong>，实际开发中一般使用`git commit -am &quot;说明的文字&quot;`，使用 -a：如果没文件更改操作（增、删、改名）就可以省略git add指令；</p>
+
+<p>`git remote add origin  https://github.com/wteam-xq/testGit.git`将<strong>本地仓库</strong>与指定的<strong>远程仓库</strong>创建 联系；</p>
+
+<p>`push -u origin master` 将<strong>本地仓库</strong>代码推送至<strong>远程仓库</strong>，实际开发中 该指令后需要输入github 账号以及密码。（首次提交注意别遗漏`-u`指定默认主机）</p>
+
+<p>以上指令正常执行后， 本地仓库的代码就提交到远程仓库了：</p>
+
+<p><img width="640" height="338" src="a_clip_image004.jpg" alt="图解git原理" /></p>
+
+<p><strong>原理图如下：</strong></p>
+
+<p><img width="640" height="480" src="a_clip_image005.jpg" alt="图解git原理" /></p>
+
+<p>回到顶部</p>
+
+<p><strong>2.</strong><strong>将远程仓库代码更新到本地</strong></p>
+
+<p>首先我们新建一文件夹：copyTestGit，进入该文件夹后使用git 指令： </p>
+  <div></p>
+
+<p>git clone https://github.com/wteam-xq/testGit </div>
+  <p align="left">指令执行完毕后， 就在该文件夹下生成一份副本啦（相当于多人协作时另一台设备上的工程文件），<strong>原理图如下：</strong></p>
+
+<p><img width="640" height="480" src="a_clip_image006.jpg" alt="图解git原理" /></p>
+
+<p>接下来， 讨论`git pull`、 `git fetch` 、 `git merge`的关系</p>
+
+<p>先抛简单结论:</p>
+  <div></p>
+
+<p>git pull</p>
+
+<p>#等同于下面命令</p>
+
+<p>git fetch</p>
+
+<p>git merge </div>
+  <p align="left">实际项目：我们在testGit工程中修改README.md,然后更新、提交下代码 执行以下git 指令(日常使用中会用`git status`看看是否有文件需要`git add`)： </p>
+  <div></p>
+
+<p>git commit -am 'update readme.md'</p>
+
+<p>git push origin master </div>
+  <p align="left"><strong>原理图如下：</strong></p>
+
+<p><img width="640" height="372" src="a_clip_image007.jpg" alt="图解git原理" /></p>
+
+<p>远程仓库代码更新后， 我们进入<strong>另一本地仓库：</strong>copyTestGit estGit，将远程仓库的代码更新至该本地仓库。</p>
+
+<p>在该目录下输入以下git指令： </p>
+  <div></p>
+
+<p>git fetch</p>
+
+<p>git merge origin/master </div>
+  <p align="left">日常使用图方便一般都是直接： </p>
+  <div></p>
+
+<p>git pull </div>
+  <p align="left">以上指令的详细探讨请看 少用pull,多用fetch 和 merge</p>
+
+<p>（<strong>注意:&nbsp;</strong>本文注重git工作原理图不考虑多分支情况，且使用了git clone所以副本工程已经跟主分支建立了追踪关系，所以'pull'  'fetch' 后都不接分支代码 ）</p>
+
+<p><strong>以上指令区别的原理图：</strong></p>
+
+<p><img width="640" height="480" src="a_clip_image008.jpg" alt="图解git原理" /></p>
+
+<p>回到顶部</p>
+
+<p><strong>3.</strong><strong>更新到本地仓库时， 出现冲突，解决冲突</strong></p>
+
+<p>首先， 我们先重现下出现冲突的情况； 在testGit目录下先修改README.md文件第三行，hello word 修正为 hello world：</p>
+
+<p><img width="640" height="384" src="a_clip_image009.jpg" alt="图解git原理" /></p>
+
+<p>提交该修改到远程仓库（提交细节参照前述步骤）：</p>
+
+<p><img width="640" height="366" src="a_clip_image010.jpg" alt="图解git原理" /></p>
+
+<p>然后， 在副本工程copyTestGit/testGit 目录下也修改README.md文件第三行，hello word 修正为 hello world2：</p>
+
+<p><img width="632" height="406" src="a_clip_image011.jpg" alt="图解git原理" /></p>
+
+<p>现在副本工程修改完了代码打算提交，提交前先将<strong>远程仓库</strong>最新代码更新至<strong>本地仓库</strong>, 惯例使用指令:</p>
+  <div></p>
+
+<p>git pull </div>
+  <p align="left">指令执行之后会发现以下冲突提示：</p>
+
+<p><img width="640" height="370" src="a_clip_image012.jpg" alt="图解git原理" /></p>
+
+<p>出现以上提示， 说明本次更新代码失败；主要在于本地<strong>工作区间</strong>跟<strong>远程仓库</strong>的新代码冲突了，&nbsp;<strong>图解如下：</strong></p>
+
+<p><img width="640" height="480" src="a_clip_image013.jpg" alt="图解git原理" /></p>
+
+<p>接下来，有两种方式处理冲突:&nbsp;<strong>放弃本地修改</strong>或&nbsp;<strong>解决冲突后提交本地修改</strong></p>
+
+<p>3.1 放弃本地修改</p>
+
+<p>放弃本地修改意味着将<strong>远程仓库</strong>的代码完全覆盖<strong>本地仓库</strong>以及本地<strong>工作区间</strong>， 如果对git的指令不熟悉那大可以将本地工程完全删除，然后再重新拷贝一次（`git clone`）。</p>
+
+<p>当然， git如此强大没必要用这么原始的方法，可以让<strong>本地仓库</strong>代码覆盖本地修改，然后更新<strong>远程仓库</strong>代码；</p>
+
+<p><strong>本地仓库</strong>代码完全覆盖本地<strong>工作区间</strong>，具体指令如下： </p>
+  <div></p>
+
+<p>git checkout head . </div>
+  <p align="left">(注意： 别遗漏&nbsp;<strong>&quot;head&quot;&nbsp;</strong>后的<strong>&nbsp;&quot;  .&quot;&nbsp;</strong>)</p>
+
+<p>然后更新<strong>远程仓库</strong>的代码就不会出现冲突了:</p>
+  <div></p>
+
+<p>git pull </div>
+  <p align="left"><strong>原理图如下：</strong></p>
+
+<p><img width="640" height="480" src="a_clip_image014.jpg" alt="图解git原理" /></p>
+
+<p><strong>3.2 </strong><strong>解决冲突后提交本地修改</strong></p>
+
+<p>覆盖本地代码解决冲突方法适合不太懂git的菜鸟， 像我这种git老鸟（其实并不是(￢_￢)）当然用更高级的git指令解决冲突。</p>
+
+<p>细心的同学或许已发现，<strong>缓存区&nbsp;</strong>除了开始出现外，后续提交代码、更新代码篇章都在打酱油；终于，这次冲突解决事件， 它将会是主角!</p>
+
+<p><strong>解决冲突后提交本地修改</strong>的思路大概如下：</p>
+
+<p>将本地修改的代码放在<strong>缓存区</strong>， 然后从<strong>远程仓库</strong>拉取最新代码，拉取成功后再从<strong>缓存区</strong>将修改的代码取出， 这样最新代码跟本地修改的代码就会混杂在一起， 手工解决冲突后， 提交解决冲突后的代码。</p>
+
+<p><strong>原理图：</strong></p>
+
+<p><img width="640" height="480" src="a_clip_image015.jpg" alt="图解git原理" /></p>
+
+<p><img width="640" height="480" src="a_clip_image016.jpg" alt="图解git原理" /></p>
+
+<p>对应到我们实际项目中， 进入 copyTestGit/testGit 执行指令`git pull`出现 (重回到上述冲突场景)</p>
+  <div></p>
+
+<p>error: Your local changes to the following files would be overwritten by  merge:</p>
+
+<p>README.md</p>
+
+<p>Please, commit your changes or stash them before you can merge.</p>
+
+<p>Aborting </div>
+  <p align="left">将本地修改放入<strong>缓存区</strong>(成功后本地<strong>工作区间</strong>的代码跟<strong>本地仓库</strong>代码会同步)， 具体指令： </p>
+  <div></p>
+
+<p>git stash </div>
+  <p align="left">从<strong>远程仓库</strong>获取最新代码，具体指令： </p>
+  <div></p>
+
+<p>git pull </div>
+  <p align="left">然后， 取出本地修改的代码， 具体指令:</p>
+  <div></p>
+
+<p>git stash pop </div>
+  <p align="left">然后， git 自动合并冲突失败， 冲突的代码就很清晰的展现在我们面前了：</p>
+
+<p><img width="640" height="370" src="a_clip_image017.jpg" alt="图解git原理" /></p>
+
+<p><img width="640" height="358" src="a_clip_image018.jpg" alt="图解git原理" /></p>
+
+<p>（小广告：3.2栏更多细节请移步本人另一博文git 代码冲突处理）</p>
+
+<p>手工解决冲突：</p>
+
+<p><img width="640" height="387" src="a_clip_image019.jpg" alt="图解git原理" /></p>
+
+<p>告诉git， 这个文件（README.md）的冲突  已经解决:</p>
+  <div></p>
+
+<p>git add README.md </div>
+  <p align="left">提交代码（细节参考前述流程）： </p>
+  <div></p>
+
+<p>git commit -am '终于解决冲突啦！'</p>
+
+<p>git push origin master </div>
+  <p align="left">于是本地有冲突的代码就提交成功啦！</p>
+
+<p><img width="640" height="362" src="a_clip_image020.jpg" alt="图解git原理" /></p>
+
+<p>回到顶部</p>
+
+<p><strong>后记：</strong></p>
+
+<p>以上很多git指令适合在无图形化界面的linux中使用（例如：阿里云服务器操作git）， 实际开发中当然是用<strong>图形化界面</strong>解决!</p>
+
+<p><img width="640" height="419" src="a_clip_image021.jpg" alt="图解git原理" /></p>
+
+<p>解决冲突之<strong>覆盖本地代码</strong>对应的是： 工程目录下tortoiseGit(git 小乌龟) “Revert” ：</p>
+
+<p><img width="640" height="546" src="a_clip_image022.jpg" alt="图解git原理" /></p>
+
+<p>解决冲突之<strong>解决冲突后提交本地修改</strong>对应的是： 手工合并冲突代码后，工程目录下tortoiseGit(git 小乌龟) “resolve” ：</p>
+
+<p><img width="598" height="490" src="a_clip_image023.jpg" alt="图解git原理" /> </p>
+  <div></p>
+
+<p>来源：https://www.cnblogs.com/cb0327/p/5066685.html</p>
+
+<p>作者：灰太郎^_^ </div>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

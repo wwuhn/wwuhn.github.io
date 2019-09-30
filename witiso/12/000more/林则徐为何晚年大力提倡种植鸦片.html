@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>林则徐为何晚年大力提倡种植鸦片</h3>
+
+<p>
+</p>
+
+<p>林则徐以虎门销烟和“开眼看世界”而名垂青史，在中国能够称得上民族英雄的没有几个人，林则徐算一个。
+</p>
+
+<p>了解中国近代史，林则徐是一个无法绕过去的一个人物。
+</p>
+
+<p>虎门销烟是林则徐人生的巅峰之作，人们一直将其当作禁烟的英雄，然而，这并不是完整的林则徐，除了虎门销烟和鸦片战争，我们对林则徐还是应该有着更深层次的了解。
+</p>
+
+<p>本文将为您刨根问底，鸦片战争到底是怎么一回事，林则徐到底是如何禁烟，晚年为何又提倡种植鸦片等等这一系列别人不敢深入研究的问题。
+</p>
+
+<p>鸦烟流毒，为中国三千年未有之祸？
+</p>
+
+<p>鸦片就是大烟，吸食鸦片最大的害处就是对人的身心健康有着巨大的伤害，最要命的是这玩意上瘾，一旦吸食就不能断绝，可谓杀人于无形当中。
+</p>
+
+<p>最开始的时候，鸦片流行于达官显贵阶层，后来逐渐流行开来，高额的成本使得吸食鸦片的老百姓家破人亡，使得青壮年失去劳动力，影响坏的很。
+</p>
+
+<p>针对鸦片的危害，主张禁烟的大臣都说鸦烟流毒，为中国三千年未有之祸！
+</p>
+
+<p>实际上，从有了鸦片开始，清政府就实行严格的控制措施，不让其进入中国，在整个清朝时期对鸦片都是零容忍的姿态。
+</p>
+
+<p>然而，走私鸦片对于清政府官员和商人都有利可图，清政府中后期吏治腐败，朝纲松弛，各级官员开始纵容鸦片贸易然后从中赚去巨额差价。正因为如此，鸦片走私规模越来越大。
+</p>
+
+<p>不知道一箱鸦片数量是多少，反正从1821 年走私鸦片的数量由四千多箱到1838 年已经增至四万多箱，短短17 年竟然翻了20 倍，鸦片走私的严重性逐渐凸显出来。
+</p>
+
+<p>与鸦片流入中国形成相关关系的是，早年间流入的白银大量外溢，在没有纸质货币的情况下，银本位制度下的清朝经济陷入恐慌，货币减少必然导致物价上涨，进而引发通货膨胀。
+</p>
+
+<p>对于清政府来说，走私鸦片的危害已经影响到国家的根基了。
+</p>
+
+<p>鸦片战争是英国完成工业革命后打开中国市场的必然之路
+</p>
+
+<p>对于英国人来说，没有比鸦片更能打开中国外贸市场的商品了，对，他们认为鸦片就是一种商品！
+</p>
+
+<p>毕竟在清朝人采用吸食这种方法前，欧洲人可能还不会玩，英国人对于鸦片的定义就是从印度种植，卖到清朝打开清朝市场的一个利器。
+</p>
+
+<p>实际上，为了敲开中国市场的大门，英国人早就做过诸多尝试，1793 年英国曾派遣使者到清朝请求乾隆皇帝打开中国市场，被乾隆皇帝的拒绝；1816 年英国再次派遣使者到清朝，要求中外进行贸易，又遭到了嘉庆皇帝的拒绝，两番拒绝，彻底使英国放弃和平打开中国市场的努力。
+</p>
+
+<p>尤其是1815 年，英国主导下的反法联盟彻底击败拿破仑，使得英国取得了欧洲霸主地位，有了精力把事业的重点放到对付清朝上。
+</p>
+
+<p>据说1816 年从中国黯然离开的英国商团代表在回国的时候碰到了拿破仑，阿美士德就已经提出要用武力来打开中国市场。于是就有了拿破仑的那句“中国是一头雄狮”“一旦被惊醒，世界会为之震动。”
+</p>
+
+<p>针对中英之战，拿破仑的说法是，开始的时候英国会取得胜利，但是如果中国人会建造船只、打造火炮，在法国和美国的支持下，一定会把英国打败。
+</p>
+
+<p>事实证明，拿破仑的说法是错误的，当时的中国对世界根本就不了解，也联系不到法国和美国。
+</p>
+
+<p>1840 年的时候，英国已经率先完成了工业革命，因此迫切需要打开中国市场。
+</p>
+
+<p>面对即将而来的鸦片战争，清朝的统治者还沉浸在天朝上国的美梦中。
+</p>
+
+<p>如何处理鸦片走私，这的确是一个问题
+</p>
+
+<p>对于鸦片的危害性，道光皇帝是深有感触的，眼看自己的臣民逐渐消沉，自己的钱袋子逐渐发瘪，不做点什么事情是不行的。
+</p>
+
+<p>到1839 的时候，朝廷上的官员已经意识到，鸦片走私是一定要制止的，只不过如何处理是一个问题。
+</p>
+
+<p>很大一部分官员对禁烟是极为抵触的，典型代表就是广东官员，这些官员在鸦片走私中获得了巨大的收益，也清楚禁烟的难处，一旦鸦片贸易被终止，就相当于砸了他们的饭碗。
+</p>
+
+<p>当时清政府对关税并没有深刻的概念，当初定的关税只有2 %，然而经过广东政府的层层扒皮，最终关税达到20 %左右，英商不害怕政府的2 %，但是对各级官员的层层吃拿卡要是震惊的。
+</p>
+
+<p>朝廷主张禁烟的人中，也有一部分人认为禁烟就像治理河水一样，堵不如疏，他们认为与其禁止鸦片得罪商人，还不如在国内种植鸦片，这样做的好处，从源头上就防止了西方鸦片进入中国市场，在防止白银外流的同时，既能提高国家收入，还可以降低吸食鸦片者的成本。
+</p>
+
+<p>当然，无论是广东官员，还是认为应该种植鸦片的人，他们都不敢公开表述，在当时的清朝朝廷之上，流行的是清流，脑袋砍破了也不能说疼。
+</p>
+
+<p>对于鸦片是坚决要禁的，然而这波人之间还是有两种声音，一种是认为，从老百姓的口上禁，不让老百姓吸食的话，洋人的鸦片也就不会输入了，颇有一种我切断了“需求”，让你无法“供给”；还有一种声音认为，不让老百姓吸食显然是不能完全禁止的，还是从源头上禁止，直接跟英国商人摊派，切断鸦片走私，没有了“供给”，才算是彻底禁烟。
+</p>
+
+<p>总之，围绕该不该禁烟，如何去禁烟，朝堂之上早就炒得不可开交，当然，主流的方向还是如何去治理。
+</p>
+
+<p>清朝官员那么多，为什么派林则徐前去禁烟？
+</p>
+
+<p>尽管朝堂之上争吵不断，但是让谁去主持禁烟，却成为一个问题，满朝的官员不论是哪一个都清楚，禁烟是一个得罪人的活，不愿意去做，为什么道光皇帝会派林则徐去呢？
+</p>
+
+<p>首先，鉴于广东的情况，广东籍官员禁烟是不可能的了，据说当时两广总督邓廷桢的儿子就是大毒枭，到广东禁烟必然是空降干部，地方官员中能够有资格调到两广去压两广总督的，无非也就是直隶总督和两江总督，林则徐的湖广总督身份还不一定比两广总督好使。
+</p>
+
+<p>因此，道光皇帝给林则徐的任命是钦差大臣！
+</p>
+
+<p>其次，林则徐在湖广总督任上干的就是禁烟的活，林则徐的禁烟思想就是两手都要抓，两手都要硬，既不让老百姓吸食，也不让洋人走私，双管齐下，方能立竿见影。
+</p>
+
+<p>针对长江流域的鸦片走私，林则徐雷厉风行取得了很好的效果，而林则徐之前也在两江任职，可以说对洋人还是有一定了解的。
+</p>
+
+<p>派林则徐去很合适！
+</p>
+
+<p>最后，林则徐十分想替道光皇帝分担忧愁，在道光十八年(1838 年)五月起，林则徐连上《筹议严禁鸦片章程折(附戒烟方)》、《密陈重治吸食鸦片、提高茶叶大黄等出口价格片》、《楚省查拿烟贩、收缴烟具情形折》等奏折，极力主张禁烟。
+</p>
+
+<p>其对禁烟的主张与见解和道光帝的想法一致，深得道光帝的器重。
+</p>
+
+<p>正因为如此，道光十八年九月，道光命湖广总督林则徐到京觐见，随后被任命为钦差大臣，前往广东查办鸦片情况，任命林则徐到广东主持禁烟是众望所归，早就板上钉钉的事情。
+</p>
+
+<p>林则徐到达广东之前，对于广东的鸦片走私情况已经调查的很清楚了，因此要英国鸦片商人交出鸦片，全部没收。
+</p>
+
+<p>当时英国商人代表多次请求跟林则徐谈判，以为林则徐无非是想多要一点卡要，给他就是了，然而林则徐根本不管你三七二十一，将二十二船的鸦片全部收缴，本来想运到北京去销毁，后来一合计光运费就要耗资十多万两就采取就地销毁的策略。
+</p>
+
+<p>按照道光的意思，不但要销毁，还要整出滇动静，在给林则徐和邓廷桢的上谕中就表示：“督率文武员弃，公同查核，目击销毁，稗沿海居民及在粤夷人，共见共闻。”
+</p>
+
+<p>针对鸦片的销毁办法，林则徐早在湖广禁烟时用的是焚化法，就是用火烧，但是这种方法有一个缺点就是焚后“必有残膏余沥渗入地中，积惯煞煎之人，竟能掘地取土，十得二，三，是流毒仍难尽绝”
+</p>
+
+<p>面对这么多的鸦片，林则徐曾经想过用石灰和盐卤一起煮鸦片，但是工程太好打，太费劲，最后创造出一个浸化法，就是挖一个大池子，然后把鸦片和盐、石灰一起泡，最终将鸦片销毁。
+</p>
+
+<p>在20 多天的虎门销烟中，林则徐一共销毁将近两万箱鸦片。
+</p>
+
+<p>当时英国的鸦片商人十分震惊，要知道这些鸦片都是他们辛辛苦苦从印度运过来的，林则徐此举一下子将他们干的血本无归。
+</p>
+
+<p>随后就爆发了中英鸦片战争，清政府前面禁烟爽完后，被英国人一顿胖揍！
+</p>
+
+<p>其实，鸦片战争从来就不是简单的鸦片战争，而是一场关系到中西贸易的经济战。
+</p>
+
+<p>清政府在两次鸦片战争中的惨败，最终将鸦片贸易合法化。
+</p>
+
+<p>鸦片战争是失败的，然而虎门销烟是成功的，林则徐依然清廷的清流看作是比较有骨气的人，尤其是林则徐镇守广州期间，英国舰队北上之举被看作是英国人害怕林则徐，不敢与之正面交锋。
+</p>
+
+<p>然而以禁烟成名的林则徐晚年却大力提倡种植鸦片。
+</p>
+
+<p>至于为何会有这种改变，或许看看林则徐晚年给朋友的信就可以得出一二：
+</p>
+
+<p>“鄙意亦以内地栽种罂粟于事无妨。所恨者内地之嗜洋烟而不嗜土烟，若内地果有一种芙蓉，胜于洋贩，则孰不愿买贱而食？无如知此味者，无不舍近图远，不能使如绍兴之美醍，湖广之锭烟，内地自相畅通，如人一身血脉灌注贯注，何碍之有？”
+</p>
+
+<p>林则徐之所以会有这种提倡，是因为民间吸大烟屡禁不止，让外国坐收利润，不如自己种植鸦片，这样，不仅能够抵制鸦片进入中国，减少白银外流。
+</p>
+
+<p>从第二次鸦片战争后，国内开始大规模推广种植鸦片，经过二十多年的推广，1882 年中国鸦片完全实现自给自足，甚至可以向外国出口，这个真的不简单！
+</p>
+
+<p>其实看看历史的这段时间，正是洋务运动时期，在这段时间，清政府竟然搞出了一个同治中兴，打造出的北洋水师更是号称亚洲第一，世界第八，那么钱从哪里来的呢？
+</p>
+
+<p>林则徐是民族英雄，但是也有局限性
+</p>
+
+<p>从林则徐晚年主张提倡鸦片来看，林则徐早年的禁烟虽然出发点是为国为民，但最终的出发点依然是那种士大夫为报皇帝的知遇之恩而进行的一次“牺牲”。
+</p>
+
+<p>当鸦片贸易已经合法的时候，林则徐不再主张禁烟，反而是采取了虎门销烟前弛烟派种植鸦片与洋人争利的论调。
+</p>
+
+<p>对于洋人的厉害，林则徐也是知道的，作为最早开眼看世界的一批人，中西方之间的差距林则徐是清楚的，但是林则徐又不能去承认西方已经超过东方的事实，因为一旦承认了的话，林则徐将受到整个士大夫清流的抨击，言和即是卖国”，林则徐没有那个胆量。
+</p>
+
+<p>林则徐在广州禁烟期间请人翻译了1936 年伦敦出版的《世界地理大全》为《四洲志》，随后又将此书稿交给魏源，嘱托其编纂成书发行于世，最终提出了师夷长技以制夷的思想，然而，林则徐却未敢以自己的名义发表。
+</p>
+
+<p>相比于林则徐知道打不过英国还要咬着牙打来说，顶替林则徐的琦善则显得更为勇敢，琦善接替林则徐后，有鉴于中英之间的实力差距，不惜抗旨也要与英国和谈，这种实话实说的态度，相比于林则徐，还是多了一些耿直。
+</p>
+
+<p>在鸦片战争结束后的20 年，战败的清政府竟然没有任何作为，一直到第二次鸦片战争结束，被太平天国差点推翻，清政府才开始进行改革，这里面不得不说是林则徐开眼看世界后却没有告诉大家，让清朝白白错失二十年的机遇。
+</p>
+
+<p>史论纵横说：
+</p>
+
+<p>说到底，林则徐是不肯牺牲自己的名誉去跟当时愚蠢的士大夫们去斗争，让这些士大夫们永远活在天朝上国的美梦中。
+</p>
+
+<p>现在很少有人批判林则徐，因为一句话说不好就会遭来很多人的谩骂，所以，大家都是捧而不批，林则徐逐渐成为神人；
+</p>
+
+<p>实际上不敢批评林则徐的人，跟林则徐不敢告诉廷议的那些士大夫英国比清朝一样，都是不敢与主流舆论相抗衡的表现。
+</p>
+
+<p>说到底，都是胆小的一群人！</p>
+
+
+
+<p style='float:right;'>本页共73段，4404个字符，12978 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

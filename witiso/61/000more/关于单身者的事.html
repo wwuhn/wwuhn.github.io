@@ -1,0 +1,546 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>关于单身者的事</h3>
+
+<p>
+</p>
+
+<p>我今年63岁了，在这60多年的生命中，我一直是单身！
+</p>
+
+<p>（鼓掌声）
+</p>
+
+<p>在我20多岁和30多岁的时候，我知道自己应该要结婚，我也知道自己应该有结婚的愿望才对。直到现在，我还在被人时不时地这样提醒。
+</p>
+
+<p>前段时间，美国的一群婚礼策划人引起了全国的关注，他们花费数月准备了鲜花、音乐、请帖，在婚礼的那一天，所有人都很激动。
+</p>
+
+<p>这些婚礼策划人是谁呢？
+</p>
+
+<p>他们是一群幼儿园的5岁的孩子们，而新郎和新娘是两只鸭子。这些小朋友通过策划这场婚礼，在讲述着我们成年人听过一遍又一遍的故事：从此（结婚后），你将过上幸福美满的生活，再也不会感到孤单了。
+</p>
+
+<p>小的时候，我们在通话里看到这样的故事，长大了之后，我们依然在小说里、电影里、电视节目里看到相同的故事。
+</p>
+
+<p>即使是最高法院，也在讲述着相同的故事。在同性婚姻合法化这一标志性的案件判决中，肯尼迪大法官写道：婚姻消除了人们普遍对于孤单的恐惧。
+</p>
+
+<p>但问题是，这从来不是我的故事，我从来没有想要结婚。我生命中发生的所有的事件，是一个完全不同的故事，那就是——保持单身让我过上幸福美满的生活。
+</p>
+
+<p>但很长一段时间以来，我都没有真的接受“保持单身，并且热爱单身”，因为我从未听过这样的故事。直到今天，对很多来说这也是闻所未闻的。
+</p>
+
+<p>他们没有意识到拥抱单身生活也是一个选择，（即使这是他们真的想要的），他们会想：“嗯没错，我还在寻找那个对的人。”但当你仔细观察他们的行动，你会发现，他们寻找那个“对的人”的重要性排序，大概在清理邮箱和整理鞋柜之间。
+</p>
+
+<p>也有一些人意识到了婚姻对他们来说是个问题，他们会找心理医生，或者写信给情感专栏寻求建议。
+</p>
+
+<p>Joan Delfattore（也是一位单身主义者）讲过一个发生在她和她的心理医生之间的对话，她的心理医生问：“Joan，假设你想要结婚，你会选择什么样的人呢？”
+</p>
+
+<p>Joan回答：“这个人一定要有一份具有挑战性的工作，喜欢户外，做志愿工作，喜欢运动，大概是这样。”
+</p>
+
+<p>她的心理医生说：“哦所以你想和一个发展全面的很聪明的人在一起。”
+</p>
+
+<p>Joan说：“不，我只是想和一个从不回家的人在一起。”
+</p>
+
+<p>（笑声）
+</p>
+
+<p>还有一个例子是Kaye写给以为情感专栏作者，Kaye说，她和一个很好的男人有一段长久的亲密关系，“当他吻我的时候，我仍会感到起鸡皮疙瘩；当他走进门，我放佛被催眠了一般。但为什么，即使如此，有的时候我仍会觉得，我应该一个人？“
+</p>
+
+<p>她在这封信的开头其实有提供一个答案，她说：“我一直以来都是属于精神自由、独立的人。“在信的结尾，她写道，”拥有爱情，对于一个人来说，就足够了吗？“
+</p>
+
+<p>叙述积极的单身故事总能和Joan、Kaye找到共鸣，就像我能和她们找到共鸣一样。
+</p>
+
+<p>但这样的故事从来不像童话故事一样，成为我们生活的一部分。我花了许多时间来寻找真实的单身的故事，这些故事从没有人讲给我们听。
+</p>
+
+<p>但一开始，我不确定我是否会喜欢我的发现，我有两个担心。
+</p>
+
+<p>一个是尽管我非常热爱我的单身生活，但我也并不热爱它所带来的所有一切。每当我的朋友们结了婚，他们选择和已婚夫妇一起吃晚餐，而只和我吃午餐时，我都会感到伤心；在工作中，每当大家把最不方便的授课时间交给我（只因为我是单身）时，我都会觉得不公平。
+</p>
+
+<p>后来我意识到，这些还只是小事。已婚夫妇所享有的特殊地位要更彻底。比如说，在美国有上千条法律来保护或偏向那些合法结婚的人。
+</p>
+
+<p>我的第二个担心是，科学似乎在反驳我。在我开展自己的研究之前，我相信媒体传达给我的数据。我以为科学已经证明了童话所告诉我们的事情：结婚后，从此你就会过上幸福美满的生活。不像那些单身的人。
+</p>
+
+<p>大学生们也是这么想的。一项调查询问他们，预测自己单身多年后幸福指数大概是多少，他们的预测如图。他们觉得自己一定痛苦死了。
+</p>
+
+<p>然后调查者又让他们预测自己结婚很多年后的幸福指数，他们觉得自己会幸福的不能再幸福了。
+</p>
+
+<p>好的，那现在让我们来看看真实的情况是怎样的。
+</p>
+
+<p>那些单身很多年的人远比他们想象得要幸福许多。在他们快要结婚的收，幸福指数的确有所增加，但没有他们想象得增加那么多，只是小幅增加。
+</p>
+
+<p>然后会发生什么呢？
+</p>
+
+<p>年复一年，婚姻给他们带来的幸福感逐渐下降，直到和他们单身时的幸福程度差不多。
+</p>
+
+<p>
+</p>
+
+<p>所以结婚并不会给你带来幸福，只是会让你在临近婚礼的那段时间激动一小下罢了。
+</p>
+
+<p>等一下，我还有一件事没告诉你们。
+</p>
+
+<p>在结婚前的那个幸福指数小幅增加，仅仅在他们结了婚并且没有离婚的情况下可以发生。
+</p>
+
+<p>那些结了婚又离婚的人呢？
+</p>
+
+<p>在他们临近结婚的时候，幸福指数反而下降了，往后的日子里，还会一直下降，比单身者的幸福指数还要低。
+</p>
+
+<p>尽管事实上，婚姻带给人们的幸福感只有那么一小阵，但人们似乎只看到了这一点，只看到了已婚者的幸福。
+</p>
+
+<p>每当你听到“已婚人士比单身人士过得好“时——相信我你会听到很多这样的话，一定要小心，他们其实在说，”看呐，看那些结了婚的人。“以及”哦不要往另一边看，那一边什么也没有。“
+</p>
+
+<p>但你应该往另一边看看。
+</p>
+
+<p>在另一边你会看到，有将近一半的人结婚后并不幸福，憎恨婚姻生活，并选择了离开婚姻。有相当多的人是如此。
+</p>
+
+<p>而如今，有许多人拥有一段认真的亲密关系，但从未结婚。所以也许问题的关键不在结婚与否，而在于你从一段关系中得到了多少正面的东西，一段关系可以给我们提供什么，你会得到多少关心，得到多少承诺。
+</p>
+
+<p>科学家们研究孤独、抑郁和压力，他们提出了一个等级制度。他们认为，已婚人士得到了最多的关心和承诺，所以他们应该过得比其他人都好。
+</p>
+
+<p>位于第二位的是同居的伴侣们，他们也得到了很关心，但也许没有得到像已婚人士那么多的承诺。
+</p>
+
+<p>位于第三位的是正在约会/恋爱的人。
+</p>
+
+<p>而最低端，则是那些没有亲密关系的单身者。
+</p>
+
+<p>科学家们笃定地认为，这些单身者一定拥有最糟糕的心理健康。
+</p>
+
+<p>但当他们得到女性研究对象的结果时，发现……根本不是这样！
+</p>
+
+<p>那些等级更高的女性并没有更少孤独，更少抑郁，更少压力。
+</p>
+
+<p>男性的结果也没有好到哪去。
+</p>
+
+<p>但这怎么可能呢？单身人士没有从伴侣那里获得关心和承诺啊，他们生活并不如已婚人士那般喜气洋洋，他们也没有像已婚人士一样拥有法律的各种保障。
+</p>
+
+<p>何况，在研究调查中，单身人士不仅包括像我这样热爱单身生活的人，也包括那些痛恨单身的单身者啊。
+</p>
+
+<p>我们看到，几乎所有的事情都在和单身者对着干，但是，他们仍然拥有更多的幸福，更少的孤单、抑郁和压力。
+</p>
+
+<p>我们该如何理解这样的结果？
+</p>
+
+<p>那些被重复过无数遍的叙事——从5岁的小朋友到最高法院的大法官，让我们忽略了更真实的故事——那些属于单身者的故事。
+</p>
+
+<p>我要在这里分享三个这样的例子。
+</p>
+
+<p>第一个例子，我们总是反复被告知，已婚人士有人陪，他们找到了那个对的人，而单身者身边谁都没有。
+</p>
+
+<p>但当心理学家开始认真研究单身人士的真实生活，他们发现了完全不同的事实。
+</p>
+
+<p>拥有更多朋友的是单身人士而非已婚人士，和ta的兄弟姐妹有更多联系的是单身人士而非已婚人士，和父母有更多来往的是单身人士而非已婚人士，与邻居友爱互助、为所在的社区或城市贡献自己的力量的，都是单身人士，而不是已婚人士。
+</p>
+
+<p>相反地，当一对伴侣同居或结婚后，他们就会变得与世隔绝起来，即使他们没有孩子也会如此，所以不要把这一切都推在孩子身上。
+</p>
+
+<p>所以那句我们反复听到的话——已婚人士找到了那个对的人，却没有告诉我们单身人士身边拥有更多人。
+</p>
+
+<p>第二个我们经常听到的故事是，“结了婚就再也不会孤单了”。我们刚才已经提到科学家证明了，那些位于等级第一位的已婚人士也会感到孤独。
+</p>
+
+<p>你知道谁真的不受孤单的困扰吗？
+</p>
+
+<p>那些拥有很多朋友、家庭成员，在遇到问题时，有人可以倾诉求助的人。这才是问题的关键，和ta是否结婚、有没有伴侣没有关系。
+</p>
+
+<p>我们听到的故事中，那些独居的人总是孤单又孤僻，但实际上，只要这些独居的人和那些与别人同住的人有相差不多的收入水平，他们更不会感受到孤独。
+</p>
+
+<p>我们听到的故事中，那些独自归家的人总是哭着回家，为他们没有和某个特殊单人在一起而难过，但实际上，更多独居的人就像是Joan，那个希望如果她有了丈夫，也是一个从不回家的丈夫的女人。
+</p>
+
+<p>许多单身人士热爱孤单，而不是恐惧孤单。
+</p>
+
+<p>还记得肯尼迪大法官说的那句话吗？婚姻消除了人们普遍对于孤单的恐惧，那种你半夜醒来呼唤，却发现四下无人的恐惧。
+</p>
+
+<p>但对我而言，半夜醒来发现身边有一个人才是真正的恐惧——ta可能正抢着我的被子，打着呼，放着屁！
+</p>
+
+<p>这些故事都和“结了婚就再也不会孤单”相去甚远。
+</p>
+
+<p>第三个我们听到的故事是，“你需要的只是爱，爱是你需要的所有一切。”
+</p>
+
+<p>当Kaye向情感专栏提问，”拥有爱情，对于一个人来说，就足够了吗？“她已经拥有了爱情，她为她的伴侣着迷。
+</p>
+
+<p>但除了爱情之外，单身者重视其它的爱，挚友、家庭、精神之爱。
+</p>
+
+<p>但一个幸福的生活不应该仅仅包括爱，甚至是那些除了爱情之外的爱也不够，我们作为人类，我们追求自主性，追求对生活的掌控，追求目标，追求意义。
+</p>
+
+<p>单身者拥有这样的自主性，他们主导着自己的生活；
+</p>
+
+<p>单身者拥有对生活的掌控，已婚伴侣总会分工，比如一个人处理车子和财产，一个人负责管饭和亲戚的来往，但单身者会一个人做这些所有的事情；
+</p>
+
+<p>单身者追求目标和意义，他们会去追求对他们来说最重要的东西。比如，单身者比起已婚者更看重有意义的事业。
+</p>
+
+<p>终生的单身者还可以获得更多的个人成长，他们更有可能比已婚者拥有不断成长、变化和学习的一生。
+</p>
+
+<p>所以第三个故事“你只是需要爱”，却没有告诉我们真实的情况是，我们还需要自主性、对生活的掌控，目标和意义，而单身者拥有所有这一切。
+</p>
+
+<p>关于单身和单身者的故事从未像现在这样被讲述。来自全世界许多不同国家的人过着单身的生活，单身生活对于那些结了婚的人来说也是常态。以美国为例，在一个成年人的生活中，保持单身的日子要比结婚后的日子更多。这也从侧面证明了，单身生活的确更好一些。
+</p>
+
+<p>长久以来，我们这些单身者都被教导，要想获得“真正的幸福”就应该结婚，现在我们知道了这并不是真的，并且所有人将从此获益。
+</p>
+
+<p>所以亲爱的单身者们，你们知道该怎么做，去过你的单身生活吧，把它过得充实、快乐、理直气壮！
+</p>
+
+
+
+<p style='float:right;'>本页共84段，4063个字符，11969 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

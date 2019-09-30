@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>如何理解科学的可证伪性</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<h3></h3>
+<p>如何理解科学的可证伪性？</p>
+<p></p>
+<p>文/水博</p>
+<p>最近，曾参加中国科协举办的科普能力建设高级培训班，有机会接触到了一些社会科学学者，并与之在是否应该“反思科学”的问题上产生了分歧和争论。我作为一名理工专业的人士，以前很少接触社会科学工作者，一直没有注意到很多资深的学者（包括一些发表的文章和名词解释），居然对科学的可证伪性存在着巨大的认识误区。</p>
+<p>目前，百度上对科学的可证伪性是这样解释的：</p>
+<p>Falsifiability；指从一个理论推导出来的结论（解释、预见）在逻辑上或原则上要有与一个或一组观察陈述发生冲突或抵触的可能。所有科学命题都要有可证伪性，不可能<span style="color:red;">为</span>伪的理论不能成为科学理论。</p>
+<p>范畴为自然科学。这是著名科学哲学家卡尔·波普尔的著作《猜想与反驳》中提出的概念。波普尔认为判断理论（命题）是否科学的标准是：Flasifiability（经常被译成“可证伪性”）。</p>
+<p>由此看来，百度的解释确实存在严重的错误。主要是这句“所有科学命题都要有可证伪性，不可能<span style="color:red;">为</span>伪的理论不能成为科学理论。”中应该改正一个字。即：为“所有科学命题都要有可证伪性，不可能<span style="color:red;">证</span>伪的理论不能成为科学理论。”</p>
+<p>尽管没有去读·波普尔的原著《猜想与反驳》，但是，仅从“波普尔认为判断理论（命题）是否科学的标准是：可证伪性Flasifiability”这句话来分析，我们就可以认为，波普尔说得没错。不过，这句话中的“可证伪性Flasifiability”也许是表述得过于简练（或者说翻译得不够准确），按照一般的语义，“可证伪”它既可以理解为是“可被证伪”，也可以解释为“可用来证伪”。</p>
+<p>然而，如果“可证伪”不是“可用来证伪”，而是“可被证伪”的话，那么可能很多人都会迷惑，为什么“可证伪”的理论（命题）反倒是科学的呢？显然，如果这个“可证伪”就是“可被证伪”的简称的话，那么分明是已经能证明是“伪”东西，怎么反倒成了科学了呢？难道科学就一定是有“伪”的“错误”吗？</p>
+<p>对于这样的结论。如果你具备基本的科学素养“不迷信权威”的话，那么你一定应该得出波普尔完全是在胡说的结论。</p>
+<p>我倒是觉得，波普尔一点都没有胡说，而是我们的一些人错误的理解（或者翻译）了他的原话。不过在我的概念中，历来都认为波普尔的科学可证伪性，就是指<span style="font-weight:bold">“可用来证伪”，而不是“可被证伪”</span>。因为，对于有理工科基础的人士来说，科学的“可用来证伪”性应该说是一个常识。</p>
+<p>学过数学的人都知道，在给定的条件下，要证明一个定理（命题）成立的要求是必须满足充分必要条件。如果你只能证明你的命题满足充分性条件，而不能证明它同时也满足必要性条件的话，你的命题就有可能是不严谨的，不成立的（也就说还不能称之为定理）。但是，如果你不仅证明了你命题的“充分性”，同时也证明它的“必要性”，那么毫无疑问，你的命题就是一个完整的数学的定理。其实，波普尔的科学的可证伪性，就是说科学不仅要正确，而且还必须要满足必要性条件的证明。</p>
+<p>在数学上充分必要条件，经常被表述为“当，且仅当”A条件下，B结论成立。这里“当”就是指A条件与B结论之间已经满足充分性的证明，“仅当”的意思就是指A条件与B结论之间也满足必要性的证明。用文字来叙述就是，充分性，即：如果你可以证明有了A的情况下，一定能会出现B的结论。必要性，即：B结论只能在A条件下产生。这个必要性条件的证明，就是可以称为是一个证伪的过程。也就是说，只要你能证明存在任何没有A条件出现的情况下，B结论就不能成立的话，那么这个命题（定理）就一定“科学”的。或者说，如果你能证明存在任何一种没有A条件出现的情况下，B结论也能成立的话，那么这个命题（定理）就一定“不科学”的。</p>
+<p>命题的因果关系一一对应，且具有排它性，这就是定义命题的科学性所必须的严谨。这里的排他性，也就是可证伪性。自然界的事物，往往会有多种的因果关系。例如，有A可以有B，但有了C也同样可以有B。现实中，因为长着白毛（A）的是山羊（B），长着黑毛（C）的也同样是山羊（B）。所以，山羊（B）是白色（A）的命题（说法）虽然不能说是错误，但它也不能算严谨（科学）的。</p>
+<p>但是，对于“天下乌鸦一般黑”的说法（命题），如果你说长着黑毛（A）的是乌鸦（B），但同时还能证明所有不长着黑毛的，都不是乌鸦（B）。所以，天下的乌鸦（B）都是黑色（A）的命题（说法）就是严谨（科学）的。由此可见，可证伪性的作用非常重要。它是鉴别命题的“偶然正确”和“必然正确”重要标准。要知道，根据科学的定义，只有在给定条件和范围内，必然正确的命题，才能算是严谨的科学。</p>
+<p>有人可能不理解，要证明命题的必然正确性，为什么非要用“可证伪”的办法呢？学过数学的人都知道，证明数学定理（命题）的时候，一定要分别用充分性和必要性来证明。如果你不用必要性的证明，你永远也不能说你的数学定理（命题）成立。例如，我们还用上面“天下乌鸦一般黑”的例子。你可以分别证明赤、橙、黄、绿、青、蓝、紫色的鸟，都不是乌鸦，但是，世界上的颜色无穷无尽，如果你不用“可证伪”的办法，证明“不长黑毛的，就不是乌鸦”的话，你就永远也无法确切的说“天下乌鸦一般黑”的说法（命题）严谨。</p>
+<p>综上所述，我们应该得到关于科学的三个重要结论：</p>
+<p>1、可证伪性对于科学的判定是必须的，就如同数学定理证明中的必要性证明一样，必不可少。</p>
+<p>2、正确不等于科学，但是，科学一定正确（在给定的条件和范围内）。世界上没有绝对真理，当然也就没有永远正确的科学。但是，世界上相对的真理还是存在的，与之相对应的科学在其给定的条件和范围内，就是绝对真理长河中的相对真理。因此，无论在任何时候科学只能（根据条件和范围的变化）被发展，而不可能被推翻。</p>
+<p>3、判别一个命题必然正确（科学与否），要比判别这个命题偶然正确与否困难得多。所以，要得到某一种科学的结论，需要在不断的探索实践的基础上归纳、推理和证明。因此，科学没有捷径，只有那些沿着崎岖的小路不断攀登的人，才能到达科学的顶峰。</p><br />
+<br />
+
+<p>科学与〝可证伪性〞</p>
+
+<p>香港科技大学物理系</p>
+<p>吴大琪教授</p>
+
+<p>前言</p>
+<p>刚学会利用时钟量度时间的杰，做了一个学以致用的研究。他连续七天记录了日出的时间﹐并把天气和看时钟等不确定的因素也考虑在内后, 推出了以下的理论：</p>
+<p>“香港的日出于每天早上六时三十分开始, 误差不多于三分钟。”</p>
+
+
+<p>我们来问一个问题：杰所做的可算是一项科学研究吗? 推论又是否为一个科学理论呢?</p>
+
+
+<p>在回答问题之前﹐我们先要弄清楚怎样才算是科学研究和科学理论。大家或许可以先问一问身边的朋友对此有什么意见!</p>
+
+<p>你的老师﹐同学﹐朋友对科学有什么看法呢? 他们认为杰做的是科学研究吗?</p>
+<p>(这里有一些可作参考的录音)</p>
+
+<p>收集了众人对什么是科学的见解了吧! 但是科学家又怎样看呢? 科学有确定的定义吗? 它只是一种属于物理﹐化学﹐生物等科目的知识吗? 还是指某种特别的研究方法呢? 抑或两者皆是? 你可能确认以下为科学研究的定规：</p>
+
+    <ol>
+      <li>研究现象应被确认及清楚说明。</li>
+      <li>现象应能被观察到，及谨慎地测量以避免明显错误。</li>
+      <li>一清晰确定的理论，应能清楚说明所有观察结果。</li>
+    </ol>
+
+<p>若细心想一想，其实杰所做的事情，已满足了上述三项定规！但这就足以成为〝科学理论〞吗？</p>
+
+<p>“可证伪性”</p>
+<p>科学家们认为﹐科学与其他学科不同﹐是因为其独有的要求— “可证伪性”｡要说明“可证伪性”是什么﹐让我们回到杰的故事上。</p>
+
+<p>作为科学研究, 杰的工作简单得也许令人有点惊奇吧! 除满足了以上三项定规外，其实杰的推测是“可被证伪”的 – 即是说﹐我们是有可能证明他的理论是错的。要是我们细心等待一两个星期﹐就会发现日出的时间在渐渐地改变﹐过多一个月左右﹐杰的预测就不再准确﹐他的理论就 “被证伪”了﹐“可证伪性”是科学理论一个最重要的特点。</p>
+
+<p>在科研领域中﹐“可证伪性”是个很重要而独特的概念。一个无论对错与否，都不能被证明是错的理论﹐是不能承认为科学的。让我来举一个例子：“牛顿定律肯定有错的地方﹐虽然我不知道它错在哪里。” 这个理论固然是可对可错，不过若要证明它是错的话﹐我们需要证明牛顿定律在宇宙的每一个时间和空间都正确﹐实验上这不可能做到﹐我们也就没有能力证明这个理论是错的。“可证伪性”对科学理论的要求，超出了简单的对与错，一个科学理论必需要对不确定现象作出肯定的预测，在确定范围之下它必须是可被试验的。如果理论通不过试验﹐它就是错的｡</p>
+
+<p>怎样判定科学理论的对错？</p>
+<p>第一次接触到“可证伪性”的人﹐难免会对它的概念感到陌生﹐原因是我们一般期望能够以一系列适当的实验来决定一个科学理论的对错。说得明确一点﹐我们希望应用到日常科技的科学理论都是对的，这一概念在电视上屡见不鲜。</p>
+
+<p>问题是，这是不可能的!</p>
+
+<p>让我们用以下的例子作为解说：</p>
+
+<p>理论：太阳每天早上都从东方升起｡</p>
+
+<p>让我们试一试把这个日常生活可见的理论证明吧! 要证明这个理论﹐我们就要保证不单止今天﹑明天或是一百年后﹐而是宇宙存在的每一天太阳都会从东方升起，这是一件人类能力不可能做到的事。不过若有一天太阳不是从东方升起的话﹐我们就不用等到宇宙的终结也可以知道上面的理论是错了。简单来说：</p>
+
+<p>在科学里面要证明一种东西是错的往往较容易﹐但要证明是对的却很多时候都不可能。</p>
+
+<p>“可证伪性”概念因此被推出了! 很多时我们不可能证明一个理论是对的﹐唯一可以做的是通过大量实验去看理论是否会被证伪。</p>
+
+<p>牛顿定律的正确性都有限制？</p>
+<p>好的科学理论不单要作出困难而准确的预测﹐其有效性还要经过无数次的试验｡即使只是其中一次和理论预测的不相符﹐理论有效性还是会受到质疑。好的科学理论因此是很难出现的啊! 譬如说牛顿定律 - 关于宏观物体的力和运动的理论。自从它的基本公式被确立后﹐很多重要的东西被发明出来：大厦建筑﹐汽车﹐飞机以及大气模型。试想一种东西﹐双翼还不算是很大﹐却能使以吨计的金属在天空飞舞。常理可以忍受这样的狂想吗? 实情是现在飞机流行得像汽车一样了。不过﹐现代的科学家也知道牛顿定律只能正确描述我们的宏观世界﹐在原子或分子世界里﹐牛顿定律会被另一套物理定律－量子物理学－取代。因此在取得空前的成功的同时﹐牛顿定律的正确性是有限制的。</p>
+
+
+<p>知识与科学</p>
+<p>哲学家们花费不少光阴讨论知识(或真理)是什么。现代一个流行的想法是知识没有客观意义﹐简单来说是所有人类知识都是人为的﹐它的有效性都会受到历史和文化因素所限制。若以数学角度来说明﹐就是说知识都是建构于一系列自洽的假设之上。科学知识也不例外﹐科学的“客观性”不可能被验证﹐它只是科学家的幻想。</p>
+
+<p>事实上﹐科学家们都同意科学知识的建立需要一组自洽的假设﹐正如所有其他科目一样。不过﹐有一点令到科学知识比起其他科目更为”客观”的是科学知识是需要“可被证伪”的。换言之﹐我们会承认科学的理论只能有限度的正确﹐并且会用一系列的特定实验去测试知识的正确性。因此﹐科学和其他科目最重要的分别在于科学需要“可证伪性”。“可证伪性”没有出现在其他的知识系统上。</p>
+
+<p>常见的“非科学理论”</p>
+<p>看以下的例子! 我们时常在电视上看到财经评论员预测或解释股市走势，他们会说股市上升就是因为这个原因﹐下降就是因为那个原因﹐如此类推。你大概会被这些看似无所不能分析的专家所吸引，或许会认为他们的结论一定是经过强力的科学分析才能得出来﹐因此深信他们的分析是“科学结论”。</p>
+
+<p>不过从“可证伪性”的角度来看﹐多数的财经评论员结论是不会被承认为科学理论的﹐原因是它们都没有提出可被证伪的预测，不能被“证伪”。只能够解释而不能预测的理论是不会被认为是科学理论的。</p>
+
+<p>宗教与科学</p>
+<p>另一个好的反例就是宗教(以基督教作例子)! 科学的知识是从怀疑中建立﹐而且是时刻受到测试的(“可证伪性”)。和科学不同﹐宗教的建立是先要我们相信﹐之后才可以看见和明白宗教的真善美。因此宗教和科学的哲学取向是相反的﹐它们是互补的知识体系。</p>
+
+<p>〔这篇文章是撮写自作者于香港科技大学的教学演讲〕</p>
+
+
+<p>〔作者简介：吴大琪教授在一九八一年于香港大学获得理学士学位，一九八七年于西北大学完成哲学博士学位，其后在一九九一年加入香港科技大学。吴教授在non-equilibrium mesoscopic kondo effect研究上的贡献，于一九九三年，获海外华人物理学会颁发一九九三年度亚洲成就奖的名誉。自二零零零年，他成为了美国物理学会的会士。并获得二零零二至二零零三年度的Croucher高级科研奖金。再者，他热心参与香港中学和小学的科学教育活动，也是香港中国科学教育专业工作小组联会的香港代表。〕</p>
+
+
+<br />
+<p>爱因斯坦在对西方近代科学产生的原因做过经典的解释：</p>
+<p>“西方科学的发展是以两个伟大成就为基础的，那就是：希腊哲学家发明的形式逻辑体系（在欧几里得几何中），以及（在文艺复兴时期）发现通过系统的实验可能找出因果联系。”</p>
+<p>前一部分讲的是演绎逻辑，后一部分讲的是归纳逻辑。</p>
+<p>演绎逻辑是必然性的结果，只要前提真，形式有效，结果为必然；归纳逻辑是或然性的结果，结论有可靠性问题存在，也为证伪留下了可能。</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换年不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

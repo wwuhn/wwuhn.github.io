@@ -1,0 +1,921 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>《趣学算法》</h4>
+
+<p>https://blog.csdn.net/rainchxy/article/details/77659055</p>
+
+<p>第1章 算法之美 1</p>
+
+<p>1.1打开算法之门 2</p>
+
+<p>1.2妙不可言—算法复杂性 2</p>
+
+<p>1.3美不胜收—魔鬼序列 9</p>
+
+<p>1.4灵魂之交—马克思手稿中的数学题 16</p>
+
+<p>1.5算法学习瓶颈 21</p>
+
+<p>1.6你怕什么 22</p>
+
+<p>第2章 贪心算法 24</p>
+
+<p>2.1人之初，性本贪 25</p>
+
+<p>2.1.1 贪心本质 25</p>
+
+<p>2.1.2 贪亦有道 26</p>
+
+<p>2.1.3 贪心算法秘籍 26</p>
+
+<p>2.2加勒比海盗船—ZUI优装载问题 27</p>
+
+<p>2.2.1 问题分析 27</p>
+
+<p>2.2.2 算法设计 28</p>
+
+<p>2.2.3 完美图解 28</p>
+
+<p>2.2.4 伪代码详解 29</p>
+
+<p>2.2.5 实战演练 30</p>
+
+<p>2.2.6 算法解析及优化拓展 31</p>
+
+<p>2.3阿里巴巴与四十大盗—背包问题 32</p>
+
+<p>2.3.1 问题分析 32</p>
+
+<p>2.3.2 算法设计 33</p>
+
+<p>2.3.3 完美图解 33</p>
+
+<p>2.3.4 伪代码详解 34</p>
+
+<p>2.3.5 实战演练 35</p>
+
+<p>2.3.6 算法解析及优化拓展 36</p>
+
+<p>2.4高级钟点秘书—会议安排 37</p>
+
+<p>2.4.1 问题分析 38</p>
+
+<p>2.4.2 算法设计 39</p>
+
+<p>2.4.3 完美图解 40</p>
+
+<p>2.4.4 伪代码详解 41</p>
+
+<p>2.4.5 实战演练 42</p>
+
+<p>2.4.6 算法解析及优化拓展 45</p>
+
+<p>2.5一场说走就走的旅行—最短路径 45</p>
+
+<p>2.5.1 问题分析 46</p>
+
+<p>2.5.2 算法设计 46</p>
+
+<p>2.5.3 完美图解 47</p>
+
+<p>2.5.4 伪代码详解 51</p>
+
+<p>2.5.5 实战演练 52</p>
+
+<p>2.5.6 算法解析及优化拓展 55</p>
+
+<p>2.6神秘电报密码—哈夫曼编码 59</p>
+
+<p>2.6.1 问题分析 60</p>
+
+<p>2.6.2 算法设计 62</p>
+
+<p>2.6.3 完美图解 63</p>
+
+<p>2.6.4 伪代码详解 65</p>
+
+<p>2.6.5 实战演练 74</p>
+
+<p>2.6.6 算法解析及优化拓展 77</p>
+
+<p>2.7沟通无限校园网—最小生成树 77</p>
+
+<p>2.7.1 问题分析 78</p>
+
+<p>2.7.2 算法设计 79</p>
+
+<p>2.7.3 完美图解 80</p>
+
+<p>2.7.4 伪代码详解 87</p>
+
+<p>2.7.5 实战演练 88</p>
+
+<p>2.7.6 算法解析 90</p>
+
+<p>2.7.7 算法优化拓展 90</p>
+
+<p>第3章 分治法 99</p>
+
+<p>3.1山高皇帝远 100</p>
+
+<p>3.1.1 治众如治寡—分而治之 100</p>
+
+<p>3.1.2 天时地利人和—分治算法要素 100</p>
+
+<p>3.1.3 分治算法秘籍 101</p>
+
+<p>3.2猜数游戏—二分搜索技术 101</p>
+
+<p>3.2.1 问题分析 101</p>
+
+<p>3.2.2 算法设计 102</p>
+
+<p>3.2.3 完美图解 102</p>
+
+<p>3.2.4 伪代码详解 103</p>
+
+<p>3.2.5 实战演练 104</p>
+
+<p>3.2.6 算法解析与拓展 105</p>
+
+<p>3.3合久必分，分久必合—合并排序 107</p>
+
+<p>3.3.1 问题分析 108</p>
+
+<p>3.3.2 算法设计 108</p>
+
+<p>3.3.3 完美图解 108</p>
+
+<p>3.3.4 伪代码详解 108</p>
+
+<p>3.3.5 实战演练 111</p>
+
+<p>3.3.6 算法解析与拓展 112</p>
+
+<p>3.4兵贵神速—快速排序 113</p>
+
+<p>3.4.1 问题分析 114</p>
+
+<p>3.4.2 算法设计 115</p>
+
+<p>3.4.3 完美图解 116</p>
+
+<p>3.4.4 伪代码详解 117</p>
+
+<p>3.4.5 实战演练 118</p>
+
+<p>3.4.6 算法解析与拓展 120</p>
+
+<p>3.5效率至上—大整数乘法 124</p>
+
+<p>3.5.1 问题分析 124</p>
+
+<p>3.5.2 算法设计 125</p>
+
+<p>3.5.3 完美图解 126</p>
+
+<p>3.5.4 伪代码详解 128</p>
+
+<p>3.5.5 实战演练 132</p>
+
+<p>3.5.6 算法解析与拓展 135</p>
+
+<p>3.6分治算法复杂度求解秘籍 137</p>
+
+<p>第4章 动态规划 141</p>
+
+<p>4.1神奇的兔子序列 142</p>
+
+<p>4.2动态规划基础 143</p>
+
+<p>4.2.1算法思想 143</p>
+
+<p>4.2.2算法要素 143</p>
+
+<p>4.2.3解题秘籍 143</p>
+
+<p>4.3孩子有多像爸爸—最长的公共子序列 145</p>
+
+<p>4.3.1问题分析 145</p>
+
+<p>4.3.2算法设计 147</p>
+
+<p>4.3.3完美图解 148</p>
+
+<p>4.3.4伪代码详解 152</p>
+
+<p>4.3.5实战演练 153</p>
+
+<p>4.3.6算法解析及优化拓展 155</p>
+
+<p>4.4DNA基因鉴定—编辑距离 156</p>
+
+<p>4.4.1问题分析 156</p>
+
+<p>4.4.2算法设计 158</p>
+
+<p>4.4.3完美图解 159</p>
+
+<p>4.4.4伪代码详解 161</p>
+
+<p>4.4.5实战演练 162</p>
+
+<p>4.4.6算法解析及优化拓展 163</p>
+
+<p>4.5长江一日游—游艇租赁 164</p>
+
+<p>4.5.1问题分析 164</p>
+
+<p>4.5.2算法设计 166</p>
+
+<p>4.5.3完美图解 166</p>
+
+<p>4.5.4伪代码详解 170</p>
+
+<p>4.5.5实战演练 171</p>
+
+<p>4.5.6算法解析及优化拓展 172</p>
+
+<p>4.6快速计算—矩阵连乘 172</p>
+
+<p>4.6.1问题分析 173</p>
+
+<p>4.6.2算法设计 176</p>
+
+<p>4.6.3完美图解 176</p>
+
+<p>4.6.4伪代码详解 180</p>
+
+<p>4.6.5实战演练 181</p>
+
+<p>4.6.6算法解析及优化拓展 182</p>
+
+<p>4.7切呀切披萨—最优三角剖分 183</p>
+
+<p>4.7.1问题分析 183</p>
+
+<p>4.7.2算法设计 186</p>
+
+<p>4.7.3完美图解 187</p>
+
+<p>4.7.4伪代码详解 191</p>
+
+<p>4.7.5实战演练 192</p>
+
+<p>4.7.6算法解析及优化拓展 194</p>
+
+<p>4.8小石子游戏—石子合并 194</p>
+
+<p>4.8.1问题分析 195</p>
+
+<p>4.8.2算法设计 197</p>
+
+<p>4.8.3完美图解 198</p>
+
+<p>4.8.4伪代码详解 203</p>
+
+<p>4.8.5实战演练 205</p>
+
+<p>4.8.6算法解析及优化拓展 206</p>
+
+<p>4.9大卖场购物车1—0-1背包问题 209</p>
+
+<p>4.9.1问题分析 210</p>
+
+<p>4.9.2算法设计 211</p>
+
+<p>4.9.3完美图解 212</p>
+
+<p>4.9.4伪代码详解 216</p>
+
+<p>4.9.5实战演练 217</p>
+
+<p>4.9.6算法解析及优化拓展 218</p>
+
+<p>4.10快速定位—最优二叉搜索树 220</p>
+
+<p>4.10.1问题分析 221</p>
+
+<p>4.10.2算法设计 225</p>
+
+<p>4.10.3完美图解 226</p>
+
+<p>4.10.4伪代码详解 239</p>
+
+<p>4.10.5实战演练 241</p>
+
+<p>4.10.6算法解析及优化拓展 243</p>
+
+<p>4.11动态规划算法秘籍 246</p>
+
+<p>第5章回 溯法 248</p>
+
+<p>5.1回溯法基础 249</p>
+
+<p>5.1.1算法思想 249</p>
+
+<p>5.1.2算法要素 249</p>
+
+<p>5.1.3解题秘籍 251</p>
+
+<p>5.2大卖场购物车2—0-1背包问题 252</p>
+
+<p>5.2.1问题分析 252</p>
+
+<p>5.2.2算法设计 253</p>
+
+<p>5.2.3完美图解 255</p>
+
+<p>5.2.4伪代码详解 258</p>
+
+<p>5.2.5实战演练 259</p>
+
+<p>5.2.6算法解析 262</p>
+
+<p>5.2.7算法优化拓展 262</p>
+
+<p>5.3部落护卫队—最大团 265</p>
+
+<p>5.3.1问题分析 266</p>
+
+<p>5.3.2算法设计 267</p>
+
+<p>5.3.3完美图解 269</p>
+
+<p>5.3.4伪代码详解 274</p>
+
+<p>5.3.5实战演练 275</p>
+
+<p>5.3.6算法解析及优化拓展 277</p>
+
+<p>5.4地图调色板—地图着色 278</p>
+
+<p>5.4.1问题分析 278</p>
+
+<p>5.4.2算法设计 279</p>
+
+<p>5.4.3完美图解 280</p>
+
+<p>5.4.4伪代码详解 285</p>
+
+<p>5.4.5实战演练 286</p>
+
+<p>5.4.6算法解析及优化拓展 288</p>
+
+<p>5.5一山不容二虎—n皇后问题 289</p>
+
+<p>5.5.1问题分析 290</p>
+
+<p>5.5.2算法设计 291</p>
+
+<p>5.5.3完美图解 292</p>
+
+<p>5.5.4伪代码详解 300</p>
+
+<p>5.5.5实战演练 301</p>
+
+<p>5.5.6算法解析及优化拓展 303</p>
+
+<p>5.6机器零件加工—最优加工顺序 305</p>
+
+<p>5.6.1问题分析 305</p>
+
+<p>5.6.2算法设计 308</p>
+
+<p>5.6.3完美图解 308</p>
+
+<p>5.6.4伪代码详解 313</p>
+
+<p>5.6.5实战演练 314</p>
+
+<p>5.6.6算法解析 316</p>
+
+<p>5.6.7算法优化拓展 316</p>
+
+<p>5.7奇妙之旅1—旅行商问题 319</p>
+
+<p>5.7.1问题分析 319</p>
+
+<p>5.7.2算法设计 320</p>
+
+<p>5.7.3完美图解 321</p>
+
+<p>5.7.4伪代码详解 330</p>
+
+<p>5.7.5实战演练 331</p>
+
+<p>5.7.6算法解析及优化拓展 333</p>
+
+<p>5.8回溯法算法秘籍 336</p>
+
+<p>第6章 分支限界法 338</p>
+
+<p>6.1横行天下—广度优先 339</p>
+
+<p>6.1.1算法思想 340</p>
+
+<p>6.1.2算法步骤 340</p>
+
+<p>6.1.3解题秘籍 341</p>
+
+<p>6.2大卖场购物车3—0-1背包问题 341</p>
+
+<p>6.2.1问题分析 342</p>
+
+<p>6.2.2算法设计 343</p>
+
+<p>6.2.3完美图解 345</p>
+
+<p>6.2.4伪代码详解 350</p>
+
+<p>6.2.5实战演练 352</p>
+
+<p>6.2.6算法解析 355</p>
+
+<p>6.2.7算法优化拓展—优先队列式分支限界法 356</p>
+
+<p>6.3奇妙之旅2—旅行商问题 366</p>
+
+<p>6.3.1问题分析 366</p>
+
+<p>6.3.2算法设计 367</p>
+
+<p>6.3.3完美图解 368</p>
+
+<p>6.3.4伪代码详解 371</p>
+
+<p>6.3.5实战演练 373</p>
+
+<p>6.3.6算法解析 376</p>
+
+<p>6.3.7算法优化拓展 377</p>
+
+<p>6.4铺设电缆—最优工程布线 385</p>
+
+<p>6.4.1问题分析 386</p>
+
+<p>6.4.2算法设计 386</p>
+
+<p>6.4.3完美图解 387</p>
+
+<p>6.4.4伪代码详解 399</p>
+
+<p>6.4.5实战演练 400</p>
+
+<p>6.4.6算法解析及优化拓展 403</p>
+
+<p>6.5回溯法与分支限界法的异同 404</p>
+
+<p>第7章 线性规划网络流 405</p>
+
+<p>7.1线性规划问题 406</p>
+
+<p>7.1.1 线性规划标准型 408</p>
+
+<p>7.1.2 单纯形算法图解 409</p>
+
+<p>7.1.3 解题秘籍 413</p>
+
+<p>7.1.4 练习 413</p>
+
+<p>7.2工厂ZUI大效益—单纯形算法 414</p>
+
+<p>7.2.1 问题分析 414</p>
+
+<p>7.2.2 完美图解 415</p>
+
+<p>7.2.3 伪代码详解 418</p>
+
+<p>7.2.4 实战演练 420</p>
+
+<p>7.2.5 算法解析及优化拓展 423</p>
+
+<p>7.3最大网络流—最短增广路算法 424</p>
+
+<p>7.3.1 问题分析 424</p>
+
+<p>7.3.2 增广路算法 427</p>
+
+<p>7.3.3 完美图解 431</p>
+
+<p>7.3.4 伪代码详解 437</p>
+
+<p>7.3.5 实战演练 439</p>
+
+<p>7.3.6 算法解析 441</p>
+
+<p>7.3.7 算法优化拓展—重贴标签算法ISAP 442</p>
+
+<p>7.4最小费用最大流—最小费用路算法 455</p>
+
+<p>7.4.1 问题分析 456</p>
+
+<p>7.4.2 算法设计 456</p>
+
+<p>7.4.3 完美图解 457</p>
+
+<p>7.4.4 伪代码详解 459</p>
+
+<p>7.4.5 实战演练 461</p>
+
+<p>7.4.6 算法解析 465</p>
+
+<p>7.4.7 算法优化拓展—消圈算法 466</p>
+
+<p>7.5精明的老板—配对方案问题 468</p>
+
+<p>7.5.1 问题分析 468</p>
+
+<p>7.5.2 算法设计 469</p>
+
+<p>7.5.3 完美图解 469</p>
+
+<p>7.5.4 伪代码详解 470</p>
+
+<p>7.5.5 实战演练 471</p>
+
+<p>7.5.6 算法解析 475</p>
+
+<p>7.5.7 算法优化拓展—匈牙利算法 475</p>
+
+<p>7.6国际会议交流—圆桌问题 480</p>
+
+<p>7.6.1 问题分析 481</p>
+
+<p>7.6.2 算法设计 482</p>
+
+<p>7.6.3 完美图解 482</p>
+
+<p>7.6.4 伪代码详解 484</p>
+
+<p>7.6.5 实战演练 485</p>
+
+<p>7.6.6 算法解析及优化拓展 489</p>
+
+<p>7.7要考试啦—试题库问题 489</p>
+
+<p>7.7.1 问题分析 490</p>
+
+<p>7.7.2 算法设计 490</p>
+
+<p>7.7.3 完美图解 491</p>
+
+<p>7.7.4 伪代码详解 493</p>
+
+<p>7.7.5 实战演练 494</p>
+
+<p>7.7.6 算法解析及优化拓展 498</p>
+
+<p>7.8太空实验计划—最大收益问题 499</p>
+
+<p>7.8.1 问题分析 499</p>
+
+<p>7.8.2 算法设计 500</p>
+
+<p>7.8.3 完美图解 502</p>
+
+<p>7.8.4 伪代码详解 505</p>
+
+<p>7.8.5 实战演练 506</p>
+
+<p>7.8.6 算法解析及优化拓展 510</p>
+
+<p>7.9央视娱乐节目购物街—方格取数问题 511</p>
+
+<p>7.9.1 问题分析 511</p>
+
+<p>7.9.2 算法设计 512</p>
+
+<p>7.9.3 完美图解 513</p>
+
+<p>7.9.4 伪代码详解 514</p>
+
+<p>7.9.5 实战演练 516</p>
+
+<p>7.9.6 算法解析及优化拓展 520</p>
+
+<p>7.10走着走着，就走到了西藏—旅游路线问题 521</p>
+
+<p>7.10.1 问题分析 521</p>
+
+<p>7.10.2 算法设计 523</p>
+
+<p>7.10.3 完美图解 523</p>
+
+<p>7.10.4 伪代码详解 525</p>
+
+<p>7.10.5 实战演练 528</p>
+
+<p>7.10.6 算法解析及优化拓展 532</p>
+
+<p>7.11网络流问题解题秘籍 533</p>
+
+<p>附录A特征方程和通项公式 534</p>
+
+<p>附录Bsort函数 537</p>
+
+<p>附录C优先队列 541</p>
+
+<p>附录D邻接表 549</p>
+
+<p>附录E并查集 555</p>
+
+<p>附录F四边不等式 561</p>
+
+<p>附录G排列树 565</p>
+
+<p>附录H贝尔曼规则 579</p>
+
+<p>附录I增广路中称为关键边的次数 582</p>
+
+<p>附录J最大流最小割定理 585</p>
+
+
+
+<p style='float:right;'>本页共315段，5028个字符，9133 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

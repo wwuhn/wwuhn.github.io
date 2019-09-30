@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>什么是句柄？为什么会有句柄？HANDLE</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop属性.  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器  
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000">红色</option><option value="#006600">绿色</option><option value="#0000ff">蓝色</option><option value="#660000">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<h3></h3>
+<p>
+从广义上，能够从一个数值拎起一大堆数据的东西都可以叫做句柄。句柄的英文是&quot;Handle&quot;，本义就是&quot;柄&quot;，只是在计算机科学中，被特别地翻译成&quot;句柄&quot;，其实还是个&quot;柄&quot;。从一个小东西拎起一大堆东西，这难道不像是个&quot;柄&quot;吗？</p>
+<p>然后，指针其实也是一种&quot;句柄&quot;，只是由于指针同时拥有更特殊的含义——实实在在地对应内存里地一个地址——所以，通常不把指针说成是&quot;句柄&quot;。但指针也有着能从一个32位的值引用到一大堆数据的作用，这不是句柄又是什么？</p>
+<p>Windows系统中有许多内核对象（这里的对象不完全等价于&quot;面向对象程序设计&quot;一词中的&quot;对象&quot;，虽然实质上还真差不多），比如打开的文件，创建的线程，程序的窗口，等等。这些重要的对象肯定不是4个字节或者8个字节足以完全描述的，他们拥有大量的属性。为了保存这样一个&quot;对象&quot;的状态，往往需要上百甚至上千字节的内存空间，那么怎么在程序间或程序内部的子过程（函数）之间传递这些数据呢？拖着这成百上千的字节拷贝来拷贝去吗？显然会浪费效率。那么怎么办？当然传递这些对象的首地址是一个办法，但这至少有两个缺点：</p>
+<ol>
+  <li>
+    <div>暴露了内核对象本身，使得程序（而不是操作系统内核）也可以任意地修改对象地内部状态（首地址都知道了，还有什么不能改的？），这显然是操作系统内核所不允许的；</div>
+  </li>
+  <li>
+    <div>操作系统有定期整理内存的责任，如果一些内存整理过一次后，对象被搬走了怎么办？</div>
+  </li>
+</ol>
+<p>所以，Windows操作系统就采用进一步的间接：在进程的地址空间中设一张表，表里头专门保存一些编号和由这个编号对应一个地址，而由那个地址去引用实际的对象，这个编号跟那个地址在数值上没有任何规律性的联系，纯粹是个映射而已。</p>
+<p>在Windows系统中，这个编号就叫做&quot;句柄&quot;。</p>
+<p> </p>
+<p>Handle在Windows中的含义很广泛，以下关于谈到的Handle除非特别说明，将仅限于进程、线程的上下文中。</p>
+<p>1、先来谈谈Handle</p>
+<p>Handle本身是一个32位的无符号整数，它用来代表一个内核对象。它并不指向实际的内核对象，用户模式下的程序永远不可能获得一个内核对象的实际地址（一般情况下）。那么Handle的意义何在？它实际上是作为一个索引在一个表中查找对应的内核对象的实际地址。那么这个表在哪里呢？每个进程都有这样的一个表，叫句柄表。该表的第一项就是进程自己的句柄，这也是为什么你调用GetCurrentProcess()总是返回0x7FFFFFFF原因。</p>
+<p>简单地说，Handle就是一种用来&quot;间接&quot;代表一个内核对象的整数值。你可以在程序中使用handle来代表你想要操作的内核对象。这里的内核对象包括：事件（Event）、线程、进程、Mutex等等。我们最常见的就是文件句柄（file handle）。</p>
+<p>另外要注意的是，Handle仅在其所属的进程中才有意义。将一个进程拥有的handle传给另一个进程没有任何意义，如果非要这么做，则需要使用DuplicateHandle()，在多个进程间传递Handle是另外一个话题了，与这里要讨论的无关。</p>
+<p>2、进程ID</p>
+<p>首先，进程ID是一个32位无符号整数，每个进程都有这样的一个ID，并且该ID在系统范围内是唯一的。系统使用该ID来唯一确定一个进程。</p>
+<p>深入些说，系统可能使用进程ID来计算代表该进程的内核对象的基地址（及EPROCESS结构的基地址），具体的计算公式你可以去问微软的OS开发人员。</p>
+<p>3、HINSTANCE</p>
+<p>HINSTANCE也是一个32无符号整数，它表示程序加载到内存中的基地址。</p>
+<p>&nbsp;</p>
+<h3>2</h3>
+<p>关于什么是句柄,以前曾经有人这样比喻：</p>
+
+<p>“牧童遥指杏花村”</p>
+
+<p>牧童的手就是指针；杏花村的旗子就是句柄。</p>
+<p>1、句柄是一种指向指针的指针。我们知 道，所谓指针是一种内存地址。应用程序启动后，组成这个程序的各对象是住留在内存的。如果简单地理解，似乎我们只要获知这个内存的首地址，那么就可以随时用这个地址 访问对象。但是，如果您真的这样认为，那么您就大错特错了。</p>
+
+<p>我们知道，Windows是一 个以虚拟内存为基础的操作系统。在这种系统环境下，Windows内存管理器经常在内存中来回移动对象，依此来满足各种应用程序的内存需要。对象被移动意味着它的地址变化 了。如果地址总是如此变化，我们该到哪里去找该对象呢?</p>
+
+<p>为了解决这个问题，Windows操作系统为各应用程序腾出一些内存储地址，用来专门 登记各应用对象在内存中的地址变化，而这个地址(存储单元的位置)本身是不变的。Windows内存管理器在移动对象在内存中的位置后，把对象新的地址告知这个句柄地址来保存。</p>
+
+<p>这样我们只需记住这个句柄地址就可以间接地知道对象具体在内存中的哪个位置。这个地址是在对象装载(Load)时由系统分配给的，当系统卸载时(Unload)又释放给系统。</p>
+
+<p>句柄地址(稳定)→记载着对象在内存中的地址────→对象在内存中的地址(不稳定) →实际对象但是，必须注意的是程序每次从新启动，系统不能保证分配给这个程序的句柄还是原来的那个句柄，而且绝大多数情况的确不一样的。假如我们把进入电影院看电影看成 是一个应用程序的启动运行，那么系统给应用程序分配的句柄总是不一样，这和每次电 影院售给我们的门票总是不同的一个座位是一样的道理。 </p>
+<p>2、　句柄概念在WINDOWS编程中是一个很重要的概念，在许多地方都扮演着重要的角色。但由此而产生的句柄概念也大同小异，比如：&lt;&lt;Microsoft Windows 3 Developer's Workshop&gt;&gt;(Microsoft Press,by Richard Wilton)一书中句柄的概念是：在Windows环境中，句柄是用来标识项目的，这些项目包括：</p>
+<p>*.模块(module)</p>
+<p>*.任务(task)</p>
+<p>*.实例(instance)</p>
+<p>*.文件(file)</p>
+<p>*.内存块(block of memory)</p>
+<p>*.菜单(menu)</p>
+<p>*.控制(control)</p>
+<p>*.字体(font)</p>
+<p>*.资源(resource),包括图标(icon)，光标(cursor)，字符串(string)等</p>
+<p>*.GDI对象(GDI object),包括位图(bitmap)，画刷(brush)，元文件（metafile),调色板(palette)，画笔(pen)，区域(region)，以及设备描述表(device context)。</p>
+<p>WINDOWS程序中并不是用物理地址来标识一个内存块，文件，任务或动态装入模块的，相反的，WINDOWS API给这些项目分配确定的句柄，并将句柄返回给应用程序，然后通过句柄来进行操作。</p>
+<p>在&lt;&lt;WINDOWS编程短平快&gt;&gt;(南京大学出版社）一书中是这么说的：句柄是WINDOWS用来标识被应用程序所建立或使用的对象的唯一整数，WINDOWS使用各种各样的句柄标识诸如应用程序实例，窗口，控制，位图，GDI对象等等。WINDOWS句柄有点象C语言中的文件句柄。</p>
+<p>从上面的2个定义中的我们可以看到，句柄是一个标识符，是拿来标识对象或者项目的，它就象我们的姓名一样，每个人都会有一个，不同的人的姓名不一样，但是，也可能有一个名字和你一样的人。从数据类型上来看它只是一个16位的无符号整数。应用程序几乎总是通过调用一个WINDOWS函数来获得一个句柄，之后其他的WINDOWS函数就可以使用该句柄，以引用相应的对象。在WINDOWS编程中会用到大量的句柄，比如：HINSTANCE（实例句柄），HBITMAP（位图句柄），HDC（设备描述表句柄），HICON（图标句柄）等等，这当中还有一个通用的句柄，就是HANDLE，比如下面的语句：</p>
+<p>HINSTANCE hInstance；</p>
+<p>可以改成：</p>
+<p>HANDLE hInstance；</p>
+<p>上面的2句语句都是对的。</p>
+<p>一个WINDOWS应用程序可以用不同的方法获得一个特定项的句柄。许多API函数，诸如CreateWindow,GlobalAlloc,OpenFile的返回值都是一个句柄值。另外，WINDOWS也能通过应用程序的引出函数将一个句柄作为参数传送给应用程序，应用程序一旦获得了一个确定项的句柄，便可在WINDOWS环境下的任何地方对这个句柄进行操作。其实句柄的大量使用已经影响到了每一个WINDOWS的程序设计。</p>
+<p>句柄只有当唯一的确定了一个项目的时候，它才开始有意义。句柄对应着项目表中的一项，而只有WINDOWS本身才能直接存取这个表，应用程序只能通过API函数来处理不同的句柄，举个例子来说吧！比如：我们可以为我们的应用程序申请一块内存块，通过调用API函数GlobalAlloc,来返回一个句柄值：</p>
+<p>hMem=GlobalAlloc(......);</p>
+<p>其实现在hMem的值只是一个索引值，不是物理地址，应用程序还不能直接存取这块内存。这儿还有一个话外题，就是，一般情况下我们在编程的时候，给应用程序分配的内存都是可以移动的或者是可以丢弃的，这样能使有限的内存资源充分利用，所以，在某一个时候我们分配的那块内存的地址是不确定的，因为他是可以移动的，所以得先锁定那块内存块，这儿应用程序需要调用API函数GlobalLock函数来锁定句柄。如下：</p>
+<p>lpMem=GlobalLock(hMem);</p>
+<p>这样应用程序才能存取这块内存。</p>
+<p>注意：</p>
+
+<p></p>
+<p>内核对象句柄，是用来标识某个内核对象的一个id</p>
+<p>同一个对象的该id对于每个进程是不同的，具体如何实现是ms不公开的算法，以下是一个近似的，可能的算法：</p>
+<p>进程创建时，windows系统为进程构造了一个句柄表</p>
+<p>当该进程希望获得一个内核对象句柄或者创建一个内核对象从而获得该对象句柄时</p>
+<p>系统会将在句柄表中增加一个表项，表项的内容中存储了指向目标内核对象的指针</p>
+<p>同时，系统返回这个表项在句柄表中的索引作为句柄</p>
+<p>这样，进程就通过句柄查询句柄表得到对象指针，从而可以访问该对象。</p>
+<p>同时又由于有了句柄表的保护，可以防止对内核对象的非法操作。</p>
+<p>我想现在大家已经能对句柄概念有所了解了，我希望我的文章能对大家有所帮助。其实如果你学过SDK编程，那对句柄的概念理解会更好，更深。如果你是直接学VC6的MFC编程的，建议你看一下SDK编程，这会对你大有好处。</p>
+<p> </p>
+<p> </p>
+<p>3、HANDLE就是PVOID，也就是无类型指针，</p>
+
+<p>上面这些资源的句柄Handles都不过是指向struct的指针，至于这个struct的用处，连M$都说unused了，现在解释下M$这么做的意义，这就是所谓数据封装，你可以在你的程序中把M$的内部结构指针传来传去，可是你却不知道它到底指向的内容是什么。</p>
+
+<p></p>
+
+<p>句柄与指针确实是完全不同的两个概念。句柄仅仅是一个32位整数，WIN32中用于标记某个系统或进程的对象，可以理解为对象索引（由于M$未完全公开相关技术，在一定程度上只能如此理解），这个索引更像是一种映射关系（从句柄到对象指针的映射），而不是纯粹意义上的“数组下标”。</p>
+
+<p></p>
+
+<p></p>
+
+<p>句柄可以理解为用于指向或标识内存的一块“资源”，这些资源如：文件(file)、内存块(block of memory)、菜单(menu)等等。操作系统通过句柄来定位核心对象和系统资源。</p>
+
+<p>指针即为指向内存的“数据或指令”某一单元。</p>
+
+<p></p>
+
+<p>说的确切一点，句柄实际上是一种指向某种资源的指针，但与指针又有所不同：指针对应着一个数据在内存中的地址，得到了指针就可以自由地修改该数据。Windows并不希望一般程序修改其内部数据结构，因为这样太不安全。所以Windows给每个使用GlobalAlloc等函数声明的内存区域指定一个句柄(本质上仍是一个指针，但不要直接操作它)，平时你只是在调用API函数时利用这个句柄来说明要操作哪段内存。</p>
+
+<p></p>
+
+<p></p>
+
+<p>四、引喻：</p>
+
+<p>牧童遥指杏花村</p>
+
+<p>牧童的手为指针，杏花村的牌子为句柄，杏花村酒店为对象的实例.</p>
+
+<p></p>
+
+<p></p>
+
+<p>附注：获得窗口句柄三种方法</p>
+
+<p></p>
+
+<p>1.HWND FindWindow(LPCTSTR lpClassName, LPCTSTR lpWindowName)</p>
+
+<p></p>
+
+<p>HWND FindWindowEx(HWND hwndParent, HWND hwndChildAfter,LPCTSTR lpClassName, LPCTSTR lpWindowName)</p>
+
+<p></p>
+
+<p>2.HWND WindowFromPoint(POINT&amp; Point)//获得当前鼠标光标位置的窗口HWND</p>
+
+<p></p>
+
+<p>3.BOOL CALLBACK EnumChildProc(HWND hwnd,LPARAM lParam)</p>
+
+<p></p>
+
+<p>BOOL CALLBACK EnumChildWindows(HWND hWndParent, WNDENUMPROC lpEnumFunc,LPARAM lParam)</p>
+
+<p></p>
+
+<p>BOOL CALLBACK EnumWindows(WNDENUMPROC lpEnumFunc, LPARAM lParam)</p>
+
+<p></p>
+
+<p>BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)</p>
+<p> </p>
+</div>
+
+
+<div>
+<div id="ftsize1"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em">大</a></div>
+<div id="ftsize2"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em">中</a></div>
+<div id="ftsize3"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em">小</a></div>
+<div style="display:none" id="goTopBtn"><a target="_self" style="color:#fff;">&and;</a></div>
+<div style="display:none" id="shangy">
+	<a onclick="shangy()" target="_self" style="color:#fff;">&uarr;</a></div>
+<div id="xiay">
+	<a onclick="xiay()" target="_self" style="color:#fff;">&darr;</a></div>
+<div id="goBottom">
+	<a onclick="downn()" target="_self" style="color:#fff;">&or;</a></div>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

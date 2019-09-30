@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>空指针、NULL指针、零指针</h4>
+
+<p>1.1什么是空指针常量</p>
+<p></p>
+<pre>
+0
+0L
+''
+3 - 3
+0 * 17 
+</pre>
+<p>（它们都是“integer constant expression”）以及 (void*)0 （我觉得(void*)0应该算是一个空指针吧，更恰当一点）等都是空指针常量（注意 (char*) 0 不叫空指针常量，只是一个空指针值）。至于系统选取哪种形式作为空指针常量使用，则是实现相关的。一般的 C 系统选择 (void*)0 或者 0 的居多（也有个别的选择 0L）；至于 C++ 系统，由于存在严格的类型转化的要求，void* 不能象 C 中那样自由转换为其它指针类型，所以通常选 0 作为空指针常量（C++标准推荐），而不选择 (void*)0。</p>
+
+<p>1.2 什么是空指针</p>
+
+<p>如果 p 是一个指针变量，则 
+<p></p>
+<pre>
+p = 0; 
+p = 0L; 
+p = ''; 
+p = 3 - 3; 
+p = 0 * 17;
+</pre>
+<p>中的任何一种赋值操作之后（对于 C 来说还可以是 p = (void*)0;）， p 都成为一个空指针，由系统保证空指针不指向任何实际的对象或者函数。反过来说，任何对象或者函数的地址都不可能是空指针。（比如这里的(void*)0就是一个空指针。把它理解为null pointer还是null pointer constant会有微秒的不同，当然也不是紧要了）。其实空指针只是一种编程概念，就如一个容器可能有空和非空两种基本状态。</p>
+
+<p>1.3 NULL指针</p>
+
+<p>NULL 是一个标准规定的宏定义，用来表示空指针常量。因此，除了上面的各种赋值方式之外，还可以用 p = NULL; 来使 p 成为一个空指针。</p>
+
+<p>（很多系统中的实现：#define NULL (void*)0，与这里的“a null pointer constant”并不是完全一致的）</p>
+
+<p>C++标准库定义的NULL指针</p>
+
+<p></p>
+<pre>
+// Define NULL pointer value
+#ifndef NULL
+# ifdef __cplusplus
+# define NULL 0
+# else
+# define NULL ((void *)0)
+# endif
+#endif // NULL
+</pre>
+
+<p>NULL是一个宏，在C++里面被直接被定义成了整数立即数类型的0，而在没有__cplusplus定义的前提下，就被定义成一个值是0的void *类型指针常量。</p>
+
+<p>1.4 零指针</p>
+
+<p>零值指针，是值为0的指针，可以是任何一种指针类型，可以是通用变体类型void*，也可以是char*，int*等等。</p>
+
+<p>在C++里面，任何一个概念都要以一种语言内存公认的形式表现出来，例如std::vector会提供一个empty()子函数来返回容器是否为空，然而对于一个基本数值类型（或者说只是一个类似整数类型的类型）我们不可能将其抽象成一个类（当然除了auto_ptr等只能指针）来提供其详细的状态说明，所以我们需要一个特殊值来做为这种状态的表现。</p>
+
+<p>C++标准规定，当一个指针类型的数值是0时，认为这个指针是空的。（我们在其他的标准下或许可以使用其他的特殊值来定义我们需要的NULL实现，可以是1，可以是2，是随实现要求而定的，但是在标准C++下面我们用0来实现NULL指针）</p>
+
+<p>1.5 空指针向了内存的什么地方（空指针的内部实现）？</p>
+
+<p>标准并没有对空指针指向内存中的什么地方这一个问题作出规定，也就是说用哪个具体的地址值（0x0 地址还是某一特定地址）表示空指针取决于系统的实现。我们常见的空指针一般指向 0 地址，即空指针的内部用全 0 来表示（zero null pointer，零空指针）；也有一些系统用一些特殊的地址值或者特殊的方式表示空指针（nonzero null pointer，非零空指针），具体请参见C FAQ。</p>
+
+<p>在实际编程中不需要了解在我们的系统上空指针到底是一个 zero null pointer 还是 nonzero null pointer，我们只需要了解一个指针是否是空指针就可以了——编译器会自动实现其中的转换，为我们屏蔽其中的实现细节。注意：不要把空指针的内部表示等同于整数 0 的对象表示——如上所述，有时它们是不同的。</p>
+
+<p>1.6 对空指针实现的保护政策</p>
+
+<p>既然我们选择了0作为空的概念，在非法访问空的时候我们需要保护以及报错。因此，编译器和系统提供了很好的政策。</p>
+
+<p>我们程序中的指针其实是WINDOWS内存段偏移后的地址，而不是实际的物理地址，所以不同的程序中的零值指针指向的同一个0地址，其实在内存中都不是物理内存的开端的0，而是分段的内存的开端，这里我们需要简单介绍一下WINDOWS下的内存分配和管理制度：</p>
+
+<p>WINDOWS下，执行文件（PE文件）在被调用后，系统会分配给它一个额定大小的内存段用于映射这个程序的所有内容（就是磁盘上的内容）并且为这个段进行新的偏移计算，也就是说我们的程序中访问的所有NEAR指针都是在我们“自家”的段里面的，当我们要访问FAR指针的时候，我们其实是跳出了“自家的院子”到了他人的地方，我们需要一个段偏移地址来完成新的偏移（人家家里的偏移）所以我们的指针可能是OE02:0045就是告诉系统我们要访问0E02个内存段的0045好偏移，然后WINDOWS会自动给我们找到0E02段的开始偏移，然后为我们计算真实的物理地址。</p>
+
+<p>所以程序A中的零值指针和程序B中的零值指针指向的地方可能是完全不同的。</p>
+
+<p>保护政策：</p>
+
+<p>我们的程序在使用的是系统给定的一个段，程序中的零值指针指向这个段的开端，为了保证NULL概念，系统为我们这个段的开头64K内存做了苛刻的规定，根据虚拟内存访问权限控制，我们程序中（低访问权限）访问要求高访问权限的这64K内存被视作是不容许的，所以会必然引发Access Volitation 错误，而这高权限的64K内存是一块保留内存（即不能被程序动态内存分配器分配，不能被访问，也不能被使用），就是简单的保留，不作任何使用。</p>
+
+<p>我们在直接定义一个指针后并不知道这个指针指向何处（而不是有些程序员认为的如同JAVA等语言会自动零值初始化），所以我们一旦非法地直接访问这些未知地内容时，极其有可能会触碰到程序所不能触碰地内存（这时类似64K限制地保护政策又会起效，就如同你不仅随意闯入了陌生人的家（野指针），而且拿着刀子要问他要钱（访问），警察（WINDOWS内存访问保护政策）当然请你去警察局（报错）谈谈），所以养成良好的指针初始化（赋值为NULL）以及使用FREE（或者时DELETE）之后立即再初始化为空是十分必要的！</p>
+
+<p>1.7 为什么通过空指针读写的时候就会出现异常？</p>
+
+<p>NULL指针分配的分区：其范围是从 0x00000000到0x0000FFFF。这段空间是空闲的，对于空闲的空间而言，没有相应的物理存储器与之相对应，所以对这段空间来说，任何读写操作都是会引起异常的。空指针是程序无论在何时都没有物理存储器与之对应的地址。为了保障“无论何时”这个条件，需要人为划分一个空指针的区域，固有上面NULL指针分区。</p>
+
+<p>1.8 是否可以定义自己的 NULL 的实现？</p>
+
+<p>NULL 是标准库中的一个reserved identifier （保留标识符）。所以，如果包含了相应的标准头文件而引入了 NULL 的话，则再在程序中重新定义 NULL 为不同的内容是非法的，其行为是未定义的。也就是说，如果是符合标准的程序，其 NULL 的值只能是 0，不可能是除 0 之外的其它值，比如 1、2、3 等。</p>
+
+<p>1.9 malloc 函数在分配内存失败时返回 0 还是 NULL？</p>
+
+<p>malloc 函数是标准 C 规定的库函数。在标准中明确规定了在其内存分配失败时返回的是一个 “null pointer”（空指针）。对于空指针值，一般的文档（比如 man）中倾向于用 NULL 表示，而没有直接说成 0。但是我们应该清楚：对于指针类型来说，返回 NULL 和返回 0 是完全等价的，因为 NULL 和 0 都表示 “null pointer”（空指针）。（一般系统中手册中都返回NULL）</p>
+
+<p>C++里面的NEW再内存失败是会抛出一个BAD_ALLOC异常。</p>
+
+<p>2. 野指针</p>
+
+<p>“野指针”不是NULL指针，是指向“垃圾”内存的指针。</p>
+
+<p>2.1 “野指针”的成因主要有两种：</p>
+
+<p>1）指针变量没有被初始化。任何指针变量刚被创建时不会自动成为NULL指针，它的缺省值是随机的，它会乱指一气。所以，指针变量在创建的同时应当被初始化，要么将指针设置为NULL，要么让它指向合法的内存。例如：</p>
+
+<p></p>
+<pre>
+char *p = NULL;
+char *str = (char *) malloc(100);
+</pre>
+
+<p>2）指针p被free或者delete之后，没有置为NULL，让人误以为p是个合法的指针。</p>
+
+<p>free和delete只是把指针所指的内存给释放掉，但并没有把指针本身干掉。free以后其地址仍然不变（非NULL），只是该地址对应的内存是垃圾，p成了“野指针”。如果此时不把p设置为NULL，会让人误以为p是个合法的指针。如果程序比较长，我们有时记不住p所指的内存是否已经被释放，在继续使用p之前，通常会用语句if (p != NULL)进行防错处理。很遗憾，此时if语句起不到防错作用，因为即便p不是NULL指针，它也不指向合法的内存块。</p>
+<p></p>
+<pre>
+char *p = (char *) malloc(100);
+strcpy(p, “hello”);
+free(p); // p 所指的内存被释放，但是p所指的地址仍然不变
+…
+if(p != NULL) // 没有起到防错作用
+{
+    strcpy(p, “world”); // 出错
+}
+</pre>
+
+<p>3）指针操作超越了变量的作用范围。这种情况让人防不胜防，示例程序如下：</p>
+<p></p>
+<pre>
+class A
+{
+public:
+    void Func(void)
+    {
+        cout &lt;&lt; “Func of class A” &lt;&lt; endl; 
+    }
+};
+void Test(void)
+{
+    A *p;
+    {
+        A a;
+        p = &a; // 注意 a 的生命期，只在这个程序块中（花括号里面的两行），而不是整个test函数
+        }
+    p-&gt;Func(); // p是“野指针”
+}
+</pre>
+
+<p>函数Test在执行语句p-&gt;Func()时，对象a已经消失，而p是指向a的，所以p就成了“野指针”。</p>
+
+
+
+<p style='float:right;'>本页共72段，4267个字符，9999 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

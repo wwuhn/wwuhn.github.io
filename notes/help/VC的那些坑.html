@@ -1,0 +1,695 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+<h4>1 单选按钮操作</h4>
+<p>1.1 单选框如何关联变量？</p>
+<p>属性→分组；</p>
+<p>分组要连续，工作空间→Resource选项卡→布局→Tab顺序；</p>
+<p>1.2 单选框竟然可以选两个</p>
+
+<p>每一个控件要选择分组，可以设置变量，第一个控件的值默认为0;</p>
+
+<p>其它的控制的tab顺序必须是一起:resourceview→布局→tab顺序；</p>
+
+<p>打开rc文件，将单选框参数设置的内容放到一起:</p>
+<h4>2 组合框不能下拉：</h4>
+
+<p>点击箭头→拉出一定高度；</p>
+
+<h4>3 静态文本框添加消息响应：</h4>
+
+<p>3.1 更改ID；</p>
+
+<p>3.2 勾选“通知”（notify）</p>
+
+<h4>4 日历控件操作</h4>
+
+<p>4.1 日历控件关连变量；</p>
+
+<p>4.2 对话框初始化时变量赋值：CTime::GetCurrentTime();</p>
+
+<p>4.3 UpdateData(0);</p>
+<p>CTime m_day = CTime::GetCurrentTime();</p>
+
+<p>CString week = m_day.Format("%w");</p>
+
+<p>int i = atoi(week.GetBuffer(0));</p>
+
+<p>CString weeks[] = {"Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat.", "Sun."};</p>
+
+<p>str = m_day.Format("%Y-%m-%d " + weeks[i-1]);</p>
+<h4>5 更改工具栏的图标缓存</h4>
+
+<p>5.1 删除C:\\Users\\wwuhnwu01\\AppData\\Local\\IconCache.db</p>
+
+<p>5.2 文件要适当更改；</p>
+
+<p>5.3 重新编译；</p>
+<h4>关于图标</h4>
+<p>程序图标：32*32的ico图标；</p>
+
+<p>工具栏图标：16*16的Bmp图标；，其所在的底色一般是RGB(240,240,240)</p>
+
+<p>选项卡图标必须是ico；</p>
+<p>可以去http://ico.58pic.com/search/搜索图标，文件要求是16*16的，对于24*24的，可以剪裁，保存为bmp格式。或者直接复制一个图标再理性，需要的图形可以直接复制粘贴上去。</p>
+<p>绘制16*16的bmp文件：复制一个空白的，拉大，选字体8，输入如h4后再拉小；</p>
+<p>BMP图标的引入：工作空间→resourceView→Bitmap→引入→类型：全部；</p>
+
+
+<p><h4>添加工具栏图标：</h4></p>
+
+<p>1 工具栏图标引入项目工程：资源选项卡→bitmap右击→引入→查找范围→所有文件→选择：nbsp.bmp→此时会增加一个IDB_BITMAP21图标→属性：即可看到文件名为：res\nbsp.bmp</p>
+
+<p>2 添加命令按钮，属性：位图、所有者绘制；</p>
+
+<p>3 .h和cpp实例对象并设置属性；</p>
+
+<p>CBitmapButton m_bbtn21;</p>
+
+<p>m_bbtn21.LoadBitmaps(IDB_BITMAP21,IDB_BITMAP0);</p>
+
+<p>m_bbtn21.SubclassDlgItem(IDC_BUTTON21,this);</p>
+
+<p>m_Mytip.AddTool(GetDlgItem(IDC_BUTTON21), "在全部文本的末尾添加网页中的空字符编码&nbsp" );</p>
+
+<h4>6 富文本框相关</h4>
+
+<p>6.1 在对话框中，richedit的图框变成了黑色，也调不出正常的属性对话框，原因是在Records.rc文件中以下内容中有增加20A字样，改回即可。</p>
+
+<p>CONTROL "",IDC_RICHEDIT1,"RICHEDIT20A",WS_TABSTOP,134,65,307,18</p>
+
+<p>6.2 不同类型的富文本框，其编辑的代码格式有区别；</p>
+
+<p>6.3 富文本框可以用"\n"控制换行，普通文本框不能识别。</p>
+<p>VC的edit没有ctrl+A的快捷键，richedit有；</p>
+
+<p>VC的edit有右键菜单，richedit没有；</p>
+<h4>7 VC++中提示计算机丢失MFC42D.DLL文件</h4>
+
+<p>工程->设置->常规，把Microsoft基础类改为：使用MFC作为静态链接库</p>
+
+<h4>8 获取默认焦点；</h4>
+
+<p>if(GetDlgItem(控件ID)->GetSafeHwnd() == ::GetFocus())</p>
+<p>编辑框操作后发现不见了光标，但操作还是原地操作，需要GetDlgItem(IDC_textbox).SetFocus;</p>
+<h4>9 IDE编译时提示错误的解决：</h4>
+
+<p>Unhandled exception in exe (MFC42D.Dll):oxc0000005:Access violation bResult = m_pCtrlSite->DestroyControl();</p>
+
+<p>上面的错误提示可以通过尝试“全部重建解决方案”，重新运行后异常消失了！</p>
+
+<h4>当前活动工程</h4>
+
+<p>工作区workspace→项目project→类class→对象object→消息message；</p>
+<p>工具栏空白处右击→编译微型条 、组建；</p>
+<p>右击也可以调出控件工具箱；</p>
+
+<h4>控件与控件变量的数据交换</h4>
+<p>与设置的控件变量类型有关系：</p>
+<p>m_Records.GetDlgItem(IDC_EDIT1)->SetWindowText("dddd");</p>
+<p>CEdit可以用"=",CRichEditctrl不能用"="；</p>
+<p>如：</p>
+<p>m_Records.m_href = str;</p>
+
+<p>m_Records.m_text.SetWindowText(str);</p>
+<p>有8种访问对话框控件的方式：</p>
+
+<p>GetDlgItem()->Get(Set)WindowText()</p>
+
+<p>GetDlgItemText()/SetDlgItemText()</p>
+
+<p>GetDlgItemInt()/SetDlgItemInt()</p>
+
+<p>将控件和普通变量相关联，用UpdateData();交换数据</p>
+
+<p>将控件和控件变量相关联</p>
+
+<p>SendMessage()</p>
+
+<p>SendDlgItemMessage()</p>
+
+<p>GetSelText()</p>
+
+<p>如何插入文本？m_textblock.ReplaceSel(str);</p>
+
+<p>文本替换：</p>
+
+<p>str = m_textblock.GetSelText();</p>
+
+<p>str = "<pre>" + str + "</pre>";</p>
+
+<p>m_textblock.ReplaceSel(str);</p>
+<h4>选项卡对话框设置其子对话框的控件的文本</h4>
+
+<p>m_Records.m_text.SetWindowText(str);</p>
+<p>其中m_Records是对话框类（一个对话框一般要对应一个类）的实例（对象），m_text是控件关连的变量。也就是逐级引用。</p>
+
+<h4>界面开发与电脑设置</h4>
+<p>当电脑进行个性化设置时，个性化→显示→最小(100%,默认)或中等(125%)时，用vc6开发的mfc程序对话框在不同的设置下GUI会有些变化；</p>
+
+<p>1 对话框的字体由系统默认的system改成宋体，字体大小为小五(9);</p>
+
+<p>2 高度会有所区别；</p>
+
+<p>3 用画笔输出的文本和图像的位置坐会有所变化；</p>
+
+<p>4 工具栏所能容纳的图标数量也有区别；</p>
+<h4>得到操作系统环境设置参数</h4>
+<p>char buf[256];</p>
+
+<p>::GetCurrentDirectory(256,buf);</p>
+	<p>char * path0 = new char[66];</p>
+	<p>GetModuleFileName(NULL, path0, 66);</p>
+<p>F:\Website\notes\Assistants</p>
+<pre>
+CString programfilesDir()	// 得到系统盘符
+{
+	char * pfile = new char[66];
+	::GetWindowsDirectory(pfile,25);
+	CString dir = pfile[0];
+	return dir;
+}
+
+CString projectDir()		// 得到项目所在盘符
+{
+	char buf[56];
+	::GetCurrentDirectory(56,buf);
+	CString dir = buf[0];
+	return dir;
+}
+</pre>
+
+<h4>VC6的坑</h4>
+
+<p>graphics.h是TC的针对DOS下的一个C语言图形库，如果要用的话应该用TC的编译器来编译，VC++环境有其它的针对windows的图形库。分为：像素函数、直线和线型函数、多边形函数、填充函数等。如果您需要在vc及vs环境中使用graphics.h的功能 您可以下载EasyX图形库（注意：这是一个C++的图形库 如果您一定要在C语言环境下使用 graphics.h 您可以使用windows gdi）</p>
+
+<p>graphics.h只能在tc或Bc里用,即使你把TC里面的Graphics.h拷贝到VC或miniGW目录下，编译也会出现一大堆错误。</p>
+<p>用VC6.0++编程，出现“Cannot open include file: 'graphics.h': No such file or directory”错误提醒？</p>
+
+
+
+<p>graphics是Turbo特有的图形库！！</p>
+
+
+
+<p>VC下面直接拷贝一个graphics.h是不行的，还要有对应的.lib才可以。楼主看这里：http://code.google.com/p/vcgraphics/downloads/list</p>
+
+
+
+<p>下载里面的VCGraph(V20091123).zip安装到你的VC6里面就行，里面有说明。或者，里面有VC6.7z，是配置好graphics.h的，下载后可以直接用。</p>
+
+
+<p>在VC中编译c程序，在一个大括号括起的范围内，如果变量声明放在了变量声明以外的语句的后面，那么编译的时候就会报错：</p>
+
+<p>syntax error : missing ';' before 'type'</p>
+
+<p>然后你可以把变量声明放在{}内的最前面就会顺利通过编译。</p>
+
+<p>这个问题在vc编译c++程序，或者gcc编译c程序的时候都不会出现，仅仅在vc编译c程序的时候才会出现.</p>
+<p>int i,j;</p>
+
+<p>...</p>
+
+<p>for(i=0;i<N;i++)	//int i的声明要放到{}内的最前面</p>
+
+<p>VC6对STL容器支持度不佳</p>
+
+<p>C6使用的STL库最初是为VC4开发的，而该版本的编译器缺乏对模板成员函数的支持——虽然当时几乎所有的C++编译器都没有这样的特性。后来VC6增加了这个特性，可是MS居然忘记了STL</p>
+
+<p><h4>noteDB存在的一些问题：</h4></p>
+
+<p>1 不能插入单引号字符；后来发现，单引号''''成双可以，不能成单''!</p>
+
+<p>2 有时修改会替换年本已存在的记录；（没有选择“修改”单选按钮）</p>
+
+
+<h4>MFC用fread()读取文本文件内容到文本框时最后总有一串乱码。</h4>
+
+<pre>
+void CDetails::OnButton1()					//打开文本文件到文本框（正常）
+{
+	char* p_ucbuffer;
+	long lFileLen;							// 文件长度
+	CString p_pcstrFileName = projectpath + "\\help\\details.txt";
+	FILE *pf = fopen(p_pcstrFileName, "rt");
+	if (pf==NULL) 
+	{
+	  printf("reading error\n");
+	  exit (1);
+	}
+	fseek(pf, 0, SEEK_END);					// 移动到文件末尾
+	lFileLen = ftell(pf) + 1;				// 得到文件长度，参考代码认为要+1
+	rewind(pf);								// 重置文件指针
+	p_ucbuffer = new char[lFileLen];		// 分配数据缓冲区
+	memset(p_ucbuffer, 0, (int)lFileLen);	// memset是计算机中C/C++语言初始化函数。
+// 作用是将某一块内存中的内容全部设置为指定的值， 
+// 这个函数通常为新申请的内存做初始化工作。
+	fread(p_ucbuffer, (int)lFileLen, 1, pf);
+//参考代码的数据类型都用unsigned，但下面的语句有些问题，不能编译
+	m_details.SetWindowText(p_ucbuffer);
+	free(p_ucbuffer);
+	p_ucbuffer =NULL;
+	GetDlgItem(status)->SetWindowText("内容已读入文本框！");
+	m_OpenPath = "F:\\Website\\notes\\help\\details.txt";
+	UpdateData(0);
+}
+</pre>
+<p><h4>文本根据编辑框的宽度实现自动换行？</h4></p>
+
+<p>1 将编辑框的MultiLine属性改为true；</p>
+
+<p>2 Auto Scroll属性改为false.</p>
+
+<p>3 Want Return这个属性设置为true,防止按下Enter键,对话框关闭.</p>
+<p><h4>对话框程序：</h4></p>
+
+<p>1 为控件关联变量：控件右击→添加类向导→Member variable</p>
+
+<p>或者：view（查看）→class wizard（建立类向导）</p>
+
+<p>2 添加普通成员：class view右击要添加成员的类→Add Member variable</p>
+
+<p>3 添加成员函数：class view右击要添加成员的类→Add Member Function</p>
+
+<p>4 添加消息处理函数：控件右击→添加类向导→Message Map→Project→Class name→Object IDs→Messages→Member Function→Add Function→Edit code</p>
+<h4>MFC绘图</h4>
+<p>在MFC应用程序中，绘制图形操作通常涉及三类对象：</p>
+
+<p>1 输出对象，亦即设备上下文对象，CDC及其派生对象</p>
+
+<p>2 绘制工具对象，即图形对象，如CFont、ＣPen、ＣＢrush</p>
+
+<p>3 Windows编程中需要用到的基本数据类型，如CPoint、CSize和CRect等；</p>
+
+<p>CDC类是MFC对DC结果及其相关绘图和状态设置的C++类封装。CDC是CObject的直接派生类，CDC类自己也有若干派生类。</p>
+
+<p>在获得设备环境对象后，具体的绘图工作是由绘图函数完成的。CDC类提供了一些基本的绘图函数供用户使用。SetPixel()、LineTo()、MoveTo()、Polyline()、Rectangle()、RoundRect()、Arc()、Ellipse()、Pie()、Polygon()。</p>
+
+<p>为了支持GDI绘图，MFC提供了两种重要的类：</p>
+
+<p>设备环境类CDC，用于设置绘图属性和绘制图形；</p>
+
+<p>绘图对象类CGdiObject，封装了各种GDI绘图对象，包括画笔CPen、画刷CBrush、字体CFont、位图CBitmap、调色板Cpalette和区域CRgn。</p>
+
+<p>GDI绘图过程包括：</p>
+
+<p>1 获取设备环境</p>
+
+<p>CPaintDC dc(this);</p>
+
+<p>//CPaintDC是CDC的一个派生类，只是在OnPaint()函数中使用；</p>
+
+<p>2 设置坐标映射SetMapMode</p>
+
+<p>3 创建绘图工具</p>
+
+<p>CPen pen1(PS_SOLID, 1, RGB(198, 198, 198));</p>
+
+<p>dc.SelectObject(&pen1);</p>
+
+<p>4 调用CDC绘图函数绘图</p>
+
+<p>dc.MoveTo(0,455);</p>
+
+<p>dc.LineTo(877,455);</p>
+
+<p>另一种方式：</p>
+
+<p>CDC *pDC = GetDC();</p>
+
+<p>CDC memDC; //定义一个设备上下文</p>
+
+<p>memDC.CreateCompatibleDC(pDC); //创建兼容的设备上下文</p>
+
+<p>CBitmap bmp; //定义位图对象</p>
+
+<p>bmp.LoadBitmap(IDB_bg2);//梅 加载位图</p>
+
+<p>memDC.SelectObject(&bmp);//选中位图对象</p>
+
+<p>pDC->BitBlt(0, 0, 280, 197, &memDC, 1, 1, SRCCOPY);//绘制位图</p>
+
+<h4>others</h4>
+<p>代码快速格式化：Ctrl+A→Alt+F8；</p>
+<p>控件背景色为重载OnCtlColor；</p>
+<p>手形标签：#define IDC_HAND MAKEINTRESOURCE(32649)</p>
+<p>编辑隐藏文本框：ctrl+D→类向导→即可移动；</p>
+<p>列表视图控件CListCtrl调整每行高度:CListCtrl 设置行高(1 关联图片)</p>
+<p>列表视图控件CListCtrl如何调整每列的宽度:CAssistantsDlg::OnInitDialog()</p>
+<p>MFC打开时自动点击事件:通过定时器SetTimer()，然后在OnTimer()里调用按钮消息响应函数即可。</p>
+<p>静态文本控件用函数显示文本：m_Static.SetWindowText("需要显示的文本");</p>
+<p>CString位于头文件afx.h中。CString是MFC中的一个类，很大程度上简化了MFC中的许多字符串的操作。</p>
+
+<p>MFC中除了MFC类（封装API）以外，还包括部分宏和全局成员，这些都不属于类的成员，比如全局函数和全局变量。如MessageBox()</p>
+<p>程序中的每个对话框，都需要创建一个与对话框资源一起工作的对话框类。基于CDialog类，可以使用classWizard去创建，快捷键是Ctrl+W</p>
+
+<p>类创建完成后会自动添加两具文件，cpp和h文件。然后可以类中的控件添加消息交互。</p>
+
+<p>公用对话框：</p>
+
+<p>颜色：CColorDialog，可以返回选择的颜色值；</p>
+
+<p>文件CFileDialog，可以返回选择的文件的路径或文件名；</p>
+
+<p>字体CFontDialog，可以返回选择的字体；</p>
+
+<p>查找替换对话框：CFindReplaceDialog，让用户执行查找替换功能；</p>
+
+<p>打印对话框：CPrintDialog，让用户执行打印功能；</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>一文弄懂二叉树三种遍历 </strong></p>
+
+<p>二叉树的遍历是指从根结点出发，按照某种次序依次访问二叉树中所有结点，使得每个结点被访问一次且仅被访问一次。</p>
+
+<p>在二叉树的遍历中存在三种较为常用的遍历方式：前序遍历、中序遍历、后序遍历。本文笔者将尝试着以图文结合的方式向读者详细的介绍这三种遍历方式的逻辑思路，希望让读者看到任何的二叉树都能在脑海中快速的勾勒出动画。</p>
+
+<p><strong>前提</strong></p>
+
+<p>在介绍这三组动画前，我们先用图来介绍一下二叉树的创建以及动画中的一些约定说明。</p>
+
+<p><img width="408" height="392" src="a_clip_image001.jpg" alt="一文弄懂二叉树三种遍历" /></p>
+
+<p>如图所示是二叉树中的一个节点，这个节点有左子树与右子树，通过两根绿色的连接线，将此节点划分成了三个区域，我们分别用前、中、后这三个辅助点来表示。</p>
+
+<p>这三个点表明在二叉树的遍历中什么时候要取出此节点的值。</p>
+
+<p>任何一个节点去遍历都是：前-左绿线-中-右绿线-后，这样的顺序遍历的。</p>
+
+<p><strong>前序遍历</strong></p>
+
+<p>使用递归方式实现前序遍历的具体过程为： </p>
+
+<p>先访问根节点；</p>
+<p>再序遍历左子树；</p>
+<p>最后序遍历右子树；</p>
+  </ol>
+  <p align="left"><img width="640" height="344" src="a_clip_image002.jpg" alt="一文弄懂二叉树三种遍历" /></p>
+
+<p>我们来对上图进行一个充分的说明来理解前序遍历的递归实现方式。 </p>
+
+<p>首先访问了28这个节点，我们看前辅助点，由于是前序遍历，那么此刻我们取出该节点的值28；</p>
+<p>而后通过左绿线访问28的左子树；</p>
+<p>在16这个节点中，我们看前辅助点，由于是前序遍历，取出该节点的值16；</p>
+<p>通过左绿线访问16的左子树；</p>
+<p>在13这个节点中，我们看前辅助点，由于是前序遍历，取出该节点的值13；</p>
+<p>13这个节点左子树为空，那么我们左绿线就没有，然后看中辅助点，由于是前序遍历，因此不做处理；</p>
+<p>13这个节点右子树为空，那么我们右绿线就没有，然后看后辅助点，由于是前序遍历，因此不做处理；</p>
+<p>而后回到16这个节点中，看中辅助点，由于是前序遍历，因此不做处理；</p>
+<p>而后看16这个节点的右子树22这个节点，看前辅助点，由于是前序遍历，取出该节点的值22；</p>
+  </ol>
+  <p align="left"><strong>代码实现：</strong> </p>
+  <div></p>
+
+<p>/// 144. Binary Tree Preorder Traversal</p>
+
+<p>/// https://leetcode.com/problems/binary-tree-preorder-traversal/description/</p>
+
+<p>/// 二叉树的前序遍历</p>
+
+<p>/// 时间复杂度: O(n), n为树的节点个数</p>
+
+<p>/// 空间复杂度: O(h), h为树的高度</p>
+
+<p>class Solution {</p>
+
+<p>public:</p>
+
+<p>vector&lt;int&gt;  preorderTraversal(TreeNode* root) {</p>
+
+<p>vector&lt;int&gt; res;</p>
+
+<p>__preorderTraversal(root, res);</p>
+
+<p>return res;</p>
+
+<p>}</p>
+
+<p>private:</p>
+
+<p>void __preorderTraversal(TreeNode* node,  vector&lt;int&gt; &amp;res){</p>
+
+<p>if(node){</p>
+
+<p>res.push_back(node-&gt;val);</p>
+
+<p>__preorderTraversal(node-&gt;left, res);</p>
+
+<p>__preorderTraversal(node-&gt;right,  res);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>}; </div>
+  <p align="left"><strong>中序遍历</strong></p>
+
+<p>使用递归方式实现中序遍历的具体过程为： </p>
+
+<p>先中序遍历左子树；</p>
+<p>再访问根节点；</p>
+<p>最后中序遍历右子树；</p>
+  </ol>
+  <p align="left"><img width="640" height="350" src="a_clip_image003.jpg" alt="一文弄懂二叉树三种遍历" /></p>
+
+<p>我们来对上图进行一个充分的说明来理解中序遍历的递归实现方式。 </p>
+
+<p>首先访问了28这个节点，我们看前辅助点，由于是中序遍历，因此不做处理；</p>
+<p>而后通过左绿线访问28的左子树；</p>
+<p>在16这个节点中，我们看前辅助点，由于是中序遍历，因此不做处理；</p>
+<p>通过左绿线访问16的左子树；</p>
+<p>在13这个节点中，我们看前辅助点，由于是中序遍历，因此不做处理；</p>
+<p>13这个节点左子树为空，那么我们左绿线就没有，然后看中辅助点，由于是中序遍历，取出该节点的值13；</p>
+<p>13这个节点右子树为空，那么我们右绿线就没有，然后看后辅助点，由于是中序遍历，因此不做处理；</p>
+<p>而后回到16这个节点中，看中辅助点，由于是中序遍历，取出该节点的值16；</p>
+<p>而后看16这个节点的右子树22这个节点，看前辅助点，由于是中序遍历，因此不做处理；</p>
+<p>看中辅助点，由于是中序遍历，取出该节点的值22；</p>
+  </ol>
+  <p align="left">代码实现： </p>
+  <div></p>
+
+<p>/// 94. Binary Tree Inorder Traversal</p>
+
+<p>/// https://leetcode.com/problems/binary-tree-inorder-traversal/solution/</p>
+
+<p>/// 二叉树的中序遍历</p>
+
+<p>/// 时间复杂度: O(n), n为树的节点个数</p>
+
+<p>/// 空间复杂度: O(h), h为树的高度</p>
+
+<p>class Solution {</p>
+
+<p>public:</p>
+
+<p>vector&lt;int&gt;  inorderTraversal(TreeNode* root) {</p>
+
+<p>vector&lt;int&gt; res;</p>
+
+<p>__inorderTraversal(root, res);</p>
+
+<p>return res;</p>
+
+<p>}</p>
+
+<p>private:</p>
+
+<p>void __inorderTraversal(TreeNode* node,  vector&lt;int&gt; &amp;res){</p>
+
+<p>if( node ){</p>
+
+<p>__inorderTraversal(node-&gt;left, res);</p>
+
+<p>res.push_back( node-&gt;val );</p>
+
+<p>__inorderTraversal(node-&gt;right, res);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>}; </div>
+  <p align="left"><strong>后序遍历</strong></p>
+
+<p>使用递归方式实现后序遍历的具体过程为： </p>
+
+<p>先后序遍历左子树；</p>
+<p>再后序遍历右子树；</p>
+<p>最后访问根节点；</p>
+  </ol>
+  <p align="left"><img width="640" height="347" src="a_clip_image004.jpg" alt="一文弄懂二叉树三种遍历" /></p>
+
+<p>我们来对上图进行一个充分的说明来理解后序遍历的递归实现方式。 </p>
+
+<p>首先访问了28这个节点，我们看前辅助点，由于是后序遍历，因此不做处理；</p>
+<p>而后通过左绿线访问28的左子树；</p>
+<p>在16这个节点中，我们看前辅助点，由于是后序遍历，因此不做处理；</p>
+<p>通过左绿线访问16的左子树；</p>
+<p>在13这个节点中，我们看前辅助点，由于是后序遍历，因此不做处理；</p>
+<p>13这个节点左子树为空，那么我们左绿线就没有，然后看中辅助点，由于是后序遍历，因此不做处理；</p>
+<p>13这个节点右子树为空，那么我们右绿线就没有，然后看后辅助点，由于是后序遍历，取出该节点的值13；</p>
+<p>而后回到16这个节点中，看中辅助点，由于是后序遍历，因此不做处理；</p>
+<p>而后看16这个节点的右子树22这个节点，看前辅助点，由于是中序遍历，因此不做处理；</p>
+<p>看中辅助点，由于是后序遍历，因此不做处理；</p>
+<p>看后辅助点，由于是后序遍历，取出该节点的值16；</p>
+
+  <p align="left">代码实现： </p>
+  <div></p>
+
+<p>/// 145. Binary Tree Postorder Traversal</p>
+
+<p>/// https://leetcode.com/problems/binary-tree-postorder-traversal/description/</p>
+
+<p>/// 二叉树的后序遍历</p>
+
+<p>/// 时间复杂度: O(n), n为树的节点个数</p>
+
+<p>/// 空间复杂度: O(h), h为树的高度</p>
+
+<p>class Solution {</p>
+
+<p>public:</p>
+
+<p>vector&lt;int&gt; postorderTraversal(TreeNode*  root) {</p>
+
+<p>vector&lt;int&gt; res;</p>
+
+<p>__postorderTraversal(root, res);</p>
+
+<p>return res;</p>
+
+<p>}</p>
+
+<p>private:</p>
+
+<p>void __postorderTraversal(TreeNode*  node, vector&lt;int&gt; &amp;res){</p>
+
+<p>if( node ){</p>
+
+<p>__postorderTraversal(node-&gt;left,  res);</p>
+
+<p>__postorderTraversal(node-&gt;right,  res);</p>
+
+<p>res.push_back(node-&gt;val);</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>}; </div>
+  <p align="left">作者简介：菠了个菜，本文首发于个人公众号「五分钟学算法」。「五分钟学算法」是致力于通过各种动画的形式来描绘出各种数据结构，并图解 LeetCode 原题的学习平台。</p>
+
+<p>本文系作者投稿，版权归作者所有。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

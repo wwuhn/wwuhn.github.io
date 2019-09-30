@@ -1,0 +1,477 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+
+<body onload="downn();">
+
+<div id="container">
+
+
+<p>用Tomcat弱口令扫描器随便扫描一个网段，找到网站的目录我们直接传大马。这样就会得到一个webshell。其实如果是MSSQL的数据库我们就可以直接下载conn.asp。</p>
+<p>巴贝奇使用的分步齿轮与传动齿轮，是一种“动的机械”，而电气时代的真空管的计算机却是一种“不动的机械”。巴贝奇时代没有电。</p>
+<p>定位到注册表的分支cmd /c reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit" /v "LastKey" /d "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp" /f&&start regedit.exe</p>
+<p>会会导出的视频一般较大，最大的是AVI，一般的做法是用会会的导出视频再通过格式工厂转转换格式软件再软件转换小一点。可以适当调整帧数和流量。</p>
+<p>会会可以处理nrg的dat，无法处理nrg的vob.</p>
+<p>CAD图层技术除了叠加功能以外，主要还在于对不同类别的图形进行分类管理。</p>
+<p>下视频格式：wmv|avi|dat|asf|rm|rmvb|ram|mpg|mpeg|3gp|mov|mp4|m4v|dvix|dv|mkv|flv|vob|qt|cpk|fli|flc|mod|ts|webm|m2ts</p>
+<p>appName返回所使用浏览器的名称。该属性并不一定能返回正确的浏览器名称。在基于 Gecko 的浏览器 （例如 Firefox）和基于 WebKit 的浏览器（例如 Chrome 和 Safari）中，返回的浏览器名称都是 "Netscape".appCodeName 属性是一个只读字符串，声明了浏览器的代码名。在所有以 Netscape 代码为基础的浏览器中，它的值是 "Mozilla"。为了兼容起见，在 Microsoft 的浏览器中，它的值也是 "Mozilla"。</p>
+<p>非要用超级难用的“爱剪辑”，还不如用免费开源的软件Shotcut （官网https://www.shotcut.org）</p>
+<p>TrueCrypt对某一磁盘分区进行加密，开启计算机后，如果你没有打开TrueCrypt 这个软件，这个被加密的分区是不会被显示出来的。打开TrueCrypt ，输入密码后，你就能在”我的电脑“里看到那个被加密的分区了。</p>
+
+
+
+<p>html5的video标签只支持mp4、webm、ogg三种格式</p>
+<p>GIF图片可以用【ImageReady】软件编辑；</p>
+<p>wifi黑名单</p>
+<p>netsh wlan add filter permission=block ssid="wwuhnwu" networktype=infrastructure</p>
+<p>删除wifi黑名单</p>
+<p>netsh wlan delete filter permission=block ssid="wwuhnwu" networktype=infrastructure</p>
+<p>查看wifi黑名单</p>
+<p>netsh wlan show filters</p>
+<p>windows vista有功能模块6万个，代码6000万行，1万名员工在windows基础上，耗时5年。</p>
+<p>网页无法复制的解决之道：
+<p>1 ctrl+a→ctrl+C
+<p>2 取消网页运行脚本；
+<p>3 查看源代码；
+<p>4 图片转换：
+<p>4.1 Office办公软件自带的OneNote工具；
+<p>4.2 在线转换：<a href="http://ocr.wdku.net/">ocr.wdku.net</a>
+<p>C:\Users\wwuhnwu01\AppData\Local\Google\Chrome\User Data\Default\Cache</p>
+<p>今天在添加谷歌扩展程序时突然提示“无法添加来自此网站的应用、扩展程序和应用脚本”，搜其原因，原来是Google 的 Chrome 浏览器宣布从最新Chrome版本开始默认只允许从 Chrome Web Store 下载安装扩展程序，令人苦恼不已。</p>
+
+<p>解决方法如下：</p>
+
+<p>在桌面找到Google Chrome图标→右击属性→在快捷方式下找到目标(T)→在最后加入下面文字（不要省略最前面的空格）</p>
+
+<p>亲测有效！</p>
+
+<p> –enable-easy-off-store-extension-install</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+<p>指令和数据以同等地位存储于存储器中，并可按地址访问；</p><p>指令由操作码和地址码组成，操作码用来表示操作的性质，地址码用来表示操作数所在的存储器的位置。</p><p>1946年第一台计算机ENIAC采用重新连接线路的方法实现编程，这个过程需要许多工人花几天时间才能完成。工人们改变插接板上的电路连接，此操作方式很像早期的电话接线总机。由人像搭积木一样，将大量运算部件搭配成各种解题布局，每算一题 就要重搭一次。</p><p>这种计算机的连接可以理解为硬连接，模块之间由人工可以操作的连线连接，到了印刷电路板时代，连接由印刷电路组成，连接变成了软连接，由电流在模块之间的通断构成是否连接，可以理解为软连接，软件指令即是同控制器译码确定不同模块之间的软连接而形成不同的计算功能，因此，在软连接时代，硬件和软件的界限变得越来越模糊。</p>
+
+
+
+<p>我们都知道在C语言中，“数据”和“处理数据的操作（函数）”是分开声明的，也就是说，语言本身并没有支持“数据和函数”之间的关联性。想想在C中，struct是不能申明函数的，只能通过间接的方式“函数指针”。在C++中，通过抽象数据类型（Abstract Data Type，ADT），在类中定义数据和函数，来实现数据和函数直接的绑定。概括来说，在C++类中有两种数据成员：static，nonstatic；三种成员函数：static、nonstatic、virtual。</p><p>数字逻辑层：由硬件直接执行微指令；</p><p>微体系结构：用微指令解释机器指令；</p><p>指令系统层：用机器语言解释操作系统；</p><p>操作系统层、汇编语言层：用汇编程序翻译成机器语言程序；</p><p>高级语言层：用编译程序成汇编语言程序；</p><p>计算机的五大部件通过数据总线、地址总线、控制总线彼此连接在一起，实现信息通信。分别用于传输数据（指令）信息、主存和输入\输出设备接口的地址信息、主存和输入\输出设备等的操作与控制信息。</p><p>汇编语言用英文单词或者缩写形式替代二进制的指令代码，用英文单词来表示程序中用的数据（常量和变量），并且避免程序设计人员亲自花费精力为这些数据分配存储单元。在此基础上，还可以在支持程序的不同结构特性（如循环和重复执行等结构）、子程序所用形式参数替换为真实参数等方面提供必要的支持。然后由一个叫做叫做汇编程序的系统软件进行翻译，转换为机器语言在硬件系统上执行。</p><p>程序保存到硬盘→打开后保存到了内存（程序，包括一系列指令及其需要处理的数据）→用程序首地址从存储器中取码、译码（控制器）→执行（运算器）→循环，直到程序的最后一条代码→输出（屏幕输出或文本输出或打印输出或控制信号输出）</p><p>硬件系统是最内层的，它是整个计算机系统的基础和核心。</p><p>系统软件在硬件之上，为用户提供了一个基础的操作界面。</p><p>应用软件是在最外层，为用户提供解决具体问题的应用系统界面。</p><p>一台计算支持的全部指令构成这台计算机的指令系统。</p><p>数据寻址和地址寻址；</p><p>指令=操作码+地址码：反映数据和作用于数据上的操作这一概念。</p><p>如a = 3+4，操作是加法，操作数是3,4；</p><p>一个表达式就是一条指令；包括操作数（操作数）与具体操作（操作码）。</p><p>信息：指令、数据、控制信号；</p><p>指令控制：保证按规定的顺序执行程序；</p><p>操作控制：产生由内存取出的每条指令的操作信号，把操作信号送往相应的部件，控制这些部件按指令的要求进行动作。</p><p>时间控制：对各种操作实施时间上的控制；</p><p>数据加工：对数据进行算术运算和逻辑运算；</p><p>从内存中取出一条指令，并指出下一条指令在内存中的位置；对指令进行译码或测试，并产生相应的控制信号，输出相应的控制信号，指挥并控制CPU、内存和I\O之间的数据流动的方向。运算器所进行的全部操作都是由控制器发出的控制信号来指挥的，所以它是执行部件。</p><p>根据指令操作码和时序信号产生各种操作信号，以便正确建立数据通路（寄存器之间），从而完成取指令和执行指令的操作。</p><p>时序产生器对各种操作实施时间上的控制。</p><p>传统的控制器称为硬布线控制器，是采用组合逻辑技术来实现的，其控制单元是由门电路组成的复杂树形网络。</p><p>文件的物理结构分为顺序结构、链接结构和索引结构。</p><p></p>
+
+
+<p>视频转gif，gifcam可以免费试用；在线制作：soogif</p>
+<p>根据厂家资料dv2000最大支持2G DDR2内存，至于频率方面是跟原装内存频率一样为667MHZ效果最好，</p>
+
+<p>按机型总称查看最大支持两条1G DDR3 667MHz参数。</p>
+
+<p>痛定思痛，购买2G内存升级。+原来的1G， 3G后， xp/vmware都很happy, 硬盘灯基本熄火。购买前比较犹豫，网上很多网址都说dv2157最大支持2G, 其实应该是单槽2G, 两个最大支持到4G.另外原来支持DDR2 667, 现在只能买到DDR2 800, 就是PC6400, 跑上去降频到333居然也很happy.机型：DV2157TX比较遗憾的是内存价格最近上涨，几乎300了， 原来只要一半的价格就能买到。。。比股票还邪乎，大蒜都有人炒，奈何内存</p>
+<p>处理器架构、指令集和汇编语言，三者有何关系？</p>
+
+<p>处理器架构和处理器指令集的关系式什么？</p>
+
+<p>是否指令集决定了处理器的架构？</p>
+
+<p>MIPS属于处理器架构还是还是指令集的一种？</p>
+
+<p>汇编语言的种类和处理器架构的关系？</p>
+
+<p>处理器架构就是处理器的硬件架构，称为微架构。是一堆硬件电路，去实现指令集所规定的操作运算。</p>
+
+<p>是的，指令集决定了处理器的架构，因为处理器架构就是用硬件电路实现指令集。但是具体用什么样的处理器架构，设计怎样的硬件电路，每个人设计的都可以不一样。</p>
+
+<p>MIPS是一种采取精简指令集（RISC）的处理器架构，既有指令集，也有相应的处理器架构。大名鼎鼎的龙芯就是MIPS的。</p>
+
+<p>汇编语言是用人类看得懂的语言来描述指令集。否则指令集的机器码都是一堆二进制数字，人类读起来非常麻烦，但汇编是用类似人类语言的方式描述指令集，读起来方便多了。</p>
+
+<p>要设计处理器，首先就需要有指令集，规定处理器相应操作，通过指令集去控制处理器实现相应功能。但处理器是一堆硬件电路，只能识别二进制数据，所以指令集是由一堆二进制数据组成。而二进制数据对人类来说读起来很麻烦。为了方便人类操作指令集，发明了汇编语言来描述指令集。汇编语言类似人类语言，读起来方便多了。</p>
+
+<p>虽然汇编语言读起来方便了，但也有缺陷。首先汇编语言操作起来还是挺麻烦的。其次汇编语言对应一条条指令集，所以当指令集改变时，就得修改相应汇编语言，导致其可移植性很差，不能跨平台使用，如ARM的汇编语言与Intel X86的就不同。这时人们就想开发一种更方便操作，超越指令集的语言，于是有了C，C++等高级语言。</p>
+
+<p>但处理器只能识别二进制码，那怎么能识别高级语言呢？于是人们开发了编译器，依照如下顺序，将高级语言翻译成二进制码： 高级语言 汇编语言 二进制机器码。至此，人类可以很方便的利用高级语言编写程序，控制处理器完成相应功能。然后程序员这个红火的职业就此大规模诞生了。</p>
+<p>32位系统的寻址大小为2的32次方，等于4G，但是32位识别不完4个G，有效的只有3.25G左右。</p>
+
+<p>你的机器显示2G可用 这种情况是你的显存占用了256M的空间 所以系统可用内存为2G</p>
+<p>Unix由许多小程序组成，每个小程序只能完成一个功能，任何复杂的操作都必须分解成一些基本步骤，由这些小程序逐一完成，再组合起来得到最终结果。</p>
+<p>1、冯诺依曼架构，也叫普林斯顿架构，其特点是程序空间和数据空间是一体的，数据和程序采用同一数据总线和地址总线。指令和数据地址指向同一个存储器的不同物理位置，指令和数据的宽度相同。由于冯诺依曼架构的指令和数据储存在同一存储器，而且由同一总线进行读写，因而指令和数不能同时进行操作，只能顺序执行。也是这个原因限制了计算机的性能和数据处理速度。</p>
+
+<p>采用冯诺依曼架构的优点是硬件简单，最典型的应用便是intel的x86微处理器。冯诺依曼架构芯片采用的是复杂指令集（CISC），复杂指令集可以用一个汇编指令来完成一个复杂的运算，如乘法、乘加、乘减等。这种设计虽然强大，但其内部硬件设计相对复杂，因而会导致功耗的增加。</p>
+
+<p>2、哈佛架构，其特点则是数据和程序分别存放，存储器分为数据存储器和程序存储器，同时，总线则分为程序存储器的数据总线和地址总线以及数据存储器的数据总线和地址总线。这种总线方式也为同时对数据和程序进行操作提供了可能，因而哈佛结构具有较高的执行效率。同时，由于指令和数据分开存放，因而指令和数据可以有不同的宽度。</p>
+
+<p>目前，采用哈佛架构的芯片以DSP和ARM为代表。哈佛架构芯片采用的是精简指令集（RISC），精简指令集相对于复杂指令集的汇编指令会少很多。但对于复杂的运算，复杂指令集可能一条指令便可实现，而精简指令集则需要多条汇编指令才能实现。</p>
+
+<p>结构和指令集没有对应关系，我用的处理器是冯纽曼结构，指令集是精简指令。</p>
+<p>计算机应该具有尽可能大的存储器，当程序执行时，这个存储器可用来存储程序代码和数据；（ E N I A C中的情况不是这样，对E N I A C进行编程是通过断开开关和插上电缆来进行的。）指令应该在存储器中顺序存放并用程序计数器来寻址，但也应该允许条件转移。这种设计思想叫作存储程序概念。这种设计思想是重要的革命化的一步，今天称为冯·诺依曼体系结构。</p>
+
+<p></p>
+
+<p>但冯·诺依曼体系结构也带来冯·诺依曼瓶颈，冯·诺依曼型机器需要花费大量的时间从存储器中取出指令来准备执行。</p>
+<p>为了以数字形式表示文本，必须开发一些系统使得系统里的每一个字母有唯一的编码。文本中也存在数字和标点符号，所以也必须有它们的编码。简单地说，所有的字母、数字和符号都要编码，这样的系统叫作字符编码集，每一个编码叫作字符编码。第一个问题是：这些编码需要多少位？这并不是容易回答的问题。</p>
+<p>简单地说，总线是提供给计算机中每块电路板的数字信号的集合，这些信号可以分为4类：</p>
+
+<p></p>
+
+<p>地址信号。这些信号由微处理器提供，常用来寻址RAM单元，也可用来寻址连接到计算机上的其他部件。</p>
+
+<p></p>
+
+<p>数据输出信号。也由微处理器提供，用来写入数据到RAM或其他设备。要仔细推敲输入（input）和输出（output）的含义。数据输出信号是从微处理器输出，变成RAM和其他设备的数据输入信号。</p>
+
+<p></p>
+
+<p>数据输入信号。是由计算机的其余部分提供，由微处理器读入的信号。数据输入信号通常来自于RAM的输出，也即表示微处理器读入存储器内容。但是其他部件也提供数据输入信号给处理器。</p>
+
+<p></p>
+
+<p>控制信号。由各种各样的信号组成，通常与计算机的特定处理器的控制信号一致。控制信号可来自于微处理器或从其他部件传送到微处理器。例如，微处理器可用一个控制信号来指示它要写一些数据到某一存储器地址。另外，总线给计算机中的各个电路板提供电源。</p>
+<p>电脑使用时间过长，排风扇的线圈老化，缺油</p>
+
+<p>解决方法:给排风扇加油，买一瓶缝纫机油，如果家里有花生油，也可以用这个代替，往排风扇轴还有贴着线圈的槽上加油，上油以后小泡一会儿再装上，这样基本就能解决声音大的问题了</p>
+
+<p></p>
+
+<p>对于含油轴承风扇，马达传动轴经长时间工作后变得不灵活是很正常的是。所以在这一位置添加润滑油的时候，推荐汽油机油或机械润滑油。当然，在添加润滑油时一定要小心，千万不能溢出。</p>
+
+<p></p>
+
+<p>风扇的扇叶“偏心”是噪音大的主要原因。好的风扇，其扇叶的重心在轴心上，运转时非常平稳，噪音小，而劣质的风扇，往往有一定偏差，扇叶的重心没有在轴心上，这样的风扇转动起来后，就相当于一台振荡器（就是在电动机轴上加一个偏心轮），使用时间越长，风扇轴承逐渐磨损，或风扇散热片不牢固，出现松动等，都会使震动加剧噪音变大。解决办法就是尽量把风扇安装牢固，但是解决不了实质性的问题，因为风扇扇叶仍不在轴心上；还有就是给风扇轴承处注油，对震动起到缓冲作用，从而减弱噪音；根本上解决就是把扇叶拆下来，用细线穿过扇叶中心小孔吊起扇叶，如果一端下降，可在这一端砂轮上磨几下，几次后，扇叶能在水平位置静止，就没问题了。</p>
+<p>我们习惯以进程（process）表示一个执行中的程序，并且以为它是CPU 排程单位。事实上执行线程才是排程单位。</p>
+<p>一个进程的诞生与死亡</p>
+
+<p>执行一个程序，必然就产生一个进程（process）。最直接的程序执行方式就是在shell （如Win95 的文件总管或Windows 3.x 的文件管理员）中以鼠标双击某一个可执行文件图标（假设其为App.exe），执行起来的App 进程其实是shell 调用CreateProcess 激活的。</p>
+
+<p>让我们看看整个流程：</p>
+
+<p>1. shell 调用CreateProcess 激活App.exe。</p>
+
+<p>2. 系统产生一个「进程核心对象」，计数值为1。</p>
+
+<p>3. 系统为此进程建立一个4GB 地址空间。</p>
+
+<p>4. 加载器将必要的码加载到上述地址空间中，包括App.exe 的程序、资料，以及所需的动态联结函数库（DLLs）。加载器如何知道要加载哪些DLLs 呢？它们被记录在可执行文件（PE 文件格式）的.idata section 中。</p>
+
+<p>5. 系统为此进程建立一个执行线程，称为主执行线程（primary thread）。执行线程才是CPU 时间的分配对象。</p>
+
+<p>6. 系统调用C runtime 函数库的Startup code。</p>
+
+<p>7. Startup code 调用App 程序的WinMain 函数。</p>
+
+<p>8. App 程序开始运作。</p>
+
+<p>9. 使用者关闭App 主窗口，使WinMain 中的消息循环结束掉，于是WinMain 结束。</p>
+
+<p>10. 回到Startup code。</p>
+
+<p>11. 回到系统，系统调用ExitProcess 结束进程。</p>
+<p>"idle" 等级只有在CPU 时间将被浪费掉时（也就是前一节所说的空闲时间）才执行。此等级最适合于系统监视软件，或屏幕保护软件。</p>
+<p>单片机，是用编程器将代码写可擦写的ROM中。</p>
+<p>电脑就是特殊开关的逻辑组合</p>
+<p>但从玩具到功能强大则有很长的一段路要走。</p>
+<p>普通DLL是不用注册嘀。只有com组件才需要注册，注册时他把clsid和progid(可选)及DLL的路径写到注册表中。于是用这些组件的客户端在创建该组件时就不用知道他的路径。只需调用cocreateinstance并传入clsid，系统就能创建该组件的实例了。</p>
+<p>COM组件，注册是把该组件中的COM对象的信息全都记录到系统注册表中比如clsid 和 DLL所在的路径。</p>
+<p>【1】简述冯·诺依曼计算机的组成及工作过程。 </p>
+
+<p>【解】冯·诺依曼计算机由五大部分组成：运算器、控制器、存储器、输入设备和输出设备。 </p>
+
+<p>运算器是真正执行计算的组件。它在控制器的控制下执行程序中的指令，完成算术运算、逻辑运算和移位运算等。 </p>
+
+<p>控制器用于协调机器其余部分的工作。控制器依次读入程序的每条指令，分析指令，命令各其他部分共同完成指令要求的任务。 </p>
+
+<p>存储器用来存储数据和程序。存储器可分为主存储器和外存储器。主存储器又称为内存，用来存放正在运行的程序和程序处理的数据。外存储器用来存放长期保存的数据。 </p>
+
+<p>输入/输出设备又称外围设备，它是外部和计算机交换信息的渠道。输入设备用于输入程序、数据、操作命令、图形、图像和声音等信息。输出设备用于显示或打印程序、运算结果、文字、图形、图像等，也可以播放声音和视频等信息。</p><p>开关晶体管实现布尔运算，构建加法器，循环电路实现记忆存储功能.</p><p>进程拥有地址空间（由memory context 决定）、动态配置而来的内存、文件、执行线程、一系列的模块。操作系统使用一个所谓的Process Database（PDB）数据结构，来记录（管理）它所拥有的一切。</p>
+<p>进程是以一个执行线程（称为主执行线程，primary thread）做为开始。如果需要，行程可以产生更多的执行线程（利用CreateThread），让CPU 在同一时间执行不同段落的码。当然，我们都知道，在只有一颗CPU 的情况下，不可能真正有多任务的情况发生，「多个执行线程同时工作」的幻觉主要是靠排程器来完成-- 它以一个硬件定时器和一组复杂的游戏规则，在不同的执行线程之间做快速切换动作。</p>
+<p>，CPU 排程单位是执行线程而非进程。排程器据以排序的，是每个执行线程的优先权。</p><p>无法删除文件时：任务管理器→选择“性能”标签下的“资源监视器”→在“CPU”标签下的“关联的句柄”栏输入该文件或文件夹的名称。→待搜索出结果后逐个右击关联的进程，并选择结束进程。</p><p>TCP/UDP属于传输层。 </p>
+<p>TCP服务提供了数据流传输、可靠性、有效流控制、全双工操作和多路复用技术等。 </p>
+<p>与TCP不同，UDP并不提供对IP协议的可靠机制、流控制以及错误恢复功能等。由于 UDP比较简单，所以它的头部信息包含很少的字节，比TCP负载消耗少。 </p>
+<p>TCP：提供稳定的传输服务，有流量控制，缺点是包头大，冗余性不好。 </p>
+<p>UDP：不提供稳定的服务，包头部信息少，开销小。</p><p>GIF诞生25周年</p>
+<p>我们的网络已经离不开 GIF，这种神奇的动态图。IM 聊天室发送的表情，网页上闪烁的广告，微博上流行的动态搞笑图，这些都是 GIF 格式。GIF 全称是 Graphics Interchange Format(图形交换格式)，以8位色(即256种颜色)重现真彩色的图像。它采用 LZW 算法进行压缩和编码，有效的减少了文件大小。因为可以插入多帧，GIF 可以实现动画效果；另外可以设置背景透明的特性，可以让 GIF 图像融入到网页背景中。</p>
+<p>最早的 GIF 格式是在1987年6月15日启用(GIF 87a版本)，在1989年的版本(GIF 89a)中增加了 GIF 最为重要的透明色和多帧动画支持。这两个时间节点与互联网的诞生有重要关联，1986年是美国国家科学基金会建立大学之间的骨干网络 NSFnet 迈出互联网历史上的重要一步；1990年整个网络正式开放；1991年万维网(www)诞生。可以想象在远古时代的网页上，虽然没有精致的 css 没有高级的 js，但那时候就有了 GIF。而这项技术我们一直用到了今天。</p>
+<p>当天今天的 GIF 技术也比以前丰富得多。比如把视频制作成 GIF、制作电影版的局部动态图，这些都是新玩意。可以说 GIF 为 Tumblr 等网站有一半贡献，想想我们在微博上转发的图，有多少是 GIF。</p>
+<p>在早期，GIF所用的LZW压缩算法是Compuserv所开发的一种免费算法。然而令很多软件开发商感到意外的是，GIF文件所采用的压缩算法忽然成了Unisys公司的专利。据Unisys公司称，他们已注册了LZW算法中的W部分。如果要开发生成（或显示）GIF文件的程序，则需向该公司支付版税。由此，人们开始寻求一种新技术，以减少开发成本。PNG（Portable Network Graphics，便携网络图形）标准就在这个背景下应运而生了。它一方面满足了市场对更少的法规限制的需要，另一方面也带来了更少的技术上的限制，如颜色的数量等。</p>
+<p>　　在2003年6月20日，LZW算法在美国的专利权已到期而失效。在欧洲、日本及加拿大的专利权亦已分别在2004年的6月18日、6月20日和7月7日到期失效。尽管如此，PNG文件格式凭着其技术上的优势，已然跻身于网络上第三广泛应用格式。与GIF相关的专利于2006年8月11日过期。</p>
+<p>分类</p>
+<p>　　GIF分为静态GIF和动画GIF两种，扩展名为.gif，是一种压缩位图格式，支持透明背景图像，适用于多种操作系统，“体型”很小，网上很多小动画都是GIF格式。其实GIF是将多幅图像保存为一个图像文件，从而形成动画，所以归根到底GIF仍然是图片文件格式。但GIF只能显示256色。和jpg格式一样，这是一种在网络上非常流行的图形文件格式。</p>
+<p>　　GIF主要分为两个版本，即GIF 89a和GIF 87a</p>
+<p>　　GIF 87a：是在1987年制定的版本</p>
+<p>　　GIF 89a：是1989年制定的版本。在这个版本中，为GIF文档扩充了图形控制区块、备注、说明、应用程序编程接口等四个区块，并提供了对透明色和多帧动画的支持</p>
+<p>　　GIF格式自1987年由CompuServe公司引入后，因其体积小而成像相对清晰，特别适合于初期慢速的互联网，而从此大受欢迎。它采用无损压缩技术，只要图像不多于256色，则可既减少文件的大小，又保持成像的质量。（当然，现在也存在一些hack技术，在一定的条件下克服256色的限制，具体参见真彩色）然而，256色的限制大大局限了GIF文件的应用范围，如彩色相机等。（当然采用无损压缩技术的彩色相机照片亦不适合通过网络传输。）另一方面，在高彩图片上有着不俗表现的JPG格式却在简单的折线上效果差强人意。因此GIF格式普遍适用于图表，按钮等等只需少量颜色的图像（如黑白照片）。</p><p>bit：binary digit</p><p>计算机的两种特性。首先，计算机是可程控的。输入一串指令，计算机的行为就会改变。第二。计算机是通用的。只要内存足够，时间充裕，运用合适的程序，我们就可以让计算机执行任何算法流程。</p><p>MBR分区表定义每个扇区512字节，磁盘寻址32位地址，所能访问的磁盘最大是2.19TB(2^32*512byte），对于超过此数量的硬件需使用GPT分区。如果用此种分区做系统盘，需要用UEFI BIOS和更高的OS。Windows vista及以后的OS都支持，XP只有64位的支持。</p>
+<p>DiskGeninus支持建立GPT分区。</p><p>删除文件：OS只是将目录区中该文件的第一个字符改为“E5”来表示该文件已经删除，同时改写引导扇区的第二个扇区，用于表示该分区可用空间大小的相应信息，而文件在数据区中的信息并没有真正消失。</p><p>格式化：只是利用分区软件重新建立硬盘分区表，DATA区的数据并没有真正删除；</p><p>早期的计算机很不灵活－每个设备要执行的步骤都作为机器的一部分内置在控制单元中了。为了提高灵活性，一些早期的电子计算机将CPU设计为可以方便地重新布线。这种灵活性是通过插拔装置体现的，类似于老式电话交换台，跳线的端子插到接线孔中。</p><p>意识到程序可以像数据一样编码并存储到主存中，这是一个重大的突破。如果控制单元被设计为从存储器中获取程序，解码指令并执行指令，那么只要更改计算机主存的内容，就可以改变计算机运行的程序，而不需要重写CPU。</p><p>将计算机程序存入主存的想法被称为存储程序概念（Stored-Program Concept）。</p><p>为了应用存储程序概念，CPU被设计为可以识别编码成位模式的指令。这组指令及相应的编码系统被称为机器语言（Machine Language）。用机器语言表达的指令就叫作机器级指令，或机器指令（Machine Instruction）。</p><p>机器指令分为三类：数据传输类、算术/逻辑类和控制类。</p><p>快捷方式相当于运行一个Dos命名，里面有命令的路径和参数；</p><p>Compaq公司的一部分和Intel的机器（X86平台）一般采用小端。</p><p>IBM、Motorola(Power PC)， Sun的机器一般采用大端。</p><p>当然，这不代表所有情况。有的CPU既能工作于小端， 又能工作于大端， 比如ARM、Alpha、摩托罗拉的PowerPC。具体这类CPU是大端还是小端，应该和具体设置有关。如Power PC支持little-endian字节序，但在默认配置时是big-endian字节序。</p><p>一般来说，大部分用户的操作系统（如windows, FreeBsd,Linux）是Little Endian的。少部分，如MAC OS ,是Big Endian 的。</p><p>Little Endian还是BigEndian与操作系统和芯片类型都有关系。</p><p>地址总线只能用来传送存储器单元或输入输出接口的地址信息</p><p>数据总线用于在CPU与内存或输入输出接口电路之间传送数据</p><p>控制总线用来传送控制器的各种控制信号</p><p>在PC 系统的接口卡和主板上，装有各种接口芯片。这些外设接口芯片的内部有若干寄存器，CPU 将这些寄存器当作端口来访问。</p><p>外设的输入不直接送入内存和CPU ，而是送入相关的接口芯片的端口中；</p><p>CPU 向外设的输出也不是直接送入外设，而是先送入端口中，再由相关的芯片送到外设。</p><p>CPU 还可以向外设输出控制命令，而这些控制命令也是先送到相关芯片的端口中，然后再由相关的芯片根据命令对外设实施控制。</p><p></p><p>可见，CPU 通过端口和外部设备进行联系。</p><p>几乎所有由外设引发的外中断，都是可屏蔽中断。当外设有需要处理的事件（比如说键盘输入）发生时，相关芯片向CPU 发出可屏蔽中断信息。</p><p>键盘上的每一个键相当于一个开关，键盘中有一个芯片对键盘上的每一个键的开关状态进行扫描。</p><p></p><p>按下一个键时，开关接通，该芯片就产生一个扫描码，扫描码说明了按下的键在键盘上的位置。扫描码被送入主板上的相关接口芯片的寄存器中，该寄存器的端口地址为60H 。</p><p></p><p>松开按下的键时，也产生一个扫描码，扫描码说明了松开的键在键盘上的位置。松开按键时产生的扫描码也被送入60H 端口中。</p><p>一般将按下一个键时产生的扫描码称为通码，松开一个键产生的扫描码称为断码。</p><p>扫描码长度为一个字节，通码的第7 位为 0 ，断码的第7位为1，即：</p><p>           断码=通码＋80H</p><p>比如：g键的通码为22H，断码为a2H。</p><p>键盘的输入到达60H 端口时，相关的芯片就会向CPU 发出中断类型码为 9 的可屏蔽中断信息。</p><p>CPU检测到该中断信息后，如果IF=1，则响应中断，引发中断过程，转去执行int 9中断例程。</p><p>如果是字符键的扫描码，将该扫描码和它所对应的字符码（ 即 ASCII码）送入内存中的 BIOS 键盘缓冲区；</p><p>   如果是控制键（比如 Ctrl ）和切换键（比如 CapsLock）的扫描码，则将其转变为状态字节（ 用二进制位记录控制键和切换键状态的字节 ）写入内存中存储状态字节的单元。</p><p>BIOS键盘缓冲区是系统启动后，BIOS用于存放int 9 中断例程所接收的键盘输入的内存区。</p><p>该内存区可以存储15 个键盘输入，因为 int 9 中断例程除了接收扫描码外，还要产生和扫描码对应的字符码，所以在BIOS键盘缓冲区中，一个键盘输入用一个字单元存放，高位字节存放扫描码，低位字节存放字符码。</p><p>0040:17 单元存储键盘状态字节，该字节记录了控制键和切换键的状态。键盘状态字节各位记录的信息如下</p><p>键盘输入的处理过程：</p><p>（1）键盘产生扫描码；</p><p>（2）扫描码送入60h 端口；</p><p>（3）引发9 号中断；</p><p>（4）CPU执行int 9中断例程处理键盘输入。</p>

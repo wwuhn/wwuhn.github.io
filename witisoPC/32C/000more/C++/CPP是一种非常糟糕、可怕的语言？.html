@@ -1,0 +1,711 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>CPP是一种非常糟糕、可怕的语言？</h4>
+
+<p></p>
+
+<p>C++ 的主要缺陷在于它是一个非常复杂和分层的生态系统，在解决不同问题的过程中变得越来越复杂 ; 层数越多，堆叠越高，变得越不稳定，理解起来就越难。</p>
+
+<p>这个问题确实存在，但这个问题不是C++的问题，而是需求的问题：简而言之，如果需求简单的话，直接把C++当作带类的C，甚至完全类都不用，有何不可？</p>
+
+<p>18:19 2018/9/2</p>
+
+<p>反过来，用C实现稍复杂的需求，那就到处都是各种类型强转，满天都是函数指针，还有各种多重指针/指针数组——很多人看着双重指针就已经一脸懵逼了，那么去体验一下经典的nginx的4重指针再来说C（和C++相比）不糟糕不可怕好吗？</p>
+
+<p>总而言之，真正可怕的是需求的复杂性，以及变更频繁程度。</p>
+
+<p>如果这两者都相对简单，那么相对来说，用C确实会更轻便一点。但如果两者都复杂，那么实话说，大多数号称精通C语言的开发者，写出来的代码大概率比C++更糟糕更可怕。</p>
+
+<p>C++不适合需求就换语言呗。非要把C++喷得一无是处就是矫情了。</p>
+
+<p>已经有一批又一批的人嫌弃C++老土/难学/不够酷，换了个离需求更远的语言，最后要么项目砸锅，要么哭着用C++重写。</p>
+
+<p>某人用挂城门的方式来要求别人尊重他人啊。你确实是不想吵架，你只是把反对Jonathan的人挂起来挨骂。我是不是对C++有宗教狂热先不说，我看你对他起码是有的。</p>
+
+<p>我是没Jonathan段位高，不过，他不应该只有虐我这个菜鸡的水平吧。一个又一个的大3A，以及最主要的游戏引擎都是以C++为核心的，Jonathan这种大神，大可以和这些作品的程序团队成员去比比，看看是不是里面的人个个都不如他。</p>
+
+<p>C++毛病一大堆，Jonathan不是第一个喷的，也不是最后一个，更不是段位最高的一个。坑多，复杂，代码容易写丑陋，一些路走弯了，一些现代化的概念缺失，practice不好的情况下很难理解等等等等，C++社区都快讨论烂了。无论是外部的d/go/rust还是内部革新的c++11/14/17，改良的重点都在这里。Jonathan的话翻来覆去就没什么新意。</p>
+
+<p>C++很依赖best practice，因为C++会提供大量屠龙之技，不打好招式基础就滥用很容易走火入魔。滥用操作符重载之类的做法，基本上都是社区早就批倒批臭的bad example。</p>
+
+<p>如果不乐意学best practice，怪语言？那就怪吧。Java也可以写一个50个参数，一万行的方法，C#可以unsafe满天飞，Kotlin里也可以使劲!!，没人拦着你，对不对？</p>
+
+<p>C++的确比别的语言更依赖best practice，因为C++信任你，认为你知道自己在做什么，所以C++会尽可能多地提供特性，少进行强制性的约束，让你的思维尽量不受语言功能的束缚。的确这会带来非常多的坑、繁琐的细节，丑陋的外观等等，但相应的也是C++的优点所在：你确实需要某种功能/范式，而你的语言却提供不了/只能用非常低效的办法提供的情况，C++里是最少的。</p>
+
+<p>如果你只需要特定的一些功能，而且这些功能有比C++更优雅/更方便的语言可以实现，那就换语言啊。C++是拿来用的，不是拿来上供的。</p>
+
+<p>至于Jonathan，矫情就是矫情，大神也会矫情，也会有缺点，有什么好奇怪的呢？指出大神的问题来，就是不尊重人咯？</p>
+
+<p>Jonathan确实无所谓C++，他能自己搞出个语言来，他有矫情的资本。然而多的是合适C++的项目，以及水平不如Jonathan的人。我们这些肉体凡胎跟着神仙腾云驾雾只有摔死的下场，早点明白有什么不好？</p>
+
+<p>个人观点，C++ 功能超多，使用超灵活。这一点现在没有哪个开发语言能与之媲美。</p>
+
+<p>但是这一点也让很多人害怕。</p>
+
+<p>原因很简单，C++ 纯粹就是把能提供的都提供了。没提供的，其实你也可以用提供的功能自己写。</p>
+
+<p>但是这会导致功能滥用。其实开发过程最糟糕的就是滥用功能。引入自己无法控制的内容，之后无法控制的内容再引入无法控制的内容而导致崩溃。</p>
+
+<p>当然这也是我们会计最头疼的事情，失控很影响管理和整个运作体系的正常。</p>
+
+<p>所以我的观点，凡是喷 C++ 可怕的，基本都是无管理公司的人员，以及根本不会管理也没技术可言的公司/项目高层。</p>
+
+<p>有些人把所谓的公司每天加班到几点就叫做管理。但是其实真正的管理，都是管理代码的布局，前后关系，包括函数数量，类的上下级关系，包括变量都要有控制。程序员自己的代码写完了凭什么不允许人家提前下班？</p>
+
+<p>C++ 带来的优势，主要是可以更容易的分块研发，从而实现大团队整体研发的同步前进。但是团队研发，每个人的任务之间如何协调，模块之间的如何调用，才是真正的 C++ 研发精髓所在。</p>
+
+<p>你饿了，要吃饭，四菜一汤顶天了吧？一桌子人，有十几个菜也撑死了。所以你会喷满汉全席几百道菜让你去医院被医生嘲笑吃撑了吗？</p>
+
+<p>做游戏开发用C++是挺难受的，可能很少有人体会过编译一次客户端要15分钟以上的艰辛。现在大家用unity写C#就舒服很多了，type convertor，reflection，attribute，async/await，lambda，event，extension这些好用的工具一堆一堆，我终于可以少加点班了（才怪）。</p>
+
+<p>C++早就有functional和lambda，但我觉得这些东西都是“gateway drugs to functional programming languages”。</p>
+
+<p>c++不太是一个能增加程序复杂度的语言，不仅有社区提了很多年的zero overhead abstract，积累到现在的best practice[1]系列更是开发者们理解语言设计意图，避免蹩脚造轮子的良药。至于c++为什么会成为这位游戏开发者眼中的噩梦，我觉得可能有两点：</p>
+
+<p>c++毕竟是一门静态语言，还是有一些静态语言的原罪在里面。以我个人的经验来看，管理静态和动态的边界是个很让我小心并且反复设计的事儿，比如静态多态和动态多态的分工合作，以及引申出的静态 and 动态数据的划分和组合。</p>
+
+<p>游戏开发本身的程序复杂度摆在那里。以我接触过的各种语言来看，无论是偏静态的纯C、c++、java、c#也好，又或者是动态化脚本化的python、lua、js也好，针对逻辑的表述能力并不会有什么不同，很多时候的争论往往只是在扯：哪门语言的语法糖更适合我的口味:)（ 好像在很多问题下我们已经证明了打字速度并不是影响开发效率的决定性因素，所以纯C这种没啥糖的语言也逃过一劫:) ）所以以我有限的经验来看，一门语言能为程序员服务的上限大概就是完全不增加逻辑复杂度了，想降低难度估计是不太可能。</p>
+
+<p>至于随着程序的复杂化出现的叠床架屋情况越来越严重，大概是这位开发者在OOP的道路上钻了一些牛角尖所致，在我看来，如果能灵活运用cpp优秀的多范式支持能力，在coding中自由的排列组合的话，减少代码的叠床架屋并非难事，比如我的整个降低复杂度的coding-style的演变流程是这样的：</p>
+
+<p>基于oop做抽象，引入mvc mvvm 设计模式解决动态多态 && 单分派处理不能或者比较恶心的问题。</p>
+
+<p>引入静态多态，引入std::function, 基于从 @陈硕</p>
+
+<p>那儿看来的object-based-programming[2],把class抽象粒度砍成function抽象粒度，砍掉对应的设计模式。</p>
+
+<p>基于cpp-con 2014 && gdc 2017，引入dod,引入ecs(最近被游戏圈说烂的一个架构哈哈:) )[3]，解决逻辑回滚和undo-redo设计问题，把剩余的class粒度砍成context粒度，降低了一些抽象化，平铺了一批逻辑，同时由于引进了system的概念，算是和上一条一起解决了Multiple Dispatch的问题，算是正式砍掉了visitor模式。</p>
+
+<p>（进一步的演变还在孕育中）</p>
+
+<p>在互联网上，关于C++将要被市场所淘汰的讨论从未停止过，有人说C++是一门过时的编程语言，也有人说，C++是不可替代的。那么，C++过时了吗？C++程序员会不会被淘汰？</p>
+
+<p>这是我们客栈上的注册C++程序员，大约2300多人，占总人数的5%左右，这还不包括会C++但没有标签的，虽然我们都知道C++在走下坡路，但C++短时间内绝不会消亡！</p>
+
+<p>C++为什么不会消亡？采访了多名C++程序员后，得出以下三个观点——</p>
+
+<p>1、在游戏和工具领域仍然是主流</p>
+
+<p>首先是游戏领域，Milo Yip表示——程序员必须使用C++框架/库，如大部分游戏引擎(如Unreal/Source)及中间件(如Havok/FMOD)，虽然有些C++库提供其他语言的绑定，但通常原生的API性能最好、最新。</p>
+
+<p>其次是工具领域，无论是网络安全还是杀毒软件，C++仍是主流语言。</p>
+
+<p>程序员擅长语言统计程序员客栈统计制作</p>
+
+<p>2、C++程序员的收入没有受到影响</p>
+
+<p>根据100offer的后台数据显示，目前入职的程序员年薪最高达47万，最低22.4万，C++程序员的收入与其它编程语言的岗位相比处于持平状态，没有出现劣势。</p>
+
+<p>随着C++逐渐成为某些特定企业和特定项目所需的语言后，高级C++程序员的收入也会更具有竞争性。</p>
+
+<p>3、C++仍具有不可替代性</p>
+
+<p>知乎红人</p>
+
+<p>@vczh</p>
+
+<p>说：「我在上大学的时候几乎就只学习C++，后来实习的时候去了微软，结果到了那里才知道，那个组是不用C++的，怎么办？凭借着C++带给我的殷实的功底，我按时完成了老板给我的“两个星期内学会C#和WCF基础知识”的工作，顺利开始工作。」当然，这只是vczh的个人经历，不具有普遍性，但不可否认的是C++仍具有不可替代性。某家创业公司CTO在接受采访时表示：「即便有很多人唱衰C++，但在当代，仍有很多很多项目的目标平台暂时只提供C++编译器的支持，仅从这一点而言，C++是不可能彻底死亡的。」</p>
+
+<p>从应用领域来说，C++适用于高性能计算、嵌入式系统、开发服务器软件、游戏、实时系统等，所以，短期内能彻底取代C++语言并不存在。</p>
+
+<p>C++在系统、图形、网络等很多领域都是不可替代的，它的光辉岁月让它的死亡速度得以削减。</p>
+
+<p>所以某知名游戏开发者对C++的如此评论，只不过是对某种语言的鄙视吧，程序员业内不是有很多鄙视链吗，比如我在北京四号线地铁大喊：php是最好的语言，java是已经死掉的语言，产品经理是好人！</p>
+
+<p>要回答这个问题，就必须去了解Blow对于游戏设计以及编程开发的基本观念和认知。现在排在比较高位的几个回答可以说都没有答道点子上，也没有理解Blow说这句话的目的和意味是什么（我就不吐槽某个带逛还瞎J8胡扯什么word功能复杂的，那完全是牛头不对马嘴）</p>
+
+<p>关于游戏设计者Jonathan Blow</p>
+
+<p>Jonathan Blow是《Braid》和《Witness》这两款独立游戏的设计者。他早年就读于加州大学伯克利分校，学的计算机专业。后来因为对学校中所学的东西感到没有意义，就在毕业前一年选择退学（当时就差那么十来个学分来着）。</p>
+
+<p>退学后，Blow作为一个程序员，先是在SGI帮忙移植过DOOM，且他负责过关于DOOM联机部分代码的移植工作（注意，那个时候还是90年代初）。此后，在96年，他退出公司和另一个朋友创业，成立了一家游戏设计公司，他们负责开发一个叫做Wulfram游戏。这个游戏是一个3D的多人在线射击类游戏。尽管很多人会说，这种游戏现在烂大街了，然而要注意，开发这款游戏的时候还是90年代，当时网络还很不发达，Blow和其它开发者必须解决如何在9600带宽的网络上实现实时的多人交互功能。虽然这个游戏后来开发完成了，但因为90年代的游戏环境还不太接受这类多人射击类型的游戏（过于先进）以至于最后没能收回成本，公司也倒闭了。无奈之下，他有跑去其它游戏公司继续做开发工作，之后接受过各类游戏开发，代码审查和设计方面的工作，</p>
+
+<p>硬件机能被软件反噬</p>
+
+<p>说到这里，我们需要明确一点，Blow和大部分现在的软件开发者不同的是，他的工作经历可以回溯到上世纪八九十年代。这除了说明他的开发经验（尤其是C++语言方面）比在座的各位都要丰富之外，一个重要的特点是：像Blow这样的老一代开发者在看待程序语言的时候，往往带有历史的延续性和大局观。</p>
+
+<p>和我们普通开发者不一样，只是看了两本人月鸡汤或者XX Primer就上来吹逼什么的。Blow在90年代初就参与过大型3D游戏的开发工作，而他看到的是如今显卡和系统硬件水平飞速提升的情况下，游戏和软件在某些方面的性能却反而下降了。</p>
+
+<p>之前听鸡盒王的广播说，这个Blow曾经在一次演讲上讽刺PhotoShop打开一个图片居然要花费超过一秒的时间。因为人家曾经在90年代就开发过只需要运行在9600带宽网络上的在线多人射击游戏了，为何如今在硬件性能如此大幅度提升的条件下，软件的性能水平居然下降了（我不禁想到WIN10更新的那个硬盘驱动，让7200转的机械硬盘都能卡的半死，其技术“水平”也是可见一斑的）。</p>
+
+<p>究其原因，其实无它，就是因为软件世界本身一直在退化。软件开发的过程和效率正变得越来越依赖于已有的API库和架构不良，极度复杂的第三方框架。就好像你用JAVA去构造一个简单的Android上的HELLOWORLD页面，结果它能生成几十个你都不知道从哪里多出来的类和代码。这种高度的冗余性和奇葩的复杂性导致了软件运行性能，尤其是软件的开发效率大幅度下降。注意，是软件开发效率。</p>
+
+<p>试想一下，如果你是一个真的在拿C++开发大型3D游戏的开发者，那么这一过程中所要涉及到的诸如接口的调试，外部数据配置，垃圾对象回收，系统移植和兼容性等问题就够你吃一壶了。这对于那些小众游戏的开发者，尤其是独立游戏的开发者，他们团队往往人数不多，生产力有限，因此不可能像许多3A大厂那样去流水线式的大规模工程开发。因此诸如C#的Unity以及python上的一些游戏框架就很受欢迎，为什么？因为这些编程语言和游戏引擎在配置和使用的接口描述方面要远远比C++这种近底层的语言简单优雅的多得多，而且更加的节约开发成本。</p>
+
+<p>Blow的解决方案--程序语言JAI</p>
+
+<p>当你了解了C++由于自身语言设计以及那令人蛋疼的系统库复杂度之后，就应该会理解它对于游戏开发所带来的开发效率问题了。</p>
+
+<p>所以才有了后来Jonathan Blow提出要自己开发一个新的游戏编程语言--JAI，来取代现有的主流游戏编程语言C++。Blow对于JAI的基本定位是包含了下面几个方面</p>
+
+<p>high performance：支持生成程序的高性能</p>
+
+<p>joy of programming：让学习者产生对编程的兴趣</p>
+
+<p>simplicity：简洁的程序语法和直观的表现力</p>
+
+<p>low friction：程序结构间的冲突和耦合尽量减少</p>
+
+<p>designed for good programmers：为优秀的程序开发者所准备，只有对如何将程序的直观表述与所要设计的游戏理念优雅结合起来的程序员才能理解这一语言的魅力。</p>
+
+<p>这些定位有好几个显然是针对C++做的改良，首先，能让学习者产生编程兴趣是让他们将自己所要开发的游戏理念转换成现实产品的第一步；而C++显然缺乏这个特性。试想在学习了C++ Primer一个月后，你的同行还在和你争论如何实现一个C++的垃圾回收器，那么这个语言在你们的项目中就是一个失败的选项。</p>
+
+<p>其次，简洁性和直观性，这也是针对C++极度冗余，复杂难堪的程序库接口和语言使用方式的一次改进。由于C++过度的接近底层，以至于当你想要使用一个在其它语言上非常常见的特性时，你得</p>
+
+<p>“自己实现”它！这就增大了从程序实现到表达意图的成本。</p>
+
+<p>作为一个例子，我曾经用C++开发过一个（自己闲着蛋疼）运行在GNU-C99规范的编译器前端。当我试图用它的面向对象特性去设计语法树类型节点的时候，惊讶的发现C++没有类似于Java中的instanceof这样的动态判断关键字。究其原因，是因为C++的底层内存模型并没有包含对象的“动态类型信息”，这导致当我要去解释每个抽象语法树节点的时候，还是得根据语法树自带的枚举类型关键字来判断，结果是这种实现就退化成了C的风格了（所以说我当初是为什么要用C++来着，算了这都不重要了 =A=）。</p>
+
+<p>试想一个类似的情形，在开发游戏的过程中，当用户希望将一个对象随机生成它的某个子类的对象实例，来增加游戏的多样表现力的时候，他们发现C++居然无法识别动态类型信息，于是这种时候，就只好去借助与自己在class中定义metatype的枚举信息，然而，每次当他们想增加一个新的游戏对象的时候，就得不断的同时增加这个metatype的关键字以及对应的上次处理模型代码，这实际上就造成了系统模块间的耦合度。</p>
+
+<p>所以这就说回来了一个问题，为何C++是一个可怕的语言。因为用C++实现的许多系统，在逻辑复杂性和代码规模上都过分的高，以至于难以让小众的游戏开发团队掌控，而且他们为了学习这个复杂语言所消耗的精力却让他们没有精力去做那些他们真正想要做的事情。</p>
+
+<p>Blow的游戏系统设计理念：直观与简单</p>
+
+<p>这里就得谈到Jonathan Blow的人生哲学了。虽然我个人没太去了解过这货的履历，也没读过多少篇他的博客。然而我在听过鸡盒网的那几个节目以及他在核聚变现场演讲后，我一直有个感觉，我觉得这个人对游戏的看法，是一种对极简和直观的追求。</p>
+
+<p>例如Blow曾经在演讲时抨击很多现有的游戏要素是高度人为化的。什么意思呢，就是刻意设计出来让玩家去察觉和使用的。他认为这种刻意的设计削弱了游戏系统本身的可玩性。例如育碧里的沙盒游戏，多数是集中在如何增加地图尺寸和敌人数，进攻点防守点等固定的人为设计的要素，来构造游戏性。然而这就导致除了游戏给你的这些人为设计的要素外，你没有什么其它可玩的。你想看看水下有没有什么新世界？对不起，那只是个贴图。游戏设计者已经把所有要给你的都呈现给你了，剩下的你也看不到。</p>
+
+<p>所以这样的系统是非常刻意的，使得玩这些所谓的开放世界久了，会让人产生乏味感。因为核心原因在于，所有的要素都在一开始被人为塑造好了，你没有什么可以去“进一步发现”的东西了。所以你就自然而然的觉得没有什么新意了。3A大厂的下一款开放世界游戏？我猜应该还是那些套路，夺点，占地，干boss。你已经知道了一切，你也就失去了一切。</p>
+
+<p>而相反，如果你玩过Braid和Witness，你就会发现，那两个游戏里面，玩的不是可以设计出来的某些要素，而是一个游戏的系统原型，等待玩家自己去探索。而这种探索的感觉给玩家的就是一种“真实”：因为我们的现实世界就是这样的，你永远不知道现实世界会发生什么，会存在什么，在太阳系外面还会有什么东西，在你看不到的地方发生了什么。这些就是真实，换句话说，真实就是未知的惊喜，而人为刻意构造出来的东西，给人的感觉就是一种虚假。一个真实的世界应该是提供无限的信息（可能性），而一个人造的世界只会提供有限的信息（可能性）。</p>
+
+<p>C++的设计缺陷：过分刻意的设计要素</p>
+
+<p>所以在Blow的游戏哲学里，我能很明显看到他对于自然的，直觉的东西的赞美以及对那些刻意设计出来的要素的鄙视。所以我们现在谈下C++。</p>
+
+<p>C++这个语言的设计问题在哪？用一个最简单的Blow式的评价就是：整个语言除了C的内核外，全是刻意设计出来的。例如std::cout &lt;&lt; xxx，设计出来就只是为了让“流处理”这个数据读写操作看上去更方便。而为了让这个方便，C++直接把&lt;&lt;做成了一种可重载的操作符！而这种操作符你可以用来重载到任何其它（和流处理没有任何卵关系）的类上面。这就导致很多人看到其他人设计的类上有诸如+，-, *, &lt;&lt;的操作符时十分惶恐：这TM是想干嘛？</p>
+
+<p>知道为何学习C++是一件让人痛苦的事情吗？因为在整个C++对C进行扩展的部分中，都能看到大量十分刻意的语言结构设计，这些设计其实只是为了满足非常“特定的”语言特性和使用习惯，而这些习惯往往不是必要的！</p>
+
+<p>这就导致很多人学习C++必须去为了那些他们可能这辈子都用不到的被刻意设计出来的特性花费大量时间学习，而且你根本不知道你应该怎么用它们以及你到底会不会用它们！</p>
+
+<p>如果我们把C++比作一个游戏，那么这个游戏系统充斥了极度复杂且不知所云的数值特性系统，这些数值被刻意设计出来，而大多数人根本用不到，以至于很多人一上手这个游戏的时候就基本上决定退坑了！</p>
+
+<p>所以说为何Blow会决定为了提升游戏的稳健性和开发效率，去直接设计一款新的游戏编程语言。因为C++这样一个违反了人的认知和描述世界的基本理性原则，到处都是刻意设计要素的语言要素和语法结构，以至于不断干扰着开发者们将更多的精力投入到开发更好的游戏和产品中去。</p>
+
+<p>这也是为何现在很多小作坊做独立游戏几乎全TM是在用Python或者C#。</p>
+
+<p>个人的一点感想</p>
+
+<p>我本人也在百度和阿里做过几年的开发工作，主要内容是系统底层网络模块方面的，就C++这个语言，我个人觉得是设计十分失败的。它一直妄图为C增加所谓的面向对象特性，然而在这设计方面表现的过于刻意，以至于当使用者用它们实现具体功能的时候，还得需要大量的trick，这就导致我们得分散精力去解决代码的问题，而不是集中精力去解决需求和功能设计的问题。</p>
+
+<p>这就回到了几个高票回答说的：C++没有问题，有问题的是需求。</p>
+
+<p>你们发现了吗？这不就等于变相承认C++在处理和实现某些过分复杂的需求和用户意图时会增加大量的开发成本了吗？</p>
+
+<p>虽然我本人不认为就编程语言发动一场宗教审判有什么意义。但我认为，一个语言的设计者应当把自己当作一个开发“新世界”要素的设计师。如果你要描述的世界过于复杂，那么就把这个复杂性交给世界的观察者（或使用者）让他们自己去发掘，而不是自己去想出这个世界的所有复杂要素，然后把它们刻意的添加到编程语言里面。就像某些游戏把游戏中所有的要素都刻意设计出来，最后剥夺了玩家探索这个世界的权力一样。</p>
+
+<p>而据我所知，C++就是这样一款充斥了大量刻意要素的语言。它的设计者非常希望让C++“极具表现能力”，然而他们的实现方式却是向语言里添加过多极度刻意的语法要素，这就导致了很多不必要的麻烦。</p>
+
+<p>我一直认为，作为一个开发者，程序语言应该能够直观的表述程序员和用户所要实现的功能和意图，除此之外，它应当足够简介。而C++这款语言在这方面就是完全的反例。刻意的增加了大量的不必要的语法要素，导致学习和开发成本高速增加，最后写出来的程序和C基本上差别不大（甚至你用C写出来说不定还更短）。</p>
+
+<p>当然，我所指的也只是我所在的项目开发团队这几年里开发经验的一个感受。有的C++大神确实刻意驾驭这个语言（也许有吧）。但是作为一个水平一般的普通开发者，我是不会在万不得已的条件下（例如要去维护某个之前用C++写的系统），去用C++开发新的软件的。如果一个新的项目即将立项，要选择编程语言，我的意见是，选择那个能够最直接最简洁最容易描述你所要实现目的的语言，用它先做出一个alpha版，然后在有条件的情况下，再去用主流的系统程序语言（例如Java或C++）去实现它的稳定和高性能版本。</p>
+
+<p>这样做的好处是，当一切功能都已经清晰明了且接口明确的时候，你才有精力去应付代码的问题。在此之前，一切工作的核心应该以“有效实现产品功能”为前提。</p>
+
+<p>问题1：刻意设计语法范式的弊病</p>
+
+<p>首先，C++引入了很多的语法特性，然而这些特性都是非常刻意被设计出来的，并固定成为一种普适的语法范式。这就导致了很多问题。比如C++为了能良好地支持复数的计算以及流处理，为+和&lt;&lt;提供了重载操作符。如果它只是像JAVA那样，只为String或者Stream类型提供这类特殊操作，也还好。问题是C++把重载操作符整个供出来给用户自定义。这就造成了一个问题，用户会花费大量时间和精力去学习如何正确地定义使用和理解重载操作的相关内容，然而实际上这些操作符只会在极其少的场景中被使用（例如矩阵对象的运算，或者流处理）。</p>
+
+<p>这导致了一个问题，这些被作为“普遍适用”的语法特征却只有很少真正适合使用它们的场景，这就造成要么这个语法范式在大多数情况下用不到，要么大多数情况下使用它们的开发者都是非常不恰当的在使用它们！</p>
+
+<p>我就见过一些初学者真的按照C++ Primer那本书上的商品对象加操作对诸如游戏对象player重载过+操作，结果我看了半天发现，那个player1 + player2执行的只是两个玩家的经验做了加法，而其它属性一概不变。一个开发者如果看到这段代码，还以为是叠加了Player的所有属性呢！为什么，因为+操作在除了数值和字符串外的其它复杂对象上往往是“意义不明”的。这种重载操作的滥用导致很多代码的稳健性维护有问题。</p>
+
+<p>有人会说吧，那是你程序员自己乱用重载操作符啊。没错！但是如果开发者不“滥用”这些重载操作的话，那么重载操作这个语法特性就基本上不会被使用了！而且对于经验丰富的程序员来说，a + b与a.add(b)，add(a, b)是没太大区别的。完全没有必要为了让代码看着更COOL而去使用不同规范的a + b来表示某种对象操作。</p>
+
+<p>C++里面充斥了很多这种刻意设计出来，以满足特定使用场景的语法特性。而在特性完全可以在JAVA和C这样的语言上以方法和函数的形式实现，而且代码行数也不会更多，性能也不会差多少。这就造成C++ Primer那本书介绍了一大堆的语法结构，最后使用的上的其实还只是个C with classes（说实话，我在百度工作很长时间，绝大部分的代码，新的或者旧的，都是C with classes的实现模式，其它IT公司不清楚），这些完全没必要的语法特性，除了增加学习成本，还有就是提高理解和维护系统的复杂性了。这也是为什么C++ is horrible的原因。</p>
+
+<p>问题2：看似刻意实则无用的语法特性</p>
+
+<p>另一个重要的问题，表面上，C++提供了许多语法特性来加速开发流程，实际上它们起到的作用是非常少的，而且有些特性与其说是为了支持诸如多样性开发，不如说是完全的累赘。</p>
+
+<p>我举个例子，例如在写一个解释器的过程中，需要将程序转换成抽象语法树（AST），然后根据AST的语法树节点类型来解释和计算表达式的值。那么大家觉得在这个系统中，类型AstNode和操作compute的关系是什么呢？</p>
+
+<p>很多在C++上开发的程序员习惯认为compute是AstNode的成员函数：</p>
+
+<p>class AstExpression : public AstNode {</p>
+
+<p>/* compute the value of this expression in given environment */</p>
+
+<p>AstValue * compute(Scope &, Environment &);</p>
+
+<p>}</p>
+
+<p>然而这实际上是一个不好的设计规范！因为AST只是表达式的表现（representation），而compute则是一个针对这一表达式的操作。换言之，compute是一个对于AstNode的外部操作，而不是它本身的属性。所以比较正确的类结构应该定义成下面这个样子：</p>
+
+<p>class AstExpression : public AstNode {};</p>
+
+<p>class AstInterpreter {</p>
+
+<p>void set_environment(Environment &);</p>
+
+<p>AstValue * compute(AstExpression &);</p>
+
+<p>}</p>
+
+<p>这样的编码有一个好处，那就是如果下一次，你在使用AstNode的时候需要添加对这一对象新的使用需求的时候，就不需要往上面一点点加操作了，而且这可以将表达式的“表示”和对表达式的“理解”两个过程分离到两个模块中进行。</p>
+
+<p>试想一个支持多种计算和使用模式的AstNode类型其实是非常重的：</p>
+
+<p>class AstExpression : public AstNode {</p>
+
+<p>AstValue compute_in_ast(Environment &);</p>
+
+<p>AbsValue abs_interpret_as(Environment &);</p>
+
+<p>ConcreteValue concrete_interpret(Environment &);</p>
+
+<p>// other ways to use this node are ignored...</p>
+
+<p>}</p>
+
+<p>这也导致当你使用这一模式的时候C++的一个类的代码可以达到上千行。因为根据我古欧的开发经验来看，这种重型类都是没有做好功能分离，在设计初期没有将使用功能和属性功能分离清楚，导致设计急速膨胀的结果。</p>
+
+<p>那么好。在我们分离了表达式的表示AstNode和计算Compute之后，就出现了另一个问题：表达式的计算需要根据表达式的类型来决定需要计算的方式，例如一个加法计算和一个比特位移运算并不一样，于是：</p>
+
+<p>AstValue * Computer::compute_arith_binary_expression(AstExpression & expr) {</p>
+
+<p>if( is_arith_binary_expression(expr) ) {</p>
+
+<p>/* interpret the expr here */</p>
+
+<p>}</p>
+
+<p>return nullptr;</p>
+
+<p>}</p>
+
+<p>AstValue * Computer::compute_shift_binary_expression(AstExpression & expr) {</p>
+
+<p>if( is_shift_binary_expression(expr) ) {</p>
+
+<p>/* interpret the expr here */</p>
+
+<p>}</p>
+
+<p>return nullptr;</p>
+
+<p>}</p>
+
+<p>然而这里有一个问题，那就是对于一个父类AstExpression，C++并不支持对该父类的动态类型检测，C++虽然定义了所谓的语法typeof，然而这个玩意儿其实只能返回静态类型，而并不知道动态条件下对象expr的真实子类。</p>
+
+<p>原因呢？因为C++的内存模型是继承自C的，而C的内存模型中并不提供自动维护对象类型信息的部分。因此用C++做这个问题，就需要用户手动标记一个类型在AstExpression内部，类似于这样：</p>
+
+<p>class AstExpression : public AstNode {</p>
+
+<p>AstExprType etype;</p>
+
+<p>}</p>
+
+<p>然而这种设计就回归到了C语言的状态了。所以对于C++开发者来说，最简单的方法就是直接把compute操作插到AstExpression类里面。而这种操作，就如同我们前面所说的，是面向对象设计中非常忌讳的，它最终会导致模块间高度冗余和系统耦合度增大：</p>
+
+<p>class AstExpression : public AstNode {</p>
+
+<p>/* I finally decide to add this method</p>
+
+<p>to the node class, because this is</p>
+
+<p>the fastest way to implement the</p>
+
+<p>polymorphism of computation on AST */</p>
+
+<p>AstValue * compute(Environment &);</p>
+
+<p>}</p>
+
+<p>当然技术比较好的开发者会使用其它开发模式，诸如让每个类型返回一个类头，或者提前开发一个对象类型的管理系统，以及在计算器一旁通过一个基于该类型系统的分类器来自动定位对象类型。然而这就导致代码的逻辑复杂度大幅度提高。使得本来很直观简单的compute这样一个业务需求变得高度冗余。</p>
+
+<p>很多组里的同事经常吃饭开玩笑说，C++里面使用的那些编程模式，其实是把非常简单的问题变得拐弯抹角的实现了。这就解释了为何大多数人写出来的C++代码冗余，复杂度高，且变现力差的原因了。也解释了我前面提到的：为了表达某个简单的需求，C++需要使用非常复杂且结构耦合的代码，最终导致开发工作异常困难。</p>
+
+<p>同样的功能，在JAVA里面实现就非常自然：</p>
+
+<p>AstValue compute_arith_binary_expression(AstExpression expr){</p>
+
+<p>if(expr instanceof AstArithBinaryExpression) {</p>
+
+<p>/* TODO ... */</p>
+
+<p>}</p>
+
+<p>}</p>
+
+<p>这就是为何有人会调侃C++的多态性是一种被动多态，而非主动多态。因为它很多时候需要用户提供额外的类型信息给外部使用者来实现一些在其它语言上其实非常简单的功能。</p>
+
+<p>问题3：所谓直观性与简洁性</p>
+
+<p>Blow在游戏设计中强调过系统设计需要尽可能简洁，而不是拐弯抹角的用一大堆人为加工痕迹的东西去增强游戏。这种简洁并不是意味着简单，例如Blow设计的游戏第一次玩起来都很玄学，完全搞不懂。他所说的简洁性很大程度上是一个基于简单的几个要素和规则架构起来的系统原型，而不是像其它游戏那样不断提升贴图质量和动作感官精细度的方式增强游戏的方式。</p>
+
+<p>这个思想在编程里面也是适用的。程序是程序员用来向计算机表达用户需求和功能的媒介。语言在其中扮演着重要的角色。一个好的语言应当能够直接阐述用户的意图，同时让程序员易于实现它的表现结构。而C++的许多（近乎恶劣的）设计却是这一目的的反例。</p>
+
+<p>诸如我们提到的静态多态性和刻意增加的操作符重载等，都是一种降低表现直观性，增加实现复杂度的做法。而这些做法的设计“意图”却是非常刻意的，而这种刻意的语言设计哲学，在我个人看来，就和Blow的简洁直观的系统设计哲学是背道而驰的。它使得我们得拐弯抹角的去迎合那些所谓的“C++精英程序员”以及它们的设计者的意图，而实际上却增加了我们自身开发学习的难度。更糟糕的是，这种迎合特定编码习惯的方式，使得我们很难维护好所要设计系统和实现间的桥梁，造成诸多麻烦，以至于开发者没有足够的精力去开发实现真正值得他们解决的问题和需求。</p>
+
+<p>这也导致另一个有趣的结论：不是C++太复杂了，而是需求太复杂了。</p>
+
+<p>所以C++针对不适合开发高度复杂的大规模系统（所以你设计它出来干嘛呢？？？）</p>
+
+<p>建议：尊重其他程序员</p>
+
+<p>有很多这种对程序语言抱着近乎宗教崇拜态度的人，他们凡是看到有人批判某个语言在某方面不好，就开始嚷嚷对方是个弱智。可惜的是， @farta</p>
+
+<p>恕我直言，这位对C++大做批判的游戏设计者不仅有几十年的C++开发经验，而且人家成功的用C++实现了许多3D游戏的设计和移植工作，其技术力远比向您这样的喷子来的强。那些批判某个语言的人，不一定是不会这门语言的初学者，也可能是已经身经百战，根据自己多年游戏开发的项目经验所作出的合理判断，而Blow属于后者。</p>
+
+<p>大多数情况下，是一批C++狂魔看了两个月C++ Primer后，就开始充满热情开始了某个大型系统的项目，最终在几年后，我们高兴地发现对方用Python实现了该项目的所有基本功能目标:)</p>
+
+<p>这个问题并不在于C++如何如何，而是在于这位“知名游戏开发者”是谁。</p>
+
+<p>如果你是游戏文化爱好者，你应该知道这个名字——Jonathan Blow（乔纳森·布洛）</p>
+
+<p>被称为“大神”的人有很多，但是如果把“大神”的标准定义为：坚定的理想主义者，人类探索未来文化的殉道者。那么能被称为“大神”的人就屈指可数了，Blow可能是其中的一位。</p>
+
+<p>人物与作品简介</p>
+
+<p>Jonathan Blow生于1971年，是一位美国的游戏设计师和开发者。他最知名的作品是《时空幻境》（Braid，2008）与《见证者》（The Witness，2016）。</p>
+
+<p>（注意他的年龄已经与DOOM之父乔恩·卡马克相仿，和现在的90后比是老几辈的游戏开发者。他在独立游戏界出名之前也做了很多那个时代游戏开发工作。）</p>
+
+<p>《时空幻境》</p>
+
+<p>本作品开始于2004年，是一部以时间倒流为灵感而开始的作品。2005年12月放出了最初的简陋版本，这个版本赢得了2006年独立游戏节（Independent Games Festival）最佳游戏设计奖。</p>
+
+<p>之后他继续完善游戏的表现部分，直到2008年8月在Xbox Live上推出了正式版。推出时，Blow个人债务达4万美元，已投入20万美元用于游戏的开发。</p>
+
+<p>作品推出后受到批判性的赞扬，且在经济上也大获成功；这部作品在媒体Metacritic上获得93%的好评，成为Xbox Live Arcade平台上最高好评率的游戏。</p>
+
+<p>在这之前已经有过不少独立游戏，但是本作标志性地让“独立游戏”获得口碑与市场双重丰收，所以也有人将这部作品的问世记为“独立游戏元年”（非公认）。</p>
+
+<p>《见证者》</p>
+
+<p>本作在2009年宣布开发，也是Blow到目前最近的一部作品。它的游戏舞台是一个小岛，是一个主视角解谜游戏。本作品同样是由Blow自己出资开发的，据报导投入为2~3百万美元。</p>
+
+<p>尽管被普遍看做解谜游戏，但是Blow并不认为“解谜”是这个游戏主要表达的意思，而且他也不可能做一款单纯的“解谜”游戏。</p>
+
+<p>Blow将他在前作《时空幻境》中所有的利润都重新投入到了《见证者》当中，且在后期同样也背上了债务。为了提升游戏的历史感和人文遗迹的真实性，Blow聘请了专业的景观设计团队来为游戏设计了普通玩家难以察觉到的、带有深刻内涵的建筑与花园。</p>
+
+<p>这部作品在时隔多年后的2016年1月26日推出，被IGN评为满分10分、也获得了商业上的成功。但是，本作超前的设计理念令其受到极大的争议。任何一个游戏玩家都可能毫不犹豫地向朋友推荐《时空幻境》，但是对《见证者》会持保留态度。这部游戏对部分玩家来说属于“神作”，但是更多人会在体验到这个游戏的结局之前放弃。</p>
+
+<p>其他成果：</p>
+
+<p>2010年3月，Blow联合多位知名独立游戏开发者，成立了Indie Fund（独立游戏基金会），他本人也成为了一名独立游戏的天使投资人。</p>
+
+<p>2012年，在著名纪录片《独立游戏大电影》中，Blow作为主角之一，与观众分享了他的游戏开发经历和思想。</p>
+
+<p>★ JAI 语言</p>
+
+<p>（终于和编程语言问题沾边了。）</p>
+
+<p>2014年9月，Blow开始着手开发一门新的编程语言称为“JAI”，他打算总结他在游戏开发实践中积累的经验，开发一门聚焦于游戏制作的全新语言。这门语言的目标是达到“低阻力的流式开发”，支持面向数据设计以达到高性能。目前这门语言还在开发当中，且还没有发布可运行的编译器。</p>
+
+<p>有趣的是，尽管关注的人不多，但是Blow会在Youtube等平台上长时间地介绍他的这门新语言的设计理念与技术细节。</p>
+
+<p>Blow的哲学与观点</p>
+
+<p>Blow的游戏设计理念，以及其游戏哲学，在国内是被游戏文化媒体“机核”广泛传播的。机核先后做过多期关于乔纳森·布洛的视频、电台节目与专题，且在2018年线下大型聚会“核聚变”中也请到Blow本人发表演讲，主题为“游戏是人类思想的未来”。</p>
+
+<p>Blow曾在媒体上多次发表过他对于游戏设计的一些观点，这些观点往往带有极强的个人色彩，难免偏激。比如他认为游戏中“吃金币”的设计就是比较低级的，只是讨好玩家的手段。这种低级的设计不尊重玩家作为“人”的一面。</p>
+
+<p>他的充满争议性的观点，也得到了大部分玩家的赞美，被粉丝称为是“正义的、电子游戏革命所需要的”和“一个灵魂探索者，在未知的境界中追求真理。”（ "the kind of righteous rebel video games need"[22] and "a spiritual seeker, questing after truth in an as-yet-uncharted realm."[3]）</p>
+
+<p>Blow常说，游戏具有更大的潜力。他试图让更多成年人更多地关注到游戏世界之中，游戏有可能在未来社会中扮演一个越来越重要的角色，但是现在的游戏开发者还远未察觉到这一点，只是在关注一些低风险、高收益的主题。另外，Blow之前获得过物理学位，他表示游戏可以像物理学那样，对我们的宇宙做出实验。</p>
+
+<p>目前对乔纳森·布洛哲学思想的解读，很多时候存在过度解读的嫌疑，对其观点读者应当带着自己的思考去理解，谨防陷入主观情感上的崇拜（也毫无意义）。</p>
+
+<p>布洛的本人是他自己的哲学思想的践行者，这点毋庸置疑。所以对他的言行也不必过于敏感，比如他说“C++是一种非常糟糕、可怕的语言”。事实上，C++这门语言显然有很多优点也有很多缺点，使用C++的人应当自行做出判断。</p>
+
+<p>作为一门语言在游戏中是否优秀，很多时候取决于是否能满足各式各样的需求。游戏架构的多样化远高于其他软件的架构，无论是服务端还是客户端。比如我们这里需要用到面向数据的开发，面向数据的开发适合许多大场景，大体量，实时运算量大但运算量多样化相对较小的游戏，如使命召唤的单机模式。但是，请稍等一下，假设我们这里使用的是C++，但是我们偏偏要用动态化的函数式编程来使其面向数据，但是我希望我的函数是“干净的”，所以使用模板生成的function首先不在我的考虑范围内，我确确实实需要一个干净的事件，但是大多数情况下他都是一个非纯函数，那么情况可能就会变成以下这样（C++熟手轻喷，请原谅如此拙劣的代码）：</p>
+
+<p>首先，这段代码是否高效？毫无疑问是的，纯净的函数指针，非纯的函数并只访问指针内的字块，首先它是紧凑的，如果我想用数组储存一串Func::f，遍历执行他们也是高效的，其次，C++底层灵活的内存控制使其对CPU的缓存非常友好，这也和数据的紧凑性离不开关系，C++精确的static_cast也能给编辑器提供优化的方向，使其对缓存更加友好，一码归一码，在多线程异步中也有较好的稳定性。但是请稍等，这段代码为何看起来如此恶心？我们先看一段类似的C#代码在Unity3D 2018和.Net4.x中的操作：</p>
+
+<p>显然，实现同样的效果，同样的效率（使用IL to Native C的C# code，在上述的各方面实际与C++代码非常接近），而这次我可以快快乐乐的喜提action到一个总管的类里了。</p>
+
+<p>这样可能并没什么说服力，我当然可以使用静态纯函数，像ECS架构一样，方便快捷，不用非要这么极端吧，但是游戏开发中确确实实有许多这样“极端的例子”，一个语言的强大在于，他需要考虑各种古怪不开窍的开发团队或个人开发者，比如我。</p>
+
+
+
+<p style='float:right;'>本页共210段，17076个字符，43708 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

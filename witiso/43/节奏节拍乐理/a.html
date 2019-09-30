@@ -1,0 +1,585 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <h4>第一课：认识音符</h4>
+
+<p>简谱的音符是用1、2、3、4、5、6、7几个阿拉伯数字来代表的（五线谱音符是用“豆芽”来表示的）。请看图上所示。</p>
+
+<p>唱名——就是如何唱（念），如1，我们要唱“do”（中文写成“多”）。</p>
+
+<p>这七个音的唱法一定要随口唱出，比如看到5，我们就要马上唱出“sol”（“索”或“梭”）。这几个音的唱法要死记硬背住。可以用七张小纸片，比如在一张纸片一面写上3，另一面写上中文“米”，如果看到3不会念唱名，就看另一面的“米”。这也是一种记忆的方法。</p>
+
+<p>请注意“2”这个音符的唱名，中文标示为“来”，这个汉字用得不是很准（找不到恰当的汉字），还是唱它的拼音“re”准确些。</p>
+
+<p>字母名（英文字母名，或也叫“音名”），不用唱的。这点知道就可。<img width="441" height="180" src="a_clip_image002.jpg" />
+
+
+<h4>第二课：高音、中音、低音</h4>
+
+<p>音符上有小黑点的，此音就是高音；音符下有小黑点的，就是低音。音符上下都没有黑点的，就是中音。请看图上所示。</p>
+
+<p>“高音”与“音量大”是不同的概念，不要搞混了。</p>
+
+<p>高音——指音频高。什么叫音频？也就是声音振动的频率。频率用赫兹（HZ）来作单位，一赫兹等于“每秒振动一次”。打个比喻：乐器上一根细弦，你去拔动它一下，这根弦就振动起来，如果此弦每秒来回振动1000次，它发出的声音我们叫它高音。我们再拔动另一根粗弦一下，如它每秒只振动50下，我们可以将此弦发出的声音叫低音。这只是个比喻。</p>
+
+<p>同样一个高音，有音量大的，也有音量小的。比如我们拔动吉它上的一根空弦，重拔发出的音量大，轻拔这根弦则发出的音量小，但音高相同。</p>
+
+<img width="411" height="150" src="a_clip_image005.jpg" />
+
+<h4>第三课：音程</h4>
+
+<p>两个音之间的距离，就叫音程。注意：3与4的音程要小，同样7与1间的音程也小。请看图所示。</p>
+
+<p>这课知道就可，以后再慢慢深入了解吧。</p>
+
+<img width="448" height="346" src="a_clip_image007.jpg" />
+
+<h4>第四课：唱准1234567 i</h4>
+
+<p>请看图，图上有八个音，最后一个音是高音1。</p>
+
+<p>在从头唱到尾这八个音时，要在唱完4时换口气（吸口气），接着再唱右边几个音，这样气息足则音高才能唱上去。</p>
+
+<h4>第五课：音符时值</h4>
+
+<p>什么叫音符的时值？指声音延长的时间。我们有时叫“拍”（用“拍”作时间单位），如果一拍等于一秒钟的话，我们不说这个音有几秒，而说这个音有几拍（或说唱、演奏几拍）。</p>
+
+<p>在这课我们要弄清楚音符，如四分音符、八分音符、十六分音符、二分音符、全音符等。</p>
+
+<p>打个比喻：全音符为一个圆饼，将它分为两半，则每半块饼为二分音符。或将这个圆饼分成四块，则每小块为四分音符。</p>
+
+<p>一般说来，一个四分音符我们称它为一拍。</p>
+
+<p>请看下图所示，一目了然。</p>
+
+<img width="464" height="230" src="a_clip_image009.jpg" />
+
+<h4>第六课：乐曲节奏速度的快慢</h4>
+
+<p>请看下图所示。</p>
+
+<p>在曲谱的左上角或曲谱中间某处，常有五线谱音符“豆芽”等于80或60或40等。等于80，则此曲不慢，如等于40则此曲为慢曲了。</p>
+
+<p>“豆芽”等于80，则意为每分钟要演奏80拍。不快不慢的节奏速度每分钟一般为70到80拍间。</p>
+
+<img width="430" height="293" src="a_clip_image011.jpg" />
+
+<h4>第七课：曲调</h4>
+
+<p>曲谱的左上角常标有1=C类图标，则指此曲的1（do）音为C（字母名），那此曲就为C调。</p>
+
+<p>请见图上所示，此内容暂了解一下就可，以后再搞清吧。</p>
+
+<img width="473" height="103" src="a_clip_image013.jpg" />
+
+<h4>第八课：节拍</h4>
+
+<p>在曲谱左上角会有2/4、3/4或4/4类标示。如2/4，则指一个音节内有两拍，每拍为一个四分音符。上面那个2指两拍，下面那个4指四分音符。</p>
+
+<p>请见图上说明。</p>
+
+<img width="442" height="172" src="a_clip_image015.jpg" />
+
+<h4>第九课：乐曲各节拍的特点</h4>
+
+<p>乐曲如同竹子有节，音节线（细竖线）就如同竹节（竹节巴），将音符有规律地分开。</p>
+
+<p>如2/4节拍，音的规律是“强、弱”。这里的“强”意为重音，“弱”意为轻音。两根音节线内的第一拍强音，第二拍为弱音。</p>
+
+<p>同理，3/4拍和4/4拍请见图上所示。</p>
+
+<p>曲谱上不会在每个音符上或下标明强弱等字，通过曲谱标明的“2/4”类或音节线就能知道音节内哪个音为强音，哪个音为弱音。</p>
+
+<p>这课内容很重要，要弄明白。</p>
+
+<img width="32" height="32" src="a_clip_image003_0000.gif" /><img width="554" height="294" src="a_clip_image017.jpg" />
+
+<h4>第十课：节拍与节奏</h4>
+
+<p>节拍与节奏是不同的概念。</p>
+
+<p>节拍一般是固定的，如2/4拍、3/4拍、4/4拍，能明白音的强弱规律。</p>
+
+<p>节奏是活的，可以说指音的时值长短。节奏不准，一般说的是某个音演奏快了，或某个音演奏短了。</p>
+
+<p>请见图上说明。</p>
+
+<img width="463" height="234" src="a_clip_image019.jpg" />
+
+<h4>第十一课：丰富的节奏</h4>
+
+<p>跳国标舞的人知道，节奏种类有很多，各有特色，且每种节奏也是固定有规律的。如4/4拍的节奏就有“仑巴”、“慢四”等多种。3/4拍的有“华尔兹”，华尔兹节奏与3/4拍的强弱是一致的。</p>
+
+<p>这课了解就可。请见图上说明。</p>
+
+<img width="32" height="32" src="a_clip_image003_0001.gif" /><img width="466" height="370" src="a_clip_image021.jpg" />
+
+<h4>第十二课：2/4节拍的拍子打法</h4>
+
+<p>大家要将2/4拍这几课的内容学好，后面3/4拍、4/4拍的内容学起来就容易了。</p>
+
+<p>打拍子，也叫划拍子。打拍子主要用右手。打拍子时手要柔软些，不要太疆硬。</p>
+
+<p>拍子要打准（速度要打均匀），不要有快有慢，可以依照节拍器、钟表等来帮助。</p>
+
+<p>2/4拍子的打法有多种，不同的老师的打法可能不一样，但自己要固定一种打法。</p>
+
+<p>这里介绍几种2/4拍子打法。</p>
+
+<p>第一种（配图上所示）：右手从左和右划V字为第一拍，右手从右向左划V字为第二拍，这样来回不断地划。（嘴里可以念一、二、一、二……）</p>
+
+<p>其它2/4拍子的打法：</p>
+
+<p>如：右手拍下左腿为第一拍，再用右手拍下右腿为第二拍。</p>
+
+<p>如：右手重拍下桌子为第一拍，再轻拍下桌子为第二拍。可以拍桌子上的同一地方，也可以拍不同的地方。</p>
+
+<p>如：用脚走路打拍子，走左脚为第一拍，走右手为第二拍。</p>
+
+<img width="32" height="32" src="a_clip_image003_0002.gif" /><img width="554" height="313" src="a_clip_image023.jpg" />
+
+<h4>第十三课：2/4拍子打法的基本练习</h4>
+
+<p>请看下面的配图，依照练习。用右手打拍子。</p>
+
+<p>图的下部分有一种举例，因为出现了八分音符，要多加练习。</p>
+
+<img width="449" height="346" src="a_clip_image025.jpg" />
+
+<h4>第十四课：节奏的念法“哒”</h4>
+
+<p>我们在练习打拍子时，一般用“X”这个通用符号来代替1（多）、2（来）、3（米）、4（发）、5（索）、6（拉）、7（西），这个X唱作“哒”。如唱“哒 哒 哒哒 哒哒哒”。</p>
+
+<p>注意：休止符不唱（不发音），但节拍还是要打，因为休止符也占时值。休止符用零“0”来表示，时值与音符时值同理，也有一拍、半拍等类。</p>
+
+<p>请见图上所示。</p>
+
+<img width="515" height="207" src="a_clip_image027.jpg" />
+
+<h4>第十五课：2/4拍节奏的实践练习</h4>
+
+<p>在这里我还要重复强调一下：节拍与节奏是两个不同的概念。节拍用右手划（打拍子）；节奏（旋律）用嘴唱，如唱“哒”。一首曲的拍子用右手打，从头到尾都是一样的；节奏则不一样，每个音节内的节奏一般不一样，有的唱“哒哒”，有的可能唱“哒哒哒”。</p>
+
+<p>谱上未标明乐曲的演唱速度，则我们按通用的速度来唱，一般每分钟大约70拍或80拍，这个速度容易些。</p>
+
+<p>请看下图。</p>
+
+<p>此图上共有四个节奏练习（两个音节一个），用双细竖线分开的。</p>
+
+<p>先学练容易的一个，这样分开将每个节奏练习都练熟后，再将四个节奏练习连接起来练习。</p>
+
+<p>好！我们现在来练习第一个：眼看谱子，右手打2/4拍子（机械运动），嘴里伴随拍子唱“哒 哒 哒哒哒 ”，连续这样重复。</p>
+
+<img width="32" height="32" src="a_clip_image003_0003.gif" /><img width="463" height="148" src="a_clip_image029.jpg" />
+
+<h4>第十六课：2/4拍子节奏的实践练习</h4>
+
+<p>请看下图。</p>
+
+<p>图上也有四个练习，每四个音节一个练习。和上节课同样练习就可。</p>
+
+<p>这里要说一下，2/4拍的乐曲多为进行曲，节奏多数有力，平时走路时用脚也可打拍子。</p>
+
+<img width="32" height="32" src="a_clip_image003_0004.gif" /><img width="554" height="324" src="a_clip_image031.jpg" />
+
+<h4>第十七课：含有休止符的2/4拍子练习</h4>
+
+<p>请看下图。</p>
+
+<p>图上有八个不同的练习，其中有的练习中带有休止符“0”。</p>
+
+<p>有休止符的节奏练习，拍子打法不变，遇到有休止符时右手不能停（照样打拍子），但嘴却不能唱（停止唱“哒”），遇到X时才唱“哒”。如不明白，请参看第十四课的配图。</p>
+
+<img width="451" height="250" src="a_clip_image033.jpg" />
+
+<h4>第十八课：2/4拍的简单乐曲视唱练习</h4>
+
+<p>图上有两首很简单的乐曲，请眼看曲谱，右手打2/4拍子，嘴随着拍子唱旋律，这里不再唱“哒”，要唱“多来米……”</p>
+
+<img width="32" height="32" src="a_clip_image003_0005.gif" /><img width="471" height="298" src="a_clip_image035.jpg" />
+
+<h4>第十九课：2/4拍的民歌视唱练习</h4>
+
+<p>图上这曲为2/4拍的外国民歌，不难，请视唱练习好。</p>
+
+<p>谱中有几个“V”，这是乐句之间的间隔符号，也是换气符号。</p>
+
+<img width="32" height="32" src="a_clip_image003_0006.gif" /><img width="462" height="272" src="a_clip_image037.jpg" />
+
+<h4>第二十课：2/4拍的《金孔雀轻轻跳》视唱</h4>
+
+<p>图上这曲为一首简单的葫芦丝打音练习曲。学到这里，这曲就算您以前未听过，也可以视唱出来了，可能第一遍唱不好，多唱几遍也就唱好了。同样要打着拍子唱。</p>
+
+<img width="32" height="32" src="a_clip_image003_0007.gif" /><img width="478" height="260" src="a_clip_image039.jpg" />
+
+<h4>第二十二课：3/4拍子的节奏基本视唱练习</h4>
+
+<p></p>
+
+<p>请看图示</p>
+
+<p>图上有六个独立的练习，都需打着拍子视唱练习。最后还要再将这六个练习连接起来视唱。</p>
+
+<p>3/4拍子是圆舞曲的节奏“嘭恰恰”。拍子要打得美些，手腕动作要柔些。每分钟约80拍的速度。</p>
+
+<img width="554" height="212" src="a_clip_image041.jpg" />
+
+<h4>第二十三课：3/4拍子的节奏基本视唱练习</h4>
+
+<p>请看图。图上有三个练习。同样需进行视唱练习。每分钟约80拍的速度。</p>
+
+<img width="467" height="178" src="a_clip_image043.jpg" />
+
+<h4>第二十四课：3/4拍简单乐曲视唱实践</h4>
+
+<p>图上有两首很简单的大家都听过的曲《新年好》《生日歌》，请大家打着拍子将它们唱好，虽简单，但也要唱准。</p>
+
+<img width="467" height="319" src="a_clip_image045.jpg" />
+
+<h4>第二十六课：4/4拍子的打法</h4>
+
+<p>请看下图。</p>
+
+<p>4/4拍子的打法：第一拍右手向下再向上，第二拍右手向左边划V字，第三拍右手向右边划一个宽些的V字，第四拍右手向左划V字回到第一拍的起始位置。</p>
+
+<p>注意：第一拍向下划和向上划的运动轨迹线是相重叠的（图上未画重叠，是为了便于眼看），第一拍为强拍（重拍），划的动作可夸张点或幅度略大些。</p>
+
+<p>4/4拍子的乐曲一般为抒情曲，因此拍子要打得柔和有情感些。</p>
+
+<img width="32" height="32" src="a_clip_image003_0008.gif" /><img width="463" height="246" src="a_clip_image047.jpg" />
+
+<h4>第二十七课：4/4拍子的基本视唱练习</h4>
+
+<p>图上有三个练习，请认真打着拍子，嘴里唱着“哒”练习。可按每分钟大约80拍的速度视唱。</p>
+
+<img width="32" height="32" src="a_clip_image003_0009.gif" /><img width="462" height="131" src="a_clip_image049.jpg" />
+
+<p></p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+</p>
+
+<p>
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+
+-->
+
+

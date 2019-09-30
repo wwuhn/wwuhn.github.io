@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html><title>historytide</title>
+<script>
+function scrol(){
+var scl=document.body.scrollHeight/2+30*14;
+window.scrollBy(0,scl);
+}
+</script>
+<body onLoad="scrol()">
+<!--(-3000+2100+18+18)*nianPX(5)=25500--><!--canvas的height属性最大只能达到32000；-->
+
+
+
+<canvas id="myCanvas" width="974" height="30818" style="border:0px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+<!--var c=document.getElementById("myCanvas2");
+公元前与公元后不同的部分
+canvas id
+var dingJiange=0; //顶端间隔 竖线起始位置(Y轴）
+var diJiange=18; //底部间隔 竖线起始位置(Y轴）
+var jianGe=dingJiange+diJiange;
+var nianYprev=0; //公元前有多少年开始
+var nianYnex=2100;//公元前后多少年结束
+var nianYprevPx=nianYprev*nianPX; //公元前有多少年及像素；
+var nianYnexPx=nianYnex*nianPX; //公元后有多少年及像素；
+var Ycor=nianYprevPx+nianYnexPx; //竖线Y坐标的终点位置（长度）；-->
+<script>
+
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+
+
+var dingJiange=18; //顶端间隔 竖线起始位置(Y轴）
+var diJiange=0; //底部间隔 竖线起始位置(Y轴）
+var jianGe=dingJiange+diJiange;
+var Xcor=436; //竖线X坐标的起始位置；
+//因最小的字体需要12它，所以下面的定位需要达到12；
+var nianPX=14; //一年间隔使用的像素；
+
+var nianYprev=2200; //公元前有多少年开始
+var nianYnex=0;//公元前后多少年结束
+var nianYprevPx=nianYprev*nianPX; //公元前有多少年及像素；
+var nianYnexPx=nianYnex*nianPX; //公元后有多少年及像素；
+var Ycor=nianYprevPx+nianYnexPx+jianGe; //竖线Y坐标的终点位置（长度）；
+
+
+
+var nianL=8; //年线段的长度；
+
+var nianL10=20; //10年线段的长度；
+var nianL100=30; //100年线段的长度；
+var fontsi=nianPX*3;//字体大小
+var fontsi10=nianPX*4;
+var fontsi100=nianPX*5;
+
+//长竖线
+ctx.beginPath();
+ctx.moveTo(Xcor,dingJiange);
+ctx.lineTo(Xcor,Ycor+diJiange);
+ctx.stroke();
+
+//年横线
+for(i=dingJiange;i<=Ycor+diJiange;i+=nianPX){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.4)";  
+ctx.stroke();
+}
+
+//5年横线
+for(i=dingJiange;i<=Ycor+jianGe;i+=nianPX*5){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL*1.5,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.6)";  
+ctx.stroke();
+
+
+}
+
+//10年横线和文本
+for(i=dingJiange;i<=Ycor+jianGe;i+=nianPX*10){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL*2,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.8)"; 
+ctx.stroke();
+ctx.textAlign="right";
+var varmid=(i-dingJiange)/nianPX;
+	if(varmid%100!=0){
+	ctx.font="12px 宋体"; //30px 可以写在里面
+	// Create gradient
+	var gradient=ctx.createLinearGradient(0,0,c.width,0);
+	gradient.addColorStop("0","magenta");
+	gradient.addColorStop("0.5","blue");
+	gradient.addColorStop("1.0","red");
+	// Fill with gradient
+	ctx.fillStyle=gradient;
+	ctx.fillText((i-dingJiange)/nianPX-nianYprev,Xcor-nianL*2,i+6);
+	}
+}
+//100年横线和文本
+for(i=dingJiange;i<=Ycor+jianGe;i+=nianPX*100){
+ctx.beginPath();
+ctx.moveTo(Xcor,i);
+ctx.lineTo(Xcor-nianL*3,i);
+ctx.strokeStyle = "rgba(0, 0, 0, 0.9)"; 
+ctx.stroke();
+ctx.textAlign="right";
+ctx.font="18px 宋体"; //30px 可以写在里面
+// Create gradient
+var gradient=ctx.createLinearGradient(0,0,c.width,0);
+gradient.addColorStop("0","magenta");
+gradient.addColorStop("0.5","blue");
+gradient.addColorStop("1.0","red");
+// Fill with gradient
+ctx.strokeStyle=gradient;
+ctx.strokeText((i-dingJiange)/nianPX-nianYprev,Xcor-nianL*3,i+8);
+
+}
+
+function txtL(year0,txt){
+	var xc=Xcor-nianL-65; //左边的线条从右边开始到左边结束的位置；
+	var xc2=10;//左边文本从左边开始的位置；
+	var yp;
+	if(year0>=0){
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		txt="" + year0 + "年," + txt;
+	}else{
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		yearp=year0*(-1);
+		txt="前" + yearp + "年," + txt;
+	}
+	ctx.fillStyle="#00f";
+	ctx.beginPath();
+	ctx.moveTo(Xcor-60,yp);
+	ctx.lineTo(xc+xc2-25,yp);
+	ctx.stroke();
+		
+	ctx.font="12px Verdana"; 
+	ctx.fillStyle="#000";
+	ctx.textAlign="left";
+//xc的位置是xc=Xcor+nianL100＝974－436－30＝508，可以容纳46个12px的字符(44*12=535)；
+
+
+	var txtN;//右边屏幕可容纳字符串个数；
+	var txtW=12*1;//手工算出是0.945;txtW是一个字符串的宽度；
+	txtN=Math.floor(xc/txtW);	
+	
+
+	if(txt.length>txtN){
+		var fortime=Math.ceil(txt.length/txtN);//需要循环的次数；
+		ctx.fillText(txt.substring(0,txtN),xc2,yp);
+		for(i=0;i<fortime;i++){
+		yp=yp+14;
+			txt=txt.substring(txtN);
+			var txt2="        "+txt.substring(0,txtN);
+			ctx.fillText(txt2,xc2,yp);
+		}
+	}else{
+	ctx.fillText(txt,xc2,yp);
+	}
+	
+
+	
+}
+
+function txtR(year0,txt){
+	var xc=Xcor+nianL100; 
+	var yp;
+
+	if(year0>=0){
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		txt="" + year0 + "年，" + txt;
+	}else{
+		yp=dingJiange+nianYprevPx+year0*nianPX;
+		yearp=year0*(-1);
+		txt="前" + yearp + "年，" + txt;
+	}
+	ctx.fillStyle="#00f";
+	ctx.beginPath();
+	ctx.moveTo(Xcor+3,yp);
+	ctx.lineTo(xc,yp);
+	ctx.stroke();
+	
+	ctx.font="12px Verdana"; 
+	ctx.fillStyle="#000";
+	ctx.textAlign="left";
+//xc的位置是xc=Xcor+nianL100＝974－436－30＝508，可以容纳46个12px的字符(44*12=535)；	
+	var txtN;//右边屏幕可容纳字符串个数；
+	var txtW=12*1;//手工算出是0.945;txtW是一个字符串的宽度；
+	txtN=Math.floor((canvasW-xc)/txtW);		
+
+	if(txt.length>txtN){
+		var fortime=Math.ceil(txt.length/txtN);//需要循环的次数；
+		ctx.fillText(txt.substring(0,txtN-4),xc,yp);
+		
+		for(i=0;i<fortime;i++){
+		yp=yp+14;
+			txt=txt.substring(txtN-4);
+			var txt2="        "+txt.substring(0,txtN-4);
+			ctx.fillText(txt2,xc,yp);
+		}
+		
+	}else{
+	ctx.fillText(txt,xc,yp);
+	}
+}
+
+
+
+txtR(-10,"我们都有一个家名字叫中国");
+txtL(-10,"我们都有一个家名字叫中国");
+txtR(0,"");
+txtR(0,"");
+txtR(0,"");
+txtR(0,"");
+
+
+</script>
+</body>
+</html>

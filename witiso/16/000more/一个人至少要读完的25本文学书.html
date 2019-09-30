@@ -1,0 +1,745 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>如果有条件，一个人至少要读完这25本书吧！汉唐有书君2018-08-0911:05:59</h4>
+
+<p>文学是感受一个民族和时代，最生动的经验。有书君纵览人类文学史，精心挑选出25本最具代表性的外国文学名著，它们或是一个时代的巅峰之作，或是一个文学流派的开山之作。它们中的任何一本，都可以让你的精神世界变得辽阔而富饶。</p>
+
+<p>第一本</p>
+
+<p>《老人与海》</p>
+
+<p>作者：海明威</p>
+
+<p>豆瓣评分：9.2分</p>
+
+<p>(44795人评价)</p>
+
+<p>内容简介</p>
+
+<p>它围绕一位老年古巴渔夫，与一条巨大的马林鱼在离岸很远的湾流中搏斗而展开故事的讲述。</p>
+
+<p>推荐理由</p>
+
+<p>《老人与海》揭示了人类共同的命运，赞扬了人类不屈不挠的斗争精神。也因该书中大师级的叙述艺术，奠定了海明威在世界文学中的突出地位，这篇小说相继获得了1953年美国普利策奖和1954年诺贝尔文学奖。</p>
+
+<p>第二本</p>
+
+<p>《百年孤独》</p>
+
+<p>作者：加西亚·马尔克斯</p>
+
+<p>豆瓣评分：9.2分</p>
+
+<p>(68938人评价)</p>
+
+<p>内容简介</p>
+
+<p>魔幻现实主义文学的代表作，描写了布恩迪亚家族七代人的传奇故事，以及加勒比海沿岸小镇马孔多的百年兴衰，反映了拉丁美洲一个世纪以来风云变幻的历史。</p>
+
+<p>推荐理由</p>
+
+<p>作品因其融入神话传说、民间故事、宗教典故等神秘因素，巧妙地糅合了现实与虚幻，展现出一个瑰丽的想象世界，成为20世纪最重要的经典文学巨著之一。1982年加西亚•马尔克斯获得诺贝尔文学奖，奠定世界级文学大师的地位。</p>
+
+<p>第三本</p>
+
+<p>《战争与和平》</p>
+
+<p>作者：列夫·托尔斯泰</p>
+
+<p>豆瓣评分：8.6分</p>
+
+<p>(4158人评价)</p>
+
+<p>内容简介</p>
+
+<p>小说以事件串联人物，推动多条情节线索交叉发展。以俄法战争为背景，着重通过对安德烈·鲍尔康斯基、皮埃尔·别祖霍夫和娜塔莎·罗斯托娃这三个中心人物的描写，回答贵族的命运与前途的问题。</p>
+
+<p>推荐理由</p>
+
+<p>《战争与和平》恢弘的构思和卓越的艺术描写震惊世界文坛，成为举世公认的世界文学名著和人类宝贵的精神财富。</p>
+
+<p>第四本</p>
+
+<p>《城堡》</p>
+
+<p>作者：弗兰茨·卡夫卡</p>
+
+<p>豆瓣评分：8.4分</p>
+
+<p>（5314人评价)</p>
+
+<p>内容简介</p>
+
+<p>小说写的是土地测量员K受命赴某城上任，不料却受阻于城堡大门外，于是主人公K同城堡当局围绕能否进入城堡之事展开了持久烦琐的拉锯战。</p>
+
+<p>推荐理由</p>
+
+<p>卡夫卡是二十世纪最伟大的作家之一。他以自己独辟蹊径的创作广泛地影响了当代各国文学。《城堡》篇幅大，也最富有卡夫卡特色，被公认为他最重要的一部作品。</p>
+
+<p>第五本</p>
+
+<p>《卡拉马佐夫兄弟》</p>
+
+<p>作者：陀思妥耶夫斯基</p>
+
+<p>豆瓣评分：9.3分</p>
+
+<p>（5495人评价)</p>
+
+<p>内容简介</p>
+
+<p>小说通过一桩真实的弑父案，描写老卡拉马佐夫同三个儿子即两代人之间的尖锐冲突。</p>
+
+<p>推荐理由</p>
+
+<p>《卡拉马佐夫兄弟》是一代文学巨匠陀思妥耶夫斯基创作的最后一部长篇小说，也是他的心灵自传体小说，堪称陀氏文学创作的巅峰之作。既体现了俄罗斯民族的性格特征，同时也对整个人类的性格特征进行了剖析。这部小说自从面世以来，曾被弗洛伊德、爱因斯坦等伟大的人物评为世界文学史上具有极高成就的巨著之一。</p>
+
+<p>第六本</p>
+
+<p>《小径分叉的花园》</p>
+
+<p>作者：博尔赫斯</p>
+
+<p>豆瓣评分：9.1分</p>
+
+<p>（3106人评价)</p>
+
+<p>内容简介</p>
+
+<p>故事的讲述是以一战期间在英国为德国当间谍的主人公余准被捕后狱中供词的方式展开，且以欧洲战争史上的一个重大事件的推迟为切入点，引人入胜。</p>
+
+<p>推荐理由</p>
+
+<p>拉丁美洲文学大师博尔赫斯脍炙人口小说代表作，博尔赫斯小说元素与哲学思辨最密集的体现，侦探小说形式下的小说艺术革新之作，穿越时空的庞大花园迷宫。</p>
+
+<p>第七本</p>
+
+<p>《笑面人》</p>
+
+<p>作者：雨果</p>
+
+<p>豆瓣评分：8.6分</p>
+
+<p>（1484人评价)</p>
+
+<p>内容简介</p>
+
+<p>小说主人公格温普兰是一个爵士的后代，从小就被卖给儿童贩子，成为宫廷阴谋的牺牲品。在颠沛流浪生活中，他受尽贫穷与不幸的折磨，但并没有向环境屈服.。.。.。</p>
+
+<p>推荐理由</p>
+
+<p>这部小说被誉为“法国浪漫主义历史小说的杰作”和“浪漫主义文学的里程碑”，为雨果跻身法国以至欧洲最重要的作家行列奠定了坚实的基础。</p>
+
+<p>第八本</p>
+
+<p>《堂吉诃德》</p>
+
+<p>作者：塞万提斯</p>
+
+<p>豆瓣评分：7.9分</p>
+
+<p>（13207人评价)</p>
+
+<p>内容简介</p>
+
+<p>故事发生时，骑士早已绝迹一个多世纪，但主角阿隆索·吉哈诺（唐·吉诃德原名）却因为沉迷于骑士小说，时常幻想自己是个中世纪骑士，拉着邻居桑丘·潘沙做自己的仆人，“行侠仗义”、游走天下，作出了种种与时代相悖、令人匪夷所思的行径，结果四处碰壁。</p>
+
+<p>推荐理由</p>
+
+<p>《堂吉诃德》是塞万提斯最杰出的作品。俄国批评家别林斯基说：“在欧洲所有一切文学作品中，把严肃和滑稽，悲剧性和喜剧性，生活中的琐屑和庸俗与伟大和美丽如此水乳交融……这样的范例仅见于塞万提斯的《堂吉诃德》。”</p>
+
+<p>第九本</p>
+
+<p>《罗生门》</p>
+
+<p>作者：芥川龙之介</p>
+
+<p>豆瓣评分：8.6分</p>
+
+<p>（11123人评价)</p>
+
+<p>内容简介</p>
+
+<p>本书收录芥川的中短篇小说共十三篇。《罗生门》以风雨不透的布局将人推向生死抉择的极限，从而展示了“恶”的无可回避，第一次传递出作者对人的理解，对人的无奈与绝望。</p>
+
+<p>推荐理由</p>
+
+<p>芥川龙之介，日本文学大家，以创作短篇小说闻名。他的小说取材奇特，多取自日本和中国的古典文学，他用自己独特的写作方式将人性、人生无言地铺展在世人眼中。</p>
+
+<p>10</p>
+
+<p>《高老头》</p>
+
+<p>作者：巴尔扎克</p>
+
+<p>豆瓣评分：7.9分</p>
+
+<p>（8410人评价)</p>
+
+<p>内容简介</p>
+
+<p>《高老头》是巴尔扎克《人间喜剧》中的一部，塑造了巴黎一个被金钱关系打败的可怜的慈父形象，同时叙述了来自外省的天真青年拉斯蒂涅看清上流社会的真实面目，决心屈服于残酷的金钱法则的过程，微缩了金钱主宰一切的时代图景。</p>
+
+<p>推荐理由</p>
+
+<p>法国现实主义大师巴尔扎克的小说代表作，《高老头》被视为《人间喜剧》庞大结构的基石，浓缩了《人间喜剧》的主题，从不同侧面艺术地再现了19世纪初期法国社会生活广阔的图景。</p>
+
+<p>第十一本</p>
+
+<p>《局外人》</p>
+
+<p>作者：加缪</p>
+
+<p>豆瓣评分：9.0分</p>
+
+<p>（13310人评价)</p>
+
+<p>内容简介</p>
+
+<p>该书以一种客观记录式的”零度风格”，粗线条地描述了主人公默而索在荒缪的世界中经历的种种荒缪的事，以及自身的荒诞体验。</p>
+
+<p>推荐理由</p>
+
+<p>《局外人》是加缪的小说成名作和代表作之一，堪称20世纪整个西方文坛具有划时代意义的最著名的小说之一。“局外人”也由此成为整个西方文学一哲学中最经典的人物形象和最重要的关键词之一。</p>
+
+<p>第十二本</p>
+
+<p>《一九八四》</p>
+
+<p>作者：乔治·奥威尔</p>
+
+<p>豆瓣评分：9.3分</p>
+
+<p>（21173人评价)</p>
+
+<p>内容简介</p>
+
+<p>本书描写了一个叫做“大洋国”的极权统治社会，在那里，人性遭到扼杀，自由遭到剥夺。思想受到钳制，生活极度贫乏、单调。历史每天都在被伪造，所有不利于统治的历史记录都将被毁掉，记忆不再可靠，人们每天在仇恨中生活。</p>
+
+<p>推荐理由</p>
+
+<p>作品刻画了人类在极权主义社会的生存状态，警醒世人提防这种预想中的黑暗成为现实。历经几十年，其生命力益显强大，被誉为20世纪影响最为深远的文学经典之一。</p>
+
+<p>第十三本</p>
+
+<p>《追忆似水年华》</p>
+
+<p>作者：马塞尔·普鲁斯特</p>
+
+<p>豆瓣评分：9.1分</p>
+
+<p>（2117人评价)</p>
+
+<p>内容简介</p>
+
+<p>以回忆的形式对往事作了回顾，有童年的回忆、家庭生活、初恋与失恋、历史事件的观察、以及对艺术的见解和对时空的认识等等。</p>
+
+<p>推荐理由</p>
+
+<p>《追忆似水年华》就像一首由多种主题构成的交响乐，爱情、嫉妒、死亡、回忆、时光，时而交叉重叠在一起，时而又游离开来。它被公认为文学创作的一次新的尝试，开意识流小说之先河。</p>
+
+<p>第十四本</p>
+
+<p>《尤利西斯》</p>
+
+<p>作者：詹姆斯·乔伊斯</p>
+
+<p>豆瓣评分：8.4分</p>
+
+<p>（3019人评价)</p>
+
+<p>内容简介</p>
+
+<p>小说以时间为顺序，描述了苦闷彷徨的都柏林小市民、广告推销员利奥波德•布卢姆于1904年6月16日一昼夜之内的种种日常经历。</p>
+
+<p>推荐理由</p>
+
+<p>意识流小说的开山之作。整部小说包罗万象，集历史、文学、自然科学、宗教等之大成，堪称一部百科全书。</p>
+
+<p>第十五本</p>
+
+<p>《喧哗与骚动》</p>
+
+<p>作者：威廉﹒福克纳</p>
+
+<p>豆瓣评分：8.7分</p>
+
+<p>（2413人评价)</p>
+
+<p>内容简介</p>
+
+<p>小说分为四部分，分别由四个人讲述同一个故事。有智障弟弟班杰明完全时空错乱的心理活动；有昆汀在自杀前的种种臆想；有杰森有私利无亲情的所作所为；有黑人女仆眼中的烦扰家事。</p>
+
+<p>推荐理由</p>
+
+<p>这本书如同一部交响乐的四个乐章，构筑了一个立体主义的美国南方社会，其创作手法之大胆丰富，足以为一部“创作艺术教科书”，是现当代文坛罕见的大手笔。</p>
+
+<p>第十六本</p>
+
+<p>《约翰·克利斯朵夫》</p>
+
+<p>作者：罗曼·罗兰</p>
+
+<p>豆瓣评分：8.7分</p>
+
+<p>（8483人评价)</p>
+
+<p>内容简介</p>
+
+<p>本书写的是关于一个音乐天才与自身、与艺术以及与社会之间的斗争，追溯了一个德国音乐家在许多艺术斗争中演变的历程。</p>
+
+<p>推荐理由</p>
+
+<p>一部气势磅礴的史诗。描述了一颗坚强刚毅的心是如何战胜自己心灵深处怯懦卑鄙的阴暗面，由幼稚走向成熟，它是描述心灵历程的史诗。</p>
+
+<p>第十七本</p>
+
+<p>《浮士德》</p>
+
+<p>作者：歌德</p>
+
+<p>豆瓣评分：8.6分</p>
+
+<p>（3786人评价)</p>
+
+<p>内容简介</p>
+
+<p>它描写主人公浮士德一生探求真理的痛苦经历，反映从文艺复兴到十九世纪初整个欧洲的历史，揭示了光明与黑暗，进步与落后，科学与迷信两种势力的不断斗争。</p>
+
+<p>推荐理由</p>
+
+<p>《浮士德》演示了广阔、深邃而崇高的人生内容，为人类自强不息的进取精神唱了一出迄今响彻寰宇的凯歌。</p>
+
+<p>第十八本</p>
+
+<p>《哈姆雷特》</p>
+
+<p>作者：莎士比亚</p>
+
+<p>豆瓣评分：8.5分</p>
+
+<p>（1717人评价)</p>
+
+<p>内容简介</p>
+
+<p>讲述了丹麦国王的合法继承人哈姆雷特，其父王被杀，母后被迫改嫁，王位也被篡夺。他经历了艰苦的磨难，最后终于在父亲鬼魂的提示下，查明事实真相，替父亲报了仇。而他自己却在仇人设下的圈套中与其同归于尽。</p>
+
+<p>推荐理由</p>
+
+<p>《哈姆雷特》的整个故事渗透着属于莎士比亚那个时代的精神，是莎士比亚人文主义和对现实生活批判精神的最深刻的表达。</p>
+
+<p>第十九本</p>
+
+<p>《十日谈》</p>
+
+<p>作者：薄迦丘</p>
+
+<p>豆瓣评分：7.5分</p>
+
+<p>（5610人评价)</p>
+
+<p>内容简介</p>
+
+<p>它讲述了10个青年男女在1348年佛罗伦萨瘟疫流行时，避难于别墅里发生的事情。他们在10天时间里讲了100个故事，故名《十日谈》，所讲故事包罗万象，有历史事件、民间故事也有传说。</p>
+
+<p>推荐理由</p>
+
+<p>欧洲文学史上震撼人心的现实主义巨著，指引我们走向心灵自由之路。</p>
+
+<p>第二十本</p>
+
+<p>《包法利夫人》</p>
+
+<p>作者：福楼拜</p>
+
+<p>豆瓣评分：7.8分</p>
+
+<p>（11102人评价)</p>
+
+<p>内容简介</p>
+
+<p>小说描写富农之女爱玛一心向往上流社会的所谓浪漫生活，蔑视自己的生活环境和乡镇医生丈夫，与自认为可以满足她愿望的男子私通，最终债台高筑，幻想破灭，服毒自杀。</p>
+
+<p>推荐理由</p>
+
+<p>法国批判现实主义小说家福楼拜的代表作。全书语言精妙，思想深刻，不愧为欧洲19世纪文学的经典之一，世界文学的一件瑰宝。</p>
+
+<p>第二十一本</p>
+
+<p>《纳尔齐斯与歌尔德蒙》</p>
+
+<p>作者：赫尔曼·黑塞</p>
+
+<p>豆瓣评分：9.2分</p>
+
+<p>（1963人评价)</p>
+
+<p>内容简介</p>
+
+<p>故事发生在中世纪的德国，讲述的是关于“成长”的故事——即是两个少年的成长，也是人类心灵的成长。</p>
+
+<p>推荐理由</p>
+
+<p>一部奇特的小说，它探讨了理性人生与感性人生之间的复杂关系，呼唤从父性文化向母性文化传统的回归，探求人性内部的和谐。但从总体上来看，它是一部在哲学层次上探讨生命永恒的意义的小说。</p>
+
+<p>第二十二本</p>
+
+<p>《我的名字叫红》</p>
+
+<p>作者：奥尔罕·帕慕克</p>
+
+<p>豆瓣评分：7.8分</p>
+
+<p>（20495人评价)</p>
+
+<p>内容简介</p>
+
+<p>十六世纪末，离家12年的青年黑终于回到他的故乡——伊斯坦布尔，迎接他归来的除了爱情，还有接踵而来的谋杀案。</p>
+
+<p>推荐理由</p>
+
+<p>2006年诺贝尔文学奖得主成名之作。珠玉般的诗文、引人入胜的旁征博引、纠结罗织的故事，让人不禁赞叹帕慕克的迷人艺术天赋。</p>
+
+<p>第二十三本</p>
+
+<p>《日瓦戈医生》</p>
+
+<p>作者：鲍里斯·帕斯捷尔纳克</p>
+
+<p>豆瓣评分：8.6分</p>
+
+<p>（2179人评价)</p>
+
+<p>内容简介</p>
+
+<p>《日瓦戈医生》是1958年诺贝尔文学奖获奖者、俄罗斯诗人鲍里斯·帕斯捷尔纳克长篇小说。记录俄罗斯二十世纪上半叶历史变迁中一位平凡的莫斯科医生不凡经历。</p>
+
+<p>推荐理由</p>
+
+<p>这部作品所展现出的热情、诗意和思索，在进入二十世纪之后极其罕见；他所描绘的极端环境下人性与个人尊严的挣扎，其真切的动荡和不安感更是前所未有。</p>
+
+<p>第二十四本</p>
+
+<p>《看不见的城市》</p>
+
+<p>作者：伊塔洛·卡尔维诺</p>
+
+<p>豆瓣评分：8.8分</p>
+
+<p>（23877人评价)</p>
+
+<p>内容简介</p>
+
+<p>这本书是由一些短小的章节构成的，每个章节都提供机会，让我们对某个城市或泛指意义上的城市进行反思。</p>
+
+<p>推荐理由</p>
+
+<p>意大利当代最具有世界影响的作家的经典之作。本书渗透对迷乱的现实的思索，颇具后现代主义的特色。</p>
+
+<p>第二十五本</p>
+
+<p>《人鼠之间》</p>
+
+<p>作者：约翰·斯坦贝克</p>
+
+<p>豆瓣评分：8.7分</p>
+
+<p>（178人评价)</p>
+
+<p>内容简介</p>
+
+<p>讲述了20世纪30年代美国经济大萧条时期，两个一贫如洗，却又相依为命的美国流动农业工人佐治和李奈从怀揣梦想——追逐梦想——接近梦想——梦想破灭的悲惨故事。</p>
+
+<p>推荐理由</p>
+
+<p>《人鼠之间》，不仅艺术地展现了田园牧歌式的农庄生活和残酷的社会现实的冲突，而且反映了人对生存条件的真切感受。“鼠与人的最佳设计往往落空”——正是人类生存处境的形象写照，体现作品包含的悲剧内涵和哲学意蕴使之升华为一篇代表普遍经验的现代寓言。</p>
+
+
+
+<p style='float:right;'>本页共227段，5174个字符，14688 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

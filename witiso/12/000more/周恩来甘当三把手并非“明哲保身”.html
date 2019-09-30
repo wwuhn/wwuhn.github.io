@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>周恩来甘当三把手并非“明哲保身”</h4>
+
+<p>人民网（来源：人民网）09-1016:35</p>
+
+<p>本文摘自《走近周恩来》，权延赤著，人民日报出版社出版</p>
+
+<p>总理是讲过自己不是帅才，邓大姐也这样说，我们听了不舒服；主席和小平再这样讲，我们曾感到委屈。现在回想起来，是传统文化、传统观念影响我们的结果。谁位高，谁就位尊德高；谁官大，谁就本事大、贡献大。中国过去就是这种观念，这个毛病。改变不容易。雷锋只是一个班长，说起他全国没人不知道，但百分之九十九的人不知道他的军长、师长是谁？话又说回来，许多人还是想当军长不想当班长，所以说改变不容易。</p>
+
+<p>总理讲他做不到举重若轻，但同样的，主席和小平也做不到举轻若重。不拘一格降人才，我们的事业才能兴旺发达，我们的目的才能实现。</p>
+
+<p>1949年12月16日，毛泽东主席访问苏联，没多久，1950年1月，忽然传来消息，说谈判不大顺利，叫周恩来总理立刻启程去莫斯科。</p>
+
+<p>那次，我作为随员跟总理一起出发，路经满洲里时，遇到了率团参加世界青年联欢节的萧华同志。</p>
+
+<p>萧华向总理汇报联欢节情况，总理望着他身后问：“怎么没见到维世啊？”</p>
+
+<p>孙维世是总理的干女儿，本是同萧华一道去参加联欢节。总理没见到干女儿，自然要关心。</p>
+
+<p>“我们路过莫斯科时，她被师哲扣下了。”萧华解释，“师哲说她俄语好，叫她留下参加翻译组的工作。”</p>
+
+<p>总理关心中苏谈判：“主席跟斯大林谈得怎么样？”</p>
+
+<p>萧华摇摇头：“好像不大顺利，师哲只跟我简单讲了几句。”</p>
+
+<p>总理想了想，问：“主席现在做什么？”</p>
+
+<p>萧华说：“斯大林说要等你来了再谈，先安排主席参观和看节目，听说到列宁格勒参观去了。”</p>
+
+<p>总理沉思着点点头，没有再问。当时在场的有伍修权、赖亚力和我，我是刚由副官改为行政秘书。</p>
+
+<p>赶到莫斯科时，我从师哲那里听到的情况，与萧华讲的差不多。</p>
+
+<p>总理一到就开始了紧张的谈判，主席就退到“二线”，只管大的方向和原则。除了决策，具体怎么谈的他不管。</p>
+
+<p>我印象最深的是，主席在莫斯科没什么事，每天就是看书，看得废寝忘食。</p>
+
+<p>记得有次吃午饭，主席的目光总是朝我脸上瞟，看得我有些不自在了，不知自己有什么不对劲的地方，引得毛主席这样注意。我下意识地拿手去脸上、嘴巴周围擦，怕是沾上了食物，同时尽量注意吃饭的动作文明些。</p>
+
+<p>当我的目光再次和主席相遇时，他忽然笑了，指指我说：“我看你长得像拿破仑。”</p>
+
+<p>我不好意思了，尴尬地跟着笑，不知道拿破仑长什么样？哪一处跟我相像？</p>
+
+<p>毛泽东并不知道我的姓名和职务，但知道我在周恩来身边工作。他转向周恩来说：“这些天我一直在看历史影片。看完了彼得大帝和拿破仑。”</p>
+
+<p>说到这里，毛泽东拿起酒杯，朝我一举：“来，跟拿破仑干杯！”</p>
+
+<p>欢笑声中，我脸红红地跟毛泽东碰了杯。</p>
+
+<p>毛泽东朝想象中的“拿破仑”点一下头，喝了半杯。我这个“拿破仑”一饮而尽。从此，相当一段时间里，有人开玩笑叫我“拿破仑第二”。至今我也不知道我什么地方长得像拿破仑。</p>
+
+<p>在毛泽东观看研究彼得大帝、拿破仑期间，周恩来谈成了《中苏友好同盟互助条约》、《关于中长铁路、旅顺口及大连的协定》、《关于贷款给中华人民共和国的协定》。</p>
+
+<p>当然，这些谈判的大政方略及原则，都是毛泽东确定决策的。他当时有句著名的确定谈判目标的话，就是“想要点好看的，再要点好吃的”。“好看的”是“同盟条约”，“好吃的”是“贷款协定”。</p>
+
+<p>这次中苏谈判的情况，很能反映毛泽东与周恩来的关系及各自无法取代的作用。</p>
+
+<p>早在西柏坡时，联共政治局委员米高扬与周恩来交谈后，对师哲等人说：“周恩来将是中国新政府一位很好的总理。”</p>
+
+<p>筹建中华人民共和国时，斯大林对中共代表团说：“你们将来一建国，现成就有个总理，周恩来。”</p>
+
+<p>30年后，国际上许多政治家评论：“在半个多世纪里，中国是被置于毛泽东的头脑里，同时也被置于周恩来的手掌中。”</p>
+
+<p>是斯大林高明还是国际政治家们评论得深刻？我认为周恩来比他们都高明都深刻。</p>
+
+<p>我是1940年5月4日来到周恩来身边当警卫，一星期后即随他由延安奔赴重庆，以后历任副官、秘书、卫士长。</p>
+
+<p>周恩来无疑是一位鞠躬尽瘁的实干家，但他首先给我的印象是伟大的思想家。</p>
+
+<p>从设计中国的四个现代化蓝图到国际关系上的“和平共处五项原则”，“反对霸权和霸权主义”，这些天才思想已经早为国际国内所共知。</p>
+
+<p>我要讲的新内容是周恩来的三次预见预言，其中无疑闪烁着伟大思想家才能独具的智慧的光辉。</p>
+
+<p>第一次预见预言就发生在我刚到周恩来身边，随他奔赴重庆的路上。因为刚到首长身边，一切都新鲜激动，所以记忆非常深。</p>
+
+<p>像毛泽东和周恩来这样伟大的人物，与生俱来的都有一种神圣的使命感，就是“天之将降大任于斯人也”。</p>
+
+<p>毛泽东气吞山河地高歌：“惜秦皇汉武，略输文采；唐宗宋祖，稍逊风骚；一代天骄成吉思汗，只识弯弓射大雕。俱往矣，数风流人物，还看今朝！”</p>
+
+<p>当毛泽东把秦皇汉武、唐宗宋祖乃至那位一代天骄统统踩于脚下时，周恩来又在想什么？干什么？</p>
+
+<p>他也不迷茫。他已经勇敢、自信、明智地选定了自己在中国革命和中国历史上的位置，并且当仁不让地在这个位置上坚持奋斗到生命的最后一刻。</p>
+
+<p>那天，我们100多名工作人员和警卫人员，跟随周恩来，分别爬上3辆卡车，开始了艰苦的旅程。</p>
+
+<p>经宝鸡、凤县，卡车在崎岖的土石路上颠簸，午后驶入一道大山沟子。</p>
+
+<p>沿途景致在悄悄发生变化。陕北高原受雨水侵蚀，形成塬、峁、梁、沟如大海一样波状起伏的地貌。</p>
+
+<p>而这里，山间原有的自然风貌仍然存在；仰面眺望，干柯争翠，万木葱茏。5月的阳光下，在寂静的热气中花草的芬芳悄悄蒸腾，那些挡住视野的陡壁岩石不时地闪出青色白色的反光。</p>
+
+<p>拐过一道弯，卡车哼了一声，我听到有人嚷嚷：“苗台子镇！”</p>
+
+<p>前方轻烟缥缈，笼罩了一片建筑物。卡车停在了镇西。</p>
+
+<p>“都下来吧。”车门开了，传来召唤：“去看古迹！”</p>
+
+<p>我们100多人纷纷跳下车，心里不免纳闷：这一路多少古迹啊，从没说过看看。特别是在西安，住的时间长，名胜古迹又多，还不时有各方人士邀请，周副主席却一处未看。如今特意钻进这大山沟子来看什么古迹？不理解！</p>
+
+<p>周恩来已经下车。他一露面，我们这些警卫就本能地摸住腰间的德国20响快慢机，环绕着警卫在四周。</p>
+
+<p>我近在咫尺地看着他眺望着下车，眺望着立住脚，就那么保持眺望的姿态站了很久；双手环抱胸前，肩膀随着深呼吸起伏，一副久违了的神情，像游子终于回到故乡，带着静谧无言的激颤要寻回遥远的记忆……</p>
+
+<p>“周副主席来过？”当时的副官老钟小声问。</p>
+
+<p>周恩来摇摇头，没作声。在他最突出的特征——两道浓浓的黑眉毛下，波光闪烁的两眼显得含情脉脉，神思悠悠。</p>
+
+<p>我是第一次见他这么动感情，印象太深了。此前他从来不曾这样，他属于那种善于驾驭感情的人。记得路经洛川时，国民党一名军长来拜见他。这位军长是周恩来在黄埔军校教过的学生，见面那一刻，军长叫了声“老师！”整个脸孔、嘴唇和敬礼的手就都激颤起来，感情无法抑制地奔过来用双手抢握周恩来伸出的手。周恩来不那么感情外露，热情而不失常，亲切而不变态，关心而不形于色；那种从容似春，大度似海的风度直令我心灵震颤，立刻被迷住了。那时我还不明白这是人类文明的力量，我只感到他与我过去见过的所有人都有某些不同，虽然说不出不同在哪里，那一瞥目光，一个微笑，一次握手，一声问候，甚至举手投足都有着既生疏又一见如故的亲切感人的魅力。</p>
+
+<p>然而现在，面对一片自然山野，他却意满神动，柔情大发，用一种温和雅静的声音喃喃着：“留侯把荣誉利禄都抛在脑后，晚年就隐居在这里……”</p>
+
+<p>我顺他的目光望去，高处一片青绿中点缀着八九座红色的庙宇式的建筑。正感觉茫然，周恩来已经挥起右手。他的右臂断过不久，有人说是跟江青赛马摔断的，有人说是跑马时，路边窜出条大黄狗惊了马摔断的，3个月前刚从苏联治疗回来，胳膊仍然伸不直，习惯地弯在身前；挥动时，半侧身体和肩膀随着一动，好像全身用力，反而使他的动作平添了一种分量和魅力。</p>
+
+<p>“走，看张良庙去！”周恩来率先朝山上走去。后来得知那儿叫紫柏山。他一向走得快，我们跟着常感吃力。</p>
+
+<p>张良这个名字我好像听说过，却又不甚明白。你不要笑，我是放牛娃出身，不像现在的孩子都有学上。</p>
+
+<p>我的家乡在四川。我祖祖辈辈的双脚都是深深插于泥土中。在我12岁时，双臂已经像大人一样挥动起锄头。可是，军阀混战，更有帝国主义的炮舰和经济压力，沿着那滚滚长江溯流深入到四川，于是，每年都有5万两以上的白银顺江流出四川流出中国。没有什么语言能够描绘出那社会的霉烂与五颜六色的罪恶和苦难，中国的命运像游丝一样缥缈。于是，12岁的我便扔下锄头抓起长矛大刀，参加了红军。那是1933年，参加红军后我才开始学文化。</p>
+
+<p>怎么学文化？比如这次参观张良庙，我这里刚犯嘀咕，前边已经有人问出声：</p>
+
+<p>“周副主席，张良庙是谁呀？”</p>
+
+<p>“张良是古代一位英雄，帮助刘邦打天下，统一全中国，建立了历史上著名的汉王朝。”周恩来一边登山，一边用通俗的语言作解释：“后人为他修的庙就叫张良庙。”</p>
+
+<p>我明白一些，却另生纳闷：张良只是帮助汉高祖刘邦打天下，周恩来怀古，为什么不看汉高祖也不看更早的秦始皇，偏偏要看张良呢？</p>
+
+<p>登上授书楼时，我终于忍不住问：“周副主席，为啥要给张良修庙呢？”</p>
+
+<p>周恩来望我一眼，还没说什么，另一名警卫已经跟着嘟囔：“我们那边关帝庙很多，关公是英雄。张良——？”</p>
+
+<p>周恩来忽然笑了，双手抱臂，把脸仰上天去笑出声：“哈哈，知道汉寿亭侯，不知道留侯。”他重新望着我们，双腿微微岔开，站住不动，冲我们轻轻点点头：“关公是英雄，张良也是英雄。张良其实比关公贡献大。那走廊过厅里的40多块碑都是对他的评价。”</p>
+
+<p>接着，周恩来便不厌其烦地给我们讲了张良的许多故事。从博浪沙狙击秦始皇，到下邳起兵反秦；从鸿门宴救刘邦，到“四面楚歌”，使西楚霸王项羽的军队土崩瓦解，落得个“霸王别姬”。最后，周恩来放低声音说：“汉王刘邦得天下，主要依靠三个人：韩信、萧何和张良。”</p>
+
+<p>我感到不满足：“张良打过什么仗？”</p>
+
+<p>周恩来换上一种沉思的表情，深邃的两眼闪烁着严肃隽冷，缓缓说：“张良没有独自领兵打过仗，他不是帅才。但是他追随汉王左右，出谋划策，是最优秀的军师。运筹帷幄，决胜千里……懂吗？”</p>
+
+<p>我们似懂非懂，点点头又摇摇头。</p>
+
+<p>“嗯，”周恩来略一沉吟，大约是考虑怎样对我们这些没有上学读书的同志解释清这个问题，“这样打个比喻吧，师爷你们都知道吗？好，县衙门里都有一些读书人被县官聘去当师爷，在幕后替县官出主意。县官一般都要仰仗他们来办事。军师就有点像这个师爷，是军队里的师爷，替统帅出谋划策来打胜仗。比如汉王打了败仗，连父亲和老婆都被楚霸王俘虏走了，汉王一筹莫展。张良就给他分析形势，出主意：九江王黥布是楚国猛将，但与楚霸王有矛盾；猛将彭越在梁地反楚；汉王你自己的将帅中只有韩信可以独挡一面，托付大事。如果你把关东的地方作赏地赏给这三个人，楚国就可以打败了。汉王听了张良的话，立刻从战略上由被动转主动，劣势变优势。项羽打了一百个胜仗，顶不住张良一个主意，优势变劣势，只好求和。以‘鸿沟’这条运河为界，想平分天下。汉王想就此回兵，张良又出主意：不能退兵。放走楚军这叫‘养虎为患’。汉王又听了他的话，追击项羽，不给他喘息机会，垓下一仗把项羽消灭了。这就叫运筹帷幄，决胜千里啊……”</p>
+
+<p>在峰下花亭竖的“英雄神仙”石碑前，我又问：“张良确实英雄，可为什么又叫英雄神仙？”</p>
+
+<p>周恩来说：刘邦得天下后，封赏功臣，让张良自己选择三万户封地，张良推辞了。他说我跟皇上最初是在留县相会，只把留县封给我就足够了。那时的县，又经战乱，大概不会超过一万户。他不贪。张良随汉高祖刘邦入函谷关后，刘邦当皇帝，张良就静居行气，不吃粮食，闭门不出，说：“我蒙皇帝信任，当军师，不过出了点主意就封万户侯，这已经是最高的待遇了，足够了。我只想脱离人间俗事，追随仙人赤松子去神游。”所以老百姓都传说他成了神仙。</p>
+
+<p>周恩来凝望石碑，慢条斯理地说：“张良是个明辨是非，通晓事理的人，完全知道神仙虚幻。他这样做正是他的聪明智慧所在。因为在那样的封建社会封建制度下，他明白，在功勋和名位之间，为人臣子是难于长久立足的。果然，打天下功劳最大的三个人，韩信被杀，萧何被拘，只有张良把荣誉利禄抛于脑后作了‘神仙’。他采取这种明哲保身的态度，是客观形势、环境等各种原因决定的……”</p>
+
+<p>望着周恩来深沉睿智的面孔，听着他低沉悠缓的讲述，我简直就像面对了悠久的中国历史，面对了古老的民族文化，感到神秘、深奥、博大，感到至圣至伟，可望而不可即。比如“师爷”，以我当时的文化水平怎么可能理解呢？直到几十年后，知道了“无绍不成衙”，才渐渐明白，那古老的民族文化中就包含了绍兴文化。</p>
+
+<p>周恩来的祖籍并非苏北淮安，尽管他出生在那座古城。他的祖籍原是浙江绍兴。在鲁迅逝世两周年的纪念会上，周恩来曾说：“在血统上我也或许是鲁迅先生的本家，因为都是出身浙江绍兴城的周家。”周家是一个世代聚居绍兴的著名的大家族。到了周恩来的祖父一辈时，他这一支家族才离开绍兴，迁居淮安。这次迁居便与绍兴文化有关。</p>
+
+<p>在绍兴，除体力劳动者外，中上层比较多的是两种人。一种是封建知识分子，一种是商人。当时知识分子的出路是应科举，绍兴的文化人却不然，很少去应科举，大批地去当师爷。师爷不是官职，在任何衙门里也不是一把手，不是二把手，但解决问题办事情还是靠他，他是事实上的二把手。他们明智干练，勤恳谨慎，审时度势，善于解决各种最复杂的矛盾。久而久之，绍兴人当师爷出了名，以致人们把师爷不叫师爷，叫“绍兴师爷”；县官一般都要仰仗绍兴师爷，便有了“无绍不成衙”的说法。周恩来的祖父周起魁便是因为到淮安当师爷而举家迁移。周恩来的外祖父万青选也是师爷出身。他们的精明、干练、谨慎、果敢乃至性格温和，待人诚挚，办事细心，对周恩来的性格形成和文化修养，都是不无关系的。</p>
+
+<p>当然，这些都是后话。在留坝县苗台子镇参观张良庙时，我并不知道这些，也不真正理解周恩来讲述张良。后来跟随他久了，多次听他讲“我不是帅才”，在中央的会议上讲，下来也讲过，才使我联系起来想到了参观张良庙。他讲张良的故事，张良也不是帅才，他是最优秀的军师。</p>
+
+<p>从山上下来，又看了传说中萧何月下追韩信的遗址。周恩来兴致勃勃地给我们讲了一段故事：刘邦被项羽封为汉王，到南郑，许多人都逃跑了。韩信由于怀才不遇，不得志，也逃跑了。萧何听说之后，连夜去追。有人以为萧何是逃跑了，就报告刘邦。刘邦大发雷霆，像被人砍掉左膀右臂一样。过了两天，萧何回来了。刘邦喜极怒极，问：“你为什么逃跑呀？”萧何说：“我哪敢逃跑呀？我是去追逃跑的人去了。”刘邦问：“你追的人是谁？”萧何说：“韩信。”刘邦立刻拍桌子：“大将跑了几十个，没见你追，你说你追韩信，这不是胡说八道吗？”萧何笑道：“那些大将很容易得到，天下多的是，而像韩信这样的人，失去这一个，天下就没有第二个了。大王你要是想一辈子蹲在汉中，那就用不着留韩信；你要是想争天下，那就非韩信不可，除他再没有第二个人能为你图谋这个大业了。”刘邦信任萧何，筑坛拜韩信为大将军，统领全军，果然打败了项羽。</p>
+
+<p>周恩来说：“刘邦百战百败，却屡败屡起，靠的就是萧何为他当宰相，经营关中作他的根据地，要人有人，要钱有钱，要粮有粮。项羽百战百胜，却经不起一败；一败涂地，一败就亡，原因之一是没有萧何这样的宰相。就是有，他也发现不了。发现了，也不肯用，留不住。所以他经不起失败。”</p>
+
+<p>这一次怀古，周恩来详细讲了张良、萧何辅助刘邦兴汉的历史，而后说：“张良、萧何都是有很大的本领，没有他们兴不了汉。他们知道这一点，刘邦也知道这一点。同时他们又有自知之明。知道自己的过人的长处，也知道自己的短处。张良和萧何都不是帅才，张良给刘邦说太公兵法，刘邦一听就明，常用其策。张良给别人讲就不灵，所以张良说‘沛公殆天授’！跟着刘邦不走了。他就懂得，跟别人发挥不了他的才能智慧，只有跟着刘邦才能得到发挥，相辅相成，成就一番大事业。他做了一个手势，表示从古推至今：“中国的历史，总是少不了张良、萧何这样的英雄人物。今后也需要这样的人。”</p>
+
+<p>仿佛是证明这个说法，路经成都，我们在春熙路成都旅馆住了三天。成都名胜古迹很多，周恩来只带我们去看了诸葛亮的武侯祠。他从“隆中对”讲到“出师表”，说诸葛亮有思想，出山前就料定三分天下，并制订了兴复汉室，统一全国的计划，最可贵的是，他为此做到了鞠躬尽瘁，死而后已。</p>
+
+<p>周恩来看过祠内的“三绝碑”，来到殿外，仰望古柏葱郁，环顾青瓦红墙，又显出那种无限感慨的神情，念了句诗。很久以后我才知道那是杜甫的《蜀相》诗：“丞相祠堂何处寻，锦官城外柏森森。”</p>
+
+<p>记得他讲了诸葛亮“和吴”——建立统一战线；“和夷”——搞好民族团结；“明法”——实行法治；“治军”——纪律严明，训练有素。但讲得最多最动感情的还是“正身”。说诸葛亮一生虚心纳谏，清正廉明，不增值私产。他上表公布财产，说明一家已经可以温饱，决不别作经营，增长私产一寸。并说明：“臣死以后，如查出有多余的财物，那就是对不起国家。”</p>
+
+<p>当时武侯祠里游人很多，拥挤得不便久留长谈，在嘈杂声中也无法谈话，周恩来朝诸葛亮殿中的武侯贴金塑像投去最后的深深一瞥，带领我们100多人离开了。</p>
+
+<p>路上，他看着我们走在他身边的人，说：“这么多人来参观，说明了什么？诸葛亮死后，到处有人要求给他立庙，因为限于当时的礼制，不得允许。不立庙老百姓就在街巷家中为他私祀。直到蜀汉灭亡那年，阿斗才允许给他在沔阳立庙，禁止其他私祀。可见诸葛亮是有益于人民，深得民心的。一个封建地主阶级的优秀政治家都能做到这一点，何况我们共产党人呢？”这时，他的两眼亮起来，一闪一闪的，充满了一种自信和激情：“我们现在要比他做得好，我们在全国执政后要做得更比他好。”</p>
+
+<p>周恩来逝世后，没留任何私产，他也确实没有，甚至连遗体也留言让交医学解剖，然后火化，骨灰也不留。不许人们给他“立庙”——建纪念馆堂或保留故居。他确实方方面面都比诸葛亮做得好，何止高出百倍？所以人们要去人民英雄纪念碑悼念他，上街悼念他，回家也悼念他，亿万人民有口皆碑。</p>
+
+<p>国内外不断有人把周恩来比作中国历史上迄今为止最伟大最杰出最贤良的宰相。每逢看到这样的文章，我便想起了从延安到重庆那风尘仆仆，万里颠簸的一路。毛泽东感怀秦皇汉武、唐宗宋祖，周恩来不感怀。秦、汉、唐，历代盛朝的皇帝他不看，他只看了张良、萧何、诸葛亮。当时我们跟随他一路而行的3卡车100多人，谁也不可能真正理解这其中的无限含义，即便今天仍无法全部说清阐明。</p>
+
+<p>但其中一条简单的事实我是肯定的：周恩来坚信革命的成功不是抽象的，而是实实在在的预见，并且勇敢、自信、明智地为自己选定了位置。说这个话时，我不能不联想到五年后，就是1946年4月8日王若飞同志遇难时的一幕。后面我在周恩来的四次痛哭里将讲述那个过程。当“4·8”遇难的电报打来时，周恩来为叶挺、王若飞、邓发、秦邦宪等烈士痛哭失声，曾讲：“……特别是若飞同志，我们在法国，朝夕相处，这个人，品质非常好，是难得的人才和朋友……我们配合得好，他要不牺牲，建国后当个常务副总理，可以为我分劳多少……”</p>
+
+<p>周恩来比斯大林、米高扬更早看出自己能够担任总理。</p>
+
+<p>我看到尼克松所著《领袖们》的中文版，里面写有这样一段文字：“前日本首相田中角荣曾说，‘在毛泽东面前，周恩来好似一位笨拙的秘书，正在服侍一位出名的国会议员。’很难想象举止优雅的周恩来会是笨手笨脚的样子……”</p>
+
+<p>尼克松难以赞同田中角荣的话，我们国内却有人赞同，甚至更夸大其词。什么原因呢？</p>
+
+<p>非“同志关系”的人这样讲不足为怪，“同志”中有人这样讲，其中大约有三种情况。</p>
+
+<p>第一种情况是有些好心人，对总理感情深的人帮了倒忙。“文化大革命”的错误已是公认，于是，出于热爱便有人总想把总理摘出来。总理明明是接受了毛泽东搞“文化大革命”的理论和决断，以为对党和国家，对无产阶级革命事业是有好处的。但这些好心人找出各种似是而非的“根据”，硬要把总理的深信和拥护说成违心，把赞同说成屈从，把尊重说成让步。这样做的结果，总理对“文化大革命”应负的责任，其实是摘不掉的，反而把总理歪曲成了缺乏原则和勇气的人，这就从人品上损害了总理。岂不是适得其反？</p>
+
+<p>凡是不尊重历史的人，最终都要弄巧成拙。“文化大革命”煽起个人迷信，把天下功劳都归于毛泽东，错了。此后功劳是大家，错误全推在毛泽东身上，又错了。为什么不是神就是鬼，就不能讲点实事求是的真话呢？“文化大革命”开始那段时间，没听说有几个人反对，包括很快被打倒的那些老干部。不少人被打倒了还真心喊万岁呢。各省市自治区的问题都是总理主持处理的，要说错了，总理如果活到今天，一定会首先站出来承担责任。生前全党就一致公认，他是最富自我批评精神的一个，从不推诿责任。</p>
+
+<p>第二种情况是，一些政治上浅薄的“中才之人”，清谈之士，喜欢自以为是地夸夸其谈。他们一件事也干不成，但没有一件事不会发议论。“文化大革命”席卷全国后，周恩来逐渐看出一些问题，特别是到后期，他对毛泽东为防止在中国出现修正主义所采取的步骤与措施产生了怀疑，越来越多地按照自己的意图采取一些补救措施。于是，这些“中才之士”虽然从未进过政治漩涡，却在那里指手画脚，把总理的韬略说成不敢冒冲突的风险同毛泽东正面交锋，把顾全大局埋怨为不敢像彭德怀那样摔帽子骂娘，把坚强的党性和服从组织决议说成缺少独立和个性。</p>
+
+<p>中国共产党能夺得天下，靠的是党组织的力量，而不是每个党员的“独立”“个性”。即便是错误，也必须少数服从多数，个人服从组织，全党服从中央。否则就不能保证正确时的全党服从中央，就无法步调一致，就无法形成统一的力量。懂政治的人都不难明白这个道理，所以审查干部时，再大的错误，只要是执行组织决议而非另搞一套，你就不能把账算到他个人头上而一棍子打死。否则后患无穷，党将失去统一的意志和力量。</p>
+
+<p>五千年的历史证明，“上智”“下愚”都容易抱定信仰，很难改变思想。跟他们共事容易建功立业。打天下的共产党人，或者是经天纬地的“上智”，或者是大字不识的“老粗”“下愚”，过去的八大军区司令没几个有文化，他们最容易有自知之明，容易团结奋斗，成就轰轰烈烈的大事业。唯有“中才之人”，智慧不高却什么都知道一点，这种人难有自知之明，个个自我感觉良好；各有一套，互不服气；清谈起来一个比一个“见解”多，干起来只会抱怨不会克服，任何事都难于同他们合作完成，特别是在危难时刻。正所谓“秀才闹事十年不成”，那是千古总结出来的至理名言。</p>
+
+<p>第三种情况是，缺少一点理解。</p>
+
+<p>有位外国记者问周恩来：“当你信仰的东西与你民族的利益发生矛盾时，你首先选择什么？”周恩来毫不迟疑地回答：“我首先是个中国人。”正因为这样，当日本帝国主义大举侵略时，周恩来能出面和平解决西安事变，把与国民党蒋介石的血海深仇放一边，建立起抗日的民族统一战线。</p>
+
+<p>周恩来是一个意志坚如钢铁的无产阶级革命家，这一点不会有人怀疑，后面的几章也将谈及。但他首先是中国人。“四人帮”批儒，批周公，其实就是批周恩来，这一点不假。过去两千年，儒学是中国文化的基色。周恩来自小就熏陶于温文尔雅、谦恭有礼的儒学的氛围中，他的矛盾的性格中，必然有温和、谦恭、礼义的一面。在他与毛泽东的关系上，也必然有顾全情义、有失锋锐、谦和有余、直言不足的一面。</p>
+
+<p>其实毛泽东说他“政治上弱点”就是指此而言，并非指他作为无产阶级革命家在政治上的信仰。</p>
+
+<p>其实周恩来性格中的这一面，不仅是对毛泽东，对父母、亲友、同志都有表现。后面几章我将以事实证明。从大量的回忆文章可以看出，所有当事人都是歌颂怀念周恩来性格中的温和、谦恭、礼义的；为什么周恩来这一性格表现在与毛泽东的关系上时，我们就不能理解体谅了呢？这不公平不客观么！</p>
+
+<p>没有谁能否定自己性格中的矛盾性、双重性。毛泽东也说他的性格是一半“虎气”，一半“猴气”。周恩来的性格当然也无例外地有着双重性。对于周恩来的不当一把手——“帅”，不当二把手——“接班人”，甘当三把手——“宰相”，有人议论为“伟大的谦虚”，有人议论为“明哲保身”或“处世精明”。这些议论者为什么不想想，周恩来担任政府总理27年，在这个位置上他可从来不曾表现什么“伟大的谦虚”或“明哲保身”。即便“文化大革命”那样的狂风恶浪，他也不曾明哲保身地退出这个风口浪尖上的敏感位置；即便面对“四人帮”那样不可一世的来头，他也没有表现丝毫伟大的谦虚，让张春桥或什么人去当总理或组阁。历史难道不是这样吗？</p>
+
+
+
+<p style='float:right;'>本页共104段，9850个字符，29306 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

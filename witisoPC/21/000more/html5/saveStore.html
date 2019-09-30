@@ -1,0 +1,59 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>保存画布上下文，以及恢复画布上下文</title> 
+    </head> 
+    <body> 
+        <div>单击“save and draw”一次，然后单击“restore and draw”三次</div> 
+        <canvas id="canvas" width="280" height="140" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">save and draw</button> 
+        <button type="button" onclick="restoreIt();">restore and draw</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            /*  
+             * save() - 将画布的上下文压入堆栈  
+             * restore() - 从堆栈中取一个画布的上下文，如果没有则什么都不做  
+             */  
+            function drawIt() {  
+                clearIt();  
+                ctx.strokeStyle = "red";  
+                ctx.fillStyle = "green";  
+                ctx.lineWidth = 5;  
+                ctx.save(); // 将画布的上下文压入堆栈，此时堆栈中有一个画布上下文  
+                drawRect1();  
+                ctx.strokeStyle = "blue";  
+                ctx.fillStyle = "yellow";  
+                ctx.lineWidth = 10;  
+                ctx.save(); // 将画布的上下文压入堆栈，此时堆栈中有两个画布上下文  
+                drawRect2();  
+            }  
+            function restoreIt() {  
+                clearIt();  
+                ctx.restore(); // 按后进先出的顺序从堆栈里取画布上下文，如果取不到则什么都不做  
+                drawRect1();  
+                drawRect2();  
+            }  
+            function drawRect1() {  
+                ctx.beginPath();  
+                ctx.rect(20, 20, 100, 100);  
+                ctx.stroke();  
+                ctx.fill();  
+            }  
+            function drawRect2() {  
+                ctx.beginPath();  
+                ctx.rect(140, 20, 100, 100);  
+                ctx.stroke();  
+                ctx.fill();  
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 280, 140);  
+                ctx.strokeStyle = "black";  
+                ctx.fillStyle = "black";  
+                ctx.lineWidth = 1;  
+            }  
+        </script> 
+    </body> 
+    </html> 

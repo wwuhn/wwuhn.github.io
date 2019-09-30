@@ -1,0 +1,505 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>Excel VBA编程系列之VBA的运算符和表达式全面的归纳和总结</h4>
+<p>拂晓动漫 2018-08-12 13:19:55</p>
+<p>本文从广义的角度将VBA的运算符进行了全面的归纳和总结，包括通常意义上的算术运算符、连接运算符、比较运算符和逻辑运算符，还包括了赋值运算符、点运算符以及Like运算符、AddressOf运算符等。同时，概述了表达式的知识。</p>
+
+<p>提示学习是需要思考和实践的，只有举一反三，才能真正理解和掌握。因为VBA的一些运算符涉及到较强的逻辑关系，您在阅读本文时，可以不断思考它们之间的逻辑关系。同时，您可以在VBE编辑器的模块中测试本文中的一些语句和示例，以加深认识。</p>
+
+<p>在使用VBA编程时，您一定会经常使用到VBA运算符，它是VBA程序的重要组成部分。在本文中，我将运算符分为两大类，一类是通常意义上的运算符，即：算术运算符、连接运算符、比较运算符和逻辑运算符；另一类是与语句相关的运算符，即：赋值运算符和点运算符。此外，还简略地介绍一下Like运算符和AddressOf运算符。</p>
+
+<p>您通过使用运算符，对VBA各种元素进行连接，或者完成一些运算以形成了VBA表达式或语句。再进一步说，表达式是数字、字符串、常量、变量、对象成员、以及运算符的组合。</p>
+
+<h4>1 算术运算符和表达式</h4>
+
+<p>■ 算术运算符包括+(加法运算符)、- (减法运算符)、/ (除法运算符)、(整除运算符)、Mod(取模运算符)、^(乘幂运算符)，下面逐一进行介绍。</p>
+
+<p>+ 加法运算符。形成数值表达式，并将数值或数值表达式相加。也可用于连接两个字符串变量，但建议用连接运算符进行连接。例如，结果=表达式1+表达式2。</p>
+
+<p>- 减法运算符。形成数值表达式，将数值或数值表达式相减。也可用在数值之前，用于表示负数。例如，结果=表达式1-表达式2。</p>
+
+<p>* 乘法运算符。形成数值表达式，将数值或数值表达式相乘。例如，结果=表达式1*表达式2。</p>
+
+<p>/ 除法运算符。形成数值表达式，将两个数值或数值表达式相除，其中除数不能为零，否则会得到一个错误。例如，结果=表达式1/表达式2。</p>
+
+<p>整除运算符。将两个数值或数值表达式相除，并返回一个整数，即舍掉余数或者小数部分。例如，结果=表达式1表达式2。例如，7的值为2。</p>
+
+<p>Mod 取模运算符。将两个数值或数值表达式相除，并只返回余数。例如，结果=表达式1 Mod 表达式2。例如，7 Mod 3的值为1。</p>
+
+<p>^ 乘幂运算符。计算数值或数值表达式的乘幂。例如，结果=数值 ^ 指数。</p>
+
+<p>■ 算术运算符的优先顺序</p>
+
+<p>算术运算符的优先顺序依次为：乘幂运算符(^)——乘法和除法运算符(*、/，两者没有优先顺序)——整除运算符()——取模运算符(Mod)——加法和减法运算符(+、-，两者没有优先顺序)。若在同一代码中多次使用同一个算术运算符，则从左到右运算。使用括号可以改变优先顺序。</p>
+
+<h4>2 连接运算符和表达式</h4>
+
+<p>& 连接运算符，用于连接字符串。它能把一些字符串变量连接在一起，形成一个新的字符串。在进行连接运算之前，任何非字符串变量或表达式都转换为字符串。例如，结果=字符串1&字符串2，其结果的数据类型为String类型。</p>
+
+<p>+ 混合连接运算符，它运用很灵活，但会与加法运算符相混，给您的阅读带来不便。例如，结果=表达式1+表达式2，其结果的数据类型取决于表达式的数据类型。</p>
+
+<p>下面对这两种连接运算符进行测试，测试表达式为：</p>
+
+<p>结果=表达式1+表达式2</p>
+
+<p>当两个表达式都是数值数据时，用&运算符会将两个数值数据连接，如5 & 1连接后为51，但用+运算符后，会将两数值相加得到其结果，如5+1进行连接后为6。当两个表达式都是字符串(Sting)时，将对两个字符串进行连接为一个字符串。当两个表达式为空时，+运算符的结果为0，而&运算符的结果为Null值。当一个表达式为数值类型数据，另一个表达式为字符串类型数据时，+运算符将产生类型不匹配的错误，而&运算符则将两个表达式连接。未声明变量时，当一个表达式为数字，另一个表达式为字母时，+运算符和&运算符的结果均为数字，如j=7,k=student,i=j+k与i=j&k的结果均为7。当两个表达式都为空时，+运算符结果为0，而&运算符结果为Null值。</p>
+
+<p>提示您可以在VBE中调试，看看它们在各种情况下的区别。</p>
+
+
+<h4>3 比较运算符和表达式</h4>
+
+<p>■ 比较运算符包括&lt;(小于)、&gt;(大于)、=(等于)、&gt;=(大于或等于)、&lt;=(小于或等于)、&lt;&gt;(不等于)，用于数据元素的比较，其一般的语法为：</p>
+
+<p>结果=表达式1 &lt;比较运算符&gt; 表达式2</p>
+
+<p>结果为True(1)、False(0)或者为Null。其中比较运算符可以单独使用，也可以两两结合使用。如果表达式1或者表达式2本身为Null时才会产生Null的结果。</p>
+
+<p>下面结合上述语法，对这些比较运算产生的结果为True或False时所需要的条件进行说明：</p>
+
+<p>&gt; 表达式1大于并且不等于表达式2时，其结果为True；否则，为False。</p>
+
+<p>&lt; 表达式1小于并且不等于表达式2时，其结果为True；否则，为False。</p>
+
+<p>= 表达式1等于表达式2时，其结果为True；否则，为False。</p>
+
+<p>&gt;= 表达式1大于或者等于表达式2时，其结果为True；否则，为False。</p>
+
+<p>&lt;= 表达式1小于或者等于表达式2时，其结果为True；否则，为False。</p>
+
+<p>&lt;&gt; 表达式1不等于表达式2时，其结果为True；否则，为False。</p>
+
+<p>比较运算符可用于数值比较或字符串变量比较，也可用于数值与字符串的比较。如果其中一个表达式是数值，另一个是字符串，则数值表达式总是“小于”字符串表达式；如果都是字符串，则最大的字符串就是最长的字符串；如果字符串一样长，则小写的大于大写的。</p>
+
+<p>还有一个比较运算符，即Is运算符，可用于判断两个对象变量是否指向同一个对象，其语法为：</p>
+
+<p>结果=对象1 Is 对象2</p>
+
+<p>如果对象1和对象2都指向同一个对象，其结果为True；否则，结果为False。</p>
+
+<p>还可以用Is运算符来判断一个对象变量是否符合要求，例如，条件判断语句If objVar Is Nothing Then 表明，如果对象变量objVar没有对象引用，则为True，执行Then后面的语句。</p>
+
+<p>■ 比较运算符的优先顺序。如果多个比较运算符出现在同一行代码中，则按从左到右的顺序计算。</p>
+
+<h4>4 逻辑运算符和表达式</h4>
+
+<p>■ 逻辑运算符允许对一个或多个表达式进行运算，并返回一个逻辑值。VBA的逻辑运算符包括：And(逻辑与)、Or(逻辑或)、Not(逻辑非)、Eqv(与或)、Imp(蕴含)、Xor(异或)。</p>
+
+<p>And 执行逻辑与运算，即如果表达式1和表达式2都是True，则结果返回True；只要其中一个表达式为False，其结果就是False；如果有表达式为Null，则结果为Null。其语法为：</p>
+
+<p>结果=表达式1 And 表达式2</p>
+
+<p>例如，If x&gt;1 And y&lt;10 Then，表示如果x的值大于1且y的值小于10时，就执行Then后面的代码。又如，语句MsgBox ActiveSheet.Name=”Sheet2” And Range(“A1”)=1表示如果当前工作表名为Sheet2并且当前工作表上的单元格A1的值为1时，消息框将显示True。</p>
+
+<p>Or 执行逻辑或运算，即如果表达式1或者表达式2为True，或者表达式1和表达式2都为True，则结果为True；只有两个表达式都不是True时，其结果才为False；如果有表达式为Null，则结果也是Null。其语法为：</p>
+
+<p>结果=表达式1 Or 表达式2</p>
+
+<p>例如，If x&gt;1 Or y&lt;10 Then，表示如果x的值大于1，或者y的值小于10，则执行Then后面的代码。又如，语句MsgBox Range(“A1”)=1 Or Range(“B1”)=2表示如果当前工作表中的单元格A1中的值为1或者单元格B1中的值为2时，消息框将显示True。</p>
+
+<p>Not 对一个表达式进行逻辑非运算，即如果表达式为True，则Not运算符使该表达式变成False；如果表达式为False，则Not运算符使该表达式变成True；如果表达式为Null，则Not运算符的结果仍然是Null。其语法为：</p>
+
+<p>结果=Not 表达式</p>
+
+<p>例如，If Not IsError(x) Then，如果IsError返回False则执行Then后面的代码，表示x中不包含错误。</p>
+
+<p>又如，语句Selection.Font.Bold=Not Selection.Font.Bold，其中Bold属性的值为True或False，使用Not运算符会将值False改为True，将值True改为False，这样可用于切换所选单元格是否“加粗”。这也是VBA程序编写时的一个技巧，我们可以运用Not运算符模仿工具栏“加粗”、“斜体”等按钮的工作模式，如当我们点击“加粗”按钮时，所选单元格中的字体将加粗显示，再次单击“加粗”按钮，单元格中的字体又正常显示了。</p>
+
+<p>Eqv 执行与或运算，即判断两个表达式是否相等，当两个表达式都是True或者都是False时，结果返回True；若一个表达式为True而另一个表达式为False时，结果返回False。其语法为：</p>
+
+<p>结果=表达式1 Eqv 表达式2</p>
+
+<p>Imp 执行逻辑蕴含运算，其语法为：</p>
+
+<p>结果=表达式1 Imp 表达式2</p>
+
+<p>当两个表达式都为True和两个表达式都为False时，其结果为True；当表达式1为True，表达式2为False时，其结果为False；当表达式1为False，表达式2为True时，其结果为True；当表达式1为False，表达式2为Null时，其结果为True；当表达式1为True，表达式2为Null时，其结果为Null；当表达式1为Null，表达式2为True时，其结果为True；当表达式1为Null，表达式2为False时，其结果为Null；当两个表达式都为Null时，其结果为Null。上面的表述可能有点绕口，概括地说，不管表达式1，当表达式2为真时，其结果为True；当两个表达式都为False，或者表达式1为False，表达式2为Null时，其结果为True；当表达式1为True，表达式2为False时，结果为False；其它情况则为Null。</p>
+
+<p>Xor 执行逻辑异或运算，用于判断两个表达式是否不同。若两个表达式都是True或都是False时，其结果就是False；如果只有一个表达式是True，其结果就是True；如果两个表达式中有一个是Null，其结果是Null。其语法为：</p>
+
+<p>结果=表达式1 Xor 表达式2</p>
+
+<p>■ 逻辑运算符的优先顺序</p>
+
+<p>逻辑运算符的优先顺序依次为：Not——And——Or——Xor——Eqv——Imp。如果在同一行代码中多次使用相同的逻辑运算符，则从左到右进行运算。</p>
+
+<h4>5 运算符的优先顺序</h4>
+
+<p>如果您不了解运算符的优先级别(即哪个运算符优先运算，哪个运算符最后才运算)，您的表达式可能会出现意想不到的结果。在前面的小节中，介绍了同一类运算符的优先顺序。如果在一行代码中包括多个运算符，则其进行运算的优先顺序是不相同的。运算符的优先级会影响到表达式的最终结果。</p>
+
+<p>当一行代码中包括几类运算符时，其优先顺序为：算术运算符——连接运算符——比较运算符——逻辑运算符。</p>
+
+<p>如果您要改变同类或不同类运算符的优先顺序，可以使用括号，括号内的表达式总比括号外的优先进行运算。</p>
+
+<h4>6 Like运算符</h4>
+
+<p>Like运算符用于判断给定的字符串是否与指定的模式相匹配，其语法为：</p>
+
+<p>结果=字符串 Like 模式</p>
+
+<p>其中，字符串为要与模式相比较的字符串，如果字符串与指定的模式相匹配，则结果为True；否则，其结果为False。如果字符串或者模式Null，则结果为Null。</p>
+
+<p>在模式中可使用一些特殊字符，其它的字符都能与它们相匹配，这些字符有：?代表任意一个字符；*代表0或多个字符；#代表任意一个数字(0-9)；[charlist]代表字符列表中的任意一个字符；[!charlist]代表不在字符列表中的任意一个字符；[]代表空字符串(“”)。</p>
+
+<p>Charlist将模式中的一组字符与字符串中的一个字符进行匹配，可以包含任何一种字符，包括数字；在Charlist中使用连字号(-)产生一组字符来与字符串中的一个字符相匹配，如[A-D]与字符串相应位置的A、B、C或D匹配；在Charlist中可以产生多组字符，如[A-D H-J]；各组字符必须是按照排列顺序出现的；在Charlist的开头或结尾使用连字号(-)或以与连字号自身相匹配，例如[-H-N]与连字号(-)或H到N之间的任何字符相匹配；在Charlist中的一个字符或者一组字符前加上！号，表明与该字符或该组字符之外的所有字符匹配，如[！H-N]与字符H-N范围之外的所有字符匹配；而在[]外使用！号则只匹配其自身。要使用任何特殊字符作为匹配字符，只需将它放在[]中即可，例如[？]表明要与一个问号进行匹配。下面给出一个例子。</p>
+
+<p>打开一个工作簿，选择菜单“工具——宏——Visual Basic编辑器”或按Alt+F11组合键，打开VBE编辑器。在VBE编辑器中，选择菜单“插入——用户窗体”，新建一个用户窗体，点击控件工具箱中的“文本框”控件和“按钮”控件，在用户窗体上放置一个“文本框”和一个“按钮”，并在用户窗体中对它们的大小和位置进行合理调整，双击刚创建的“按钮”控件，并输入下面的代码：</p>
+<pre>
+Private Sub CommandButton1_Click()
+    Dim sEnd As String
+    Dim sPattern As String
+    sEnd = "in Office"
+    sPattern = "[F W]*" & sEnd
+    If TextBox1.Text Like sPattern Then
+        MsgBox "输入正确"
+    Else
+        MsgBox "输入错误"
+    End If
+End Sub
+</pre>
+
+<p>本代码中[F W]*表示字符以F或W开头的字符串，使用&连接符将其与变量sEnd所代表的字符串“in Office”相连接。如果您在文本框中输入以字符F或字符W开头并以“in Office”结尾的句子，将显示“输入正确”消息框，否则将显示“输入错误”的消息框。在VBE编辑器中点击运行按钮或按F5键，运行该代码试试。当您在文本框中输入“Fanjy in Office”后，单击按钮，将显示“输入正确”消息框。</p>
+
+<p>7.AddressOf运算符</p>
+
+<p>AddressOf运算符将过程的地址传递给API函数。其语法为</p>
+
+<p>AddressOf 过程名</p>
+
+<p>其中，过程名为需要传递给API函数地址的过程名称。AddressOf运算符后面必须是用户定义的函数名、过程名或属性名，且该过程或函数必须保存在代码模块中。</p>
+
+<p>一個單項運算符，它將其後面的程序位址傳遞給 API 程序，該 API 程序在引數資料表對應位置中需要一個函數指標。</p>
+
+<p>語法</p>
+
+<p>AddressOf procedurename</p>
+
+<p>必需的 procedurename 指定要傳遞的位址是哪一個程序位址。這個程序必須是發出呼叫指令的專案中之一個一般模組模組裡的一個程序。</p>
+
+<p>請注意</p>
+
+<p>當一個程序的名稱出現在一個引數清單中時，通常已經進行該程序的評估，並且傳遞該程序傳回值的位址。AddressOf 允許將該程序的位址傳遞給動態連結程式庫 (DLL) 中的一個 Windows API 函數，而不是傳遞該自程序轉回值。然後API 函數就可以使用這個位址來呼叫相對的 Basic 程序，這個程序就是我們所知道的回調。AddressOf 運算子只出現在對 API 程序的呼叫中。</p>
+
+<p>盡管可以使用 AddressOf 運算子在 Basic 程序之間傳遞程序指標，卻無法透過這樣的指標從 Basic 內部呼叫函數。這就是說，例如，使用 Basic 撰寫的物件類別無法使用這樣的指標來回調自己的控制器。當使用 AddressOf 運算子在 Basic 內的程序之間傳遞程序的指標時，被呼叫程序的參數型態必須定義為 As Long。</p>
+
+<p>警告如果無法完全理解函數回調的概念，則使用 AddressOf 運算子可能會導致意想不到的結果。必須理解回調的 Basic 部分是如何工作，以及接受所傳遞之函數位址 DLL 的程式碼是如何工作。要偵錯這樣的互動操作是非常困難的，因為該程式和開發環境執行在相同的處理序中。在某些情況下，系統的偵錯也許是不可能。</p>
+
+<p>附註可以使用 Microsoft Visual C++ (或者類似的工具) 編譯的 DLLs 來建立自己的回調函數原型。要使用 AddressOf 運算子來工作，您的原型必需使用 __stdcall 呼叫規格。預設的呼叫規格 (__cdecl) 無法與 AddressOf 運算子一起工作。</p>
+
+<p>因為一個回調的呼叫程式不在使用者自己的程式中，所以很重要的一點是要保證回調程序中的錯誤不會回傳給呼叫者。可以透過把 On Error Resume Next 陳述式放置於回調程序的起始處來達到這個要求。</p>
+
+<h4>8 赋值运算符</h4>
+
+<p>在VBA中使用等号(=)作为赋值运算符，它将其右侧的数据或者表达式的结果赋给左侧的变量，使其在程序代码中运用。例如，x=666，Range(“A1”).Value=”Dog”。</p>
+
+<h4>点运算符</h4>
+
+<p>在VBA中，使用点运算符来引用某个对象。运用点运算符，可以限定所引用的对象的位置，清楚地表明该对象的层次结构，还可以指定某对象的方法或属性。例如，语句Workbooks(“Book1.xls”).Worksheets(“Sheet1”).Range(“A1”)表明对工作簿Book1中的工作表Sheet1上的单元格A1的引用；又如，语句Msgbox Worksheets(“Sheet1”).Range(“A1”).Value表明显示当前工作簿中工作表Sheet1上单元格A1的值。</p>
+
+<h4>9 運算子優先順序</h4>
+
+<p>當一個運算式中有數個動作發生時，各部分的動作會在預先決定的順序下完成，而此順序就是運算子的優先順序。</p>
+
+<p>當運算式中有超過一種運算子時，會先執行算術運算子，其次是比較運算子，而後才是邏輯運算子。比較運算子的優先順序全都是相同的，也就是說依照出現的順序由左到右依序執行。而算術和邏輯運算子則必須依照下列的優先順序，依序執行：</p>
+
+<p>算術比較邏輯指數運算(^)相等(=)Not負數(-)不等(&lt;&gt;)And乘法和除法(*、 /)小於(&lt;)Or整數除法()大於(&gt;)Xor餘數運算(Mod)小於或相等(&lt;=)Eqv加法和減法(+、 -)大於或相等(&gt;=)Imp字串連結(&)Like</p>
+
+<p>Is</p>
+
+<p>若乘法和除法同時存在於運算式中，則計算時的順序就是依照其左右位置來決定。同樣地，若加法和減法同時存在於一個運算式中，計算時的順序就是依照其左右位置來決定。括號則可推翻優先順序的等級，並且強迫運算式的某些部分必須優先執行。括號內要比括號外部的先執行。然而，括號中運算子的優先順序與正常情況是一樣的。</p>
+
+<p>字串連結運算子(&)不是算術運算子，但是在優先順序上它會落在所有算術運算子之後，且在所有比較運算子之前。</p>
+
+<p>Like 的優先順序和所有比較運算子相同，但它實際上是屬於模式比對運算子。</p>
+
+<p>Is 運算子是一個物件引用比較運算子。它並非比較物件或是它們的值；而是檢查兩個物件是否引用到相同的物件。</p>
+
+
+
+<p style='float:right;'>本页共113段，8057个字符，19496 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

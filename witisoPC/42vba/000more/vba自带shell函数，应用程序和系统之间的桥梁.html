@@ -1,0 +1,715 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>vba自带shell函数，应用程序和系统之间的桥梁</h4>
+
+<p></p>
+
+<p>shell 是啥？它既不是工作表函数，也不是api函数，更不是壳牌石油。它是vba自带的函数。</p>
+
+<p>但是它却神通广大，能抵n个api函数，api是应用程序接口，shell就是应用程序和系统之间的桥梁。</p>
+
+<p>它的用法很简单，就是执行一个可执行文件。与开始菜单的运行功能一样。</p>
+
+<p>Shell(pathname[,windowstyle])</p>
+
+<p>pathname 是要执行的程序名，可能还包括目录或文件夹</p>
+
+<p>Windowstyle 表示在程序运行时窗口的样式</p>
+
+<p>具体的说明，请查看vba的帮助。</p>
+
+<p>＃基本用法</p>
+
+<p>Shell("C:Program FilesWinampWinamp.exe", 1) 给出路径直接执行某个exe程序。</p>
+
+<p>如果是windows的程序可以直接输入程序名，如：</p>
+
+<p>Shell "explorer.exe c:", 1 打开C盘。</p>
+
+<p>Shell "control.exe" 打开控制面板，甚至可以简写 Shell"control"</p>
+
+<p>shell "control.exe appwiz.cpl" 打开控制面板－添加/删除程序</p>
+
+<p>Shell "control.exe sysdm.cpl @1" 添加新硬件</p>
+
+<p>Shell "control.exe sysdm.cpl" 系统</p>
+
+<p>Shell "control.exe appwiz.cpl" 添加/删除程序</p>
+
+<p>Shell "control.exe inetcpl.cpl" Internet 属性</p>
+
+<p>Shell "control.exe intl.cpl" 区域设置</p>
+
+<p>Shell "control.exe joy.cpl" 游戏控制器</p>
+
+<p>Shell "control.exe main.cpl" 鼠标</p>
+
+<p>Shell "control.exe mmsys.cpl" 多媒体</p>
+
+<p>Shell "control.exe modem.cpl" 调制解调器</p>
+
+<p>Shell "control.exe netcpl.cpl" 网络</p>
+
+<p>Shell "control.exe Password.cpl" 密码</p>
+
+<p>Shell "control.exe powercfg.cpl" 电源管理</p>
+
+<p>Shell "control.exe sticpl.cpl" 扫描仪与数字像机</p>
+
+<p>Shell "control.exe timedate.cpl" 日期/时间</p>
+
+<p>Shell "control.exe telephon.cpl" 拔号网络</p>
+
+<p>Shell "control.exe odbccp32.cpl" OBDC 数据源管理器</p>
+
+<p>Shell "control.exe desk.cpl" 显示</p>
+
+<p>Shell "calc.exe" 计算器</p>
+
+<p>Shell "mspaint.exe" 画图</p>
+
+<p>..............</p>
+
+<p>shell函数本身并不强大，就像刘邦，是他手下的人厉害。</p>
+
+<p>shell函数有几个帮手</p>
+
+<p>1、cmd.exe</p>
+
+<p>cmd能够执行几乎所有的dos命令，想想dos有多少命令把，shell都可以实现。</p>
+
+<p>Shell "cmd.exe" 打开cmd窗口</p>
+
+<p>Shell "cmd.exe /c copy c:.txt d:" 把c盘的1.txt文件复制到d盘。</p>
+
+<p>Shell "cmd.exe /c ping 127.0.0.1" ping ip</p>
+
+<p>Shell "cmd.exe /c del c:.txt" 删除1.txt</p>
+
+<p>................</p>
+
+<p>还有很多命令，可以在cmd窗口输入help查看。</p>
+
+<p>cmd后面的/c 是啥？</p>
+
+<p>/C 执行字符串指定的命令然后终断</p>
+
+<p>/K 执行字符串指定的命令但保留</p>
+
+<p>/S 在 /C 或 /K 后修改字符串处理(见下)</p>
+
+<p>/Q 关闭回应</p>
+
+<p>/D 从注册表中停用执行 AutoRun 命令(见下)</p>
+
+<p>/A 使向内部管道或文件命令的输出成为 ANSI</p>
+
+<p>/U 使向内部管道或文件命令的输出成为 Unicode</p>
+
+<p>/T:fg 设置前景/背景颜色(详细信息，请见 COLOR /?)</p>
+
+<p>/E:ON 启用命令扩展(见下) /E:OFF 停用命令扩展(见下)</p>
+
+<p>/F:ON 启用文件和目录名称完成字符 (见下)</p>
+
+<p>/F:OFF 停用文件和目录名称完成字符(见下)</p>
+
+<p>/V:ON 将 c 作为定界符启动延缓环境变量扩展。如:</p>
+
+<p>/V:ON 会允许 !var! 在执行时允许 !var! 扩展变量 var。</p>
+
+<p>var 语法在输入时扩展变量，这与在一个 FOR 循环内不同。</p>
+
+<p>/V:OFF 停用延缓的环境扩展。</p>
+
+<p>具体的说明可以cmd窗口输入cmd /? ，然后一路回车。</p>
+
+<p>2、Rundll32.exe</p>
+
+<p>这个帮手不得了，功能太强了。</p>
+
+<p>所谓Rundll，run就是运行，dll是动态链接库，所以他的功能就是运行那些不能作为程序</p>
+
+<p>单独运行的DLL文件。Rundll32.exe则用来运行32位DLL文件，Windows 98代码夹杂着16位和32位，</p>
+
+<p>所以同时具有Rundll32.exe和Rundll.exe两个程序。Windows 2000/XP都是NT内核系统，</p>
+
+<p>其代码都是纯32位的，所以在这两个系统中，就没有rundll.exe这个程序。</p>
+
+<p>在system32目录下，有很多dll文件，每个dll里又有很多的命令参数。</p>
+
+<p>常见命令及参数：</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL</p>
+
+<p>功能: 显示控制面板</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL access.cpl,,1</p>
+
+<p>功能: 显示“控制面板－辅助选项－键盘”选项窗口</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL access.cpl,,2</p>
+
+<p>功能: 显示“控制面板－辅助选项－声音”选项窗口</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL access.cpl,,3</p>
+
+<p>功能: 显示“控制面板－辅助选项－显示”选项窗口</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL access.cpl,,4</p>
+
+<p>功能: 显示“控制面板－辅助选项－鼠标”选项窗口</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL access.cpl,,5</p>
+
+<p>功能: 显示“控制面板－辅助选项－传统”选项窗口</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL sysdm.cpl @1</p>
+
+<p>功能: 执行“控制面板－添加新硬件”向导。</p>
+
+<p>命令: rundll32.exe shell32.dll,SHHelpShortcuts_RunDLL AddPrinter</p>
+
+<p>功能: 执行“控制面板－添加新打印机”向导。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL appwiz.cpl,,1</p>
+
+<p>功能: 显示 “控制面板－添加/删除程序－安装/卸载” 面板。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL appwiz.cpl,,2</p>
+
+<p>功能: 显示 “控制面板－添加/删除程序－安装Windows” 面板。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL appwiz.cpl,,3</p>
+
+<p>功能: 显示 “控制面板－添加/删除程序－启动盘” 面板。</p>
+
+<p>命令: rundll32.exe syncui.dll,Briefcase_Create</p>
+
+<p>功能: 在桌面上建立一个新的“我的公文包”。</p>
+
+<p>命令: rundll32.exe diskcopy.dll,DiskCopyRunDll</p>
+
+<p>功能: 显示复制软盘窗口</p>
+
+<p>命令: rundll32.exe apwiz.cpl,NewLinkHere ％1</p>
+
+<p>功能: 显示“建立快捷方式”的对话框，所建立的快捷方式的位置由％1参数决定。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL timedate.cpl,,0</p>
+
+<p>功能: 显示“日期与时间”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL timedate.cpl,,1</p>
+
+<p>功能: 显示“时区”选项窗口。</p>
+
+<p>命令: rundll32.exe rnaui.dll,RnaDial [某个拨号连接的名称]</p>
+
+<p>功能: 显示某个拨号连接的拨号窗口。如果已经拨号连接，则显示目前的连接状态的窗口。</p>
+
+<p>命令: rundll32.exe rnaui.dll,RnaWizard</p>
+
+<p>功能: 显示“新建拨号连接”向导的窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,0</p>
+
+<p>功能: 显示“显示属性－背景”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,1</p>
+
+<p>功能: 显示“显示属性－屏幕保护”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,2</p>
+
+<p>功能: 显示“显示属性－外观”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL desk.cpl,,3</p>
+
+<p>功能: 显示显示“显示属性－属性”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,SHHelpShortcuts_RunDLL FontsFolder</p>
+
+<p>功能: 显示Windows的“字体”文件夹。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL main.cpl @3</p>
+
+<p>功能: 同样是显示Windows的“字体”文件夹。</p>
+
+<p>命令: rundll32.exe shell32.dll,SHformatDrive</p>
+
+<p>功能: 显示格式化软盘对话框。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL joy.cpl,,0</p>
+
+<p>功能: 显示“控制面板－游戏控制器－一般”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL joy.cpl,,1</p>
+
+<p>功能: 显示“控制面板－游戏控制器－进阶”选项窗口。</p>
+
+<p>命令: rundll32.exe mshtml.dll,PrintHTML (HTML文档)</p>
+
+<p>功能: 列印HTML文档。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL mlcfg32.cpl</p>
+
+<p>功能: 显示Microsoft Exchange一般选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL main.cpl @0</p>
+
+<p>功能: 显示“控制面板－鼠标” 选项 。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL main.cpl @1</p>
+
+<p>功能: 显示 “控制面板－键盘属性－速度”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL main.cpl @1,,1</p>
+
+<p>功能: 显示 “控制面板－键盘属性－语言”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL main.cpl @2</p>
+
+<p>功能: 显示Windows“打印机”文件夹。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL main.cpl @3</p>
+
+<p>功能: 显示Windows“字体”文件夹。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL main.cpl @4</p>
+
+<p>功能: 显示“控制面板－输入法属性－输入法”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL modem.cpl,,add</p>
+
+<p>功能: 执行“添加新调制解调器”向导。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl,,0</p>
+
+<p>功能: 显示“控制面板－多媒体属性－音频”属性页。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl,,1</p>
+
+<p>功能: 显示“控制面板－多媒体属性－视频”属性页。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl,,2</p>
+
+<p>功能: 显示“控制面板－多媒体属性－MIDI”属性页。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl,,3</p>
+
+<p>功能: 显示“控制面板－多媒体属性－CD音乐”属性页。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl,,4</p>
+
+<p>功能: 显示“控制面板－多媒体属性－设备”属性页。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl @1</p>
+
+<p>功能: 显示“控制面板－声音”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL netcpl.cpl</p>
+
+<p>功能: 显示“控制面板－网络”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL odbccp32.cpl</p>
+
+<p>功能: 显示ODBC32资料管理选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,OpenAs_RunDLL {drive:pathilename}</p>
+
+<p>功能: 显示指定文件(drive:pathilename)的“打开方式”对话框。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL password.cpl</p>
+
+<p>功能: 显示“控制面板－密码”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL powercfg.cpl</p>
+
+<p>功能: 显示“控制面板－电源管理属性”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,SHHelpShortcuts_RunDLL PrintersFolder</p>
+
+<p>功能: 显示Windows“打印机”。(同rundll32.exe shell32.dll,Control_RunDLL main.cpl @2)</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL intl.cpl,,0</p>
+
+<p>功能: 显示“控制面板－区域设置属性－区域设置”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL intl.cpl,,1</p>
+
+<p>功能: 显示“控制面板－区域设置属性－数字”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL intl.cpl,,2</p>
+
+<p>功能: 显示“控制面板－区域设置属性－货币”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL intl.cpl,,3</p>
+
+<p>功能: 显示“控制面板－区域设置属性－时间”选项窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL intl.cpl,,4</p>
+
+<p>功能: 显示“控制面板－区域设置属性－日期”选项窗口。</p>
+
+<p>命令: rundll32.exe desk.cpl,InstallScreenSaver [屏幕保护文件名]</p>
+
+<p>功能: 将指定的屏幕保护文件设置为Windows的屏保，并显示屏幕保护属性窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL sysdm.cpl,,0</p>
+
+<p>功能: 显示“控制面板－系统属性－传统”属性窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL sysdm.cpl,,1</p>
+
+<p>功能: 显示“控制面板－系统属性－设备管理器”属性窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL sysdm.cpl,,2</p>
+
+<p>功能: 显示“控制面板－系统属性－硬件配置文件”属性窗口。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL sysdm.cpl,,3</p>
+
+<p>功能: 显示“控制面板－系统属性－性能”属性窗口。</p>
+
+<p>命令: rundll32.exe user.exe,restartwindows</p>
+
+<p>功能: 强行关闭所有程式并重启机器。</p>
+
+<p>命令: rundll32.exe user.exe,exitwindows</p>
+
+<p>功能: 强行关闭所有程式并关机。</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL telephon.cpl</p>
+
+<p>功能: 显示“拨号属性”选项窗口</p>
+
+<p>命令: rundll32.exe shell32.dll,Control_RunDLL themes.cpl</p>
+
+<p>功能: 显示“桌面主旨”选项面板</p>
+
+<p>“。。。。。。。。。</p>
+
+<p>还有很多，光shell32.dll里就有好几百个参数，到system32目录下看看有多少dll，你会疯的，呵呵。</p>
+
+<p>是不是觉得微软太BT了，哈哈，盖茨可不是盖的，要不人家咋成首富捏！</p>
+
+<p>是不是想知道这些参数从哪里看呢？别集，往下看。</p>
+
+<p>下面隆重为大家推荐一个相当牛×的软件——eXeScope，相信有不少人都用过他把。</p>
+
+<p>这个软件很小，只有500k，但是功能却非常强大，能在没有资源文件的情况下分析、显示不同的信息，</p>
+
+<p>重写可执行文件的资源，包括(EXE，DLL，OCX）等，享有”软件手术刀“的美名。</p>
+
+<p>他的用途说上三天三夜也说不完，下面我就简单为大家介绍一下，你可以到网上搜索更多的内容。</p>
+
+<p>第一大功能：汉化软件</p>
+
+<p>不可思议把，是不是觉得汉化软件是很高深的东西，区区一个小软件居然能办到？是的，我也没办法。</p>
+
+<p>第二大功能：自定义软件</p>
+
+<p>大部分的软件，你都可以用eXeScope来自定义，包括windows的所有软件，如IE等。</p>
+
+<p>如果你觉得软件的某个菜单、图标、快捷键不爽，你都可以自己改，可以改的面目全非，极具个性化。</p>
+
+<p>你可以把QQ的等级改成50个太阳（只能自己看），呵呵。你可以把企鹅换成鸡、鸭甚至猪头。</p>
+
+<p>看啥不爽你就改啥！我的软件我作主！</p>
+
+<p>第三大功能：处理dll、ocx等文件</p>
+
+<p>你可以直接用eXeScope打开dll或ocx文件，并对其进行修改。</p>
+
+<p>小伙伴，大家一起学习Excel VBA知识，一起进步。同时欢迎大家帮忙转发并关注，谢谢大家的支持！</p>
+
+
+
+<p style='float:right;'>本页共212段，7819个字符，13400 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

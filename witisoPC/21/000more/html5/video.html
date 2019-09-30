@@ -1,0 +1,41 @@
+    <!DOCTYPE HTML> 
+    <html> 
+    <head> 
+        <title>在 canvas 上呈现视频截图的 demo</title> 
+    </head> 
+    <body> 
+        <video id="video" width="400" height="240" src="http://ie.microsoft.com/testdrive/Graphics/VideoFormatSupport/big_buck_bunny_trailer_480p_high.mp4" controls preload="metadata"> 
+            您的浏览器不支持 video 标签  
+        </video>    
+        <br /> 
+        <canvas id="canvas" width="400" height="240" style="background-color: rgb(222, 222, 222)"> 
+            您的浏览器不支持 canvas 标签  
+        </canvas> 
+        <br /> 
+        <button type="button" onclick="drawIt();">在画布上呈现视频截图</button> 
+        <button type="button" onclick="clearIt();">清除画布</button> 
+        <script type="text/javascript"> 
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            var video = document.getElementById('video');  
+            var timerId = -1;  
+            function drawIt() {  
+                clearIt();  
+                timerId = setInterval(drawVideo, 300);  
+                function drawVideo() {  
+                    if (!isNaN(video.duration)) {  
+                        /*  
+                         * context.drawImage() 的可绘制对象包括：HTMLImageElement, HTMLVideoElement, HTMLCanvasElement  
+                         *  
+                         * 呈现 video 对象的当前截图，其他参数说明详见 image.html  
+                         */  
+                        ctx.drawImage(video, 0, 0, 400, 240);  
+                    }  
+                }   
+            }  
+            function clearIt() {  
+                ctx.clearRect(0, 0, 400, 240);  
+                clearInterval(timerId);  
+            }  
+        </script> 
+    </body> 
+    </html> 

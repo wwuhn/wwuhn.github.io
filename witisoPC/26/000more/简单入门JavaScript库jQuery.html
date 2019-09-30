@@ -1,0 +1,743 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>简单入门JavaScript库jQuery</h4>
+
+<p></p>
+
+<p>jQuery，顾名思义，也就是JavaScript和查询（Query），是一个辅助JavaScript开发的库。</p>
+
+<p>jQuery 能极大地简化 JavaScript 编程。</p>
+
+<p>目录</p>
+
+<p>1 jQuery库包含的特性</p>
+
+<p>2 jQuery与JS</p>
+
+<p>3 获取页面元素</p>
+
+<p>4 DOM事件与jQuery方法</p>
+
+<p>5 简易操作DOM元素</p>
+
+<p>6 处理尺寸</p>
+
+<p>7 遍历操作</p>
+
+<p>8 过滤操作</p>
+
+<p>9 jQuery对JS的增强</p>
+
+<p>10 为页面添加动态效果</p>
+
+<p>11 jQuery与Ajax</p>
+
+<p>12 jQuery工具</p>
+
+<p>通过 jQuery，您可以选取（查询，query） HTML 元素，并对它们执行“操作”（actions）。</p>
+
+<p>jQuery 语法是为 HTML 元素的选取编制的，可以对元素执行某些操作。</p>
+
+<p>基础语法是：$(selector).action()</p>
+
+<p>美元符号定义 jQuery；</p>
+
+<p>选择符（selector）“查询”和“查找” HTML 元素，如：</p>
+
+<p>$("#test").hide() - 隐藏所有 id="test" 的元素；</p>
+
+<p>2005年，受该领域的先驱人物Dean Edwards和Simon Willison等人的启发，John Resig编写了一套函数，利用这些函数能够以编程的方式快速查找网页中的元素，并为这些元素指定行为。（JQuery使用jquery()函数或$函数。）</p>
+
+<p>jQuery在2006年1月由美国人John Resig在纽约的barcamp发布。其中包含了DOM操作和基本的动画功能。他把这个项目命名为jQuery，意在强调其查找或“查询”网页元素，并通过JS操作这些元素的核心用途。</p>
+
+<p>js库主要是为了包装和扩展js核心及BOM和DOM已有功能，为开发人员提供大量便捷的实用函数；</p>
+
+<p>jQuery的大部分概念是从HTML和CSS的结构中借用而来的。</p>
+
+<p>js库和框架致力于解决的问题，无非就是（跨浏览器）DOM操作、事件处理、样式更换、外部通信（Ajax）。但jQuery独特的集合对象、隐含迭代、方法连缀、自定义选择符和事件方法，加之不到20KB的轻巧，而很受青睐。</p>
+
+<p>jQuery的特点在于其“独特的编程方式”，“以DOM元素为核心，一点一点地给它们添加新功能”(by centering on DOM Elements and tacking bits of functionality on top of them,jQuery made JavaScript fun again)。其特色在于其“面向集合和方法连缀”。也就是用CSS选择符创建jQuery对象，为这些对象创建丰富的方法，指操作其中的DOM元素，而且让所有方法尽可能返回这个对象以实现方法连缀使用。</p>
+
+<p>jQuery不仅支持各式各样的CSS选择符表达式，而且还支持XPath和自定义的选择符表达式，使开发者打到要操作的元素或集合简单得难以置信；它有细腻灵巧而富有弹性的事件处理机制，包括事件注册、触发和自定义以及hover()方法，处理Ajax请求和响应简洁明快、简单易用；以及超级方便的扩展机制，丰富的插件支持（Interface等），强大的社区支持，让其独树一帜。</p>
+
+<p>JQuery的库很轻量级，压缩后只有几十K，在	http://jquery.com/下载后引入或从公共库引用，如：</p>
+
+<p>&lt;script src="http://code.jquery.com/jquery-latest.min.js"&gt;&lt;/script&gt;</p>
+
+<p>&lt;script src="includes/js/jquery-latest.min.js"&gt;&lt;/script&gt;</p>
+
+<p>在了解细节之前，先来看一个完整的小实例：</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>以上是实例实现的效果是：获取id为“p1“的标签对象，然后应用css的红色以及动态的滑动效果。</p>
+
+<p>1 jQuery 库包含的特性</p>
+
+<p>HTML元素选取；</p>
+
+<p>HTML元素操作；</p>
+
+<p>CSS操作；</p>
+
+<p>HTML事件函数；</p>
+
+<p>JavaScript特效和动画；</p>
+
+<p>HTMLDOM遍历和修改；</p>
+
+<p>AJAX；</p>
+
+<p>2 jQuery与JS</p>
+
+<p>JQuery作为一个库，会在JS的基础上实现自己的一些语法。要理解JQuery，首先要理解JS，JS是一门基于对象的脚本语言，由内置于浏览器的JavaScript引擎解释执行。之所以说是基于对象，是因为JS是通过自身内建的对象和DOM对象模型所提供的对象和事件，对网页内容进行控制、对用户操作进行响应，从而实现网页的动态交互效果的；</p>
+
+<p>当浏览器作为JS的执行环境时，浏览器就作为宿主环境提供了宿主对象（BOM）；因为这些对象在浏览器加载网页时就存在，可以看成它们是一些宿主类的实例，只是这些实例无须使用new运算符显式地实例化。这些宿主对象也就是浏览器公开给JS的API，通过这些API，JS应用程序可以获取浏览器相关的信息，也可以修改浏览器的一些显示；</p>
+
+<p>JS的核心在于通过DOM对象操作HTML页面中的各个节点元素或元素集合，动态修改HTML文档的内容，实现基于Web的应用。如同Word、Excel的“先选定、后操作”一样，JS对页面元素的操作也要“先选择”。JS对页面的选择包括有HTML标签元素以及CSS选择器（ID与类选择器）。</p>
+
+<p>3 获取页面元素</p>
+
+<p>从JQuery的字面去理解，J代表JS，Query表示查询，JQuery很重要的功能就是实现对象（或叫文档元素、DOM元素、页面元素）的查询或获取，以实现对象的相应操作；Query 最有特色的语法特点就是与CSS 语法相似的选择器。</p>
+
+<p>下面来看JS获取页面元素的语法：</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>如：</p>
+
+<p>var h = document.getElementById(tab).getElementsByTagName("h3");</p>
+
+<p>jQuery 获取页面元素的语法就简便了，jQuery 中所有选择器都以美元符号开头：$()，如：</p>
+
+<p>$("p")、$("#containor")、$(".quo")</p>
+
+<p>括号内的参数可以是HTML标签元素，也可以是CSS的ID或class选择器及其它自定义选择器；</p>
+
+<p>上面的JS语句用JQuery表示就是：</p>
+
+<p>var h = $('#tab &gt; h3');</p>
+
+<p>jQuery 元素选择器和属性选择器允许您通过标签名、属性名或内容对 HTML 元素进行选择。</p>
+
+<p>3.1 元素选择器</p>
+
+<p>jQuery 使用 CSS 选择器来选取 HTML 元素。</p>
+
+<p>$("p") 选取元素。</p>
+
+<p>$("p.intro") 选取所有 class="intro" 的元素。</p>
+
+<p>$("p#demo") 选取所有 id="demo" 的元素。</p>
+
+<p>3.2 属性选择器</p>
+
+<p>jQuery 使用 XPath 表达式来选择带有给定属性的元素。</p>
+
+<p>$("[href]") 选取所有带有 href 属性的元素。</p>
+
+<p>$("[href='#']") 选取所有带有 href 值等于 "#" 的元素。</p>
+
+<p>$("[href!='#']") 选取所有带有 href 值不等于 "#" 的元素。</p>
+
+<p>$("[href$='.jpg']") 选取所有 href 值以 ".jpg" 结尾的元素。</p>
+
+<p>3.3 CSS 选择器</p>
+
+<p>jQuery CSS 选择器可用于改变 HTML 元素的 CSS 属性。</p>
+
+<p>$("p").css("background-color","red");</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>4 DOM 事件与jQuery方法</p>
+
+<p>在JS中一切都是对象，JQuery也不例如，在 jQuery 中，大多数 DOM 事件都有一个等效的 jQuery 方法。</p>
+
+<p>等效DOM事件的jQuery方法，先选择（或确认目标对象），后应用对象方法：</p>
+
+<p>$("p").click(function(){</p>
+
+<p>// 动作触发后执行的代码!!</p>
+
+<p>});</p>
+
+<p>图片描述(最多50字)</p>
+
+<p>5 简易操作DOM元素</p>
+
+<p>选择器允许您对 HTML 元素组或单个元素进行操作。</p>
+
+<p>在 HTML DOM 术语中：</p>
+
+<p>选择器允许您对 DOM 元素组或单个 DOM 节点进行操作。</p>
+
+<p>如修改页面外观、改变文档内容。</p>
+
+<p>首先要看JS是如何操作的：</p>
+
+<p>var parent = document.getElementById("parent");</p>
+
+<p>var child0 = document.createElement("div");</p>
+
+<p>child0.innerHTML = "child0";</p>
+
+<p>child0.className = "newDiv";</p>
+
+<p>parent.appendChild(child0);</p>
+
+<p>5.1 设置或返回所选元素的内容或值</p>
+
+<p>三个简单实用的用于 DOM 操作的 jQuery 方法：</p>
+
+<p>text() - 设置或返回所选元素的文本内容</p>
+
+<p>html() - 设置或返回所选元素的内容（包括 HTML 标记）</p>
+
+<p>val() - 设置或返回表单字段的值</p>
+
+<p>$("#test").text());</p>
+
+<p>$("#test").html());</p>
+
+<p>$("#test").val());</p>
+
+<p>5.2 获取并设置 CSS 类</p>
+
+<p>jQuery提供了跨浏览器的标准解决方案，且即使在页面已经呈现之后，jQuery仍然能够改变文档中某个部分的类或者个别的样式属性。</p>
+
+<p>addClass() - 向被选元素添加一个或多个类</p>
+
+<p>removeClass() - 从被选元素删除一个或多个类</p>
+
+<p>toggleClass() - 对被选元素进行添加/删除类的切换操作</p>
+
+<p>css() - 设置或返回样式属性</p>
+
+<p>$("#div1").addClass("important blue");</p>
+
+<p>$("h1,h2,p").removeClass("blue");</p>
+
+<p>$("h1,h2,p").toggleClass("blue");</p>
+
+<p>$("p").css({"background-color":"yellow","font-size":"200%"});</p>
+
+<p>5.3 添加新的 HTML 内容</p>
+
+<p>$('#container').append('&lt;a href="more.html"&gt;more&lt;/a&gt;');</p>
+
+<p>5.4 设置属性</p>
+
+<p>jQuery attr() 方法也用于设置/改变属性值。</p>
+
+<p>$("button").click(function(){</p>
+
+<p>$("#w3s").attr({</p>
+
+<p>"href" : "http://www.w3school.com.cn/jquery",</p>
+
+<p>"title" : "W3School jQuery Tutorial"</p>
+
+<p>});</p>
+
+<p>});</p>
+
+<p>5.5 删除元素/内容</p>
+
+<p>remove() - 删除被选元素（及其子元素）</p>
+
+<p>empty() - 从被选元素中删除子元素</p>
+
+<p>$("#div1").remove();</p>
+
+<p>$("#div1").empty();</p>
+
+<p>6 处理尺寸</p>
+
+<p>通过 jQuery，很容易处理元素和浏览器窗口的尺寸。</p>
+
+<p>width()</p>
+
+<p>height()</p>
+
+<p>innerWidth()</p>
+
+<p>innerHeight()</p>
+
+<p>outerWidth()</p>
+
+<p>outerHeight()</p>
+
+<p>$("button").click(function(){</p>
+
+<p>var txt="";</p>
+
+<p>txt+="Width: " + $("#div1").width() + "&lt;/br&gt;";</p>
+
+<p>txt+="Height: " + $("#div1").height();</p>
+
+<p>$("#div1").html(txt);</p>
+
+<p>});</p>
+
+<p>7 遍历操作</p>
+
+<p>7.1 向上遍历 DOM 树</p>
+
+<p>parent() 方法返回被选元素的直接父元素。</p>
+
+<p>$("span").parent();</p>
+
+<p>parents() 方法返回被选元素的所有祖先元素，它一路向上直到文档的根元素 (&lt;html&gt;)。</p>
+
+<p>$("span").parents();</p>
+
+<p>parentsUntil() 方法返回介于两个给定元素之间的所有祖先元素。</p>
+
+<p>$("span").parentsUntil("div");</p>
+
+<p>7.2 向下遍历</p>
+
+<p>向下遍历 DOM 树，以查找元素的后代。</p>
+
+<p>children() 方法返回被选元素的所有直接子元素。</p>
+
+<p>$("div").children();</p>
+
+<p>find() 方法返回被选元素的后代元素，一路向下直到最后一个后代。</p>
+
+<p>$("div").find("span");</p>
+
+<p>$("div").find("*");</p>
+
+<p>7.3 水平遍历</p>
+
+<p>有许多有用的方法让我们在 DOM 树进行水平遍历：</p>
+
+<p>$("h2").siblings();</p>
+
+<p>$("h2").siblings("p");</p>
+
+<p>$("h2").next();</p>
+
+<p>$("h2").nextAll();</p>
+
+<p>nextUntil() 方法返回介于两个给定参数之间的所有跟随的同胞元素。</p>
+
+<p>$("h2").nextUntil("h6");</p>
+
+<p>prev(), prevAll() 以及 prevUntil() 方法的工作方式与上面的方法类似，只不过方向相反而已：它们返回的是前面的同胞元素（在 DOM 树中沿着同胞元素向后遍历，而不是向前）。</p>
+
+<p>8 元素过滤</p>
+
+<p>元素过滤可以缩写搜索元素的范围。</p>
+
+<p>8.1 按位置过滤</p>
+
+<p>first(), last() 和 eq()允许您基于其在一组元素中的位置来选择一个特定的元素。</p>
+
+<p>其他过滤方法，比如 filter() 和 not() 允许您选取匹配或不匹配某项指定标准的元素。</p>
+
+<p>$("div p").first();</p>
+
+<p>$("div p").last();</p>
+
+<p>$("p").eq(1);</p>
+
+<p>8.2 filter() 方法</p>
+
+<p>filter() 方法允许您规定一个标准。不匹配这个标准的元素会被从集合中删除，匹配的元素会被返回。</p>
+
+<p>$("p").filter(".intro");</p>
+
+<p>8.3 not() 方法</p>
+
+<p>not() 方法返回不匹配标准的所有元素。</p>
+
+<p>$("p").not(".intro");</p>
+
+<p>9 jQuery对JS的增强</p>
+
+<p>JS除于实现更简易操作DOM元素以外，还有其它方面的增强：</p>
+
+<p>9.1 jQuery提供了对基本JavaScript结构的增强，比如元素迭代和数组处理等操作。</p>
+
+<p>$.each(obj,function(key,value){</p>
+
+<p>total += value</p>
+
+<p>});</p>
+
+<p>还有$().each()方法；</p>
+
+<p>9.2 jQuery提供了各种页面事件，它可以避免程序员在HTML中添加太事件处理代码，最重要的是，它的事件处理器消除了各种浏览器兼容性问题。</p>
+
+<p>JS以浏览器为运行环境，代码由浏览器解释执行，所以不同的浏览器对一些JS的命令的支持是不一样。另外浏览器所提供的DOM方式也是有区别的。</p>
+
+<p>10 为页面添加动态效果</p>
+
+<p>jQuery内置了一些隐藏、显示、切换，滑动，淡入淡出，以及动画之类的效果，以及制作新效果的工作包。</p>
+
+<p>$('div.details').slideDown();</p>
+
+<p>11 jQuery与Ajax</p>
+
+<p>无须刷新页面从服务器获取信息：也就是Ajax，是一系列在客户端和服务器之间传输数据强大技术。</p>
+
+<p>$('div.details').load('more.html #content');</p>
+
+<p>12 jQuery工具</p>
+
+<p>$.each()是更通用的循环方法，能够在对象和数组中循环；</p>
+
+<p>（$().each()专用于jQuery对象中的循环；）</p>
+
+<p>$.map()循环读取数组；</p>
+
+<p>$.merge合并两个数组；</p>
+
+<p>$.unique过滤重复的数组元素；</p>
+
+<p>$.trim()从字符串或者表单值中删除空格；</p>
+
+<p>$().data()将对象和数据附加到DOM中；</p>
+
+<p>13 结束语</p>
+
+<p>理解了上述内容以后，再来看JQuery语法就简单了，当然首先是要熟悉JS语法，然后再熟悉一下JQuery的选择器语法与等效DOM事件的jQuery方法，大部分的JQuery代码就能看懂了。</p>
+
+<p>参考：http://www.w3school.com.cn/jquery/index.asp</p>
+
+<p>附代码：</p>
+
+<p>&lt;!DOCTYPE html&gt;</p>
+
+<p>&lt;html&gt;</p>
+
+<p>&lt;head&gt;</p>
+
+<p>&lt;script src="http://public.dabiaoge.me/common/js/jquery.min.js"&gt;&lt;/script&gt;</p>
+
+<p>&lt;script&gt;</p>
+
+<p>$(document).ready(function()</p>
+
+<p>{</p>
+
+<p>$("button").click(function(){</p>
+
+<p>$("#p1").css("color","red").slideUp(2000).slideDown(2000);</p>
+
+<p>});</p>
+
+<p>});</p>
+
+<p>&lt;/script&gt;</p>
+
+<p>&lt;/head&gt;</p>
+
+<p>&lt;body&gt;</p>
+
+<p>&lt;p id="p0"&gt;1 Query html node.</p>
+
+<p>&lt;p id="p1"&gt;2 applyint event emthod.</p>
+
+<p>&lt;p id="p2"&gt;3 easy for Javascript coding.</p>
+
+<p>&lt;button&gt;chaining&lt;/button&gt;</p>
+
+<p>&lt;/body&gt;</p>
+
+<p>&lt;/html&gt;</p>
+
+<p>－End－</p>
+
+
+
+<p style='float:right;'>本页共226段，7027个字符，12979 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

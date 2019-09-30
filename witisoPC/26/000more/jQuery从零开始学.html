@@ -1,0 +1,761 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>jQuery从零开始学</h4>
+
+<p>&lt;a href="http://item.jd.com/10380014259.html"&gt;jd buy&lt;/a&gt;</p>
+
+<p>作者：刘鑫</p>
+
+<p>出版日期：2015.09.01</p>
+
+<p>第 1章 jQuery入门.. 1</p>
+
+<p>1.1 什么是 jQuery ..... 1</p>
+
+<p>1.1.1 jQuery的功能以及它与 JavaScript的区别 ..... 1</p>
+
+<p>1.1.2 下载并配置 jQuery运行环境 ... 5</p>
+
+<p>1.2 使用 Dreamweaver编写第一个包含 jQuery库的网站 6</p>
+
+<p>1.3 认识 jQuery库的基础知识 10</p>
+
+<p>1.3.1 jQuery库的核心方法——$() . 10</p>
+
+<p>1.3.2 jQuery代码的风格 11</p>
+
+<p>1.3.3 jQuery库延迟等待加载模式 .. 12</p>
+
+<p>1.3.4 jQuery对象与 DOM对象间的转换... 12</p>
+
+<p>1.4 调试 jQuery程序 .... 14</p>
+
+<p>1.4.1 在 Chrome中调试 . 14</p>
+
+<p>1.4.2 在 Firefox中调试 .. 17</p>
+
+<p>1.5 常见问题 ..... 19</p>
+
+<p>1.5.1 为什么要使用一些著名公司的 CDN？... 19</p>
+
+<p>1.5.2 写 jQuery和直接写 JavaScript的区别？ 20</p>
+
+<p>1.5.3 jQuery与其他 JavaScript库有什么区别？ ... 21</p>
+
+<p>1.5.4 ASP.NET支持 jQuery吗？.... 21</p>
+
+<p>第 2章 jQuery选择器 .. 22</p>
+
+<p>2.1 基本选择器 . 22</p>
+
+<p>2.1.1 标签选择器 24</p>
+
+<p>2.1.2 id选择器 .... 24</p>
+
+<p>2.1.3 类选择器 .... 25</p>
+
+<p>2.1.4 使用选择器组合 .... 25</p>
+
+<p>2.1.5 使用*通配符选择器 .... 26</p>
+
+<p>2.2 层次选择器 . 26</p>
+
+<p>2.2.1 后代选择器 27</p>
+
+<p>2.2.2 父子选择器 28</p>
+
+<p>2.2.3 相邻选择器 29</p>
+
+<p>2.2.4 平级选择器 29</p>
+
+<p>2.3 过滤选择器 . 30</p>
+
+<p>2.3.1 基本过滤选择器 .... 31</p>
+
+<p>2.3.2 内容过滤选择器 .... 34</p>
+
+<p>2.3.3 可见性过滤选择器 35</p>
+
+<p>2.3.4 属性过滤选择器 .... 37</p>
+
+<p>2.3.5 子元素过滤选择器 39</p>
+
+<p>2.3.6 表单对象属性过滤器 .. 41</p>
+
+<p>2.4 表单选择器 . 43</p>
+
+<p>2.5 常见问题 ..... 45</p>
+
+<p>2.5.1 $("input")和$(":input")这两个选择器有什么区别？. 45</p>
+
+<p>2.5.2 子选择器和后代选择器有什么区别？ .... 45</p>
+
+<p>2.5.3 获得 class为 sub的元素的子节点下所有标签 .. 45</p>
+
+<p>第 3章 用 jQuery来操作 DOM 46</p>
+
+<p>3.1 修改元素属性 ... 46</p>
+
+<p>3.1.1 获取元素的属性 .... 46</p>
+
+<p>3.1.2 设置元素的属性 .... 48</p>
+
+<p>3.2 修改元素内容 ... 49</p>
+
+<p>3.3 动态创建内容 ... 51</p>
+
+<p>3.4 动态插入节点 ... 51</p>
+
+<p>3.5 动态删除节点 ... 55</p>
+
+<p>3.6 实例 1：超链接提示效果 .. 57</p>
+
+<p>3.7 实例 2：图片预览效果 59</p>
+
+<p>3.8 常见问题 ..... 61</p>
+
+<p>3.8.1 tagName和 attribute的区别？ ..... 61</p>
+
+<p>3.8.2 attr方法和 prop方法都是获取元素的属性吗？ 62</p>
+
+<p>第 4章 jQuery的事件与事件对象 .. 63</p>
+
+<p>4.1 jQuery中的事件 ..... 63</p>
+
+<p>4.1.1 什么是事件 63</p>
+
+<p>4.1.2 jQuery所支持的事件和事件类型 64</p>
+
+<p>4.2 页面初始化事件 ..... 66</p>
+
+<p>4.3 绑定事件 ..... 67</p>
+
+<p>4.4 移除事件绑定 ... 70</p>
+
+<p>4.5 切换事件 ..... 71</p>
+
+<p>4.6 表单中的常见事件 . 72</p>
+
+<p>4.6.1 表单元素焦点的获取和失去 .. 73</p>
+
+<p>4.6.2 文本域高度的动态变化 .... 74</p>
+
+<p>4.6.3 表单的验证 76</p>
+
+<p>4.7 常见问题 ..... 79</p>
+
+<p>4.7.1 ready与 load谁先执行？ . 79</p>
+
+<p>4.7.2 用 bind绑定事件和用 live绑定事件有什么区别？ . 80</p>
+
+<p>第 5章 原始 AJAX与 jQuery中的 AJAX ... 81</p>
+
+<p>5.1 两个 AJAX的对比. 81</p>
+
+<p>5.1.1 原始 AJAX应用举例.. 81</p>
+
+<p>5.1.2 使用 jQuery 中的 AJAX举例 84</p>
+
+<p>5.2 使用 jQuery的 AJAX函数进行页面交互 85</p>
+
+<p>5.2.1 使用 AJAX快捷函数.. 85</p>
+
+<p>5.2.2 使用底层函数 ajax().... 86</p>
+
+<p>5.2.3 AJAX 全局配置和事件.... 89</p>
+
+<p>5.3 跨域的 AJAX-JSONP... 91</p>
+
+<p>5.3.1 什么是 JSONP . 91</p>
+
+<p>5.3.2 JSONP的实现原理 ..... 92</p>
+
+<p>5.3.3 JSONP在 jQuery中的应用 .... 93</p>
+
+<p>5.4 AJAX综合案例——数据实时更新的微博页面.. 96</p>
+
+<p>5.4.1 微博的功能分析 .... 96</p>
+
+<p>5.4.2 微博实时更新的代码实现和效果演示 .... 96</p>
+
+<p>5.5 常见问题 ..... 99</p>
+
+<p>5.5.1 jQuery中的 post和$.ajax的区别. 99</p>
+
+<p>5.5.2 jQuery AJAX中的 readyState和 status的区别... 99</p>
+
+<p>第 6章 jQuery中的动画效果 . 101</p>
+
+<p>6.1 jQuery库所支持的动画方法 . 101</p>
+
+<p>6.1.1 基本动画方法 101</p>
+
+<p>6.1.2 滑动动画方法 102</p>
+
+<p>6.1.3 淡入淡出动画方法 .... 102</p>
+
+<p>6.2 实例 1：实现可折叠的列表 .. 103</p>
+
+<p>6.3 实例 2：按钮的淡入淡出效果 .... 105</p>
+
+<p>6.4 自定义动画 animate.... 107</p>
+
+<p>6.4.1 一个最简单的自定义动画 .... 108</p>
+
+<p>6.4.2 一个稍微复杂的自定义动画 109</p>
+
+<p>6.5 常见问题 ... 110</p>
+
+<p>6.5.1 jQuery的动画能随时停止吗? .... 110</p>
+
+<p>6.5.2 可以用 animate方法来操作所有 CSS属性吗？ .... 110</p>
+
+<p>第 7章 jQuery插件.....111</p>
+
+<p>7.1 认识 jQuery插件 .. 111</p>
+
+<p>7.1.1 什么是插件 .... 111</p>
+
+<p>7.1.2 常用的插件网站 .. 115</p>
+
+<p>7.2 开发自己的插件 ... 118</p>
+
+<p>7.2.1 jQuery的插件类型 .... 118</p>
+
+<p>7.2.2 实例 1：对象级别的插件开发 ... 119</p>
+
+<p>7.2.3 实例 2：类级别的插件开发 . 121</p>
+
+<p>7.3 用第三方插件创建自己的网站 ... 124</p>
+
+<p>7.3.1 网站结构设计 124</p>
+
+<p>7.3.2 下载第三方插件 .. 126</p>
+
+<p>7.3.3 使用第三方插件 .. 127</p>
+
+<p>7.3.4 网站最终效果 130</p>
+
+<p>7.4 常见问题 ... 132</p>
+
+<p>7.4.1 jQuery和 jQuery插件有什么区别吗？. 132</p>
+
+<p>7.4.2 开发或使用 jQuery插件要注意它的版本吗？ . 132</p>
+
+<p>第 8章 jQuery的 UI插件. 133</p>
+
+<p>8.1 基于 jQuery的扩展–jQuery UI插件. 133</p>
+
+<p>8.2 下载 jQuery UI插件... 134</p>
+
+<p>8.3 利用 jQuery UI实现页面交互..... 135</p>
+
+<p>8.3.1 拖动组件 Draggable的使用 . 135</p>
+
+<p>8.3.2 拖放组件 Droppable的使用 . 137</p>
+
+<p>8.3.3 实例：模拟 Windows系统“回收站”. 138</p>
+
+<p>8.4 利用 jQuery UI实现页面中的进度条..... 143</p>
+
+<p>8.4.1 进度条工具集的使用 143</p>
+
+<p>8.4.2 实例：实现进度条效果 .. 144</p>
+
+<p>8.5 利用 jQuery UI实现页面中的滑动条..... 145</p>
+
+<p>8.5.1 滑动条工具集的使用 146</p>
+
+<p>8.5.2 实例 1：实现图片滑块滚动条效果 . 147</p>
+
+<p>8.5.3 实例 2：实现简单颜色调色器 ... 150</p>
+
+<p>8.6 利用 jQuery UI实现页面中的日历... 153</p>
+
+<p>8.6.1 日历 DatePicker的使用 .. 153</p>
+
+<p>8.6.2 实例 1：一个简单的日历应用 ... 157</p>
+
+<p>8.6.3 实例 2：制作同时显示多个月份的日历 ..... 160</p>
+
+<p>8.6.4 实例 3：限制日历的选择范围 ... 160</p>
+
+<p>8.6.5 实例 4：有动画效果的日历显示 ..... 161</p>
+
+<p>8.7 利用 jQuery UI实现手风琴效果. 162</p>
+
+<p>8.7.1 折叠面板工具集的使用 .. 162</p>
+
+<p>8.7.2 实例：实现经典的导航菜单 164</p>
+
+<p>8.8 设计页面中各种对话框效果 . 165</p>
+
+<p>8.8.1 对话框工具集的使用 165</p>
+
+<p>8.8.2 实例：实现弹出和确认信息对话框效果 .... 167</p>
+
+<p>8.9 实现幻灯和分页效果 . 170</p>
+
+<p>8.9.1 选项卡工具集的使用 171</p>
+
+<p>8.9.2 实例 1：经典的选项卡效果 . 172</p>
+
+<p>8.9.3 实例 2：实现幻灯效果 ... 174</p>
+
+<p>8.9.4 实例 3：实现分页效果 ... 177</p>
+
+<p>8.10 常见问题 . 179</p>
+
+<p>8.10.1 jQuery UI和 jQuery Easy UI的区别.... 179</p>
+
+<p>8.10.2 jQuery UI内容太多，如何实现自己定制呢？..... 180</p>
+
+<p>第 9章 常用的一些 jQuery插件... 181</p>
+
+<p>9.1 使用表单插件创建留言表单 . 181</p>
+
+<p>9.2 图片文件上传插件 ..... 185</p>
+
+<p>9.2.1 下载 jQuery File Upload插件 ..... 185</p>
+
+<p>9.2.2 实现多图片上传 .. 188</p>
+
+<p>9.3 可拖放的布局插件 ..... 198</p>
+
+<p>9.3.1 下载 gridster.js插件 .. 198</p>
+
+<p>9.3.2 实现动态缩放可拖放布局应用 .. 201</p>
+
+<p>9.4 谷歌地图插件 . 206</p>
+
+<p>9.4.1 下载 Gmap3地图插件 .... 206</p>
+
+<p>9.4.2 实现在线地图搜索功能 .. 211</p>
+
+<p>9.5 动画插件的应用 ... 216</p>
+
+<p>9.5.1 下载 Motio插件 .. 216</p>
+
+<p>9.5.2 使用 Motio插件实现精灵(Sprite)模式动画 226</p>
+
+<p>9.5.3 开发 360度全景动画网页应用 .. 230</p>
+
+<p>9.6 常见问题 ... 235</p>
+
+<p>9.6.1 如何拓展第三方插件的行为？ .. 235</p>
+
+<p>9.6.2 使用多个插件时避免重复引入 jquery.js文件 .. 236</p>
+
+<p>第 10章 jQuery Mobile移动开发. 237</p>
+
+<p>10.1 初步接触 jQuery Mobile 237</p>
+
+<p>10.1.1 下载 jQuery Mobile . 237</p>
+
+<p>10.1.2 推荐使用 Dreamweaver编辑器开发 jQuery Mobile... 239</p>
+
+<p>10.1.3 创建第一个 jQuery Mobile文件 .... 239</p>
+
+<p>10.1.4 在 PC上测试 jQuery Mobile..... 240</p>
+
+<p>10.1.5 如何应用 jQuery Mobile开发的页面 .. 244</p>
+
+<p>10.2 使用 jQuery Mobile进行开发 ... 244</p>
+
+<p>10.2.1 选择页面中的元素 .. 244</p>
+
+<p>10.2.2 设置页面中元素的属性 245</p>
+
+<p>10.3 应用 jQuery Mobile中的控件 ... 245</p>
+
+<p>10.3.1 在界面中固定一个工具栏 .. 245</p>
+
+<p>10.3.2 使用按钮实现菜单界面 248</p>
+
+<p>10.3.3 使用表单做一个手版 QQ登录 251</p>
+
+<p>10.3.4 使用列表做一个类贴吧的应用 256</p>
+
+<p>10.3.5 使用对话框实现一个相册 .. 259</p>
+
+<p>10.4 实例 1：利用 jQuery Mobile实现电子书阅读器 .. 263</p>
+
+<p>10.5 实例 2：利用 jQuery Mobile 实现开发印象笔记 . 266</p>
+
+<p>10.6 常见问题 . 268</p>
+
+<p>10.6.1 jQuery Moible为什么在切换页面时会出现白屏现象 ..... 268</p>
+
+<p>10.6.2 data-rel="back"和 data-direction="reverse"有什么区别 .... 268</p>
+
+<p>第 11章 实战 1：实现 QQ邮箱附件的拖放上传功能. 269</p>
+
+<p>11.1 认识 FileDrop.js插件 ..... 270</p>
+
+<p>11.1.1 下载 FileDrop.js插件 .... 270</p>
+
+<p>11.1.2 使用插件实现文件拖拽上传 .... 274</p>
+
+<p>11.2 开发图片拖拽上传 Web应用.... 278</p>
+
+<p>11.2.1 HTML5文件上传功能.. 278</p>
+
+<p>11.2.2 图片拖拽上传 HTML代码. 278</p>
+
+<p>11.2.3 图片拖拽上传 CSS代码 ..... 280</p>
+
+<p>11.2.4 图片拖拽上传 JS代码 .. 281</p>
+
+<p>11.2.5 图片拖拽上传服务器端 PHP代码. 284</p>
+
+<p>11.2.6 图片拖拽上传 Web应用最终效果. 285</p>
+
+<p>第 12章 实战 2：利用 jQuery Mobile开发一个手机博客. 287</p>
+
+<p>12.1 项目规划 . 287</p>
+
+<p>12.2 主界面设计 ... 289</p>
+
+<p>12.3 文章列表的设计 . 291</p>
+
+<p>12.4 文章内容页的实现 ... 296</p>
+
+<p>12.5 文章类的设计 ..... 299</p>
+
+<p>12.6 测试环境的搭建 . 301</p>
+
+<p>12.7 数据库的设计 ..... 306</p>
+
+<p>12.8 内容页功能的实现 ... 312</p>
+
+<p>12.9 文章列表的实现 . 318</p>
+
+<p>12.10 首页的实现 . 323</p>
+
+<p>第 13章 实战 3：打造在线播放器 ..... 326</p>
+
+<p>13.1 认识 MediaElement.js插件.. 327</p>
+
+<p>13.1.1 下载音视频播放器插件 327</p>
+
+<p>13.1.2 开发一个简单的播放器应用 .... 330</p>
+
+<p>13.1.3 使用 MediaElement.js插件模仿 Windows Media Player .. 334</p>
+
+<p>13.2 实现在线播放器 . 336</p>
+
+<p>13.2.1 在页面中添加 MediaElement.js 337</p>
+
+<p>13.2.2 构建播放器页面布局 .... 337</p>
+
+<p>13.2.3 播放器页面初始化 .. 338</p>
+
+<p>第 14章 实战 4：构建股票实时走势图 .... 340</p>
+
+<p>14.1 准备 jqChart图表插件 ... 341</p>
+
+<p>14.1.1 下载 jqChart图表插件 .. 341</p>
+
+<p>14.1.2 开发一个柱状图应用 .... 343</p>
+
+<p>14.1.3 开发一个折线图应用 .... 354</p>
+
+<p>14.2 构建股票实时走势图 ..... 359</p>
+
+<p>14.2.1 添加 jqChart图表插件库文件 .. 359</p>
+
+<p>14.2.2 构建实时图页面的布局 360</p>
+
+<p>14.2.3 模拟股票实时图的初始化 .. 361</p>
+
+<p>14.2.4 模拟股票实时走势图的最终效果 .. 364</p>
+
+
+
+<p style='float:right;'>本页共235段，6185个字符，10222 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

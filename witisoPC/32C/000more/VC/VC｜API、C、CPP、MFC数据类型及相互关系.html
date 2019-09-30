@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>VC｜API、C、CPP、MFC数据类型及相互关系</h4>
+
+<p>小智雅汇 2018-12-27 16:40
+</p>
+
+<p>Windows 这个多作业系统除了协调应用程序的执行、分配内存、管理资源之外，它同时也是一个很大的服务中心，调用这个服务中心的各种服务（每一种服务就是一个函数），可以帮应用程式达到开启视窗、描绘图形、使用周边设备等目的，由于这些函数服务的对象是应用程序(Application)，所以便称之为 Application Programming Interface，简称 API 函数。WIN32 API也就是Microsoft Windows 32位平台的应用程序编程接口。
+</p>
+
+<p>我们对待API函数不必刻意去研究每一个函数的用法，那也是不现实的（能用得到的API函数有几千个呢）。正如某位大虾所说：API不要去学，在需要的时候去查API帮助就足够了。但是，许多API函数令人难以理解，易于误用，还会导致出错，这一切都阻碍了它的推广。
+</p>
+
+<p>应用程序接口经常是软件开发工具包	(SDK)的一部分。
+</p>
+
+<p>1 Windows数据类型及与标准C数据类型的关系
+</p>
+
+<p>查看 Windows 数据类型的定义可以看到，所有的 Windows 数据类型都是由 C 数据类型经过类型重定义得到的。如 DWORD 实质上就是 unsigned long 数据类型，32 位的无符号整型。而在 Windows 程序设计中经常用到的 HANDLE 类型实质上是无类型指针 void。所有的 Windows 数据类型都是通过这种方式在 SDK 的头文件中进行定义的，它们都是来源于标准 C 的数据类型。实际上 VC 编译器是一个完整的 C 编译器，此外并没有过多的扩展。Windows 数据类型也不是 VC 的内建类型，而是从标准 C 类型重定义得到。
+</p>
+
+<p>Windows API 函数、数据结构等都是采用 Windows 数据类型。比如 Windows API 函数的入口参数、返回值等都是 Windows 数据类型。因此学习 Windows API 程序设计必须要了解Windows 数据类型。
+</p>
+
+<p>事实上，这些 Windows 数据类型都是从标准 C 的数据类型通过typedef运算符经过类型重定义而来。Windows 数据类型的命名都很有规律。一个类型不再分成几个英文字，而是写成一个缩写的、大小的英文单字(指针符号也用P来表示)。比如，
+</p>
+
+<p>typedef const TCHAR* LPCTSTR;
+</p>
+
+<p>typedef unsigned long DWORD
+</p>
+
+<p>COLORREF也是一种unsigned long类型，如0xFFFFFFFF，RGB(255,255,255)
+</p>
+
+<p>typedef unsigned short * BSTR;
+</p>
+
+<p>typedef unsigned char BYTE;
+</p>
+
+<p>typedef char* LPSTR;
+</p>
+
+<p>typedef unsigned short WORD;
+</p>
+
+<p>所有的无符号变量都加上U来区分。如：
+</p>
+
+<p>typedef unsigned int UINT;
+</p>
+
+<p>所有的指针类型变量都加上P来区分。如：
+</p>
+
+<p>typedef BYTE near * PBYTE;
+</p>
+
+<p>typedef BYTE far* LPBYTE;
+</p>
+
+<p>typedef int near* PINT;
+</p>
+
+<p>typedef int far * LPINT;
+</p>
+
+<p>typedef WORD near * PWORD;
+</p>
+
+<p>typedef WORD far* LPWORD;
+</p>
+
+<p>typedef DWORD near * PDWORD;
+</p>
+
+<p>typedef DWORD far * LPDWORD;
+</p>
+
+<p>typedef void far* LPVOID;
+</p>
+
+<p>typedef CONST void far * LPCVOID;
+</p>
+
+<p>//near和far是c语言相对古老的的用法，用于声明变量在内存中的远近。
+</p>
+
+<p>所有的常量指针都使用C。如：
+</p>
+
+<p>typedef CONST void* LPCVOID;
+</p>
+
+<p>typedef CONST *CHAR LPCSTR;
+</p>
+
+<p>2 Windows中的字符串指针类型
+</p>
+
+<p>很早以前，各国文字都有自己的编码方式，而且每个国家字符的字节也不一样（多字节字符）。后来，拥有了统一的编码方式，统一了编码Unicode。
+</p>
+
+<p>vs中创建项目时，默认是Unicode编码的。可以使用wchar_t来声明Unicode编码的字符串，而且字符串声明时在前面加上L。TCHAR是一个怪胎，他是char和wchar_t的自适应版。
+</p>
+
+<p>const char * p = “aaa”; //内存中，每个a占有一个字节
+</p>
+
+<p>const char * pc = “中国”;//内存中，每个汉字占有两个字节
+</p>
+
+<p>const wchar_t * pU = L”aa”;//内存中，每个a占有两个字节
+</p>
+
+<p>const wchar_t * pcU = L”中国”;//内存中，每个汉字占有一个字节
+</p>
+
+<p>const TCHAR * s = L”aa”;//这个TCHAR声明时，必须声明成Unicode编码的串
+</p>
+
+<p>//修改vs的编码方式为’多字节字符集’后
+</p>
+
+<p>const TCHAR * s =L”aa”;//这就会报错，因为这时候TCHAR是char类型
+</p>
+
+<p>const TCHAR * s =”aa”;//不会报错
+</p>
+
+<p>3 Windows中的句柄类型
+</p>
+
+<p>句柄类型是Windows API中一种特殊的数据类型。
+</p>
+
+<p>各种句柄类型的命令方式一般都是在对象名前加“H”。Windows 系统中有很多对象，所有表示一个对象的数据类型都是句柄，每一种对象都对应着一种句柄类型，比如与位图 ( BITMAP)对应的句柄类型为“HBITMAP”，与菜单(MENU)对应的句柄类型为“HMENU”，与窗口(WINDOW)对应的句柄类型为“HWND”。
+</p>
+
+<p>HWND 窗口句柄
+</p>
+
+<p>HINSTANCE 进程实例句柄
+</p>
+
+<p>HCURSOR 光标句柄
+</p>
+
+<p>HICON 图标句柄
+</p>
+
+<p>HMENU 菜单句柄
+</p>
+
+<p>HFONT 字体句柄
+</p>
+
+<p>HFILE 文件句柄
+</p>
+
+<p>在API中，资源对象用数据体来表示。通用句柄HANDLE有时候是逻辑指针，大多数时候是结构体指针，特殊句柄如HMENU等是结构体指针。
+</p>
+
+<p>4 Windows中的数据结构
+</p>
+
+<p>Windows 中包含很多种数据结构类型，在不同类型的 API 中会使用到不同的数据结构，数据结构的数量众多，这些数据结构通常会作为一些 API 的参数输入。Windows API 中的数据结构定义具有一定的特点，一般情况下，Windows 系统中使用全大写来命名结构体、共用体，并使用“_”来分隔单词，在结构名加“LP”或“P”表示指向数据结构的指针。
+</p>
+
+<p>结构体类型，如POINT、SIZE、RECT。
+</p>
+
+<p>typedef struct tagPOINT
+</p>
+
+<p>{
+</p>
+
+<p>LONG x;
+</p>
+
+<p>LONG y;
+</p>
+
+<p>} POINT, * PPOINT, * LPPOINT;//结构体别名
+</p>
+
+<p>typedef struct tagSIZE
+</p>
+
+<p>{
+</p>
+
+<p>LONGcx;
+</p>
+
+<p>LONGcy;
+</p>
+
+<p>} SIZE, * PSIZE, * LPSIZE;
+</p>
+
+<p>typedef struct tagRECT
+</p>
+
+<p>{
+</p>
+
+<p>LONGleft;
+</p>
+
+<p>LONGtop;
+</p>
+
+<p>LONGright;
+</p>
+
+<p>LONGbottom;
+</p>
+
+<p>} RECT, * PRECT, * LPRECT;
+</p>
+
+<p>5 Windows数据类型与Windows API
+</p>
+
+<p>Windows API 函数的参数、返回值或一些重要的常量使用的数据类型都是 Windows 数据类型。MessageBox 函数的返回值是 int 型的，是标准 C 数据类型，但是所有的参数都使用了Windows 数据类型。如 HWND 是一种 Windows 数据类型，用于表示窗口的句柄；LPCTSTR 也是Windows 数据类型，表示字符串常量；UINT 也是 Windows 数据类型，为无符号整型。
+</p>
+
+<p>6 MFC中可以使用的数据类型
+</p>
+
+<p>程序员想编写具有Windows风格的软件，必须借助API，API也因此被赋予至高无上的地位。但是，如若没有合适的Windows编程平台，那么Windows开发是一项很复杂的工作。在可视化编程IDE出来之前，那时的WINDOWS程序开发还是比较复杂的工作，程序员必须熟记一大堆常用的API函数，而且还得对WINDOWS操作系统有深入的了解。然而随着软件技术的不断发展，在WINDOWS平台上出现了很多优秀的可视化编程环境，程序员可以采用“所见即所得”的编程方式来开发具有精美用户界面和功能强大的应用程序。
+</p>
+
+<p>这些优秀可视化编程环境操作简单、界面友好（诸如VB、VC++、DELPHI等），在这些工具中提供了大量的类库和各种控件，它们替代了API的神秘功能，事实上这些类库和控件都是构架在WIN32 API函数基础之上的，是封装了的API函数的集合。它们把常用的API函数的组合在一起成为一个控件或类库，并赋予其方便的使用方法，所以极大的加速了WINDOWS应用程序开发的过程。有了这些控件和类库，程序员便可以把主要精力放在程序整体功能的设计上，而不必过于关注技术细节。
+</p>
+
+<p>MFC以C++类的形式封装了Windows API，并且包含一个应用程序框架，以减少应用程序开发人员的工作量。其中包含大量Windows句柄封装类和很多Windows的内建控件和组件的封装类。
+</p>
+
+<p>实际上如果我们要开发出更灵活、更实用、更具效率的应用程序，必然要涉及到直接使用API函数，虽然类库和控件使应用程序的开发简单的多，但它们只提供WINDOWS的一般功能，对于比较复杂和特殊的功能来说，使用类库和控件是非常难以实现的，这时就需要采用API函数来实现。
+</p>
+
+<p>MFC通常包含stdafx.h头文件来提供MFC类库支持。
+</p>
+
+<p>MFC中使用windows API数据类型要包含windows.h头文件。
+</p>
+
+<p>在MFC中，增加了处理字符串的CString类，在编辑框框中就可以定义CString类型控件变量。
+</p>
+
+<p>我们知道，C++的string类可以通过c_str()将其转换为char *或CString。
+</p>
+
+<p>类似的，CString也提供了一个成员函数.GetBuffer(0)，将其转换为char *或string类型。
+</p>
+
+<p>CString 与LPCTSTR，也可以方便地进行转换：
+</p>
+
+<p>CString cStr;
+</p>
+
+<p>const char *lpctstr1=(LPCTSTR)cStr;
+</p>
+
+<p>LPCTSTR lpctstr2;
+</p>
+
+<p>CString cStr=lpctstr2;
+</p>
+
+<p>－End－
+</p>
+
+
+
+<p style='float:right;'>本页共93段，4303个字符，8714 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

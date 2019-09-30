@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+ol{
+list-style:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>据说这是难学的十大编程语言 Java排第三  它竟是第一名！ </strong></p>
+
+<p>黑马程序员在线学院&nbsp;2019-04-08 10:42:26</p>
+
+<p>编程语言是开发者们代码工作的核心，也是许多开发者最爱讨论的话题。编程语言的选择对开发者和工具制造商都十分重要，前者需要保持最新和具备市场潜力的技能，后者则亟需确保他们能够提供最有用的 SDK。</p>
+
+<p>开发者经济分析公司 SlashData 曾发布了《 2018 年第 2 季度各国开发者状况》调查报告，共有 167 个国家的 20500 多名开发者参与其中。</p>
+
+<p>报告面向全球所有类型的程序员，对使用每种主要编程语言的活跃开发者数量进行了最新的估计。其中，JavaScript 仍是最流行的编程语言，Python 流行程度接近 Java。</p>
+
+<p><img width="640" height="442" src="01.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /></p>
+
+<p>哪种语言最难学呢?每个人也许都有着自己的想法，衡量标准各不相同。</p>
+
+<p>现在我们从一个全新的，无可反驳的角度来分析一下各个编程语言难学程度。 </p>
+  <ol>
+    <li><strong>第十名、R语言</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>R语言，一种自由软件编程语言与操作环境，主要用于统计分析、绘图、数据挖掘。R基于S语言的一个GNU计划项目，所以也可以当作S语言的一种实现，通常用S语言编写的代码都可以不作修改的在R环境下运行。R的语法是来自Scheme。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>R语言作者，George Ross Ihaka：在奥克兰大学统计系任副教授，是R语言的最初作者。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：100%</p>
+
+<p><img width="500" height="332" src="02.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第九名、Python</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>Python是一种广泛使用的高级编程语言，属于通用型编程语言。作为一种解释型语言，Python的设计哲学强调代码的可读性和简洁的语法。相比于C++或Java，Python让开发者能够用更少的代码表达想法。不管是小型还是大型程序，该语言都试图让程序的结构清晰明了。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>Python语言作者，Guido van Rossum：生于荷兰哈勒姆，计算机程序员，为Python程序设计语言的最初设计者及主要架构师。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：95%</p>
+
+<p><img width="499" height="750" src="03.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第八名、C语言</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>C是一种通用的编程语言，广泛用于系统软件与应用软件的开发。C语言具有高效、灵活、功能丰富、表达力强和较高的可移植性等特点。C语言编译器普遍存在于各种不同的操作系统中，例如Microsoft Windows、macOS、Linux、Unix等。C语言的设计影响了众多后来的编程语言，例如C++、Objective-C、Java、C#等。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>C语言作者，Dennis MacAlistair Ritchie：美国计算机科学家。黑客圈子通常称他为“dmr”。他是C语言的创造者、Unix操作系统的关键开发者，对计算机领域产生了深远影响，并与肯·汤普逊同为1983年图灵奖得主。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：85%(+胡须)</p>
+
+<p><img width="499" height="657" src="04.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第七名、Go</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>Go(又称Golang)是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。Go的语法接近C语言，但对于变量的声明有所不同。Go支持垃圾回收功能。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>Go语言作者，Robert C. Pike：来自加拿大的程序员，曾经加入贝尔实验室，为  UNIX小组的成员。他与肯·汤普逊共同开发了UTF-8。目前为 google的工程师，参与编程语言 Go与Sawzall的研发工作。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：80%</p>
+
+<p><img width="500" height="726" src="05.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第六名、JavaScript</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>JavaScript，通常缩写为JS，是一种高级的，解释执行的编程语言。JavaScript是一门基于原型、函数先行的语言，是一门多范式的语言，它支持面向对象编程，命令式编程，以及函数式编程。它已经由ECMA(欧洲计算机制造商协会)通过ECMAScript实现语言的标准化。它被世界上的绝大多数网站所使用，也被世界主流浏览器(Chrome、IE、Firefox、Safari、Opera)支持。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>JavaScript语言作者，Brendan Eich：美国程序员与企业家，JavaScript主要创造者与架构师，曾任Mozilla公司的首席技术官，并曾短暂担任首席执行官。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：75%</p>
+
+<p><img width="495" height="622" src="06.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第五名、Objective-C</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>Objective-C是一种通用、高级、面向对象的编程语言。它扩展了标准的ANSI C编程语言，将Smalltalk式的消息传递机制加入到ANSI C中。目前主要支持的编译器有GCC和Clang(采用LLVM作为后端)。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>Objective-C作者，Brad Cox：美国计算机科学家。于傅尔曼大学主修化学与数学，于芝加哥大学取得数学生物学博士学位。Objective-C主要作者。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：70%</p>
+
+<p><img width="499" height="276" src="07.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第四名、PHP</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>PHP(全称：PHP：Hypertext  Preprocessor，即“PHP：超文本预处理器”)是开源的通用计算机脚本语言，尤其适用于网络开发并可嵌入HTML中使用。PHP的语法借鉴吸收C语言、Java和Perl等流行计算机语言的特点，易于一般程序员学习。PHP的主要目标是允许网络开发人员快速编写动态页面，但PHP也被用于其他很多领域。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>PHP语言作者，Rasmus Lerdorf：出生于格陵兰岛凯凯塔苏瓦克，是一个丹麦程序员，他拥有加拿大国籍。他也是编程语言PHP的创始人，其中PHP的头两个版本是由他编写的，后来他也参与PHP后续版本的开发。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：60%</p>
+
+<p><img width="498" height="474" src="08.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第三名、Java</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>Java是一种广泛使用的计算机编程语言，拥有跨平台、面向对象、泛型编程的特性，广泛应用于企业级Web应用开发和移动应用开发。Java编程语言是个简单、面向对象、分布式、解释性、健壮、安全与系统无关、可移植、高性能、多线程和动态的语言。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>Java语言作者，James Gosling：出生于加拿大，软件专家，Java编程语言的共同创始人之一，一般公认他为“Java之父”。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：50%</p>
+
+<p><img width="498" height="503" src="09.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第二名、C++</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>C++是一种使用广泛的计算机程序设计语言。它是一种通用程序设计语言，支持多重编程模式，例如过程化程序设计、数据抽象、面向对象程序设计、泛型程序设计和设计模式等。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>C++语言作者，Bjarne Stroustrup：生于丹麦奥胡斯郡，计算机科学家。他以创造C++编程语言而闻名，被称为“C++之父”。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：40%</p>
+
+<p><img width="497" height="752" src="10.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /> </p>
+  <ol>
+    <li><strong>第一名、Visual Basic .NET</strong> </li>
+  </ol>
+  <p align="left"><strong>颁奖词</strong></p>
+
+<p>Visual Basic .NET(VB.NET)是.NET Framework框架下的一种多重编程范式高级语言。Visual Basic .NET属Basic系语言，其语法特点是以极具亲和力的英文单词为基础标识，以及与自然语言极其相近的逻辑表达，有时候你会觉得写VB.NET代码就好像在写英文句子一样，从这个角度来说，VB.NET似乎是最高级的一门编程语言，当然在Basic系语言中VB.NET也确实是迄今为止最强大的一门编程语言。</p>
+
+<p><strong>提名词</strong></p>
+
+<p>Visual Basic .NET作者，Alan Cooper：交互设计的提倡者。库珀有些时候被叫做 Visual Basic 之父，虽然大多数的工作是由微软的内部开发团队完成的，但是对于Windows可视化设计工具的创意是来源于库珀的。</p>
+
+<p><strong>排名理由</strong></p>
+
+<p>作者头发浓密度：0%</p>
+
+<p><img width="440" height="550" src="11.jpg" alt="据说这是难学的十大编程语言 Java排第三 它竟是第一名！" /></p>
+
+<p>以上，就是世界上最难学的编程语言前十名，本次大赛组委会认为，作者的头发越稀少，说明这种语言在学习过程中要掉越多的头发，所以，推导出这种语言越难学。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

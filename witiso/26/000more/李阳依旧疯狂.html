@@ -1,0 +1,599 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>﻿李阳依旧疯狂</h4>
+
+<p>芥末堆看教育 2018-07-05 19:10:44</p>
+
+<p>*本文经微信公众号“GQ报道”（ID：GQREPORT）授权转载</p>
+
+<p>再过一年，疯狂英语创始人李阳将迈入五十岁的门槛。但他仍不知疲倦地游走于全国各地演讲招商，运用“疯狂”气质招揽信徒。舞台上，拥趸奉他为偶像，舞台下，他制定规则，富有控制欲。李阳站在中央，围绕在他身边的亲人、员工、学员，崇拜他、畏惧他、顺从他。</p>
+
+<p>今年是疯狂英语创立第三十年，它背负着众多信徒关于“改变”的梦，但对于两鬓已近全白的李阳来说，改变并不简单。</p>
+
+<p>1</p>
+
+<p>李阳又一次公开提起7年前的那场家暴风波：“有人问我，你把你老婆打一顿，对孩子有影响吗？”</p>
+
+<p>“没有！” 台下坐着100多个身穿红色T恤衫的学员，大部分二三十岁，小时候学过李阳疯狂英语。</p>
+
+<p>李阳接着说，“没有什么影响。三个姐妹打不打架？经常打呀，我跟她妈打一架又怎么样？家里打一架正常啊，说李阳老师家暴。你爸你妈打过没有？”</p>
+
+<p>“都打过嘛。”</p>
+
+<p>“都打过嘛，为啥没人报道啊？你没名气嘛。” 全场响起掌声。</p>
+
+<p>今年五一假期，“第39届李阳国际演讲班弟子密训”在上海开讲。学员中有三四个孩子，两岁的、六岁的、十三岁的。另外一间教室里还有十几个，在大喊英语。李阳继续自问自答，“我打老婆的事，我有没有羞耻感？脸红不红？一点儿都不红，为什么？正常的。” 又是掌声。</p>
+
+<p>2011年9月，李阳的美籍妻子Kim发微博称遭到家暴，李阳对媒体说，“我们没有爱情”、“婚姻是家庭实验”、“就算我打了老婆，我仍然是个好老师”。7年后，我提出采访他，还没来得及说明具体意图，他打断我，让我去看以前的媒体报道，“关于家暴的事我已经说过很多遍了”。后来的采访中，他又告诉我，“是我太太先使用的语言暴力，大量的语言暴力。她第一个美国老公，银行家，一巴掌把她扇到游泳池里去了。”</p>
+
+<p>在演讲班现场，他说：“我老婆很厉害的，她把我的书扔到游泳池里去，你说我能不急吗？她知道我最喜欢什么，我最喜欢书和我的作品，她能把我电脑里的作品全删掉，这种老婆你说你当时会不会出手？”</p>
+
+<p>“会！”</p>
+
+<p>“我的妈呀，现在我还得出手，同意的举手。” 学员纷纷举起手，大笑起来。</p>
+
+<p>我坐在最后一排听课，李阳指派了几个助理照顾我。记笔记时，助理们总盯着我的笔记本。李阳讲，“学习的唯一目的就是赚钱，赚钱的唯一目的就是帮助别人，钱是衡量一切的标准。” 随后走到我身边，盯着我对全场说，“到时别只写一个标题：钱是衡量一切的标准。别乱写，别人会找我麻烦。”100多个学员齐刷刷回过头看我，我只能尴尬地笑。</p>
+
+<p>有时他也在讲课中突然指导我的工作：“你可以写这个（我最大的梦想是把娃哈哈、康师傅、饿了么干掉。所有一次性的产品全部干掉），有些话为啥不让你们提，当下说的，你不能写，太麻烦。” 或者，“这个可以写个标题——俞敏洪老师是我秘书。耸人听闻一点儿，耸人听闻便是新闻。”</p>
+
+<p>2</p>
+
+<p>演讲班开讲十几天前，李阳答应接受采访，但直到我来到演讲班现场，我在李阳建的“GQ沟通群”里从未得到他的回复，电话也一直无人接听。后来我得知，他的微信好友早就加满了，还有上千个微信群，20万+条未读消息。手机号虽然对外公开，但谁也别想通过电话找到他——助理为他设置了来电不提醒。李阳的行程尤其高度机密，只有13个人有资格进入“李阳老师日程表”微信群。</p>
+
+<p>我联系到张翔，家暴事件之后，全公司只有他敢劝说李阳接触媒体。张翔是李阳的亲弟弟，出生不久就被父母过继给姑姑，成年后才知道自己的身世。90年代末，张翔在北京出书、讲课，提倡实用英语，他说，教育部高教司外教处处长对他说：“你现在参与了教改，你的思路跟我们教育部的思路是一致的，这是‘难在今日、功在千秋’的事。” 张翔数次和我提起这八个字，说那时的局面是“南李阳，北张翔”。2016年，张翔回到疯狂英语，李阳把疯狂英语的互联网事务交给他，并在2017年注册了一家新公司，张翔是法人代表，李阳持股98%。</p>
+
+<p>张翔答应帮我说服李阳，一周无果，在演讲班开课前一晚，他酒后给我打电话，“明天他（李阳）要是不接受采访，我就不认他这个哥，说翻脸就翻脸。” 第二天，张翔把我带进课程现场，疯狂英语客服总监常逸漫突然大跨步向我冲过来，双臂张开板着脸，“你不可以进去”。我看向前方引路的张翔，张翔看向台上的李阳，李阳发话了，“没事没事”。常逸漫这才放下手退到一边。后来我向她解释我的来由，她依旧板着脸，“张翔不是我老板，李阳老师才是我老板。”</p>
+
+<p>李阳要求所有员工——从一线销售到副总裁——每天早间发工作计划，晚间发工作汇报，单独发给他，同步发到工作群里。不发的后果是什么？他的堂弟李彬现任疯狂英语丽江基地负责人，曾为此做过一次检讨：</p>
+
+<p>凡人惰性，犹如失控之列车，在我掩耳盗铃的投机思想中肆意狂奔，偶尔深夜收到您对我期盼成长的警训之言，我抑或认知泛泛！</p>
+
+<p>悲乎，明知汇报使我得良益！懒惰的本性却推使我步入一错再错之深渊！</p>
+
+<p>每日在担惊受怕之中度过，没有汇报的日子，我亦如栖身于黑暗的罪犯，偶尔的一声短信声音，就像划过黑夜的警灯，惊悚着我知错犯错的心！</p>
+
+<p>我错了，假如我每后悔一次，上天就掉落下一颗沙粒，那，今天，世界上会再次出现一座撒哈拉沙漠…</p>
+
+<p>李老师，您原谅我，很容易！</p>
+
+<p>而，我！原谅自己，却很难！</p>
+
+<p>检讨写于2012年7月14日，他存留至今，并于2018年4月18日再次发到工作群，称“我是反面教材，大家引以为戒！”</p>
+
+<p>张翔在群里打圆场，说“老哥是刀子嘴豆腐心”。70人的群里只有张翔敢这样称呼李阳，其他人叫他“老师”，不是李阳老师，也不是李老师，为表敬畏，一定是“老师”。</p>
+
+<p>张翔，李阳的弟弟</p>
+
+<p>演讲班课程结束后，《智族GQ》摄影师利用李阳录课程视频的间隙进行拍摄，张翔和四个疯狂英语员工坐在一旁观看。李阳突然说，“你们为什么不拍他（摄影师）？都在那儿聊天。”四个员工猛地从椅子上蹦起来，举起手机就围着摄影师拍。李阳转头又对张翔说：“你笨哪，脑子有病啊，你拍他嘛。”几个人拍完还要评比，李阳说，“谁拍得好我给他发100块钱。”</p>
+
+<p>疯狂英语前讲师李凯告诉我，某次十天集训营的第九天，十几个学员对课程不满意，联名写信要求退费。员工报告给李阳，他亲自来协商。</p>
+
+<p>会议室里，学员坐一边，李阳阴着脸坐另一边，“听说你们要退费是吧，谁是挑头的？”</p>
+
+<p>带头的女学员怒气突然消失了，笑着说，“李阳老师，其实不是那个意思，我们……” 李阳打断她，“哪有吃完饭才说饭不好吃的？在疯狂英语，退费的可能性是Z-E-R-O。” 停一停又说，“说吧，你们想要什么条件，是要送课还是送教材，你们选。”</p>
+
+<p>学员顺从地一个个提出要求，李阳指挥手下记录，“好了，说完了你们走吧。” 这时那位女学员笑着走上前，“李阳老师，能跟您拍张照吗？”</p>
+
+<p>3</p>
+
+<p>演讲班第一天下午4点，李阳从后门进入会场。张翔告诉我，李阳以往在课程第一天很少出现，由其他讲师热场。所有人起立，高举双手鼓掌迎接他，靠近过道的人伸手与他击掌，远处有人站上椅子欢呼。李阳笑着穿过人群，此前负责热场的讲师躬身双手递上话筒。</p>
+
+<p>“好了，来。”李阳不需要自我介绍，这就是他的开场白。全场安静下来，仰望他。30年前，兰州大学烈士亭边，高考英语16分的李阳完成了自己的“屌丝逆袭”，立志让“三亿人讲一口流利的英语”；20年前，他在故宫太庙前，面对近万人演讲；10年前，疯狂英语成为“奥运会语言培训服务供应商”，他负责培训150万奥运志愿者。</p>
+
+<p>时至今日，李阳仍将2008年视为他的巅峰时刻。他2018年的名片上仍然写着，“李阳老师，2008年奥运会英语总教练”，他说，“好多人都是拿着我十年前、二十年前的名片，保存到现在，我就是他们的精神信仰。”</p>
+
+<p>昝强就将李阳视为精神信仰。他坐在第五排靠过道，一直上身前倾，伸长脖子盯着舞台。李阳讲课时，他总右手握拳置于嘴边，左臂伸直不断挥舞，低声重复每一句话。</p>
+
+<p>课后，学员围住李阳合影签名，他默默站在包围圈外，依旧身体前倾，伸着脖子。我问他，你在等着李阳老师签名吗？他说不是，“我想看看老师怎么帮助别人。”</p>
+
+<p>昝强今年25岁，在唐山的华北理工大学读研二，学桥梁设计。2016年4月，昝强接触演讲，每天在操场呐喊。他前后花了几万元，在“新励成”学演讲，在“福慧灯教育集团”学习“美乐爱觉的生活方式”，梦想成为“比马云优秀的企业家，帮助所有人”。他把这句话放在朋友圈封面、电脑桌面、打印出来贴在桌子上、举着拍照。</p>
+
+<p>他专门从唐山买了一盒迁西板栗，又在上海买了花送给李阳。李阳叫手下拿100块钱现金给他作为小费，两人扯着粉色的钞票合影，李阳对着镜头说，“我一百块钱给你，你也可以活两天了。” 昝强咧着嘴不住地笑。</p>
+
+<p>李阳当场收昝强当干儿子，“多好，莫名其妙捡了一个干儿子，即将毕业，现成货，半成品，太棒了！” 昝强在台上说他来自四川泸州的一个山区，李阳模仿他的口音，“三区——”，对台下说，“为什么山区的孩子有点儿呆？他从小到大听的声音很单调，就是猪叫（模仿猪叫，观众大笑）。耳朵决定了智商，耳朵听的声音越丰富，孩子学语言的速度越快。” 他揽住昝强，“你以后就是我干儿子了，我喜欢收一些智商比较低的人，这样的话才能感觉出他的变化，加油。”</p>
+
+<p>昝强本是上台说感想，但磕磕绊绊没说出几句话，李阳又请上来一个人。这人声音嘶哑，嗓门却很大，“大家好，我叫高君宝，我听了马云的演讲二十场以上，但是我觉得马云的演讲不叫真正的演讲，只有李阳老师的演讲才是真正的演讲！马云应该跟李阳老师学演讲！”</p>
+
+<p>台下的掌声盖住了高君宝的声音。李阳很高兴，让他重复说了两遍，指挥助理拍摄视频发到网上，“我得把它变成爆炸式新闻。”</p>
+
+<p>4</p>
+
+<p>张翔经常说，李阳、马云、俞敏洪，这三个中国最著名的英语老师，只有李阳老师仍坚守在一线。其中俞敏洪创立的新东方，从一开始就是疯狂英语对标的培训机构。</p>
+
+<p>今年3月初，李阳在朋友圈发布与徐小平的聊天截图，徐小平说，“我在写电影《中国合伙人》时，把王强原型的名字定为王阳，就是为了向李阳致敬。”半个月后，李阳和徐小平见面，再次发朋友圈，“徐小平老师名言：没有新东方，李阳孤独！没有李阳，新东方孤独！” 李阳后来又跟我提起这句话，补充道，“我用30年激发了全民热情，大量学生就去新东方了，他（徐小平）也很感谢我。”</p>
+
+<p>2006年，新东方在美国上市，5年后，疯狂英语也启动了上市计划。2011年9月，李阳对媒体透露，过去数月已经接触了五六家风险投资公司，并商谈相关的融资金额，公司计划两三年后上市。同月，家暴事件曝光，上市计划搁置，李阳也开始以另外一种形象出现在公众视野——2013年加入安利、退出安利、拖欠员工工资，2014年加入富迪直销、皈依佛门。</p>
+
+<p>那些年，北京还是疯狂英语的一大市场，李阳在三环边的写字楼租下一整层作为事件办公室。家暴之后，北京公司关闭。在家暴事件之前，公司客服电话接不过来，家暴以后必须主动打出去推销，一提疯狂英语，往往就被挂掉了。</p>
+
+<p>2015年初，疯狂英语十几个讲师联名写了一封信：如果公司不下发2014年的年终奖金（共12万元），就全体拒绝带班上课。此后奖金发下来，讲师们参加了春节集训营。但集训营一结束，李阳就召集这些讲师，毫不客气，“你们是要自己滚啊，还是我叫人让你们走。” 十几个讲师气不过，集体离职。</p>
+
+<p>李凯在职的三年间，员工讨薪不成，投诉到劳动局的情况很多，也有威胁跳楼、拉横幅的。还有代理商交了30万代理费，赚不到钱，把疯狂英语办公室砸了的。劳动局和警察局接多了电话，说，“怎么又是疯狂英语？”2012年至2015年，疯狂英语公司人数从200减至40，每个部门只剩三五个人。同年，在被曝出拖欠房租的两年后，疯狂英语搬离日租金2万元的广州基地。</p>
+
+<p>今年五一的演讲班，李阳说，“教育是最大的事业、产业和生意，教育可以做成轻资产模式。” 演讲班本身就是疯狂英语轻资产策略的重要一环。一名员工告诉我，演讲班每月都有，属于招商课，本质上就是项目说明会，用来招代理商。</p>
+
+<p>课程第三天，李阳询问有多少人交了1万元订金成为代理商，现场六七个人举起手。他们将缴纳30万代理费，在家乡筹办疯狂英语夏冬令营，李阳免费演讲三场，现场招生。代理商可以获得夏冬令营报名费的八成，另外两成交给李阳。演讲班至今已经举行39届，疯狂英语在全国各地拥有了几百个代理商。</p>
+
+<p>演讲班课后，李阳在酒店房间接受我的采访，标准间280元一天。“现在我们就值一千个亿了，远远超过新东方。”他说疯狂英语计划在三至五年内上市。</p>
+
+<p>他脱了鞋，半躺在沙发上，边看手机边回答我的问题。单听讲话，他和台上那个疯狂老师没什么区别，但每当我抬头，一个鬓角发白的中年人出现在我眼前，他招呼我吃水果，看我不好意思，说，“假装吃，吃五块儿再聊。” 我没法把他和课堂上、镜头前那个高喊口号的李阳联系起来，他皮肤松弛，皱纹爬在嘴边、眼角，频频呵欠、甩头，露出疲态。</p>
+
+<p>如今，新东方市值超过百亿美元，在全球有87家分校和1000家学习中心，而李阳还在亲力亲为四处演讲。今年4月，他辗转中卫、娄底、丽江、武昌、十堰、邛崃、株洲、东莞、云浮、郁南、郑州、登封、南通等城市演讲，最多时一天讲5场。5月的行程已经排好，等演讲班一结束，他将继续到赣州、张家界、神木等地开始又一轮巡讲。</p>
+
+<p>一名疯狂英语的员工说，“疯狂英语一年四季365天都在招生，李阳老师在全国各地的演讲，不是为总部招生，就是为代理商招生。”</p>
+
+<p>5</p>
+
+<p>为了上市，李阳从去年开始试图打通线下和线上，进军知识付费市场。他在荔枝微课开设视频课程，《10秒钟学会说英语》、《一分钟突破语法》等，售价99元至199元不等，用户购买后朋友圈，可以赚取分销收益。</p>
+
+<p>4月初，我在北京温都水城第一次见到李阳，他受邀参加一场会议，在会场外与粉丝签名合影。李阳西装革履，被十几个人围在中间，挤进包围圈近距离接触李阳老师的流程是这样的：</p>
+
+<p>首先你会遇上外围的疯狂英语员工，他们一手举着厚如牛津词典的李阳自传《我疯狂我成功》，一手拿着手机，说，扫码送书。你扫了，二维码跳转到荔枝微课购买界面，他们指导你付款199元，说，购买后朋友圈还能赚40元，并递给你一本自传，指着李阳说，去找老师签名合影。</p>
+
+<p>一个接一个，没人问为什么送书变成了买书。李阳站在人群中央，始终面对镜头做好招牌姿势——微笑、竖起大拇指、握手、招呼下一个人。近三个小时，他签没水了三支白板笔。</p>
+
+<p>4月底，在上海的演讲班现场，他依旧被围在人群中央，只是发际线上多出一圈白发，让人想起他已经近50岁了。另外的变化是扫码送书换成了扫码送书包——荧光绿色的疯狂英语书包，里面放着《我疯狂我成功》、《李阳老师语录》、《如何一个月学好英语》、《我是国际演讲家》等颜色鲜艳的卡片、手册，“价值2000元”。</p>
+
+<p>“谁付完199了，快，我把两千给你。”</p>
+
+<p>“排好队，两条队，我要给你授予这套东西。”</p>
+
+<p>“来，右上角在这儿，转发朋友圈，赚39块8，再见，走，撤。”</p>
+
+<p>没获赠书包的人仍有机会，在接下来的课程中，李阳偶尔会兴起，突然倒计时10秒，承诺以0.5折的优惠价（100元）售卖书包，“卖是什么？爱的传递。” 学员们纷纷从椅子上弹起来奔向付费处。昝强也花100元抢购到一个，费用通过二维码微信转账到个人账户，和课程报名费一样，没有发票。</p>
+
+<p>李阳继续讲课，这一部分的主题是“如何无中生有，随时随地创造财富”。</p>
+
+<p>此次演讲班的第三天，高君宝——那位大喊马云不如李阳的学员——得到了10分钟的演讲机会。大屏幕展示他和各界明星的合影，他自称“世界人脉学第一人”，希望学员花2000元和他“链接”。得到舞台的还有“环球资源整合专家”王国宇，和他链接则要花费一万多。</p>
+
+<p>昝强坚持听到最后，仍对他们的课程模式不太理解，也没有那么多钱。这次他好不容易攒够1000元课程费，坐了12个小时硬座来到上海听李阳的课，为省钱住30块钱一天的青旅。和他同住的几个人年纪不小，在附近的地铁工地打工。他还在青旅巧遇了一位同在演讲班的学员，后者打算在此次课程结束后加入疯狂英语，当讲师。</p>
+
+<p>李阳偏爱“苦大仇深”的人，“只有苦死的孩子才能练好英语”，“过去的经历越悲惨，未来的故事越性感”。屌丝逆袭是很多李阳门徒引以为豪的身份标签——兖金牌，河南农村老家房子永远漏雨，来疯狂英语三年，给家里盖了五百平方钢筋混凝土的豪宅；段小英，孤儿，生产线工人，现在是疯狂英语客服部副总监，销售冠军；李晨，单亲家庭，母亲刷盘子，三本民办大学毕业，现在一场演讲出场费1000，在南京供着房子。</p>
+
+<p>昝强满足了这个标准的前半段。他的父母在乡下种地，每年收入4万元，还住着22年前盖的土坯房。他最终给“世界人脉学第一人”交了200元订金，预订价值2000元的“链接”，“他们肯定是最棒的才能来分享，我要改变自己的思维模式。”</p>
+
+<p>在北京温都水城和上海演讲班现场，学员们扫码买课之后有个共同关注的问题：如何把课程页面朋友圈赚钱？他们围着李阳问、围着李阳的助理问、互相问，也问我。</p>
+
+<p>温都水城会场，坐在我身边的男学员看我认识李阳，直接掏出手机来问我“怎么发朋友圈”。他的安卓手机屏幕布满划痕，网络显示2G，加载不出课程页面，他也不知道荔枝微课是什么。</p>
+
+<p>台上正在授课的是企航管理集团的创始人杨彦涛，李阳不久前拜他为师。大屏幕上投着他的特写，左手拿麦克风，右手指间夹一根烟，跷着二郎腿坐在白色皮质沙发上。他吐一口烟，讲“激励销售的秘诀就是PK”。我用自己的手机向身边的男学员展示荔枝微课的界面，他匆匆看了一眼，忙低下头在讲义上抄写。杨彦涛讲三天的价格是3980，学员数量号称上万，抬头望去，黑压压一片头顶，都在埋头记笔记。</p>
+
+<p>李阳和杨彦涛第一次见是今年2月，后者派了一个劳斯莱斯车队，在凌晨2点的首都机场接他。疯狂英语的金牌销售徐中华很反感这种“你看我有劳斯莱斯，跟着我们干，（就有）豪车、豪房”的方式，他认为“李阳老师不一样”。李阳出差，当地代理商提出开总统套房，李阳拒绝，要求开普通标间，并且和助理同住。李阳最爱吃苏氏牛肉面，疯狂英语曾经在北京的总部旁边就有一家，张翔总陪着李阳吃。</p>
+
+<p>徐中华有些困惑，“有人说他是作秀，但是我们跟他一起，他作了一辈子秀。他每天吃那些东西，吃外卖、吃面条，全是普通的，有时候还不如我们吃的东西，他吃了30年。他穿衣服，你说他装，现在穿这种（便宜）衣服，他穿了30年。哎，有时候你怎么去说呢？”</p>
+
+<p>他想一想又说，“我一直在想，有两种人，第一，他本质是好人，但是他由于机缘巧合或者误会、人生挫折，他干了坏事，你说他是好人还是坏人？还有一种人，他人品有问题，但是他做很多好事，假装了一辈子好人，你说他是好人还是坏人？”</p>
+
+<p>乘坐劳斯莱斯的第二天，李阳和杨彦涛在后者位于通惠河畔的会所会面，李阳教杨的女儿喊了半个小时英语，杨送了李阳一张价值10万的会员卡。李阳得知，杨彦涛的亲传弟子身份售价30万，一场演讲收弟子数百，成交额上亿。李阳也交了30万，成了杨的亲传弟子。</p>
+
+<p>在温都水城，李阳第二次参加企航集团的万人大会，每次他都受邀进行5分钟的演讲，带着一万人大喊“教育就是爱，爱了就开心，爱-就-开-心，E-du-ca-tion！” 大屏幕特写给到坐在台下的杨彦涛，他微笑点头，给足李阳面子。</p>
+
+<p>实际上，企航的会场是不允许进行销售活动的。最初，李阳和助理们用企航的手提袋装几本《我疯狂我成功》偷偷带进去，李阳坐在会场最后，告诉身边来合影的人，扫二维码送你这本书，说着低头看一眼脚下的手提袋。渐渐自传供不应求，一箱箱搬进来，平板车拉进来……两场万人大会，靠着扫码送书，30万的拜师费就回本一半。</p>
+
+<p>疯狂英语的一位员工说，“李阳老师是不拘一格的，达到我的目的就OK”，“天不怕，地不怕，只为中华民族更强大。主办方不让卖书，但是李阳老师就当不存在，该卖卖，当然没有那么猖狂，你不让卖，我偷着卖。” 5月，李阳还将去参加为期7天的杨彦涛弟子密训，他说，“要多学习。”</p>
+
+<p>6</p>
+
+<p>李阳喜欢在工作室所在的小区花园录制视频课程，每条视频五分钟，讲一个单词或句子，他一天最多能录100条。他选定某处，站定、清嗓子、微笑，一口气讲下来，没有停顿，一遍过。五分钟的视频，录制时间五分钟。</p>
+
+<p>李阳的大女儿李嘉林也开设了两门视频课程，在花园的同一处录制。她喜欢设计创意，有时让摄影师扮演观众，晃动相机模仿摇头点头，有时要求在某处插播一段她跳舞的视频，或是披上红衣服当超人。有一次，她抹了奶奶灰的发蜡、用黑笔在脸上画皱纹，扮演一位充满梦想的奶奶。嘉林五指并拢伸直，两臂如刀，砍向面前的空气，疯狂呐喊：“Never！ Stop！ Dreaming！”</p>
+
+<p>李嘉林是李阳和第一任妻子林红的女儿，今年初从加拿大回国参与疯狂英语的全国演讲。她4岁时和母亲移居国外，今年20岁，这是她第一次和父亲朝夕相处几个月。</p>
+
+<p>她直到15岁才知道李阳与第二任妻子Kim还有三个女儿，母亲一直没告诉她。她觉得是自己的错，因为不是男孩，所以父亲要找别的女人生孩子。上大学后，她迷上了popping（机械舞、震感舞），这种以肌肉振动为主要动作的舞蹈让她觉得自己充满力量，不再像柔弱的女孩子。</p>
+
+<p>16岁那年，她回国过暑假，在演讲现场第一次见到了Kim的大女儿Lily，Lily送了小礼物给她。李嘉林低着头坐在我旁边，讲到这里，眼泪打转。“她叫他Daddy，为什么她能和他那么亲密”，眼泪掉下来，她起身道歉，去了洗手间。</p>
+
+<p>李阳在演讲台上说，每天要拥抱孩子10次，孩子才会healthy。演讲结束后，李嘉林向李阳撒娇，我觉得我不够healthy。他们去成都演讲，嘉林想去看熊猫，但行程太紧，没有看成。走之前，李阳在机场纪念品店给嘉林买了一个熊猫玩偶。4月19日，嘉林将返回上海，几日后回加拿大。李阳第一次和她一起坐在车的后排，带她单独吃早饭，说，“I will miss you very much”。嘉林讲到这里，又流泪了。</p>
+
+<p>我向李阳转述李嘉林的流泪，他说，“离婚家庭出现这种情况正常，就看她妈妈怎么引导她。中国妈妈和美国妈妈的心胸、胸怀（不一样），文化不一样。中国妈妈虽然控制，但怨气还是或多或少会传给孩子。”</p>
+
+<p>此前，我联系了李阳的第二任妻子Kim约访，她直接拒绝了我，在微博中回复，“他前妻子（林红）和她女儿在中国，其他记者联系我，问我关于林红，我不要兴风作浪。”</p>
+
+<p>今年2月，李阳接受梨视频采访，记者和他聊到女儿，说，“好难得看到李老师表现出比较柔情的一面。” 李阳顿了一下，说，“不不不，不要柔情。” 他用另一种柔情关心学员的家庭。演讲班第三天，李阳请一对夫妻上台，现场调解矛盾——</p>
+
+<p>“女人是大地，男人是天空，天空再打雷、再下冰雹，死不了人；大地一动，孩子全没了，父母也完了，家破人亡。所以妻子要负百分之百的责任。” 那位妻子跟着他说，“我愿意为我的家庭负百分之百的责任。”</p>
+
+<p>“丈夫无论愤怒了、出轨了，都是你的原因，是还是不是？”</p>
+
+<p>“是的。”</p>
+
+<p>妻子流了眼泪，李阳递给她一张纸巾，开玩笑地说，“这个纸巾已经被我开过光了。” 台下笑成一片。丈夫跟着李阳说，“老婆，你是我一辈子的榜样，我会一辈子崇拜你、爱你、珍惜你、保护你、守护你。” 众人鼓掌喝彩。</p>
+
+<p>李阳让丈夫对着妻子又说了一遍，两人拥抱，摄影师录像，皆大欢喜。</p>
+
+<p>他有时也让孩子上台，左手按住孩子的头顶，给他们“开光”——</p>
+
+<p>“我说你漂亮，你开心吗？”</p>
+
+<p>“开心。”</p>
+
+<p>“你是我见过最有气质的孩子。”</p>
+
+<p>“谢谢！</p>
+
+<p>“你爸爸有这样表扬过你吗？”</p>
+
+<p>“没有。（全场笑）”</p>
+
+<p>“叫声干爹。”</p>
+
+<p>“干爹好。”</p>
+
+<p>“来，免费开开光。我就做几个动作，他就会永远爱我的。我老了以后，他一定会来看我的，信不信？”</p>
+
+<p>（全体学员）“信！”</p>
+
+<p>那天李嘉林只录了16条视频。晚上10点半，李阳打来微信电话，说他要看一遍所有视频。在此之前，他已经催问过两次“今天录了几个”。嘉林撇了撇嘴，小声解释，“but every one is cute and funny”。李阳希望她用规定的方法，坐在草坪上（这样显得友好）录制，快速完成。嘉林向父亲保证自己会加快速度。</p>
+
+<p>我坐在嘉林旁边，希望可以和李阳说两句话。她转告，李阳在电话那头说，“我不想和她说话，他们只想写自己的故事。你要记得说positive的事情，关于你的教育野心。”最后又缓缓说了一句，“You know what to do.”</p>
+
+<p>我对李嘉林的采访引起林红和李阳妹妹李宁的不满，导致我的演讲班听课资格被取消，钱款被退回（后来由张翔协调，才得以听课）。退款给我的是金牌销售徐中华，在后来的采访中，他谈起林、李二人抗拒采访嘉林的原因：“如果你单纯写她（李嘉林）的一些经历，我觉得就是片面的。咱们中国有一句话，可惜生在帝王家，对于Kitty（李嘉林）来讲，我觉得她就没办法，因为谁叫她是李阳的女儿呢？李阳从18岁开始做演讲，他一生都是为了演讲而存在的，就注定了他不能跟普通人一样。”</p>
+
+<p>2014年，李宁在接受《中国企业家》采访时也说过类似的话，“他是伟人，你没法儿站在他的高度理解他。”</p>
+
+<p>7</p>
+
+<p>6岁的琳琳做过一个梦，她像李阳老师一样，在故宫广场，对着上万人演讲。在上海的演讲班上，她站在椅子上，两手分别按着父母的头顶，三人一起大喊，“我是普度众生的演讲家！我是扭转乾坤的演讲家！我是化腐朽为神奇的演讲家！我是改变国家命运的演讲家！我是促进世界和平的演讲家！” 李阳站在台上，对琳琳说，“你把他们两个人度了。”</p>
+
+<p>琳琳是李阳的干女儿，疯狂英语年纪最小的教学总监，主要工作是在课上表演演讲。课后，我和她父母交谈，她在一旁安静地写字，先写了“李阳”，然后写了自己一家三口的名字。妈妈笑着引导琳琳，“李阳老师的事抢着做，妈妈的事帮着做，爸爸的事呢？” “不要做。” “你真棒，给你点赞。” 琳琳说这是“我们家的规矩”。</p>
+
+<p>琳琳的父母经营一家职业介绍所，丝毫不懂英语。母亲在陈安之课上听了李阳的演讲，印象深刻，“孩子有再多钱都没用，要给孩子留一份赚钱的能力”。她被打动，在琳琳4岁那年送她去了疯狂英语夏令营。两年间，女儿的变化让妈妈欣喜。路上见到外国人，她直接冲上去对话。有天早上6点，琳琳要求找个人多的地方练英语，公交车站没人，那就去菜市场，她说，“人多的地方才有刺激”。</p>
+
+<p>李阳告诉家长，“你要有办法包装你的孩子，我们这个琳琳她爸妈，就要想方设法让她去各种场合喊英语，人哪里多哪里喊。孩子一站，一演讲，围观了三百人，她妈妈就拿三百张名片发掉。三百张名片里面一定有三十个人对我的疯狂英语感兴趣，一定有三个人会报终身弟子，听懂没有？”</p>
+
+<p>20年前，在故宫太庙广场，李阳对近万人高喊，“从小教育你的小孩，学英语的目的就是两个字——Make！Money！”</p>
+
+<p>在这次演讲班上，琳琳上台示范，站上桌子，并主动要求再加一把椅子。主持人适时向学员发问，“一个孩子她能这样，她未来一定会成功，同意吗各位？” “同意！”</p>
+
+<p>琳琳左手持麦，右手举高呈标准的“菜刀式”，脱口而出：</p>
+
+<p>“I'm a Chinese! I'm an international Chinese! I'm from China! I'm from a great nation!</p>
+
+<p>I love my country! I love my people! I enjoy losing face! I enjoy speaking English!</p>
+
+<p>I want to communicate with the world! I want to change my life!</p>
+
+<p>Let's practice English crazily! Let's master English to make China stronger!</p>
+
+<p>Let's just do it! Right here! Right now! Right here! Right now! Right here! Right now!!!!”</p>
+
+<p>她仰着通红的小脸，喊到破音，台下不停叫好。主持人提问，“如果你们家的孩子想成为这样的举手。” 家长们纷纷举起手。</p>
+
+<p>今年初，琳琳真去了故宫，在神武门下演讲。三九天，她主动脱掉外套，冻得嘴僵住，发不准音，却很激动。她终于能和李阳老师一样在故宫演讲了。她给我展示她的笔记本，连续五六页，都是她模仿的李阳签名。最初是杂乱的几笔，逐渐越画越像，最后一页，乍看上去几乎以假乱真了。</p>
+
+<p>李阳觉得琳琳是家庭教育的成功典范，而对自己的家庭教育耿耿于怀。他常常提起父母对自己教育的失败，认为是他们的打击式教育造就了自己早期自卑的性格。李阳的父亲退休前是中央人民广播电台副台长，母亲是中央人民广播电台高级工程师。父亲在一篇公开发表的自述中提到两个故事：</p>
+
+<p>李阳四五岁的时候，我们就教他读书写字。他妈妈的字很漂亮，自然也希望儿子的字也写得好。有一次妈妈看到李阳的字写得不好，上手就把那篇纸撕掉了。</p>
+
+<p>高中时的李阳曾被大家推举当了班长。我心想他肯定当不了几天，因为他虽然成绩不错，但是他不善管理，性格内向，不太爱张罗大家。果然不出所料，他的班长生涯只有两个月。</p>
+
+<p>在采访中，李阳不愿回忆过去的事，张翔引导他，“你说一个老爷子，小时候老爸跟你（的故事）。”李阳想都没想，“没印象，有的早说出来了。”</p>
+
+<p>“想一想，想一件事儿就行。”</p>
+
+<p>“你帮我想。”</p>
+
+<p>张翔拿着一张父亲年轻时的照片对我说，“他永远觉得我们这俩孩子，包括我那个妹妹，永远比不了他。”</p>
+
+<p>演讲班上，李阳对学员谈起父母之爱：“爱就是让别人什么？尽快立起来。一个小孩，什么叫爱他，就是永远不扶他，会走路以后永远不抱他，什么都自己干，这就叫爱。爱就是让别人，永不孤独和自卑。永不孤独和什么？自卑。”</p>
+
+<p>昝强在台下低声重复着这句话。他想报名疯狂英语暑假集训营，30天，收费5万元。李阳问他能筹到多少钱，他说1000，李阳让他好好学习，再等等。他这次回去就要筹钱，“学校发一些、借一些、家里再支持一些”。</p>
+
+<p>他站在100余名学员组成的红色方阵中，高举红色小册子：</p>
+
+<p>“我站在伟大的神台上！手里握着强大的神器！说着充满力量的神话！创造着不可思议的神迹！我的梦想就是把无数普通的、失败的、沮丧的凡人变成神，把我们伟大的祖国变成一个神的国度，我们将一起拯救这危机四伏的世界！”</p>
+
+<p>喊声回荡在不大的会场里，屋顶挂着的三盏水晶吊灯似乎都跟着震动。一侧墙面贴着镜子，使红色方阵看起来更为庞大，人们一转头就能看到镜中的自己，但没人看，他们盯着手中的《李阳老师全球巡回演讲精彩语录》，或盯着台上的李阳——</p>
+
+<p>“如果你在公共场合突然来这么一段话，好不好？”</p>
+
+<p>“好！”</p>
+
+<p>“别人说哇，我跟你成为神吧，你把我变成神吧，站在台上就会被神化，所以想改变自己吗？”</p>
+
+<p>“想！”</p>
+
+<p>墙面上的红色横幅映在镜中：“永远不要让自己失望！永远不要让父母失望！永远不要让祖国失望！” 第二天，人们又挂上新的横幅，“热爱成功！”</p>
+
+<p>会场后的桌子上摆着疯狂英语的各类宣传材料，其中有一摞报纸，是2005年7月1日的《中国教育报》疯狂英语专版。除了略有些褶皱，这份13年前的报纸在众多2018最新版卡片、手册中并不显得突兀。配色和版式几乎一样，内容上最大的变化是“20多年的坚持”变成了“30年的坚持”。李阳在台上说，“我要将我的一生献给世界上最伟大的事业——改变别人的命运。”</p>
+
+<p>演讲班结束，昝强离开上海，收到“世界人脉学第一人”高君宝的助手发来的微信：6月21～22日，北京举办中国企业家论坛，张瑞敏、柳传志、沈南鹏、程维、吴晓波、刘强东等都将出席，交费3000元即可与大佬合影。</p>
+
+<p>昝强没钱，他从2016年4月开始学演讲，前后花了至少五万元，现在还有两万多的网贷没还清。学校和导师每月发给他1800元补助，他用其中一千元还贷款，剩余维持生活。我问他这两年来最大的变化是什么，他想了一会儿，说现在每天都6点以前起床，有动力出门去看不一样的世界。他对未来并不担忧，两年的学习让他“接触了更多的人，打开了自己，对未来更有希望”。</p>
+
+<p>“如果有钱的话，你会去参加这些课吗？”</p>
+
+<p>“会的，和各种人接触，自然会改变自己的命运。”（应采访对象要求，文中李凯为化名。）</p>
+
+<p>本文转自微信公众号“GQ报道”，采访、撰文 / 于蒙，编辑 / 何瑫，摄影 / 贾睿，视觉 / 张楠，微信编辑 / 尹斯微。文章为作者独立观点，不代表芥末堆立场。</p>
+
+
+
+本页共154段，13058个字符，37026 Byte(字节)﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>WordVBA处理Range对象</h3>
+
+<p>2010-11-25  枫叶晚秋
+</p>
+
+<p>使用 Visual Basic 完成的一种通常的任务是在文档中指定一个区域，然后对该区域进行一些操作，例如插入文字或应用格式。例如，可能需要编写一个宏，用于在文档的某部分中查找一个单词或词组。文档的该部分可以用Range对象表示。定义 Range对象后，就可以应用 Range对象的方法和属性来修改该区域的内容。
+</p>
+
+<p>Range对象引用文档中的某一连续区域。每个 Range对象都是通过开始和结束字符位置来定义的。类似于在文档中使用书签的方法，在 Visual Basic 过程中使用 Range对象可以定义文档中指定的部分。Range对象可以小至一个插入点，或大至包含整篇文档。但是与书签不同，Range对象只在定义该对象的过程运行时才存在。
+</p>
+
+<p>Start、End 和StoryType属性唯一地标识一个 Range对象。Start 和 End属性返回或设置 Range对象的开始和结束字符的位置。文档开始处的字符位置为 0，第一个字符后的位置为 1，以此类推。StoryType属性的 WdStoryType 常量可以代表 11 种不同的文字部分类型。
+</p>
+
+<p>注意  Range对象与所选内容无关。也就是说，可以定义和修改某区域而不改变当前的所选内容。也可在文档中定义多个区域，而每个文档窗格中只有一处所选内容。
+</p>
+
+<p>使用 Range方法
+</p>
+
+<p>Range方法用于在指定的文档中创建 Range对象。Range方法（该方法可用于Document对象）通过给定开始和结束位置，返回一个位于主文字部分中的 Range对象。下列示例创建一个赋给变量的 Range对象。
+</p>
+
+<p>Sub SetNewRange()
+</p>
+
+<p>Dim rngDoc As Range
+</p>
+
+<p>Set rngDoc = ActiveDocument.Range(Start:=0, End:=10)
+</p>
+
+<p>End Sub
+</p>
+
+<p>该变量引用活动文档中的前 10 个字符。当您将属性或方法应用于保存在变量中的 Range对象时，可以看到已经创建了 Range对象。下列示例对活动文档中的前 10 个字符应用加粗格式。
+</p>
+
+<p>Sub SetBoldRange()
+</p>
+
+<p>Dim rngDoc As Range
+</p>
+
+<p>Set rngDoc = ActiveDocument.Range(Start:=0, End:=10)
+</p>
+
+<p>rngDoc.Bold = True
+</p>
+
+<p>End Sub
+</p>
+
+<p>如果需要多次引用一个 Range对象，可使用 Set 语句将该 Range对象赋给一个变量。但是，如果仅需要对 Range对象进行单独的一次操作，则不必将该对象保存在变量中。只使用一个标识区域并更改Bold属性的指令，也能得到相同的结果。
+</p>
+
+<p>Sub BoldRange()
+</p>
+
+<p>ActiveDocument.Range(Start:=0, End:=10).Bold = True
+</p>
+
+<p>End Sub
+</p>
+
+<p>类似于书签，一个区域可以跨越一组字符或标记文档中的某个位置。下列示例中的 Range对象的开始和结束位置相同。该区域不包含任何文字。下列示例在活动文档的开头插入文字。
+</p>
+
+<p>Sub InsertTextBeforeRange()
+</p>
+
+<p>Dim rngDoc As Range
+</p>
+
+<p>Set rngDoc = ActiveDocument.Range(Start:=0, End:=0)
+</p>
+
+<p>rngDoc.InsertBefore "Hello "
+</p>
+
+<p>End Sub
+</p>
+
+<p>使用上述字符位置编号或使用诸如Selection、Bookmark 或 Range 的 Start 和 End属性可定义区域的开始和结束位置。下列示例创建一个 Range对象，该对象从第二段开头开始，至第三段末尾后结束。
+</p>
+
+<p>Sub NewRange()
+</p>
+
+<p>Dim doc As Document
+</p>
+
+<p>Dim rngDoc As Range
+</p>
+
+<p>Set doc = ActiveDocument
+</p>
+
+<p>Set rngDoc = doc.Range(Start:=doc.Paragraphs(2).Range.Start, _
+</p>
+
+<p>End:=doc.Paragraphs(3).Range.End)
+</p>
+
+<p>End Sub
+</p>
+
+<p>其他内容和示例，请参阅Range方法。
+</p>
+
+<p>使用 Range属性
+</p>
+
+<p>有多种对象具有 Range属性，例如Paragraph、Bookmark 和Cell，并且该属性用于返回 Range对象。下列示例返回一个 Range对象，该对象引用活动文档中的第一个段落。
+</p>
+
+<p>Sub SetParagraphRange()
+</p>
+
+<p>Dim rngParagraph As Range
+</p>
+
+<p>Set rngParagraph = ActiveDocument.Paragraphs(1).Range
+</p>
+
+<p>End Sub
+</p>
+
+<p>得到 Range对象后，可使用它的任何属性或方法来修改该 Range对象。下列示例选定活动文档中的第二个段落并将所选内容居中。
+</p>
+
+<p>Sub FormatRange()
+</p>
+
+<p>ActiveDocument.Paragraphs(2).Range.Select
+</p>
+
+<p>Selection.ParagraphFormat.Alignment = wdAlignParagraphJustify
+</p>
+
+<p>End Sub
+</p>
+
+<p>若要对同一个 Range对象应用多种属性或方法，可使用 With…End With 结构。下列示例设置活动文档中第一段的文字格式。
+</p>
+
+<p>Sub FormatFirstParagraph()
+</p>
+
+<p>Dim rngParagraph As Range
+</p>
+
+<p>Set rngParagraph = ActiveDocument.Paragraphs(1).Range
+</p>
+
+<p>With rngParagraph
+</p>
+
+<p>.Bold = True
+</p>
+
+<p>.ParagraphFormat.Alignment = wdAlignParagraphCenter
+</p>
+
+<p>With .Font
+</p>
+
+<p>.Name = "Stencil"
+</p>
+
+<p>.Size = 15
+</p>
+
+<p>End With
+</p>
+
+<p>End With
+</p>
+
+<p>End Sub
+</p>
+
+<p>其他内容和示例，请参阅Range属性主题。
+</p>
+
+<p>重新定义 Range对象
+</p>
+
+<p>使用SetRange方法可重新定义现有的 Range对象。下列示例将一个区域定义为当前的所选内容。然后应用 SetRange方法重新定义该区域，使之包含当前所选内容和接下来的 10 个字符。
+</p>
+
+<p>Sub ExpandRange()
+</p>
+
+<p>Dim rngParagraph As Range
+</p>
+
+<p>Set rngParagraph = Selection.Range
+</p>
+
+<p>rngParagraph.SetRange Start:=rngParagraph.Start, _
+</p>
+
+<p>End:=rngParagraph.End + 10
+</p>
+
+<p>End Sub
+</p>
+
+<p>其他内容和示例，请参阅 SetRange方法。
+</p>
+
+<p>注意调试宏时，可使用Select方法来确保 Range对象引用正确的文字区域。例如，下列示例选定一个引用活动文档中第二段和第三段的 Range对象。然后设置所选内容的字体格式。
+</p>
+
+<p>Sub SelectRange()
+</p>
+
+<p>Dim rngParagraph As Range
+</p>
+
+<p>Set rngParagraph = ActiveDocument.Paragraphs(2).Range
+</p>
+
+<p>rngParagraph.SetRange Start:=rngParagraph.Start, _
+</p>
+
+<p>End:=ActiveDocument.Paragraphs(3).Range.End
+</p>
+
+<p>rngParagraph.Select
+</p>
+
+<p>Selection.Font.Italic = True
+</p>
+
+<p>End Sub
+</p>
+
+
+
+<p style='float:right;'>本页共80段，3145个字符，5497 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

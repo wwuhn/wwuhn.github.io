@@ -1,0 +1,653 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>社会化编程｜使用Git工具在本地Git仓库、GitHub仓库间的交互</h4>
+
+<p></p>
+
+<p>目录：</p>
+
+<p>1 GitHub和Git</p>
+
+<p>2 申请GitHub帐户</p>
+
+<p>3 创建GitHub远程仓库（版本库）</p>
+
+<p>4 下载和安装Git工具</p>
+
+<p>5 设置username和email，因为github每次commit都会记录他们</p>
+
+<p>6 创建磁盘目录，在目录中新建、编辑文档</p>
+
+<p>7 将新建目录初始化本地Git仓库</p>
+
+<p>8 配置本地Git仓库和GitHub仓库之间的SSH验证信息</p>
+
+<p>9 添加远程仓库</p>
+
+<p>10 本地磁盘目录中的文件（包括文件夹）加载到缓存</p>
+
+<p>11 递交到本地Git仓库</p>
+
+<p>12 push到远程GitHub仓库的分支</p>
+
+<p>13 从远程GitHub仓库pull文件到本地</p>
+
+<p>14 在本地修改从github上clone的仓库后上传到github</p>
+
+<p>15 fork别人的github仓库后，clone到本地，修改后上传到github，然后提交Pull Request请求</p>
+
+<p>16 断开本地Git库与远程GitHub库的连接</p>
+
+<p>17 新建并处理提交到自己仓库的pull request</p>
+
+<p>18 使用别人的项目发现bug或者遇到问题，可以去别人的仓库提问（Issue）</p>
+
+<p>19 处理别人在自己仓库的提问</p>
+
+<p>20 为自己的远程仓库创建Wiki</p>
+
+<p>21 分支（branch）管理</p>
+
+<p>22 发布管理</p>
+
+<p>23 Gist管理</p>
+
+<p>24 git对文件的操作</p>
+
+<p>25 git常用命令</p>
+
+<p>26 资料参考</p>
+
+<p>1 GitHub和Git</p>
+
+<p>GitHub 是一个在线平台，旨在促进在一个共同项目上工作的个人之间的代码托管、版本控制和协作。通过该平台，无论何时何地，都可以对项目进行操作（托管和审查代码，管理项目和与世界各地的其他开发者共同开发软件）。GitHub 平台为开源项目和私人项目都提供了项目处理功能。</p>
+
+<p>GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.</p>
+
+<p>Github是一个版本控制和项目合作的代码托管平台。它让你和其他任何地方的伙伴共同进行一个项目。</p>
+
+<p>Git是分布式管理的版本控制器，它的特点是版本控制可以不依赖网络，对分支和合并有更好的支持。</p>
+
+<p>Git每一个终端都是一个仓库，客户端并不只提取最新版本的文件快照，而是把原始的代码仓库完整地镜像下来。每一次的提取操作，实际上都是一次对代码仓库的完整备份。</p>
+
+<p>Git工具是一个命令行工具，可用于操作本地Gig仓库及与远程GitHub仓库的交互。</p>
+
+<p>Fork：将GitHub的某个特定仓库复制到自己的帐户下；</p>
+
+<p>pull request：在GitHubh ,代码的修改与讨论以Issue和pull request的形式进行；</p>
+
+<p>pull ：从远程仓库上拉取分支上本地仓库；</p>
+
+<p>push ：从本地仓库推送文件或文件夹到远程仓库；</p>
+
+<p>2 申请GitHub帐户</p>
+
+<p>登录网站：	http://github.com/</p>
+
+<p>需要使用一个邮箱来申请GitHub帐户；</p>
+
+<p>3 创建GitHub远程仓库（版本库）</p>
+
+<p>一个版本库通常用来组织一个单独的项目。库中包含文件夹和文件、图像、视频、电子表格和数据集，任何你的项目需要的东西。</p>
+
+<p>3.1 右上角点击加号+图标，然后选择new repository</p>
+
+<p>3.2 给你的版本库命名为textProcessing</p>
+
+<p>3.3 写一个简短的介绍</p>
+
+<p>默认情况下你的版本库有一个名为master的分支，他被认为是最终的分支。</p>
+
+<p>在上述版本库可，可以新建文件、也可以上传文件，也可以从本地Gig库push文件至此。</p>
+
+<p>一般情况下，一个帐户允许建立任意个GigHub提供的Git仓库，且公有仓库是免费的。</p>
+
+<p>4 下载和安装Git工具</p>
+
+<p>下载地址：</p>
+
+<p>https://git-scm.com/downloads</p>
+
+<p>根据操作系统进行选择，windows版本的安装副本大概40M左右。</p>
+
+<p>git bash界面如下：</p>
+
+<p>符号$是命令提示符。</p>
+
+<p>5 设置username和email，因为github每次commit都会记录他们</p>
+
+<p>$ git config --global user.name "wwuhn"</p>
+
+<p>$ git config --global user.email "wwuhnwu@163.com"</p>
+
+<p>上面的两个命令执行完后，会在本地帐户下创建.gitconfig文件，并包含帐户名和邮箱地址。</p>
+
+<p>6 创建磁盘目录，在目录中新建、编辑文档</p>
+
+<p>如新建以下目录：</p>
+
+<p>D:\Users\wwuhnwu01\textProcessing</p>
+
+<p>可以直接使用命令：</p>
+
+<p>$ mkdir textProcessing</p>
+
+<p>7 将新建目录初始化本地Git仓库</p>
+
+<p>需要将shell的当前目录切换到textProcessing（可以是新建的或已经存在的）下：</p>
+
+<p>$ cd textProcessing</p>
+
+<p>$ git init</p>
+
+<p>git init是将git shell的当前目录初始化为本地Git仓库。</p>
+
+<p>8 配置本地Git仓库和GitHub仓库之间的SSH验证信息</p>
+
+<p>由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以我们需要配置验证信息：</p>
+
+<p>使用以下命令生成SSH Key：</p>
+
+<p>$ ssh-keygen -t rsa -C "wwuhnwu@163.com"</p>
+
+<p>之后一直按“Enter”就行了，秘钥会生成在默认目录（当前用户目录下面的.ssh目录下面）：</p>
+
+<p>比如我的秘钥生成在D:\Users\wwuhnwu01\.ssh目录下面。</p>
+
+<p>我们看到.ssh目录下面有三个文件，id_rsa，id_rsa.pub，known_hosts。打开id_rsa.pub，复制。</p>
+
+<p>打开我们的github，进入设置页面，粘贴SSH密钥到下列的Key文本框：</p>
+
+<p>$ ssh -T git@github.com（验证本地创建ssh key是否成功）</p>
+
+<p>9 添加远程仓库</p>
+
+<p>命令格式：</p>
+
+<p>$ git remote add [shortname] [url]</p>
+
+<p>如：</p>
+
+<p>$ git remote add origin git@github.com:wwuhm/textProcessing.git</p>
+
+<p>可以使用git remote -v命令查看远程仓库。</p>
+
+<p>10 本地磁盘目录中的文件（包括文件夹）加载到缓存</p>
+
+<p>将所有文件添加缓存（在index数据结构中记录文件提交之前的状态）：</p>
+
+<p>$ git add .</p>
+
+<p>（注意上面的命令使用了通配符：英文句点.）</p>
+
+<p>11 递交到本地Git仓库</p>
+
+<p>$ git commit -m "提交文件"</p>
+
+<p>(双引号内是提交注释)</p>
+
+<p>git commit命令可以将当前缓存中的文件实际保存到仓库的历史记录中。</p>
+
+<p>以上几个操作可随时git status查看本地git仓库中的基本情况。</p>
+
+<p>12 push到远程GitHub仓库的分支</p>
+
+<p>命令格式：git push 远程仓库别名所要上传到远程仓库的分支名</p>
+
+<p>$ git push -u origin master</p>
+
+<p>上面的命令执行完后，GitHub上的仓库就会被更新。</p>
+
+<p>13 从远程GitHub仓库pull文件到本地</p>
+
+<p>命令格式：git pull 远程仓库别名所要下载内容所在远程仓库的分支名</p>
+
+<p>$ git pull origin master</p>
+
+<p>14 在本地修改从github上clone的仓库后上传到github</p>
+
+<p>从github上clone一个自己的仓库到本地：</p>
+
+<p>$ git clone git@github.com:wwuhm/textProcessing.git</p>
+
+<p>修改本地仓库中的文件，将所有修改的文件添加到暂存区中</p>
+
+<p># git add .</p>
+
+<p>提交修改</p>
+
+<p>$ git commit -m "提交说明"</p>
+
+<p>将本地仓库修改的文件都上传到github仓库</p>
+
+<p>$ git push origin master</p>
+
+<p>15 fork别人的github仓库后，clone到本地，修改后上传到github，然后提交Pull Request请求</p>
+
+<p>在github上fork一个别人的仓库到自己的github中，clone自己的该仓库到本地：</p>
+
+<p>$ git clone 自己的github仓库（https或者SSH仓库）</p>
+
+<p>修改本地仓库中的文件，将所有修改的文件添加到暂存区中</p>
+
+<p>$ git add .</p>
+
+<p>提交修改</p>
+
+<p>$ git commit -m "提交说明"</p>
+
+<p>将本地仓库修改的文件都上传到github仓库</p>
+
+<p>$ git push origin master</p>
+
+<p>到自己github的该仓库页面来进行pull request请求</p>
+
+<p>16 断开本地Git库与远程GitHub库的连接</p>
+
+<p>命令格式：git remote rm 给远程仓库起的别名</p>
+
+<p>$ git remote rm origin</p>
+
+<p>17 新建并处理提交到自己仓库的pull request</p>
+
+<p>Pull请求是github上协作的核心。开发者向GitHub的仓库推送更改或功能添加后，可以通过Pull Request功能向别人的仓库提出申请，请求对方合并。</p>
+
+<p>17.1 新建、递交pull request</p>
+
+<p>I 点击pull request标签，然后从pull request页点击绿色的new pull request按钮。</p>
+
+<p>II 选择你的分支，然后和你的master分支做对照。</p>
+
+<p>III 在对比页面看看你的更改，确保他们是你想提交的</p>
+
+<p>IV 当你对这些提交的更改都满意时，请单击绿色create pull request按钮。</p>
+
+<p>V 给你的pull请求一个标题，并对你的变化写一个简短的描述。</p>
+
+<p>17.2 接收、处理pull request</p>
+
+<p>I 点击绿色merge pull request按钮来合并更改到master</p>
+
+<p>II 点击confirm merge</p>
+
+<p>18 使用别人的项目发现bug或者遇到问题，可以去别人的仓库提问（Issue）</p>
+
+<p>Issue功能，是将一个任务或问题分配给一个Issue进行追踪和管理的功能。每一个功能更改或修正都对应一个Issue，讨论或修正都以这个Issue为中心进行。在GitHub上，一个Pull Request也会同时创建一个Issue。</p>
+
+<p>发现别人的项目有bug，或者自己有问题，可以发起提问（Issue)。</p>
+
+<p>19 处理别人在自己仓库的提问</p>
+
+<p>可以打开Issue选项卡，处理其中列出的问题。</p>
+
+<p>20 为自己的远程仓库创建Wiki</p>
+
+<p>通过Wiki功能，任何人都能随时对一篇文章进行更改并保存，因此可以多人共同完成一个页面。该功能常用在开发文档或手册的编写中。</p>
+
+<p>可以在Wiki选项卡中以Markdown编辑模式新建和修改页面（page)。</p>
+
+<p>21 分支（branch）管理</p>
+
+<p>你曾经保存过不同版本的文件吗？像这样的：</p>
+
+<p>Story.txt</p>
+
+<p>Story-joe-edit.txt</p>
+
+<p>Story-joe-edit-reviewed.txt</p>
+
+<p>在github版本库里，分支完成里类似的需求。</p>
+
+<p>在github上，我们的开发人员，作者，和设计师使用分支修复bug并且使功能从master分支分离。当修改完成后再合并到master分支上。</p>
+
+<p>$ git branch（查看当前分支）</p>
+
+<p>$ git merge branchName（用于合并指定分支到当前分支）</p>
+
+<p>$ git branch -d dev（删除dev分支）</p>
+
+<p>$ git merge --no-ff -m "merge with no-ff" dev（--no-ff参数，表示禁用Fast forward）</p>
+
+<p>查看分支：git branch</p>
+
+<p>创建分支：git branch &lt;name&gt;</p>
+
+<p>切换分支：git checkout &lt;name&gt;</p>
+
+<p>创建+切换分支：git checkout -b &lt;name&gt;</p>
+
+<p>合并某分支到当前分支：git merge &lt;name&gt;</p>
+
+<p>删除分支：git branch -d &lt;name&gt;</p>
+
+<p>将本地仓库分支push到远程仓库指定分支：</p>
+
+<p>git push origin test_branch:test_branch</p>
+
+<p>22 发布管理</p>
+
+<p>Releases显示仓库的标签（Tag）列表。软件在版本升级时一般都会打标签，如果需要特定版本的文件，可以从这里寻找。</p>
+
+<p>23 Gist管理</p>
+
+<p>gist是用来即时分享代码，注释，和片段代码的。Gist功能主要用于管理及发布一些没必要保存在仓库中的代码，能够比较快捷地实现代码分享。</p>
+
+<p>24 git对文件的操作</p>
+
+<p>git对文件的操作都是在四大域上进行的(工作目录，暂存区，仓库，远程仓库)，文件可以在四大域内与四大域间进行各种操作。（有一个例外，进行“git stash”系列操作时，文件可能被保存到四大域外的堆栈中）</p>
+
+<p>25 git常用命令</p>
+
+<p>git常用命令具体使用可参考：</p>
+
+<p>https://github.com/lavor-zl/Github-Git/blob/master/Git%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B.md</p>
+
+<p>26 资料参考</p>
+
+<p>Git参考资料：https://git-scm.com/book/zh/v2</p>
+
+<p>作者是Scott Chacon and Ben Straub ，其中Scott Chacon的github帐号：</p>
+
+<p>https://github.com/schacon</p>
+
+<p>虽然github是代码托管平台，但是，不是程序员也是可以使用的，工具嘛，看你怎么使用了，有点像瓶子一样，什么瓶子有时候也得看装什么东西，</p>
+
+<p>一块合作写文档应该是一个不错的选择</p>
+
+<p>可以做一些计划之类的事情，放上边自己监督自己也可以让别人监督自己</p>
+
+<p>用GitHub搭建博客、个人网站或者公司官网，GitHub本身提供免费的托管服务，又提供了贴心的 Pages 功能，可以绑定你自己的域名，免费、高效、不限流量</p>
+
+<p>个人简历，不管是面试还是招聘在上边都有个参考</p>
+
+<p>可以进行项目管理除了仅仅开发密切联系的项目中（GitHub最初是为了开发的管理而生，当然也就具备了项目管理的潜质）</p>
+
+
+
+<p style='float:right;'>本页共181段，5761个字符，11660 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

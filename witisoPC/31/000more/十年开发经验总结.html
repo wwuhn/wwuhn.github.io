@@ -1,0 +1,618 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>十年开发经验总结</h3>
+
+<p>
+</p>
+
+<p>在一线做了十年的开发，经历了网易、百度、腾讯研究院、MIG 等几个地方，陆续做过 3D 游戏、2D 页游、浏览器、移动端翻译 App 等。
+</p>
+
+<p>做开发十年，我总结出了这些开发经验
+</p>
+
+<p>从这十年开发中，我积累了一些感悟，必然有依然幼稚的地方，就当抛砖引玉，聊为笑谈。
+</p>
+
+<p>对于团队而言，流程太重要了
+</p>
+
+<p>行军打仗，你需要一个向导：
+</p>
+
+<p>如果没有向导，你需要一个地图。
+</p>
+
+<p>如果没有地图，至少要学习李广，找一匹识途的老马。
+</p>
+
+<p>如果你连老马也没有，那最好可以三个臭皮匠好好讨论，力图胜过一个诸葛亮。
+</p>
+
+<p>如果三个臭皮匠连好好讨论也做不到，那就是典型的乌合之众了，最好写代码前，点上三炷香，斟上一杯浊酒，先拜拜菩萨，再拜拜谷歌。
+</p>
+
+<p>我个人属于性格温和的（程序员大多性格不错），但确实见过少数强势的人，说很多强势的话。
+</p>
+
+<p>在技术上一言而决，一听到任何反对就上升到私人恩怨。这样的风格，到底是刚愎自用，还是胸有成竹，就需要仔细判断了。
+</p>
+
+<p>为什么说流程重要呢？实际上，如果团队上有孙悟空存在，去西天取经，大概也不需要什么流程，只要方向就可以了。
+</p>
+
+<p>但作为普通的战士，应该先虑败。找人算命时，应该先听听不好的地方，好的地方就不用听了，总归是好的，不好的地方一定要听，这样才能规避。
+</p>
+
+<p>这就是我的态度：先悲观一点，划清底线，考虑在这个底线上你该怎么做？这是我做开发的一个习惯，但这个习惯肯定不适用于买房。
+</p>
+
+<p>怎么划清底线呢？就是假想团队中没有孙悟空了，光靠你唐玄奘、猪八戒和沙和尚，应该怎么去取经？
+</p>
+
+<p>这个月走什么地方，遇到山怎么走，遇到河怎么过，遇到路上有妖怪劫道，谁去抵挡。遇到路上有少女要搭救，怎么办？这就是流程，是原则。
+</p>
+
+<p>我经历过一个流程很混乱的阶段。都是很多年前的事情了，可以拿出来说说，不涉及单个人。
+</p>
+
+<p>2011 年在百度浏览器团队时，遇到几件让人印象深刻的事情。有一次开会，产品拿出 Google 某个产品的 DEMO，里面有一段很酷炫 3D 效果，要求开发加上，只给 2 天时间，大家目瞪口呆。
+</p>
+
+<p>后续的开发为了赶节奏，导致非常多的 Bug ，又为了修改 Bug ，Leader 将所有的 Bug 按照人员平均分配，导致不同模块间的同学相互修改......实在难以想象。好比让做花卷的厨子，去修改西湖醋鱼的味道。
+</p>
+
+<p>最初的现象是：Bug下降的慢，延伸 Bug 反而增加，每个人都累的半死，代码风格极其杂乱，为了赶工导致的临时方案层出不穷。
+</p>
+
+<p>到了中期：人员离职越来也多，代码难以维护，新加的需求与之前的临时方案冲突。
+</p>
+
+<p>到了后期：想做一些修复，想调整架构，又要保证正常运行，其难度好比在一架飞行的飞机上拆换零件。
+</p>
+
+<p>然后我也急忙离职了......因为实在看不到成功的可能性。
+</p>
+
+<p>后来我到了腾讯的团队，感觉流程就规范多了。需求和 Bug 有 Tapd 跟踪，产品发布按照节奏，需求提出前会和开发反复讨论可行性，有专门的质量跟踪和用户反馈，每天知道要做什么，也知道明天要做什么。
+</p>
+
+<p>有产品需求，也有开发需求！这个非常重要。很多团队，都是只有产品需求，开发好像牛一样，耕完地就不管了？
+</p>
+
+<p>流程其实没那么复杂，就是各司其责+节奏。我们都是“哆瑞咪发梭拉西多”中的一员，各自有各自的责任，然后组合在一起，按照一个节奏跑起来。把该做的事情与该跑的节奏定好。
+</p>
+
+<p>不要炫技，老老实实写代码
+</p>
+
+<p>网上有一个段子，说有人要用 JS 实现一个简单的功能，然后朋友给他推荐了几十个库，真的有必要吗？
+</p>
+
+<p>具体情况具体分析。居家过日子，你只需要一套普通的工具就可以了；如果你是修车的，你需要一套修车的工具；如果你是光头强，你需要一台伐木机。
+</p>
+
+<p>吃饭用筷子，用刀叉，都可以，但不要用杀猪刀，不要用丈八长矛！当然也不能用牙签。用什么工具，用什么库，问问过来人，多在 KM 上搜索一下。
+</p>
+
+<p>举个例子：
+</p>
+
+<p>Android 上加密，用 SQLCipher 就可以了，微信也在用，你当然可以学习。
+</p>
+
+<p>数据库 ORM 思想，用 KM 上推荐的 GreenDAO 就可以了。
+</p>
+
+<p>PC 上 3D 引擎，用 OGRE 就可以了。
+</p>
+
+<p>小型游戏 DEMO，用 Irrlicht 足够。
+</p>
+
+<p>写 WebGL，用 ThreeJS 足够。
+</p>
+
+<p>首先想想：一些大库你 hold 的住吗，后续发展如何？这些库对安装包的体积影响有多大？有没有调研过同样的产品在用什么？
+</p>
+
+<p>想清楚了再决定用什么，最好是跟随成功项目的脚步。
+</p>
+
+<p>架构上实用+适用
+</p>
+
+<p>很喜欢曾国藩的一句话：结硬寨、打呆仗。
+</p>
+
+<p>一字长蛇阵、八门金锁阵，哪个好？iOS 都是单个进程，微信 Android 版本 3.5 以前是单进程，3.5 以后有独立的网络进程。
+</p>
+
+<p>PC 浏览器的进程架构更加复杂，UI 进程、内核进程、Render 进程，而且还有根据页面多少的进程调节模型。
+</p>
+
+<p>这些设计都很好，各有各的道理，都适用于当前的产品。所以我的观点是：首先分析当前产品的规模、性质，然后再设计架构。
+</p>
+
+<p>在当前阶段达到：开发效率+架构的平衡；并向后展望 3 个月，或者半年左右，看看架构能不能适应。
+</p>
+
+<p>我做腾讯翻译君时，曾反复犹豫要不要模仿微信加入独立的网络进程。后来逆向了有排在第一二位的竞品，最终采用了现在的主功能单进程模型。
+</p>
+
+<p>产品规模、人员规模、功能阶段，具体问题要具体分析。
+</p>
+
+<p>做开发十年，我总结出了这些开发经验
+</p>
+
+<p>既要有攻城之力，也要有熬战之气——Bug
+</p>
+
+<p>产品开发完成后，必然有 Bug 。其实开发人员在工作过程中，是有一定的直觉或者心理预判的，即某个功能模块的质量如何。
+</p>
+
+<p>这里面的质量包括：可维护性、扩展性、算法渲染效率，还有就是 Bug 与崩溃率。功能开发完成后，就要开始守城了。
+</p>
+
+<p>Bug，一部分产生是由于架构带来的，例如比较复杂的架构，会导致复杂的实现细节。
+</p>
+
+<p>但还有很大部分 Bug，其实是基于如下三个原因产生的：
+</p>
+
+<p>①对于某个 API 的不了解，或者对于某个平台，或者 SDK 版本的不了解。
+</p>
+
+<p>举例而言：Android 里面非主线程，是不能直接处理 UI 相关的事情的；Java 的内存释放也不是绝对的，相互指向是无法释放的；函数个数是有 DEX 问题制约的。
+</p>
+
+<p>这些 Bug 的产生，也是开发人员摸索学习的过程，经历过一次就不会再犯了。这是学习广度与熟练度的问题。
+</p>
+
+<p>②还有一些 Bug，是由于粗心大意导致的。
+</p>
+
+<p>例如空指针的问题，野指针的问题。在 C 的开发中，野指针的问题，GDI 句柄的释放问题，这些都是严谨的代码需要避免的。
+</p>
+
+<p>而有一些工具，或者方法是可以规避这些问题的，例如 Android 中的利用 @Nullable 和 @NonNull 加强空指针检测等方法。
+</p>
+
+<p>③还有一些 Bug，是由于“使用情况各异导致的”。
+</p>
+
+<p>例如：偶现在某个模块的 crash。这里的本质还是因为逻辑的异常边界没有处理好；例如 Android 上的 OOM 问题，还有 PC 上 UI 焦点导致的对象释放问题。
+</p>
+
+<p>这些异常情况，一部分靠测试发现，一部分靠用户反馈，还有一部分就靠自己的异常处理。
+</p>
+
+<p>例如 Android 中的 try catch 机制，其实就是遇到异常了，你能纠正错误的机会。
+</p>
+
+<p>自审
+</p>
+
+<p>每过一段时间，都要站在高空俯视自己，问问：到底是在承担过去，还是在改变未来。
+</p>
+
+<p>如果之前程序代码质量不好，后面修改问题的时间就会比较多。到了开发的中期，得多问问自己，你在不停的改正以前的错误，还是在做新的东西；如果修改错误的时间多一点，那就要注意自己的代码质量了！
+</p>
+
+<p>注释
+</p>
+
+<p>我很喜欢写注释。有大牛说：代码就是最好的注释，可惜我还没有达到那个程度。
+</p>
+
+<p>所以，我会把注释写的非常清楚，有两点原因：
+</p>
+
+<p>为了自己以后维护的方便。
+</p>
+
+<p>为了其他人接手的方便。
+</p>
+
+<p>做开发十年，我总结出了这些开发经验
+</p>
+
+<p>做开发十年，我总结出了这些开发经验
+</p>
+
+<p>上图是我在翻译君项目中写注释的方式：
+</p>
+
+<p>对于很复杂的逻辑，务必用 12345 的顺序依次写清楚。
+</p>
+
+<p>对于函数中的某个参数，需要解释为什么要设置这个参数，尤其是公用工具类里面的函数。说清楚参数的背景含义，可以让其他调用者理解的更加清晰。
+</p>
+
+<p>我一般不用英文写。虽然这样看起来格调很低，但胜在大家都能轻松的看懂。
+</p>
+
+<p>写代码不能太傲娇，写注释也不要太傲娇，目的是让你的搭档或者接手者，更轻松的理解，让她/他少加班。
+</p>
+
+<p>代码结构
+</p>
+
+<p>代码结构要清晰。有按照功能划分的，有按照 UI 结构划分的。还有公用工具类，有数据管理，有主逻辑控制。
+</p>
+
+<p>不管用哪种思想，有序的代码结构，可以让每个人感觉很干净。好比日本的收纳整理技巧让很多小资推崇，无非就是干净、整洁、便于管理。
+</p>
+
+<p>而且，还有一个重要的好处：代码结构表现出来的其实是——程序的一个模块逻辑思想——让大家工作在不同的区域。
+</p>
+
+<p>做开发十年，我总结出了这些开发经验
+</p>
+
+<p>代码风格
+</p>
+
+<p>代码风格统一！好比一家人，有叫 Tom 的，有叫安东尼的，还有叫流川枫、石破天、圣杰夫拉斯基，无所适从。
+</p>
+
+<p>理论上，看一个函数，就能从名称上区分哪些是成员变量，哪些是局部变量，哪些是全局静态值。
+</p>
+
+<p>除了命名统一外，还有一行代码最大的宽度，函数的连续调用长度等，头文件的包含风格，也最好有一个约定。
+</p>
+
+<p>类的出现时间，创建人名，最好也加上，看起来没用，但到了追踪问题时，就能看出时间线的好处。
+</p>
+
+<p>安全与逆向
+</p>
+
+<p>这是针对 Android 说的，还有 PC 插件也需要考虑。Android 上首先要防止被别人逆向，我成功逆向并重新打包过有第一位和第二位的竞品。
+</p>
+
+<p>这似乎有点不可思议，但确实做到了。加固+混淆+代码判断，最好都有。安全上，可以看金刚扫描的漏洞，逐一修改就行。公司很多工具很好用的！
+</p>
+
+<p>开发效率
+</p>
+
+<p>开发效率可以用这些方式提升：
+</p>
+
+<p>构建公用工具类，方便大家使用。
+</p>
+
+<p>使用开源的一些包，例如 ORM 思想的数据库等。
+</p>
+
+<p>可以很快的找到问题。开发中，找 Bug 的时间，往往是很多的。我用的方法有 3 个：使用 try catch；拦截所有 crash 到我指定的地方；超多的 Log，Log 有统一的控制开关。
+</p>
+
+<p>借力：数据上报用灯塔，崩溃上报用 bugly，公司 KM 上很多经验，拿过来用。
+</p>
+
+<p>安装包体积
+</p>
+
+<p>关于开发效率，总结如下两点：
+</p>
+
+<p>TINY 压缩图片
+</p>
+
+<p>删除无效的资源文件
+</p>
+
+<p>UI 渲染效率
+</p>
+
+<p>UI 是用户的第一感觉，UI 快并稳定，第一感觉就不会差太多。
+</p>
+
+<p>管理好内存，基本上就管理好了一半 crash；管理好 UI，等于管理了人机交互感受。UI 上的开发是：渲染效率与渲染效果的平衡。
+</p>
+
+<p>很匆忙的写的，必然有很幼稚的地方，欢迎斧正。
+</p>
+
+<p>作者：康亮
+</p>
+
+<p>简介：腾讯高级工程师，历经网易在线游戏事业部、百度客户端部门、腾讯研究院、腾讯 MIG； 横跨多个平台 10 年开发，目前负责腾讯翻译君 App。
+</p>
+
+
+
+<p style='float:right;'>本页共108段，4331个字符，11871 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

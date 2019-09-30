@@ -1,0 +1,464 @@
+<HTML>
+<SCRIPT>
+parent.moveTo((screen.width-775)/2,(screen.height-540)/2);
+parent.resizeTo(775,540)
+</SCRIPT>
+<HEAD>
+<META NAME="Title" CONTENT="JScript Simple Tetris">
+
+<TITLE>Simple Tetris</TITLE>
+<style>
+body {
+margin:0;
+background:black;
+font-size:9pt
+}
+td {
+height:20;
+width:20;
+font-size:9pt
+}
+#block_div {
+position:absolute;
+z-index:1;
+width:80;
+font-size:9pt
+}
+#table_div {
+position:absolute;
+z-index:0;
+width:320;
+font-size:9pt
+}
+#nblock_div {
+position:absolute;
+z-index:2;font:48 system;color:red;font-size:9pt}
+#title_div {position:absolute;left:326;top:7;font-size:22px;color:whitefont-size:9pt}
+#infobar_div {position:absolute;left:396;top:416;}
+#infobar2_div {position:absolute;left:396;top:480;font-size:14px;color:whitefont-size:9pt}
+#infobar2_div a{color:99ccff;font:system;text-decoration:none;font-size:9pt}
+</style>
+
+<SCRIPT ID=clientEventHandlersJS LANGUAGE=javascript>
+<!--
+
+/*
+Tetris Game by Xie Yong (nsxy@163.net)
+Modifications by DynamicDrive.com for interface enhancements
+For this script, visit <img src=/moi/file.gif align=absbottom> <a href="http://www.dynamicdrive.com" target=_blank>http://www.dynamicdrive.com</a>
+*/
+
+if (document.all){
+var n_width = 800;
+var n_height = 600;
+var n_left = Math.round( screen.width/2 ) - n_width/2;
+var n_top = Math.round( screen.height/2 ) - n_height/2;
+var n_IncStep = 20;
+var curBlcok,nextBlock;
+var arr_curBlock = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+var curX,curY;
+var speed=1;
+var maxspeed=9;
+var clr_per_line=18;
+var pause=0;
+var gameover=0;
+var colors = new Array("#999999","#0000FF","#80FFFF","#80FF80","#FFFF00","#FF8000","#FF00FF","#FF0000"
+);
+var cid;
+var ncid;
+var blocks = new Array("tt_O1","tt_T2","tt_Z1","tt_S1","tt_L1","tt_J1","tt_I2");
+var bid;
+var killedlines=0;
+
+var tt_O1 = new Array(0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0);
+var tt_O2 = new Array(0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0);
+var tt_O3 = new Array(0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0);
+var tt_O4 = new Array(0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0);
+
+var tt_T1 = new Array(0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0);
+var tt_T2 = new Array(0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0);
+var tt_T3 = new Array(0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0);
+var tt_T4 = new Array(0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0);
+
+var tt_Z1 = new Array(0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0);
+var tt_Z2 = new Array(0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0);
+var tt_Z3 = new Array(0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0);
+var tt_Z4 = new Array(0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0);
+
+var tt_S1 = new Array(0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0);
+var tt_S2 = new Array(0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0);
+var tt_S3 = new Array(0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0);
+var tt_S4 = new Array(0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0);
+
+var tt_L1 = new Array(0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0);
+var tt_L2 = new Array(0,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0);
+var tt_L3 = new Array(0,0,0,0,0,1,1,0,0,0,1,0,0,0,1,0);
+var tt_L4 = new Array(0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0);
+
+var tt_J1 = new Array(0,0,1,0,0,0,1,0,0,1,1,0,0,0,0,0);
+var tt_J2 = new Array(0,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0);
+var tt_J3 = new Array(0,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0);
+var tt_J4 = new Array(0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,0);
+
+var tt_I1 = new Array(0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0);
+var tt_I2 = new Array(0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1);
+var tt_I3 = new Array(0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0);
+var tt_I4 = new Array(0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1);
+
+var table = new Array(
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+		1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+                1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+
+}
+else
+alert("You need IE4+ to play Tetris!")
+
+function dimension2(row,col,num){
+	var i = row * num + col;
+	return (this[i]);
+}
+Array.prototype.getd = dimension2;
+
+function ShowBlock(x,y,block_type,color){
+	for (var i=0;i<block_tbl.rows.length;i++){
+		for (var j=0;j<block_tbl.rows(i).cells.length;j++){		
+			var d2 = i * 4 + j;
+			if (block_type[d2]==1){
+				block_tbl.rows(i).cells(j).style.background = color;
+			}
+			else{
+				block_tbl.rows(i).cells(j).style.background = "";
+			}
+		}
+	}
+	block_div.style.pixelLeft=x;
+	block_div.style.pixelTop=y;
+}
+
+function ShowBlock1(x,y,block_type,color,obj_tabID,obj_divID){
+	for (var i=0;i<obj_tabID.rows.length;i++){
+		for (var j=0;j<obj_tabID.rows(i).cells.length;j++){		
+			var d2 = i * 4 + j;
+			if (block_type[d2]==1){
+				obj_tabID.rows(i).cells(j).style.background = color;
+			}
+			else{
+				obj_tabID.rows(i).cells(j).style.background = "";
+			}
+		}
+	}
+	obj_divID.style.pixelLeft=x;
+	obj_divID.style.pixelTop=y;
+}
+
+function Change(inc){
+	var type = curBlock.substr(0,4);
+	var num = curBlock.substr(curBlock.length-1);
+	num = parseInt(num) + inc;
+	if (num>4||num<1) num -= 4*inc;
+	type += num;
+	eval("arr_tmp = " + type + ";");
+	if (CanMove(curX,curY,arr_tmp)){
+		curBlock = type;
+		eval("arr_curBlock = " + curBlock + ";");
+		eval("ShowBlock(block_div.style.pixelLeft,block_div.style.pixelTop," + curBlock + ",colors[" + cid + "]);");
+	}
+}
+
+function CanMove(x,y,block){
+	for (i=0;i<4;i++){
+		for (j=0;j<4;j++){
+			if (block.getd(i,j,4)&table.getd(y/n_IncStep+i,x/n_IncStep+j,16)) return false;
+		}
+	}
+	return true;
+}
+
+function NewBlock(){
+	curBlock = nextBlock;
+	cid = ncid;
+	bid = Math.round(Math.random()*(blocks.length-1));
+	ncid = Math.round(Math.random()*(colors.length-1));
+	nextBlock = blocks[bid];
+	eval("arr_curBlock = " + curBlock + ";");
+	eval("ShowBlock(120,0," + curBlock + ",colors[" + cid + "]);");
+	eval("arr_curBlock = " + curBlock + ";");
+	eval("ShowBlock1(466,116," + nextBlock + ",colors[" + ncid + "],nblock_tbl,nblock_div);");
+}
+
+function SaveBlock(){
+	for (i=0;i<4;i++){
+		for (j=0;j<4;j++){
+			table[(curY/n_IncStep+i)*16+curX/n_IncStep+j]|=arr_curBlock[i*4+j];
+			if (arr_curBlock[i*4+j]==1)
+				if ((curY/n_IncStep+i<21)&&(curX/n_IncStep+j>1)&&(curX/n_IncStep+j<14))
+					table_tbl.rows(curY/n_IncStep+i).cells(curX/n_IncStep+j).style.background = colors[cid];
+			if (table[(curY/n_IncStep+i)*16+curX/n_IncStep+j]!=1)
+					table_tbl.rows(curY/n_IncStep+i).cells(curX/n_IncStep+j).style.background = "black";
+		}
+	}
+}
+
+function DelLine(line){
+	for(i=line;i>0;i--){
+		for(j=2;j<14;j++){
+			table[i*16+j]=table[(i-1)*16+j];
+		}
+	}
+	table_tbl.deleteRow(line);
+	table_tbl.insertRow(0);
+	for (i=0;i<16;i++){
+		table_tbl.rows(0).insertCell();
+		if (i<2||i>13) table_tbl.rows(0).cells(i).style.background="navy";		
+	}
+	killedlines++;
+	cll.innerText=parseInt(cll.innerText)+1;
+}
+
+function DelLines(){
+	var c,d,i,j;
+	d=0;
+	curY=block_div.style.pixelTop;
+	for(i=(curY/20+3);i>curY/20-1;i--){
+		c=0;
+		for(j=2;j<14;j++){
+			if (isNaN(table[i*16+j])||i==21) break;
+			c+=table[i*16+j];
+		}
+		if(c==12){
+			DelLine(i);
+			i++;
+			d++;
+		}
+	}
+	if (d>0)
+		sco.innerText=parseInt(sco.innerText)+d*d*36;
+}
+
+function Lucifer(){
+	for(var i=2;i<14;i++){
+		if (table[16+i]==1) return true;
+	}
+	return false;
+}
+
+function GameOver(){
+	gameover=1;
+	clearInterval(gameInterval);
+	block_div.innerHTML="";
+	for (i=0;i<21;i++){
+		for (j=2;j<14;j++){
+			setTimeout("table_tbl.rows(" + i + ").cells(" + j + ").style.background = colors[Math.round(Math.random()*7)];",16*i*j);
+		}
+	}
+	nblock_div.innerHTML = "Game Over";
+}
+
+
+
+function document_onkeydown() {
+	if (gameover==1) return;
+	with (block_div.style){
+	curX = pixelLeft;
+	curY = pixelTop;
+	switch (event.keyCode){
+		case 37:
+			if (CanMove(curX-n_IncStep,curY,arr_curBlock))
+				pixelLeft-=n_IncStep;
+			break;
+		case 38:
+			Change(1);
+			break;
+		case 39:
+			if (CanMove(curX+n_IncStep,curY,arr_curBlock))
+				pixelLeft+=n_IncStep;
+			break;
+		case 40:
+			if (CanMove(curX,curY+n_IncStep,arr_curBlock)){
+				pixelTop+=n_IncStep;
+			}
+			else{
+				SaveBlock();
+				DelLines();
+				if (Lucifer()){
+					GameOver();
+					return;
+				}
+				sco.innerText=parseInt(sco.innerText)+2;
+				NewBlock();
+			}
+			break;
+		case 32:
+			if (pause==0){
+				clearInterval(gameInterval);
+				pause=1;
+			}
+			else{
+				gameInterval=window.setInterval("Handle_Interval()",(maxspeed-speed+1)*60);
+				pause=0;
+			}
+			break;
+		case 90:		
+			Change(1);
+			break;
+		case 88:	
+			Change(-1);
+			break;
+		default:
+	}
+	}
+}
+
+function Handle_Interval(){
+	curX = block_div.style.pixelLeft;
+	curY = block_div.style.pixelTop;
+	if (CanMove(curX,curY+n_IncStep,arr_curBlock)){
+		block_div.style.pixelTop+=n_IncStep;
+	}
+	else{
+		SaveBlock();
+		DelLines();
+		if (Lucifer()){
+			GameOver();
+			return;
+		}
+		sco.innerText=parseInt(sco.innerText)+2
+		NewBlock();
+	}
+	if (killedlines>=clr_per_line){
+		killedlines-=clr_per_line;
+		if (speed<maxspeed)
+			speed++;
+		else
+			speed=maxspeed;
+		spd.innerText=speed;
+		clearInterval(gameInterval);
+		gameInterval=window.setInterval("Handle_Interval()",(maxspeed-speed+1)*60);
+	}
+}
+//-->
+</SCRIPT>
+
+<SCRIPT LANGUAGE=javascript FOR=document EVENT=onkeydown>
+<!--
+ if (document.all)
+ document_onkeydown()
+//-->
+</SCRIPT>
+
+</HEAD>
+
+<BODY LANGUAGE=javascript>
+
+<div id=block_div style="left:60;top:0">
+<table id=block_tbl border=0 cellspacing=0 cellpadding=0>
+<script>
+if (document.all){
+for (var i=0;i<4;i++){
+	document.write("<tr>");
+	for (var j=0;j<4;j++){
+		document.write("<td style=\"border:1 solid black;\"></td>");
+	}
+	document.write("</tr>");
+}
+}
+</script>
+</table>
+</div>
+
+<div id=nblock_div>
+<table id=nblock_tbl border=0 cellspacing=0 cellpadding=0>
+<script>
+if (document.all){
+for (var i=0;i<4;i++){
+	document.write("<tr>");
+	for (var j=0;j<4;j++){
+		document.write("<td style=\"height:40;width:40;border:1 outset black;\"></td>");
+	}
+	document.write("</tr>");
+}
+}
+</script>
+</table>
+</div>
+
+<div id=table_div>
+<table id=table_tbl border=0 cellspacing=0 cellpadding=0>
+<script>
+if (document.all){
+for (var i=0;i<22;i++){
+	document.write("<tr>");
+	for (var j=0;j<16;j++){
+		var d2 = i * 16 + j;
+		if (table[d2]==1)
+		document.write("<td bgcolor=navy></td>");
+		else
+		document.write("<td style=\"background:black;\"></td>");
+	}
+	document.write("</tr>");
+}
+}
+</script>
+</table>
+</div>
+
+<div id=title_div nowrap style="width: 117; height: 142;font-size:9t"> <font color="#FFFF00">input speed (1-9) to begin: <input type="text" size=8 id="speedin">&nbsp;<button onClick="begintet()" id="but">Submit!</font></button></div>  
+  
+  
+<div id=infobar_div>  
+<table border=1 bordercolor=navy cellspacing=0 cellpadding=0>  
+<tr align=center>  
+<td style="color:99ccff;font:12 system;width:56;">Speed:</td>  
+<td style="color:red;font:12 system;" id=spd>1</td>  
+<td style="color:99ccff;font:12 system;width:86;">Total Score:</td>  
+<td style="color:red;font:12 system;" id=sco>0</td>  
+<td style="color:99ccff;font:12 system;width:96;">Cleared Lines:</td>  
+<td style="color:red;font:12 system;" id=cll>0</td>  
+</tr>  
+</table>  
+</div>  
+  
+<div id=infobar2_div>Script featured on <a href="http://www.dynamicdrive.com">Dynamic Drive</a></div>  
+  
+<SCRIPT ID=MainSection LANGUAGE=javascript>  
+<!--  
+if (document.all){  
+ncid = Math.round(Math.random()*(colors.length-1));  
+bid = Math.round(Math.random()*(blocks.length-1));  
+nextBlock = blocks[bid];  
+NewBlock();  
+}  
+function begintet(){  
+document.all.speedin.disabled=true  
+document.all.but.disabled=true  
+speed=parseInt(document.all.speedin.value);  
+if (isNaN(speed)||speed==null||speed>maxspeed||speed<1) speed=1;  
+spd.innerText=speed;  
+gameInterval=window.setInterval("Handle_Interval()",(maxspeed-speed+1)*60);  
+}  
+  
+  
+//-->  
+</SCRIPT>  
+</BODY>  
+</HTML>  

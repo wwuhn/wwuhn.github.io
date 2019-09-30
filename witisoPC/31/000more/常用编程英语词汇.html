@@ -1,0 +1,1393 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>常用编程英语词汇</h4>
+
+<p></p>
+
+<p>application 应用程式应用、应用程序</p>
+
+<p>application framework 应用程式框架</p>
+
+<p>argument 参数</p>
+
+<p>array 阵列数组</p>
+
+<p>arrow operator arrow 箭头操作符</p>
+
+<p>assembly 装配件</p>
+
+<p>assembly language 组合语言汇编语言</p>
+
+<p>assert(ion) 断言</p>
+
+<p>assign 指派、指定、设值、赋值赋值</p>
+
+<p>assignment 指派、指定赋值、分配</p>
+
+<p>assignment operator 赋值操作符</p>
+
+<p>associated 相应的、相关的相关的、关联、相应的</p>
+
+<p>associative container 关联式容器</p>
+
+<p>atomic 不可分割的原子的</p>
+
+<p>attribute 属性属性、特性</p>
+
+<p>audio 音讯音频</p>
+
+<p>A.I. 人工智慧人工智能</p>
+
+<p>background 背景背景后台</p>
+
+<p>backward compatible 回溯相容向下兼容</p>
+
+<p>bandwidth 频宽带宽</p>
+
+<p>base class 基础类别基类</p>
+
+<p>base type 基础型别</p>
+
+<p>base class) batch 批次批处理</p>
+
+<p>benefit 利益收益</p>
+
+<p>best viable function 最佳可行函数</p>
+
+<p>binary search 二分搜寻法二分查找</p>
+
+<p>binary tree 二元树二叉树</p>
+
+<p>binary function 二元函式双叁函数</p>
+
+<p>binary operator 二元运算子</p>
+
+<p>binding 系结绑定</p>
+
+<p>bit 位元位</p>
+
+<p>bit field 位元栏位域</p>
+
+<p>bitmap 位元图位图</p>
+
+<p>bitwise 以 bit 为单元逐一</p>
+
+<p>bitwise copy 以 bit 为单元进行复制；</p>
+
+<p>block 区块,区段块、区块、语句块</p>
+
+<p>boolean 布尔值</p>
+
+<p>border 边框、框线边框</p>
+
+<p>brace(curly brace) 大括弧</p>
+
+<p>bracket(square brakcet) 中括弧</p>
+
+<p>breakpoint 中断点断点</p>
+
+<p>build 建造、构建</p>
+
+<p>build－in 内建内置</p>
+
+<p>bus 汇流排总线</p>
+
+<p>business 商务,业务业务</p>
+
+<p>buttons 按钮按钮</p>
+
+<p>byte 字节</p>
+
+<p>cache 快取高速缓存</p>
+
+<p>call 呼叫、叫用调用</p>
+
+<p>callback 回呼回调</p>
+
+<p>call operator call 运算子调用操作符</p>
+
+<p>candidate function 候选函数</p>
+
+<p>chain 串链链</p>
+
+<p>character 字元字符</p>
+
+<p>check box 复选框</p>
+
+<p>checked exception 可控式异常</p>
+
+<p>check button 复选按钮</p>
+
+<p>child class 子类</p>
+
+<p>class 类别类</p>
+
+<p>class body 类体</p>
+
+<p>class declaration 类声明</p>
+
+<p>class definition 类定义</p>
+
+<p>class derivation list 类继承列表</p>
+
+<p>class head 类头</p>
+
+<p>class hierarchy 类别继承体系</p>
+
+<p>class library 类库</p>
+
+<p>class template 类模板</p>
+
+<p>class template partial specializations 类模板部分特化</p>
+
+<p>class template specializations 类模板特化</p>
+
+<p>cleanup 清理、清除</p>
+
+<p>client 客户端</p>
+
+<p>client－server 客户/服务器</p>
+
+<p>clipboard 剪贴簿剪贴板</p>
+
+<p>clone 复制克隆</p>
+
+<p>collection 群集集合</p>
+
+<p>combo box 复合框组合框</p>
+
+<p>command line 命令列命令行</p>
+
+<p>communication 通讯通讯</p>
+
+<p>compatible 相容兼容</p>
+
+<p>compile time 编译期编译期、编译时</p>
+
+<p>compiler 编译器编译器</p>
+
+<p>component 组件组件</p>
+
+<p>composition 复合、合成、组合组合</p>
+
+<p>computer 电脑、计算机计算机、电脑</p>
+
+<p>concept 概念概念</p>
+
+<p>concrete 具象的实在的</p>
+
+<p>concurrent 并行并发</p>
+
+<p>configuration 组态配置</p>
+
+<p>connection 连接</p>
+
+<p>constraint 约束</p>
+
+<p>construct 构件构件</p>
+
+<p>container 容器容器</p>
+
+<p>containment 内含包容</p>
+
+<p>context 背景关系、上下文</p>
+
+<p>control 控件控件</p>
+
+<p>console 主控台控制台</p>
+
+<p>const 常数</p>
+
+<p>constant 常数常量</p>
+
+<p>constructor（ctor） 构造函数</p>
+
+<p>copy (v) 复制、拷贝拷贝</p>
+
+<p>copy (n) 复件, 副本</p>
+
+<p>cover 涵盖覆盖</p>
+
+<p>create 创建、建立、产生、生成创建</p>
+
+<p>creation 产生、生成创建</p>
+
+<p>cursor 游标光标</p>
+
+<p>custom 订制、自定定制</p>
+
+<p>data 资料数据</p>
+
+<p>database 资料库数据库</p>
+
+<p>database schema 数据库结构纲目</p>
+
+<p>data member 成员变量</p>
+
+<p>data structure 数据结构</p>
+
+<p>datagram 资料元数据报文</p>
+
+<p>dead lock 死结死锁</p>
+
+<p>debug 除错调试</p>
+
+<p>debugger 除错器调试器</p>
+
+<p>declaration 宣告、宣告式声明</p>
+
+<p>deduction 推导推导、推断</p>
+
+<p>default 预设缺省、默认</p>
+
+<p>defer 延缓推迟</p>
+
+<p>define 定义预定义</p>
+
+<p>definition 定义</p>
+
+<p>delegate 委派、委托、代理</p>
+
+<p>demarshal 反编列散集</p>
+
+<p>dereference 提领</p>
+
+<p>derived class 衍生类别派生类</p>
+
+<p>design by contract 契约式设计</p>
+
+<p>design pattern 设计范式、设计样式设计模式</p>
+
+<p>destroy 摧毁、销毁</p>
+
+<p>destructor 解构式析构函数</p>
+
+<p>device 装置、设备设备</p>
+
+<p>dialog 对话窗、对话盒对话框</p>
+
+<p>directive 指令</p>
+
+<p>directory 目录目录</p>
+
+<p>disk 碟盘</p>
+
+<p>dispatch 分派分派</p>
+
+<p>distributed computing 分布式计算</p>
+
+<p>document 文件文档</p>
+
+<p>dot operator dot. (圆)点操作符</p>
+
+<p>driver 驱动程式驱动（程序）</p>
+
+<p>dynamic binding 动态系结动态绑定</p>
+
+<p>efficiency 效率效率</p>
+
+<p>efficient 高效高效</p>
+
+<p>end user 终端用户</p>
+
+<p>entity 物体实体、物体</p>
+
+<p>encapsulation 封装封装</p>
+
+<p>enclosing class 外围类</p>
+
+<p>enum (enumeration) 枚举</p>
+
+<p>enumerators 枚举成员、枚举器</p>
+
+<p>equal 相等相等</p>
+
+<p>equality 相等性相等性</p>
+
+<p>equality operator equality == 等号操作符</p>
+
+<p>equivalence 等价性</p>
+
+<p>equivalent 等价</p>
+
+<p>escape code 转义码转义码</p>
+
+<p>evaluate 评估、求值、核定评估</p>
+
+<p>event 事件事件</p>
+
+<p>event driven 事件驱动的事件驱动的</p>
+
+<p>exception 异常情况异常</p>
+
+<p>exception declaration 异常声明</p>
+
+<p>exception handling 异常处理机制</p>
+
+<p>exception specification 异常规范</p>
+
+<p>exit 退离退出</p>
+
+<p>explicit 明白的、明显的、显式显式</p>
+
+<p>export 汇出引出、导出</p>
+
+<p>facility 设施、设备设施、设备</p>
+
+<p>feature 特性</p>
+
+<p>field 字段,</p>
+
+<p>file 档案文件</p>
+
+<p>firmware 韧体固件</p>
+
+<p>flag 旗标标记</p>
+
+<p>flash memory 快闪记忆体闪存</p>
+
+<p>flexibility 弹性灵活性</p>
+
+<p>flush 清理、扫清刷新</p>
+
+<p>font 字型字体</p>
+
+<p>form 表单窗体</p>
+
+<p>formal parameter形式叁数形式叁数</p>
+
+<p>forward declaration 前置宣告前置声明</p>
+
+<p>forwarding 转发</p>
+
+<p>forwarding function 转发函数</p>
+
+<p>fractal 碎形分形</p>
+
+<p>framework 框架框架</p>
+
+<p>full specialization 全特化</p>
+
+<p>function 函式、函数函数</p>
+
+<p>function call operator 函数对象</p>
+
+<p>function overloaded resolution 函数重载解决</p>
+
+<p>functionality 功能</p>
+
+<p>function template 函数模板</p>
+
+<p>functor 仿函式</p>
+
+<p>game 游戏游戏</p>
+
+<p>generate 生成</p>
+
+<p>generic 泛型、通用的</p>
+
+<p>generic algorithm 泛型演算法</p>
+
+<p>getter (相对於 setter) 取值函式</p>
+
+<p>global 全域的全局的</p>
+
+<p>global object 全局对象</p>
+
+<p>global scope resolution operator 全域生存空间</p>
+
+<p>group 群组</p>
+
+<p>group box 分组框</p>
+
+<p>guard clause 卫语句</p>
+
+<p>GUI 图形介面图形界面</p>
+
+<p>hand shaking 握手协商</p>
+
+<p>handle 权柄句柄</p>
+
+<p>handler 处理常式处理函数</p>
+
+<p>hard－coded 编死的硬编码的</p>
+
+<p>hard－copy 硬拷图屏幕截图</p>
+
+<p>hard disk硬碟硬盘</p>
+
+<p>hardware 硬体硬件</p>
+
+<p>hash table 杂凑表哈希表、散列表</p>
+
+<p>header file 表头档、标头档头文件</p>
+
+<p>heap 堆积堆</p>
+
+<p>hierarchy层次结构</p>
+
+<p>hook 挂钩钩子</p>
+
+<p>hyperlink 超链结超链接</p>
+
+<p>icon 图示、图标图标</p>
+
+<p>IDE 整合开发环境集成开发环境</p>
+
+<p>identifier 识别字、识别符号标识符</p>
+
+<p>if and only if 若且唯若当且仅当</p>
+
+<p>Illinois 伊利诺伊利诺斯</p>
+
+<p>image 影像图象</p>
+
+<p>immediate base 直接上层基类</p>
+
+<p>immediate derived 直接下层派生类</p>
+
+<p>immutability 不变性</p>
+
+<p>immutable 不可变（的）</p>
+
+<p>implement 实作、实现实现</p>
+
+<p>implementation 实件实现</p>
+
+<p>implicit 隐式隐式</p>
+
+<p>import 汇入导入</p>
+
+<p>increment operator ++ 增加操作符</p>
+
+<p>infinite loop 无穷回圈无限循环</p>
+
+<p>infinite recursive 无穷递回无限递归</p>
+
+<p>information 资讯信息</p>
+
+<p>infrastructure 公共基础建设</p>
+
+<p>inheritance 继承、继承机制</p>
+
+<p>inline 行内内联</p>
+
+<p>inline expansion 内联展开</p>
+
+<p>initialization 初始化</p>
+
+<p>initialization list 初始值列表</p>
+
+<p>initialize 初始化初始化</p>
+
+<p>inner class 内隐类别内嵌类</p>
+
+<p>instance 实体实例</p>
+
+<p>instantiated 实例化</p>
+
+<p>instantiation 实例</p>
+
+<p>integer (integral) 整数（的） 整型（的）</p>
+
+<p>integrate 整合集成</p>
+
+<p>interacts 交谈、互动交互</p>
+
+<p>interface 介面接口</p>
+
+<p>interpreter 直译器解释器</p>
+
+<p>invariants 恒常性,约束条件约束条件</p>
+
+<p>invoke 唤起调用</p>
+
+<p>iterate 迭代</p>
+
+<p>iterative 反覆的，迭代的</p>
+
+<p>iterator 迭代器</p>
+
+<p>iteration 迭代</p>
+
+<p>item 、条款、项目</p>
+
+<p>laser 雷射激光</p>
+
+<p>level 阶级别</p>
+
+<p>library 函数库</p>
+
+<p>lifetime 生命期</p>
+
+<p>link 联结</p>
+
+<p>linker 连接器</p>
+
+<p>literal constant 字面常数</p>
+
+<p>list 列表</p>
+
+<p>list box 列表框</p>
+
+<p>load 载入装载</p>
+
+<p>loader 载入器</p>
+
+<p>local 局部的</p>
+
+<p>local object 局部对象</p>
+
+<p>lock 机锁</p>
+
+<p>loop 回圈循环</p>
+
+<p>lvalue 左值左值</p>
+
+<p>macro 巨集宏</p>
+
+<p>magic number 魔术数字魔法数</p>
+
+<p>maintain 维护维护</p>
+
+<p>manipulator 操纵器</p>
+
+<p>marshal 编列列集叁考</p>
+
+<p>demarshal mechanism 机制</p>
+
+<p>member 成员成员</p>
+
+<p>member function 成员函数</p>
+
+<p>memory 记忆体内存</p>
+
+<p>menu 表单、选单菜单</p>
+
+<p>message 讯息消息</p>
+
+<p>message based 以讯息为基础的</p>
+
+<p>message loop 讯息回圈消息环</p>
+
+<p>method 方法、行为、函式方法</p>
+
+<p>meta－ 超－ 元－</p>
+
+<p>meta－programming 元编程</p>
+
+<p>micro 微微</p>
+
+<p>middleware 中介层中间件</p>
+
+<p>modeling 模塑</p>
+
+<p>modeling language 建模语言</p>
+
+<p>modem 调制解调器</p>
+
+<p>module 模组模块</p>
+
+<p>modifier 饰词修饰符</p>
+
+<p>most derived class 最底层的派生类</p>
+
+<p>mouse 滑鼠鼠标</p>
+
+<p>mutable可变的可变的</p>
+
+<p>multi－tasking 多工多任务</p>
+
+<p>namespace 命名空间</p>
+
+<p>native 原生的</p>
+
+<p>nested class 巢状类别嵌套类</p>
+
+<p>network 网路网络</p>
+
+<p>network card 网路卡网卡</p>
+
+<p>object 物件对象</p>
+
+<p>object based 基於对象的</p>
+
+<p>object file 目标文件</p>
+
+<p>object model 对象模型</p>
+
+<p>object oriented 面向对象的</p>
+
+<p>online 在线</p>
+
+<p>opaque 不透明的</p>
+
+<p>operand 操作数</p>
+
+<p>operating system (OS) 操作系统</p>
+
+<p>operation 操作</p>
+
+<p>operator 运算符</p>
+
+<p>option 选项</p>
+
+<p>ordinary 常规的常规的</p>
+
+<p>overflow 溢出（</p>
+
+<p>overhead 额外开销</p>
+
+<p>overload 重载</p>
+
+<p>overloaded function 重载的函数</p>
+
+<p>overloaded operator 被重载的操作符</p>
+
+<p>overloaded set 重载集合</p>
+
+<p>override 覆写重载</p>
+
+<p>package 套件包</p>
+
+<p>pair 对组</p>
+
+<p>palette 工具箱</p>
+
+<p>pane 窗格</p>
+
+<p>parallel 并行</p>
+
+<p>parameter 形参</p>
+
+<p>parameter list 参数列表</p>
+
+<p>parent class 父类</p>
+
+<p>parentheses 小括号</p>
+
+<p>parse 解析解析</p>
+
+<p>part 零件部件</p>
+
+<p>partial specialization 局部特化</p>
+
+<p>pass by address 传址</p>
+
+<p>pass by reference 按引用传递</p>
+
+<p>pass by value 按值传递</p>
+
+<p>pattern 范式、样式模式</p>
+
+<p>performance 效率</p>
+
+<p>persistence 永续性持久性</p>
+
+<p>pixel 像素</p>
+
+<p>platform 平台平台</p>
+
+<p>pointer 指针址位器</p>
+
+<p>poll 轮询轮询</p>
+
+<p>polymorphism 多态</p>
+
+<p>pop up 弹出式</p>
+
+<p>port 埠端口</p>
+
+<p>postfix 后置式</p>
+
+<p>precedence 优先序</p>
+
+<p>prefix 前置式、前序式前置式</p>
+
+<p>preprocessor 前处理器预处理器</p>
+
+<p>prime 质数素数</p>
+
+<p>primitive type 基本型别</p>
+
+<p>print 列印打印</p>
+
+<p>printer 印表机打印机</p>
+
+<p>priority 优先权</p>
+
+<p>procedure 程序过程</p>
+
+<p>procedural 过程化的</p>
+
+<p>process 行程进程</p>
+
+<p>profile 评测评测</p>
+
+<p>profiler 评测器</p>
+
+<p>programmer 程式员程序员</p>
+
+<p>programming 编程</p>
+
+<p>progress bar 进度指示器</p>
+
+<p>project 专案项目、工程</p>
+
+<p>property 属性</p>
+
+<p>protocol 协定协议</p>
+
+<p>pseudo code 伪码</p>
+
+<p>qualified 限定</p>
+
+<p>qualifier 限定修饰词</p>
+
+<p>quality 品质质量</p>
+
+<p>queue 伫列队列</p>
+
+<p>radian 径度弧度</p>
+
+<p>radio button 单选按钮</p>
+
+<p>raise 引起、引发</p>
+
+<p>random number 随机数</p>
+
+<p>range 范围、区间</p>
+
+<p>rank 等级</p>
+
+<p>raw 未经处理的</p>
+
+<p>record 记录记录</p>
+
+<p>recordset 记录集记录集</p>
+
+<p>recursive 递回递归</p>
+
+<p>re－direction 重导向重定向</p>
+
+<p>refactoring 重构、重整重构</p>
+
+<p>refer 取用叁考</p>
+
+<p>refer to 指向、指涉、指代</p>
+
+<p>reference 引用</p>
+
+<p>see pointer register 暂存器寄存器</p>
+
+<p>reflection 反射反射、映像</p>
+
+<p>relational database 关系数据库</p>
+
+<p>represent 表述，表现</p>
+
+<p>resolve 决议</p>
+
+<p>resolution 解析过程</p>
+
+<p>resolution 解析度分辨率</p>
+
+<p>restriction 局限</p>
+
+<p>return 返回</p>
+
+<p>return type 返回类型</p>
+
+<p>return value 返回值</p>
+
+<p>robust 健壮</p>
+
+<p>robustness 健壮性</p>
+
+<p>routine 常式例程</p>
+
+<p>runtime 执行期运行时</p>
+
+<p>rvalue 右值右值</p>
+
+<p>save 保存</p>
+
+<p>savepoint 保存点</p>
+
+<p>SAX 可伸缩的、可扩展的</p>
+
+<p>schedule 调度</p>
+
+<p>scheduler 调度程序</p>
+
+<p>schema 模式、纲目结构</p>
+
+<p>scroll bar 滚动条</p>
+
+<p>scope 作用域</p>
+
+<p>screen 屏幕</p>
+
+<p>SDK 软件开发包</p>
+
+<p>sealed class 密封类</p>
+
+<p>search 查找</p>
+
+<p>semantics 语义</p>
+
+<p>semaphore 信号量</p>
+
+<p>sequential container序列式容器</p>
+
+<p>server 服务器、服务端</p>
+
+<p>serial 串</p>
+
+<p>serialization/serialize 序列化</p>
+
+<p>server cursor 服务器游标</p>
+
+<p>session 会话</p>
+
+<p>setter 设值函数</p>
+
+<p>shared lock 共享锁</p>
+
+<p>sibling 同级</p>
+
+<p>side effect 副作用</p>
+
+<p>signature 签名</p>
+
+<p>single-threaded 单线程</p>
+
+<p>slider 滑块</p>
+
+<p>slot 槽</p>
+
+<p>smart pointer 智能指针</p>
+
+<p>SMTP 简单邮件传输协议</p>
+
+<p>snapshot 截屏图</p>
+
+<p>snapshot 快照</p>
+
+<p>specialization 特化</p>
+
+<p>specification 规范、规格</p>
+
+<p>splitter 切分窗口</p>
+
+<p>SOAP 简单对象访问协议</p>
+
+<p>software 软件</p>
+
+<p>source code 源码</p>
+
+<p>SQL 结构化查询语言</p>
+
+<p>stack 栈、堆栈</p>
+
+<p>standard library 标准库</p>
+
+<p>standard template library 标准模板库</p>
+
+<p>stateless 无状态的</p>
+
+<p>statement 语句、声明</p>
+
+<p>static cursor 静态游标</p>
+
+<p>static SQL statements 静态SQL语句</p>
+
+<p>stored procedure 存储过程</p>
+
+<p>status bar 状态条</p>
+
+<p>stream 流</p>
+
+<p>string 字符串</p>
+
+<p>stub 存根</p>
+
+<p>subobject 子对象</p>
+
+<p>subquery 子查询</p>
+
+<p>subroutine 子例程</p>
+
+<p>subscript operator 下标操作符</p>
+
+<p>subset 子集</p>
+
+<p>subtype 子类型</p>
+
+<p>support 支持</p>
+
+<p>suspend 挂起</p>
+
+<p>symbol 记号</p>
+
+<p>syntax 语法</p>
+
+<p>system databases 系统数据库</p>
+
+<p>system tables 系统表</p>
+
+<p>tag标签标记索引标签,页签</p>
+
+<p>target 目标</p>
+
+<p>task switch 工作切换任务切换</p>
+
+<p>template 模板</p>
+
+<p>text文字文本</p>
+
+<p>text file 文本文件</p>
+
+<p>thread 执行绪线程</p>
+
+<p>thread safe 线程安全</p>
+
+<p>throw 引发</p>
+
+<p>token 语汇单元符号、标记</p>
+
+<p>transaction 交易事务</p>
+
+<p>transaction log 事务日志</p>
+
+<p>transaction rollback 事务回滚</p>
+
+<p>transactional replication 事务复制</p>
+
+<p>translation unit 翻译单元</p>
+
+<p>transparent(ly) 透通的(地)</p>
+
+<p>traverse 巡访（来回走动） 遍历</p>
+
+<p>trigger 触发触发</p>
+
+<p>type 型别类型</p>
+
+<p>table 表</p>
+
+<p>table lock 表锁</p>
+
+<p>table-level constraint 表级约束</p>
+
+<p>tape backup 磁带备份</p>
+
+<p>task switch 工作切换</p>
+
+<p>TCP 传输控制协议</p>
+
+<p>temporary table 临时表</p>
+
+<p>thin client 瘦客户端</p>
+
+<p>third-party 第三方</p>
+
+<p>trace 跟踪</p>
+
+<p>traverse 遍历</p>
+
+<p>two-phase commit 两阶段提交</p>
+
+<p>tupletwo-phase lookup 两阶段查找</p>
+
+<p>UML unified modeling language 统一建模语言</p>
+
+<p>unary function 一元函式单叁函数</p>
+
+<p>unary operator 一元运算子一元操作符</p>
+
+<p>underflow 下溢</p>
+
+<p>unchecked exception 不可控异常</p>
+
+<p>unqualified 未经资格修饰</p>
+
+<p>user 使用者、用户用户</p>
+
+<p>user interface 用户界面</p>
+
+<p>UDDI 查询与集成</p>
+
+<p>unboxing 拆箱</p>
+
+<p>Union query 联合查询</p>
+
+<p>UNIQUE constraints UNIQUE约束</p>
+
+<p>unique index 唯一索引</p>
+
+<p>unmanaged code 非托管代码</p>
+
+<p>unmarshal 散集</p>
+
+<p>unqualified 未经限定的、未经修饰的</p>
+
+<p>URI 统一资源标识符</p>
+
+<p>URL 统一资源定位器</p>
+
+<p>variable 变数（相对於常数 const） 变量</p>
+
+<p>vector向量、矢量</p>
+
+<p>viable 可实行的、可行的可行的</p>
+
+<p>viable function 可行函式可行函数</p>
+
+<p>video 视讯视频</p>
+
+<p>view 视图</p>
+
+<p>(document/view) 文档/视图</p>
+
+<p>virtual function 虚拟函式虚函数</p>
+
+<p>virtual machine 虚拟机器虚拟机</p>
+
+<p>virtual memory 虚内存, 虚存</p>
+
+<p>volatile 易挥发的、易变的</p>
+
+<p>vowel 母音元音字母</p>
+
+<p>window 视窗窗口</p>
+
+<p>window function 窗口函数</p>
+
+<p>window procedure 窗口过程</p>
+
+<p>word 字单词</p>
+
+<p>word processor 字处理器</p>
+
+<p>wrapper 外覆、包装</p>
+
+<p>Web Services web 服务</p>
+
+<p>WHERE clause WHERE子句</p>
+
+<p>wildcard characters 通配符字符</p>
+
+<p>wildcard search 通配符搜索</p>
+
+<p>wizard 向导</p>
+
+<p>write enable 写启用</p>
+
+<p>write-ahead log 预写日志</p>
+
+<p>write-only 只写</p>
+
+<p>WSDL 描述语言</p>
+
+<p>XML 可扩展标记语言</p>
+
+<p>XSD XML 模式定义语言</p>
+
+<p>XSL 可扩展样式表语言</p>
+
+<p>XSLT 可扩展样式表语言转换</p>
+
+<p>xxx based 基于xxx的</p>
+
+<p>oriented 面向</p>
+
+
+
+<p style='float:right;'>本页共551段，9210个字符，14975 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
