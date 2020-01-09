@@ -2,15 +2,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type=text/css>
+.{
+margin:0;
+padding:0;
+}
 td,body{
 	font-size: 14px;
 	vertical-align:middle;
+	text-align:center;
 }
 #mainTable{
+margin:auto;
 width:550px;
 }
 #txt{
+margin:auto;
 width:550px;
+height:22px;
 text-align:left;
 }
 table td{
@@ -23,27 +31,31 @@ body{
 	background-color: #fcfff7;
 } 
 #txt p{
-line-height:14px;
+line-height:22px;
 font-size:14px;
 }
 input{
 	width:48px;
 	height:30px;
 }
+button[disabled]{
+background-color:#CCCCCC;
+background-color:#fff;
+}
 </style>
 <title>智能计算器</title>
-<SCRIPT language=javascript>
+<script language=javascript>
 <!--
-var endNumber 	=true
-var mem			=0
+var endNumber 	=true  				// 按了数字键以外的键标识数字输入结束
+var mem			=0					// 存储的值
 var carry		=10
 var hexnum		="0123456789abcdef"
 var angle		="d"
 var stack		=""
-var level		="0"
-var layer		=0
-//数字键
-function inputkey(key)
+var level		="0"				// 运算符的优先级计算
+var layer		=0					// 括号层数
+
+function inputkey(key) 					// 数字键做为参数key输入
 {
 	var index=key.charCodeAt(0);
 	if ((carry== 2 &&  (index==48 || index==49))
@@ -60,6 +72,7 @@ function inputkey(key)
 		else
 			document.calc.display.value += key
 }
+
 function changeSign()
 {
     if (document.calc.display.value!="0")
@@ -68,8 +81,9 @@ function changeSign()
     	else
         	document.calc.display.value = "-" + document.calc.display.value
 }
-//函数键
-function inputfunction(fun,shiftfun)
+
+// 函数键
+function inputfunction(fun,shiftfun)	
 {
 	endNumber=true
 	if (document.calc.shiftf.checked)
@@ -77,9 +91,10 @@ function inputfunction(fun,shiftfun)
 	else
 		document.calc.display.value=decto(funcalc(fun,(todec(document.calc.display.value,carry))),carry)
 	document.calc.shiftf.checked=false
-	document.calc.hypf.checked=false	
+	document.calc.hypf.checked  =false	
 	inputshift()
 }
+
 function inputtrig(trig,arctrig,hyp,archyp)
 {
 	if (document.calc.hypf.checked)
@@ -87,8 +102,8 @@ function inputtrig(trig,arctrig,hyp,archyp)
 	else
 		inputfunction(trig,arctrig)
 }
-//运算符
-function operation(join,newlevel)
+// 运算符
+function operation(join,newlevel) // join是运算符，newlevel是优先级
 {
 	endNumber=true
 	var temp=stack.substr(stack.lastIndexOf("(")+1)+document.calc.display.value
@@ -102,20 +117,21 @@ function operation(join,newlevel)
 	stack=stack.substr(0,stack.lastIndexOf("(")+1)+temp+join
 	document.calc.operator.value=""+join+" "
 	level=level+newlevel
-	
 }
-//括号
+
+// 括号
 function addbracket()
 {
 	endNumber=true
 	document.calc.display.value=0
 	stack=stack+"("
-	document.calc.operator.value="  "
+	document.calc.operator.value=" "
 	level=level+0
 	
 	layer+=1
 	document.calc.bracket.value="(="+layer
 }
+
 function disbracket()
 {
 	endNumber=true
@@ -127,7 +143,7 @@ function disbracket()
 	}	
 	document.calc.display.value=temp
 	stack=stack.substr(0,stack.lastIndexOf("("))
-	document.calc.operator.value="  "
+	document.calc.operator.value=" "
 	level=level.slice(0,-1)
 
 	layer-=1
@@ -136,7 +152,8 @@ function disbracket()
 	else
 		document.calc.bracket.value=""
 }
-//等号
+
+// 等号
 function result()
 {
 	endNumber=true
@@ -155,7 +172,7 @@ function result()
 	stack=""
 	level="0"
 }
-//修改键
+// 修改键
 function backspace()
 {
 	if (!endNumber)
@@ -166,6 +183,7 @@ function backspace()
 			document.calc.display.value=0
 	}
 }
+
 function clearall()
 {
 	document.calc.display.value=0
@@ -173,11 +191,11 @@ function clearall()
 	stack=""
 	level="0"
 	layer=""
-	document.calc.operator.value=""
-	document.calc.bracket.value=""
+	document.calc.operator.value =""
+	document.calc.bracket.value  =""
 }
-//转换键
-function inputChangCarry(newcarry)
+
+function inputChangCarry(newcarry)			// 转换键
 {
 	endNumber=true
 	document.calc.display.value=(decto(todec(document.calc.display.value,carry),newcarry))
@@ -186,10 +204,10 @@ function inputChangCarry(newcarry)
 	document.calc.sin.disabled=(carry!=10)
 	document.calc.cos.disabled=(carry!=10)
 	document.calc.tan.disabled=(carry!=10)
-	document.calc.bt.disabled=(carry!=10)
-	document.calc.pi.disabled=(carry!=10)
-	document.calc.e.disabled=(carry!=10)
-	document.calc.kp.disabled=(carry!=10)
+	document.calc.bt.disabled =(carry!=10)
+	document.calc.pi.disabled =(carry!=10)
+	document.calc.e.disabled  =(carry!=10)
+	document.calc.kp.disabled =(carry!=10)
 				
 	document.calc.k2.disabled=(carry<=2)
 	document.calc.k3.disabled=(carry<=2)
@@ -205,9 +223,9 @@ function inputChangCarry(newcarry)
 	document.calc.kd.disabled=(carry<=10)
 	document.calc.ke.disabled=(carry<=10)
 	document.calc.kf.disabled=(carry<=10)
-	
 }
-function inputChangAngle(angletype)
+
+function inputChangAngle(angletype)  // 角度转换
 {
 	endNumber=true
 	angle=angletype
@@ -218,64 +236,60 @@ function inputChangAngle(angletype)
 	endNumber=true
 }
 
-function inputshift()
+function inputshift()				// 逆运算切换
 {
 	if (document.calc.shiftf.checked)
 	{
-		document.calc.bt.value="deg　"
-		document.calc.ln.value="exp　"
-		document.calc.log.value="expd "
+		document.calc.bt.value	="deg"
+		document.calc.ln.value	="exp"
+		document.calc.log.value	="expd"
 		
 		if (document.calc.hypf.checked)
 		{
-			document.calc.sin.value="ahs　"
-			document.calc.cos.value="ahc　"
-			document.calc.tan.value="aht　"
+			document.calc.sin.value="ahs"
+			document.calc.cos.value="ahc"
+			document.calc.tan.value="aht"
 		}
 		else
 		{
-			document.calc.sin.value="asin "
-			document.calc.cos.value="acos "
-			document.calc.tan.value="atan "
+			document.calc.sin.value="asin"
+			document.calc.cos.value="acos"
+			document.calc.tan.value="atan"
 		}
 		
-		document.calc.sqr.value="x^.5 "
-		document.calc.cube.value="x^.3 "
-		
-		document.calc.floor.value="小数 "
+		document.calc.sqr.value		="x^.5"
+		document.calc.cube.value	="x^.3"
+		document.calc.floor.value	="小数"
 	}
 	else
 	{
-		document.calc.bt.value="d.ms "
-		document.calc.ln.value="ln　"
-		document.calc.log.value="log "
+		document.calc.bt.value	="d.ms"
+		document.calc.ln.value	="ln"
+		document.calc.log.value	="log"
 
 		if (document.calc.hypf.checked)
 		{
-			document.calc.sin.value="hsin "
-			document.calc.cos.value="hcos "
-			document.calc.tan.value="htan "
+			document.calc.sin.value="hsin"
+			document.calc.cos.value="hcos"
+			document.calc.tan.value="htan"
 		}
 		else
 		{
-			document.calc.sin.value="sin　"
-			document.calc.cos.value="cos　"
-			document.calc.tan.value="tan　"
+			document.calc.sin.value="sin"
+			document.calc.cos.value="cos"
+			document.calc.tan.value="tan"
 		}
-		
-		document.calc.sqr.value="x^2　"
-		document.calc.cube.value="x^3　"
-		
-		document.calc.floor.value="取整 "
+		document.calc.sqr.value		="x^2"
+		document.calc.cube.value	="x^3"
+		document.calc.floor.value	="取整"
 	}
-
 }
-//存储器部分
 
+// 存储器部分
 function clearmemory()
 {
 	mem=0
-	document.calc.memory.value="  "
+	document.calc.memory.value=" "
 }
 
 function getmemory()
@@ -290,10 +304,10 @@ function putmemory()
 	if (document.calc.display.value!=0)
 	{
 		mem=todec(document.calc.display.value,carry)
-		document.calc.memory.value="M "
+		document.calc.memory.value="M"
 	}
 	else
-		document.calc.memory.value="  "
+		document.calc.memory.value=" "
 }
 
 function addmemory()
@@ -301,9 +315,9 @@ function addmemory()
 	endNumber=true
 	mem=parseFloat(mem)+parseFloat(todec(document.calc.display.value,carry))
 	if (mem==0)
-		document.calc.memory.value="  "
+		document.calc.memory.value=" "
 	else
-		document.calc.memory.value="M "
+		document.calc.memory.value="M"
 }
 
 function multimemory()
@@ -311,14 +325,12 @@ function multimemory()
 	endNumber=true
 	mem=parseFloat(mem)*parseFloat(todec(document.calc.display.value,carry))
 	if (mem==0)
-		document.calc.memory.value="  "
+		document.calc.memory.value=" "
 	else
 		document.calc.memory.value="M "
 }
 
-//十进制转换
-
-function todec(num,oldcarry)
+function todec(num,oldcarry) // 十进制转换
 {
 	if (oldcarry==10 || num==0) return(num)
 	var neg=(num.charAt(0)=="-")
@@ -326,6 +338,7 @@ function todec(num,oldcarry)
 	var newnum=0
 	for (var index=1;index<=num.length;index++)
 		newnum=newnum*oldcarry+hexnum.indexOf(num.charAt(index-1))
+		//如357， n=3→n=n*jz+5→n*jz+7，如果是10进制,3 35 357
 	if (neg)
 		newnum=-newnum
 	return(newnum)
@@ -347,8 +360,7 @@ function decto(num,newcarry)
 	return(newnum)
 }
 
-//表达式解析
-
+// 表达式解析
 function parse(string)
 {
 	if (string.match(/^(.*\d[\+\-\*\/\%\^\&\|x\<])?([+-]?[0-9a-f\.]+)([\+\-\*\/\%\^\&\|x\<])([+-]?[0-9a-f\.]+)$/))
@@ -357,12 +369,11 @@ function parse(string)
 		return(string)
 }
 
-//数学运算和位运算
-
+// 数学运算和位运算
 function cypher(left,join,right)
 {
-	left=todec(left,carry)
-	right=todec(right,carry)
+	left  = todec(left,carry)
+	right = todec(right,carry)
 	if (join=="+")
 		return(decto(parseFloat(left)+parseFloat(right),carry))
 	if (join=="-")
@@ -388,8 +399,7 @@ function cypher(left,join,right)
 	return(left)
 }
 
-//函数计算
-
+// 函数计算
 function funcalc(fun,num)
 {
 	with(Math)
@@ -411,7 +421,6 @@ function funcalc(fun,num)
 		if (fun=="deci")
 			return(num-floor(num))
 
-
 		if (fun=="ln" && num>0)
 			return(log(num))
 		if (fun=="exp")
@@ -420,8 +429,7 @@ function funcalc(fun,num)
 			return(log(num)*LOG10E)
 		if (fun=="expdec")
 			return(pow(10,num))
-
-		
+	
 		if (fun=="cube")
 			return(num*num*num)
 		if (fun=="cubt")
@@ -546,53 +554,50 @@ function radiansToDegress(radians)
 {
 	return(radians*180/Math.PI)
 }
+-->
 
-//界面
-//-->
-</SCRIPT>
+</script>
+<!--界面-->
 <body bgcolor="fcfff7" leftmargin="0" topmargin="0" marginwidth="0">
 <br>
-<div align=center>
+
 <FORM name=calc>
 <table id="mainTable"  height=250 bgcolor="#E6F2E7" style="border-width:1px 1px 1px 1px;border-style:solid;border-color:#8AB78A;">
   <tbody>
   <tr>
     <td height=50 bgcolor="#E6F2E7">
-      <table width=100%>
-        <tbody>       
 
-<tr><td align=center><FONT color=#205001>www.dataiso.com </FONT></td></tr>
-<tr><td height="35" align=center>
-      <input name=display readOnly size=50 value=0 style=" font-size:18px; width:400px;"></td>
- </tr></tbody></table></td>
+      <input name=display size=50 value=0 style=" font-size:18px; width:400px; padding-left:4px;"></td>
   </tr>
   <tr>
     <td bgcolor="#E6F2E7">
       <table width=100% style="border-width:1px 0px 0px 0px;border-style:solid;border-color:#8AB78A;">
         <tbody>
         <tr>
-          <td style="color:#205001; vertical-align:middle;">
-<input name=carry onclick=inputChangCarry(16) type=radio style="width:12px; height:14px;"> 十六进制 
-<input CHECKED name=carry onclick=inputChangCarry(10) type=radio style="width:12px; height:14px;"> 十进制 
-<input name=carry onclick=inputChangCarry(8) type=radio style="width:12px; height:14px;"> 八进制 
-<input name=carry onclick=inputChangCarry(2) type=radio style="width:12px; height:14px;"> 二进制 </td>
-          <td width="187" style="color:#205001; text-align:right;">
-		<input CHECKED name=angle onclick="inputChangAngle('d')" type=radio style="width:12px; height:14px;" value=d> 角度制&nbsp;&nbsp;
-		<input name=angle onClick="inputChangAngle('r')" type=radio style="width:12px; height:14px;" value=r> 弧度制</td>
+          <td style="color:#205001; text-align:left; padding-left:4px;">
+<input name=carry onclick=inputChangCarry(16) type=radio style="width:14px; height:14px;"><span style="font-size:4px;">&nbsp;</span>十六进制&nbsp;&nbsp;
+<input CHECKED name=carry onclick=inputChangCarry(10) type=radio style="width:14px; height:14px;"><span style="width:4px;">&nbsp;</span>十进制&nbsp;&nbsp;
+<input name=carry onclick=inputChangCarry(8) type=radio style="width:14px; height:14px;"><span style="width:4px;">&nbsp;</span>八进制&nbsp;&nbsp;
+<input name=carry onclick=inputChangCarry(2) type=radio style="width:14px; height:14px;"><span style="width:4px;">&nbsp;</span>二进制&nbsp;&nbsp;</td>
+          <td width="187" style="color:#205001; text-align:right; padding-right:4px;">
+		<input CHECKED name=angle onclick="inputChangAngle('d')" type=radio style="width:14px; height:14px;" value=d> 角度制&nbsp;&nbsp;
+		<input name=angle onClick="inputChangAngle('r')" type=radio style="width:14px; height:14px;" value=r> 弧度制</td>
           </tr></tbody></table>
       <table width=100%>
         <tbody>
         <tr>
-          <td width=170 style="color:#205001;"><span title="切换有相反操作的按键">
-  <input name=shiftf onclick=inputshift() type=checkbox style="width:12px; height:14px;"> 上档功能 </span>
-  <input name=hypf onclick=inputshift() type=checkbox style="width:12px; height:14px;"> 双曲函数 </td>
-  <td width="184" align="center"><span title="标识增加或去除括号bracket">
-<input name=bracket readOnly size=3 style="BACKGROUND-COLOR: lightgrey; line-height:24px; text-align:center; padding-left:3px; font-size:18px;"></span>
+          <td width=33.33% style="color:#205001;  text-align:left; padding-left:6px;"><span title="切换有相反操作的按键">
+  <input name=shiftf onclick=inputshift() type=checkbox style="width:12px; height:14px;"><span style="width:4px;">&nbsp;</span>上档功能&nbsp;&nbsp;</span>
+  <input name=hypf onclick=inputshift() type=checkbox style="width:12px; height:14px;"><span style="width:4px;">&nbsp;</span>双曲函数</td>
+  
+<td width=33.33% align="center"><span title="标识增加或去除括号bracket">
+<input name=bracket readOnly size=3 style="BACKGROUND-COLOR: lightgrey; line-height:24px; text-align:center; padding-left:0px; font-size:18px;"></span>
 <span title="标识是否有储存">
-<input name=memory readOnly size=3 style="BACKGROUND-COLOR: lightgrey; line-height:24px; text-align:center; padding-left:3px; font-size:18px;"> 
+<input name=memory readOnly size=3 style="BACKGROUND-COLOR: lightgrey; line-height:24px; text-align:center; padding-left:0px; font-size:18px;"> 
 <span title="标识操作符">
-<input name=operator readOnly size=3 style="BACKGROUND-COLOR: lightgrey; line-height:24px; text-align:center; padding-left:3px; font-size:18px;"> </td>
-          <td align="right">
+<input name=operator readOnly size=3 style="BACKGROUND-COLOR: lightgrey; line-height:24px; text-align:center; padding-left:0px; font-size:18px;"> </td>
+
+          <td width=33.33% style="text-align:right; padding-right:4px;">
 <!--退格 清屏 全清-->
 <input onclick=backspace() style="COLOR: B50506; line-height:24px;" type=button value="退格"> 
 <input onClick="document.calc.display.value = 0 " style="COLOR: #B50506; line-height:24px;" type=button value="清屏"> 
@@ -652,7 +657,7 @@ function radiansToDegress(radians)
 <td><input name=k8 onClick="inputkey('8')" style="COLOR: #1919CD; font-size:16px; line-height:24px;" type=button value="8"></td>
 <td><input name=k9 onClick="inputkey('9')" style="COLOR: #1919CD; font-size:16px; line-height:24px;" type=button value="9"></td>
 
-<td><input onClick="operation('/',6)" style="COLOR: #B50506; font-size:24px; line-height:24px;" type=button value="/"></td>
+<td><input onClick="operation('/',6)" style="COLOR: #B50506; font-size:20px; line-height:24px;" type=button value="/"></td>
 <td><input onClick="operation('%',6)" style="COLOR: #B50506; font-size:14px; line-height:24px;" type=button value="取余 "></td>
 <td><input onClick="operation('&amp;',3)" style="COLOR: #B50506; font-size:14px; line-height:24px;" type=button value="与"></td></tr>
 
@@ -661,7 +666,7 @@ function radiansToDegress(radians)
 <td><input name=k5 onClick="inputkey('5')" style="COLOR: #1919CD; font-size:16px; line-height:24px;" type=button value="5"></td>
 <td><input name=k6 onClick="inputkey('6')" style="COLOR: #1919CD; font-size:16px; line-height:24px;" type=button value="6"></td>
 
-<td><input onClick="operation('*',6)" style="COLOR: #B50506; font-size:24px; line-height:24px;" type=button value="*"></td>
+<td><input onClick="operation('*',6)" style="COLOR: #B50506; font-size:20px; line-height:24px;" type=button value="*"></td>
 <td><input name=floor onClick="inputfunction('floor','deci')" style="COLOR: #B50506; font-size:14px; line-height:24px;" type=button value="取整 "></td>
 <td><input onClick="operation('|',1)" style="COLOR: #B50506; font-size:14px; line-height:24px;" type=button value="或"></td></tr>
 
@@ -678,8 +683,8 @@ function radiansToDegress(radians)
 <td><input onClick="inputkey('0')" style="COLOR: #1919CD; font-size:16px; line-height:24px;" type=button value="0"></td>
 <td><input onclick=changeSign() style="COLOR: #1919CD; font-size:16px; line-height:24px;" type=button value="+/- "></td>
 <td><input name=kp onClick="inputkey('.')" style="COLOR: #1919CD; font-size:24px; line-height:24px; vertical-align:top; padding-top:-6px;" type=button value="."></td>
-<td><input onClick="operation('+',5)" style="COLOR: #B50506; font-size:14px; line-height:24px;" type=button value="+"></td>
-<td><input onclick=result() style="COLOR: #B50506; font-size:14px; line-height:24px;" type=button value="＝"></td>
+<td><input onClick="operation('+',5)" style="COLOR: #B50506; font-size:20px; line-height:24px;" type=button value="+"></td>
+<td><input onclick=result() style="COLOR: #B50506; font-size:24px; line-height:24px;" type=button value="="></td>
 <td><input onClick="operation('x',2)" style="COLOR: #B50506; font-size:14px; line-height:24px;" type=button value="异或 "></td></tr>
 <tr align=middle>
 <td><input disabled name=ka onClick="inputkey('a')" style="COLOR: #1919CD; font-size:14px; line-height:24px;" type=button value="A "></td>
