@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left">电商仓储和传统仓储的区别分析与管理建议</p>
+
+<p>2018-8-28</p>
+
+<p>电商仓储和传统线下仓储虽然看起来都是仓储<a href="http://www.paidai.com/labels/%E7%AE%A1%E7%90%86.html" target="_blank">管理</a>，但是在管理层面却又本质的区别。万里牛通过<a href="http://www.paidai.com/labels/%E5%88%86%E6%9E%90.html" target="_blank">分析</a>对比来反映出电商仓储的特点及难点，从而为电商仓储规划提供方向。为大家分享在电商淡季时，如何抓住时间调整和优化仓储各项流程，为类似618、双11这样的电商大促做好充足的准备。</p>
+
+<p><img border="0" width="621" height="308" src="a_clip_image002.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145355_725747.png@!logo_620" /></p>
+
+<p>通过线上仓与线下仓的对比，我们可以看电商仓具有以下5大特点：</p>
+
+<p>（1）订单的未知性：订单无计划，下单信息不能提前预知</p>
+
+<p>（2）订单的波动性：大促对订单波动影响较大</p>
+
+<p>（3）人员的灵活性：订单波动要求人员调配更加灵活</p>
+
+<p>（4）仓储的零散性：库存越来越靠近消费者</p>
+
+<p>（5）平台的多样化：针对不同平台的业务需要不同的流程</p>
+
+<p>根据电商的特点，万里牛建议电商商家从以下几个方面对电商仓储进行优化：</p>
+
+<p>一、电商仓储规划</p>
+
+<p>在做整体的仓储规划前，电商首先采集一段时间的关键数据，比如商品信息、日均单量、作业效率、库存存量等，分析订单的出货特点和业务规律从而初步判断出所需仓库的规模、仓库类型、货架的类型和数量、设备和包材的选择以及人员的配置和业务流程等。同时要分析日常的数据和大促活动时的数据，从而综合考虑各项数据来创建仓储模型。</p>
+
+<p>二、仓库布局的规划</p>
+
+<p>根据之前的数据分析结果，从全局角度来规划所需要的各项功能区，包括所需要的面积和货架等。在规划功能区的时候也要注意各项功能区之间，以及单个功能区内部的动线，预留好主辅通道，有平衡重或者前移式叉车的仓库还要注意各通道的宽度，预留好安全距离。</p>
+
+<p><img border="0" width="100%" src="a_clip_image004.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145430_942219.png@!logo_620" /></p>
+
+<p>三、拣货路径规划</p>
+
+<p>S形拣货动线：拣货员在整个拣货区以大S形的路径行走拣货，进入巷道后以“Z”字形或“S”形的路线拣货；这种拣货动线比较适合中层隔板货架的仓库，可以实现拣货的最短路径。</p>
+
+<p>U形拣货动线：拣货员在整个货架外围和巷道中都是以大小U形的动线来拣货，这种拣货动线比较适合巷道宽度比较宽的高位立体货架区。</p>
+
+<p>具体使用哪一种，大家根据自己的实际场景来选择。</p>
+
+<p>四、库位规划</p>
+
+<p>其实库位规划我们可以把它理解为给库位编码，好的库位编码可以帮助仓库作业人员快速定位库存位置。</p>
+
+<p><img border="0" width="621" height="287" src="a_clip_image006.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/201882814552_948854.png@!logo_620" /></p>
+
+<p>五、库存优化</p>
+
+<p>当企业存货品种繁多、单价高低悬殊、存量多寡不一时，使用ABC分类法可以分清主次、抓住重点、区别对待，使存货控制更方便有效。</p>
+
+<p>ABC管理法的基本原理：对企业库存（物料、在制品、产成品）按其重要程度、价值高低、资金占用或消耗数量等进行分类。</p>
+
+<p>1）ABC分类规则</p>
+
+<p><img border="0" width="621" height="178" src="a_clip_image008.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145540_454040.png@!logo_620" /></p>
+
+<p>A类商品也就是我们常说的快消品，具有销量高、周转快、月出货天数占比高等特点，适合存储与靠近复核区的拣货区域，也是全仓动线最优的拣货区域，从而提高整体发货效率。同时也是全仓拣货频率最高最集中的区域，同一拣货路径下可以拣选更多的订单，因此也是全仓进行异动盘点的核心区域。</p>
+
+<p><img border="0" width="621" height="520" src="a_clip_image010.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145557_239043.png@!logo_620" /></p>
+
+<p>C类商品就是我们常说的出货量和频率都非常低的滞销品或者不动销，这类商品因为常年不动或者变动较少，我们可以把这类商品存放于库区的后端，盘点的优先级也相对较低。</p>
+
+<p><img border="0" width="621" height="519" src="a_clip_image012.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145619_228458.png@!logo_620" /></p>
+
+<p>B类商品就是出货量相对较少，出货频率较低的商品。这类商品仓储位置仅次于A类商品的库区，相对接近分货及复核等作业区。拣货频率和库位均介于AC之间。</p>
+
+<p><img border="0" width="621" height="523" src="a_clip_image014.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145721_730646.png@!logo_620" /></p>
+
+<p>六、库存合并优化</p>
+
+<p>库存合并策略：</p>
+
+<p>1）将相同sku尽量合并至同一库位，避免过度分散，使拣货区域更集中；</p>
+
+<p>2）将总库存量相对较少（1-3个）的sku进行合并，最大化利用库位空间，但要注意控制库位的混放上线。</p>
+
+<p>七、订单波次及拣货优化</p>
+
+<p>1）波次分组优化</p>
+
+<p><img border="0" width="621" height="162" src="a_clip_image016.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145741_331665.png@!logo_620" /></p>
+
+<p>2）拣货原则</p>
+
+<p><img border="0" width="621" height="221" src="a_clip_image018.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145754_764891.png@!logo_620" /></p>
+
+<p><img border="0" width="621" height="233" src="a_clip_image020.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145810_739146.png@!logo_620" /></p>
+
+<p>汇总拣货中的边拣边分则适用于商品体积形态较小的电商企业，如服装、化妆品、小饰品等电商企业，在汇总拣货环节即可同步完成分货作业，从而节省了播种分货的空间和人员。</p>
+
+<p>要注意的一点就是无论是先拣后分还是边拣边分，都要注意拣货车和播种墙的格子数与汇总的拣货单中订单的最大上限要一致，否则会导致订单溢出。边拣边分的拣货车也可以被理解为可移动的小型播种墙。</p>
+
+<p>八、拣货工具优化</p>
+
+<p>拣货工具主要分为纸单拣选、PDA拣选。</p>
+
+<p>传统的按面单拣选：拣货效率高、准确率相对较低、库存无法实时同步，依赖对仓库货品摆放位置熟悉的老员工，新人上手比较慢。而PDA拣选能够兼顾拣货效率和准确率，实现库存实时同步，并自动提示配货员到指定配置拣选指定商品的种类和数量，傻瓜式便捷操作，新老员工上手快。</p>
+
+<p><img border="0" src="a_clip_image022.gif" alt="https://oss.epaidai.com/uploadpath/2018-8/2018828145827_756252.png@!logo_620" /> </p>
+  <p>&nbsp;</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
