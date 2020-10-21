@@ -52,50 +52,82 @@ var carry		=10
 var hexnum		="0123456789abcdef"
 var angle		="d"
 var stack		=""
+var expres		=""
 var level		="0"				// 运算符的优先级计算
 var layer		=0					// 括号层数
 
 function inputkey(key) 					// 数字键做为参数key输入
 {
-	var index=key.charCodeAt(0);
-	if ((carry== 2 &&  (index==48 || index==49))
-	 || (carry== 8 &&   index>=48 && index<=55)
-	 || (carry==10 &&  (index>=48 && index<=57 || index==46))
-	 || (carry==16 && ((index>=48 && index<=57) || (index>=97 && index<=102))))
+	var index=key.charCodeAt(0);					// 返回字符串中指定索引的字符 unicode 编码
+	if ((carry== 2 &&  (index==48 || index==49)) 	// 0、1的ASCII是48、49
+	 || (carry== 8 &&   index>=48 && index<=55)									// 0-7
+	 || (carry==10 &&  (index>=48 && index<=57 || index==46)) 					// 0-9、.
+	 || (carry==16 && ((index>=48 && index<=57) || (index>=97 && index<=102))))	// 0-9、A-F
 		if(endNumber)
 		{
 			endNumber=false
 			document.calc.display.value = key
+			expres+=key
 		}
 		else if(document.calc.display.value == null || document.calc.display.value == "0")
+		{
 			document.calc.display.value = key
+			expres=key
+		}
 		else
+		{
 			document.calc.display.value += key
+			expres+=key
+		}
+	
+	document.calc.display2.value = expres
+	//tb代表id为u的文本框
+	var tb = document.getElementById("display2");
+	//获取文本框的长度
+	var leng = tb.value.length;
+	//alert(leng)
+	tb.selectionStart = leng;
+	tb.align = right;
 }
 
 function changeSign()
 {
     if (document.calc.display.value!="0")
-    	if(document.calc.display.value.substr(0,1) == "-")
+    	if(document.calc.display.value.substr(0,1) == "-")//substr(start,length)
         	document.calc.display.value = document.calc.display.value.substr(1)
     	else
         	document.calc.display.value = "-" + document.calc.display.value
+	if (expres!="0")
+    	if(expres.substr(0,1) == "-")//substr(start,length)
+		{
+			expres = expres.substr(1)
+			document.calc.display2.value = expres
+		}
+    	else
+		{
+			expres = "-(" + expres + ") "
+			document.calc.display2.value = expres
+		}
 }
 
-// 函数键
-function inputfunction(fun,shiftfun)	
+function inputfunction(fun,shiftfun)	// 函数键
 {
 	endNumber=true
 	if (document.calc.shiftf.checked)
+	{
 		document.calc.display.value=decto(funcalc(shiftfun,(todec(document.calc.display.value,carry))),carry)
+	}
 	else
+	{
 		document.calc.display.value=decto(funcalc(fun,(todec(document.calc.display.value,carry))),carry)
+
+	}
 	document.calc.shiftf.checked=false
 	document.calc.hypf.checked  =false	
 	inputshift()
 }
 
-function inputtrig(trig,arctrig,hyp,archyp)
+function inputtrig(trig,arctrig,hyp,archyp) // 角度值、弧度值
 {
 	if (document.calc.hypf.checked)
 		inputfunction(hyp,archyp)
@@ -106,17 +138,21 @@ function inputtrig(trig,arctrig,hyp,archyp)
 function operation(join,newlevel) // join是运算符，newlevel是优先级
 {
 	endNumber=true
+	expres+=join
+	document.calc.display2.value = expres
 	var temp=stack.substr(stack.lastIndexOf("(")+1)+document.calc.display.value
 	while (newlevel!=0 && (newlevel<=(level.charAt(level.length-1))))
 	{
 		temp=parse(temp)
-		level=level.slice(0,-1)
+		level=level.slice(0,-1) 
+		// slice(start, end)，如果某个参数为负，则从字符串的结尾开始计数。
 	}
 	if (temp.match(/^(.*\d[\+\-\*\/\%\^\&\|x])?([+-]?[0-9a-f\.]+)$/))
 		document.calc.display.value=RegExp.$2
 	stack=stack.substr(0,stack.lastIndexOf("(")+1)+temp+join
 	document.calc.operator.value=""+join+" "
 	level=level+newlevel
+	
 }
 
 // 括号
@@ -127,7 +163,6 @@ function addbracket()
 	stack=stack+"("
 	document.calc.operator.value=" "
 	level=level+0
-	
 	layer+=1
 	document.calc.bracket.value="(="+layer
 }
@@ -171,6 +206,8 @@ function result()
 	document.calc.operator.value=""
 	stack=""
 	level="0"
+	expres=expres+"="+temp + "  "
+	document.calc.display2.value=expres
 }
 // 修改键
 function backspace()
@@ -178,9 +215,16 @@ function backspace()
 	if (!endNumber)
 	{
 		if(document.calc.display.value.length>1)
+		{
 			document.calc.display.value=document.calc.display.value.substring(0,document.calc.display.value.length - 1)
+		}
 		else
 			document.calc.display.value=0
+	}
+	if(expres.length>0)
+	{
+		expres = expres.substring(0,expres.length-1)
+		document.calc.display2.value=expres
 	}
 }
 
@@ -193,6 +237,8 @@ function clearall()
 	layer=""
 	document.calc.operator.value =""
 	document.calc.bracket.value  =""
+	expres=""
+	document.calc.display2.value=expres
 }
 
 function inputChangCarry(newcarry)			// 转换键
@@ -230,9 +276,17 @@ function inputChangAngle(angletype)  // 角度转换
 	endNumber=true
 	angle=angletype
 	if (angle=="d")
-		document.calc.display.value=radiansToDegress(document.calc.display.value)
+	{
+		expres = "radiansTodegrees("+ document.calc.display.value + ") =" + radiansTodegrees(document.calc.display.value) + " "
+		document.calc.display2.value = expres;
+		document.calc.display.value=radiansTodegrees(document.calc.display.value)
+	}
 	else
-		document.calc.display.value=degressToRadians(document.calc.display.value)
+	{
+		expres = "degreesToRadians("+ document.calc.display.value + ") =" + degreesToRadians(document.calc.display.value) + " "
+		document.calc.display2.value = expres;
+		document.calc.display.value=degreesToRadians(document.calc.display.value)
+	}
 	endNumber=true
 }
 
@@ -257,8 +311,8 @@ function inputshift()				// 逆运算切换
 			document.calc.tan.value="atan"
 		}
 		
-		document.calc.sqr.value		="x^.5"
-		document.calc.cube.value	="x^.3"
+		document.calc.sqr.value		="√2"
+		document.calc.cube.value	="√3"
 		document.calc.floor.value	="小数"
 	}
 	else
@@ -296,6 +350,8 @@ function getmemory()
 {
 	endNumber=true
 	document.calc.display.value=decto(mem,carry)
+	expres+= " " + document.calc.display.value
+	document.calc.display2.value = expres
 }
 
 function putmemory()
@@ -305,6 +361,7 @@ function putmemory()
 	{
 		mem=todec(document.calc.display.value,carry)
 		document.calc.memory.value="M"
+
 	}
 	else
 		document.calc.memory.value=" "
@@ -361,7 +418,7 @@ function decto(num,newcarry)
 }
 
 // 表达式解析
-function parse(string)
+function parse(string) //JS内置的parse()只是解析一个日期时间字符串
 {
 	if (string.match(/^(.*\d[\+\-\*\/\%\^\&\|x\<])?([+-]?[0-9a-f\.]+)([\+\-\*\/\%\^\&\|x\<])([+-]?[0-9a-f\.]+)$/))
 		return(RegExp.$1+cypher(RegExp.$2,RegExp.$3,RegExp.$4))
@@ -386,6 +443,7 @@ function cypher(left,join,right)
 		return(decto(left%right,carry))
 	if (join=="&")
 		return(decto(left&right,carry))
+		
 	if (join=="|")
 		return(decto(left|right,carry))
 	if (join=="^")
@@ -405,94 +463,231 @@ function funcalc(fun,num)
 	with(Math)
 	{
 		if (fun=="pi")
+		{
+			expres = expres+PI+ " "
+			document.calc.display2.value = expres
 			return(PI)
+		}
 		if (fun=="e")
+		{
+			expres = expres+E+ " "
+			document.calc.display2.value = expres
 			return(E)
+		}
 
 		if (fun=="abs")
+		{
+			expres = "abs("+ num +") = "+ abs(num)+ " "
+			document.calc.display2.value = expres		
 			return(abs(num))
+		}
 		if (fun=="ceil")
+		{
+			expres = "ceil("+ num +") = "+ ceil(num)+ " "
+			document.calc.display2.value = expres		
 			return(ceil(num))
+		}
 		if (fun=="round")
+		{
+			expres = "round(" + num + ") = " + round(num) + " "
+			document.calc.display2.value = expres			
 			return(round(num))
+		}
 
 		if (fun=="floor")
+		{
+			expres = "floor("+num+") = "+ floor(num)+ " "
+			document.calc.display2.value = expres
 			return(floor(num))
+		}
 		if (fun=="deci")
+		{
+			expres = "deci("+num+") = "+ num-floor(num)+ " "
+			document.calc.display2.value = expres			
 			return(num-floor(num))
+		}
 
 		if (fun=="ln" && num>0)
+		{
+			expres = "ln(" + num + ") = " + log(num) + " "
+			document.calc.display2.value = expres
 			return(log(num))
+		}
 		if (fun=="exp")
+		{
+			expres = "exp("+num+") = "+ exp(num)+ " "
+			document.calc.display2.value = expres		
 			return(exp(num))
+		}
 		if (fun=="log" && num>0)
+		{
+			expres = "log(" + num + ") = " + log(num)*LOG10E + " "
+			document.calc.display2.value = expres
 			return(log(num)*LOG10E)
+		}
 		if (fun=="expdec")
+		{
+			expres = "pow(10^"+num+") = "+ pow(10,num)+ " "
+			document.calc.display2.value = expres			
 			return(pow(10,num))
-	
+		}
 		if (fun=="cube")
+		{
+			expres = "cube("+num+") = "+ num*num*num+ " "
+			document.calc.display2.value = expres			
 			return(num*num*num)
+		}
 		if (fun=="cubt")
+		{
+			expres = "√"+num+" = "+ pow(num,1/3)+ " "
+			document.calc.display2.value = expres			
 			return(pow(num,1/3))
+		}
 		if (fun=="sqr")
-			return(num*num)
+		{
+			expres = "sqr(" + num + ") = "+num*num + " "
+			document.calc.display2.value = expres
+			return(num*num)	
+		}
 		if (fun=="sqrt" && num>=0)
+		{
+			expres = "sqrt("+num+") = "+ sqrt(num)+ " "
+			document.calc.display2.value = expres			
 			return(sqrt(num))
+		}
 
 		if (fun=="!")
+		{
+			expres = "factorial("+num+") = "+ factorial(num)+ " "
+			document.calc.display2.value = expres			
 			return(factorial(num))
+		}
 
 		if (fun=="recip" && num!=0)
+		{
+			expres = "1/"+num+" = "+ 1/num+ " "
+			document.calc.display2.value = expres		
 			return(1/num)
+		}
 		
 		if (fun=="dms")
+		{
+			expres = "dms("+num+") = "+ dms(num)+ " "
+			document.calc.display2.value = expres		
 			return(dms(num))
+		}
 		if (fun=="deg")
+		{
+			expres = "deg("+num+") = "+ deg(num)+ " "
+			document.calc.display2.value = expres	
 			return(deg(num))
+		}
 
 		if (fun=="~")
+		{
+			expres = "~"+num+" = "+ ~num+ " "
+			document.calc.display2.value = expres	
 			return(~num)
+		}
 	
 		if (angle=="d")
 		{
 			if (fun=="sin")
-				return(sin(degressToRadians(num)))
+			{
+				expres = "sin("+num+") = "+ sin(degreesToRadians(num))+ " "
+				document.calc.display2.value = expres	
+				return(sin(degreesToRadians(num)))
+			}
 			if (fun=="cos")
-				return(cos(degressToRadians(num)))
+			{
+				expres = "cos("+num+") = "+ cos(degreesToRadians(num))+ " "
+				document.calc.display2.value = expres				
+				return(cos(degreesToRadians(num)))
+			}
 			if (fun=="tan")
-				return(tan(degressToRadians(num)))
-
+			{
+				expres = "tan("+num+") = "+ tan(degreesToRadians(num))+ " "
+				document.calc.display2.value = expres				
+				return(tan(degreesToRadians(num)))
+			}
 			if (fun=="arcsin" && abs(num)<=1)
-				return(radiansToDegress(asin(num)))
+			{
+				expres = "arcsin("+num+") = "+ radiansTodegrees(asin(num))+ " "
+				document.calc.display2.value = expres					
+				return(radiansTodegrees(asin(num)))
+			}
 			if (fun=="arccos" && abs(num)<=1)
-				return(radiansToDegress(acos(num)))
+			{
+				expres = "arccos("+num+") = "+ radiansTodegrees(acos(num))+ " "
+				document.calc.display2.value = expres				
+				return(radiansTodegrees(acos(num)))
+			}
 			if (fun=="arctan")
-				return(radiansToDegress(atan(num)))
+			{
+				expres = "arctan("+num+") = "+ radiansTodegrees(atan(num))+ " "
+				document.calc.display2.value = expres		
+				return(radiansTodegrees(atan(num)))
+			}
 		}
 		else
 		{
 			if (fun=="sin")
+			{
+				expres = "sin("+num+") = "+ sin(num)+ " "
+				document.calc.display2.value = expres			
 				return(sin(num))
+			}
 			if (fun=="cos")
+			{
+				expres = "cos("+num+") = "+ cos(num)+ " "
+				document.calc.display2.value = expres			
 				return(cos(num))
+			}
 			if (fun=="tan")
+			{
+				expres = "tan("+num+") = "+ tan(num)+ " "
+				document.calc.display2.value = expres			
 				return(tan(num))
+			}
 
 			if (fun=="arcsin" && abs(num)<=1)
+			{
+				expres = "arcsin("+num+") = "+ asin(num)+ " "
+				document.calc.display2.value = expres			
 				return(asin(num))
+			}
 			if (fun=="arccos" && abs(num)<=1)
+			{
+				expres = "arccos("+num+") = "+ acos(num)+ " "
+				document.calc.display2.value = expres			
 				return(acos(num))
+			}
 			if (fun=="arctan")
+			{
+				expres = "arctan("+num+") = "+ atan(num)+ " "
+				document.calc.display2.value = expres			
 				return(atan(num))
+			}
 		}
 	
 		if (fun=="hypsin")
+		{
+			expres = "(exp("+num+")-exp(0-"+num+"))*0.5) = "+ (exp(num)-exp(0-num))*0.5+ " "
+			document.calc.display2.value = expres			
 			return((exp(num)-exp(0-num))*0.5)
+		}
 		if (fun=="hypcos")
+		{
+			expres = "(exp("+num+")+exp(-"+num+"))*0.5) = "+ (exp(num)+exp(-num))*0.5+ " "
+			document.calc.display2.value = expres			
 			return((exp(num)+exp(-num))*0.5)
+		}
 		if (fun=="hyptan")
+		{
+			expres = "(exp("+num+")-exp(-"+num+"))/(exp("+num+")+exp(-"+num+")) = " + (exp(num)-exp(-num))/(exp(num)+exp(-num)) + " "
+			document.calc.display2.value = expres
 			return((exp(num)-exp(-num))/(exp(num)+exp(-num)))
-
+		}
 		if (fun=="ahypsin" | fun=="hypcos" | fun=="hyptan")
 		{
 			alert("对不起,公式还没有查到!")
@@ -513,7 +708,7 @@ function factorial(n)
 	return(fac)
 }
 
-function dms(n)
+function dms(n) // 度→度分秒，如3.52→3.3112
 {
 	var neg=(n<0)
 	with(Math)
@@ -529,7 +724,7 @@ function dms(n)
 	return(dms)
 }
 
-function deg(n)
+function deg(n) // dms的逆运算
 {
 	var neg=(n<0)
 	with(Math)
@@ -545,17 +740,22 @@ function deg(n)
 	return(deg)
 }
 
-function degressToRadians(degress)
+function degreesToRadians(degrees)
 {
-	return(degress*Math.PI/180)
+	return(degrees*Math.PI/180)
 }
 
-function radiansToDegress(radians)
+function radiansTodegrees(radians)
 {
 	return(radians*180/Math.PI)
 }
+function txtMove() //输入时执行
+{
+		var tb = document.getElementById("display2");
+		var leng = tb.value.length;
+		tb.selectionStart = leng+100;
+}
 -->
-
 </script>
 <!--界面-->
 <body bgcolor="fcfff7" leftmargin="0" topmargin="0" marginwidth="0">
@@ -565,10 +765,18 @@ function radiansToDegress(radians)
 <table id="mainTable"  height=250 bgcolor="#E6F2E7" style="border-width:1px 1px 1px 1px;border-style:solid;border-color:#8AB78A;">
   <tbody>
   <tr>
-    <td height=50 bgcolor="#E6F2E7">
+    <td height=30 bgcolor="#E6F2E7">
+
+      <input type="text" onClick="txtMove()" name=display2 id="display2" value=0 align="left" style=" font-size:18px; width:95%; padding-left:4px; text-align:left"></td>
+
+  </tr>
+  <tr>
+    <td height=30 bgcolor="#E6F2E7">
 
       <input name=display size=50 value=0 style=" font-size:18px; width:400px; padding-left:4px;"></td>
+
   </tr>
+  
   <tr>
     <td bgcolor="#E6F2E7">
       <table width=100% style="border-width:1px 0px 0px 0px;border-style:solid;border-color:#8AB78A;">
@@ -580,7 +788,7 @@ function radiansToDegress(radians)
 <input name=carry onclick=inputChangCarry(8) type=radio style="width:14px; height:14px;"><span style="width:4px;">&nbsp;</span>八进制&nbsp;&nbsp;
 <input name=carry onclick=inputChangCarry(2) type=radio style="width:14px; height:14px;"><span style="width:4px;">&nbsp;</span>二进制&nbsp;&nbsp;</td>
           <td width="187" style="color:#205001; text-align:right; padding-right:4px;">
-		<input CHECKED name=angle onclick="inputChangAngle('d')" type=radio style="width:14px; height:14px;" value=d> 角度制&nbsp;&nbsp;
+		<input CHECKED name=angle onClick="inputChangAngle('d')" type=radio style="width:14px; height:14px;" value=d> 角度制&nbsp;&nbsp;
 		<input name=angle onClick="inputChangAngle('r')" type=radio style="width:14px; height:14px;" value=r> 弧度制</td>
           </tr></tbody></table>
       <table width=100%>
@@ -631,12 +839,12 @@ function radiansToDegress(radians)
 			  
 <!--cos x^3 n!-->
 <td><input name=cos onClick="inputtrig('cos','arccos','hypcos','ahypcos')" style="COLOR: #D316D3; line-height:24px;" type=button value="cos"></td>
-<td><input name=cube onClick="inputfunction('cube','cubt')" style="COLOR: #D316D3; line-height:24px;" type=button value="x^3"></td>
+<td><input name=cube onClick="inputfunction('cube','cubt')" style="COLOR: #D316D3; line-height:24px;" type=button value="x³"></td>
 <td><input onClick="inputfunction('!','!')" style="COLOR: #D316D3; line-height:24px;" type=button value="n!"></td></tr><tr align=middle>
 
 <!--tan x^2 1/x-->
 <td><input name=tan onClick="inputtrig('tan','arctan','hyptan','ahyptan')" style="COLOR: #D316D3; line-height:24px;" type=button value="tan"></td>
-<td><input name=sqr onClick="inputfunction('sqr','sqrt')" style="COLOR: #D316D3; line-height:24px;" type=button value="x^2"></td>
+<td><input name=sqr onClick="inputfunction('sqr','sqrt')" style="COLOR: #D316D3; line-height:24px;" type=button value="x²"></td>
 <td><input onClick="inputfunction('recip','recip')" style="COLOR: #D316D3; line-height:24px;" type=button value="1/x"></td></tr></tbody></table></td>
           <td width=30></td>
           <td>
@@ -703,6 +911,9 @@ function radiansToDegress(radians)
 <p>减存(M-)：存储器的暂存值-输入值，再存入暂存器（先按数字或后按数字没有区别）</p>
 <p>积存(M*)：存储器的暂存值*输入值，再存入暂存器</p>
 <p>清存(MC)：MemoryClear</p>
+<p>dms(n)：度→度.分秒(60进制，分、秒用两位数表示)，如3.52→3.3112，deg是逆运算</p>
+<p>取余：23%7=2</p>
+<p>取整：23.7=23</p>
 </div>
 </DIV>
 
