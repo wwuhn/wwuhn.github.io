@@ -1,0 +1,673 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>压栈，</strong><strong> </strong><strong>跳转，执行，返回：从汇编看函数调用</strong><strong> </strong></p>
+
+
+
+<p>从本篇开始，我们讨论一些高级语言中的基础设施：堆栈，函数调用，变量生命周期等等话题。因为这里本身会涉及到比较多的汇编层面的基础概念。为了向大家说明汇编层的函数调用实现细节，无奈我只能罗列出很多汇编上的概念，因为本文假定读者不需要具有任何汇编知识。我讨厌长篇大论，但本篇的解释可能仍然不够明晰。在此为自己知识的浅薄表示歉意。</p>
+
+<p><strong>1. </strong><strong>从代码的顺序执行说起</strong><strong> </strong></p>
+
+<p>每一个程序员脑子里应该都有这么一种印象：“程序是顺序执行的”。这个观点其实和我们开篇所讲的cpu的流水线执行过程直接相关。</p>
+
+<p>让我们再回忆一下脑海中关于函数调用的概念，也许会是这个样子：</p>
+
+<p><img border="0" src="02.png" data-original-src="//upload-images.jianshu.io/upload_images/4380238-041f6a20f3ae6b05.png" data-original-width="652" data-original-height="326" data-original-format="image/png" data-original-filesize="69774" /></p>
+
+
+
+<p>这里的“控制流转移”又是如何发生的呢？在解释这个之前，也许我们需要科普一点有关于汇编的知识。</p>
+
+<p><strong>2. </strong><strong>函数调用中的一些细节说明</strong><strong> </strong></p>
+
+<p><strong>2.1 </strong><strong>函数调用中的关键寄存器</strong><strong> </strong></p>
+
+<p><strong>2.1.1 </strong><strong>程序计数器</strong><strong>PC</strong></p>
+
+<p>程序计数器是一个计算机组成原理中讲过的概念，下面给出一个<a href="https://link.jianshu.com/?t=http://baike.baidu.com/link?url=8CxiYwmTkvVtaRyKy2GD6lhktKc8R6BAFRaxAJDbs7tyr_aCCHG9U5suq7whjzSbWTERPwEl95d1F8jNqv3k_a" target="_blank">百度百科</a>中的简单解释</p>
+
+<p>程序计数器是用于存放下一条指令所在单元的地址的地方。</p>
+
+<p>当执行一条指令时，首先需要根据PC中存放的指令地址，将指令由内存取到<a href="https://link.jianshu.com/?t=http://baike.baidu.com/view/178142.htm" target="_blank">指令寄存器</a>中，此过程称为“取指令”。与此同时，PC中的地址或自动加1或由转移指针给出下一条指令的地址。此后经过分析指令，执行指令。完成第一条指令的执行，而后根据PC取出第二条指令的地址，如此循环，执行每一条指令。</p>
+
+<p>可以看到，程序计数器是一个cpu执行指令代码过程中的关键寄存器：它指向了当前计算机要执行的指令地址，CPU总是从程序计数器取出当前指令来执行。当指令执行后，程序计数器的值自动增加，指向下一条将要执行的指令。</p>
+
+<p>在x86汇编中，执行程序计数器功能的寄存器被叫做<strong>EIP</strong>，也叫作<em>指令指针寄存器</em>。</p>
+
+<p><strong>2.1.2 </strong><strong>基址指针，栈指针和程序栈</strong><strong> </strong></p>
+
+<p>栈是程序设计中的一种经典数据结构，每个程序都拥有自己的程序栈。很重要的一点是，栈是<strong>向下生长</strong>的。所谓向下生长是指从内存高地址-&gt;低地址的路径延伸，那么就很明显了，栈有栈底和栈顶，那么栈顶的地址要比栈底低。对x86体系的CPU而言，其中</p>
+
+<p>---&gt; 寄存器ebp（base pointer ）可称为“帧指针”或“基址指针”，其实语意是相同的。</p>
+
+<p>---&gt; 寄存器esp（stack pointer）可称为“ 栈指针”。</p>
+
+<p>在C和C++语言中，临时变量分配在栈中，临时变量拥有函数级的生命周期，即“在当前函数中有效，在函数外无效”。这种现象就是函数调用过程中的参数压栈，堆栈平衡所带来的。对于这种实现的细节，我们会在接下来的环节中详细讨论。</p>
+
+<p><strong>2.2. </strong><strong>堆栈平衡</strong><strong> </strong></p>
+
+<p><strong>堆栈平衡</strong>这个概念指的是函数调完成后，要返还所有使用过的栈空间。这种说法可能有点抽象，我们可以举一个简单的例子来类比：</p>
+
+<p>我们都知道函数的临时变量存放在栈中。那我们来看下面的代码，它是一个很简单的函数,用来交换传入的2个参数的值： </p>
+  <div></p>
+
+<p>void __stdcall swap(int&amp; a,int&amp; b)</p>
+
+<p>{</p>
+
+<p>int c = a;</p>
+
+<p>a = b;</p>
+
+<p>b = c;</p>
+
+<p>} </div>
+  <p align="left">我们可以看到，在这个函数中使用了一个临时变量int c;这个变量分配在栈中，我们可以简单的理解为，在声明临时变量c后，我们就向当前的程序栈中压入了一个int值： </p>
+  <div></p>
+
+<p>int c = a;  &lt;==&gt; push(a);   //简单粗暴，临时变量的声明理解为简单地向栈中push一个值。 </div>
+  <p align="left">那现在这个函数swap调用结束了，我们是否需要退栈，把之前临时变量c使用的栈空间返还回去？需要吗？不需要吗？</p>
+
+<p>我们假设不需要，当我们频繁调用swap的时候，会发生什么？每次调用，程序栈都在<strong>生长</strong>。直到栈满，我们就会收到<strong>stack overflow</strong>错误，程序挂掉了。</p>
+
+<p>所以为了避免这种乌龙的事情发生，我们需要在函数调用结束后，退栈，把堆栈还原到函数调用前的状态，这些被<em>pop</em>掉的临时变量，自然也就失效了，这也解释了我们一直以来关于<strong>临时变量仅在当前函数内有效</strong>的认知。其实<em>堆栈平衡</em>这个概念本身比这种粗浅的理解要复杂的多，还应包括压栈参数的平衡，暂时我们可以简单地这样理解，后面再做详细说明。</p>
+
+<p><strong>2.3. </strong><strong>函数的参数传递和调用约定</strong><strong> </strong></p>
+
+<p>函数的参数传递是一个参数压栈的过程。函数的所有参数，都会依次被push到栈中。那调用约定有是什么呢？</p>
+
+<p>C和C++程序员应该对所谓的<strong>调用约定</strong>有一定的印象，就像下面这种代码： </p>
+  <div></p>
+
+<p>void __stdcall add(int a,int b); </div>
+  <p align="left">函数声明中的<em>__stdcall</em>就是关于调用约定的声明。其中标准C函数的默认调用约定是<em>__stdcall</em>,C++全局函数和静态成员函数的默认调用约定是<em>__cdecl</em>，类的成员函数的调用约定是<em>__thiscall</em>。剩下的还有<em>__fastcall</em>，<em>__naked</em>等。</p>
+
+<p>为什么要用所谓的<strong>调用约定</strong>？调用约定其实是一种约定方式，它指明了函数调用中的参数传递方式和堆栈平衡方式。</p>
+
+<p><strong>2.3.1 </strong><strong>参数传递方式</strong><strong> </strong></p>
+
+<p>还是之前那个例子，swap函数有2个参数，int a,int b。这两个参数，入栈的顺序谁先谁后？</p>
+
+<p>其实是从左到右入栈还是从右到左入栈都可以，只要函数调用者和函数内部使用相同的顺序存取参数即可。在上述的所有调用约定中，参数总是从右到左压栈，也就是最后一个参数先入栈。我们可以使用一份伪代码描述这个过程 </p>
+  <div></p>
+
+<p>push b;      //先压入参数b</p>
+
+<p>push a;      //再压入参数a</p>
+
+<p>call swap;  //调用swap函数 </div>
+  <p align="left">其实从这里我们就可以理解为什么在函数内部，不能改变函数外部参数的值：因为函数内部访问到的参数其实是压入栈的变量值，对它的修改只是修改了栈中的&quot;副本&quot;。指针和引用参数才能真正地改变外部变量的值。</p>
+
+<p><strong>2.3.2 </strong><strong>堆栈平衡方式</strong><strong> </strong></p>
+
+<p>因为函数调用过程中，参数需要压栈，所以在函数调用结束后，用于函数调用的压栈参数也需要退栈。那这个工作是交给调用者完成，还是在函数内部自己完成？其实两种都可以。调用者负责平衡堆栈的主要好处是可以实现可变参数（关于可变参数的话题，在此不做过多讨论。如果可能的话，我们可以以一篇单独的文章来讲这个问题），因为在参数可变的情况下，只有调用者才知道具体的压栈参数有几个。</p>
+
+<p>下面列出了常见调用约定的堆栈平衡方式： </p>
+  <table border="1" cellspacing="0" cellpadding="0" width="620">
+    <tr>
+      <td></p>
+
+<p><strong>调用约定 </strong> </td>
+      <td><p align="center"><strong>堆栈平衡方式 </strong></p></td>
+    </tr>
+    <tr>
+      <td><p align="left">__stdcall</p></td>
+      <td><p align="left">函数自己平衡 </p></td>
+    </tr>
+    <tr>
+      <td><p align="left">__cdecl</p></td>
+      <td><p align="left">调用者负责平衡 </p></td>
+    </tr>
+    <tr>
+      <td><p align="left">__thiscall</p></td>
+      <td><p align="left">调用者负责平衡 </p></td>
+    </tr>
+    <tr>
+      <td><p align="left">__fastcall</p></td>
+      <td><p align="left">调用者负责平衡 </p></td>
+    </tr>
+    <tr>
+      <td><p align="left">__naked</p></td>
+      <td><p align="left">编译器不负责平衡，由编写者自己负责 </p></td>
+    </tr>
+  </table>
+  <p align="left"><strong>2.4. </strong><strong>栈帧的概念：从</strong><strong>esp</strong><strong>和</strong><strong>ebp</strong><strong>说起</strong><strong> </strong></p>
+
+<p>为什么我们需要ebp和esp2个寄存器来访问栈？这种观念其实来自于函数的层级调用：函数A调用函数B，函数B调用函数C，函数C调用函数D...</p>
+
+<p>这种调用可能会涉及非常多的层次。编译器需要保证在这种复杂的嵌套调用中，能够正确地处理每个函数调用的堆栈平衡。所以我们引入了2个寄存器： </p>
+  <ol>
+    <li>ebp指向了本次函数调用开始时的栈顶指针，它也是本次函数调用时的“栈底”（这里的意思是，在一次函数调用中，ebp向下是函数的临时变量使用的空间）。在函数调用开始时，我们会使用 </li>
+  </ol>
+  <div>
+    <p align="left">mov ebp,esp </p>
+  </div>
+  <p align="left">把当前的esp保存在ebp中。 </p>
+  <ol>
+    <li>esp，它指向当前的栈顶，它是动态变化的，随着我们申请更多的临时变量，esp值不断减小（正如前文所说，栈是<strong>向下生长</strong>的）。 </li>
+    <li>函数调用结束，我们使用 </li>
+  </ol>
+  <div>
+    <p align="left">mov esp,ebp</p>
+  </div>
+  <p align="left">来还原之前保存的esp。</p>
+
+<p>在函数调用过程中，ebp和esp之间的空间被称为本次函数调用的“栈帧”。函数调用结束后，处于栈帧之前的所有内容都是本次函数调用过程中分配的临时变量，都需要被“返还”。这样在概念上，给了函数调用一个更明显的分界。下图是一个程序运行的某一时刻的栈帧图：</p>
+
+<p><img src="03.png" /></p>
+
+
+
+<p><strong>3. </strong><strong>汇编中关于</strong><strong>“</strong><strong>函数调用</strong><strong>”</strong><strong>的实现</strong><strong> </strong></p>
+
+<p>上面铺陈了很多的汇编层面的概念后，我们终于可以切回到我们本次的主题：<strong>函数调用</strong>。</p>
+
+<p>函数调用其实可以看做4个过程，也就是本篇标题： </p>
+  <ol>
+    <li>压栈: 函数参数压栈，返回地址压栈 </li>
+    <li>跳转: 跳转到函数所在代码处执行 </li>
+    <li>执行: 执行函数代码 </li>
+    <li>返回: 平衡堆栈，找出之前的返回地址，跳转回之前的调用点之后，完成函数调用 </li>
+  </ol>
+  <p align="left"><strong>1. call</strong><strong>指令</strong><strong> </strong><strong>压栈和跳转</strong><strong> </strong></p>
+
+<p>下面我们看一下函数调用指令 </p>
+  <div></p>
+
+<p>0x210000 call swap;</p>
+
+<p>0x210005 mov ecx,eax; </div>
+  <p align="left">我们可以把它理解为2个指令： </p>
+  <div></p>
+
+<p>push 0x210005;</p>
+
+<p>jmp swap; </div>
+  <p align="left">也就是，首先把call指令的下一条指令地址作为本次函数调用的返回地址压栈，然后使用jmp指令修改<strong>指令指针寄存器</strong><strong>EIP</strong>，使cpu执行swap函数的指令代码。</p>
+
+<p><strong>2. ret</strong><strong>指令</strong><strong> </strong><strong>返回</strong><strong> </strong></p>
+
+<p>汇编中有ret相关的指令，它表示取出当前栈顶值，作为返回地址，并将<strong>指令指针寄存器</strong><strong>EIP</strong>修改为该值，实现函数返回。</p>
+
+<p>下面给出一组示意图来演示函数的返回过程： </p>
+  <ol>
+    <li>当前EIP的值为0x210004，指向指令ret 4，程序需要返回 </li>
+  </ol>
+  <p align="center"><img src ="04.png" /></p>
+
+
+  <ol>
+    <li>执行ret指令，将当前esp指向的堆栈值当做返回地址，设置eip跳转到此处并弹出该值 </li>
+  </ol>
+  <p align="center"><img src ="05.png" /></p>
+
+
+
+<p>经过这两步，函数就返回到了调用处。</p>
+
+<p><strong>4. </strong><strong>从实际汇编代码看函数调用</strong><strong> </strong></p>
+
+<p><strong>4.1 </strong><strong>程序源码和运行结果</strong><strong> </strong></p>
+
+<p>源码： </p>
+<p></p>
+<pre>
+main.cpp
+
+#include &lt;stdio.h>
+ 
+void __stdcall swap(int& a, int& b);
+ 
+int main(int argc, char* argv)
+{
+    int a = 1, b = 2;
+    printf("before swap: a = %d, b = %d\r\n", a, b);
+    swap(a, b);
+    printf("after swap: a = %d, b = %d\r\n", a, b);
+}
+ 
+ 
+void __stdcall swap(int& a, int& b)
+{
+    int c = a;
+    a = b;
+    b = c;
+}
+</pre>
+  <p align="left">程序运行结果：</p>
+
+<p><img src="06.png" /></p>
+
+
+
+<p><strong>4.2 </strong><strong>反汇编</strong><strong> </strong></p>
+
+<p><img src="07.png" /></p>
+
+<p><img src="08.png" /></p>
+
+
+
+
+<p>可以看到，在函数调用前，函数参数已被压栈，此时:</p>
+
+<p><strong>EBP = 00AFFCAC</strong></p>
+
+<p><strong>ESP = 00AFFBBC</strong></p>
+
+<p><strong>EIP = 00BF1853</strong></p>
+
+<p>我们按F11，进入函数内部，此时：</p>
+
+<p><img src="09.png" style="margin-left:-141px" /></p>
+
+
+
+<p>其实就是call swap指令的下一条指令地址，它就是本次函数调用的<strong>返回地址</strong>。</p>
+
+<p><img src="10.png" /></p>
+
+
+
+<p>下面是一个swap函数的详细注释：</p>
+
+<p><img src="11.png" /></p>
+
+
+
+<p>当程序运行到ret 8时</p>
+<p><img src="12.png" /></p>
+
+
+
+<p>执行返回后：</p>
+
+<p><img src="13.png" /></p>
+
+
+<p></p>
+
+<p>在返回前，ESP = 00AFFBB8，返回后 ESP = 00AFFBC4</p>
+
+<p>0x00AFFBC4 - 0x00AFFBB8 = 0xC</p>
+
+<p>这里的数值是字节数，而我们知道，int是4字节长度。所以0xC/4 = 3</p>
+
+<p>正好是2个压栈参数+一个返回地址。</p>
+
+<p><strong>4.3 </strong><strong>调用堆栈</strong><strong> </strong></p>
+
+<p>调试程序的时候，我们经常关注的一个点就是VisualStudio显示给我们的“调用堆栈”功能，这次让我们来仔细看一下它：</p>
+
+<p>我们重新执行一次程序，这次我们关注一下vs显示的调用堆栈，如下图</p>
+
+<p><img src="14.png" /></p>
+
+
+
+<p></p>
+
+<p></p>
+
+<p>第一行是当前指令地址</p>
+
+<p>第二行是外层调用者，我们双击它，跳转到如下地址：</p>
+
+<p><img src="15.png" /></p>
+
+
+
+<p>也许这也是为什么这个功能被叫做“调用堆栈”的原因：它正是通过对程序栈的分析实现的。</p>
+
+<p><strong>5. </strong><strong>结束语</strong><strong> </strong></p>
+
+<p>虽然我刻意压缩了很多的内容，但是为了把函数调用在汇编层面的实现问题解释清楚，本篇文章仍然很长。因为有太多的汇编前置知识需要解释，而我有不想脱离这个话题单独去谈论汇编，这样没有什么意义。</p>
+
+<p>本篇作为<a href="https://link.jianshu.com/?t=http://www.pengyz.com/2017/01/15/%E4%BB%A3%E7%A0%81%E6%94%BB%E9%98%B2%E4%B9%8B%E9%81%93-%E4%BB%8EC-%E5%88%B0%E6%B1%87%E7%BC%96/" target="_blank">追根溯源 从C++到汇编</a>系列文章的第一篇“干货”，希望大家喜欢。写了这么多，难免有所疏漏，欢迎大家批评指正。</p>
+
+<p>当然，作为一篇介绍性的文章，内容难免有所删减。比如，本文没有对ret n这种平衡方式做详细解释，也没有对各种汇编代码的含义做解释，还有引用参数的压栈方式，各种调用约定的具体使用情况和区别。当然，限于篇幅，有些东西无法面面俱到。但还是希望大家能够喜欢本篇文章。</p>
+
+<p>你的鼓励，就是我最大的动力。</p>
+
+<p><strong>6. </strong><strong>参考文档</strong><strong> </strong></p>
+
+<p><a href="https://link.jianshu.com/?t=http://baike.baidu.com/link?url=8CxiYwmTkvVtaRyKy2GD6lhktKc8R6BAFRaxAJDbs7tyr_aCCHG9U5suq7whjzSbWTERPwEl95d1F8jNqv3k_a" target="_blank">百度百科-程序计数器</a></p>
+
+<p><a href="https://link.jianshu.com/?t=http://blog.csdn.net/zsy2020314/article/details/9429707" target="_blank">c函数调用过程原理及函数栈帧分析</a></p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+</p>
+
+<p>
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
