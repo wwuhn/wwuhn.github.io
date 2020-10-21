@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>CPP类型转换</h4>
+
+<p>1 隐式类型转换；</p>
+
+<p>2 赋值语句中的类型转换；</p>
+
+<p>3 显示类型转换(强制类型转换)</p>
+
+<p>3.1 旧风格</p>
+
+<p>(new-type) expression</p>
+
+<p>new-type (expression)</p>
+
+<p>3.2 新风格</p>
+
+<p>tatic_cast、dynamic_cast、const_cast、reinterpret_cast。</p>
+
+<p>static_cast与dynamic_cast:把这两个放在一起比较容易记忆，"一静一动"。从字面上也可以看出，前者提供的是编译时期的静态类型检测，后者提供的是运行时检测。</p>
+
+<p>const_cast用于去除指针和引用的常量性，不能去除变量的常量性。</p>
+
+<p>reinterpret_cast这种强制类型转换是一种非常强的强制类型转换，它可以将任意两个无关的指针或引用进行转换。上面的static_cast进行强制类型转换时，会进行编译时的类型安全检查，即你可以将int转成float，将子类引用(指针)转成父类引用(指针)，子转父和父转子都可以，但父转子不安全。但是你不能使用static_cast将两个无关的东西进行转换，比如两个无关的类，因为编译器在编译的时候会检查这个转换是否可行，很明显不可行。</p>
+
+<p>dynamic_cast既然是动态安全性检查，那么它肯定只能应用于指针或引用，不能用于内置的数据类型转换（内置的数据类型转换，在编译阶段由static_cast检查即可）。dynamic_cast不但检查两个指针是否属于同一个继承树(static_cast也检查这个)，还会检测这种转换是否可行。如果可行就会返回一个新指针，并计算出为处理多继承的需要的必要的偏移量。如果不可行会返回NULL。因此即使我们使用reinterpret_cast强制类型转换骗过编译器编译成功，如果我们在使用前再使用dynamic_cast转换检测一下的话，还是能发现这个错误的转换的。</p>
+
+<p>static_cast会进行静态的安全性检查，一般用于内置数据类型的转换和通常的类之间的转换。</p>
+
+<p>const_cast主要是用来去掉指针和引用的const和volatile类型。</p>
+
+<p>reinterpret_cast用于完全没有关系指针或引用之间的转换，比如字符指针转整形指针。</p>
+
+<p>dynamic_cast通常用于基类和派生类之间的相互转换。</p>
+
+
+<p>1. 隐式类型转换</p>
+<pre>
+char c = 'A';
+int i = c; //隐式类型转换
+int foo(int n) {
+    return c；//隐式类型转换
+}
+int main(void){
+foo(c); //隐式类型转换
+}
+</pre>
+<p>2.显示类型转换</p>
+<p>2.1 C 语言显示类型转换(强制类型转换)</p>
+<pre>
+int a = 0xE0200080；
+int *p = (int *)a;
+char c;
+int i = (int)c; //C 风格的强制转换
+int i = int(c); //C++风格的强制转换
+</pre>
+<p>2.2 C++语言显示类型转换</p>
+<p>兼容 C 语言类型转换的同时增加了四种操作符的形式。</p>
+<p>(1) 静态类型转换</p>
+<p>目标类型变量 = static_cast<目标类型>(源类型变量)；</p>
+<p>主要用于将 void* 转化为其它类型的指针</p>
+<pre>
+int a;
+void* pv = &a;
+int* pi = static_cast<int*>(pv); //ok
+double* pv = static_cast<double*>(pi); //error
+</pre>
+<p>A 类型 ==> B 类型可以隐式转换</p>
+<p>B 类型 ==> A 类型可以静态转换</p>
+<p>(2) 动态类型转换</p>
+<p>目标类型变量 = dynamic_cast<目标类型>(源类型变量)；</p>
+<p>主要用于将基类的指针或引用安全地转换成派生类的指针或引用，并用派生类的指针或引用调用非虚函数。</p>
+<p>(3) 常量类型转换</p>
+<p>目标类型变量 = const_cast<目标类型>(源类型变量)；</p>
+<p>主要用于去除指针或引用的常属性。</p>
+<pre>
+const int a = 10；
+const int* p = &a;
+*p = 20; //error
+int* p2 = const_cast<int*>(p);
+*p2 = 20; //ok
+const int& r = a;
+r = 30; //error
+int& r2 = const_cast<int&>(r);
+r2 = 30; //ok
+</pre>
+<p>(4) 重解释类型转换</p>
+<p>目标类型变量 = reinterpret_cast<目标类型>(源类型变量)；</p>
+<p>A.任意类型的指针或引用之间进行转换</p>
+<p>B.在指针和整型数之间的转换</p>
+<pre>
+int a；
+int* pa = &a;
+double* pd = reinterpret_cast<double*>(pa);
+</pre>
+
+
+<p>在执行“double dbRate = 10 / 3;”语句后变量dbRate的值是多少呢？10除以3，理论上为3.33333…，但是由于10和3均是整型，其运算结果也为整型，因此10 / 3在计算机中的结果为3，将结果3赋值给double类型，dbRate的结果为3.0000…。这就是采用了C++默认的数值转换规则，它通常不符合我们的逻辑（我们的预期结果是3.33333…）。为此就需要强制类型转换替换C++默认的数值转换规则。在C++中有两种强制类型转换方式，一种是使用C语言提供的原始的强制类型转换，另一种是C++语言引入的新的强制类型转换。</p>
+
+<p>数据类型 (表达式)</p>
+
+<p>(数据类型) 表达式</p>
+
+<p>double dbRate = static_cast<double>(10) / 3;</p>
+
+<p>C++形式的强制类型转换有一些安全性的限制。例如：使用C语言的强制类型转换能够将整型指针转换为结构体类型指针，而static_cast则不允许进行这样的转换。</p>
+
+<p>Student* boy = static_cast<Student*>(nLen);                      //错误的语句，不能够进行类型转换</p>
+
+<p>动态转换也是C++语言提供的一种强制类型转换方式。与静态转换不同的是在转换前它能够进行类型检查。动态转换通常用于一个类对象指针转换为另一个类对象指针。如果源指针类型与目标指针类型不兼容，则转换的结果为NULL。程序中可以通过检测结果是否为NULL来判断强制类型转换是否成功。在C++中使用dynamic_cast关键字进行动态转换。动态转换只能对void*（无类型指针）类型或者类对象指针进行转换，并且类中必须包含有虚方法，而不能对普通的数据类型进行转换。</p>
+
+<p>常量转换用于将const对象转换为非const对象。</p>
+
+<p>重解释转换能够将任何指针类型转换为其他的指针类型，这种转换方式是一种不安全的转换方式。在应用程序中尽量少使用重解释转换。在C++中使用reinterpret_cast关键字实现重解释转换。下面的语句利用重解释转换将一个指针转换为无符号整数指针。</p>
+
+
+
+<p>Casting is a conversion process wherein data can be changed from one type to another. C++ has two types of conversions:</p>
+
+<p>Implicit conversion: Conversions are performed automatically by the compiler without the programmer's intervention. </p>
+
+<pre>
+int iVariable = 10;
+float fVariable = iVariable; //Assigning an int to a float will trigger a conversion.  
+</pre>
+
+<p>Explicit conversion: Conversions are performed only when explicitly specified by the programmer. </p>
+
+<pre>
+int iVariable = 20;
+float fVariable = (float) iVariable / 10;
+</pre>
+
+<p>In C++, there are four types of casting operators. </p>
+
+<pre>
+- static_cast
+- const_cast
+- reinterpret_cast
+- dynamic_cast
+</pre>
+
+<p>In this article we will only be looking into the first three casting operators as dynamic_cast is very different and is almost exclusively used for handling polymorphism only which we will not be addressing in this article. </p>
+
+<p>static_cast </p>
+
+<p>Format: </p>
+
+<p>static_cast<type>(expression); </p>
+
+
+
+<pre>
+float fVariable = static_cast<float>(iVariable); 
+/*This statement converts iVariable which is of type int to float. */ 
+</pre>
+
+<p>By glancing at the line of code above, you will immediately determine the purpose of the cast as it is very explicit. The static_cast tells the compiler to attempt to convert between two different data types. It will convert between built-in types, even when there is a loss of precision. In addition, the static_cast operator can also convert between related pointer types. </p>
+
+<pre>
+int* pToInt = &iVariable;
+float* pToFloat = &fVariable;
+float* pResult = static_cast<float*>(pToInt); 
+//Will not work as the pointers are not related (they are of different types).  
+</pre>
+
+<p>const_cast </p>
+
+<p>Format:</p>
+
+<p>const_cast<type>(expression); </p>
+
+<pre>
+void aFunction(int* a)
+{
+    cout &lt;&lt; *a &lt;&lt; endl;
+}
+
+int main()
+{
+    int a = 10;
+    const int* iVariable = &a;
+    
+    aFunction(const_cast<int*>(iVariable)); 
+/*Since the function designer did not specify the parameter as const int*, */
+// we can strip the const-ness of the pointer iVariable to pass it into the function. 
+Make sure that the function will not modify the value. 
+
+    return 0;
+} 
+
+</pre>
+
+
+<p>Probably one of the most least used cast, the const_cast does not cast between different types. Instead it changes the "const-ness" of the expression. It can make something const what was not const before, or it can make something volatile/changeable by getting rid of the const. Generally speaking, you will not want to utilise this particular cast in your programs. If you find yourself using this cast, you should stop and rethink your design. </p>
+
+<p>reinterpret_cast </p>
+
+<p>Format:</p>
+
+<p>reinterpret_cast<type>(expression); </p>
+
+<p>Arguably one of the most powerful cast, the reinterpret_cast can convert from any built-in type to any other, and from any pointer type to another pointer type. However, it cannot strip a variable's const-ness or volatile-ness. It can however convert between built in data types and pointers without any regard to type safety or const-ness. This particular cast operator should be used only when absolutely necessary. </p>
+
+<p>Hopefully this article was helpful to anyone whose struggling to grasp the theory of casting. </p>
+
+<p>Happy programming.</p>
+
+
+
+<p>static_cast has basically the same power and meaning as the general-purpose C-style cast. It also has the same kind of restrictions. Forexample, you can’t cast a struct into an int or a double into a pointer using static_cast any more than you can with a C-style cast.Furthermore, static_cast can’t remove constness from an expression,because another new cast, const_cast, is designed specificallyto do that.</p>
+
+<p>The other new C++ casts are used for more restricted purposes.const_cast is used to cast away the constness or volatileness of an expression. By using a const_cast, you emphasize (to both humansand compilers) that the only thing you want to change through the cast is the constness or volatileness of something. This meaning is enforced by compilers. If you try to employ const_cast for anything other than modifying the constness or volatileness of anexpression, your cast will be rejected.</p>
+
+<p>static_cast converts between related types such as one pointer type to another in the same class hierarchy, an integral type to an enumeration, or a floating-point type to an integral type. It also does conversions defined by constructors and conversion operators .</p>
+
+<p>reinterpret_cast handles conversions between unrelated types such as an integer to a pointeror a pointer to an unrelated pointer type.</p>
+
+<p>const_cast converts between types that differ only in const and volatile qualifiers. </p>
+
+<p>dynamic_cast does run-time checked conversion of pointers and references into a class hierarchy.These distinctions among the named casts</p>
+
+<p>These distinctions among the named casts allow the compiler to apply some minimal type checking and make it easier for a programmer to find the more dangerous conversions represented as reinterpret_ casts. Some static_casts are portable, but few reinterpret_casts are. Hardly any guarantees are made for reinterpret_cast, but generally it produces a value of a new type that has the same bit pattern as its argument. If the target has at least as many bits as the original value, we can reinterpret_ cast the result back to its original type and use it. The result of a reinterpret_cast is guaranteed to be usable only if its result is converted back to the exact original type. Note that reinterpret_cast is the kind of conversion that must be used for pointers to functions.</p>
+
+<p>From C, C++ inherited the notation (T)e, which performs any conversion that can be expressed as a combination of static_casts, reinterpret_casts, const_casts to make a value of type T from the expression e (§44.2.3). Unfortunately, the C-style cast can also cast from a pointer to a class to a pointer to a private base of that class. Never do that, and hope for a warning from the compiler if you do it by mistake. This C-style cast is far more dangerous than the named conversion operators because the notation is harder to spot in a large program and the kind of conversion intended by the programmer is not explicit. That is, (T)e might be doing a portable conversion between related types, a nonportable conversion between unrelated types, or removing the const modifier from a pointer type. Without knowing the exact types of T and e, you cannot tell.</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

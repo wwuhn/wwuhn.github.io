@@ -1,0 +1,538 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>现代CPP一文读懂智能指针</h4>
+
+
+<p>C++11 引入了 3 个智能指针类型：</p>
+<p>std::unique_ptr<T> ：独占资源所有权的指针。</p>
+<p>std::shared_ptr<T> ：共享资源所有权的指针。</p>
+<p>std::weak_ptr<T> ：共享资源的观察者，需要和 std::shared_ptr 一起使用，不影响资源的生命周期。</p>
+<p>std::auto_ptr 已被废弃。</p>
+<p>std::unique_ptr</p>
+<p>简单说，当我们独占资源的所有权的时候，可以使用 std::unique_ptr 对资源进行管理——离开 unique_ptr 对象的作用域时，会自动释放资源。这是很基本的 RAII 思想。</p>
+<p>std::unique_ptr 的使用比较简单，也是用得比较多的智能指针。这里直接看例子。</p>
+<p>使用裸指针时，要记得释放内存。</p>
+<pre>
+{
+    int* p = new int(100);
+    // ...
+    delete p;  // 要记得释放内存
+}
+</pre>
+<p>使用 std::unique_ptr 自动管理内存。</p>
+<pre>
+{
+    std::unique_ptr&lt;int> uptr = std::make_unique&lt;int>(200);
+    //...
+    // 离开 uptr 的作用域的时候自动释放内存
+}
+</pre>
+<p>std::unique_ptr 是 move-only 的。</p>
+<pre>
+{
+    std::unique_ptr&lt;int> uptr = std::make_unique&lt;int>(200);
+    std::unique_ptr&lt;int> uptr1 = uptr;  // 编译错误，std::unique_ptr&lt;T> 是 move-only 的
+    std::unique_ptr&lt;int> uptr2 = std::move(uptr);
+    assert(uptr == nullptr);
+}
+</pre>
+<p>std::unique_ptr 可以指向一个数组。</p>
+<pre>
+{
+    std::unique_ptr&lt;int[]> uptr = std::make_unique&lt;int[]>(10);
+    for (int i = 0; i &lt; 10; i++) {
+        uptr[i] = i * i;
+    }   
+    for (int i = 0; i &lt; 10; i++) {
+        std::cout &lt;&lt; uptr[i] &lt;&lt; std::endl;
+    }   
+}
+</pre>
+<p>自定义 deleter。</p>
+<pre>
+{
+    struct FileCloser {
+        void operator()(FILE* fp) const {
+            if (fp != nullptr) {
+                fclose(fp);
+            }
+        }   
+    };  
+    std::unique_ptr&lt;FILE, FileCloser> uptr(fopen("test_file.txt", "w"));
+}
+</pre>
+<p>使用 Lambda 的 deleter。</p>
+<pre>
+{
+    std::unique_ptr&lt;FILE, std::function&lt;void(FILE*)&gt;&gt; uptr(
+        fopen("test_file.txt", "w"), [](FILE* fp) {
+            fclose(fp);
+        });
+}
+</pre>
+<h4>std::shared_ptr</h4>
+<p>std::shared_ptr 其实就是对资源做引用计数——当引用计数为 0 的时候，自动释放资源。</p>
+<pre>
+{
+    std::shared_ptr&lt;int> sptr = std::make_shared&lt;int>(200);
+    assert(sptr.use_count() == 1);  // 此时引用计数为 1
+    {   
+        std::shared_ptr&lt;int> sptr1 = sptr;
+        assert(sptr.get() == sptr1.get());
+        assert(sptr.use_count() == 2);   // sptr 和 sptr1 共享资源，引用计数为 2
+    }   
+    assert(sptr.use_count() == 1);   // sptr1 已经释放
+}
+// use_count 为 0 时自动释放内存
+</pre>
+<p>和 unique_ptr 一样，shared_ptr 也可以指向数组和自定义 deleter。</p>
+<pre>
+{
+    // C++20 才支持 std::make_shared&lt;int[]>
+    // std::shared_ptr&lt;int[]> sptr = std::make_shared&lt;int[]>(100);
+    std::shared_ptr&lt;int[]> sptr(new int[10]);
+    for (int i = 0; i &lt; 10; i++) {
+        sptr[i] = i * i;
+    }   
+    for (int i = 0; i &lt; 10; i++) {
+        std::cout &lt;&lt; sptr[i] &lt;&lt; std::endl;
+    }   
+}
+{
+    std::shared_ptr&lt;FILE> sptr(
+        fopen("test_file.txt", "w"), [](FILE* fp) {
+            std::cout &lt;&lt; "close " &lt;&lt; fp &lt;&lt; std::endl;
+            fclose(fp);
+        });
+}
+</pre>
+<p>std::shared_ptr 的实现原理</p>
+<p>一个 shared_ptr 对象的内存开销要比裸指针和无自定义 deleter 的 unique_ptr 对象略大。</p>
+<pre>
+std::cout &lt;&lt; sizeof(int*) &lt;&lt; std::endl;  // 输出 8
+std::cout &lt;&lt; sizeof(std::unique_ptr&lt;int>) &lt;&lt; std::endl;  // 输出 8
+std::cout &lt;&lt; sizeof(std::unique_ptr&lt;FILE, std::function&lt;void(FILE*)&gt;&gt;)
+          &lt;&lt; std::endl;  // 输出 40
+std::cout &lt;&lt; sizeof(std::shared_ptr&lt;int>) &lt;&lt; std::endl;  // 输出 16
+std::shared_ptr&lt;FILE> sptr(fopen("test_file.txt", "w"), [](FILE* fp) {
+  std::cout &lt;&lt; "close " &lt;&lt; fp &lt;&lt; std::endl;
+  fclose(fp);
+}); 
+std::cout &lt;&lt; sizeof(sptr) &lt;&lt; std::endl;  // 输出 16
+</pre>
+无自定义 deleter 的 unique_ptr 只需要将裸指针用 RAII 的手法封装好就行，无需保存其它信息，所以它的开销和裸指针是一样的。如果有自定义 deleter，还需要保存 deleter 的信息。
+<p>shared_ptr 需要维护的信息有两部分：</p>
+<p>指向共享资源的指针。</p>
+<p>引用计数等共享资源的控制信息——实现上是维护一个指向控制信息的指针。</p>
+<p>所以，shared_ptr 对象需要保存两个指针。shared_ptr 的 的 deleter 是保存在控制信息中，所以，是否有自定义 deleter 不影响 shared_ptr 对象的大小。</p>
+<p>当我们创建一个 shared_ptr 时，其实现一般如下：</p>
+<p>std::shared_ptr<T> sptr1(new T);</p>
+<p>现代 C++一文读懂智能指针</p>
+<p>复制一个 shared_ptr ：</p>
+<p>std::shared_ptr<T> sptr2 = sptr1;</p>
+<p>现代 C++一文读懂智能指针</p>
+<p>为什么控制信息和每个 shared_ptr 对象都需要保存指向共享资源的指针？可不可以去掉 shared_ptr 对象中指向共享资源的指针，以节省内存开销？</p>
+<p>答案是：不能。因为 shared_ptr 对象中的指针指向的对象不一定和控制块中的指针指向的对象一样。</p>
+<p>来看一个例子。</p>
+<pre>
+struct Fruit {
+    int juice;
+};
+struct Vegetable {
+    int fiber;
+};
+struct Tomato : public Fruit, Vegetable {
+    int sauce;
+};
+ // 由于继承的存在，shared_ptr 可能指向基类对象
+std::shared_ptr&lt;Tomato> tomato = std::make_shared&lt;Tomato>();
+std::shared_ptr&lt;Fruit> fruit = tomato;
+std::shared_ptr&lt;Vegetable> vegetable = tomato;
+</pre>
+<p>现代 C++一文读懂智能指针</p>
+<p>另外，std::shared_ptr 支持 aliasing constructor。</p>
+<pre>
+template&lt; class Y >
+shared_ptr( const shared_ptr&lt;Y>& r, element_type* ptr ) noexcept;
+</pre>
+<p>Aliasing constructor，简单说就是构造出来的 shared_ptr 对象和参数 r 指向同一个控制块（会影响 r 指向的资源的生命周期），但是指向共享资源的指针是参数 ptr。看下面这个例子。</p>
+<pre>
+using Vec = std::vector&lt;int>;
+std::shared_ptr&lt;int> GetSPtr() {
+    auto elts = {0, 1, 2, 3, 4};
+    std::shared_ptr&lt;Vec> pvec = std::make_shared&lt;Vec>(elts);
+    return std::shared_ptr&lt;int>(pvec, &(*pvec)[2]);
+}
+std::shared_ptr&lt;int> sptr = GetSPtr();
+for (int i = -2; i &lt; 3; ++i) {
+    printf("%d\n", sptr.get()[i]);
+}
+</pre>
+<p>看上面的例子，使用 std::shared_ptr 时，会涉及两次内存分配：一次分配共享资源对象；一次分配控制块。C++ 标准库提供了 std::make_shared 函数来创建一个 shared_ptr 对象，只需要一次内存分配。</p>
+<p>这种情况下，不用通过控制块中的指针，我们也能知道共享资源的位置——这个指针也可以省略掉。</p>
+<h4>std::weak_ptr</h4>
+<p>std::weak_ptr 要与 std::shared_ptr 一起使用。一个 std::weak_ptr 对象看做是 std::shared_ptr 对象管理的资源的观察者，它不影响共享资源的生命周期：</p>
+<p>如果需要使用 weak_ptr 正在观察的资源，可以将 weak_ptr 提升为 shared_ptr。</p>
+<p>当 shared_ptr 管理的资源被释放时，weak_ptr 会自动变成 nullptr。</p>
+<pre>
+void Observe(std::weak_ptr&lt;int> wptr) {
+    if (auto sptr = wptr.lock()) {
+        std::cout &lt;&lt; "value: " &lt;&lt; *sptr &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "wptr lock fail" &lt;&lt; std::endl;
+    }
+}
+std::weak_ptr&lt;int> wptr;
+{
+    auto sptr = std::make_shared&lt;int>(111);
+    wptr = sptr;
+    Observe(wptr);  // sptr 指向的资源没被释放，wptr 可以成功提升为 shared_ptr
+}
+Observe(wptr);  // sptr 指向的资源已被释放，wptr 无法提升为 shared_ptr
+</pre>
+<p>当 shared_ptr 析构并释放共享资源的时候，只要 weak_ptr 对象还存在，控制块就会保留，weak_ptr 可以通过控制块观察到对象是否存活。</p>
+<p>enable_shared_from_this</p>
+<p>一个类的成员函数如何获得指向自身（this）的 shared_ptr？看看下面这个例子有没有问题？</p>
+<pre>
+class Foo {
+ public:
+  std::shared_ptr&lt;Foo> GetSPtr() {
+    return std::shared_ptr&lt;Foo>(this);
+  }
+};
+auto sptr1 = std::make_shared&lt;Foo>();
+assert(sptr1.use_count() == 1);
+auto sptr2 = sptr1->GetSPtr();
+assert(sptr1.use_count() == 1);
+assert(sptr2.use_count() == 1);
+</pre>
+<p>上面的代码其实会生成两个独立的 shared_ptr，他们的控制块是独立的，最终导致一个 Foo 对象会被 delete 两次。</p>
+<p>成员函数获取 this 的 shared_ptr 的正确的做法是继承</p>
+<pre>
+std::enable_shared_from_this 。
+class Bar : public std::enable_shared_from_this&lt;Bar> {
+ public:
+  std::shared_ptr&lt;Bar> GetSPtr() {
+    return shared_from_this();
+  }
+};
+auto sptr1 = std::make_shared&lt;Bar>();
+assert(sptr1.use_count() == 1);
+auto sptr2 = sptr1->GetSPtr();
+assert(sptr1.use_count() == 2);
+assert(sptr2.use_count() == 2);
+</pre>
+一般情况下，继承了
+std::enable_shared_from_this 的子类，成员变量中增加了一个指向 this 的 weak_ptr。这个 weak_ptr 在第一次创建 shared_ptr 的时候会被初始化，指向 this。
+<p>似乎继承了</p>
+<p>std::enable_shared_from_this 的类都被强制必须通过 shared_ptr 进行管理。</p>
+<p>auto b = new Bar;</p>
+<p>auto sptr = b->shared_from_this();</p>
+<p>在我的环境下（gcc 7.5.0）上面的代码执行的时候会直接 coredump，而不是返回指向 nullptr 的 shared_ptr：</p>
+<p>terminate called after throwing an instance of 'std::bad_weak_ptr'</p>
+<p> what():  bad_weak_ptr</p>
+<p>小结</p>
+<p>智能指针，本质上是对资源所有权和生命周期管理的抽象：</p>
+<p>当资源是被独占时，使用 std::unique_ptr 对资源进行管理。</p>
+<p>当资源会被共享时，使用 std::shared_ptr 对资源进行管理。</p>
+<p>使用 std::weak_ptr 作为 std::shared_ptr 管理对象的观察者。</p>
+<p>通过继承 std::enable_shared_from_this 来获取 this 的 std::shared_ptr 对象。</p>
+<p>参考资料</p>
+<p>Back to Basics: Smart Pointers</p>
+<p>cppreference: unique_ptr</p>
+<p>cppreference: shared_ptr</p>
+<p>cppreference: weak_ptr</p>
+<p>cppreference: enable_shared_from_this</p>
+
+
+<p style='float:right;'>本页共242段，7813个字符，10673 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

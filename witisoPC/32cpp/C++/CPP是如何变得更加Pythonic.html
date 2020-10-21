@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>CPP是如何变得更加Pythonic</h3>
+
+<p>1.前言</p>
+<p></p>
+<p>近年来，C ++发生了很大变化。最近的两个修订版本C ++ 11和C ++ 14引入了许多新功能，以Bjarne Stroustrup的话来说，“感觉就像是一种新语言。”</p>
+<p></p>
+<p>现代C ++赋予了一种全新的编程风格，不禁注意到它具有更多的Python风格。基于范围的循环，类型推导，向量和映射初始化器，lambda表达式。只要对C++的探索越多，就会发现借鉴Python的地方就越多。Python对现代C ++有直接影响吗？还是在C ++出现之前Python只是采用了一些有用的结构？我们一起来看看呗！</p>
+<p></p>
+<p>2.C++ VS Python不同</p>
+<p>2.1常量</p>
+<p>Python 在2008年引入了二进制文字。现在C++ 14中也开始添加了。</p>
+<p></p>
+<p>static const int primes = 0b10100000100010100010100010101100;</p>
+<p>Python 在1998年还引入了原始字符串文字。在对正则表达式或Windows路径进行硬编码时，它们很方便。C ++ 11中做法就不同：</p>
+<p></p>
+<p>const char* path = R"(c:\\backslashes)";</p>
+<p>2.2基于范围的循环</p>
+<p>在Python中，for循环总是遍历Python对象：</p>
+<p></p>
+<p>for x in myList:</p>
+<p>    print(x)</p>
+<p>同时，近三十年来，C ++仅支持C风格的for循环。最后，在C ++ 11中，添加了基于范围的for循环：</p>
+<p></p>
+<p>for (int x : myList)</p>
+<p>    std::cout &lt;&lt; x;</p>
+<p>您可以遍历std::vector实现begin和end成员函数的一个或任何类-与Python的iterator协议不同。使用基于范围的for循环，真心希望C ++ 也可以像Python一样内置函数xrange。</p>
+<p></p>
+<p>2.3弱化语言类型</p>
+<p>Python一直是一种动态类型化的语言。无需声明变量类型，因为类型是对象本身的属性。</p>
+<p></p>
+<p>x = "Hello world!"</p>
+<p>print(x)</p>
+<p>另一方面，C ++不是动态输入的。它是静态类型的。但由于不是动态输入的。它是静态类型的。但由于自动类型推导，看起来就很像动态类型。</p>
+<p></p>
+<p>auto x = "Hello world!";</p>
+<p>std::cout &lt;&lt; x;</p>
+<p>当调用几种类型重载的函数（例如std::ostream::operator&lt;&lt;或模板函数）时，C ++更类似于动态类型的语言。C ++ 14进一步完善了对auto关键字的支持，为lambda函数增加了对auto 返回值和auto 参数的支持。</p>
+<p></p>
+<p>2.4元组</p>
+<p>从一开始Python就已经拥有了很多元组。当我们需要将多个值打包在一起时，一个类命名就够啦。</p>
+<p></p>
+<p>triple = (5, 6, 7)</p>
+<p>print(triple[0])</p>
+<p>C ++将元组添加到C ++ 11中的标准库中。该提案甚至提到了Python的灵感：</p>
+<p></p>
+<p>auto triple = std::make_tuple(5, 6, 7);</p>
+<p>std::cout &lt;&lt; std::get<0>(triple);</p>
+<p>Python则可以将元组解压缩为单独的变量：</p>
+<p></p>
+<p>x, y, z = triple</p>
+<p>我们可以使用C在C ++中执行相同的操作std::tie：</p>
+<p></p>
+<p>std::tie(x, y, z) = triple;</p>
+<p>2.5统一初始化</p>
+<p>在Python中，列表是内置类型。这样就可以使用单个表达式创建Python列表：</p>
+<p></p>
+<p>myList = [6, 3, 7, 8]</p>
+<p>myList.append(5);</p>
+<p>C++ std::vector是最接近Python列表的产物。统一初始化（C ++ 11中的新增功能）现在也使我们可以使用单个表达式来创建它们：</p>
+<p></p>
+<p>auto myList = std::vector<int>{ 6, 3, 7, 8 };</p>
+<p>myList.push_back(5);</p>
+<p>在Python中，还可以使用单个表达式创建字典：</p>
+<p></p>
+<p>myDict = {5: "foo", 6: "bar"}</p>
+<p>print(myDict[5])</p>
+<p>同样，统一初始化也适用于C ++ std::map和unordered_map：</p>
+<p></p>
+<p>auto myDict = std::unordered_map<int, const char*>{ { 5, "foo" }, { 6, "bar" } };</p>
+<p>std::cout &lt;&lt; myDict[5];</p>
+<p>2.6Lambda表达式</p>
+<p>自1994年以来，Python就一直支持lambda函数：</p>
+<p></p>
+<p>myList.sort（key = lambda x：abs（x））</p>
+<p>Lambda表达式在C ++ 11中添加：</p>
+<p></p>
+<p>std::sort(myList.begin(), myList.end(), [](int x, int y){ return std::abs(x) < std::abs(y); });</p>
+<p>在2001年，Python添加了静态嵌套范围，该范围允许lambda函数捕获在函数内部中定义的变量：</p>
+<p></p>
+<p>def adder(amount):</p>
+<p>    return lambda x: x + amount</p>
+<p>...</p>
+<p>print(adder(5)(5))</p>
+<p>同样，C ++ lambda表达式支持一组灵活的捕获规则，使您可以执行类似的操作：</p>
+<p></p>
+<p>auto adder(int amount) {</p>
+<p>    return [=](int x){ return x + amount; };</p>
+<p>}</p>
+<p>...</p>
+<p>std::cout &lt;&lt; adder(5)(5);</p>
+<p>2.7标准算法库</p>
+<p>Python的内置filter函数可以让我们有选择地从列表中复制元素（尽管最好使用列表理解）：</p>
+<p></p>
+<p>result = filter(lambda x: x >= 0, myList)</p>
+<p>C ++ 11 引入了 std::copy_if，它使我们能够使用相似的，几乎功能的样式：</p>
+<p></p>
+<p>auto result = std::vector<int>{};</p>
+<p>std::copy_if(myList.begin(), myList.end(), std::back_inserter(result), [](int x){ return x >= 0; });</p>
+<p>其他C ++ 算法模拟Python的内置插件包括transform，any_of，all_of，min和max。即将发布的范围提案有可能进一步简化此类表达。</p>
+<p></p>
+<p>2.8参数列表</p>
+<p>Python从1998年开始支持任意参数列表。您可以定义一个函数，该函数接受可变数量的参数（以元组形式显示），并在将参数传递给另一个函数时扩展元组：</p>
+<p></p>
+<p>def foo(*args):</p>
+<p>    return tuple(*args)</p>
+<p>...</p>
+<p>triple = foo(5, 6, 7)</p>
+<p>C ++ 11增加了对参数包的支持。与C风格的变量参数不同，但与Python的任意参数列表一样，参数包的名称表示整个参数序列。一个重要的区别：C ++参数包在运行时不会作为单个对象公开。但只有在编译时通过模板元编程来操作它们。</p>
+<p></p>
+<p>template <typename... T> auto foo(T&&... args) {</p>
+<p>    return std::make_tuple(args...);</p>
+<p>}</p>
+<p>...</p>
+<p>auto triple = foo(5, 6, 7);</p>
+<p>3.总结</p>
+<p>并非所有新的C++ 11和C++ 14功能都模仿Python功能。Python被认为是一种友好的，易于接近的编程语言。也许它的一些魅力消失了？你怎么看？</p>
+
+
+<p style='float:right;'>本页共115段，3993个字符，6390 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

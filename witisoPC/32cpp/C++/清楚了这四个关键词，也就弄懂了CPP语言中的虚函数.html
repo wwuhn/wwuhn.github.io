@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>清楚了这四个关键词，也就弄懂了CPP语言中的虚函数</h4>
+
+
+<p>上一节基于一个简单的实例讨论了C++语言中的虚函数，我们提到了“动态绑定”这个词，大意就是动态绑定在很大程度上满足了虚函数的特性，从而支持了C++的多态性。不过我们知道，C++是一门强类型的语言，它是如何在保持静态类型的同时，实现动态绑定的呢？</p>
+<p>如何在保持静态类型的同时，实现动态绑定的呢？</p>
+<p>“静态”VS“动态”</p>
+<p>在C++语言中，对象指针一般能够提供两种类型信息：</p>
+<p>指针本身的类型</p>
+<p>指针指向类的类型</p>
+<p>鉴于指针指向的类可能是继承某个基类派生而来的，所以这两个信息可能是不同的，请看下面这段C++语言代码示例：</p>
+<pre>
+class Animal
+{
+public:
+    virtual void eat() {
+    std::cout &lt;&lt; "I'm eating generic food." ;
+    }
+};
+class Cat : public Animal
+{
+public:
+    void eat() {
+    std::cout &lt;&lt; "I'm eating a rat.";
+    }
+};
+Animal *a = new Animal;
+Cat *c = new Cat;
+a = c;
+a->eat();
+</pre>
+<p>上述代码执行完毕后，（静态）类型为Animal *的指针 a 指向的实际上是Cat对象 c，因为Animal::eat()是虚函数，所以a->eat()在运行时（动态）确定为Cat::eat()。到这里其实可以看出，所谓“静态”，其实就是在编译时确定的类型，而“动态”则是在运行时确定的类型，二者在C++语言中提供不同的功能。</p>
+<p>静态类型通常在编译时用于成员函数调用的合法性检查，编译器会根据指针的静态类型来确定程序是否能够合法的调用某个成员函数，如果可以，那么它指向的对象也一定可以。例如，如果 Animal对象有某个成员函数可供调用，那么Cat对象也一定可以调用该成员函数，因为Cat是Animal的其中一种派生类。</p>
+<p>动态绑定则在程序运行过程中，执行被调用函数时用于确定实际的函数地址，它被称作“动态”是因为其在程序运行时才最终被确定下来，C++语言中的虚函数的特性正是基于“动态绑定”机制实现的。</p>
+<p>四个关键词</p>
+<p>要进一步的理解C++语言中的“动态”和“静态”相关的概念，需要先理解下面这四个关键词：</p>
+<p>对象的静态类型：声明对象使用的类型，编译时确定。</p>
+<p>对象的动态类型：指针当前所指对象的类型，运行时确定。</p>
+<p>静态绑定：绑定对象的静态类型，发生在编译时。</p>
+<p>动态绑定：绑定对象的动态类型，发生在运行时。</p>
+<p>关于前两个名词，可以看下面这几段C++语言代码示例：</p>
+<pre>
+Cat *c = new Cat;
+</pre>
+<p>此时对象指针 c 的静态类型是声明它时采用的Cat *，动态类型也是Cat *。对于下面这行C++语言代码：</p>
+<pre>
+Animal *a = c;
+</pre>
+<p>对象指针 a 的静态类型是Animal *，动态类型就不同了，而是Cat *。对象的静态类型一旦确定，就不能修改了，但是动态类型可以，例如：</p>
+<pre>
+a = new Animal;
+</pre>
+<p>现在来看看“静态绑定”和“动态绑定”，我们先为 Animal 和 Cat 类新增加两个非虚函数：</p>
+<pre>
+class Animal
+{
+public:
+    virtual void eat() {
+        std::cout &lt;&lt; "I'm eating generic food." ;
+    }
+    void run() {
+        std::cout &lt;&lt; "some can run." ;
+    }
+};
+class Cat : public Animal
+{
+public:
+    void eat() {
+        std::cout &lt;&lt; "I'm eating a rat.";
+    }
+    void run() {
+        std::cout &lt;&lt; "I can run." ;
+    }
+};
+Cat *c = new Cat;
+Animal *a = c;
+</pre>
+<p>为 Animal 和 Cat 类新增加两个非虚函数</p>
+<p>此时 a->run() 和 c->run() 调用的是同一个函数吗？显然不是的，非虚函数 run() 是静态绑定的，这一过程发生在编译时，并且具体调用哪个函数由对象的静态类型确定，所以虽然 a 和 c 指向同一个对象，但是 a 的静态类型是Animal *，所以 a->run() 调用的是 Animal::run()，同理，c->run() 调用的是 Cat::run()。</p>
+<p>那 a->eat() 和 c->eat() 调用的是同一个函数吗？是的，eat() 函数是虚函数，它是动态绑定的，这一过程发生在运行时，并且具体调用哪个函数由指针指向的对象类型确定，因为 a 和 c 指向的都是Cat对象，所以 a->eat() 和 c->eat() 调用的都是 Cat::eat() 函数。</p>
+<p>看来，弄清C++语言中哪些是静态绑定，哪些是动态绑定是问题的关键，我查阅了很多资料，没有得到直接的答案，但是相当多的C++程序员都认为只有涉及到虚函数时才使用动态绑定，其他的都是静态绑定。当然了，这一结论是根据我有限的学识推测的，只不过我目前还没有发现例外，如果有错误，希望可以指点一二。</p>
+<p>注意事项</p>
+<p>C++语言程序开发中有一条“潜规则”：Never redefine function’s inherited default parameters value，意思是绝对不要重定义函数继承而来的默认参数，对于虚函数来说也一样需要遵守。请看下面这个例子：</p>
+<pre>
+class A {
+    virtual void vfoo(int i=1);
+};
+class B :public A{
+    virtual void vfoo(int i=2);
+};
+B *b = new B;
+A *a = b;
+a->vfoo();
+b->vfoo();
+</pre>
+<p>不要重定义函数继承而来的默认参数</p>
+<p>经过上面的讨论，相信读者一眼就能看出 a->vfoo() 和 b->vfoo() 调用的都是 B::vfoo()，但是它们的默认参数是多少呢？会不会都是 2 呢？按照前面的理论“除了虚函数，C++语言中的其他都是静态绑定的”，那么默认参数也应该是静态绑定的，这就是说默认参数主要取决于对象指针的静态类型，也即 a->vfoo() 的默认参数取决于 a 的静态类型A *，所以它的默认参数是 1，同理，b->vfoo() 的默认参数应该是 2，将示例C++语言代码写完整测试之：</p>
+<pre>
+#include &lt;iostream>
+using namespace std;
+class A {
+public:
+	virtual void vfoo(int i=1){
+		cout &lt;&lt;"A: "&lt;&lt; i &lt;&lt; endl;
+	}
+};
+class B :public A{
+public:
+	virtual void vfoo(int i=2){
+		cout &lt;&lt;"B: "&lt;&lt; i &lt;&lt; endl;
+	}
+};
+int main()
+{
+	B *b = new B;
+	A *a = b;
+	a->vfoo();
+	b->vfoo();
+	return 0;
+}
+</pre>
+<p>可见，默认参数的确是静态绑定的。但是这样的输出很怪异，动态绑定和静态绑定纠缠在一起，很容易弄混头脑，相信没有人喜欢这样，所以还是遵守行业“潜规则”吧。</p>
+
+
+<p style='float:right;'>本页共120段，3489个字符，6667 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

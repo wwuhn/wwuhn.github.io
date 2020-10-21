@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+<p><a href="http://developer.51cto.com/art/201104/254740.htm">C++中建立对象间消息连接的一种系统方法</a></p>
+
+<p>项飞</p>
+
+<p>用过C++进行过面向对象程序设计的用户都知道，程序中的对象很少单独存在。不考虑对象间的相互作用几乎是不可能的。所以，标识对象间的关系或建立对象间的消息连接是面向对象程序设计的一项重要任务。本文着重从C++程序设计的角度，提出一种建立对象间消息连接的实用方法。如果你想详细了解面向对象程序设计技术，请参阅有关专著。大家都知道对象是数据和方法的封装体。在C++中，它们分别表现为数据成员和成员函数。<strong>程序设计者通过执行对象的各种方法，来改变对象的状态（即改变对象的属性数据）。从而使该对象发生某些“事件”。</strong>当一对象发生某事件时，它通常需向其它相关对象发送“消息”，请求它们作出一些处理。 这时，发生事件并向其它对象请求处理的对象被称为“事件对象”，而处理事件的对象被称为“回调对象”。回调对象对事件的处理称为“回调函数”。在C++中，这一过程相当于：<strong>当事件对象发生事件时，调用回调对象的某些成员函数。通常的作法是回调对象向事件对象传递对象指针。但这种方法不通用。</strong>为了减少程序设计的工作量，本文提出一种建立对象间消息连接的系统方法。它的思路是：<strong>将“事件发生→请求处理→执行处理”这一过程抽象成一个“回调”（CallBack）类。通过继承，用户可以轻松获取建立对象间消息连接的机制。</strong></p>
+
+<p>一、回调类的数据结构及其成员函数</p>
+
+<p>本文提出的CallBack类支持三种回调函数。它们是：回调对象中的成员函数，属于回调类的静态成员函数和普通的C函数。CallBack类中包含一回调函数表callBackList。它用于记录事件名称，指向回调函数及回调对象的指针。该表的每一个节点为一个事件记录EventRecord。每个事件记录包含三个域：事件名指针eventName，指向回调对象的指针pointerToCBO，指向回调函数的指针pointerToCBF或pointerToCBSF(其中，pointerToCBF指向回调对象的成员函数，pointerToCBSF指向回调类的静态成员函数或普通函数。它们同处于一共用体内)。CallBack类所提供的回调机制是这样的：在事件对象上注册回调对象中的回调函数；当事件发生时，事件对象在其回调表中检索并执行回调函数。从而使二者的消息连接得以建立。（关于该类的具体实现，请参阅文后所附的程序清单）</p>
+
+<p>事件名   回调对象指针  回调函数指针</p>
+
+<p>“event”    pointerCBO   pointerToCBF或pointerTOCBSF</p>
+
+
+
+<p>AddCallBack: 注册事件名和指向回调函数、回调对象的指针</p>
+
+<p>CallCallBack: 在回调表中，检索注册在指定事件上回调函数并调用它们</p>
+
+<p>事件发生时，调用CallCallBack函数</p>
+
+<p>对事件event进行处理的成员函数</p>
+
+<p>从CallBack类继承的回调表callBackList, 成员函数AddCallBack和CallCallBack。</p>
+
+<p>当回调函数为静态成员函数或普通C函数时， pointerToCBO为NULL。</p>
+
+<p>事件名是回调表callBackLis中的检索关键字。</p>
+
+<p>回调对象中其它成员函数</p>
+
+
+<p>CallBack类的成员函数AddCallBack用来将回调函数注册到事件对象的回调表中。它有两个重载版本：</p>
+
+<p>void CallBack::AddCallBack(char *event,CallBackFunction cbf,CallBack *p);</p>
+
+<p>void CallBack::AddCallBack(char *event,CallBackStaticFunction cbsf);</p>
+
+<p>其中，第一个AddCallBack用来将某回调对象的成员函数注册到事件对象的回调表中。第二个AddCallBack用来将或某回调类的静态成员函数注册到事件对象的回调表中。在上参数表中，event是指向事件名字符串的指针，p是指向回调对象的指针，cbf和cbsf分别是指向成员函数及静态成员函数（或普通函数）的指针。当回调函数来自某回调对象SomeObject时，传递成员函数指针应采用如下格式：（CallBackFunction）&SomeObject::MemberFunctionName; 传递SomeObject类的某静态成员函数指针应采用格式：（CallBackStaticFunction）& SomeObject::FunctionName；传递程序中普通函数指针时，只需传递函数名即可。</p>
+
+<p>CallBack类的成员函数void CallBack::CallCallBack(char *ename, CallData calldata = NULL)用来调用注册在事件ename上的所有回调函数。其中，calldata为数据指针（CallData实际上就是void＊,详见程序清单）。事件对象可通过它向回调对象传递有用的数据。该成员函数通常在事件对象的成员函数中调用，因为通常只有事件对象的成员函数才能改变对象的内部数据，从而使某些事件发生。</p>
+
+<p>成员函数RemoveCallback用来删除注册在事件对象上的回调函数。它的三个重载版本依次为：</p>
+
+<p>void CallBack::RemoveCallBack(char *event,CallBackFunction cbf,CallBack *p);</p>
+
+<p>void CallBack::RemoveCallBack(char *event,CallBackStaticFunction cbsf);</p>
+
+<p>void CallBack::RemoveCallBack(char *event);</p>
+
+<p>其中，event,cbf,cbsf,p等参数和成员函数AddCallBack中各参数一样。第一个RemoveCallBack用于删除注册在事件event上某回调对象的一个成员函数。第二个RemoveCallBack用于删除注册在事件event上的某普通函数或某回调类的一个静态成员函数。第三个RemoveCallBack用于删除注册在事件event上的全部回调函数。</p>
+
+<p>二、CallBack类的使用方法</p>
+
+<p>使用CallBack类，可按以下步骤进行：</p>
+
+<p>1．确定程序中哪些对象间存在关系，需要建立消息连接。并确定在各特定消息连接关系中，哪个对象是事件对象，哪个对象是回调对象。</p>
+
+<p>2．事件对象类和回调对象类都必须从CallBack类继承，以获得回调支持。</p>
+
+<p>3．为事件对象注册回调数据。包括：事件名，回调函数名，指向回调对象的指针。</p>
+
+<p>4．当你感兴趣的事件发生时，在事件对象类引发事件的成员函数中调用CallCallBack函数。</p>
+
+<p>下面是一个具体的例子。通过它你会对Callback类的使用方法有进一步的了解。</p>
+<pre>
+#include"callback.h"
+class Speaker:public CallBack    //“扬声器”类，作为事件对象
+{
+private:
+    int volume;
+public:
+    Speaker(int v):volume(v){}
+    void IncreaseVolume(int v)    //增加音量成员函数
+    {
+        volume+=v;
+        if(volume>20){            //“音量大于20”事件发生了
+                                //调用注册在两事件上的回调函数
+            CallCallBack("音量改变了");
+            CallCallBack("音量大于20",&volume);
+        }
+    }
+    void DecreaseVolume(int v)    //降低音量成员函数
+    {
+        volume-=v;
+        if(volume&lt;5){            //“音量小于5”事件发生了
+                                //调用注册在两事件上的回调函数
+            CallCallBack("音量改变了");
+            CallCallBack("音量小于5",&volume);
+        }
+    }
+};
+class Ear:public CallBack                        //“耳朵”类，作为回调对象
+{
+public:
+    static void Response(CallData callData)        //对“音量改变”的反应
+    {
+        cout&lt;&lt;"音量改变了."&lt;&lt;endl;
+    }
+    void HighVoiceResponse(CallData callData)    //对高音的反应
+    {
+        cout&lt;&lt;"喂！太吵了！现在音量是："&lt;&lt;*((int*)callData)&lt;&lt;endl;
+    }
+    void LowVoiceResponse(CallData callData)    //对低音的反应
+    {
+        cout&lt;&lt;"啊！我听不清了。现在音量是："&lt;&lt;*((int*)callData)&lt;&lt;endl;
+    }
+};
+void main(void)
+{
+    Speaker s(10);    //现在音量为10
+    Ear e;
+    //为事件对象s注册回调函数
+    // s上被注册了三个事件：“音量改变了”，“音量大于20”，“音量小于5”。 
+    // 回调函数分别为：Ear::Response， Ear::HighVoiceResponse，Ear::LowVoiceResponse。
+    s.AddCallBack("音量大于20",(CallBackFunction)&Ear::HighVoiceResponse,&e);
+    s.AddCallBack("音量小于5",(CallBackFunction)&Ear::LowVoiceResponse,&e);
+    s.AddCallBack("音量改变了",(CallBackStaticFunction)&Ear::Response);
+    // 当扬声器s通过其成员函数改变音量时，回调对象e会自动作出反应。
+    s.IncreaseVolume(12);    //将音量增加12，现在音量位22
+    s.DecreaseVolume(20);    //将音量减少20，现在音量位2
+    system("pause");
+}
+</pre>
+
+
+
+<p>运行结果：</p>
+
+<p>音量改变了.</p>
+
+<p>喂！太吵了！现在音量是：22</p>
+
+<p>音量改变了.</p>
+
+<p>啊！我听不清了。现在音量是：2</p>
+
+<p>在上例中，扬声器对象s为事件对象，耳朵对象e为回调对象。。s上被注册了三个事件：“音量改变了”，“音量大于20”，“音量小于5”。 回调函数分别为：Ear::Response， Ear::HighVoiceResponse，Ear::LowVoiceResponse。当扬声器s通过其成员函数IncreaseVolume和 DecreaseVolume改变音量时，回调对象e会自动作出反应。可见，通过使用CallBack类，在对象间建立消息连接已变为一项很简单和优美的工作。</p>
+
+<p>由于笔者水平有限，该类的设计必有不完善之处。如果您对它感兴趣，笔者可与各位C++玩家共同探讨这类问题。联系方式:fei_xiang@263.net</p>
+
+<p>附：程序清单（本程序在MS VC++5.0和TC++3.0上均编译通过）</p>
+
+<pre>
+//回调类的类结构:callback.h
+#ifndef _CALLBACK_H
+#define _CALLBACK_H
+#include&lt;stdlib.h>
+#include&lt;string.h>
+#include&lt;iostream.h>
+#define CALLBACKLIST_INIT_SIZE 10
+#define CALLBACKLIST_INCREMENT 5
+class CallBack;
+typedef void* CallData;                                //回调数据指针类型定义
+typedef void(CallBack::*CallBackFunction)(CallData);//指向回调成员函数的指针
+typedef void(*CallBackStaticFunction)(CallData);    //指向静态成员函数或普通函数的指针类型定义
+class EventRecord{
+private:
+    char* eventName;        //回调事件名称
+    CallBack* pointerToCBO;    //指向回调对象的指针
+    //指向成员函数的指针和指向静态成员函数（或普通函数）指针的共用体
+    union{
+        CallBackFunction pointerToCBF;
+        CallBackStaticFunction pointerToCBSF;
+    };
+public:
+    EventRecord(void);                        //事件记录类的缺省构造函数
+    //构造包含成员函数的事件记录
+    EventRecord(char*ename,CallBack*pCBO,CallBackFunction pCBF);
+    //构造包含静态成员函数或普通函数的事件记录
+    EventRecord(char*ename,CallBackStaticFunction pCBSF);
+    ~EventRecord(void);                        //析构事件记录
+    void operator=(const EventRecord&er);    //重载赋值运算符
+    //判断当前事件记录的事件名是否为ename
+    int operator==(char*ename)const;
+    //判断当前事件记录是否和指定事件记录相等
+    int operator==(const EventRecord&er)const;
+    void Flush(void);                        //将当前事件记录清空
+    int IsEmpty(void)const;    //判断事件记录是否为空（即事件名是否为空）
+    friend class CallBack;    //让CallBack类能访问EventRecord的私有成员；
+};
+class CallBack{
+private:
+    EventRecord* callBackList;        //回调事件表
+    int curpos;                        //当前事件记录位置
+    int lastpos;                    //回调表中最后一空闲位置
+    int size;                        //回调表的大小
+    void MoveFirst(void){curpos=0;}    //将当前记录置为第一条记录
+    void MoveNext(void)                //将下一条记录置为当前记录
+    {
+        if(curpos==lastpos)return;
+        curpos++;
+    }
+    //判断回调表是否被遍历完
+    int EndOfList(void)const{return curpos==lastpos;}
+public:
+    CallBack(void);                        //构造函数
+    CallBack(const CallBack&cb);        //拷贝构造函数
+    ~CallBack(void);                    //析构函数
+    void operator=(const CallBack&cb);    //重载赋值运算符
+    //将回调对象的成员函数、静态成员函数（或普通函数）注册为事件对象的回调函数
+    void AddCallBack(char* event,CallBackFunction cbf,CallBack* p);
+    void AddCallBack(char* event,CallBackStaticFunction cbsf);
+    //删除注册在指定事件上的回调函数
+    void RemoveCallBack(char* event,CallBackFunction cbf,CallBack* p);
+    void RemoveCallBack(char* event,CallBackStaticFunction cbsf);
+    void RemoveCallBack(char* event);    //删除某事件的全部记录
+    //执行注册在某一事件上的所有回调函数
+    void CallCallBack(char*event,CallData calldata=NULL);
+};
+#endif
+</pre>
+
+<p>//回调类的实现:callback.cpp</p>
+<pre>
+//回调类的实现:callback.cpp
+#include"callback.h"
+                                    //EventRecord类的实现
+EventRecord::EventRecord(void)
+{
+    eventName=NULL;
+    pointerToCBO=NULL;
+    //因为sizeof(CallBackFunction)>sizeof(CallBackStaticFunction)
+    pointerToCBF=NULL;
+}
+EventRecord::EventRecord(char*ename,CallBack*pCBO,CallBackFunction pCBF)
+:pointerToCBO(pCBO),pointerToCBF(pCBF)
+{
+    eventName=strdup(ename);
+}
+EventRecord::EventRecord(char*ename,CallBackStaticFunction pCBSF)
+:pointerToCBO(NULL),pointerToCBSF(pCBSF)
+{
+    eventName=strdup(ename);
+}
+EventRecord::~EventRecord(void)
+{
+    if(eventName)delete eventName;
+}
+void EventRecord::operator=(const EventRecord &er)
+{
+    if(er.eventName)
+        eventName=strdup(er.eventName);
+    else
+        eventName=NULL;
+    pointerToCBO=er.pointerToCBO;
+    pointerToCBF=er.pointerToCBF;
+}
+int EventRecord::operator==(char*ename)const
+{
+    if((eventName==NULL)||ename==NULL)
+        return eventName==ename;
+    else
+        return strcmp(eventName,ename)==0;
+}
+int EventRecord::operator==(const EventRecord&er)const
+{
+    return(er==eventName)/*er和eventname不能交换位置*/
+        &&(pointerToCBO==er.pointerToCBO)
+        &&(pointerToCBO?
+        (pointerToCBF==er.pointerToCBF):
+    (pointerToCBSF==er.pointerToCBSF));
+}
+void EventRecord::Flush(void)
+{
+    if(eventName){
+        delete eventName;
+        eventName=NULL;
+    }
+    pointerToCBO=NULL;
+    pointerToCBF=NULL;
+}
+int EventRecord::IsEmpty(void)const
+{
+    if(eventName==NULL)
+        return 1;
+    else
+        return 0;
+}
+CallBack::CallBack(void)            //Callback类的实现
+{
+    //按初始尺寸为回调表分配内存空间
+    callBackList=new EventRecord[CALLBACKLIST_INIT_SIZE];
+    if(!callBackList){
+        cerr&lt;&lt;"CallBack:memory allocation error."&lt;&lt;endl;
+        exit(1);
+    }
+    size=CALLBACKLIST_INIT_SIZE;
+    lastpos=0;
+    curpos=0;
+}
+CallBack::CallBack(const CallBack&cb):curpos(cb.curpos),lastpos(cb.lastpos),size(cb.size)
+{
+    callBackList=new EventRecord[size];
+    if(!callBackList){
+        cerr&lt;&lt;"CallBack:memory allocation error."&lt;&lt;endl;
+        exit(1);
+    }
+    //一一复制各条事件记录
+    for(int i = 0; i &lt; size; i++) 
+        callBackList[i] = cb.callBackList[i];
+}
+void CallBack::operator=(const CallBack&cb)
+{
+    curpos=cb.curpos;
+    lastpos=cb.lastpos;
+    size=cb.size;
+    delete[]callBackList;                //删除旧的回调表
+    callBackList=new EventRecord[size];    //重新分配内存空间
+    if(!callBackList){
+        cerr&lt;&lt;"CallBack:memory allocation error."&lt;&lt;endl;
+        exit(1);
+    }
+    //一一复制各条事件记录
+    for(int i = 0; i &lt; size; i++) 
+        callBackList[i] = cb.callBackList[i];
+}
+CallBack::~CallBack(void)
+{
+    delete[]callBackList;
+}
+void CallBack::AddCallBack(char* event,CallBackFunction pCBF,CallBack* pCBO)
+{
+    //如事件名为空，退出
+    if((event==NULL)?1:(strlen(event)==0))return;
+    //寻找因删除事件记录而产生的第一个空闲位置，并填写新事件记录
+    for(int start=0;start&lt;lastpos;start++)
+        if(callBackList[start].IsEmpty()){
+            callBackList[start]=EventRecord(event,pCBO,pCBF);
+            break;
+        }
+        if(start &lt; lastpos) return; 
+            //没有空闲位置，在回调表后追加新记录
+            if(lastpos==size)//回调表已满，需“伸长”
+            {
+                EventRecord*tempList=callBackList;//暂存旧回调表指针
+                //以一定的步长“伸长”回调表
+                callBackList=new EventRecord[size+CALLBACKLIST_INCREMENT];
+                if(!callBackList){
+                    cerr&lt;&lt;"CallBack:memory allocation error."&lt;&lt;endl;
+                    exit(1);
+                }
+                //复制旧回调表中的记录
+                for(int i = 0; i &lt; size; i++) callBackList[i] = tempList[i];
+                delete[]tempList;                //删除旧回调表
+                size+=CALLBACKLIST_INCREMENT;    //记下新回调表的尺寸
+            }
+            //构造新的事件记录并将其填入回调表中
+            callBackList[lastpos]=EventRecord(event,pCBO,pCBF);
+            lastpos++;
+}
+void CallBack::AddCallBack(char*event,CallBackStaticFunction pCBSF)
+{
+    if((event==NULL)?1:(strlen(event)==0))return;
+    for(int start=0;start&lt;lastpos;start++)
+        if(callBackList[start].IsEmpty()){
+            callBackList[start]=EventRecord(event,pCBSF);
+            break;
+        }
+        if(start &lt; lastpos) return;
+            if(lastpos==size)//event list is insufficient
+            {
+                EventRecord*tempList=callBackList;
+                callBackList=new EventRecord[size+CALLBACKLIST_INCREMENT];
+                if(!callBackList){
+                    cerr&lt;&lt;"CallBack:memory allocation error."&lt;&lt;endl;
+                    exit(1);
+                }
+                for(int i = 0; i &lt; size; i++) callBackList[i] = tempList[i];
+                delete[]tempList;
+                size+=CALLBACKLIST_INCREMENT;
+            }
+            callBackList[lastpos]=EventRecord(event,pCBSF);
+                lastpos++;
+}
+//删除注册在指定事件上的成员函数
+void CallBack::RemoveCallBack(char*event,CallBackFunction pCBF,CallBack*pCBO)
+{
+    if((event==NULL)?1:(strlen(event)==0))return;
+    EventRecord er(event,pCBO,pCBF);
+    for(int i = 0; i &lt; lastpos; i++)
+        if(callBackList[i] == er) 
+            callBackList[i].Flush();
+}
+//删除注册在指定事件上的静态成员函数或普通函数
+void CallBack::RemoveCallBack(char*event,CallBackStaticFunction pCBSF)
+{
+    if((event==NULL)?1:(strlen(event)==0))return;
+    EventRecord er(event,pCBSF);
+    for(int i = 0; i &lt; lastpos; i++)
+        if(callBackList[i] == er) 
+            callBackList[i].Flush();
+}
+//删除注册在指定事件上的所有回调函数
+void CallBack::RemoveCallBack(char*event)
+{
+    if((event==NULL)?1:(strlen(event)==0))return;
+    for(int i = 0; i &lt; lastpos; i++)
+        if(callBackList[i] == event) 
+            callBackList[i].Flush();
+}
+void CallBack::CallCallBack(char*event,CallData callData)
+{
+    if((event==NULL)?1:(strlen(event)==0))return;
+    CallBack*pCBO;
+    CallBackFunction pCBF;
+    CallBackStaticFunction pCBSF;
+    MoveFirst();
+    while(!EndOfList())
+    {
+        //如当前事件记录和指定事件不匹配，转入下一条记录继续循环
+        if(!(callBackList[curpos]==event))
+        {
+            MoveNext();
+            continue;
+        }
+        //如找到匹配记录
+        pCBO=callBackList[curpos].pointerToCBO;
+        //如事件记录中回调对象指针为空，说明该记录中保存的是静态函数指针
+        if(pCBO==NULL){
+            pCBSF=callBackList[curpos].pointerToCBSF;
+            pCBSF(callData);//调用该静态回调函数
+        }
+        else//如事件记录中回调对象指针非空，说明该记录中保存的是成员函数指针
+        {
+            pCBF=callBackList[curpos].pointerToCBF;
+            (pCBO->*pCBF)(callData);//调用该回调对象的成员函数
+        }
+        MoveNext();
+    }
+}
+</pre>
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

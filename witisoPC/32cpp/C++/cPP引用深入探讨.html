@@ -1,0 +1,464 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部    
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+<p>c++引用深入探讨</p>
+
+<p>2007年06月06日 22:34:00 dead_of_winter 阅读数：884 标签： c++ iostream javascript 语言 c# 编译器  更多</p>
+
+
+
+<p>引用的声明：基本格式：引用类型 &引用名=被引用对象</p>
+
+<p>&运算符：声明运算符& 跟取地址运算符&和位异或运算符&没有任何关系</p>
+
+<p>extern关键字:一般情况下，引用的声明必须指定被引用对象，唯一的例外是使用extern关键字</p>
+
+<p>const关键字:一般情况下，被引用对象必须是有效的左值对象 但是const关键字修饰的常引用类型允许被引用对象不是左值对象</p>
+
+<p>引用的使用：引用可以被当作被引用对象的别名使用，单纯的引用是无意义的，引用主要应用于四个方面：</p>
+
+<p>函数参数：可修改的实参，高效的复杂对象传递方式</p>
+
+<p>函数返回值：不产生复制的返回值，返回左值类型的函数</p>
+
+<p>运算符重载：为++ -- &lt;&lt; >>等运算符提供了更贴近原意的重载方式</p>
+
+<p>多态：代替指针使用，实现抽象类的引用</p>
+
+<p> 引用的深入探讨：现在开始进入正题</p>
+
+<p>1.引用占内存空间吗？</p>
+
+<p>如果引用只是一个别名的话 他不应该占有内存空间　我用下面这段代码来查看</p>
+
+<p></p>
+<pre>
+#include &lt;iostream>
+using namespace std;
+void fa(){
+    int a[4];    
+    cout&lt;a&lt;endl;
+}
+void fb(){
+    int a[4];
+    //int &b=a[0];
+    cout&lt;a&lt;endl;
+    fa();
+}
+void fc(){
+    int a[4];
+    cout&lt;a&lt;endl;
+    fb();
+}
+int main()
+{
+    fc();
+    getchar();
+    return 0;
+}
+/*
+0012FEE0    //fc()的a[]的地址
+0012FE7C    //fb()的a[]的地址
+0012FE14    //fa()的a[]的地址
+//
+0012FEE0
+0012FE7C
+0012FE18
+*/
+</pre>
+
+<p>这段代码里用了三个嵌套的函数调用，这样fa()和fc()的栈段就把fb()夹在了中间，fb()的栈段大小变化的话，会导致fa()中ａ[]的地址偏移，但是并不是每个分配都会导致栈段增大的，所以应该先测试一下，确定ａ的合适大小，使得一旦声明变量 b的栈段就增大。</p>
+
+<p>把int &b=a[0];注释掉的话 可以看到fa中输出的地址变了，fb没有变 那么引用b显然占据了内存空间 代码在g++中编译，结果也是g++的结果。</p>
+
+<p>2.引用的值不可改变吗？</p>
+
+<p>一个已经初始化的引用类型对象 其引用的对象不可能被合法的改变。</p>
+
+<p>前面一段代码展示给我们 引用确实占据了内存空间 ，了进一步了解其本质，我们必须获得它的地址。&取地址操作符显然是无法做到的，几乎每个学c++的人都会尝试用这种办法去取引用类型的地址，但得到的都是被引用对象的地址。</p>
+
+<p>还从前面的例子入手 fb中 a的地址没有改变  fa中a的地址改变 那么 int &b的分配应该在 二者之间 于是 最可能的位置就是a中的a[4]   但输出之后我发现a[4]不是，因为数组a是跟栈逆向分配的 之后我试了这样的代码</p>
+
+<p></p>
+<pre>
+void fb(){
+    int a[4];
+    int b=20;
+    cout&lt;&lt;a[-1]&lt;&lt;endl;
+    fa();
+}
+</pre>
+
+<p> 在我的编译器中 b跟a[-1]总是相等 于是 我把int b 替换成int &b=a[0]; ok 我发现它指向了一个貌似地址的东西。改变b的指向 发现a[-1]是随之变化的 现在 我几乎可以确定 a[-1]就是b了 再用一段这样的代码来检验</p>
+
+<p></p>
+<pre>
+void fb(){
+    int a[4]={1,2,3,4};
+    int &b=a[0];
+    a[-1]+=4;
+    cout&lt;&lt;b&lt;&lt;","&lt;&lt;a[0]&lt;&lt;endl;
+    fa();
+}
+</pre>
+
+<p>引用真的是不可改变的吗？ 在这个例子中 我使b指向了a[1] 而不再是a[0]</p>
+
+<p>3.引用和指针</p>
+
+<p>从上面的例子看出，引用的内部实现和指针并无两样。如果参考其他语言的思想的话，可以得到结论：引用就是指针常量。 在c++中，引用在语法上与指针有着明显的差异 但是，他们并没有本质不同，引用是c++中实现的一种限制比较严格的常量指针，它在参与任何运算之前自动解引用。</p>
+
+<p>在使用中，推荐尽量用引用代替指针，因为引用是一种比指针更安全的类型，并且有更清晰的语义（当然指针也有适合的语义）</p>
+
+<p>4.其他语言</p>
+
+<p>顺便一提，在C家的其他语言中，引用几乎被作为访问对象的唯一手段。</p>
+
+<p>C++：有指针，所有运算符会解引用，所有对象不作为引用，传递参数和返回值时如果不希望复制，则必须将形参指定为引用类型</p>
+
+<p>C#: unsafe模式有指针，除了=之外的操作符会解引用，所有对象作为引用，传递参数和返回值时如果希望复制，则必须显式clone</p>
+
+<p>Java：无指针，除了=之外的操作符会解引用，类似c#</p>
+
+<p>javascript：无指针，但是可以变通，除了=之外的操作符会解引用，没有提供复制传递的方法(郁闷)</p>
+
+<h4>引用不就是一个常量指针吗？</h4>
+
+<p></p>
+
+<p>const pointer可以初始化为NULL，而&不行，即引用总是指向某个对象。</p>
+
+<p></p>
+
+<p>1) 引用必须被初始化，指针不必。</p>
+
+<p></p>
+
+<p>2) 引用初始化以后不能被改变，指针可以改变所指的对象。</p>
+
+<p></p>
+
+<p>3) 不存在指向空值的引用，但是存在指向空值的指针。</p>
+
+<p></p>
+
+<p>1。 非空的差别任何情况下都不能使用指向空值的引用。一个引用必须总是指向某</p>
+
+<p></p>
+
+<p>2。 合法性区别在使用引用之前不需要测试他的合法性。指针必须测试。</p>
+
+<p></p>
+
+<p>3。 可修改区别 指针可以被重新赋值给另一个不同的对象。但是引用总是指向在初始化的时候被制定的对象，以后不能改变。但是指定的对象其内容可以改变。</p>
+
+<p></p>
+
+<p>应该使用指针的情况: 可能存在不指向任何对象的可能性 需要在不同的时刻指向不同的对象(此时，你能够改变指针的指向)</p>
+
+<p></p>
+
+<p>应该使用引用的情况: 如果总是指向一个对象并且一旦指向一个对象后就不会改变指向，使用此时应使用引用。</p>
+
+<p></p>
+
+<p>引用&是一个变量的别名；例如: int& b=a；//b声明为a的引用，b和a拥有相同的内存地址，可以通过改变b的值来改变a包含的值。</p>
+
+<p></p>
+
+<p>常量指针表示存储在指针中的地址不能修改；像这样的指针只能指向初始化时指定的地址，但是，地址中的内容不是常量，可以修改；(和指向常量的指针不同，指向常量的指针表示指向的内容是常量，不能够修改)。</p>
+
+<p></p>
+
+<p>至于引用和常量指针的区别:int& b=a； int* const p=&a； b是a的引用，他们拥有相同的内存地址，指针p存储的是变量a的地址，指针p自己拥有另一个内存地址，可以通过间接运算符来解除指针的引用:int c=*p；</p>
+
+<p></p>
+
+<p>另外一个区别，引用不占用额外的内存，而指针是占内存的（存疑，https://blog.csdn.net/dead_of_winter/article/details/1641373）。</p>
+
+<p></p>
+
+<p>引用比较安全，指针用好了很好，用不好就非常不好。</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

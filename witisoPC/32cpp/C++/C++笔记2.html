@@ -1,0 +1,699 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>再复杂的语法机制最终都需由编译器来实现，所以了解背后的编译器行为，能更深入理解一些语法机制的原理。</h3>
+
+<p>
+</p>
+
+<p>1 变量与内存地址
+</p>
+
+<p>CPU 访问内存时需要的是地址，而不是变量名和函数名！变量名和函数名只是地址的一种助记符，当源文件被编译和链接成可执行程序后，它们都会被替换成地址	。编译和链接过程的一项重要任务就是找到这些名称所对应的地址。
+</p>
+
+<p>程序中定义一个变量时，编译器会预留一个内存位置来储存变量。此位置有唯一的地址。编译器把该地址与变量名相关联。当程序使用该变量名时，将自动访问正确的内存位置。
+</p>
+
+<p>编译器不为寄存器类型的变量分配内存空间，而是直接使用CPU的寄存器。以便提高对这类变量的存取速度。主要用于控制循环次数等不需要长期保存值得变量。
+</p>
+
+<p>2 C风格字符串
+</p>
+
+<p>在字符数组末尾包含一个表示字符串结束的空字符\0，这样该数组的内容就构成了一个字符串。所以严格意义上来说，字符数组不一定是字符串，而字符串一定是数组。
+</p>
+
+<p>下面表达式中字符串常量都是由编译器在构造字符数组时，在数组末尾添加一个空字符\0：
+</p>
+
+<p>char *cp;
+</p>
+
+<p>cp = "abcdef";//编译器会自动把"abcdef"定义为常量指针
+</p>
+
+<p>char carr[] = "abcdef";
+</p>
+
+<p>3 对于结构体和类类型的数据成员的内存映像
+</p>
+
+<p>编译器会自动对齐结构体或类类型数据成员以提高运行效率。
+</p>
+
+<p>4 数组的下标访问
+</p>
+
+<p>数组各元素在内存空间是连续线性存储的，数组名对应首元素的地址，其它元素也就是相对于首元素地址的偏移，使用下标符号[]来表示具体偏移量，首元素的偏移量是0。
+</p>
+
+<p>采用a[i]这种形式访问数组，编译器总会把其“改写”成像*(a+i)这种指针访问。
+</p>
+
+<p>new(delete)与malloc(free)的主要区别是除了分配与释放内存，还会自动调用构造函数与析构函数。对于数组动态内存的释放，需要使用如delete [] stringParr;
+</p>
+
+<p>符号[]是告诉编译器，我这里需要释放的是一个整个数组的指针，这样编译器就会逐个释放每个元素的内存占用。
+</p>
+
+<p>数组有有初始化时，数组的第一维的长度可以省略，编译器由初始化成员的数量和其他维的长度来推断。
+</p>
+
+<p>下标运算符为什么要重载成成员函数？下标运算符重载函数为什么要用引用返回？
+</p>
+
+<p>下标运算符的第一个运算数是数组名，即当前类的对象。将下标运算符重载成成员函数时，编译器会将程序中诸如a[i]的下标变量的引用改为a.operator[](i)。如果a不是当前类的对象，编译器就会报错。下标变量是左值，所以必须用引用返回。
+</p>
+
+<p>5 静态和全局变量的初始化
+</p>
+
+<p>编译器会自动初始化static静态和global全局变量，即data段的内容。将未初始化部分的全局变量赋初值：数值型short，int，long等为0，bool为false，指针为NULL，等等，即.bss段的内容
+</p>
+
+<p>对于局部变量，基于效率的考量，编译器并不会自动初始化。但对于超过作用域的局部变量，编译器会自动释放其栈空间的占用。
+</p>
+
+<p>6 类型转换
+</p>
+
+<p>6.1 隐式类型转换
+</p>
+
+<p>赋值时的自动类型转换：当表达式的结果类型和变量类型不一致时，系统会将右边的表达式的结果转换成左边的变量的类型，再赋给左边的变量。
+</p>
+
+<p>char c = 'A';
+</p>
+
+<p>int i = c; //隐式类型转换
+</p>
+
+<p>6.2 static_cast与dynamic_cast
+</p>
+
+<p>static_cast与dynamic_cast：把这两个放在一起比较容易记忆，"一静一动"。从字面上也可以看出，前者提供的是编译时期的静态类型检测，后者提供的是运行时检测。
+</p>
+
+<p>static_cast进行强制类型转换时，会进行编译时的类型安全检查，即你可以将int转成float，将子类引用(指针)转成父类引用(指针)，子转父和父转子都可以，但父转子不安全。但是你不能使用static_cast将两个无关的东西进行转换，比如两个无关的类，因为编译器在编译的时候会检查这个转换是否可行，很明显不可行。
+</p>
+
+<p>7 函数参数缺省
+</p>
+
+<p>C++在说明函数原型时，可以为一个或多个参数指定缺省值。调用此函数时，若缺省某一参数，C++编译器会自动以缺省值作为此参数的值。
+</p>
+
+<p>如：
+</p>
+
+<p>int special(int x=2, float y=1.5)
+</p>
+
+<p>调用时可用：
+</p>
+
+<p>special(5,3.2) //x=5; y=3.2
+</p>
+
+<p>special(6) //x=6; y=1.5
+</p>
+
+<p>special( ) //x=2; y=1.5
+</p>
+
+<p>8 内联函数
+</p>
+
+<p>将函数指定为内联是建议编译器在调用点直接把函数代码展开。内联函数避免了调用函数的代价。
+</p>
+
+<p>在内联函数内不允许用循环语句和switch语句。如果内联函数有这些语句，则编译将该函数视同普通函数那样产生函数调用代码，
+</p>
+
+<p>9 类型检查与判断
+</p>
+
+<p>编译器会在编译期对变量进行类型检查，确保变量的合法性。
+</p>
+
+<p>const 常量有数据类型，而宏常量没有数据类型。使用的时候，编译器可以对前者进行类型安全检查。而对后者只进行字符替换，没有类型安全检查，并且在字符替换可能会产生一些意料不到的错误。
+</p>
+
+<p>auto自动变量是较新的C++版本新增的类型，声明变量时，用auto代替变量类型，由编译器根据初始字面值来判断变量类型。
+</p>
+
+<p>10 静态成员变量
+</p>
+
+<p>类的静态成员变量在编译阶段就分配空间，对象还没有创建。
+</p>
+
+<p>11 引用
+</p>
+
+<p>引用一般都是通过指针来实现的，只不过编译器帮我们完成了转换。
+</p>
+
+<p>引用的实质就是一个由编译器实现了解引用的特殊的指针常量。
+</p>
+
+<p>12 成员函数的this指针
+</p>
+
+<p>每个对象包含两部分内容：数据成员和成员函数。不同的对象有不同的数据成员值，因此每个对象都拥有一块保存自己数据成员值的空间。但同一类的所有对象的成员函数的实现都是相同的，因此所有的对象共享了一份成员函数的代码。这又带来了另一个问题：成员函数中的涉及到的数据成员到底是哪个对象的数据成员？为此C++让每个成员函数都包含了一个隐含的参数this，该参数是一个指针，指向当前调用该成员函数的对象。成员函数中涉及的数据成员都是this指针指向的对象的数据成员。
+</p>
+
+<p>类的成员函数在编译时，会多出一个this 指针。至于类别之中，成员函数的定义：
+</p>
+
+<p>class CShape
+</p>
+
+<p>{
+</p>
+
+<p>...
+</p>
+
+<p>public:
+</p>
+
+<p>void setcolor(int color)
+</p>
+
+<p>{ m_color = color; }
+</p>
+
+<p>};
+</p>
+
+<p>//被编译器整治过后，其实是：
+</p>
+
+<p>class CShape
+</p>
+
+<p>{
+</p>
+
+<p>...
+</p>
+
+<p>public:
+</p>
+
+<p>void setcolor(int color, (CShape*)this)
+</p>
+
+<p>{ this->m_color = color; }
+</p>
+
+<p>};
+</p>
+
+<p>通常，在写成员函数时可以省略this，编译时会自动加上它们。
+</p>
+
+<p>void Point::setx(double inputx)
+</p>
+
+<p>{
+</p>
+
+<p>x=inputx;
+</p>
+
+<p>this->x = inputx;
+</p>
+
+<p>(*this).x = inputx;
+</p>
+
+<p>}
+</p>
+
+<p>如果在成员函数中要把对象作为整体来访问时，必须显式地使用this指针。这种情况常出现在函数中返回一个对调用函数的对象的引用。
+</p>
+
+<p>13 函数重载时的编译器行为
+</p>
+
+<p>重载函数是通过“名字压延”方法来实现。即在编译时将函数名和参数结合起来创造一个新的函数名，用新的名字替换原有名字。
+</p>
+
+<p>编译器根据函数声明中的不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（至少对于编译器来说是这样的)。
+</p>
+
+<p>例如，下面的代码有两个同名函数：
+</p>
+
+<p>long func(int i);
+</p>
+
+<p>long func(couble dd);
+</p>
+
+<p>那么编译器做过修饰后的函数名称可能是这样的：int_func、double_func。对于这两个函数的调用，在编译器间就已经确定了，是静态的。也就是说，它们的地址在编译期就已经绑定了（早绑定），因此，重载和多态是没有关系的。
+</p>
+
+<p>14 运算符重载
+</p>
+
+<p>对于基本数据类型，都有对应的一组操作符，你也可以理解为是适用于基本数据类型的一组函数。
+</p>
+
+<p>对于类类型，也可以如同基本数据类型一样，定义一组操作符，让类型之间的操作看起来更简洁。
+</p>
+
+<p>如以下复数类的加法操作，你可以定义为一个函数，也可以定义为操作符重载：
+</p>
+
+<p>complex add(const complex &c1, const complex &c2)
+</p>
+
+<p>{
+</p>
+
+<p>complex temp(c1.real + c2.real, c1.imag + c2.imag);
+</p>
+
+<p>return temp;
+</p>
+
+<p>}
+</p>
+
+<p>complex operator+(const complex& c1, const complex& c2)
+</p>
+
+<p>{
+</p>
+
+<p>complex temp(c1.real + c2.real, c1.imag + c2.imag);
+</p>
+
+<p>return temp;
+</p>
+
+<p>}
+</p>
+
+<p>c1+c2会被编译器理解为：
+</p>
+
+<p>complex::operator+(c1,c2){}
+</p>
+
+<p>15 虚函数和运行期多态
+</p>
+
+<p>虚函数前的virtual就是告诉编译器，函数不是使用静态绑定(静态只能实现一对一，也就只能绑定一个)，而是要使用动态绑定。
+</p>
+
+<p>运行期多态的实现依赖于虚函数机制。当某个类声明了虚函数时，告诉编译器在在编译时不得绑定，编译器将为该类对象安插一个虚函数表指针，并为类（基类和派生类）设置虚函数表，虚函数表中存放的是该类虚函数地址。同时，改写虚函数调用代码（函数指针调用）。运行期间通过虚函数表指针与虚函数表去确定该类虚函数的真正实现。具体细节见：
+</p>
+
+<p>C++运行期多态和编译期多态（以不同的模板参数调用不同的函数）
+</p>
+
+<p>16 空类，定义时会生成6个成员函数
+</p>
+
+<p>当空类Empty定义一个对象_oneEmpty pt;
+</p>
+
+<p>sizeof(pt)仍是为1，但编译器会生成6个成员函数：一个缺省的构造函数、一个拷贝构造函数、一个析构函数、一个赋值运算符、两个取址运算符。
+</p>
+
+<p>class Empty
+</p>
+
+<p>{};
+</p>
+
+<p>等价于：
+</p>
+
+<p>class Empty
+</p>
+
+<p>{
+</p>
+
+<p>public:
+</p>
+
+<p>Empty(); //缺省构造函数
+</p>
+
+<p>Empty(const Empty &rhs); //拷贝构造函数
+</p>
+
+<p>~Empty(); //析构函数
+</p>
+
+<p>Empty& operator=(const Empty &rhs); //赋值运算符
+</p>
+
+<p>Empty* operator&(); //取址运算符
+</p>
+
+<p>const Empty* operator&() const; //取址运算符(const版本)
+</p>
+
+<p>};
+</p>
+
+<p>使用时的调用情况：
+</p>
+
+<p>Empty *e = new Empty(); //缺省构造函数
+</p>
+
+<p>delete e; //析构函数
+</p>
+
+<p>Empty e1; //缺省构造函数
+</p>
+
+<p>Empty e2(e1); //拷贝构造函数
+</p>
+
+<p>e2 = e1; //赋值运算符
+</p>
+
+<p>Empty *pe1 = &e1; //取址运算符(非const)
+</p>
+
+<p>const Empty *pe2 = &e2; //取址运算符(const)
+</p>
+
+<p>17 其它
+</p>
+
+<p>在派生类中用override修饰符定义虚函数时，编译器会验证直接或间接基类是否包含签名相同的虚函数，如果不包含，就生成一个错误信息。
+</p>
+
+<p>如果类的函数成员用final修饰符指定，派生类就能重写该函数。否则编译器会生成一个错误消息。
+</p>
+
+<p>如果类用final修饰符定义，该类就不能用作另一个类的基类。尝试把final类用作基类，编译器会生成一个错误消息。
+</p>
+
+<p>－End－
+</p>
+
+
+
+<p style='float:right;'>本页共135段，4594个字符，10707 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

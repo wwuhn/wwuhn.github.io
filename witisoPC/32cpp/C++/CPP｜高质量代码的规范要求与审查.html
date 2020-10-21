@@ -1,0 +1,672 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>CPP｜高质量代码的规范要求与审查</h3>
+
+<p>1 文件结构
+</p>
+
+<p>1.1 头文件和定义文件的名称是否合理？
+</p>
+
+<p>1.2 头文件和定义文件的目录结构是否合理？
+</p>
+
+<p>1.3 版权和版本声明是否完整？
+</p>
+
+<p>1.4 头文件是否使用了 ifndef/define/endif 预处理块?
+</p>
+
+<p>1.5 头文件中是否只存放“声明”而不存放“定义”？
+</p>
+
+<p>2 程序的版式
+</p>
+
+<p>2.1 空行是否得体？
+</p>
+
+<p>2.2 代码行内的空格是否得体？
+</p>
+
+<p>2.3 长行拆分是否得体？
+</p>
+
+<p>2.4 “{” 和 “}” 是否各占一行并且对齐于同一列？
+</p>
+
+<p>2.5 一行代码是否只做一件事？如只定义一个变量，只写一条语句。
+</p>
+
+<p>2.6 If、for、while、do 等语句自占一行，不论执行语句多少都要加“{}”。
+</p>
+
+<p>2.7 在定义变量（或参数）时，是否将修饰符 * 和 ＆ 紧靠变量名？
+</p>
+
+<p>2.8 注释是否清晰并且必要？
+</p>
+
+<p>2.9 注释是否有错误或者可能导致误解？
+</p>
+
+<p>2.10 类结构的 public, protected, private 顺序是否在所有的程序中保持一致？
+</p>
+
+<p>3 命名规则
+</p>
+
+<p>3.1 命名规则是否与所采用的操作系统或开发工具的风格保持一致？
+</p>
+
+<p>3.2 标识符是否直观且可以拼读？
+</p>
+
+<p>3.3 标识符的长度应当符合“min-length && max-information”原则？
+</p>
+
+<p>3.4 程序中是否出现相同的局部变量和全部变量？
+</p>
+
+<p>3.5 类名、函数名、变量和参数、常量的书写格式是否遵循一定的规则？
+</p>
+
+<p>3.6 静态变量、全局变量、类的成员变量是否加前缀？
+</p>
+
+<p>4 表达式与基本语句
+</p>
+
+<p>4.1 如果代码行中的运算符比较多，是否已经用括号清楚地确定表达式的操作顺序？
+</p>
+
+<p>4.2 是否编写太复杂或者多用途的复合表达式？
+</p>
+
+<p>4.3 是否将复合表达式与“真正的数学表达式”混淆？
+</p>
+
+<p>4.4 是否用隐含错误的方式写 if 语句? 例如
+</p>
+
+<p>（1） 将布尔变量直接与 TRUE、FALSE 或者 1、0 进行比较。
+</p>
+
+<p>（2） 将浮点变量用“==”或“！=”与任何数字比较。
+</p>
+
+<p>（3） 将指针变量用“==”或“！=”与 NULL 比较。
+</p>
+
+<p>4.5 如果循环体内存在逻辑判断，并且循环次数很大，是否已经将逻辑判断移到循环体的外面？
+</p>
+
+<p>4.6 Case 语句的结尾是否忘了加break？
+</p>
+
+<p>4.7 是否忘记写 switch 的 default 分支？
+</p>
+
+<p>4.8 使用 goto 语句时是否留下隐患? 例如跳过了某些对象的构造、变量的初始化、重要的计算等。
+</p>
+
+<p>5 常量
+</p>
+
+<p>5.1 是否使用含义直观的常量来表示那些将在程序中多次出现的数字或字符串？
+</p>
+
+<p>5.2 在 C++ 程序中，是否用const 常量取代宏常量？
+</p>
+
+<p>5.3 如果某一常量与其它常量密切相关，是否在定义中包含了这种关系？
+</p>
+
+<p>5.4 是否误解了类中的const 数据成员？因为const 数据成员只在某个对象生存期内是常量，而对于整个类而言却是可变的。
+</p>
+
+<p>6 函数设计
+</p>
+
+<p>6.1 参数的书写是否完整？不要贪图省事只写参数的类型而省略参数名字。
+</p>
+
+<p>6.2 参数命名、顺序是否合理？
+</p>
+
+<p>6.3 参数的个数是否太多？
+</p>
+
+<p>6.4 是否使用类型和数目不确定的参数？
+</p>
+
+<p>6.5 是否省略了函数返回值的类型？
+</p>
+
+<p>6.6 函数名字与返回值类型在语义上是否冲突？
+</p>
+
+<p>6.7 是否将正常值和错误标志混在一起返回？正常值应当用输出参数获得，而错误标志用 return 语句返回。
+</p>
+
+<p>6.8 在函数体的“入口处”，是否用 assert 对参数的有效性进行检查？
+</p>
+
+<p>6.9 使用滥用了 assert？ 例如混淆非法情况与错误情况，后者是必然存在的并且是一定要作出处理的。
+</p>
+
+<p>6.10 return 语句是否返回指向“栈内存”的“指针”或者“引用”？
+</p>
+
+<p>6.11 是否使用const 提高函数的健壮性？const 可以强制保护函数的参数、返回值，甚至函数的定义体。“Use const whenever you need”
+</p>
+
+<p>7 内存管理
+</p>
+
+<p>7.1 用 malloc 或 new 申请内存之后，是否立即检查指针值是否为 NULL？（防止使用指针值为 NULL 的内存）
+</p>
+
+<p>7.2 是否忘记为数组和动态内存赋初值？（防止将未被初始化的内存作为右值使用）
+</p>
+
+<p>7.3 数组或指针的下标是否越界？
+</p>
+
+<p>7.4 动态内存的申请与释放是否配对？（防止内存泄漏）
+</p>
+
+<p>7.5 是否有效地处理了“内存耗尽”问题？
+</p>
+
+<p>7.6 是否修改“指向常量的指针”的内容？
+</p>
+
+<p>7.7 是否出现野指针？例如
+</p>
+
+<p>I 指针变量没有被初始化。
+</p>
+
+<p>II 用 free 或delete 释放了内存之后，忘记将指针设置为 NULL。
+</p>
+
+<p>7.8 是否将 malloc/free 和 new/delete 混淆使用？
+</p>
+
+<p>7.9 malloc 语句是否正确无误？例如字节数是否正确？类型转换是否正确？
+</p>
+
+<p>7.10 在创建与释放动态对象数组时，new/delete 的语句是否正确无误？
+</p>
+
+<p>8 C++ 函数的高级特性
+</p>
+
+<p>8.1 重载函数是否有二义性？
+</p>
+
+<p>8.2 是否混淆了成员函数的重载、覆盖与隐藏？
+</p>
+
+<p>8.3 运算符的重载是否符合制定的编程规范？
+</p>
+
+<p>8.4 是否滥用内联函数？例如函数体内的代码比较长，函数体内出现循环。
+</p>
+
+<p>8.5 是否用内联函数取代了宏代码？
+</p>
+
+<p>9 类的构造函数、析构函数和赋值函数
+</p>
+
+<p>9.1 是否违背编程规范而让 C++ 编译器自动为类产生四个缺省的函数：
+</p>
+
+<p>（1）缺省的无参数构造函数；
+</p>
+
+<p>（2）缺省的拷贝构造函数；
+</p>
+
+<p>（3）缺省的析构函数；
+</p>
+
+<p>（4）缺省的赋值函数。
+</p>
+
+<p>9.2 构造函数中是否遗漏了某些初始化工作？
+</p>
+
+<p>9.3 是否正确地使用构造函数的初始化表？
+</p>
+
+<p>9.4 析构函数中是否遗漏了某些清除工作？
+</p>
+
+<p>9.5 是否错写、错用了拷贝构造函数和赋值函数？
+</p>
+
+<p>9.6 赋值函数一般分四个步骤：
+</p>
+
+<p>（1）检查自赋值；
+</p>
+
+<p>（2）释放原有内存资源；
+</p>
+
+<p>（3）分配新的内存资源，并复制内容；
+</p>
+
+<p>（4）返回 *this。是否遗漏了重要步骤？
+</p>
+
+<p>9.7 是否正确地编写了派生类的构造函数、析构函数、赋值函数？注意事项：
+</p>
+
+<p>I 派生类不可能继承基类的构造函数、析构函数、赋值函数。
+</p>
+
+<p>II 派生类的构造函数应在其初始化表里调用基类的构造函数。
+</p>
+
+<p>III 基类与派生类的析构函数应该为虚（即加 virtual 关键字）。
+</p>
+
+<p>IV 在编写派生类的赋值函数时，注意不要忘记对基类的数据成员重新赋值。
+</p>
+
+<p>10 类的高级特性
+</p>
+
+<p>是否违背了继承和组合的规则？
+</p>
+
+<p>I 若在逻辑上 B 是 A 的“一种”，并且 A 的所有功能和属性对B 而言都有意义，则允许B 继承A 的功能和属性。
+</p>
+
+<p>II 若在逻辑上 A 是 B 的“一部分”（a part of），则不允许 B 从A 派生，而是要用A 和其它东西组合出 B。
+</p>
+
+<p>11 其它常见问题
+</p>
+
+<p>11.1 数据类型问题：
+</p>
+
+<p>（１）变量的数据类型有错误吗？
+</p>
+
+<p>（２）存在不同数据类型的赋值吗？
+</p>
+
+<p>（３）存在不同数据类型的比较吗？
+</p>
+
+<p>11.2 变量值问题：
+</p>
+
+<p>（１）变量的初始化或缺省值有错误吗？
+</p>
+
+<p>（２）变量发生上溢或下溢吗？
+</p>
+
+<p>（３）变量的精度够吗？
+</p>
+
+<p>11.3 逻辑判断问题：
+</p>
+
+<p>（１）由于精度原因导致比较无效吗？
+</p>
+
+<p>（２）表达式中的优先级有误吗？
+</p>
+
+<p>（３）逻辑判断结果颠倒吗？
+</p>
+
+<p>11.4 循环问题：
+</p>
+
+<p>（１）循环终止条件不正确吗？
+</p>
+
+<p>（２）无法正常终止（死循环）吗？
+</p>
+
+<p>（３）错误地修改循环变量吗？
+</p>
+
+<p>（４）存在误差累积吗？
+</p>
+
+<p>11.5 错误处理问题：
+</p>
+
+<p>（１）忘记进行错误处理吗？
+</p>
+
+<p>（２）错误处理程序块一直没有机会被运行？
+</p>
+
+<p>（３）错误处理程序块本身就有毛病吗？如报告的错误与实际错误不一致，处理方式不正确等等。
+</p>
+
+<p>（４）错误处理程序块是“马后炮”吗？如在被它被调用之前软件已经出错。
+</p>
+
+<p>11.6 文件 I/O 问题：
+</p>
+
+<p>（１）对不存在的或者错误的文件进行操作吗？
+</p>
+
+<p>（２）文件以不正确的方式打开吗？
+</p>
+
+<p>（３）文件结束判断不正确吗？
+</p>
+
+<p>（４）没有正确地关闭文件吗？
+</p>
+
+<p>－End－
+</p>
+
+
+
+<p style='float:right;'>本页共126段，3195个字符，7895 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
