@@ -1,0 +1,626 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong><a href="https://www.toutiao.com/i6820379395815899652/">你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理</a> </strong></p>
+
+<p>江南一散人&nbsp;2020-04-29 07:38:27</p>
+
+<p>本篇是《你真的理解&quot;Hello world&quot;吗？ 从编译链接到OS内核系列专题》的第一章的第二小节，重点介绍编译器的实现原理。</p>
+
+<p>本系列专题文章，重点分享一些程序运行背后的一些极其重要却又极易被人忽视的技术细节，相信会让你对计算机系统有一个更加全面深刻的认识。</p>
+
+<p><strong>引言 </strong></p>
+
+<p>在上一节<a href="https://www.toutiao.com/i6819557246242914827/?group_id=6819557246242914827?group_id=6819557246242914827?group_id=6819557246242914827" target="_blank">《你真的懂&quot;Hello  world&quot;吗？从编译器到OS内核系列:编译器基本概念》</a>中，我们了解了编译器所要解决的根本问题，是把人类的文本语言转换为二进制的机器指令，从而让计算机能够听人话、办人事儿。</p>
+
+<p>我们还知道了C语言程序的构建需要经过预编译、编译、汇编、链接四个步骤，以及每个步骤的主要任务是什么。</p>
+
+<p>本篇，重点讲解编译阶段的实现原理，为了方便理解，我会辅以实例进行讲解。 </p>
+  <p align="left">在正式讲解编译器的工作原理之前，我们先简单了解一下词法、语法、语义的概念和区别。</p>
+
+<p>我们先以中文为例，让大家先有一个感性的认识。然后我会以C语言为例，分别列举几个实例，让大家了解在具体的编程语言中，词法、语法和语义分别对应着什么样的编程规则。</p>
+
+<p><strong>我们的大脑是怎么“编译”文章的？ </strong></p>
+
+<p>我们知道，中文的最小语言单位是字，字组成词，词组成句，句最终形成文。其实这也正是大脑对文章的一个“编译”过程。</p>
+
+<p>大家不妨想一下，我们平时阅读一篇文章时，我们是怎么做的呢？是不是下面这样的：</p>
+
+<p><img border="0" width="697" height="64" src="a_clip_image001.jpg" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" /></p>
+
+<p>大脑对文章的处理过程</p>
+
+<p><strong>逐字扫描，组成词语</strong></p>
+
+<p>首先逐个读取每个文字，在大脑中把这些单独的字组成一个个离散的词语。这个过程中，我们会在潜意识中给组成的词进行分类，比如动词、名词、形容词和副词等，并且会根据已有的知识，去判断这个词是不是在现实中存在并且有实际意义。</p>
+
+<p>这个过程，就是词法分析。</p>
+
+<p><img src="111.jpg" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" img_width="940" img_height="598" inline="0" /></p>
+
+<p>词语</p>
+
+<p><strong>根据句式，构造句子</strong></p>
+
+<p>然后，根据我们已经掌握的句式结构，把这些离散的词组合成一个个句子，如陈述句、疑问句、感叹句、祈使句、复合句等等。这些句式都有固定的句型结构，如： </p>
+  <ul>
+    <li>一个完整的句子一定要有主语、谓语、宾语。 </li>
+    <li>“虽然”后面一定跟着“但是”。 </li>
+    <li>“因为”后面一定跟着“所以”。 </li>
+  </ul>
+  <p align="left">这个过程，就是语法分析，而这些固定的句型结构，就是语法规则。</p>
+
+<p><img border="0" width="640" height="726" src="a_clip_image003.jpg" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" /></p>
+
+<p><strong>分析语句，理解含义</strong></p>
+
+<p>为了理解整篇文章所要表达的中心思想，我们需要结合上下文，理解句子所要表达的含义，并判断其是否符合常理。比如，“人类是从石头里蹦出来的”这个句子，从语法上看没有任何问题，但是语义上明显不符合常理。</p>
+
+<p>这个过程，就是语义分析。 </p>
+  <p align="left"><strong>实例：从“山羊吃草”看词法、语法和语义 </strong></p>
+
+<p>为了加深对词法、语法、语义的理解，我们看一个最简单的例子。</p>
+
+<p>为简单起见，我们对一个合法的中文句子做以下规则约束： </p>
+  <ul>
+    <li>一个完整的句子必须要有主语、谓语、宾语 </li>
+    <li>主语和宾语必须为名词，谓语必须是动词。 </li>
+    <li>每个词语必须是现实存在且有意义的。 </li>
+  </ul>
+  <p align="left">现在，我们看下面四个句子： </p>
+  <ul>
+    <li>山羊吃草。 </li>
+    <li>山牛吃草。 </li>
+    <li>山羊草。 </li>
+    <li>草吃山羊。 </li>
+  </ul>
+  <p align="left">思考一下，哪一句是合法的呢？不合法的句子分别有什么错误呢？</p>
+
+<p><img border="0" width="32" height="32" src="a_clip_image002_0000.gif" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" img_width="1023" img_height="639" inline="0" /></p>
+
+<p>我们来分析一下：</p>
+
+<p><strong>山羊吃草</strong></p>
+
+<p>主语是“山羊”，谓语是“吃”，宾语是“草”。很显然，三条规则都满足，并且符合常识。因此，这句话是合法的。</p>
+
+<p><strong>山牛吃草</strong></p>
+
+<p>“山牛”这个词现实中不存在，是无意义的，因此不符合第三条规则。属于词法错误。</p>
+
+<p><strong>山羊草</strong></p>
+
+<p>缺少谓语，不能构成一个完整的句子，不符合第一条规则。属于语法错误。</p>
+
+<p><strong>草吃山羊</strong></p>
+
+<p><img border="0" width="32" height="32" src="a_clip_image002_0001.gif" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" img_width="255" img_height="255" inline="0" /></p>
+
+<p>乍一看，这句话主谓宾都清晰明确，且都是现实存在并有实际意义的词语，所以，它是符合中文语法的。但这就意味着这句话是正确的吗？显然不是。现实世界中，草怎么可能吃山羊呢？这显然不符合常理，因此，这句话存在语义错误。</p>
+
+<p><strong>C</strong><strong>语言词法、语法、语义举例 </strong></p>
+
+<p>我们通过中文实例了解了词法、语法和语义的概念之后，再来看下在C语言中，分别对应着什么规则。</p>
+
+<p>注：由于篇幅所限，不可能覆盖C语言所有的规则，这里仅举几个典型的例子，让大家加深理解。 </p>
+  <p align="left"><strong>词法规则</strong> </p>
+  <ul>
+    <li>标识符由26个英文字母、数字和下划线组成，且不能以数字开头。 </li>
+    <li>单行注释必须以‘“//”标识，多行注释必须以“/*”和“*/”标识。 </li>
+    <li>字符串必须以双引号标识。 </li>
+  </ul>
+  <p align="left"><strong>语法规则</strong> </p>
+  <ul>
+    <li>每个语句必须以分号结束。 </li>
+    <li>变量声明必须由类型开始，后面跟变量名。 </li>
+    <li>“else”关键字前面必须有“if”关键字进行配对。 </li>
+    <li>“case”语句必须和“switch”进行配对使用。 </li>
+  </ul>
+  <p align="left"><strong>语义规则</strong> </p>
+  <ul>
+    <li>任何类型的变量都不能除以零。 </li>
+    <li>两个同类型的指针变量不能相加，但可以相减。 </li>
+    <li>函数调用时时，实参个数必须和形参个数相等，且类型相互兼容。 </li>
+  </ul>
+  <p align="left">了解了词法、语法、语义的基本概念之后，我们来看看程序构建过程中，编译器是如何处理的。</p>
+
+<p><strong>编译器的基本阶段 </strong></p>
+
+<p>构建程序时编译器对程序源代码的处理过程，和我们读书时大脑对文章的处理过程，是类似的。</p>
+
+<p>典型的编译器都是分阶段实现的，每个阶段的输出都作为下一阶段的输入，把程序从一种表示形式转换成另外一种表示形式，最终转化成目标程序。</p>
+
+<p>这几个阶段如下图所示：</p>
+
+<p><img border="0" width="511" height="457" src="a_clip_image005.jpg" /></p>
+
+<p>编译的过程</p>
+
+<p><strong>词法分析 - Lexical  Analysis</strong></p>
+
+<p>简单来说，词法分析阶的主要任务是： </p>
+  <ul>
+    <li>识别出源码文件中的词法单元，即token。 </li>
+    <li>对识别出来的词法单元进行分类，如预留关键字、常量、标识符、操作符等。 </li>
+    <li>根据词法规则，识别出非法的词法单元，并进行错误处理(一般是打印错误信息)。 </li>
+  </ul>
+  <p align="left">词法分析阶段，对程序源码文件从左到右，逐字符进行扫描，根据词法规则，把这些字符组合成一系列单词序列，或者叫作“token”。</p>
+
+<p>把字符组合成token之后，还要对其进行分类。以C语言为例，我们可以得到的token类型有预留关键字(如int, if, switch, for, while等)，操作符(如 “+”、“-”、“*”、“/”等)、标识符，字符串、常量等。</p>
+
+<p>如下C语言代码片段： </p>
+  <div></p>
+
+<p>int length = 2, width = 1; </div>
+  <p align="left">经过词法分析后，我们可以得到如下token序列：</p>
+
+<p><img border="0" width="217" height="453" src="a_clip_image006.jpg" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" /></p>
+
+<p>token 序列</p>
+
+<p>词法分析阶段还有一个很重要的工作，就是要根据词法规则，检测出非法的字符序列，并进行错误处理。</p>
+
+<p>如C语言规范要求所有的变量名称必须以26个字母和‘_’组成，且不能以数字开头。因此如下面代码片段： </p>
+  <div></p>
+
+<p>int 4abc = 1; </div>
+  <p align="left">在词法分析过程中，以数字开头的变量名“4abc”会被视为非法标识符，此时编译器会抛出词法错误的信息。</p>
+
+<p><strong>语法分析 </strong></p>
+
+<p>语法分析阶段的主要任务是根据语法规则，确定程序的语法结构，把词法分析阶段得到的token序列组合成表达式(expression)、语句(statement), 函数(function)等各种语法单元。</p>
+
+<p>语法分析阶段的输出是一颗抽象语法树(Abstract Syntax  Tree)。</p>
+
+<p>如下代码片段： </p>
+  <div></p>
+
+<p>a = b + c * d; </div>
+  <p align="left">经过语法分析后，会得到这样一颗抽象语法树：</p>
+
+<p><img border="0" width="224" height="282" src="a_clip_image008.jpg" /></p>
+
+<p>抽象语法树(AST)</p>
+
+<p><strong>语义分析 </strong></p>
+
+<p>语义分析是在语法分析阶段构造出来的抽象语法树的基础上，对程序进行静态语义的分析，确保程序不仅符合语法规范，还应该能够正常执行。</p>
+
+<p>对于静态类型的编程语言来说，语义分析阶段最重要的工作之一，就是类型检查。例如，传递给函数的实参类型是否和函数声明中的形参类型相互兼容，做减法运算的两个指针类型是否相同等等。</p>
+
+<p>限于篇幅原因，这里不再展开说明。</p>
+
+<p>而对于动态类型语言，如Python，则是把类型检查推迟到了运行时，这也是动态类型语言一般比静态类型语言运行效率低的原因之一。</p>
+
+<p><strong>中间代码生成 </strong></p>
+
+<p>咱们的经典古籍《离骚》，相信大家都印象深刻吧，通篇都是晦涩难懂的文言文，要想把它直接翻译成英文，是非常困难的一件事情。</p>
+
+<p>但是，如果把晦涩难懂的文言文，先翻译成通俗易懂的现代白话文，然后再翻译成英文，这样操作起来，是不是难度就小的多了呢？ </p>
+  <p align="left">同样，高级语言一般都是高度抽象的，相比机器语言或目标语言来说，其语法结构和数据类型都更为复杂。因此，很难从高级语言直接生成目标语言，于是便有了中间代码，或者叫中间表示(Intermediate Representation)。</p>
+
+<p>中间代码是一种在语法结构和数据类型更接近目标语言的表现形式。它处理起来要比原始语言更加简单，便于进行逻辑优化，更加容易生成简洁、高效的目标代码。</p>
+
+<p>不同的编译器，通常都有自己专用的中间代码形式，且一般互相之间并不兼容。如GCC，Clang/LLVM都有自己专有的中间代码。当然了，当今编译器界的“网红一哥”——华为方舟编译器，也不例外。</p>
+
+<p>三地址码是一种比较简单也很常见的一种中间表示，一般格式如下： </p>
+  <div></p>
+
+<p>&nbsp;x = y op z </div>
+  <p align="left">之所以叫三地址码，是因为每条语句最多包含三个地址，也就是： </p>
+  <ul>
+    <li>结果变量 x</li>
+    <li>运算变量 y和z</li>
+    <li>操作码 op</li>
+  </ul>
+  <p align="left">仍以下面的代码段为例： </p>
+  <div></p>
+
+<p>a = b + c * d; </div>
+  <p align="left">转换为三地址码为： </p>
+  <div></p>
+
+<p>t1 = c * d;</p>
+
+<p>a = b + t1; </div>
+  <p align="left">其中，t1为引入的临时变量。</p>
+
+<p>我们再看一个稍微复杂点的例子：</p>
+
+<p><img border="0" width="392" height="252" src="a_clip_image009.jpg" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" /></p>
+
+<p>test() 源码</p>
+
+<p>转化成三地址码：</p>
+
+<p><img border="0" width="426" height="238" src="a_clip_image010.jpg" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" /></p>
+
+<p>test() 三地址码</p>
+
+<p><strong>代码优化 </strong></p>
+
+<p>从抽象语法树到中间代码，往往是一个非常简单机械的操作，它更多考虑的是如何对语句实行等价地转换，代码的效率往往不作为主要考虑因素。这里的效率，包含时间效率和空间效率。</p>
+
+<p>为了最终生成的程序能够更高效的执行和存储，现代编译器往往会花很大力气去对代码进行优化，而且往往会不止一次地对代码进行扫描和优化。 </p>
+  <p align="left">对于任何一个现代编译器项目，代码优化是整个项目中最关键也最复杂的核心功能，而且往往也是最容易出错的地方。毫不夸张地说，一个编译器项目的成功与否，很大程度上取决于其代码优化模块。</p>
+
+<p>常用代码优化方法有很多，如： </p>
+  <ul>
+    <li>死代码删除 </li>
+    <li>常量折叠 </li>
+    <li>循环展开 </li>
+    <li>跳转优化 </li>
+    <li>公共子表达式消除 </li>
+  </ul>
+  <p align="left">需要强调一点，除了基于中间代码的优化之外，在生成目标代码时，往往也会进行优化。</p>
+
+<p><strong>目标代码生成 </strong></p>
+
+<p>目标代码生成是编译的最后一个阶段（通常还会伴随着代码优化），它以优化后的中间代码作为输入，产生等价的目标代码作为输出。</p>
+
+<p>现代编译器很少把中间代码直接转化为二进制机器指令，通常会选择汇编语言作为目标语言。</p>
+
+<p>对于如C语言这样的编译型语言，代码生成时，通常主要考虑的是：</p>
+
+<p>语义等价。这是最基本的要求，因为只有与原始代码语义上等价的目标代码，才能正确运行，得到期望的结果。</p>
+
+<p>高效。生成的代码要尽可能在时间和空间上保持高效，因此代码生成的过程中往往也伴随着代码优化，要充分考虑到对硬件资源的最优化使用，如寄存器、cache、流水线等。</p>
+
+<p>如对上例中的test()的三地址码生成的汇编代码如下：</p>
+
+<p><img border="0" width="526" height="384" src="a_clip_image011.jpg" alt="你真的懂“Hello world”吗？从编译到OS内核系列:编译器实现原理" /></p>
+
+<p>test() 三地址码生成的汇编代码</p>
+
+<p><strong>结语 </strong></p>
+
+<p>为了搞清楚编译器的原理，我曾自己动手从零开始设计开发了一个简单的编译器，能够支持C语言的大部分语法，并增加一些针对分布式系统的特性，如并发、消息、有限状态机、定时器等功能。在本系列专题文章的<a href="https://www.toutiao.com/i6817454101966619148/?group_id=6817454101966619148?group_id=6817454101966619148" target="_blank">前言</a>中，有一个简单的demo，感兴趣的童鞋可以去看一下。</p>
+
+<p>在这个编译器的开发过程中，我深深体会到编译器开发是一个极其复杂的工作，里面涉及到的各种数据结构、算法之多，各种需要考虑的问题之繁杂。 </p>
+  <p align="left">当然，在这个过程中也收获了很多乐趣，搞清楚了很多之前一直比较好奇却不知道的答案的问题，比如各种IDE工具中的语法高亮、上下文代码检索等功能是如何实现的等等(我在之前的一篇文章有讲解)。</p>
+
+<p>同时，这也是对自己编程技能的一个综合性的锻炼，尤其是对哈希表、树、图等数据结构和算法的掌握。有兴趣的童鞋，不妨尝试一下，相信你会收获颇丰！</p>
+
+<p>最后，由于编译器涉及的各方面知识太多，根本不可能通过一篇文章将其全部囊括其中。因此，本篇也只能简要介绍其中一些重要概念和各个阶段完成的主要工作，让童鞋们对编译器有一个整体的认识。</p>
+
+<p>以后有时间的话，准备搞一个专题，专门来介绍编译器开发中的一些技术细节，感兴趣的童鞋不妨关注一下吧。</p>
+
+<p><strong>下篇预告 </strong></p>
+
+<p>下篇是《你真的理解&quot;Hello  world&quot;吗？ 从编译链接到OS内核系列专题》的第二章，重点介绍链接器的工作原理，敬请期待！ </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
