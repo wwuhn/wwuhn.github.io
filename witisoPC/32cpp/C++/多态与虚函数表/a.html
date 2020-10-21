@@ -1,0 +1,599 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>C++ </strong><strong>虚函数表解析 </strong></p>
+
+<p>2007年12月18日 22:07:00&nbsp;<a href="https://me.csdn.net/haoel" target="_blank">haoel</a>&nbsp;阅读数：384317 </p>
+  <p><strong>陈皓</strong></p>
+
+<p><a href="http://blog.csdn.net/haoel" target="_blank">http://blog.csdn.net/haoel</a></p>
+
+  <p align="left"><a name="t0" id="t0"></a><strong>前言</strong><strong> </strong></p>
+  <p align="left">C++中的虚函数的作用主要是实现了多态的机制。关于多态，简而言之就是用父类型别的指针指向其子类的实例，然后通过父类的指针调用实际子类的成员函数。这种技术可以让父类的指针有“多种形态”，这是一种泛型技术。所谓泛型技术，说白了就是试图使用不变的代码来实现可变的算法。比如：模板技术，RTTI技术，虚函数技术，要么是试图做到在编译时决议，要么试图做到运行时决议。 </p>
+
+  <p align="left">关于虚函数的使用方法，我在这里不做过多的阐述。大家可以看看相关的C++的书籍。在这篇文章中，我只想从虚函数的实现机制上面为大家&nbsp;一个清晰的剖析。 </p>
+  <p align="left">当然，相同的文章在网上也出现过一些了，但我总感觉这些文章不是很容易阅读，大段大段的代码，没有图片，没有详细的说明，没有比较，没有举一反三。不利于学习和阅读，所以这是我想写下这篇文章的原因。也希望大家多给我提意见。 </p>
+  <p align="left">言归正传，让我们一起进入虚函数的世界。 </p>
+
+  <p align="left"><a name="t1" id="t1"></a><strong>虚函数表</strong><strong> </strong></p>
+  <p align="left">对C++&nbsp;了解的人都应该知道虚函数（Virtual Function）是通过一张虚函数表（Virtual Table）来实现的。简称为V-Table。在这个表中，主是要一个类的虚函数的地址表，这张表解决了继承、覆盖的问题，保证其容真实反应实际的函数。这样，在有虚函数的类的实例中这个表被分配在了这个实例的内存中，所以，当我们用父类的指针来操作一个子类的时候，这张虚函数表就显得由为重要了，它就像一个地图一样，指明了实际所应该调用的函数。 </p>
+  <p align="left">这里我们着重看一下这张虚函数表。C++的编译器应该是保证虚函数表的指针存在于对象实例中最前面的位置（这是为了保证取到虚函数表的有最高的性能——如果有多层继承或是多重继承的情况下）。&nbsp;这意味着我们通过对象实例的地址得到这张虚函数表，然后就可以遍历其中函数指针，并调用相应的函数。 </p>
+  <p align="left">听我扯了那么多，我可以感觉出来你现在可能比以前更加晕头转向了。&nbsp;没关系，下面就是实际的例子，相信聪明的你一看就明白了。 </p>
+  <p align="left">假设我们有这样的一个类： </p>
+<pre>
+class Base{
+public:
+    virtual void f() { cout &lt;&lt; "Base::f" &lt;&lt; endl; }
+    virtual void g() { cout &lt;&lt; "Base::g" &lt;&lt; endl; }
+    virtual void h() { cout &lt;&lt; "Base::h" &lt;&lt; endl; }
+};
+</pre>
+  <p align="left">按照上面的说法，我们可以通过Base的实例来得到虚函数表。&nbsp;下面是实际例程： </p>
+<pre>
+typedef void(*Fun)(void);
+Base b;
+Fun pFun = NULL;
+cout &lt;&lt; "虚函数表地址：" &lt;&lt; (int*)(&b) &lt;&lt; endl;
+cout &lt;&lt; "虚函数表 — 第一个函数地址：" &lt;&lt; (int*)*(int*)(&b) &lt;&lt; endl;
+// Invoke the first virtual function 
+pFun = (Fun)*((int*)*(int*)(&b));
+pFun();
+</pre>
+  <p align="left">实际运行经果如下：(Windows  XP+VS2003,&nbsp;&nbsp;Linux 2.6.22 +  GCC 4.1.3) </p>
+<pre>
+虚函数表地址：0012FED4
+虚函数表 — 第一个函数地址：0044F148
+Base::f
+</pre>
+  <p align="left">通过这个示例，我们可以看到，我们可以通过强行把&amp;b转成int *，取得虚函数表的地址，然后，再次取址就可以得到第一个虚函数的地址了，也就是Base::f()，这在上面的程序中得到了验证（把int*&nbsp;强制转成了函数指针）。通过这个示例，我们就可以知道如果要调用Base::g()和Base::h()，其代码如下： </p>
+<p></p>
+<pre>
+(Fun)*((int*)*(int*)(&b)+0);  // Base::f()
+(Fun)*((int*)*(int*)(&b)+1);  // Base::g()
+(Fun)*((int*)*(int*)(&b)+2);  // Base::h()
+</pre>
+  <p align="left">这个时候你应该懂了吧。什么？还是有点晕。也是，这样的代码看着太乱了。没问题，让我画个图解释一下。如下所示：</p>
+
+<p><img border="0" width="331" height="129" src="a_clip_image001.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_vtable1.jpg" /></p>
+
+
+
+<p>注意：在上面这个图中，我在虚函数表的最后多加了一个结点，这是虚函数表的结束结点，就像字符串的结束符“/0”一样，其标志了虚函数表的结束。这个结束标志的值在不同的编译器下是不同的。在WinXP+VS2003下，这个值是NULL。而在Ubuntu 7.10 +  Linux 2.6.22 + GCC 4.1.3下，这个值是如果1，表示还有下一个虚函数表，如果值是0，表示是最后一个虚函数表。 </p>
+
+  <p align="left">下面，我将分别说明“无覆盖”和“有覆盖”时的虚函数表的样子。没有覆盖父类的虚函数是毫无意义的。我之所以要讲述没有覆盖的情况，主要目的是为了给一个对比。在比较之下，我们可以更加清楚地知道其内部的具体实现。 </p>
+  <p align="left"><a name="t2" id="t2"></a><strong>一般继承（无虚函数覆盖）</strong><strong> </strong></p>
+  <p align="left">下面，再让我们来看看继承时的虚函数表是什么样的。假设有如下所示的一个继承关系： </p>
+  <p align="left"><img border="0" width="78" height="194" src="a_clip_image002.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_Drawing3.jpg" /> </p>
+  <p align="left">请注意，在这个继承关系中，子类没有重载任何父类的函数。那么，在派生类的实例中，其虚函数表如下所示： </p>
+  <p align="left">对于实例：Derive  d;&nbsp;的虚函数表如下：</p>
+
+<p><img border="0" width="551" height="124" src="a_clip_image003.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_vtable2.JPG" /> </p>
+  <p align="left">我们可以看到下面几点：</p>
+
+<p>1）虚函数按照其声明顺序放于表中。</p>
+
+<p>2）父类的虚函数在子类的虚函数前面。 </p>
+  <p align="left">我相信聪明的你一定可以参考前面的那个程序，来编写一段程序来验证。 </p>
+
+  <p align="left"><a name="t3" id="t3"></a><strong>一般继承（有虚函数覆盖）</strong><strong> </strong></p>
+  <p align="left">覆盖父类的虚函数是很显然的事情，不然，虚函数就变得毫无意义。下面，我们来看一下，如果子类中有虚函数重载了父类的虚函数，会是一个什么样子？假设，我们有下面这样的一个继承关系。 </p>
+  <p align="left">&nbsp;<img border="0" width="78" height="194" src="a_clip_image004.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_Drawing4.jpg" /> </p>
+  <p align="left">为了让大家看到被继承过后的效果，在这个类的设计中，我只覆盖了父类的一个函数：f()。那么，对于派生类的实例，其虚函数表会是下面的一个样子： </p>
+  <p align="left"><img border="0" width="500" height="124" src="a_clip_image005.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_vtable3.JPG" /> </p>
+  <p align="left">我们从表中可以看到下面几点，</p>
+
+<p>1）覆盖的f()函数被放到了虚表中原来父类虚函数的位置。</p>
+
+<p>2）没有被覆盖的函数依旧。 </p>
+  <p align="left">这样，我们就可以看到对于下面这样的程序， </p>
+<p></p>
+<pre>
+Base *b = new Derive();
+b->f();
+</pre>
+  <p align="left">由b所指的内存中的虚函数表的f()的位置已经被Derive::f()函数地址所取代，于是在实际调用发生时，是Derive::f()被调用了。这就实现了多态。 </p>
+
+  <p align="left"><a name="t4" id="t4"></a><strong>多重继承（无虚函数覆盖）</strong><strong> </strong></p>
+  <p align="left">下面，再让我们来看看多重继承中的情况，假设有下面这样一个类的继承关系。注意：子类并没有覆盖父类的函数。 </p>
+  <p align="left"><img border="0" width="282" height="192" src="a_clip_image006.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_Drawing1.jpg" />&nbsp; </p>
+  <p align="left">对于子类实例中的虚函数表，是下面这个样子：</p>
+
+<p><img border="0" width="493" height="173" src="a_clip_image007.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_vtable4.JPG" /> </p>
+  <p align="left">我们可以看到：</p>
+
+<p>1）&nbsp;&nbsp;每个父类都有自己的虚表。</p>
+
+<p>2）&nbsp;&nbsp;子类的成员函数被放到了第一个父类的表中。（所谓的第一个父类是按照声明顺序来判断的） </p>
+  <p align="left">这样做就是为了解决不同的父类类型的指针指向同一个子类实例，而能够调用到实际的函数。 </p>
+
+
+  <p align="left"><a name="t5" id="t5"></a><strong>多重继承（有虚函数覆盖）</strong><strong> </strong></p>
+  <p align="left">下面我们再来看看，如果发生虚函数覆盖的情况。 </p>
+  <p align="left">下图中，我们在子类中覆盖了父类的f()函数。 </p>
+  <p align="left"><img border="0" width="282" height="192" src="a_clip_image008.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_Drawing2.jpg" />&nbsp; </p>
+  <p align="left">下面是对于子类实例中的虚函数表的图： </p>
+  <p align="left"><img border="0" width="420" height="173" src="a_clip_image009.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_vtable5.jpg" /> </p>
+  <p align="left">我们可以看见，三个父类虚函数表中的f()的位置被替换成了子类的函数指针。这样，我们就可以任一静态类型的父类来指向子类，并调用子类的f()了。如： </p>
+<p></p>
+<pre>
+Derive d;
+Base1 *b1 = &d;
+Base2 *b2 = &d;
+Base3 *b3 = &d;
+b1->f(); //Derive::f()
+b2->f(); //Derive::f()
+b3->f(); //Derive::f()
+b1->g(); //Base1::g()
+b2->g(); //Base2::g()
+b3->g(); //Base3::g()
+</pre>
+  <p align="left"><a name="t6" id="t6"></a><strong>安全性</strong><strong> </strong></p>
+  <p align="left">每次写C++的文章，总免不了要批判一下C++。这篇文章也不例外。通过上面的讲述，相信我们对虚函数表有一个比较细致的了解了。水可载舟，亦可覆舟。下面，让我们来看看我们可以用虚函数表来干点什么坏事吧。 </p>
+  <p align="left"><strong>一、通过父类型的指针访问子类自己的虚函数</strong></p>
+
+<p>我们知道，子类没有重载父类的虚函数是一件毫无意义的事情。因为多态也是要基于函数重载的。虽然在上面的图中我们可以看到Base1的虚表中有Derive的虚函数，但我们根本不可能使用下面的语句来调用子类的自有虚函数： </p>
+<p></p>
+<pre>
+Base1 *b1 = new Derive();
+b1->f1();  //编译出错
+</pre>  <p align="left">任何妄图使用父类指针想调用子类中的<strong>未覆盖父类的成员函数</strong>的行为都会被编译器视为非法，所以，这样的程序根本无法编译通过。但在运行时，我们可以通过指针的方式访问虚函数表来达到违反C++语义的行为。（关于这方面的尝试，通过阅读后面附录的代码，相信你可以做到这一点） </p>
+
+  <p align="left"><strong>二、访问</strong><strong>non-public</strong><strong>的虚函数</strong></p>
+
+<p>另外，如果父类的虚函数是private或是protected的，但这些非public的虚函数同样会存在于虚函数表中，所以，我们同样可以使用访问虚函数表的方式来访问这些non-public的虚函数，这是很容易做到的。 </p>
+  <p align="left">如： </p>
+<p></p>
+<pre>
+class Base {
+private:
+    virtual void f() { cout &lt; "Base::f" &lt; endl; }
+};
+class Derive : public Base{
+};
+typedef void(*Fun)(void);
+void main() {
+    Derive d;
+    Fun  pFun = (Fun)*((int*)*(int*)(&d)+0);
+    pFun();
+}
+</pre>
+  <p align="left"><a name="t7" id="t7"></a><strong>结束语</strong><strong> </strong></p>
+
+<p>C++这门语言是一门Magic的语言，对于程序员来说，我们似乎永远摸不清楚这门语言背着我们在干了什么。需要熟悉这门语言，我们就必需要了解C++里面的那些东西，需要去了解C++中那些危险的东西。不然，这是一种搬起石头砸自己脚的编程语言。 </p>
+  <p align="left">在文章束之前还是介绍一下自己吧。我从事软件研发有十个年头了，目前是软件开发技术主管，技术方面，主攻Unix/C/C++，比较喜欢网络上的技术，比如分布式计算，网格计算，P2P，Ajax等一切和互联网相关的东西。管理方面比较擅长于团队建设，技术趋势分析，项目管理。欢迎大家和我交流，我的MSN和Email是：<a href="mailto:haoel@hotmail.com" target="_blank">haoel@hotmail.com</a>&nbsp; </p>
+  <p align="left"><a name="t8" id="t8"></a><strong>附录一：</strong><strong>VC</strong><strong>中查看虚函数表</strong><strong> </strong></p>
+  <p align="left">我们可以在VC的IDE环境中的Debug状态下展开类的实例就可以看到虚函数表了（并不是很完整的）</p>
+
+<p><img border="0" width="580" height="312" src="a_clip_image010.jpg" alt="https://p-blog.csdn.net/images/p_blog_csdn_net/haoel/15190/o_vtable_vc.JPG" /></p>
+
+<p><a name="t9" id="t9"></a><strong>附录</strong><strong>&nbsp;</strong><strong>二：例程</strong><strong> </strong></p>
+
+<p>下面是一个关于多重继承的虚函数表访问的例程： </p>
+<pre>
+#include <iostream>
+using namespace std;
+class Base1 {
+public:
+    virtual void f() { cout &lt;&lt; "Base1::f" &lt;&lt; endl; }
+    virtual void g() { cout &lt;&lt; "Base1::g" &lt;&lt; endl; }
+    virtual void h() { cout &lt;&lt; "Base1::h" &lt;&lt; endl; }
+};
+class Base2 {
+public:
+    virtual void f() { cout &lt;&lt; "Base2::f" &lt;&lt; endl; }
+    virtual void g() { cout &lt;&lt; "Base2::g" &lt;&lt; endl; }
+    virtual void h() { cout &lt;&lt; "Base2::h" &lt;&lt; endl; }
+};
+class Base3 {
+public:
+    virtual void f() { cout &lt;&lt; "Base3::f" &lt;&lt; endl; }
+    virtual void g() { cout &lt;&lt; "Base3::g" &lt;&lt; endl; }
+    virtual void h() { cout &lt;&lt; "Base3::h" &lt;&lt; endl; }
+};
+class Derive : public Base1, public Base2, public Base3 {
+public:
+    virtual void f() { cout &lt;&lt; "Derive::f" &lt;&lt; endl; }
+    virtual void g1() { cout &lt;&lt; "Derive::g1" &lt;&lt; endl; }
+};
+typedef void(*Fun)(void);
+int main()
+{
+    Fun pFun = NULL;
+    Derive d;
+    int** pVtab = (int**)&d;
+    //Base1's vtable
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+0)+0);
+    pFun = (Fun)pVtab[0][0];
+    pFun();
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+0)+1);
+    pFun = (Fun)pVtab[0][1];
+    pFun();
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+0)+2);
+    pFun = (Fun)pVtab[0][2];
+    pFun();
+    //Derive's vtable
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+0)+3);
+    pFun = (Fun)pVtab[0][3];
+    pFun();
+    //The tail of the vtable
+    pFun = (Fun)pVtab[0][4];
+    cout&lt;&lt;pFun&lt;&lt;endl;
+    //Base2's vtable
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+1)+0);
+    pFun = (Fun)pVtab[1][0];
+    pFun();
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+1)+1);
+    pFun = (Fun)pVtab[1][1];
+    pFun();
+    pFun = (Fun)pVtab[1][2];
+    pFun();
+    //The tail of the vtable
+    pFun = (Fun)pVtab[1][3];
+    cout&lt;&lt;pFun&lt;&lt;endl;
+    //Base3's vtable
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+1)+0);
+    pFun = (Fun)pVtab[2][0];
+    pFun();
+    //pFun = (Fun)*((int*)*(int*)((int*)&d+1)+1);
+    pFun = (Fun)pVtab[2][1];
+    pFun();
+    pFun = (Fun)pVtab[2][2];
+    pFun();
+    //The tail of the vtable
+    pFun = (Fun)pVtab[2][3];
+    cout&lt;&lt;pFun&lt;&lt;endl;
+	system("pause");
+    return 0;
+}
+/*
+Derive::f
+Base1::g
+Base1::h
+Derive::g1
+00000000
+Derive::f
+Base2::g
+Base2::h
+00000000
+Derive::f
+Base3::g
+Base3::h
+00000000
+*/
+</pre>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+</p>
+
+<p>
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
