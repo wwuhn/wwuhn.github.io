@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>动态规划算法</h3>
+
+<p>动态规划的基本思想</p>
+<p>前文主要介绍了动态规划的一些理论依据，我们将前文所说的具有明显的阶段划分和状态转移方程的动态规划称为标准动态规划，这种标准动态规划是在研究多阶段决策问题时推导出来的，具有严格的数学形式，适合用于理论上的分析。在实际应用中，许多问题的阶段划分并不明显，这时如果刻意地划分阶段法反而麻烦。一般来说，只要该问题可以划分成规模更小的子问题，并且原问题的最优解中包含了子问题的最优解（即满足最优子化原理），则可以考虑用动态规划解决。</p>
+<p>动态规划的实质是分治思想和解决冗余，因此，动态规划是一种将问题实例分解为更小的、相似的子问题，并存储子问题的解而避免计算重复的子问题，以解决最优化问题的算法策略。</p>
+<p>由此可知，动态规划法与分治法和贪心法类似，它们都是将问题实例归纳为更小的、相似的子问题，并通过求解子问题产生一个全局最优解。其中贪心法的当前选择可能要依赖已经作出的所有选择，但不依赖于有待于做出的选择和子问题。因此贪心法自顶向下，一步一步地作出贪心选择；而分治法中的各个子问题是独立的 </p>
+<p>(即不包含公共的子子问题)，因此一旦递归地求出各子问题的解后，便可自下而上地将子问题的解合并成问题的解。但不足的是，如果当前选择可能要依赖子问题的解时，则难以通过局部的贪心策略达到全局最优解；如果各子问题是不独立的，则分治法要做许多不必要的工作，重复地解公共的子问题。</p>
+<p>解决上述问题的办法是利用动态规划。该方法主要应用于最优化问题，这类问题会有多种可能的解，每个解都有一个值，而动态规划找出其中最优(最大或最小)值的解。若存在若干个取最优值的解的话，它只取其中的一个。在求解过程中，该方法也是通过求解局部子问题的解达到全局最优解，但与分治法和贪心法不同的是，动态规划允许这些子问题不独立，(亦即各子问题可包含公共的子子问题)也允许其通过自身子问题的解作出选择，该方法对每一个子问题只解一次，并将结果保存起来，避免每次碰到时都要重复计算。</p>
+<p>因此，动态规划法所针对的问题有一个显著的特征，即它所对应的子问题树中的子问题呈现大量的重复。动态规划法的关键就在于，对于重复出现的子问题，只在第一次遇到时加以求解，并把答案保存起来，让以后再遇到时直接引用，不必重新求解。</p>
+<p> </p>
+<h4>动态规划算法的基本步骤</h4>
+<p>设计一个标准的动态规划算法，通常可按以下几个步骤进行：</p>
+<p>划分阶段：按照问题的时间或空间特征，把问题分为若干个阶段。注意这若干个阶段一定要是有序的或者是可排序的（即无后向性），否则问题就无法用动态规划求解。 </p>
+<p>选择状态：将问题发展到各个阶段时所处于的各种客观情况用不同的状态表示出来。当然，状态的选择要满足无后效性。 </p>
+<p>确定决策并写出状态转移方程：之所以把这两步放在一起，是因为决策和状态转移有着天然的联系，状态转移就是根据上一阶段的状态和决策来导出本阶段的状态。所以，如果我们确定了决策，状态转移方程也就写出来了。但事实上，我们常常是反过来做，根据相邻两段的各状态之间的关系来确定决策。 </p>
+<p>写出规划方程（包括边界条件）：动态规划的基本方程是规划方程的通用形式化表达式。一般说来，只要阶段、状态、决策和状态转移确定了，这一步还是比较简单的。 </p>
+<p>动态规划的主要难点在于理论上的设计，一旦设计完成，实现部分就会非常简单。根据动态规划的基本方程可以直接递归计算最优值，但是一般将其改为递推计算，实现的大体上的框架如下：</p>
+<h4>标准动态规划的基本框架</h4>
+<p>1.对fn+1(xn+1)初始化;{边界条件}2.for k:=n downto 1 do 3.for 每一个xk∈Xk do4.for 每一个uk∈Uk(xk) dobegin5.fk(xk):=一个极值; {∞或－∞}6.xk+1:=Tk(xk,uk);{状态转移方程}7.t:=φ(fk+1(xk+1),vk(xk,uk)); {基本方程(9)式}8.ift比fk(xk)更优 then fk(xk):=t; {计算fk(xk)的最优值} end;9.t:=一个极值; {∞或－∞}10. for 每一个x1∈X1 do11. if f1(x1)比t更优 then t:=f1(x1); {按照10式求出最优指标}12. 输出t;但是，实际应用当中经常不显式地按照上面步骤设计动态规划，而是按以下几个步骤进行：</p>
+<p>分析最优解的性质，并刻划其结构特征。 </p>
+<p>递归地定义最优值。 </p>
+<p>以自底向上的方式或自顶向下的记忆化方法（备忘录法）计算出最优值。 </p>
+<p>根据计算最优值时得到的信息，构造一个最优解。 </p>
+<p>步骤(1)--(3)是动态规划算法的基本步骤。在只需要求出最优值的情形，步骤(4)可以省略，若需要求出问题的一个最优解，则必须执行步骤(4)。此时，在步骤(3)中计算最优值时，通常需记录更多的信息，以便在步骤(4)中，根据所记录的信息，快速地构造出一个最优解。</p>
+<h4>动态规划的实例分析</h4>
+<p>下面我们将通过实例来分析动态规划的设计步骤和具体应用。例1已经在前文介绍过了。例1和例2是标准的动态规划，有明显的阶段和状态转移方程；例3、例4、例5、例6是没有明显阶段划分的动态规划，也是一般常见的形式，其中对例4、例5、例6作了比较详细的分析；例7是比较特殊的动态规划，例8是两重动态规划（即为了解决问题要进行两次动态规划）的例子。</p>
+<p>例1 最短路径问题 </p>
+<p>例2 生产计划问题 </p>
+<p>例3 Bitonic旅行路线问题 </p>
+<p>例4 计算矩阵连乘积 </p>
+<p>例5 最长公共子序列 </p>
+<p>例6 凸多边形的最优三角剖分问题 </p>
+<p>例7 多边形计算 </p>
+<p>例8 字符识别 </p>
+<p>动态规划的技巧——阶段的划分和状态的表示</p>
+<p>在动态规划的设计过程中，阶段的划分和状态的表示是非常重要的两步，这两步会直接影响该问题的计算复杂性，有时候阶段划分或状态表示的不合理还会使得动态规划法不适用。</p>
+<p>[例9] 街道问题</p>
+<p>在下图中找出从左下角到右上角的最短路径，每步只能向右方或上方走。</p>
+<p>这是一道简单而又典型的动态规划题，许多介绍动态规划的书与文章中都拿它来做例子。通常，书上的解答是这样的：</p>
+<p>按照图中的虚线来划分阶段，即阶段变量k表示走过的步数，而状态变量xk表示当前处于这一阶段上的哪一点。这时的模型实际上已经转化成了一个特殊的多段图。用决策变量uk=0表示向右走，uk=1表示向上走，则状态转移方程如下：</p>
+<p>(这里的row是地图竖直方向的行数）</p>
+<p>我们看到，这个状态转移方程需要根据k的取值分两种情况讨论，显得非常麻烦。相应的，把它代入规划方程而付诸实现时，算法也很繁。因而我们在实现时，一般是不会这么做的，而代之以下面方法：</p>
+<p>（这里Distance表示相邻两点间的边长）</p>
+<p>这样做确实要比上面的方法简单多了，但是它已经破坏了动态规划的本来面目，而不存在明确的阶段特征了。如果说这种方法是以地图中的行（A、B、C、D）来划分阶段的话，那么它的"状态转移"就不全是在两个阶段之间进行的了。</p>
+<p>也许这没什么大不了的，因为实践比理论更有说服力。但是，如果我们把题目扩展一下：在地图中找出从左下角到右上角的两条路径，两条路径中的任何一条边都不能重叠，并且要求两条路径的总长度最短。这时，再用这种"简单"的方法就不太好办了。</p>
+<p>如果非得套用这种方法的话，则最优指标函数就需要有四维的下标，并且难以处理两条路径"不能重叠"的问题。</p>
+<p>而我们回到原先"标准"的动态规划法，就会发现这个问题很好解决，只需要加一维状态变量就成了。即用xk=(ak,bk)分别表示两条路径走到阶段k时所处的位置，相应的，决策变量也增加一维，用uk=(xk,yk)分别表示两条路径的行走方向。状态转移时将两条路径分别考虑</p>
+<p>在写规划方程时，只要对两条路径走到同一个点的情况稍微处理一下，减少可选的决策个数：</p>
+<p>从这个例子可以看出，合理地划分阶段和选择状态可以给解题带来方便。</p>
+<h4>[例10] LITTLE SHOP OF FLOWERS （IOI’99）</h4>
+<p>PROBLEM </p>
+<p>You want to arrange the window of your flower shop in a most </p>
+<p>pleasant way. You have F bunches of flowers, each being of a </p>
+<p>different kind, and at least as many vases ordered in a row. The </p>
+<p>vases are glued onto the shelf and are numbered consecutively 1 </p>
+<p>through V, where V is the number of vases, from left to right so </p>
+<p>that the vase 1 is the leftmost, and the vase V is the rightmost </p>
+<p>vase. The bunches are moveable and are uniquely identified by </p>
+<p>integers between 1 and F. These id-numbers have a significance: </p>
+<p>They determine the required order of appearance of the flower </p>
+<p>bunches in the row of vases so that the bunch i must be in a vase </p>
+<p>to the left of the vase containing bunch j whenever i < j. </p>
+<p>Suppose, for example, you have a bunch of azaleas (id-number=1), a </p>
+<p>bunch of begonias (id-number=2) and a bunch of carnations </p>
+<p>(id-number=3). Now, all the bunches must be put into the vases </p>
+<p>keeping their id-numbers in order. The bunch of azaleas must be in </p>
+<p>a vase to the left of begonias, and the bunch of begonias must be </p>
+<p>in a vase to the left of carnations. If there are more vases than </p>
+<p>bunches of flowers then the excess will be left empty. A vase can </p>
+<p>hold only one bunch of flowers.</p>
+<p>Each vase has a distinct characteristic (just like flowers do). </p>
+<p>Hence, putting a bunch of flowers in a vase results in a certain </p>
+<p>aesthetic value, expressed by an integer. The aesthetic values are </p>
+<p>presented in a table as shown below. Leaving a vase empty has an </p>
+<p>aesthetic value of 0.</p>
+<p>V A S E S </p>
+<p>1 2 3 4 5 </p>
+<p>Bunches 1 (azaleas) 723-5-2416</p>
+<p>2 (begonias) 521-41023</p>
+<p>3 (carnations) -21 5-4-2020</p>
+<p>According to the table, azaleas, for example, would look great in </p>
+<p>vase 2, but they would look awful in vase 4.</p>
+<p>To achieve the most pleasant effect you have to maximize the sum </p>
+<p>of aesthetic values for the arrangement while keeping the required </p>
+<p>ordering of the flowers. If more than one arrangement has the </p>
+<p>maximal sum value, any one of them will be acceptable. You have to </p>
+<p>produce exactly one arrangement.</p>
+<p>ASSUMPTIONS</p>
+<p>1 <= F <= 100 where F is the number of the bunches of flowers. </p>
+<p>The bunches are numbered 1 through F. </p>
+<p>F <= V <= 100 where V is the number of vases. </p>
+<p>-50 <= Aij <= 50 where Aij is the aesthetic value obtained by </p>
+<p>putting the flower bunch i into the vase j. </p>
+<p>INPUT </p>
+<p>The input is a text file named flower.inp. </p>
+<p>The first line contains two numbers: F, V. </p>
+<p>The following F lines: Each of these lines contains V integers, </p>
+<p>so that Aij is given as the jth number on the (i+1)st line of </p>
+<p>the input file. </p>
+<p>OUTPUT </p>
+<p>The output must be a text file named flower.out consisting of two </p>
+<p>lines: </p>
+<p>The first line will contain the sum of aesthetic values for your </p>
+<p>arrangement. </p>
+<p>The second line must present the arrangement as a list of F </p>
+<p>numbers, so that the k’th number on this line identifies the </p>
+<p>vase in which the bunch k is put. </p>
+<p>EXAMPLE </p>
+<p>flower.inp:</p>
+<p>3 57 23 -5 -24 165 21 -4 10 23-21 5 -4 -20 20</p>
+<p>flower.out:</p>
+<p>532 4 5</p>
+<p>EVALUATION </p>
+<p>Your program will be allowed to run 2 seconds. </p>
+<p>No partial credit can be obtained for a test case. </p>
+<p>本题虽然是IOI’99中较为简单的一题，但其中大有文章可作。说它简单，是因为它有序，因此我们一眼便可看出这题应该用动态规划来解决。但是，如何动态规划呢？如何划分阶段，又如何选择状态呢？</p>
+<p><方法1></p>
+<p>以花束的编号来划分阶段。在这里，第k阶段布置第k束花，共有F束花，有F+1个阶段，增加第F+1阶段是为了计算的方便；状态变量xk表示第k束花所在的花瓶。而对于每一个状态xk，决策uk就是第k+1束花放置的花瓶号；最优指标函数fk(xk)表示从第k束花到第n束花所得到的最大美学值；A(i,j)是花束i插在花瓶j中的美学值,V是花瓶总数,F是花的总数。</p>
+<p>状态转移方程为 </p>
+<p>规划方程为</p>
+<p>边界条件为： </p>
+<p>事实上这是一个虚拟的边界。</p>
+<p>最后要求的最大美学价值是</p>
+<p><方法2></p>
+<p>方法1的规划方程中的允许决策空间：xk+1≤uk≤V-(F-k)+1 </p>
+<p>比较麻烦，因此有待改进。还是以花束的编号来划分阶段，第k阶段布置第k束花；状态变量xk表示第k束花所在的花瓶；注意，这里我们考虑倒过来布置花瓶，即从第F束花开始布置到第1束花。于是状态变量uk表示第k-1束花所在的花瓶；最优指标fk(xk)表示从第一束花到第k束花所获得的美学价值；A(i,j)是花束i插在花瓶j中的美学值,V是花瓶总数,F是花的总数。则状态转移方程为：</p>
+<p>规划方程为：</p>
+<p>增加的虚拟边界条件为：</p>
+<p>最后要求的最大美学价值是：</p>
+<p>可以看出，这种方法实质上和方法1没有区别，但是允许决策空间的表示变得简单了。</p>
+<p><方法3></p>
+<p>以花瓶的数目来划分阶段，第k个阶段决定花瓶k中是否放花；状态变量xk表示前k个花瓶中放了多少花；而对于任意一个状态xk，决策就是第xk束花是否放在第k个花瓶中，用变量uk=1或0来表示。最优指标函数fk(xk)表示前k个花瓶中插了xk束花，所能取得的最大美学值。注意，这里仍然是倒过来考虑。</p>
+<p>状态转移方程为</p>
+<p>规划方程为</p>
+<p>边界条件为</p>
+<p>三种不同的方法都成功地解决了问题，只不过因为阶段的划分不同，状态的表示不同，决策的选择有多有少，所以算法的时间复杂度也就不同。</p>
+<p>这个例子具有很大的普遍性。有很多的多阶段决策问题都有着不止一种的阶段划分方法，因而往往就有不止一种的规划方法。有时各种方法所产生的效果是差不多的，但更多的时候，就像我们的例子一样，两种方法会在某个方面有些区别。所以，在用动态规划解题的时候，可以多想一想是否有其它的解法。对于不同的解法，要注意比较，好的算法好在哪里，差一点的算法差在哪里。从各种不同算法的比较中，我们可以更深刻地领会动态规划的构思技巧。</p>
+<p> </p>
+<h4></p>
+<p>动态规划实现中的问题</h4>
+<p>应用动态规划解决问题，在有了基本的思路之后，一般来说，算法实现是比较好考虑的。但有时也会遇到一些问题，而使算法难以实现。动态规划思想设计的算法从整体上来看基本都是按照得出的递推关系式进行递推，这种递推相对于计算机来说，只要设计得当，效率往往是比较高的，这样在时间上溢出的可能性不大，而相反地，动态规划需要很大的空间以存储中间产生的结果，这样可以使包含同一个子问题的所有问题共用一个子问题解，从而体现动态规划的优越性，但这是以牺牲空间为代价的，为了有效地访问已有结果，数据也不易压缩存储，因而空间矛盾是比较突出的。另一方面，动态规划的高时效性往往要通过大的测试数据体现出来（以与搜索作比较），因而，对于大规模的问题如何在基本不影响运行速度的条件下，解决空间溢出的问题，是动态规划解决问题时一个普遍会遇到的问题。</p>
+<p>对于这个问题，可以考虑从以下一些方面去尝试：</p>
+<p>一个思考方向是尽可能少占用空间。如从结点的数据结构上考虑，仅仅存储必不可少的内容，以及数据存储范围上精打细算(按位存储、压缩存储等)。当然这要因问题而异，进行分析。另外，在实现动态规划时，一个我们经常采用的方法是用一个与结点数一样多的数组来存储每一步的决策，这对于倒推求得一种实现最优解的方法是十分方便的，而且处理速度也有一些提高。但是在内存空间紧张的情况下，我们就应该抓住问题的主要矛盾。省去这个存储决策的数组，而改成在从最优解逐级倒推时，再计算一次，选择某个可能达到这个值的上一阶段的状态，直到推出结果为止。这样做，在程序编写上比上一种做法稍微多花一点时间，运行的时效也可能会有一些(但往往很小)的下降，但却换来了很多的空间。因而这种思想在处理某些问题时，是很有意义的。</p>
+<p>但有时，即使采用这样的方法也会发现空间溢出的问题。这时就要分析，这些保留下来的数据是否有必要同时存在于内存之中。因为有很多问题，动态规划递推在处理后面的内容时，前面比较远处的内容实际上是用不着的。对于这类问题，在已经确信不会再被使用的数据上覆盖数据，从而使空间得以重复利用，如果能有效地使用这一手段，对于相当大规模的问题，空间也不至于溢出（为了求出最优方案，保留每一步的决策仍是必要的，这同样需要空间）。</p>
+<p>一般地说，这种方法可以通过两种思路来实现：一种是递推结果仅使用Data1和Data2这样两个数组，每次将Data1作为上一阶段，推得Data2数组，然后，将Data2通过复制覆盖到Data1之上，如此反复，即可推得最终结果。这种做法有一个局限性，就是对于递推与前面若干阶段相关的问题，这种做法就比较麻烦；而且，每递推一级，就需要复制很多的内容，与前面多个阶段相关的问题影响更大。另外一种实现方法是，对于一个可能与前N个阶段相关的问题，建立数组Data[0..N]，其中各项为最近N各阶段的保存数据。这样不采用这种内存节约方式时对于阶段k的访问只要对应成对数组Data中下标为k </p>
+<p>mod </p>
+<p>(N+1)的单元的访问就可以了。这种处理方法对于程序修改的代码很少，速度几乎不受影响，而且需要保留不同的阶段数也都能很容易实现。</p>
+<p>当采用以上方法仍无法解决内存问题时，也可以采用对内存的动态申请来使绝大多数情况能有效出解。而且，使用动态内存还有一点好处，就是在重复使用内存而进行交换时，可以只对指针进行交换，而不复制数据，这在实践中也是十分有效的。</p>
+<p> </p>
+<p>动态规划与其他算法的比较</p>
+<p>动态规划与其说是一种算法，不如说是一种算法设计的策略，他的基本思想体现于许多其它算法之中。下面我们通过比较动态规划和其他的一些算法之间的相互联系，来深入理解动态规划的基本思想。</p>
+<p>动态规划与静态规划——某些情况下可以相互转化 </p>
+<p>动态规划与递推——动态规划是最优化算法 </p>
+<p>动态规划与搜索——动态规划是高效率、高消费算法 </p>
+<p>态规划与网络流——动态规划是易设计易实现算法 </p>
+<p>动态规划与静态规划的关系</p>
+<p>动态规划与静态规划(线性和非线性规划等)研究的对象本质上都是在若干约束条件下的函数极值问题。两种规划在很多情况下原则上可以相互转换。</p>
+<p>动态规划可以看作求决策u1,u2,...,un </p>
+<p>使指标函数V1n(xl,u1,u2,...,un)达到最优(最大或最小)的极值问题，状态转移方程、端点条件以及允许状态集、允许决策集等是约束条件，原则上可以用非线性规划方法求解。</p>
+<p>一些静态规划只要适当引入阶段变量、状态、决策等就可以用动态规划方法求解。下面用例子说明：</p>
+<h4>[例11] 用动态规划解下列非线性规划:</h4>
+<p>其中gk(uk)为任意的已知函数。</p>
+<p>解：按变量uk的序号k划分阶段，看作n段决策过程；设状态为x1,x2,..xn，取问题中的变量u1,u2,..,un为决策；状态转移方程为：</p>
+<p>取gk(uk)为阶段指标，最优值函数的基本方程为(注意到xn+1=0)：</p>
+<p>解此动态规划即可得到原静态规划的解。</p>
+<p>上面这个静态规划的模型有很多实际应用，比如下面这个问题：</p>
+<h4>[例12] Inflate</h4>
+<p>The more points students score in our contests, the happier we </p>
+<p>here at the USACO are. We try to design our contests so that </p>
+<p>people can score as many points as possible, and would like your </p>
+<p>assistance.</p>
+<p>We have several categories from which problems can be chosen, </p>
+<p>where a "category" is an unlimited set of contest problems which </p>
+<p>all require the same amount of time to solve and deserve the same </p>
+<p>number of points for a correct solution. Your task is write a </p>
+<p>program which tells the USACO staff how many problems from each </p>
+<p>category to include in a contest so as to maximize the total </p>
+<p>number of points in the chosen problems while keeping the total </p>
+<p>solution time within the length of the contest.</p>
+<p>The input includes the length of the contest, M (1 <= M <= 10,000) </p>
+<p>(don't worry, you won't have to compete in the longer contests </p>
+<p>until training camp) and N, the number of problem categories, </p>
+<p>where 1 <= N <= 10,000.</p>
+<p>Each of the subsequent N lines contains two integers describing a </p>
+<p>category: the first integer tells the number of points a problem </p>
+<p>from that category is worth (1 <= points <= 10000); the second </p>
+<p>tells the number of minutes a problem from that category takes to </p>
+<p>solve (1 <= minutes <= 10000).</p>
+<p>Your program should determine the number of problems we should </p>
+<p>take from each category to make the highest-scoring contest </p>
+<p>solvable within the length of the contest. Remember, the number </p>
+<p>from any category can be any nonnegative integer (0, one, or </p>
+<p>many). Calculate the maximum number of possible points.</p>
+<p>PROGRAM NAME: inflate</p>
+<p>INPUT FORMAT</p>
+<p>Line 1: M, N -- contest minutes and number of problem classes</p>
+<p>Lines 2-N+1: Two integers: the points and minutes for each class</p>
+<p>SAMPLE INPUT (file inflate.in)</p>
+<p>300 4</p>
+<p>100 60</p>
+<p>250 120</p>
+<p>120 100</p>
+<p>35 20</p>
+<p>OUTPUT FORMAT</p>
+<p>A single line with the maximum number of points possible given the </p>
+<p>constraints.</p>
+<p>SAMPLE OUTPUT (file inflate.out)</p>
+<p>605</p>
+<p>显而易见，上面这个例题的数学模型就是例11的规划模型。</p>
+<p>与静态规划相比，动态规划的优越性在于:</p>
+<p>能够得到全局最优解。由于约束条件确定的约束集合往往很复杂，即使指标函数较简单，用非线性规划方法也很难求出全局最优解。而动态规划方法把全过程化为一系列结构相似的子问题，每个子间题的变量个数大大减少，约束集合也简单得多，易于得到全局最优解。特别是对于约束集合、状态转移和指标函数不能用分析形式给出的优化问题，可以对每个子过程用枚举法求解，而约束条件越多，决策的搜索范围越小，求解也越容易。对于这类问题，动态规划通常是求全局最优解的唯一方法。 </p>
+<p>可以得到一族最优解。与非线性规划只能得到全过程的一个最优解不同，动态规划得到的是全过程及所有后部子过程的各个状态的一族最优解。有些实际问题需要这样的解族，即使不需要，它们在分析最优策略和最优值对于状态的稳定性时也是很有用的。当最优策略由于某些原因不能实现时，这样的解族可以用来寻找次优策略。 </p>
+<p>能够利用经验提高求解效率。如果实际问题本身就是动态的，由于动态规划方法反映了过程逐段演变的前后联系和动态特征，在计算中可以利用实际知识和经验提高求解效率。比如在策略迭代法中，实际经验能够帮助选择较好的初始策略，提高收敛速度。 </p>
+<p>动态规划的主要缺点是:</p>
+<p>没有统一的标准模型，也没有构造模型的通用方法，甚至还没有判断一个问题能否构造动态规划模型的具体准则（大部分情况只能够凭经验判断是否适用动态规划）。这样就只能对每类问题进行具体分析，构造具体的模型。对于较复杂的问题在选择状态、决策、确定状态转移规律等方面需要丰富的想象力和灵活的技巧性，这就带来了应用上的局限性。 </p>
+<p>用数值方法求解时存在维数灾(curse of dimensionality)。若一维状态变量有m个取值，那么对于n维问题，状态xk就有mn个值，对于每个状态值都要计算、存储函数fk(xk)，对于n稍大(即使n=3)的实际问题的计算往往是不现实的。目前还没有克服维数灾的有效的一般方法。 </p>
+<p>动态规划与递推——动态规划是最优化算法</p>
+<p><strong>动态规划的实质是分治和解决冗余</strong>，因此动态规划也是递归思想的应用之一。但是，动态规划和递归法还是有区别的。一般我们在实际应用中遇到的问题主要分为四类：判定性问题、构造性问题、计数问题和最优化问题。动态规划是解决最优化问题的有效途径，而递推法在处理判定性问题和计数问题方面是一把利器。下面分别就两个例子，谈一下递推法和动态规划在这两个方面的联系。</p>
+<h4>[例13]模四最优路径问题</h4>
+<p>在下图中找出从第1点到第4点的一条路径，要求路径长度mod 4的余数最小。</p>
+<p>这个图是一个多段图，而且是一个特殊的多段图。虽然这个图的形式比一般的多段图要简单，但是这个最优路径问题却不能用动态规划来做。因为一条从第1点到第4点的最优路径，在它走到第2点、第3点时，路径长度mod </p>
+<p>4的余数不一定是最小，也就是说最优策略的子策略不一定最优——这个问题不满足最优化原理。</p>
+<p>但是我们可以把它转换成判定性问题，用递推法来解决。判断从第1点到第k点的长度mod </p>
+<p>4为sk的路径是否存在，用fk(sk)来表示，则递推公式如下：</p>
+<p>边界条件为</p>
+<p>这里lenk,i表示从第k-1点到第k点之间的第i条边的长度，方括号表示“或(or)”运算。最后的结果就是可以使f4(s4)值为真的最小的s4值。</p>
+<p>这个递推法的递推公式和动态规划的规划方程非常相似，我们在这里借用了动态规划的符号也就是为了更清楚地显示这一点。其实它们的思想也是非常相像的，可以说是递推法借用了动态规划的思想解决了动态规划不能解决的问题。</p>
+<p>有的多阶段决策问题（像这一题的阶段特征就很明显），由于不能满足最优化原理等使用动态规划的先决条件，而无法应用动态规划。在这时可以将最优指标函数的值当作“状态”放到下标中去，从而变最优化问题为判定性问题，再借用动态规划的思想，用递推法来解决问题。</p>
+<p>[例14] 钉子与小球 (NOI'99)</p>
+<p>有一个三角形木板,竖直立放，上面钉着n(n+1)/2颗钉子，还有(n+1)个格子（当n=5时如下图a）。每颗钉子和周围的钉子的距离都等于d，每个格子的宽度也都等于d，且除了最左端和最右端的格子外每个格子都正对着最下面一排钉子的间隙。</p>
+<p>让一个直径略小于d的小球中心正对着最上面的钉子在板上自由滚落，小球每碰到一个钉子都可能落向左边或右边（概率各1/2），且球的中心还会正对着下一颗将要碰上的钉子。例如图b就是小球一条可能的路径。</p>
+<p>我们知道小球落在第i个格子中的概率为：</p>
+<p>其中i为格子的编号，从左至右依次为0,1,...,n。</p>
+<p>现在的问题是计算拔掉某些钉子后，小球落在编号为m的格子中的概率pm。假定最下面一排钉子不会被拔掉。例如图3是某些钉子被拔掉后小球一条可能的路径。</p>
+<p>图a图b图c</p>
+<p>输入:</p>
+<p>第1行为整数n（2<=n<=50）和m（0<=m<=n）。</p>
+<p>以下n行依次为木板上从上至下n行钉子的信息，每行中‘ * ’表示钉子还在，‘ . </p>
+<p>’表示钉子被拔去，注意在这n行中空格符可能出现在任何位置。</p>
+<p>输出：</p>
+<p>仅一行，是一个既约分数(0写成0/1)，为小球落在编号为m的格子中的概率pm。</p>
+<p>既约分数的定义：A/B是既约分数，当且仅当A、B为正整数且A和B没有大于1的公因子。</p>
+<p>样例输入：</p>
+<p>5 2** .* * ** . * ** * * * *样例输出：</p>
+<p>7/16这个题目一看就不觉让人想起一道经典的动态规划题。下面先让我们回顾一下这个问题。</p>
+<p>[例15] 数字三角形（IOI'94）</p>
+<p>在下图中求从顶至低某处的一条路径，使该路径所经过的数字的总和最大，每一步只能向左下或右下走。</p>
+<p>7</p>
+<p>3 8</p>
+<p>8 1 0</p>
+<p>2 7 4 4</p>
+<p>4 5 2 6 5</p>
+<p>在这个问题中，我们按走过的行数来划分阶段，以走到每一行时所在的位置来作为状态，决策就是向左下走（用0表示）或向右下走（用1表示）。</p>
+<p>状态转移方程：</p>
+<p>规划方程：</p>
+<p>边界条件：</p>
+<p>这是一个比较简单的最优化问题，我们还可以把这个问题改成一个更加简单的整数统计问题：求顶点到每一点的路径总数。把这个总数用fk(xk)表示，那么递推公式就是：</p>
+<p>在这里，虽然求和公式只有两项，但我们仍然用∑的形式表示，就是为了突出这个递推公式和上面的规划方程的相似之处。这两个公式的边界条件都是一模一样的。</p>
+<p>再回到我们上面的“钉子与小球”问题，这是一个概率统计问题。我们继续沿用上面的思想，用fk(xk)表示小球落到第k行第xk个钉子上的概率，则递推公式如下：</p>
+<p>这里函数Existk(xk)表示第k行第xk个钉子是否存在，存在则取1，不存在则取0；</p>
+<p>边界条件</p>
+<p>可以看出这个公式较之上面的两个式子虽然略有变化，但是其基本思想还是类似的。在解这个问题的过程中，我们再次运用了动态规划的思想。</p>
+<p>一般说来，很多最优化问题都有着对应的计数问题；反过来，很多计数问题也有着对应的最优化问题。因此，我们在遇到这两类问题时，不妨多联系、多发展，举一反三，从比较中更深入地理解动态规划的思想。</p>
+<h4>动态规划与搜索——动态规划是高效率、高消费算法</h4>
+<p>同样是解决最优化问题，有的题目我们采用动态规划，而有的题目我们则需要用搜索。这其中有没有什么规则呢？</p>
+<p>我们知道，撇开时空效率的因素不谈，在解决最优化问题的算法中，搜索可以说是“万能”的。所以动态规划可以解决的问题，搜索也一定可以解决。</p>
+<p>把一个动态规划算法改写成搜索是非常方便的，状态转移方程、规划方程以及边界条件都可以直接“移植”，所不同的只是求解顺序。动态规划是自底向上的递推求解，而搜索则是自顶向下的递归求解（这里指深度搜索，宽度搜索类似）。</p>
+<p>反过来，我们也可以把搜索算法改写成动态规划。状态空间搜索实际上是对隐式图中的点进行枚举，这种枚举是自顶向下的。如果把枚举的顺序反过来，变成自底向上，那么就成了动态规划。(当然这里有个条件，即隐式图中的点是可排序的)</p>
+<p>正因为动态规划和搜索有着求解顺序上的不同，这也造成了它们时间效率上的差别。在搜索中，往往会出现下面的情况：</p>
+<p>对于上图(a)这样几个状态构成的一个隐式图，用搜索算法就会出现重复，如上图(b)所示，状态C2被搜索了两次。在深度搜索中，这样的重复会引起以C2为根整个的整个子搜索树的重复搜索；在宽度搜索中，虽然这样的重复可以立即被排除，但是其时间代价也是不小的。而动态规划就没有这个问题，如上图(c)所示。</p>
+<p>一般说来，动态规划算法在时间效率上的优势是搜索无法比拟的。（当然对于某些题目，根本不会出现状态的重复，这样搜索和动态规划的速度就没有差别了。）而从理论上讲，任何拓扑有序（现实中这个条件常常可以满足）的隐式图中的搜索算法都可以改写成动态规划。但事实上，在很多情况下我们仍然不得不采用搜索算法。那么，动态规划算法在实现上还有什么障碍吗？</p>
+<p>考虑上图(a)所示的隐式图，其中存在两个从初始状态无法达到的状态。在搜索算法中，这样的两个状态就不被考虑了，如上图(b)所示。但是动态规划由于是自底向上求解，所以就无法估计到这一点，因而遍历了全部的状态，如上图(c)所示。</p>
+<p>一般说来，动态规划总要遍历所有的状态，而搜索可以排除一些无效状态。更重要的是搜索还可以剪枝，可能剪去大量不必要的状态，因此在空间开销上往往比动态规划要低很多。</p>
+<p>如何协调好动态规划的高效率与高消费之间的矛盾呢？有一种折衷的办法就是记忆化算法(备忘录法)。记忆化算法在求解的时候还是按着自顶向下的顺序，但是每求解一个状态，就将它的解保存下来，以后再次遇到这个状态的时候，就不必重新求解了。这种方法综合了搜索和动态规划两方面的优点，因而还是很有实用价值的。</p>
+
+
+<p style='float:right;'>本页共273段，17198个字符，35578 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
