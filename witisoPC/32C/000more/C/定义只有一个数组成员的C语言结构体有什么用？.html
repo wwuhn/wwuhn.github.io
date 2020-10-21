@@ -251,7 +251,7 @@ sub,sup{
 <p>struct ABC {</p>
 <p> unsigned long array[MAX];</p>
 <p>} abc;</p>
-<p>多此一举？定义只有一个数组成员的C语言结构体有什么用？</p>
+<p></p>
 <p>这么做有什么好处吗？</p>
 <p></p>
 <p>答案是肯定的，这样做主要有两个好处：一是便于值传递，二是便于后期扩展。</p>
@@ -259,18 +259,23 @@ sub,sup{
 <p>方便的数组值传递</p>
 <p>看过我之前文章的读者应该明白，调用C语言函数时，如果将数组作为参数传递给函数，那么在被调用函数内部，数组常常会退化成指针。下面是一段C语言代码示例：</p>
 <p></p>
-<p>#include &lt;stdio.h></p>
-<p>void fun(char arr[16])</p>
-<p>{</p>
-<p> printf("sizeof arr is %d\n", (int)sizeof(arr));</p>
-<p>}</p>
-<p>int main()</p>
-<p>{</p>
-<p> char a[16] = {0};</p>
-<p> fun(a);</p>
-<p> return 0;</p>
-<p>}</p>
-<p>多此一举？定义只有一个数组成员的C语言结构体有什么用？</p>
+<p></p>
+
+<pre>
+#include &lt;stdio.h>
+void fun(char arr[16])
+{
+    printf("sizeof arr is %d\n", (int)sizeof(arr));
+}
+int main()
+{
+    char a[16] = {0};
+    fun(a);
+    return 0;
+}
+</pre>
+
+<p></p>
 <p>C语言代码示例</p>
 <p></p>
 <p>编译并执行上述C语言代码，得到如下输出：</p>
@@ -282,21 +287,25 @@ sub,sup{
 <p></p>
 <p>而如果将数组封装在结构体内部，将结构体作为参数，那么在函数内部，我们依然可以获得完整的数组，请看下面的C语言代码示例：</p>
 <p></p>
-<p>#include &lt;stdio.h></p>
-<p>typedef struct{</p>
-<p> char arr[16];</p>
-<p>}String;</p>
-<p>void fun(String *str)</p>
-<p>{</p>
-<p> printf("sizeof arr is %d\n", (int)sizeof(str->arr));</p>
-<p>}</p>
-<p>int main()</p>
-<p>{</p>
-<p> String s;</p>
-<p> fun(&s);</p>
-<p> return 0;</p>
-<p>}</p>
-<p>多此一举？定义只有一个数组成员的C语言结构体有什么用？</p>
+
+<pre>
+#include &lt;stdio.h>
+typedef struct{
+    char arr[16];
+}String;
+void fun(String *str)
+{
+    printf("sizeof arr is %d\n", (int)sizeof(str->arr));
+}
+int main()
+{
+    String s;
+    fun(&s);
+    return 0;
+}
+</pre>
+
+<p></p>
 <p>将结构体作为参数</p>
 <p></p>
 <p>编译并执行上述C语言代码，得到如下输出：</p>
@@ -316,7 +325,7 @@ sub,sup{
 <p>printf("%d %d %d %d %d\n", a.arr[0], a.arr[1], a.arr[2],</p>
 <p> a.arr[3], a.arr[4]);</p>
 <p>// 输出 1 2 3 4 5</p>
-<p>多此一举？定义只有一个数组成员的C语言结构体有什么用？</p>
+<p></p>
 <p>方便后续扩展</p>
 <p></p>
 <p>方便后续扩展</p>
@@ -338,7 +347,7 @@ sub,sup{
 <p></p>
 <p>另外一个问题是，void fun(char arr[], int size); 中的 arr 和 size 是对应关系，但是却没有语法规则约束这种对应关系，因此在复杂的项目开发中，将数组 b 的 size 误认为是数组 a 的 size 使用的情况是极有可能存在的，这样的错误发现和排查都相当困难。</p>
 <p></p>
-<p>多此一举？定义只有一个数组成员的C语言结构体有什么用？</p>
+<p></p>
 <p>如果，我们一开始就将数组封装在结构体里，在创建 fun() 函数时，其实并未增加多少工作量：</p>
 <p></p>
 <p>typedef struct{</p>

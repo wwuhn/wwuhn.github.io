@@ -244,121 +244,390 @@ sub,sup{
 
 
 
-<h4>C语言双指针</h4>
+<h4>用C语言写面向的对象是一种什么样的体验？</h4>
 
-
-<p>原创 ccc云志 2019-03-03 00:00:32</p>
-<p>双指针原理</p>
-<p>所谓双指针，指的是在遍历对象的过程中，不是普通的使用单个指针进行访问，而是使用两个相同方向或者相反方向的指针进行扫描，从而达到相应的目的。</p>
+<p>众所周知面向对象的三个特性：封装性、继承性、多态性。这几个特性的具体含义我等会会班门弄斧讲一下含义，下面，请允许我先用C++面向对象思维将设计模式中最常用的简单工厂模式写一边，相信这三个特性不言而喻。</p>
 <p></p>
-<p></p>
-<p>换言之，双指针法充分使用了数组有序这一特征，从而在某些情况下能够简化一些运算。</p>
-<p></p>
-<p>(注：这里的指针，并非专指c中指针的概念，而是指索引，游标或指针，可迭代对象等)</p>
-<p></p>
-<p>这类算法包括：</p>
-<p></p>
-<p>1.给定一个有序递增数组，在数组中找到满足条件的两个数，使得这两个数的和为某一给定的值。如果有多对数，只输出一对即可。</p>
-<p></p>
-<p>对于这种问题，常见的算法思路不外乎遍历，回溯，但这里，双指针遍历法是一个很有效的方法。具体思路是：初始化两个指针，一个指向数组的第一个元素，另外一个指向数组的最后一个元素，在两个指针相遇之前，指针1只能向前移动，指针2 只能向后移动。比较当前两个指针所指元素和与给定数字的大小，如果和较大，指针2向后移动，如果和较小，指针1向前移动。最终的结果是找到两个满足条件的数或者不存在这样的两个数字。</p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p>据此思路，不难写出代码：</p>
+<p>以下我将用一个工厂类实现具体汽车的生产，奔驰车、宝马车、奥迪车都将通过工厂类来生产，由父类指针指向具体的汽车实例：</p>
+<p>头文件：</p>
 <pre>
-#include &lt;stdio.h>
-int getThePair(int *a,int n,int theNum,int &left,int &right){
-    int start = 0,end = n-1;
-    while(start < end){
-        int sum = a[start] + a[end];
-        if(sum == theNum){
-            left = a[start];
-            right = a[end];
-            return 1;
-        }
-        if(sum < theNum){
-            start ++;
-        }else if(sum > theNum){
-            end --;
-        }
-    }
-    return 0;
-}
-int main(){
-    int a[] = {1,2,3,4,5,6,7,8};
-    int start = 0,end = 0;
-    for(int i = 1; i <= 16; i++){
-        if(getThePair(a,8,i,start,end)){
-            printf("the sum of %d is %d + %d ",i,start,end);
-        }else{
-            printf("sorry,%d not found~~ ",i);
-        }
-    }
-    return 0;
-}
-</pre>
-<p>2.双指针应用之二：hoare的双向扫描快速划分法。</p>
-<pre>
-void partition(int *arr,int n){
-    int i = 0;
-    int j = n-1;
-    while(1){
-        while(i&lt;j && arr[i]%2 == 1) i++;
-        while(i&lt;j && arr[j]%2 == 0) j--;
-        if(i&lt;j){
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-    }
-}
-</pre>
-<p>快速排序的总结中已经给了思路和代码，为了方便，这里再次给出代码：</p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p>3.双指针应用之三。奇偶排序。忘记是哪个公司的面试题了。</p>
-<p></p>
-<p></p>
-<p>题目大意是这样的，给定一个数组，数组中元素有奇数有偶数。要求对数组进行处理，使得数组的左边为奇数，右边为偶数</p>
-<p></p>
-<p>这个题目直接看上去，跟快速排序的划分十分类似，唯一不同的是，不需要返回索引。所以，简单的方式如下：</p>
-<p></p>
-<p></p>
-<p></p>
-<p></p>
-<p>4.双指针法的应用之四：求单链表的中间元素。</p>
-<p></p>
-<p></p>
-<p>这个大家应该都比较熟悉了。对于单链表求中间元素的问题，经典的作法是采用两个指针，初始化都指向链表表头，移动开始时，快指针移动两步，慢指针移动一步。当快指针的next为null或者快指针为null的时候，慢指针所指的就是单链表的中间元素(注意奇数个元素和偶数个元素的处理)</p>
-<p></p>
-<p></p>
-<p></p>
-<p>/*</p>
-<p>* 取单链表的中间元素，如果单链表元素为奇数个，那么去中间的元素，如果是偶数个，取后面的一个元素。</p>
-<p>*/</p>
-<p></p>
-<pre>
-linkList getMidElem(const linkList L)
+//Car.h
+#ifndef CAR_H_
+#define CAR_H_
+typedef enum CarType_E
 {
-    if(L == NULL)
+    CAR_TYPE_BENZE = 0,
+        CAR_TYPE_BMW ,
+        CAR_TYPE_AUDI ,
+        CAR_TYPE_NONE ,
+}CarType_E;
+class BaseCar
+{
+public:
+    BaseCar(CarType_E CarType);
+    virtual ~BaseCar();
+    
+    virtual void CarSpeaker();
+    CarType_E _CarType;
+};
+class BenzeCar : public BaseCar
+{
+public:
+    BenzeCar(CarType_E CarType);
+    ~BenzeCar();
+public:
+    void CarSpeaker();
+};
+class BMWCar : public BaseCar
+{
+public:
+    BMWCar(CarType_E CarType);
+    ~BMWCar();
+    
+    void CarSpeaker();
+};
+class AudiCar : public BaseCar
+{
+public:
+    AudiCar(CarType_E CarType);
+    ~AudiCar();
+    
+    void CarSpeaker();
+};
+class CarFactory
+{
+public:
+    BaseCar* createNewCar(CarType_E CarType);
+};
+#endif /* CAR_H_ */
+源代码：
+//Car.cpp
+#include "Car.h"
+#include &lt;iostream>
+using namespace std;
+BaseCar::BaseCar(CarType_E CarType) : _CarType(CarType)
+{
+    printf("BaseCar create\n");
+}
+BaseCar::~BaseCar()
+{
+    printf("BaseCar delete\n");
+}
+void BaseCar::CarSpeaker()
+{
+    std::cout &lt;&lt; "BeBu! BeBu" &lt;&lt; endl;
+}
+BenzeCar::BenzeCar(CarType_E CarType) : BaseCar(CarType)
+{
+    printf("BenzeCar create\n");
+}
+BenzeCar::~BenzeCar()
+{
+    printf("BenzeCar delete\n");
+}
+void BenzeCar::CarSpeaker()
+{
+    printf("BeBu! BeBu! BenzeCar Car,Type:%d\n", _CarType);
+}
+BMWCar::BMWCar(CarType_E CarType) : BaseCar(CarType)
+{
+    printf("BMWCar create\n");
+}
+BMWCar::~BMWCar()
+{
+    printf("BMWCar delete\n");
+}
+void BMWCar::CarSpeaker()
+{
+    printf("BeBu! BeBu! BMWCar Car,Type:%d\n", _CarType);
+}
+AudiCar::AudiCar(CarType_E CarType) : BaseCar(CarType)
+{
+    printf("AudiCar create\n");
+}
+AudiCar::~AudiCar()
+{
+    printf("AudiCar delete\n");
+}
+void AudiCar::CarSpeaker()
+{
+    printf("BeBu! BeBu! AudiCar Car,Type:%d\n", _CarType);
+}
+BaseCar* CarFactory::createNewCar(CarType_E CarType)
+{
+    BaseCar* newCar = NULL;
+    switch(CarType)
     {
-        return NULL;
+    case CAR_TYPE_BENZE:
+        {
+            newCar = new BenzeCar(CAR_TYPE_BENZE);
+            break;
+        }
+    case CAR_TYPE_BMW:
+        {
+            newCar = new BMWCar(CAR_TYPE_BMW);
+            break;
+        }
+    case CAR_TYPE_AUDI:
+        {
+            newCar = new AudiCar(CAR_TYPE_AUDI);
+            break;
+        }
+    default:
+        {
+            newCar = new BaseCar(CAR_TYPE_NONE);
+            break;
+        }
     }
-    linkList first = L;
-    linkList second = L;
-    while(first != NULL && first->next != NULL)
-    {
-        first = first->next->next;
-        second = second->next;
-    }
-    return second;
+    return newCar;
 }
 </pre>
+<p>以上便是简单工厂模式的源码示例，现在，我们来聊聊为什么用C语言我们也可以实现这面向对象思维的三大特性：</p>
+<p>首先是封装性：C++的封装性就是将抽象类的函数和属性都封装起来，不对外开放，外部要使用这些属性和方法都必须通过一个具体实例对象去访问这些方法和属性，而我们知道，C语言中一旦包含了头文件便可以使用头文件中的函数和变量，其实C语言中也可以用一种方法达到这种效果，那便是使用结构体+函数指针+static，结构体中定义属性和函数指针，static将方法都限制在本模块使用，对外部，通过指针函数的方式访问，如此一来，便可以达到面向对象封装性的实现；</p>
+<p>对于继承性：C++ 面向对象的继承是可以继承父类的属性和方法，在子类对象中的内存中是有父类对象的内存的，那么，用C语言来写的话我们完全可以在父类结构体中定义一个父类变量在其中，在使用构造子类的时候同时构造父类，便可以达到继承性的特性；</p>
+<p>对于多态性：C++中允许一个父类指针指向子类实体，在这个指针使用方法时，若此方法是虚函数，则执行动作会执行到具体的子类函数中，本质的实现方式是通过一个虚函数指针的方式，由于我们用C语言写面向对象本就是通过函数指针的方式来封装函数，那我们完全可以将结构体父类的变量的函数指针让他指向子类的函数来达到多态的特性。</p>
+<p>好了，在你们面前班门弄斧了一番，下面开始具体的代码实现：</p>
+<p>头文件：</p>
+<pre>
+#ifndef CAR_H_
+#define CAR_H_
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+typedef enum CarType
+{
+    CAR_BENZE = 0,
+        CAR_BMW,
+        CAR_AUDI,
+        CAR_NONE,
+}CarType;
+typedef struct Base_Car
+{
+    CarType car_type;
+    void (* speaker)(struct Base_Car* car);
+    
+    void* parent_car; //point to parent,if no any parent,then make it NULL
+}Base_Car;
+typedef struct Benze_Car
+{
+    Base_Car* car;
+    void (* speaker)(struct Base_Car* car);
+}Benze_Car;
+typedef struct BMW_Car
+{
+    Base_Car* car;
+    void (* speaker)(struct Base_Car* car);
+}BMW_Car;
+typedef struct Audi_Car
+{
+    Base_Car* car;
+    void (* speaker)(struct Base_Car* car);
+}Audi_Car;
+typedef struct Car_Factory
+{
+    Base_Car* (* create_new_car)(CarType car_type);
+}Car_Factory;
+Car_Factory* new_car_factory();
+void delete_car_factory(Car_Factory* car_factory);
+Base_Car* new_Base_Car();
+Benze_Car* new_benze_Car();
+BMW_Car* new_bmw_Car();
+Audi_Car* new_audi_Car();
+void delete_Base_Car(struct Base_Car* car);
+void delete_Benze_Car(struct Benze_Car* car);
+void delete_BMW_Car(struct BMW_Car* car);
+void delete_Audi_Car(struct Audi_Car* car);
+#endif /* CAR_H_ */
+源文件：
+#include "Car.h"
+static void Car_speaker(struct Base_Car* car)
+{
+    printf("this is a car\n");
+}
+static void Benze_speaker(struct Base_Car* car)
+{
+    printf("this is Benze Car, car type is :%d\n",car->car_type);
+}
+static void BMW_speaker(struct Base_Car* car)
+{
+    printf("this is BMW Car, car type is :%d\n",car->car_type);
+}
+static void Audi_speaker(struct Base_Car* car)
+{
+    printf("this is Audi Car, car type is :%d\n",car->car_type);
+}
+Benze_Car* new_benze_Car()
+{
+    Benze_Car* real_car = (Benze_Car*)malloc(sizeof(Benze_Car));
+    Base_Car* base_car = new_Base_Car();
+    printf("Benze_Car create\n");
+    real_car->car = base_car;
+    real_car->speaker = Benze_speaker;
+    base_car->car_type = CAR_BENZE;
+    base_car->parent_car = (void*)real_car;
+    base_car->speaker = real_car->speaker;
+    return real_car;
+}
+BMW_Car* new_bmw_Car()
+{
+    BMW_Car* real_car = (BMW_Car*)malloc(sizeof(BMW_Car));
+    Base_Car* base_car = new_Base_Car();
+    printf("BMW_Car create\n");
+    base_car->car_type = CAR_BMW;
+    real_car->car = base_car;
+    real_car->speaker = BMW_speaker;
+    base_car->car_type = CAR_BMW;
+    base_car->parent_car = (void*)real_car;
+    base_car->speaker = real_car->speaker;
+    return real_car;
+}
+Audi_Car* new_audi_Car()
+{
+    Audi_Car* real_car = (Audi_Car*)malloc(sizeof(Audi_Car));
+    Base_Car* base_car = new_Base_Car();
+    printf("Audi_Car create\n");
+    base_car->car_type = CAR_AUDI;
+    real_car->car = base_car;
+    real_car->speaker = Audi_speaker;
+    base_car->car_type = CAR_AUDI;
+    base_car->parent_car = (void*)real_car;
+    base_car->speaker = real_car->speaker;
+    return real_car;
+}
+Base_Car* new_Base_Car()
+{
+    Base_Car* base_car = (Base_Car*)malloc(sizeof(Base_Car));
+    printf("BaseCar create\n");
+    base_car->car_type = CAR_NONE;
+    base_car->parent_car = NULL;
+    base_car->speaker = Car_speaker;
+    return base_car;
+}
+Base_Car* create_new_Car(CarType car_type)
+{
+    Base_Car* base_car = NULL;
+    switch(car_type)
+    {
+    case CAR_BENZE:
+        {
+            Benze_Car* real_car = new_benze_Car();
+            base_car = real_car->car;
+            break;
+        }
+    case CAR_BMW:
+        {
+            BMW_Car* real_car = new_bmw_Car();
+            base_car = real_car->car;
+            break;
+        }
+    case CAR_AUDI:
+        {
+            Audi_Car* real_car = new_audi_Car();
+            base_car = real_car->car;
+            break;
+        }
+    default:
+        break;
+    }
+    return base_car;
+}
+void delete_Benze_Car(struct Benze_Car* car)
+{
+    free(car->car);
+    car->car = NULL;
+    free(car);
+    printf("Benze_Car delete\n");
+}
+void delete_BMW_Car(struct BMW_Car* car)
+{
+    free(car->car);
+    car->car = NULL;
+    free(car);
+    printf("BMW_Car delete\n");
+}
+void delete_Audi_Car(struct Audi_Car* car)
+{
+    free(car->car);
+    car->car = NULL;
+    free(car);
+    printf("Audi_Car delete\n");
+}
+void delete_Base_Car(struct Base_Car* car)
+{
+    if(NULL != car->parent_car)
+    {
+        switch(car->car_type)
+        {
+        case CAR_BENZE:
+            {
+                delete_Benze_Car((Benze_Car*)car->parent_car);
+                car = NULL; //base car will be delete in child free function
+                break;
+            }
+        case CAR_BMW:
+            {
+                delete_BMW_Car((BMW_Car*)car->parent_car);
+                car = NULL;
+                break;
+            }
+        case CAR_AUDI:
+            {
+                delete_Audi_Car((Audi_Car*)car->parent_car);
+                car = NULL;
+                break;
+            }
+        default:
+            break;
+        }
+    }
+    if(NULL != car)
+    {
+        free(car);
+        car = NULL;
+    }
+    printf("Base_Car delete\n");
+}
+Car_Factory* new_car_factory()
+{
+    Car_Factory* car_factory = (Car_Factory*)malloc(sizeof(Car_Factory));
+    car_factory->create_new_car = create_new_Car;
+    return car_factory;
+}
+void delete_car_factory(Car_Factory* car_factory)
+{
+    free(car_factory);
+    car_factory = NULL;
+}
+测试文件main.cpp
+#include &lt;stdio.h>
+#include "Car.h"
+int main()
+{
+    Car_Factory* car_factory = new_car_factory();
+    Base_Car* benzeCar = car_factory->create_new_car(CAR_BENZE);
+    Base_Car* bmwCar = car_factory->create_new_car(CAR_BMW);
+    Base_Car* audiCar = car_factory->create_new_car(CAR_AUDI);
+    
+    benzeCar->speaker(benzeCar);
+    bmwCar->speaker(bmwCar);
+    audiCar->speaker(audiCar);
+    
+    delete_Base_Car(benzeCar);
+    benzeCar = NULL;
+    delete_Base_Car(bmwCar);
+    bmwCar = NULL;
+    delete_Base_Car(audiCar);
+    audiCar = NULL;
+    delete_car_factory(car_factory);
+    car_factory = NULL;
+    return 0;
+}
+</pre>
+<p>以上的结果可以看出，我们的测试代码接口都是一样的，效果达到了C++面向对象的设计理念，用C语言完成了一次狠狠的逆袭，希望大家在你们的项目工程中有帮助。</p>
+<p>其实程序员的工作大部分是写代码，但是代码的阅读对象往往并不是我们自己，将我们的思维写进去才是一个程序员的境界，不要简单的根据流程去写一个代码，否则，程序员就真的只是一个工具了；</p>
+<p>哦，BTW，在函数中使用了本结构体的指针在里面，是为了达到在函数中使用示例的属性，这样就独立每一个示例的属性操作了。</p>
 
-<p style='float:right;'>本页共112段，2354个字符，4053 Byte(字节)</p>﻿
+
+<p style='float:right;'>本页共380段，8320个字符，10596 Byte(字节)</p>﻿
 
 
 

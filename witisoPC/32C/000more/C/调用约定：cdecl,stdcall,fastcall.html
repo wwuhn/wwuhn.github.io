@@ -1,0 +1,628 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>调用约定：cdecl,stdcall,fastcall</h4>
+
+
+<p>函数调用约定（Calling Convention），是一个重要的基础概念，它规定了程序执行过程中函数的调用者（caller）和被调用这（callee）之间如何传递参数以及如何恢复栈平衡之间的约定。在笔者面试微软ATC的过程中即被面官考查。当然笔者当时也很顺利的举出了这些调用规约，只是对C++中的一个调用规约记得不大清楚了。下面就来研究这些函数调用约定。</p>
+<p>在参数传递中，有两个很重要的问题必须得到明确说明：</p>
+<p>1．当参数个数多于一个时，按照什么顺序把参数压入栈；</p>
+<p>2．函数调用后，由谁来把栈恢复原状。</p>
+<p>假如在C语言中，定义下面这样一个函数：</p>
+<p>int func(int x,int y, int z)</p>
+<p>然后传递实参给函数func（）就可以使用了。但是，在系统中，函数调用中参数的传递却是一门学问。因为在CPU中，计算机没有办法知道一个函数调用需要多少个、什么样的参数，也没有硬件可以保存这些参数。也就是说，计算机不知道怎么给这个函数传递参数，传递参数的工作必须由函数调用者和函数本身来协调。为此，计算机用栈来支持参数传递。</p>
+<p>函数调用时，调用者依次把参数压栈，然后调用函数，函数被调用以后，在栈中取得数据，并进行计算。函数计算结束以后，或者调用者、或者函数本身修改栈，使栈恢复原状。</p>
+<p>在高级语言中，通过函数调用约定来说明参数的入栈和栈的恢复问题。常见的调用约定有：</p>
+<p>stdcall</p>
+<p>cdecl</p>
+<p>fastcall</p>
+<p>thiscall</p>
+<p>naked call</p>
+<p>不同的调用约定，在参数的入栈顺序，栈的恢复，函数名字的命名上就会不同。在编译后的代码量，程序执行效率上也会受到影响。</p>
+<h4>stdcall调用约定</h4>
+<p>stdcall调用约定声明的格式：</p>
+<p>int __stdcall func(int x,int y)</p>
+<p>stdcall的调用约定意味着：</p>
+<p>参数入栈规则：参数从右向左压入栈</p>
+<p>还原栈者：被调用函数自身修改栈</p>
+<p>函数名自动加前导的下划线，后面紧跟一个@符号，其后紧跟着参数的尺寸。</p>
+<p>在微软Windows的C/C++编译器中，常常用Pascal宏来声明这个调用约定，类似的宏还有WINAPI和CALLBACK。</p>
+<h4>cdecl调用约定</h4>
+<p><strong>cdecl调用约定又称为C调用约定，是C语言缺省的调用约定</strong>，它的定义语法是：</p>
+<p>int func (int x ,int y)            //默认的C调用约定</p>
+<p>int __cdecl func (int x,int y)  //明确指出C调用约定</p>
+<p>该调用约定遵循下面的规则：</p>
+<p>参数入栈顺序：从右到左</p>
+<p>还原栈者：调用者修改栈</p>
+<p>函数名：前加下划线：_func</p>
+<p>由于每次函数调用都要由编译器产生还原栈的代码，所以使用__cdecl方式编译的程序比使用__stdcall方式编译的程序要大很多，但是 __cdecl调用方式是由函数调用者负责清除栈中的函数参数，所以这种方式支持可变参数，比如printf()和Windows的API wsprintf()就是__cdecl调用方式。</p>
+<p>由于参数按照从右向左顺序压栈，因此最开始的参数在最接近栈顶的位置，因此当采用不定个数参数时，第一个参数在栈中的位置肯定能知道，只要不定的参数个数能够根据第一个后者后续的明确的参数确定下来，就可以使用不定参数了。</p>
+<p> </p>
+<p>fastcall的声明语法为：</p>
+<p>int fastcall func (int x,int y)</p>
+<p>该调用约定遵循下面的规则：</p>
+<p>参数入栈顺序：函数的第一个和第二个参数通过ecx和edx传递，剩余参数从右到左入栈</p>
+<p>还原栈者：被调用者修改栈</p>
+<p>函数名自动加前导的下划线，后面紧跟一个@符号，其后紧跟着参数的尺寸</p>
+<p>以fastcall声明执行的函数，具有较快的执行速度，因为部分参数通过寄存器来进行传递的。</p>
+<p> </p>
+<p>注意，<strong>在X64平台，默认使用了fastcall调用约定</strong>，其规则如下：</p>
+<p>1,一个函数在调用时，前四个参数是从左至右依次存放于RCX、RDX、R8、R9寄存器里面，剩下的参数从右至左顺序入栈；栈的增长方向为从高地址到低地址。</p>
+<p>2,浮点前4个参数传入XMM0、XMM1、XMM2 和 XMM3 中。其他参数传递到堆栈中。</p>
+<p>3,调用者负责在栈上分配32字节的“shadow space”，用于存放那四个存放调用参数的寄存器的值（亦即前四个调用参数）；小于64位(bit)的参数传递时高位并不填充零（例如只传递ecx），大于64位需要按照地址传递；</p>
+<p>4,调用者负责栈平衡；</p>
+<p>5,被调用函数的返回值是整数时，则返回值会被存放于RAX；浮点数返回在xmm0中</p>
+<p>6,RAX，RCX，RDX，R8，R9，R10，R11是“易挥发”的，不用特别保护(所谓保护就是使用前要push备份），其余寄存器需要保护。（x86下只有eax, ecx, edx是易挥发的）</p>
+<p>7,栈需要16字节对齐，“call”指令会入栈一个8字节的返回值（注：即函数调用前原来的RIP指令寄存器的值），这样一来，栈就对不齐了（因为RCX、RDX、R8、R9四个寄存器刚好是32个字节，是16字节对齐的，现在多出来了8个字节）。所以，所有非叶子结点调用的函数，都必须调整栈RSP的地址为16n+8，来使栈对齐。比如sub rsp,28h</p>
+<p>8,对于 R8～R15 寄存器，我们可以使用 r8, r8d, r8w, r8b 分别代表 r8 寄存器的64位、低32位、低16位和低8位。</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>调用约定实际例子</p>
+<pre>
+int __stdcall func1(int x, int y)
+{
+    return x+y;
+}
+int __cdecl func2(int x, int y)
+{
+    return x+y;
+}
+int __fastcall func3(int x, int y, int z)
+{
+    return x+y+z;
+}
+int main(int argc, char* argv[])
+{
+    func1(1, 2);
+    func2(1, 2);
+    func3(1, 2, 3);
+    return 0;
+}
+</pre>
+<p>对于上面3个函数，分别采取stdcall,cdecl,fastcall3种调用约定，从汇编层来分析参数入栈和栈平衡过程如下:</p>
+<pre>
+int __stdcall func1(int x, int y)//采用stdcall
+{
+42D640 push ebp
+0042D641 mov ebp,esp
+0042D643 sub esp,0C0h
+0042D649 push ebx
+0042D64A push esi
+0042D64B push edi
+0042D64C lea edi,[ebp-0C0h]
+0042D652 mov ecx,30h
+0042D657 mov eax,0CCCCCCCCh
+0042D65C rep stos dword ptr es:[edi]
+   return x+y;
+0042D65E mov eax,dword ptr [x]
+0042D661 add eax,dword ptr [y]
+}
+0042D664 pop edi
+0042D665 pop esi
+0042D666 pop ebx
+0042D667 mov esp,ebp //ebp（调用前的栈顶）放入esp中，然后出栈，恢复老ebp
+0042D669 pop ebp
+0042D66A ret 8 //被调用者负责栈平衡，ret 8,esp += 8;
+int __cdecl func2(int x, int y)//采用cdecl调用约定
+{
+0042D680 push ebp
+0042D681 mov ebp,esp
+0042D683 sub esp,0C0h
+0042D689 push ebx
+0042D68A push esi
+0042D68B push edi
+0042D68C lea edi,[ebp-0C0h]
+0042D692 mov ecx,30h
+0042D697 mov eax,0CCCCCCCCh
+0040042D69C rep stos dword ptr es:[edi]
+    return x+y;
+0042D69E mov eax,dword ptr [x]
+0042D6A1 add eax,dword ptr [y]
+}
+0042D6A4 pop edi
+0042D6A5 pop esi
+0042D6A6 pop ebx
+0042D6A7 mov esp,ebp
+0042D6A9 pop ebp
+00000042D6AA ret//被调用者直接返回，不用恢复栈平衡，由调用者负责
+int __fastcall func3(int x, int y, int z)//采用fastcall调用约定
+{
+0042D6C0 push ebp
+0042D6C1 mov ebp,esp
+0042D6C3 sub esp,0D8h
+0042D6C9 push ebx
+0042D6CA push esi
+0042D6CB push edi
+0042D6CC push ecx
+0042D6CD lea edi,[ebp-0D8h]
+0042D6D3 mov ecx,36h
+0042D6D8 mov eax,0CCCCCCCCh
+0042D6DD rep stos dword ptr es:[edi]
+0042D6DF pop ecx
+0042D6E0 mov dword ptr [ebp-14h],edx //前2个参数放在了ecx和edx中
+0040042D6E3 mov dword ptr [ebp-8],ecx//前2个参数放在了ecx和edx中
+    return x+y+z;
+0042D6E6 mov eax,dword ptr [x]
+0042D6E9 add eax,dword ptr [y]
+0042D6EC add eax,dword ptr [z]
+}
+0042D6EF pop edi
+0042D6F0 pop esi
+0042D6F1 pop ebx
+0042D6F2 mov esp,ebp
+0042D6F4 pop ebp
+0040042D6F5 ret 4 //第3个参数占4个字节，从栈上传递，所以栈平衡是弹出4个字节
+int main(int argc, char* argv[])
+{
+    func1(1, 2); //采用stdcall，参数从右往左依次入栈，被调用者负责栈平衡
+//0042D72E push 2 //参数从右往左依次入栈,2入栈
+//0042D730 push 1 //参数从右往左依次入栈，1入栈
+//0042D732 call func1 (42B6F4h)
+    func2(1, 2);//采用cdecl调用约定，参数从右往左依次入栈，调用者负责栈平衡
+//0042D737 push 2//参数从右往左依次入栈，2入栈
+//0042D739 push 1//参数从右往左依次入栈，1入栈
+//0042D73B call func2 (42B3FCh)
+//0042D740 add esp,8 //调用者负责栈平衡，esp+8，等于2个入栈参数的长度
+    func3(1, 2, 3);//采用fastcall，前2个参数依次放入ecx和edx寄存器，剩余参数从右往左依次入栈，被调用者负责栈平衡
+//0042D743 push 3 //剩余参数从右往左依次入栈，3入栈
+//0042D745 mov edx,2 //前2个参数，分别送往ecx和edx寄存器，2入edx
+//0042D74A mov ecx,1 //前2个参数，分别送往ecx和edx寄存器，1入ecx
+//0042D74F call func3 (42B023h)23h)
+    return 0;
+}
+x64下的fastcall调用约定：
+void __fastcall Func1(int nop1, int nop2, int nop3, int nop4, char arg1, short arg2, int arg3)
+{
+000000013F1C1020  mov         dword ptr [i],r9d 
+000000013F1C1025  mov         dword ptr [rsp+18h],r8d 
+000000013F1C102A  mov         dword ptr [rsp+10h],edx 
+000000013F1C102E  mov         dword ptr [rsp+8],ecx 
+000000013F1C1032  push        rdi 
+000000013F1C1033  sub         rsp,30h 
+000000013F1C1037  mov         rdi,rsp 
+000000013F1C103A  mov         ecx,0Ch 
+000000013F1C103F  mov         eax,0CCCCCCCCh 
+000000013F1C1044  rep stos    dword ptr [rdi] 
+000000013F1C1046  mov         ecx,dword ptr [nop1] 
+       int i = 1;
+000000013F1C104A  mov         dword ptr [i],1 
+       printf("hello world\n");
+000000013F1C1052  lea         rcx,[__xi_z+148h (013F1C68B8h)] 
+       printf("hello world\n");
+000000013F1C1059  call        qword ptr [__imp_printf (013F1CB228h)] 
+}
+000000013F1C105F  add         rsp,30h 
+000000013F1C1063  pop         rdi 
+000000013F1C1064  ret
+ 
+int main()
+{
+000000013F1C1070  push        rdi 
+000000013F1C1072  sub         rsp,40h 
+000000013F1C1076  mov         rdi,rsp 
+000000013F1C1079  mov         ecx,10h 
+000000013F1C107E  mov         eax,0CCCCCCCCh 
+000000013F1C1083  rep stos    dword ptr [rdi] 
+       Func1(0, 0, 0, 0, 1, 200, 3000);//参数前4个进入rcx,rdx,r8,r9寄存器，剩余的从右往左，依次入栈
+000000013F1C1085  mov         dword ptr [rsp+30h],0BB8h 
+000000013F1C108D  mov         word ptr [rsp+28h],0C8h 
+000000013F1C1094  mov         byte ptr [rsp+20h],1 
+000000013F1C1099  xor         r9d,r9d 
+000000013F1C109C  xor         r8d,r8d 
+000000013F1C109F  xor         edx,edx 
+000000013F1C10A1  xor         ecx,ecx 
+000000013F1C10A3  call        Func1 (013F1C1005h) 
+       return 0;
+000000013F1C10A8  xor         eax,eax 
+}
+000000013F1C10AA  add         rsp,40h 
+000000013F1C10AE  pop         rdi 
+000000013F1C10AF  ret 
+ 
+</pre>
+<h4>thiscall调用约定</h4>
+<p>thiscall是C++类成员函数缺省的调用约定，但它没有显示的声明形式。因为在C++类中，成员函数调用还有一个this指针参数，因此必须特殊处理，thiscall意味着：</p>
+<p>参数入栈：参数从右向左入栈</p>
+<p>this指针入栈：如果参数个数确定，this指针通过ecx传递给被调用者；如果参数个数不确定，this指针在所有参数压栈后被压入栈。</p>
+<p>栈恢复：对参数个数不定的，调用者清理栈，否则函数自己清理栈。</p>
+<h4>naked call 调用约定</h4>
+<p>这是一个不常用的调用约定，编译器不会给这种函数增加初始化和清理代码，也不能用return语句返回值，只能用插入汇编返回结果。因此它一般用于实模式驱动程序设计，假设定义减法程序，可以定义为：</p>
+<pre>
+__declspec(naked) int sub(int a,int b)
+{
+   __asm mov eax,a
+   __asm sub eax,b
+   __asm ret
+}
+</pre>
+<p> </p>
+<p>上面讲解了函数的各种调用约定。那么如果定义的约定和使用的约定不一致，会出现什么样的问题呢？结果就是：则将导致栈被破坏。最常见的调用规约错误是：</p>
+<p>1. 函数原型声明和函数体定义不一致</p>
+<p>2. DLL导入函数时声明了不同的函数约定</p>
+<p>栈帧（活动记录）</p>
+<p>下面来研究C语言的活动记录，即它的栈帧。所谓的活动记录，就是在程序执行的过程中函数调用时栈上的内容变化。 一个函数被调用，反映在栈上的与之相关的内容被称为一个帧，其中包含了参数，返回地址，老ebp值，局部变量，以及esp，ebp。 下图就是程序执行时的一个活动记录。 C语言的默认调用约定为cdecl。因此C语言的活动记录中，参数是从右往左依次入栈。之后是函数的返回地址入栈，接着是ebp入栈。</p>
+<p>上图非常重要，建议读者朋友们一定要对该图做到胸有成竹。可以用上图来分析很多实际问题。比如，可以用ebp+8取得第一个参数，然后依次取得第二个，第三个，第N个参数。也可以通过ebp-N来获得栈中的局部变量。</p>
+<p>例题：分析下面程序运行情况，有什么问题呢？</p>
+<pre>
+1 #include
+2 void main(void)
+3 {
+4     char x,y,z;
+5     int i;
+6     int a[16];
+7     for(i=0;i&lt;=16;i++)
+8     {
+9         a[i]=0;
+10       printf("\n");
+11    }
+12    return 0;
+13 }
+</pre>
+<p>在分析程序执行时，一个重要的方法就是首先画出它的活动记录。根据它的活动记录，去分析它的执行。对于本题的问题，画出了下图的活动记录。</p>
+<p>结合该活动记录，通过对程序的执行分析，for循环中对数组的访问溢出了。那么溢出的后果是什么呢？ 通过上图的活动记录，大家可以看出a[16]实际上对应的是变量i。因此循环的最后一次执行的时候，实际上a[16] = 0 就是将i值重新设为了0，于是i永远也不会大于16。因此整个程序中for循环无法退出，程序陷入死循环。</p>
+<p>例题：一个C语言程序如下：</p>
+<pre>
+void func(void)
+{
+    char s[4];
+    strcpy(s, "12345678");
+    printf("%s\n", s);
+}
+void main(void)
+{
+    func();
+    printf("Return from func\n");
+}
+</pre>
+<p>该程序在X86/Linux操作系统上运行的结果如下：</p>
+<p>12345678</p>
+<p>Return from func</p>
+<p>Segmentation fault(core dumped)</p>
+<p>试分析为什么会出现这样的运行错误。</p>
+<p>答案：func()函数的活动记录如下图所示。在执行字符串拷贝函数之后，由于”12345678”长度大于4个字节，而strcpy()并不检查字符串拷贝是否溢出，因此造成s[4]数组溢出。s[4]数组的溢出正好覆盖了老ebp的内容，但是返回地址并没被覆盖。所以程序能够正常返回。但由于老ebp被覆盖了，因此从main()函数返回后，出现了段错误。因此，造成该错误结果的原因就是func()函数中串拷贝时出现数组越界。</p>
+<p>例题：下面程序在SPARC/SUN工作站（整数存放方式是高位优先）上运行陷入死循环，试说明原因。如果将第7行的long *p改成short *p，并且将第22行long k改成short k后，loop中的循环体执行一次便停止了。试说明原因。</p>
+<pre>
+void main(void)
+{
+    addr();
+    loop();
+}
+long *p;
+void loop(void)
+{
+    long i, j;
+    j = 0;
+    for (i = 0; i &lt; 10; i++)
+    {
+        (*p)--;
+        j++;
+    }
+}
+void addr(void)
+{
+    long k;
+    k = 0;
+    p =& k;
+}
+</pre>
+<p>分析：</p>
+<p>首先变量p是一个全局变量，因此在程序执行期间都有效。然后画出了addr() 和loop()的活动记录如图4-9所示。由addr()和loop()的活动记录，可以看出，p在add()执行结束之后，在loop()执行之时指向了i。</p>
+<p>addr()和loop()活动记录</p>
+<p>当第一次执行循环时，i=0，p的类型为long *，(*p)--之后i为-1，之后i++，i为0。所以i的值在0与-1之间变化，但始终小于10，因此无法退出循环而造成了死循环。</p>
+<p>而当p的类型为short*，k为short类型时，p指向了i的高2字节。(*p)--运算前后i的值的情况 如图1和2所示：</p>
+<p>图1(*p)--之前i的值</p>
+<p>图2(*p)--之后i的值</p>
+<p>由于此时p 为short*类型，所以只有i的高2字节参加了运算，此时(*p)--后，i的高2字节为-1，即0xffff。所以对于long类型的i来说，由于系统是高位优先存储整数，那么它的值为：0x0000ffff，即4294901760，远远大于了10。因此循环执行了一次便停止了。</p>
+<p>综上分析，程序运行时陷入死循环的原因是由于p指向分配给i的存储单元引起的。循环体执行一次便停止是由于p指向分配给i的高位引起的。可见，要解答好此题，必须要牢固掌握C语言的活动记录和整数的存储方式。</p>
+<p>5．试分析下面程序在X86平台的输出结果：</p>
+<p>//限定x86平台</p>
+<pre>
+#include "stdafx.h"
+#include &lt;windows.h>
+#include &lt;string.h>
+ 
+int _tmain(int argc, _TCHAR* argv[])
+{
+    int x=5;
+    float y=3.1f;
+ 
+    printf("int x=%d,float x=%f,y=%f,y=%d\n",x,x,y,y);//注意，第二次打印x的时候，x被当做了float打印
+ 
+    return 0;
+}
+</pre>
+<p>输出为：int x=5,float x=-2.000000,y=-2.000000,y=1074318540</p>
+<p>为什么y被赋值为3.1f，打印的结果却是-2.000000呢?</p>
+
+
+<p style='float:right;'>本页共332段，10604个字符，17912 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

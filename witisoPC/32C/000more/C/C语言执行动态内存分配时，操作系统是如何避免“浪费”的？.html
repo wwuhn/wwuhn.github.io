@@ -252,22 +252,24 @@ sub,sup{
 <p></p>
 <p>calloc() 函数的效率比 malloc()+memset() 函数更高？</p>
 <p>很多C语言程序员常把 calloc() 函数看作是 malloc() + memset() 函数的组合。不过，今天我在一个偶然的测试中发现 calloc() 函数和 malloc() + memset() 组合函数的效率差异还是很大的，请看：</p>
-<p></p>
-<p>#include&lt;stdio.h></p>
-<p>#include&lt;stdlib.h></p>
-<p>#define BLOCK_SIZE 1024*1024*256</p>
-<p>int main()</p>
-<p>{</p>
-<p> int i=0;</p>
-<p> char *buf[10];</p>
-<p> while(i<10)</p>
-<p> {</p>
-<p> buf[i] = (char*)calloc(1,BLOCK_SIZE);</p>
-<p> i++;</p>
-<p> }</p>
-<p> return 0；</p>
-<p>}</p>
-<p></p>
+
+<pre>
+#include&lt;stdio.h>
+#include&lt;stdlib.h>
+#define BLOCK_SIZE 1024*1024*256
+int main()
+{
+    int i=0;
+    char *buf[10];
+    while(i&lt;10)
+    {
+        buf[i] = (char*)calloc(1,BLOCK_SIZE);
+        i++;
+    }
+    return 0；
+}
+</pre>
+
 <p>calloc() 函数和 malloc() + memset() 组合函数的效率差异还是很大的</p>
 <p></p>
 <p>这段C语言代码调用了 calloc() 函数分配了一段内存，并且重复 10 次，编译并执行之（time 命令可以查看C语言程序运行消耗的时间），得到如下结果：</p>
@@ -279,25 +281,26 @@ sub,sup{
 <p>sys 0m0.192s </p>
 <p>现在将 calloc() 函数改为 malloc() + memset() 函数，修改后的C语言代码如下，请看：</p>
 <p></p>
-<p>#include&lt;stdio.h></p>
-<p>#include&lt;stdlib.h></p>
-<p>#include&lt;string.h></p>
-<p>#define BLOCK_SIZE 1024*1024*256</p>
-<p>int main()</p>
-<p>{</p>
-<p> int i=0;</p>
-<p> char *buf[10];</p>
-<p> while(i<10)</p>
-<p> {</p>
-<p> buf[i] = (char*)malloc(BLOCK_SIZE);</p>
-<p> memset(buf[i],'\0',BLOCK_SIZE);</p>
-<p> i++;</p>
-<p> }.</p>
-<p> return 0;</p>
-<p>}</p>
-<p></p>
-<p></p>
-<p></p>
+
+<pre>
+#include&lt;stdio.h>
+#include&lt;stdlib.h>
+#include&lt;string.h>
+#define BLOCK_SIZE 1024*1024*256
+int main()
+{
+    int i=0;
+    char *buf[10];
+    while(i&lt;10)
+    {
+        buf[i] = (char*)malloc(BLOCK_SIZE);
+        memset(buf[i],'\0',BLOCK_SIZE);
+        i++;
+    }.
+        return 0;
+}
+</pre>
+
 <p>编译并执行这段C语言代码，同样使用 time 命令查看程序运行消耗时间，得到如下结果：</p>
 <p></p>
 <p># gcc t.c</p>

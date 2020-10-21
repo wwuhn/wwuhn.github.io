@@ -232,7 +232,14 @@ pre{
 sub,sup{
 	font-size:80%;
 	color:red;
-}
+}pre{
+	font-size:120%;
+	line-height:130%;
+	padding:5px;
+	margin-left:2em;
+	background-color:RGB(240,240,240);
+    color:blue;
+	}
 </style>
 </head>
 
@@ -251,72 +258,36 @@ sub,sup{
 
 <p>若是linux通过setvbuf设置自己的缓冲区buf，若这个buf为与函数栈上，程序可能出现很大的问题，看下面的代码：
 </p>
+<p></p><p></p>
 
-<p>#include &lt;stdio.h>
-</p>
+<pre>
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+FILE *fp;
+int setMyBuffer()
+{
+    char buf[16];
+    if ((fp=fopen("data.txt", "r")) == NULL)
+    {
+        printf("read file failed\n");
+        exit(-1);
+    }
+    setvbuf(fp, buf, _IOFBF, 16);
+    return 0;
+}
+int main()
+{
+    setMyBuffer();
+    char readBuf[32];
+    int res;
+    res = fread(readBuf, 1, 16, fp);
+    readBuf[res] = '\0';
+    printf("read buf len is:%d, read buf is:\n%s\n", res, readBuf);
+    getchar();getchar();
+    return 0;
+}
+</pre>
 
-<p>#include &lt;stdlib.h>
-</p>
-
-<p>FILE *fp;
-</p>
-
-<p>int setMyBuffer()
-</p>
-
-<p>{
-</p>
-
-<p>char buf[16];
-</p>
-
-<p>if ((fp=fopen("data.txt", "r")) == NULL)
-</p>
-
-<p>{
-</p>
-
-<p>printf("read file failed\n");
-</p>
-
-<p>exit(-1);
-</p>
-
-<p>}
-</p>
-
-<p>setvbuf(fp, buf, _IOFBF, 16);
-</p>
-
-<p>}
-</p>
-
-<p>int main()
-</p>
-
-<p>{
-</p>
-
-<p>char readBuf[32];
-</p>
-
-<p>int res;
-</p>
-
-<p>res = fread(readBuf, 1, 16, fp);
-</p>
-
-<p>readBuf[res] = '\0';
-</p>
-
-<p>printf("read buf len is:%d, read buf is:\n%s\n", res, readBuf);
-</p>
-
-<p>return 0;
-</p>
-
-<p>}
-</p>
 
 <p>上面这段程序运行时会出现"段错误--Segmentation fault (core dumped)"，切记。
 </p>
@@ -330,7 +301,7 @@ sub,sup{
 <p>位于堆区的，这么说吧，栈区的内存是编译时可确定的。才会在栈区分配内存。io流读进来的数据量没办法确定所以只能在堆区分配空间去存
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>缓冲区的位置是不确定的，不确定是在堆区还是在栈区。我之前的回答混淆了一个概念，作为警示，就不删除了。
@@ -354,25 +325,25 @@ sub,sup{
 <p>上面这段代码的缓冲区就是在栈上面，如果把其中的char buf[256]改成动态new出来的空间，那么缓冲区就是在堆上面了。这才是真相，对于一开始没有深入研究就武断的下结论实在抱歉。
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>标准I/O缓冲区确实是用malloc分配，其初始大小是固定的（linux下可以通过setvbuf设置自己的I/O缓冲区），但原因不是“io流读进来的数据量没办法确定”。举个极端点的例子，用户要一次要fread 512Mbyte的数据，那么按照你的意思，标准I/O函数是不是要malloc一个512Mbytes的内存空间呢？
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>java io包里的缓冲区应该是在堆的，就是个普通的byte数组，nio的缓冲区是调用本地方法分配的直接内存，这样效率更高
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>标准I/O库提供缓冲的目的是尽可能地减少使用read和write系统调用陷入内核的次数，是由C标准I/O库函数来完成这样的缓冲功能，而据了解，标准I/O库通常调用malloc获得需要使用的缓冲区大小。因此，标准I/O缓冲区应该是从堆区分配。
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>为了缓冲区大小的更灵活的动态增长，应该是分配在堆里。
@@ -393,7 +364,7 @@ sub,sup{
 <p>http://support.microsoft.com/kb/44725/en
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>看了前面同学的回答以及一些资料，再总结一下。
@@ -408,7 +379,7 @@ sub,sup{
 <p>但是这些I/O操作我们是可以自己给它设置缓冲区的，如 @__mt同学的答案中的描述，不过这些自定义的缓冲区想要在哪里申请，就自己决定了，可以直接在栈中申请，也可以在堆中申请。
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>确实是在堆区，可以从fread的源码中可以看到。(以windows下的C运行库为例)
@@ -419,30 +390,19 @@ sub,sup{
 
 <p>在_getbuf()中可源代码：
 </p>
+<p></p>
 
-<p>FILE *stream;
-</p>
+<pre>
+FILE *stream;
+/* Try to get a big buffer */
+if (stream->_base = _malloc_crt(_INTERNAL_BUFSIZ))
+{
+    /* Got a big buffer */
+    stream->_flag |= _IOMYBUF;
+    stream->_bufsiz = _INTERNAL_BUFSIZ;
+}
+</pre>
 
-<p>/* Try to get a big buffer */
-</p>
-
-<p>if (stream->_base = _malloc_crt(_INTERNAL_BUFSIZ))
-</p>
-
-<p>{
-</p>
-
-<p>/* Got a big buffer */
-</p>
-
-<p>stream->_flag |= _IOMYBUF;
-</p>
-
-<p>stream->_bufsiz = _INTERNAL_BUFSIZ;
-</p>
-
-<p>}
-</p>
 
 <p>这里_INTERNAL_BUFSIZ=4096;
 </p>
@@ -450,7 +410,7 @@ sub,sup{
 <p>由此我们可以看到，若用户没有显示设置自己的I/O缓区，那么C运行库的标准I/O程序(如fread)会自动在堆上分配一段大小为4096的缓冲区。
 </p>
 
-<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+<p>－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 </p>
 
 <p>其实I/O缓冲区就是系统提供的API里面主动申请的一块内存区，是处于堆上的。所以就需要你在I/O完成之后，关闭I/O流，这样系统API会回收这块内存区。

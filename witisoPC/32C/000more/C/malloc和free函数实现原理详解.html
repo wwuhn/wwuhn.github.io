@@ -261,30 +261,23 @@ sub,sup{
 <p>其实这两个函数用起来倒不是很难，也就是malloc()之后觉得用够了就甩了它把它给free()了，举个简单例子：</p>
 
 <p>程序代码：</p>
+<p></p>
 
-<p>// Code...</p>
+<pre>
+// Code...
+char *Ptr = NULL;
+Ptr = (char *)malloc(100 * sizeof(char));
+if (NULL == Ptr)
+{
+    exit (1);
+}
+gets(Ptr);
+// code...
+free(Ptr);
+Ptr = NULL;
+// code...
+</pre>
 
-<p>char *Ptr = NULL;</p>
-
-<p>Ptr = (char *)malloc(100 * sizeof(char));</p>
-
-<p>if (NULL == Ptr)</p>
-
-<p>{</p>
-
-<p>exit (1);</p>
-
-<p>}</p>
-
-<p>gets(Ptr);</p>
-
-<p>// code...</p>
-
-<p>free(Ptr);</p>
-
-<p>Ptr = NULL;</p>
-
-<p>// code...</p>
 
 <p>就是这样！当然，具体情况要具体分析以及具体解决。比如说，你定义了一个指针，在一个函数里申请了一块内存然后通过函数返回传递给这个指针，那么也许释放这块内存这项工作就应该留给其他函数了。</p>
 
@@ -322,33 +315,34 @@ sub,sup{
 
 <p>程序代码：</p>
 
-<p>struct mem_control_block {</p>
+<p></p>
 
-<p>int is_available; //一般来说应该是一个可用空间的首地址，但这里英文单词却显示出空间是否可用的一个标记</p>
+<pre>
+struct mem_control_block {
+    int is_available; 
+    //一般来说应该是一个可用空间的首地址，
+    // 但这里英文单词却显示出空间是否可用的一个标记
+    int size; //这是实际空间的大小
+};
+</pre>
 
-<p>int size; //这是实际空间的大小</p>
-
-<p>};</p>
 
 <p>所以，free()就是根据这个结构体的信息来释放malloc()申请的空间！而结构体的两个成员的大小我想应该是操作系统的事了。</p>
 
 <p>下面看看free()的源代码</p>
+<p></p>
 
-<p>// code...</p>
+<pre>
+// code...
+void free(void *ptr)
+{
+    struct mem_control_block *free;
+    free = ptr - sizeof(struct mem_control_block);
+    free-&gt;is_available = 1;
+    return;
+}
+</pre>
 
-<p>void free(void *ptr)</p>
-
-<p>{</p>
-
-<p>struct mem_control_block *free;</p>
-
-<p>free = ptr - sizeof(struct mem_control_block);</p>
-
-<p>free-&gt;is_available = 1;</p>
-
-<p>return;</p>
-
-<p>}</p>
 
 <p>至于malloc的源码，有兴趣的可以到网上找一下！</p>
 

@@ -1,0 +1,614 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>HowtowriteagoodCmainfunction</h4>
+
+
+<p>Learn how to structure a C file and write a C main function that handles command line arguments like a champ.</p>
+<p>Hand drawing out the word "code"</p>
+<p>I know, Python and JavaScript are what the kids are writing all their crazy "apps" with these days. But don't be so quick to dismiss C—it's a capable and concise language that has a lot to offer. If you need speed, writing in C could be your answer. If you are looking for job security and the opportunity to learn how to hunt down null pointer dereferences, C could also be your answer! In this article, I'll explain how to structure a C file and write a C main function that handles command line arguments like a champ.</p>
+<p>Me: a crusty Unix system programmer.</p>
+<p>You: someone with an editor, a C compiler, and some time to kill.</p>
+<p>Let's do this.</p>
+<h4>A boring but correct C program</h4>
+<p>hatingotherpeoplescode-big.png</p>
+<p>Parody O'Reilly book cover, "Hating Other People's Code"</p>
+<p>A C program starts with a main() function, usually kept in a file named main.c.</p>
+<pre>
+/* main.c */
+int main(int argc, char *argv[]) {
+}
+</pre>
+<p>This program compiles but doesn't do anything.</p>
+<pre>
+$ gcc main.c
+$ ./a.out -o foo -vv
+$
+</pre>
+<p>Correct and boring.</p>
+<h4>Main functions are unique</h4>
+<p>The main() function is the first function in your program that is executed when it begins executing, but it's not the first function executed. The first function is _start(), which is typically provided by the C runtime library, linked in automatically when your program is compiled. The details are highly dependent on the operating system and compiler toolchain, so I'm going to pretend I didn't mention it.</p>
+<p>The main() function has two arguments that traditionally are called argc and argv and return a signed integer. Most Unix environments expect programs to return 0 (zero) on success and -1 (negative one) on failure.</p>
+<pre>
+Argument	Name	              Description
+argc	Argument count	      Length of the argument vector
+argv	Argument vector       Array of character pointers
+</pre>
+<p>The argument vector, argv, is a tokenized representation of the command line that invoked your program. In the example above, argv would be a list of the following strings:</p>
+<pre>
+argv = [ "/path/to/a.out", "-o", "foo", "-vv" ];
+</pre>
+<p>The argument vector is guaranteed to always have at least one string in the first index, argv[0], which is the full path to the program executed.</p>
+<p>Anatomy of a main.c file</p>
+<p>When I write a main.c from scratch, it's usually structured like this:</p>
+<pre>
+/* main.c */
+/* 0 copyright/licensing */
+/* 1 includes */
+/* 2 defines */
+/* 3 external declarations */
+/* 4 typedefs */
+/* 5 global variable declarations */
+/* 6 function prototypes */
+int main(int argc, char *argv[]) {
+/* 7 command-line parsing */
+}
+/* 8 function declarations */
+</pre>
+<p>I'll talk about each of these numbered sections, except for zero, below. If you have to put copyright or licensing text in your source, put it there.</p>
+<p>Another thing I won't talk about adding to your program is comments.</p>
+<p>"Comments lie."</p>
+<p>- A cynical but smart and good looking programmer.</p>
+<p>Instead of comments, use meaningful function and variable names.</p>
+<p>Appealing to the inherent laziness of programmers, once you add comments, you've doubled your maintenance load. If you change or refactor the code, you need to update or expand the comments. Over time, the code mutates away from anything resembling what the comments describe.</p>
+<p>If you have to write comments, do not write about what the code is doing. Instead, write about why the code is doing what it's doing. Write comments that you would want to read five years from now when you've forgotten everything about this code. And the fate of the world is depending on you. No pressure.</p>
+<h4>1. Includes</h4>
+<p>The first things I add to a main.c file are includes to make a multitude of standard C library functions and variables available to my program. The standard C library does lots of things; explore header files in /usr/include to find out what it can do for you.</p>
+<p>The #include string is a C preprocessor (cpp) directive that causes the inclusion of the referenced file, in its entirety, in the current file. Header files in C are usually named with a .h extension and should not contain any executable code; only macros, defines, typedefs, and external variable and function prototypes. The string <header.h> tells cpp to look for a file called header.h in the system-defined header path, usually /usr/include.</p>
+<pre>
+/* main.c */
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+#include &lt;unistd.h>
+#include &lt;libgen.h>
+#include &lt;errno.h>
+#include &lt;string.h>
+#include &lt;getopt.h>
+#include &lt;sys/types.h>
+</pre>
+<p>This is the minimum set of global includes that I'll include by default for the following stuff:</p>
+<pre>
+#include File	Stuff It Provides
+stdio	Supplies FILE, stdin, stdout, stderr, and the fprint() family of functions
+stdlib	Supplies malloc(), calloc(), and realloc()
+unistd	Supplies EXIT_FAILURE, EXIT_SUCCESS
+libgen	Supplies the basename() function
+errno	Defines the external errno variable and all the values it can take on
+string	Supplies memcpy(), memset(), and the strlen() family of functions
+getopt	Supplies external optarg, opterr, optind, and getopt() function
+sys/types	Typedef shortcuts like uint32_t and uint64_t
+</pre>
+<h4>2. Defines</h4>
+<pre>
+/* main.c */
+&lt;...>
+#define OPTSTR "vi:o:f:h"
+#define USAGE_FMT  "%s [-v] [-f hexflag] [-i inputfile] [-o outputfile] [-h]"
+#define ERR_FOPEN_INPUT  "fopen(input, r)"
+#define ERR_FOPEN_OUTPUT "fopen(output, w)"
+#define ERR_DO_THE_NEEDFUL "do_the_needful blew up"
+#define DEFAULT_PROGNAME "george"
+</pre>
+<p>This doesn't make a lot of sense right now, but the OPTSTR define is where I will state what command line switches the program will recommend. Consult the getopt(3) man page to learn how OPTSTR will affect getopt()'s behavior.</p>
+<p>The USAGE_FMT define is a printf()-style format string that is referenced in the usage() function.</p>
+<p>I also like to gather string constants as #defines in this part of the file. Collecting them makes it easier to fix spelling, reuse messages, and internationalize messages, if required.</p>
+<p>Finally, use all capital letters when naming a #define to distinguish it from variable and function names. You can run the words together if you want or separate words with an underscore; just make sure they're all upper case.</p>
+<h4>3. External declarations</h4>
+<pre>
+/* main.c */
+&lt;...>
+extern int errno;
+extern char *optarg;
+extern int opterr, optind;
+</pre>
+<p>An extern declaration brings that name into the namespace of the current compilation unit (aka "file") and allows the program to access that variable. Here we've brought in the definitions for three integer variables and a character pointer. The opt prefaced variables are used by the getopt() function, and errno is used as an out-of-band communication channel by the standard C library to communicate why a function might have failed.</p>
+<h4>4. Typedefs</h4>
+<pre>
+/* main.c */
+&lt;...>
+typedef struct {
+  int           verbose;
+  uint32_t      flags;
+  FILE         *input;
+  FILE         *output;
+} options_t;
+</pre>
+<p>After external declarations, I like to declare typedefs for structures, unions, and enumerations. Naming a typedef is a religion all to itself; I strongly prefer a _t suffix to indicate that the name is a type. In this example, I've declared options_t as a struct with four members. C is a whitespace-neutral programming language, so I use whitespace to line up field names in the same column. I just like the way it looks. For the pointer declarations, I prepend the asterisk to the name to make it clear that it's a pointer.</p>
+<h4>5. Global variable declarations</h4>
+<pre>
+/* main.c */
+&lt;...>
+int dumb_global_variable = -11;
+</pre>
+<p>Global variables are a bad idea and you should never use them. But if you have to use a global variable, declare them here and be sure to give them a default value. Seriously, don't use global variables.</p>
+<h4>6. Function prototypes</h4>
+<pre>
+/* main.c */
+&lt;...>
+void usage(char *progname, int opt);
+int  do_the_needful(options_t *options);
+</pre>
+<p>As you write functions, adding them after the main() function and not before, include the function prototypes here. Early C compilers used a single-pass strategy, which meant that every symbol (variable or function name) you used in your program had to be declared before you used it. Modern compilers are nearly all multi-pass compilers that build a complete symbol table before generating code, so using function prototypes is not strictly required. However, you sometimes don't get to choose what compiler is used on your code, so write the function prototypes and drive on.</p>
+<p>As a matter of course, I always include a usage() function that main() calls when it doesn't understand something you passed in from the command line.</p>
+<h4>7. Command line parsing</h4>
+<pre>
+/* main.c */
+&lt;...>
+int main(int argc, char *argv[]) {
+    int opt;
+    options_t options = { 0, 0x0, stdin, stdout };
+    opterr = 0;
+    while ((opt = getopt(argc, argv, OPTSTR)) != EOF)
+       switch(opt) {
+           case 'i':
+              if (!(options.input = fopen(optarg, "r")) ){
+                 perror(ERR_FOPEN_INPUT);
+                 exit(EXIT_FAILURE);
+                 /* NOTREACHED */
+              }
+              break;
+           case 'o':
+              if (!(options.output = fopen(optarg, "w")) ){
+                 perror(ERR_FOPEN_OUTPUT);
+                 exit(EXIT_FAILURE);
+                 /* NOTREACHED */
+              }    
+              break;
+             
+           case 'f':
+              options.flags = (uint32_t )strtoul(optarg, NULL, 16);
+              break;
+           case 'v':
+              options.verbose += 1;
+              break;
+           case 'h':
+           default:
+              usage(basename(argv[0]), opt);
+              /* NOTREACHED */
+              break;
+       }
+    if (do_the_needful(&options) != EXIT_SUCCESS) {
+       perror(ERR_DO_THE_NEEDFUL);
+       exit(EXIT_FAILURE);
+       /* NOTREACHED */
+    }
+    return EXIT_SUCCESS;
+}
+</pre>
+<p>OK, that's a lot. The purpose of the main() function is to collect the arguments that the user provides, perform minimal input validation, and then pass the collected arguments to functions that will use them. This example declares an options variable initialized with default values and parse the command line, updating options as necessary.</p>
+<p>The guts of this main() function is a while loop that uses getopt() to step through argv looking for command line options and their arguments (if any). The OPTSTR #define earlier in the file is the template that drives getopt()'s behavior. The opt variable takes on the character value of any command line options found by getopt(), and the program's response to the detection of the command line option happens in the switch statement.</p>
+<p>Those of you paying attention will now be questioning why opt is declared as a 32-bit int but is expected to take on an 8-bit char? It turns out that getopt() returns an int that takes on a negative value when it gets to the end of argv, which I check against EOF (the End of File marker). A char is a signed quantity, but I like matching variables to their function return values.</p>
+<p>When a known command line option is detected, option-specific behavior happens. Some options have an argument, specified in OPTSTR with a trailing colon. When an option has an argument, the next string in argv is available to the program via the externally defined variable optarg. I use optarg to open files for reading and writing or converting a command line argument from a string to an integer value.</p>
+<p>There are a couple of points for style here:</p>
+<p>Initialize opterr to 0, which disables getopt from emiting a ?.</p>
+<p>Use exit(EXIT_FAILURE); or exit(EXIT_SUCCESS); in the middle of main().</p>
+<p>/* NOTREACHED */ is a lint directive that I like.</p>
+<p>Use return EXIT_SUCCESS; at the end of functions that return int.</p>
+<p>Explicitly cast implicit type conversions.</p>
+<p>The command line signature for this program, if it were compiled, would look something like this:</p>
+<pre>
+$ ./a.out -h
+a.out [-v] [-f hexflag] [-i inputfile] [-o outputfile] [-h]
+</pre>
+<p>In fact, that's what usage() will emit to stderr once compiled.</p>
+<h4>8. Function declarations</h4>
+<pre>
+/* main.c */
+&lt;...>
+void usage(char *progname, int opt) {
+   fprintf(stderr, USAGE_FMT, progname?progname:DEFAULT_PROGNAME);
+   exit(EXIT_FAILURE);
+   /* NOTREACHED */
+}
+int do_the_needful(options_t *options) {
+   if (!options) {
+     errno = EINVAL;
+     return EXIT_FAILURE;
+   }
+   if (!options->input || !options->output) {
+     errno = ENOENT;
+     return EXIT_FAILURE;
+   }
+   /* XXX do needful stuff */
+   return EXIT_SUCCESS;
+}
+</pre>
+<p>Finally, I write functions that aren't boilerplate. In this example, function do_the_needful() accepts a pointer to an options_t structure. I validate that the options pointer is not NULL and then go on to validate the input and output structure members. EXIT_FAILURE returns if either test fails and, by setting the external global variable errno to a conventional error code, I signal to the caller a general reason. The convenience function perror() can be used by the caller to emit human-readable-ish error messages based on the value of errno.</p>
+<p>Functions should almost always validate their input in some way. If full validation is expensive, try to do it once and treat the validated data as immutable. The usage() function validates the progname argument using a conditional assignment in the fprintf() call. The usage() function is going to exit anyway, so I don't bother setting errno or making a big stink about using a correct program name.</p>
+<p>The big class of errors I am trying to avoid here is de-referencing a NULL pointer. This will cause the operating system to send a special signal to my process called SYSSEGV, which results in unavoidable death. The last thing users want to see is a crash due to SYSSEGV. It's much better to catch a NULL pointer in order to emit better error messages and shut down the program gracefully.</p>
+<p>Some people complain about having multiple return statements in a function body. They make arguments about "continuity of control flow" and other stuff. Honestly, if something goes wrong in the middle of a function, it's a good time to return an error condition. Writing a ton of nested if statements to just have one return is never a "good idea." </p>
+<p>Finally, if you write a function that takes four or more arguments, consider bundling them in a structure and passing a pointer to the structure. This makes the function signatures simpler, making them easier to remember and not screw up when they're called later. It also makes calling the function slightly faster, since fewer things need to be copied into the function's stack frame. In practice, this will only become a consideration if the function is called millions or billions of times. Don't worry about it if that doesn't make sense.</p>
+<p>Wait, you said no comments!?!!</p>
+<p>In the do_the_needful() function, I wrote a specific type of comment that is designed to be a placeholder rather than documenting the code:</p>
+<p>/* XXX do needful stuff */</p>
+<p>When you are in the zone, sometimes you don't want to stop and write some particularly gnarly bit of code. You'll come back and do it later, just not now. That's where I'll leave myself a little breadcrumb. I insert a comment with a XXX prefix and a short remark describing what needs to be done. Later on, when I have more time, I'll grep through source looking for XXX. It doesn't matter what you use, just make sure it's not likely to show up in your codebase in another context, as a function name or variable, for instance.</p>
+<h4>Putting it all together</h4>
+<p>OK, this program still does almost nothing when you compile and run it. But now you have a solid skeleton to build your own command line parsing C programs.</p>
+<pre>
+/* main.c - the complete listing */
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+#include &lt;unistd.h>
+#include &lt;libgen.h>
+#include &lt;errno.h>
+#include &lt;string.h>
+#include &lt;getopt.h>
+#define OPTSTR "vi:o:f:h"
+#define USAGE_FMT  "%s [-v] [-f hexflag] [-i inputfile] [-o outputfile] [-h]"
+#define ERR_FOPEN_INPUT  "fopen(input, r)"
+#define ERR_FOPEN_OUTPUT "fopen(output, w)"
+#define ERR_DO_THE_NEEDFUL "do_the_needful blew up"
+#define DEFAULT_PROGNAME "george"
+extern int errno;
+extern char *optarg;
+extern int opterr, optind;
+typedef struct {
+  int           verbose;
+  uint32_t      flags;
+  FILE         *input;
+  FILE         *output;
+} options_t;
+int dumb_global_variable = -11;
+void usage(char *progname, int opt);
+int  do_the_needful(options_t *options);
+int main(int argc, char *argv[]) {
+    int opt;
+    options_t options = { 0, 0x0, stdin, stdout };
+    opterr = 0;
+    while ((opt = getopt(argc, argv, OPTSTR)) != EOF)
+       switch(opt) {
+           case 'i':
+              if (!(options.input = fopen(optarg, "r")) ){
+                 perror(ERR_FOPEN_INPUT);
+                 exit(EXIT_FAILURE);
+                 /* NOTREACHED */
+              }
+              break;
+           case 'o':
+              if (!(options.output = fopen(optarg, "w")) ){
+                 perror(ERR_FOPEN_OUTPUT);
+                 exit(EXIT_FAILURE);
+                 /* NOTREACHED */
+              }    
+              break;
+             
+           case 'f':
+              options.flags = (uint32_t )strtoul(optarg, NULL, 16);
+              break;
+           case 'v':
+              options.verbose += 1;
+              break;
+           case 'h':
+           default:
+              usage(basename(argv[0]), opt);
+              /* NOTREACHED */
+              break;
+       }
+    if (do_the_needful(&options) != EXIT_SUCCESS) {
+       perror(ERR_DO_THE_NEEDFUL);
+       exit(EXIT_FAILURE);
+       /* NOTREACHED */
+    }
+    return EXIT_SUCCESS;
+}
+void usage(char *progname, int opt) {
+   fprintf(stderr, USAGE_FMT, progname?progname:DEFAULT_PROGNAME);
+   exit(EXIT_FAILURE);
+   /* NOTREACHED */
+}
+int do_the_needful(options_t *options) {
+   if (!options) {
+     errno = EINVAL;
+     return EXIT_FAILURE;
+   }
+   if (!options->input || !options->output) {
+     errno = ENOENT;
+     return EXIT_FAILURE;
+   }
+   /* XXX do needful stuff */
+   return EXIT_SUCCESS;
+}
+</pre>
+<p>Now you're ready to write C that will be easier to maintain. If you have any questions or feedback, please share them in the comments.</p>
+
+
+<p style='float:right;'>本页共318段，18802个字符，19122 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

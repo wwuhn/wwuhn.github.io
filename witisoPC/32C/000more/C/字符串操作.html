@@ -435,8 +435,8 @@ int main(){
 <p>3. MFC中的CString类。</p>
 <p>MFC中的字符串类是CString，封装了string的东西，并增加了一些接口，在功能上完全兼容string类，而一些标准的C/C++不能直接对CString类进行操作，CString   类是微软的visual   c++提供的MFC里面的一个类，所以只有支持MFC的工程才可以使用。如在linux上的工程就不能用CString了，只能用标准C++中的   string类了。另外，因为string类是在c++标准库中，所以它被封装在了std命名空间中，使用之前需要声明using namespace   std;而CString类并不在std命名空间中，因为它不是c++的标准库，只是微软的一个封装库。这点看来用string类的程序的移植性更好。CString和string提供的接口方法不同，对char*的转换也不同。下面的转换内容来自CSDNBLOG:http://blog.csdn.net/bitxinhai/article/details/2292014</p>
 <p>4.1 CString 和string的转换</p>
-<p>stringstr=&quot;ksarea&quot;;<br />
-      CStringcstr(str.c_str());    //或者CString cstr(str.data());初始化时才行<br />
+<p>string str=&quot;ksarea&quot;;<br />
+      CString cstr(str.c_str());    //或者CString cstr(str.data());初始化时才行<br />
       cstr=str.c_str();或者cstr=str.data();<br />
       str=cstr.GetBuffer(0);//CString -&gt; string<br />
       cstr.format(&quot;%s&quot;,str.c_str());    //string-&gt;CString<br />
@@ -444,17 +444,18 @@ int main(){
       str=LPCSTR(cstr);//CString-&gt;string<br />
       /*c_str()和data()区别是：前者返回带'/0'的字符串，后者则返回不带'/0'的字符串*/</p>
 <p><strong>4.2.CString</strong><strong>和int的转换</strong>int i=123;<br />
-      CStringstr;<br />
+      CString str;<br />
       str.format(&quot;%d&quot;,i);    //int-&gt;CString其他的基本类型转化类似<br />
       i=atoi(str);//CString-&gt;int还有(atof,atol)<strong><br />
 <br />
-4.3.char*</strong><strong>和CString的转换</strong>CString cstr=&quot;ksarea&quot;;<br />
+4.3.char*</strong><strong>和CString的转换</strong><br />
+CString cstr=&quot;ksarea&quot;;<br />
       char* ptemp=cstr.getbuffer(0);<br />
       char* str;<br />
       strcpy(str,ptemp);//CString-&gt;char*<br />
       cstr.releasebuffer(-1);<br />
       char*str=&quot;lovesha&quot;;<br />
-      CStringcstr=str;//char*-&gt;CString
+      CString cstr=str;//char*-&gt;CString
 	  
 	  <p>string类型不能直接赋值给CString。至于int与float、string与char*之间的转化可以使用强制转化，或者标准库函数进行。对于CString与其他类型的转化方法很多，但其实都殊途同归，朝着一个方向即将类型首先转化为char*类型，因为char*是不同类型之间的桥梁。得到char*类型，转化为其他类型就非常容易了。这篇文章：   http://hi.baidu.com/sage_haokun/blog/item/a44b9733aa14d812ebc4afbc.html   ，还不错，主要讲述CString和string的区别，感兴趣的可以去瞅一下。</p>
   </div>

