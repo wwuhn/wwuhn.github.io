@@ -1,0 +1,535 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>已获许可机构（支付机构）</h3>
+
+<p>索引号	公开信息名称	生成日期	内容概述</p>
+<p>Z20001 33000 019 支付宝（中国）网络技术有限公司	2018 年1 月6 日	</p>
+<p>	Z20002 31000 010 银联商务股份有限公司	2018 年1 月6 日	</p>
+<p>	Z20003 11000 013 资和信电子支付有限公司	2016 年5 月3 日	</p>
+<p>	Z20004 44000 013 财付通支付科技有限公司	2018 年6 月26 日	</p>
+<p>	Z20005 31000 017 通联支付网络服务股份有限公司	2018 年6 月26 日	</p>
+<p>	Z20006 11000 010 开联通支付服务有限公司	2019 年6 月13 日	</p>
+<p>	Z20007 11000 019 易宝支付有限公司	2018 年1 月6 日	</p>
+<p>	Z20008 31000 014 快钱支付清算信息有限公司	2017 年5 月15 日	</p>
+<p>	Z20009 31000 013 上海汇付数据服务有限公司	2017 年8 月30 日	</p>
+<p>	Z20010 31000 010 上海盛付通电子支付服务有限公司	2019 年6 月13 日	</p>
+<p>	Z20011 11000 013 北京钱袋宝支付技术有限公司	2019 年6 月13 日	</p>
+<p>	Z20012 31000 018 东方电子支付有限公司	2017 年5 月15 日	</p>
+<p>	Z20013 44000 012 深圳市快付通金融网络科技服务有限公司	2016 年5 月3 日	</p>
+<p>	Z20014 44000 011 广州银联网络支付有限公司	2017 年5 月15 日	</p>
+<p>	Z20015 11000 019 北京数字王府井科技有限公司	2018 年6 月26 日	</p>
+<p>	Z20016 11000 018 北京银联商务有限公司	2018 年1 月6 日	</p>
+<p>	Z20018 11000 016 裕福支付有限公司	2017 年6 月23 日	</p>
+<p>	Z20019 12000 014 易生支付有限公司	2017 年5 月15 日	</p>
+<p>	Z20020 44000 013 银盛支付服务股份有限公司	2018 年6 月26 日	</p>
+<p>	Z20021 31000 017 迅付信息科技有限公司	2016 年5 月3 日	</p>
+<p>	Z20022 11000 010 网银在线（北京）科技有限公司	2017 年8 月30 日	</p>
+<p>	Z20023 46000 018 新生支付有限公司	2019 年6 月13 日	</p>
+<p>	Z20024 31000 014 平安付电子支付有限公司	2016 年5 月3 日	</p>
+<p>	Z20025 11000 017 拉卡拉支付股份有限公司	2019 年6 月13 日	</p>
+<p>	Z20026 31000 012 上海付费通信息服务有限公司	2017 年5 月15 日	</p>
+<p>	Z20027 44000 016 平安付科技服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20028 31000 010 上海银联电子支付服务有限公司	2016 年8 月29 日	</p>
+<p>	Z20029 33000 017 连连银通电子支付有限公司	2019 年7 月10 日	</p>
+<p>	Z20030 11000 010 联动优势电子商务有限公司	2018 年1 月6 日	</p>
+<p>	Z20031 51000 010 成都摩宝网络科技有限公司	2018 年1 月6 日	</p>
+<p>	Z20032 15000 014 捷付睿通股份有限公司	2019 年12 月27 日	</p>
+<p>	Z20033 52000 017 证联支付有限责任公司	2017 年5 月15 日	</p>
+<p>	Z20034 31000 012 得仕股份有限公司	2016 年8 月29 日	</p>
+<p>	Z20035 37000 015 易通金服支付有限公司	2019 年6 月13 日	</p>
+<p>	Z20036 15000 010 中网支付服务股份有限公司	2016 年8 月29 日	</p>
+<p>	Z20038 51000 013 四川商通实业有限公司	2016 年8 月29 日	</p>
+<p>	Z20039 32000 016 南京市市民卡有限公司	2019 年6 月13 日	</p>
+<p>	Z20041 11000 017 天翼电子商务有限公司	2016 年12 月22 日	</p>
+<p>	Z20042 11000 016 联通支付有限公司	2018 年6 月26 日	</p>
+<p>	Z20043 43000 017 中移电子商务有限公司	2018 年1 月6 日	</p>
+<p>Z20044 31000 010 开店宝支付服务有限公司	2018 年6 月26 日	</p>
+<p>	Z20045 12000 012 天津城市一卡通有限公司	2019 年7 月10 日	</p>
+<p>	Z20046 32000 017 瑞祥商务服务有限公司	2019 年12 月27 日	</p>
+<p>	Z20047 42000 014 武汉市金源信企业服务信息系统有限公司	2016 年12 月22 日	</p>
+<p>	Z20048 44000 011 广东银结通电子支付结算有限公司	2019 年12 月27 日	</p>
+<p>	Z20049 51000 010 现代金融控股（成都）有限公司	2019 年7 月10 日	</p>
+<p>	Z20050 11000 015 国付宝信息科技有限公司	2016 年12 月22 日	</p>
+<p>	Z20051 50000 016 重庆易极付科技有限公司	2016 年12 月22 日	</p>
+<p>	Z20052 13000 011 河北一卡通电子支付服务有限公司	2016 年12 月22 日	</p>
+<p>	Z20053 14000 019 山西万卡德商务有限公司	2018 年6 月26 日	</p>
+<p>	Z20054 23000 017 哈尔滨华通支付网络科技有限公司	2016 年12 月22 日	</p>
+<p>	Z20055 33000 014 商盟商务服务有限公司	2019 年12 月27 日	</p>
+<p>	Z20056 34000 012 安徽华夏通支付有限公司	2018 年6 月26 日	</p>
+<p>	Z20057 41000 012 河南汇银丰信息技术有限公司	2019 年12 月27 日	</p>
+<p>	Z20058 52000 017 贵州汇联通电子商务服务有限公司	2016 年12 月22 日	</p>
+<p>	Z20059 21000 014 大连中鼎支付有限公司	2016 年12 月22 日	</p>
+<p>	Z20060 33000 017 宁波银联商务有限公司	2017 年5 月15 日	</p>
+<p>	Z20061 35000 014 厦门易通卡运营有限责任公司	2016 年12 月22 日	</p>
+<p>	Z20062 44000 012 重庆市钱宝科技服务有限公司	2019 年6 月13 日	</p>
+<p>	Z20063 31000 016 上海电银信息技术有限公司	2018 年6 月26 日	</p>
+<p>Z20064 44000 010 易联支付有限公司	2019 年6 月13 日	</p>
+<p>	Z20065 11000 018 北京海科融通支付服务股份有限公司	2019 年12 月27 日	</p>
+<p>	Z20067 35000 018 中联信（福建）支付服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20068 44000 016 深圳市腾付通电子支付科技有限公司	2016 年12 月22 日	</p>
+<p>	Z20069 31000 010 东方付通信息技术有限公司	2019 年6 月13 日	</p>
+<p>	Z20071 11000 010 易智付科技（北京）有限公司	2019 年6 月13 日	</p>
+<p>	Z20072 44000 010 顺丰恒通支付有限公司	2016 年12 月22 日	</p>
+<p>	Z20074 44000 018 易票联支付有限公司	2019 年6 月13 日	</p>
+<p>	Z20076 44000 016 深圳市深银联易办事金融服务有限公司	2019 年6 月13 日	</p>
+<p>	Z20077 31000 010 上海银生宝电子支付服务有限公司	2016 年12 月22 日	</p>
+<p>	Z20078 44000 014 深圳市银联金融网络有限公司	2016 年12 月22 日	</p>
+<p>	Z20079 31000 018 宝付网络科技（上海）有限公司	2016 年12 月22 日	</p>
+<p>	Z20080 31000 015 付临门支付有限公司	2018 年7 月16 日	</p>
+<p>	Z20081 11000 018 中金支付有限公司	2016 年12 月22 日	</p>
+<p>	Z20082 31000 013 上海富友支付服务股份有限公司	2018 年1 月6 日	</p>
+<p>	Z20083 11000 016 安易联融电子商务有限公司	2017 年6 月23 日	</p>
+<p>	Z20084 11000 015 北京爱农驿站科技服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20086 11000 013 北京首采联合电子商务有限责任公司	2018 年6 月26 日	</p>
+<p>	Z20087 11000 012 北京中欣银宝通支付服务有限公司	2016 年12 月22 日	</p>
+<p>	Z20088 31000 017 上海都市旅游卡发展有限公司	2019 年6 月13 日	</p>
+<p>Z20089 11000 010 北京市政交通一卡通有限公司	2018 年1 月6 日	</p>
+<p>	Z20091 11000 016 北京雅酷时空信息交换技术有限公司	2019 年7 月10 日	</p>
+<p>	Z20093 11000 014 北京中投科信电子商务有限责任公司	2018 年11 月12 日	</p>
+<p>	Z20094 31000 019 上海商联信电子支付服务有限公司	2016 年12 月22 日	</p>
+<p>	Z20095 31000 018 安付宝商务有限公司	2016 年12 月22 日	</p>
+<p>	Z20096 31000 017 上海便利通电子商务有限公司	2016 年12 月22 日	</p>
+<p>	Z20097 31000 016 上海纽斯达科技有限公司	2019 年12 月27 日	</p>
+<p>	Z20098 31000 015 锦江国际商务有限公司	2016 年12 月22 日	</p>
+<p>	Z20099 31000 014 上海申城通商务有限公司	2016 年12 月22 日	</p>
+<p>	Z20100 31000 011 上海大众交通商务有限公司	2018 年11 月12 日	</p>
+<p>	Z20101 31000 010 杉德支付网络服务发展有限公司	2017 年6 月6 日	</p>
+<p>	Z20102 31000 019 卡友支付服务有限公司	2018 年7 月16 日	</p>
+<p>	Z20103 31000 018 汇潮支付有限公司	2017 年6 月27 日	</p>
+<p>	Z20104 31000 017 上海瀚银信息技术有限公司	2017 年6 月27 日	</p>
+<p>	Z20105 31000 016 银视通信息科技有限公司	2017 年6 月27 日	</p>
+<p>	Z20106 31000 015 上海东方汇融信息技术服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20107 12000 017 天津融宝支付网络有限公司	2019 年12 月27 日	</p>
+<p>	Z20108 32000 012 南京苏宁易付宝网络科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20109 32000 011 双乾网络支付有限公司	2018 年1 月6 日	</p>
+<p>	Z20110 37000 013 山东省电子商务综合运营管理有限公司	2017 年6 月27 日</p>
+<p>	Z20111 44000 013 深圳市美的支付科技有限公司	2017 年6 月27 日	</p>
+<p>	Z20112 44000 012 嘉联支付有限公司	2019 年12 月27 日	</p>
+<p>	Z20113 44000 011 智付电子支付有限公司	2017 年6 月27 日	</p>
+<p>	Z20114 11000 019 北京一九付支付科技有限公司	2017 年6 月27 日	</p>
+<p>	Z20115 11000 018 北京数码视讯支付技术有限公司	2017 年6 月27 日	</p>
+<p>	Z20116 11000 017 汇元银通（北京）在线支付技术有限公司	2019 年7 月10 日	</p>
+<p>	Z20117 11000 016 随行付支付有限公司	2017 年6 月27 日	</p>
+<p>	Z20118 33000 019 网易宝有限公司	2019 年6 月13 日	</p>
+<p>	Z20119 33000 018 浙江唯品会支付服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20120 33000 015 浙江航天电子信息产业有限公司	2017 年6 月27 日	</p>
+<p>	Z20121 33000 014 浙江甬易电子支付有限公司	2017 年6 月27 日	</p>
+<p>	Z20122 35000 011 福建国通星驿网络科技有限公司	2016 年6 月27 日	</p>
+<p>	Z20123 43000 010 九派天下支付有限公司	2019 年12 月27 日	</p>
+<p>	Z20124 45000 017 广西恒大万通支付有限公司	2019 年6 月13 日	</p>
+<p>	Z20125 65000 011 新疆润物网络有限公司	2017 年6 月27 日	</p>
+<p>	Z20126 32000 010 江苏省电子商务服务中心有限责任公司	2017 年6 月27 日	</p>
+<p>	Z20127 37000 014 山东网上有名网络科技有限公司	2019 年6 月13 日	</p>
+<p>	Z20128 31000 019 上海申鑫电子支付股份有限公司	2017 年6 月27 日	</p>
+<p>	Z20129 31000 018 上海亿付数字技术有限公司	2017 年6 月27 日	</p>
+<p>	Z20130 31000 015 上海新华传媒电子商务有限公司	2017 年6 月27 日</p>
+<p>	Z20131 31000 014 上海商业高新技术发展有限公司	2017 年6 月27 日	</p>
+<p>	Z20132 31000 013 上海乐易信息技术有限公司	2017 年6 月27 日	</p>
+<p>	Z20133 31000 012 上海金诚通电子支付服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20134 31000 011 中钢银通信息技术服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20135 31000 010 上海大千商务服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20136 31000 019 上海润通实业投资有限公司	2017 年6 月27 日	</p>
+<p>	Z20138 31000 017 上海巾帼三六五企业服务有限公司	2018 年6 月26 日	</p>
+<p>	Z20139 31000 016 上海瑞得企业服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20140 32000 012 江苏爱心消费支付服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20141 32000 011 江苏大众书局商务服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20142 32000 010 南京万商商务服务有限公司	2018 年6 月26 日	</p>
+<p>	Z20143 32000 019 江苏鸿兴达邮政商务资讯有限公司	2017 年6 月27 日	</p>
+<p>	Z20144 32000 018 江苏旅通商务有限公司	2018 年1 月6 日	</p>
+<p>	Z20145 32000 017 无锡市民卡有限公司	2017 年6 月27 日	</p>
+<p>	Z20146 32000 016 苏州市民卡有限公司	2018 年1 月6 日	</p>
+<p>	Z20147 37000 010 山东城联一卡通支付有限责任公司	2017 年6 月27 日	</p>
+<p>	Z20148 51000 010 成都天府通金融服务股份有限公司	2019 年12 月27 日	</p>
+<p>	Z20149 44000 019 汇通宝支付有限责任公司	2017 年6 月27 日	</p>
+<p>	Z20150 44000 015 中付支付科技有限公司	2017 年6 月27 日	</p>
+<p>	Z20151 44000 014 深圳市商连商用电子技术有限公司	2018 年7 月6 日	</p>
+<p>	Z20153 61000 010 陕西易通商联网络支付科技有限公司	2019 年6 月13 日	</p>
+<p>	Z20154 61000 019 陕西邮政西邮寄电子支付有限责任公司	2017 年6 月27 日	</p>
+<p>	Z20155 11000 019 北京恒信通电信服务有限公司	2017 年6 月27 日	</p>
+<p>	Z20156 11000 018 北京和融通支付科技有限公司	2018 年11 月12 日	</p>
+<p>	Z20157 11000 017 商银信支付服务有限责任公司	2017 年6 月27 日	</p>
+<p>	Z20158 11000 016 北京市银博盛世电子商务有限公司	2018 年6 月26 日	</p>
+<p>	Z20159 11000 015 北京银通支付有限公司	2018 年11 月12 日	</p>
+<p>	Z20161 11000 011 北京华瑞富达科技有限公司	2018 年11 月12 日	</p>
+<p>	Z20162 11000 010 北京高汇通商业管理有限公司	2017 年6 月27 日	</p>
+<p>	Z20164 11000 018 银信联（北京）支付有限公司	2018 年6 月26 日	</p>
+<p>	Z20166 11000 016 北京广聚福支付有限公司	2017 年6 月27 日	</p>
+<p>	Z20167 11000 015 北京商银科技有限公司	2018 年11 月12 日	</p>
+<p>	Z20168 11000 014 国旅（北京）信息科技有限公司	2017 年6 月27 日	</p>
+<p>	Z20169 50000 015 重庆城市通卡支付有限责任公司	2017 年6 月27 日	</p>
+<p>	Z20170 50000 012 重庆市公众城市一卡通有限责任公司	2017 年6 月27 日	</p>
+<p>	Z20171 50000 011 重庆千礼科技有限公司	2019 年6 月13 日	</p>
+<p>	Z20172 13000 016 御嘉支付有限公司	2017 年6 月27 日	</p>
+<p>	Z20173 14000 014 山西易联支付数据处理有限公司	2018 年6 月26 日	</p>
+<p>	Z20175 22000 012 吉林省通卡支付股份有限公司	2017 年6 月27 日	</p>
+<p>	Z20178 33000 016 舟山市明生商盟科技服务有限公司	2017 年6 月27 日</p>
+<p>	Z20179 33000 015 浙江银付通信息科技有限公司	2017 年6 月27 日	</p>
+<p>	Z20180 35000 010 福建一卡通网络有限责任公司	2019 年6 月13 日	</p>
+<p>	Z20181 35000 019 福建省掌财通支付服务有限公司	2019 年12 月27 日	</p>
+<p>	Z20182 35000 018 福建省瑞特商业支付有限公司	2018 年1 月6 日	</p>
+<p>	Z20183 35000 017 厦门象屿支付有限公司	2018 年6 月26 日	</p>
+<p>	Z20184 34000 017 安徽省万事通金卡通科技信息服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20185 34000 016 安徽圣德天开信息科技有限公司	2018 年11 月12 日	</p>
+<p>	Z20187 36000 012 江西缴费通信息技术股份有限公司	2018 年6 月26 日	</p>
+<p>	Z20188 43000 012 湖南潇湘支付有限公司	2017 年6 月27 日	</p>
+<p>	Z20190 45000 016 广西支付通商务服务有限公司	2018 年11 月12 日	</p>
+<p>	Z20192 53000 013 昆明卡互卡支付科技有限公司	2018 年1 月6 日	</p>
+<p>	Z20194 53000 011 云南本元支付管理有限公司	2017 年6 月27 日	</p>
+<p>	Z20195 62000 019 兰州易家万通企业服务有限公司	2019 年6 月13 日	</p>
+<p>	Z20196 37000 010 青岛百森通支付有限公司	2019 年6 月13 日	</p>
+<p>	Z20197 37000 019 青岛百达通支付服务有限公司	2019 年12 月27 日	</p>
+<p>	Z20198 31000 014 广东汇卡商务服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20201 12000 012 中汇电子支付有限公司	2018 年1 月6 日	</p>
+<p>	Z20202 21000 010 辽宁新天数字科技有限公司	2018 年1 月6 日	</p>
+<p>	Z20203 32000 016 江苏飞银商务智能科技有限公司	2018 年1 月6 日	</p>
+<p>	Z20204 37000 010 山东高速信联支付有限公司	2018 年1 月6 日</p>
+<p>	Z20205 42000 012 供销中百支付有限公司	2018 年1 月6 日	</p>
+<p>	Z20206 51000 019 成都支付通新信息技术服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20207 61000 016 陕西煤炭交易中心有限公司	2018 年1 月6 日	</p>
+<p>	Z20208 11000 016 北京亚科技术开发有限责任公司	2019 年7 月10 日	</p>
+<p>	Z20209 13000 013 河北北人冀通支付服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20210 33000 016 杭州市民卡有限公司	2018 年1 月6 日	</p>
+<p>	Z20212 41000 014 郑州建业至尊商务服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20214 52000 018 贵州贵金支付网络服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20215 37000 017 山东银利支付服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20216 31000 012 上海商旅通商务服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20217 32000 010 江苏大贺会支付商务服务有限公司	2018 年1 月6 日	</p>
+<p>	Z20218 32000 019 江苏金禧智能卡管理有限公司	2018 年1 月6 日	</p>
+<p>	Z20219 11000 013 百联优力（北京）投资有限公司	2018 年1 月6 日	</p>
+<p>	Z20220 11000 010 银盈通支付有限公司	2019 年12 月27 日	</p>
+<p>	Z20221 11000 019 北京全顺通商贸有限公司	2018 年1 月6 日	</p>
+<p>	Z20222 11000 018 中信恒达支付有限公司	2018 年1 月6 日	</p>
+<p>	Z20224 35000 018 厦门夏商电子商务有限公司	2018 年11 月12 日	</p>
+<p>	Z20225 34000 018 安徽皖垦商务投资服务有限公司	2018 年7 月6 日	</p>
+<p>	Z20226 53000 013 云南银通支付管理有限公司	2018 年7 月6 日	</p>
+<p>	Z20227 11000 013 北京度小满支付科技有限公司	2019 年12 月27 日	</p>
+<p>	Z20229 32000 016 艾登瑞德（中国）有限公司	2018 年7 月6 日	</p>
+<p>	Z20230 14000 015 山西金虎信息服务有限公司	2018 年7 月6 日	</p>
+<p>	Z20232 11000 016 北京繁星山谷信息技术有限公司	2018 年7 月6 日	</p>
+<p>	Z20233 34000 018 宁国百家汇投资管理有限公司	2018 年7 月6 日	</p>
+<p>	Z20234 33000 018 杭州通策会综合服务有限公司	2018 年7 月6 日	</p>
+<p>	Z20235 31000 019 上海索迪斯万通服务有限公司	2019 年6 月13 日	</p>
+<p>	Z20236 61000 011 榆林元亨商务管理有限责任公司	2018 年7 月6 日	</p>
+<p>	Z20238 35000 012 福建省银通商务服务有限公司	2018 年7 月6 日	</p>
+<p>	Z20239 23000 015 圣亚云鼎支付有限公司	2018 年7 月6 日	</p>
+<p>	Z20240 44000 017 广东信汇电子商务有限公司	2018 年11 月12 日	</p>
+<p>	Z20242 44000 015 捷易付科技有限公司	2018 年7 月6 日	</p>
+<p>	Z20244 11000 012 北京新浪支付科技有限公司	2018 年11 月12 日	</p>
+<p>	Z20245 43000 013 湖南银河金谷商务服务有限公司	2018 年7 月6 日	</p>
+<p>	Z20246 42000 013 武汉城市一卡通有限公司	2019 年6 月13 日	</p>
+<p>	Z20247 33000 013 快捷通支付服务有限公司	2018 年7 月6 日	</p>
+<p>	Z20248 21000 016 先锋支付有限公司	2019 年6 月13 日	</p>
+<p>	Z20249 36000 018 汇明商务服务有限公司	2018 年7 月6 日	</p>
+<p>	Z20251 61000 011 西安长安通支付有限责任公司	2019 年7 月10 号	</p>
+<p>	Z20253 37000 010 山东运达电子商务有限公司	2019 年7 月10 日	</p>
+<p>	Z20254 44000 010 深圳瑞银信信息技术有限公司	2019 年7 月10 日	</p>
+<p>	Z20255 50000 010 重庆联付通网络结算科技有限责任公司	2019 年7 月10 日	</p>
+<p>	Z20256 42000 010 武汉合众易宝科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20257 44000 017 天下支付科技有限公司	2018 年6 月26 日	</p>
+<p>	Z20258 44000 016 广州商物通网络科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20259 44000 015 广州市汇聚支付电子科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20260 44000 012 广州合利宝支付科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20261 45000 010 敏付科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20262 44000 010 乐刷科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20263 44000 019 深圳市讯联智付网络有限公司	2019 年7 月10 日	</p>
+<p>	Z20264 37000 017 金运通网络支付股份有限公司	2019 年7 月10 日	</p>
+<p>	Z20265 11000 016 邦付宝支付科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20266 37000 015 山东飞银智能科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20267 11000 014 北京理房通支付科技有限公司	2019 年7 月10 日	</p>
+<p>	Z20268 11000 013 北京畅捷通支付技术有限公司	2019 年7 月10 日	</p>
+<p>	Z20269 44000 013 广东盛迪嘉电子商务股份有限公司	2019 年7 月10 日	</p>
+<p>	Z20270 44000 010 广东广物电子商务有限公司	2015 年3 月26 日	</p>
+<p>	Z20271 33000 012 传化支付有限公司	2019 年7 月10 日	</p>
+
+
+<p style='float:right;'>本页共239段，12664个字符，20231 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
