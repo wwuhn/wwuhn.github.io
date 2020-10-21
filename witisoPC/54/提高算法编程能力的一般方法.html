@@ -1,0 +1,807 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>提高算法编程能力的一般方法</h4>
+
+
+<p>可以毫无讳言的说：算法能力是进入名企和获得高薪的最重要的能力。有一个著名的等式就是：程序设计语言 + 算法 = 软件。因此程序员要想提高自己的编程能力，写出优秀的软件，必须具备扎实的编程语言应用能力，灵活的算法设计能力，此外还应具备丰富的某个专业领域技能和经验（这一点对于非应届的朋友来说，非常重要。如果你之前没有搜索引擎开发经验，那么很少有搜索公司对你的简历感兴趣；如果你没有过安全软件开发，系统内核开发经验，那么也很少有安全公司对你的简历感兴趣），但归根结底还是算法设计。算法设计是计算机软件设计与开发的核心。编程语言与开发领域可以变化，你可以今天用C，明天用Java，你也可以今天做Web开发，明天做底层安全开发，但是算法设计以及数据结构却是相通的。 实际上，从笔者多年的开发经验来讲，笔者总结出了这么一个等式：程序 = 算法（包括数据结构）+ API调用 + “Hello world” + 字符串处理 + 内存管理（部分语言如java,python等无内存管理）。其中算法是程序的核心和灵魂。API是程序调用开发库中的接口，用来实现特定的功能和任务。一个程序不可能不调用API来完成功能。无论学哪个方面的编程，我们都可以从最简单的“Hello world”开始，学习它的开发环境搭建，程序结构框架，调试以及编译执行。剩下就是可能的大量字符串的处理和内存的操作，其中字符串处理会占程序代码中至少10%以上，这也是为什么很多企业（包括微软）会特别喜欢考查与字符串相关的算法题。</p>
+<p>算法说白了，就是指程序员的编程能力，它是IT新手最需要训练和提高的地方，算法问题也是IT面试中的最具挑战性的问题，这直接反应了程序员的基本素质，因此答不好算法问题（一般就是在纸上或者黑板上甚至上机写代码解决问题），一般很难通过面试，那么离名企和高薪就会很遥远。为了有效提高大家的算法能力（也就是编程能力），麦洛科菲在长期的算法教学中不断积累了宝贵的教学经验，获得了满意的教学效果，不少同学算法得到了明显的提高，反映写程序不再吃力。</p>
+<h4>1 确定函数名字与原型</h4>
+一旦拿到有关算法的问题，那么就应该分析问题，找到对应的输入输出，从而确定出算法的函数原型。我们写算法，其实就是写一个或者若干个普通的函数（而不是main函数）。因此，需要分析出，应该传什么参数给函数（作为输入参数），函数处理完后，应该把什么数据作为结果返回（作为输出参数）。最后还要给函数取一个符合算法意义的名字，名字最好用英语表示，如果用拼音，会显得特别山寨的感觉。函数的命名方式与变量的命名方式都有相关的约定，比如匈牙利命名法，Linux命名法或者驼峰命名法等。
+比如，有这么一个典型的算法问题：将一个字符串逆置，比如:”hello world”-->”dlrow olleh”
+对于这道题，我们分析之后，应该知道，输入是一个普通的字符串，输出是将这个字符串逆置之后的字符串，因此，可以确定函数的原型：
+<pre>
+void reverse_str(char *str);  // str既是输入，也是输出
+{
+}
+// 或者
+void reverse_str(char *str, size_t len) // str既是输入又是输出，len是字符串的长度
+{
+}
+</pre>
+<p>很多初学者在这里容易犯的错误包括：只对字符串“hello world”进行了逆置而忽视了算法解决的是通用的一般性问题，或者把相关的代码直接写在了main（）函数里。</p>
+<p>此外，就是需要有模块化的思想。一个函数只单独完成一个单一的功能，函数的代码行数一般很少超过100行，加上注释不会超过300行。 因此，要把那些频繁使用而功能又比较单一的代码放在一个独立的函数里。不要在一个函数里完成N个功能，这不利于调试和维护，也和模块化是相背离的。</p>
+<h4>2 严进宽出</h4>
+<p>确定好了函数的原型之后，紧接着在完成这个函数的功能一开始的地方，就需要严格判断函数输入参数的合法性，我们称之为：严进宽出。具体点说，就是要判断：</p>
+<p>a 函数参数中的指针是否为NULL</p>
+<p>b 函数参数中缓存的长度是否在合理范围</p>
+<p>c 甚至还要利用C++中的RTTI对参数的类型进行检查。</p>
+<p>以上a、b、c三点非常的重要。</p>
+<p>比如同样对于第1点里的函数原型，那么我们就需要作出如下的判断：</p>
+<pre>
+void reverse_str(char *str, size_t len)
+{
+    /* 首先判断str指针是否为NULL或者len是否为0和1，
+       这些都是特殊情况或者非法输入，因此要严格检查，严进宽出。 */
+    if(str== NULL || *str=='\0'|| len==0 || len==1)
+    {
+        return;
+    }
+    // 程序如果执行到这里，那么参数检测就完成了并合法了。因此可以继续完成相应的功能了。
+    ......
+}
+</pre>
+<p>严进宽出是写程序的一个非常好的习惯，可以避免程序在运行中出错，甚至避免各种严重漏洞的产生。比如曾经十分严重的SSL协议中的心脏流血漏洞，就是因为服务端程序在处理的时候，没有验证来自客户端对应的缓存长度的有效性，而造成了该漏洞的产生。同样，对于号称漏洞核弹的微软CVE-2017-0290漏洞，也是因为在扫描引擎MsMpEng的NScript模块中没有对输入的参数类型进行检查就默认当做字符串来处理造成的。</p>
+<p>此外，在函数内部定义的局部变量，都应该进行初始化，因为未初始化的变量，包含的都是一些没有意义的随机值，初始化可以防止在使用过程中使用了垃圾值的变量，影响程序的判断，尤其是指针，可以防止野指针破坏程序中的数据。常见数据类型的初始化包括：</p>
+<pre>
+int x = 0;
+char *pstr = NULL;
+Bool bOpened = FALSE;
+char Name[100] = {0};
+char *szName = “hello world”;
+char szName[] = “hello world”;
+char szName[100] = “hello world”;
+UNICODE_STRING ustrName = {0};
+CString szName = _T("");
+memset(buffer, 0, 1024);
+</pre>
+<h4>3 边界考虑</h4>
+<p>边界考虑就是要考虑程序中各种各样的特殊情况，而不是只考虑其中的一种情况。我们在写算法的时候，经常会忘记多种情况的周全考虑，而忽略了很多特殊的情况，对程序的健壮性带来影响。</p>
+<p>3.1 边界条件是指软件计划的操作界限所在的边缘条件。数据类型：数值、字符、位置、数量、速度、地址、尺寸等，都会包含确定的边界。应考虑的特征：第一个/最后一个、开始/完成、空/满、最慢/最快、相邻/最远、最小值/最大值、超过/在内、最短/最长、最早/最迟、最高/最低。这些都是可能出现的边界条件。边界条件测试通常是对最大值简单加1或者很小的数和对最小值减少1或者很小的数，例如：</p>
+<pre>
+第一个减1/最后一个加1；
+开始减1/完成加1；
+空了再减/满了再加；
+慢上加慢/快上加快；
+最大数加1/最小数减1；
+最小值减1/最大值加1；
+刚好超过/刚好在内；
+短了再短/长了再长；
+早了更早/晚了更晚；
+最高加1/最低减1。
+</pre>
+<p>另一些该注意的输入：默认，空白，空值，零值和无；非法，错误，不正确和垃圾数据。根据边界来选择等价分配中包含的数据。然而，仅仅测试边界线上的数据点往往不够充分。提出边界条件时，一定要测试临近边界的合法数据，即测试最后一个可能合法的数据，以及刚超过边界的非法数据。</p>
+<p>3.2 默认值测试（默认、空白、空值、零值和无）</p>
+<p>好的软件会处理这种情况，常用的方法：一是将输入内容默认为合法边界内的最小值，或者合法区间内某个合理值；二是返回错误提示信息。</p>
+<p>这些值在软件中通常需要进行特殊处理。因此应当建立单独的等价区间。在这种默认下，如果用户输入0或－1作为非法值，就可以执行不同的软件处理过程。</p>
+<p>3.3 破坏测试（非法、错误、不正确和垃圾数据）</p>
+<p>数据测试的这一类型是失败测试的对象。这类测试没有实际规则，只是设法破坏软件。不按软件的要求行事，发挥创造力吧。</p>
+<p>举一个例子：实现C库中的memmove函数。</p>
+<p>很多程序员可能会很快写出如下程序：</p>
+<pre>
+void memcpy(void *pDst,const void *pSrc, size_t size)
+{
+    assert(pDst != NULL);
+    assert(pSrc != NULL);
+    char *pstrSrc= (char *)pSrc ;  
+    char *pstrDst = (char *)pDst ;
+    /* 从起始部正向拷贝 */
+    while(size--)   
+        *pstrDst++ = *pstrSrc++;
+}
+</pre>
+<p>但是，这里忽略了一个很重要的情况就是：pDst和pSrc指定的内存有可能是重叠的。如果按照这样拷贝的话，那么如果（参见下图第2种情况）：</p>
+<p>(pSrc<pDst) && ((char*)pSrc+size > pDst)</p>
+<p>那么，按照上面的程序代码拷贝，将会把pSrc尾巴部分的数据覆盖污染了。</p>
+<p>因此，必须清楚的考虑pSrc和pDst二者之间的关系，采取不同的算法,实际上，pSrc和pDst的位置关系有如下图4种情况，其中第2种情况，需要特殊处理。</p>
+<p>如上图的位置关系所示，在第2种位置中，也就是当(pSrc<pDst) && ((char*)pSrc+size > pDst)时，从前往后拷会有问题。必须从后往前面拷贝：</p>
+<pre>
+void memcpy(void *pDst,const void *pSrc, size_t size)
+{
+    assert(pDst != NULL);
+    assert(pSrc != NULL);
+    /* pSrc与pDst共享同一块内存区域 */
+    if((pSrc&lt;pDst) && ((char*)pSrc+size > pDst))
+    {  
+        char *pstrSrc= (char *)pSrc + size -1;  
+        char *pstrDst = (char *)pDst + size -1;
+        / * 从尾部逆向拷贝 */
+        while(size--)   
+            *pstrDst -- = *pstrSrc--;
+    }
+    else
+    {  
+        char *pstrSrc= (char *)pSrc ;  
+        char *pstrDst = (char *)pDst ;
+        /* 从起始部正向拷贝 */
+        while(size--)   
+        *pstrDst++ = *pstrSrc++;
+    }
+}
+</pre>
+<h4>3.4 出错处理</h4>
+<p>出错处理，是指当代码在执行过程中，如果发生了异常或者错误，就必须要处理，否则程序就无法继续执行了，如果强制继续执行，往往可能会导致程序或者系统崩溃。</p>
+<p>比如我们在打开文件的时候，如果文件不存在或者打开失败了；在分配内存的时候，返回内存为NULL，这些情况都需要及时处理。一般处理程序错误或者异常的方法有goto err或者try_except等方式。</p>
+<p>出错处理的方式方式很多，也很灵活。只要不遗漏对错误的处理就行。现在介绍两种错误处理方式：</p>
+<p>1）  goto error方式</p>
+<p>语句goto是大家不大喜欢使用的，也是程序设计专家建议不要使用的一句话。因此goto语句似乎就要退出历史的舞台。但幸好它找到了一个用武之地，那就是用goto error方式来处理出错。下面是一个例子：</p>
+<pre>
+NTSTATUS QueryObjectName(HANDLE h)
+{
+     int ret;
+     NTSTATUS st;
+     char *str = "Hello, how are u?";
+     char *pstr = (char *)malloc(256);
+     if (pstr == NULL)
+     {
+         printf("No more memory\n");
+         goto Error;
+     }
+     int len = strlen(str)>255?255:strlen(str);
+     strncpy(pstr, str, len);
+     pstr[len+1] = '\0';
+     char *namebuf = (char *)malloc(1024);
+     if (buf == NULL)
+     {
+         printf("No more memory\n");
+         goto Error;
+     }
+     st = NtQueryObject(h, FileNameInformation, namebuf, ret, NULL);
+     if (!NT_SUCCESS(st))
+     {
+         printf("No more memory\n");
+         goto Error;
+     }
+     ...
+Error:
+     if (buf)
+     {
+          free(buf);
+     }
+     if (pstr)
+     {
+          free(pstr);
+     }
+     return st;
+}
+</pre>
+<p>goto error方式把错误进行了集中处理，防止了在分支复杂的程序中错误情况的遗漏。</p>
+<p>2）  SHE：__try__leave__exception方式</p>
+<p>SEH( structured exception handling )，即结构化异常处理方式，它是Windows系统独有的异常处理模型，主要由try-except语句来完成，与标准的try-catch相似。C++异常处理模型使用catch关键字来定义异常处理模块，而SEH是采用except关键字来定义；catch关键字后面像接受一个函数参数一样，可以是各种类型的异常数据对象，except关键字则不同，它后面跟的是一个表达式。</p>
+<pre>
+NTSTATUS QueryObjectName(HANDLE h)
+{
+     int           ret;
+     NTSTATUS      st;
+     __try
+     {
+     char          *str = "Hello, how are u?";
+     char          *pstr = (char *)malloc(256);
+ 
+     if (pstr == NULL)
+     {
+         printf("No more memory\n");
+         __leave;
+     }
+     int len = strlen(str)>256?256:strlen(str);
+     strncpy(pstr, str, len);
+     pstr[strlen(str)] = '\0';
+ 
+     char *namebuf = (char *)malloc(1024);
+     if (buf == NULL)
+     {
+         printf("No more memory\n");
+         __leave;
+     }
+     st = NtQueryObject(h, FileNameInformation, namebuf, ret, NULL);
+     if (!NT_SUCCESS(st))
+     {
+         printf("NtQueryObject failed\n");   
+         __leave;
+     }
+     }
+     __except(EXCEPTION_EXECUTE_HANDLER)
+     {
+         //获得异常代码
+         st = GetExceptionCode();
+     }
+     if (buf)
+     {
+         free(buf);
+     }
+     if (pstr)
+     {
+         free(pstr);
+     }
+     return st;
+}
+</pre>
+<h4>5 性能优化（时间复杂度，空间复杂度）</h4>
+<p>大家有时候去参加面试，自我感觉良好，面试官出的算法题，自己感觉也做出来了，也做对了，可为什么面试结束后，迟迟等不来Offer呢？那就很可能是因为你的算法题虽然做出来了，但不是最优的。</p>
+<p>总的来说，衡量算法的优劣有2种标准：时间复杂度和空间复杂度。简单的来说，所谓时间复杂度，就是嵌套的循环越少越好，比如一层循环优于二层循环，面试中一般很少有三层循环的算法；而所谓空间复杂度，就是尽量不要调用malloc或者new来分配额外的内存。复杂度可以用O（）来表示，它们之间的效率关系为：</p>
+<p>O(1)>logn>O(n)>O(nlogn)>O(n2)>O(2^n)</p>
+<p>对于第1点中的字符串逆置的问题，有如下2种解决方法：</p>
+<pre>
+//算法1 直接基于str所在内存进行逆置
+void reverse_str(char* str, size_t len)
+{
+       if (NULL == str || '\0' == *str || 0==len || 1==len)
+       {
+              return;
+       }
+       char *p1=str;
+       char *p2=str+len-1;
+       while(p1&lt;p2)
+       {
+              char c = *p1;
+              *p1 = *p2;
+              *p2 = c;
+              p1++;
+              p2--;
+       }
+}
+//算法2 分配一个额外的内存，把字符串从后往前拷贝到内存中
+char *reverse_str(char* str, size_t len)
+{
+       if (NULL == str || '\0' == *str || 0==len || 1==len)
+       {
+              return;
+       }
+       char *buf=malloc(len+1);
+        char *p2=str +len-1;
+        char *p1=buf;
+        if(buff == NULL)
+        {
+            return NULL;
+        }
+        memset(buf, 0,len+1);
+     
+       while(len--)
+       {
+              *p1++=*p2--;
+       }
+       return buf;
+}
+</pre>
+<p>2种解法都能够完成把字符串逆置的任务。但是，第二种算法，额外分配了内存（复杂度为O(n)），空间复杂度上第一种占据了优势。</p>
+<p>空间复杂度很好理解。而时间复杂度，想要容易的写出O(n)或者O(1)的算法，就需要仔细思考问题和设计算法了，并且还应该学习一些常见的算法技巧。比如：2个指针跑步，比如hash算法，比如递归等，详见下面的方法总结。</p>
+<p>思考题：用尽量高效的方法（比如O(1)）来删除单向非循环链表中的某个结点。</p>
+<p>原型：bool delete_node(node *&head, node *p)</p>
+<h4>6 循环的掌握</h4>
+一个再复杂的算法程序，都是由循环、条件、顺序三种语句构成的（switch语句也可以转化为条件语句）。而这三种语句中，循环语句的使用是其中的关键。循环语句用来遍历和操作对应的数据结构，在遍历的过程中，完成对数据的处理和问题的解决。前几节中，几乎每个算法都用到了循环语句。以循环语句为核心，循环语句把其他语句联系起来。因此，算法中，最重要的地方就是对循环的熟练掌握与使用。
+下面把常用的各种数据结构的循环语句列出，方便大家在编程的时候使用：
+<p>6.1 数组</p>
+<pre>
+for (int i = 0; i &lt; n; i++)
+{
+     printf(“%d\n”, a[i]);
+}
+</pre>
+ 
+<p>6.2 字符串</p>
+<pre>
+while (*str !=’\0’)
+{
+     str++;
+}
+</pre>
+ 
+<p>6.3 链表</p>
+<pre>
+while (p)
+{
+     p = p->next;
+}
+</pre>
+ 
+<p>6.4 栈空/栈满/队空/队满</p>
+<pre>
+while(栈非空)
+{
+     出栈；
+     操作出栈元素
+}
+</pre>
+ 
+<p>6.5 指针大小比较</p>
+<pre>
+while (pStart &lt; pEnd)
+{
+     pStart++;
+}
+</pre>
+ 
+<p>6.6 数为正</p>
+<pre>
+while (size--)
+{
+}
+do{
+}while(size--)
+</pre>
+ 
+<p>6.7 反复循环直到条件成熟</p>
+<pre>
+while(1)
+{
+     if (something is true)
+         break;
+}
+</pre>
+<p>熟练各种循环语句的写法，为实现各种复杂的算法奠定了基础。因此，要在各种循环语句上下功夫，达到熟练书写，灵活运用的程度。</p>
+<h4>7 递归的应用</h4>
+<p>对于一些复杂的算法问题，还可以通过递归的思想来解决。有的问题，用传统的方法来解决，显得很复杂。这个时候，可以考虑是不是可以用递归来解决。因为用递归的思想解决问题，既简单，又清晰，往往让看似复杂的问题得到简单解决的可能。</p>
+<p>笔者曾经在面试微软的时候遇到考官考查了一道树的结点和它的兄弟之间的关系问题。开始我试着用队列结合树的遍历去解决这个问题，但是发现如果那样去解决会显得很麻烦，最后能否行得通也还是一个问题。而当时面试官也提醒我，一旦确定了思路，就不能再改变。于是我发现原来的想法显得很复杂，还有可能陷入死胡同。</p>
+<p>于是我决定放弃原来的思路，重新分析问题。经过我的重新分析，结合以往的经验，对于树的问题，几乎都可以考虑用递归的方法去实现，笔者按照递归的方法，首先分析了这个问题最简单的情况（即递归的出口），然后再对复杂的情况利用递归方法调用它自身。思路越来越清晰，我便开始动手写在纸上写起代码来。没过多久，代码就完成了，并交给了面试官。面试官看完代码后，很满意的点点头。问题最终得到圆满的解决。</p>
+<p>在利用递归解决问题的时候，有2个关键的地方：首先就是要找到递归的出口，也就是问题的最简子问题，也就是问题中最简单的情况，比如对于一个链表，最简单情况就是链表为空或者只有一个结点；对于一个字符串，最简单情况就是字符串为NULL或者只有一个’\0’字符；自然数最简单的情况就是0或者1；树最简单的情况就是为NULL或者只有一个结点等，而更多的问题已经明确提出了最简子问题，比如阶乘中的0！和1！，在定义中已经给了出来。所以，最简子问题往往是很容易分析出来的。</p>
+<p> </p>
+<p>其次也是最关键的是要通过分析和转换，将原问题转化为子问题，也就是推导出问题的递归式。子问题和原问题是同类问题，但子问题的规模应该比原问题要小。比如求n!那么它的子问题就是(n-1)!，只需要把(n-1)!乘以n就是n的阶乘了。又比如要求斐波那契数列的第n个值，只需要求出(n-1)的值和(n-2)的值，那么就可以求出n的值了。在先序遍历树t的时候，当把根节点遍历完后，因为t->left和t->right是它的子树，也就是子问题，所以然后用递归遍历t->left和t->right就可以了。</p>
+<p>题目：用一条语句，不声明临时变量，实现strlen来计算一个字符串的长度。</p>
+<p>如strlen(“hello world”)=11</p>
+<pre>
+size_t  strlen (const char * str )//常规方法
+{
+        const char *eos = str;
+        while( *eos++ ) ;
+        return( eos - str - 1 );
+}
+size_t strlen(const char *str)//递归方法
+{
+       return (str==NULL || *str==’\0’)?0:1+strlen(str+1);
+}
+</pre>
+<p>题目：将一个字符串逆置。</p>
+<p>比如:”hello world”-->”dlrow olleh”</p>
+<pre>
+void reverse_str(char* str, unsigned int len)//常规方法
+{
+       if (NULL == str)
+       {
+              return;
+       }
+       char *p1=str;
+       char *p2=str+len-1;
+       while(p1&lt;p2)
+       {
+              char c = *p1;
+              *p1 = *p2;
+              *p2 = c;
+              p1++;
+              p2--;
+       }
+}
+void reverse_str(char *str, size_t len)//递归方法
+{
+       if(len==0 || len==1 || str == NULL || *str=='\0')
+       {
+              return;
+       }
+       char tmp = str[0];
+       str[0]=str[len-1];
+       str[len-1]=tmp;
+       reverse_str(str+1, len-2);
+}
+</pre>
+<p>递归算法的关键是找到递归的出口和递归公式。</p>
+<p>思考题：有一个50阶的楼梯，每次可以上一阶或者两阶，总共的方法有多少种。</p>
+<h4>7 2个指针跑步</h4>
+<p>2个指针跑步法，是一个很好的编程方法。就是在算法实现过程中，我们可以定义2个（有时候甚至是3个或者多个）指针，一前一后同向或者相向而行，同时遍历对应的数据结构（如数组，链表，字符串等），在遍历过程中解决对应的问题。如果我们把循环比喻成算法问题中的导演，那么2个指针就是算法中的男女主角，对问题的解决起着重要的作用。在大量的名企面试题中，都可以使用该方法来解决并降低算法的复杂度。下面的例子详细的描述了这个方法的使用方法：</p>
+<p>题目1：计算一个链表的中间节点。</p>
+<p> </p>
+<p>思路：定义2个指针，一个跑2步，一个跑1步，当跑2步的到链表终点，跑1步的正好到达中间结点</p>
+<pre>
+node * find_list_middle_node(node * list)
+{
+    if(list == NULL || list->next == NULL)
+    {
+           return list;
+    }
+    node *p1 = list;
+    node *p2 = list;
+    while(p1&&p2&&p2->next)
+    {
+           p1=p1->next;
+        p2=p2->next->next;
+    }
+    if(p2->next==NULL || p2==NULL)
+       return p1;
+}
+</pre>
+<p>题目2：判断一个单向链表是否存在循环。</p>
+<p> </p>
+<p>思路：定义2个指针，一个指针跑一步，一个指针跑2步；如果2个指针相遇，就存在循环，否则不存在循环。</p>
+<pre>
+int find_loop(node *head)
+{
+       node *p = NULL;
+       node *q = NULL;
+       if (head == NULL)
+              return 0;
+   
+       p = head;
+       q = head->next;
+       while (p!=NULL &&
+               q!=NULL&&q->next!=NULL&&p!=q)
+    {
+              p = p->next;
+              q = q->next->next
+       }
+       if (p==q)
+              return 1;
+       else
+              return 0;
+}
+</pre>
+<p>题目3：从一个字符串中删除某一个特定的字符。</p>
+<p>如：”hello world”,’o’-->”hell wrld”</p>
+<p>思路：定义2个指针，一个是读指针，一个是写指针。读指针从头到尾扫描字符串，遇到不需要删除的字符，传递给写指针保存对应的字符，如果遇到要删除的字符直接忽略。</p>
+<pre>
+char* del_char(char *str,char ch)
+{
+        char *p1=str,*p2=str;
+        if(NULL==str)
+        {
+                return NULL;
+        }
+        while(*p2!='\0')
+        {
+                if(*p2!=ch)
+                {
+                        *p1++=*p2++;
+                }
+                else
+                {
+                        p2++;
+                }
+        }
+        *p1='\0';
+        return str;
+}
+</pre>
+<p>思考题1：将一个字符串按照单词顺序逆置，如hello this world-->world this hello</p>
+<p>思考题2：将一个IP地址字符串转化为32位整数。如255.255.255.255-->0xffffffff</p>
+<p>思考题3：找出一个单向非循环链表中，倒数第M个结点</p>
+<p>思考题4：枚举一个纯数字字符串中合法的IP地址，比如"11022345"可以输出“110.2.234.5”， "1.102.234.5","1.102.23.45","110.2.23.45"等。</p>
+<h4>9 Hash算法</h4>
+<p>Hash算法一般是用一个hash数组来记录一个key对应的有无或者统计对应的个数，用key作为hash数组的下标，而下标对应的值用来表示该key的存在与否以及统计对应的个数。</p>
+<p>例1：请编写一个高效率的函数来找出字符串中的第一个无重复字符。例如，"total"中的第一个无重复字符上一"o"</p>
+<pre>
+char find_first_single_char(const char *str)
+{
+     int tmp[256]={0};//hash数组
+     char *s= (char *)str;
+     while(*s!='\0')
+     {
+          tmp[*s]++;
+          s++;
+     }
+     s=(char*)str;
+     while(*s!='\0')
+     {
+          if(tmp[*s]==1)
+          {
+               return *s;
+          }
+          s++;
+     }
+     return '\0';
+}
+</pre>
+<p>例2：找出一系列整数（都小于65536）中存在的重复数字。</p>
+<pre>
+#define  MAXMUM   65536
+void find_repeated_number(int a[], in n)
+{
+     int tmp[MAXMUM];//hash数组
+     int i;
+ 
+     for (i = 0; i &lt; MAXMUM; i++)
+     {
+          tmp[i] = 0;
+     }
+     for (i = 0; i &lt; n; i ++)
+     {
+          tmp[a[i]]++;
+     }
+     for (i = 0; i &lt; MAXMUM; i++)
+     {
+          if (tmp[i]>1)
+               printf(“%d:%d”, i, tmp[i]);
+     }
+}
+</pre>
+<p>思考题1：从一个字符串中删除某一组特定的字符。</p>
+<p>如：”hello world”,’o’,'l'-->”he wrd”</p>
+<p>思考题2：用筛法找出40000以内的素数。</p>
+
+
+<p style='float:right;'>本页共511段，14677个字符，26770 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
