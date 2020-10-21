@@ -326,10 +326,139 @@ sub,sup{
 <p>(7) 位段可以在数值表达式中引用，它会被系统自动地转换成整型数。</p>
 
 
+<p>算术右移：空出来的高位用符号位来填充；</p>
+<p>逻辑右移：空出来的高位用0来填充；</p>
+<p>结构或联合的成员也可以是位字段。位字段是一个由具有特定数量的位组成的整数变量。如果连续声明多个小的位字段，编译器会将它们合成一个机器字（word）。这使得小单元信息具有带回紧凑的存储方式。当然，也可以使用位运算符来独立处理特定位，但是位字段允许我们利用名称来处理位，类似于结构或联合的成员。</p>
+<p>位字段的声明多了一个宽度的定义，如：</p>
+
+<pre>
+
+struct Date{//用一个字的空间存储一个日期
+    unsigned int month:4;
+    unsigned int day:4;
+    signed int year:22;
+    _bool isDst:1; //如果是夏令时
+};
+</pre>
+
+<p>位字段不能使用&来取址，也不能对位字段进行位运算。</p>
+
+<p>高位左移后溢出，舍弃。（按数据类型长度）</p>
+
+<p>右移运算符是a>>2表示将a的各二进制位右移2位，移到右端的低位被舍弃,对无符号数,高位补0。</p>
+
+<p>a=1001011111101101  （用二进制形式表示，即使是十进制，内存中存储的本质都是二进制，所以也要时刻当做二进制看待）</p>
+
+<p>a>>1: 0100101111110110  (逻辑右移时)</p>
+
+<p>a>>1: 1100101111110110  (算术右移时)</p>
+
+<p>信息的存取一般以字节为单位。实际上，有时存储一个信息不必用一个或多个字节，例如，“真”或“假”用０或１表示，只需１位即可。在计算机用于过程控制、参数检测或数据通信领域时，控制信息往往只占一个字节中的一个或几个二进制位，常常在一个字节中放几个信息。</p>
 
 
+<h4>按位异或和按位取反有什么区别？</h4>
+
+<p>对一个数字进行取反运算结果是多少，还与该类型是有符号还是无符号，占用的字节大小等有关.</p>
+<p>int a = 10;</p>
+<p> printf("按位异或的定位取反功能%d\n按位取反%d\n", a ^ 0xFF, ~a);</p>
+
+<p>按位异或的定位取反功能245</p>
+<p>按位取反-11</p>
+
+<p>0xFF 这个是只有低8位为1，高位全是0。</p>
+<p></p>
+<p>整型10 是低4位为 1010，高位全为0，且一般来说是占用32位。</p>
+<p></p>
+<p>你应该明白了吧，区别就在于高位的行为不一样。</p>
+<p></p>
+<p>取反是将a高位的0都变成1，这样最高位的符号位也变成1了，所以最终值是负的。</p>
+<p></p>
+<p>而异或后，a的后8位都取反了，但前24位保持不变。这样值就是245.</p>
+
+<p>每当在使用整数之时都会将其想象成二进制的存在，而不是十进制。原因在于，这是程序的本质所在，稍有研究编译器工作原理的都会发现，在编译器处理乘法乃至除法的时候，优秀的编译器总会想方设法的加快程序的速度，毫无疑问在所有运算中移位运算是最快速的"乘法"以及"除法": 1&lt;&lt;2 == 4 ,8>>2 == 2</p>
+
+<p>基本数据类型及其复合类型以字节为单位进行处理，位运算以位为单位进行处理。</p>
+<p>整数与0异或为本身。与本身异或为0，即本身的奇数次异或还为本身，偶数次异或为0</p>
+
+<pre>
+int func(x)  // 返回x的二进制位中1的位数
+{ 
+    int countx =0; 
+    while(x) 
+    { 
+          countx ++; 
+          x = x&(x-1); 
+     } 
+    return countx; 
+}
+</pre>
+
+<p>When individual bits of an object are used as Boolean values, the bits are called bit flags.</p>
+<p>Given a sequence of bits, we typically number the bits from right to left, starting with 0 (not 1). Each number denotes a bit position.</p>
 
 
+<p>76543210  Bit position</p>
+<p>00000101  Bit sequence</p>
+<p>Given the bit sequence 0000 0101, the bits that in position 0 and 2 have value 1, and the other bits have value 0.</p>
+<p>0011 &lt;&lt; 3 is 1000</p>
+
+
+<p>Note that in the third case, we shifted a bit off the end of the number! Bits that are shifted off the end of the binary number are lost forever.</p>
+<p></p>
+
+<pre>
+constexpr unsigned char mask0{ 1 &lt;&lt; 0 }; // 0000 0001
+constexpr unsigned char mask1{ 1 &lt;&lt; 1 }; // 0000 0010
+constexpr unsigned char mask2{ 1 &lt;&lt; 2 }; // 0000 0100
+constexpr unsigned char mask3{ 1 &lt;&lt; 3 }; // 0000 1000
+constexpr unsigned char mask4{ 1 &lt;&lt; 4 }; // 0001 0000
+constexpr unsigned char mask5{ 1 &lt;&lt; 5 }; // 0010 0000
+constexpr unsigned char mask6{ 1 &lt;&lt; 6 }; // 0100 0000
+constexpr unsigned char mask7{ 1 &lt;&lt; 7 }; // 1000 0000
+</pre>
+<p>if you defined the function using bit flags like this:</p>
+
+
+<pre>
+void someFunction(std::bitset&lt;32> options);
+</pre>
+
+<p>Then you could use bit flags to pass in only the options you wanted:</p>
+
+<pre>
+someFunction(option10 | option32);
+</pre>
+
+<p>To query bit states, we use bitwise AND:</p>
+
+
+<pre>
+if (flags & option4) ... // if option4 is set, do something
+</pre>
+
+<p>To set bits (turn on), we use bitwise OR:</p>
+
+
+<pre>
+flags |= option4; // turn option 4 on.
+flags |= (option4 | option5); // turn options 4 and 5 on.
+</pre>
+
+<p>To clear bits (turn off), we use bitwise AND with bitwise NOT:</p>
+
+
+<pre>
+flags &= ~option4; // turn option 4 off
+flags &= ~(option4 | option5); // turn options 4 and 5 off
+</pre>
+
+<p>To flip bit states, we use bitwise XOR:</p>
+
+
+<pre>
+flags ^= option4; // flip option4 from on to off, or vice versa
+flags ^= (option4 | option5); // flip options 4 and 5
+</pre>
 
 
 
@@ -389,60 +518,5 @@ sub,sup{
 </body>
 </html>
 
-<!--
-_____________________________________________________________________________________
-
-1 段落替换
-\s*<br />\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-2 汉字中间的空格替换：
-([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
-([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
-
-
-------------------
-$1$2
-_____________________________________________________________________________________
-3 段落前的空格替换
-\s*</p>\s*
-\s*<p>\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-
-4 把第和章两个字去掉
-第(\S*)章
-------------------
-$1
-_____________________________________________________________________________________
-
-7 正则表达式参考：
-https://www.toutiao.com/i6370960744082571778/
-_____________________________________________________________________________________
-
-8
-<p class="picsay">
-<p class="picsay">
-<p class="code0">
-<p class="code2">
-<p class="code4">
-_____________________________________________________________________________________
-9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
-(\[\d\])
-------------------
-<sup>$1</sup>
-_____________________________________________________________________________________
-10 替换章不是以1-9。?！…”“结尾的段落
-([^1-90。?！…”：？“章])</p>
-<p>
-------------------
-$1
--->
 
 

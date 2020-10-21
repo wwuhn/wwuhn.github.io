@@ -527,18 +527,86 @@ band = 22; //invalid
 
 <p>在许多情况下，强制类型转换告诉编译器，“是的，我真的想这样做。”这指示编译器，即使有数据损失或其他危险的可能性，也继续执行数据转换。强制类型转换也可以用来澄清模糊的情况。</p>
 
+<p>Qualifier Modifier Type Identifier = literal</p>
+<p>qualifier: unsigned, signed, long, short</p>
+<p>Modifier: const, volitile, restrict</p>
+<p>Type: int, char, bool, enum, float, double, union, struct, objcet</p>
+<p>literal: 215u, 0xFeeL, 0213, 0x4b, 30ul, 314159E-5L, true, false, \n, \ooo, \xhh . . ."hello, dear", "hello, \dear", "hello, " "d" "ear"</p>
+<p>extern const long double d = 314159E-5L;</p>
+<p>// [Declaration] [Qualifier] [Modifier] Type Identifier = literal</p>
+
+<p>逻辑型数据与其他数据类型的关系</p>
+<p>1、逻辑型数据作为数值数据使用时，false转换为0，true转换为1。</p>
+<p>2、字符型、枚举型、整型或实型数据值作为逻辑值使用时，一切0值转换成false,一切非0值转换成true。</p>
+<p>3、指针值作为逻辑值使用时，空指针值转换成false,非空指针值转换成true。</p>
+<p>总结：0就是false，非0就是true。</p>
+
+<p>整数提升（Integer promotion）指的是一种类型转换规则：某些类型的表达式被隐式地转换为int 类型或unsigned int 类型。</p>
 
 
 
+<p>构成C 源程序的词汇或单词(token)一共有5 种：关键字(Keyword)、标识符(Identifier)、常量(Constant)、字符串字面量(String-Literal)和标点符号(Punctuator)。而并非只有标识符这样一种。</p>
+<p>"a"、'a'与a 都是构成C 代码的基本单词(Token)。</p>
+<p>"a"是一个字符串文字量(String Literal)，其中含有一个字符a 和一个编码为0 的字符；</p>
+<p>'a'是一个int 类型的常量(constant)，其值为“a”这个字符的编码值，通常被称为字符常量，尽管它不是char 类型；</p>
+<p>而a 则是一个标识符(Identifier)。</p>
+<p>char c=255;</p>
+<p>printf("%d\n",c);</p>
 
 
+<p>在Visual C++系统上进行编译时，系统给出“警告”（warning）：“把一个整常数赋给char 变量”。表示255 已超过char 变量的数值允许值，在运行时输出?1。说明Visual C++是把char 默认为signed char 类型的。如果把第1 行改为“unsigned char c=255;”，则不出现“警告”，且 输出255。</p>
+<p>char 类型数据的范围的定义：</p>
+<p>CHAR_MIN、CHAR_MAX，根据char 类型数据的最大、最小值，很容易了解char 类型数据是否有符号。</p>
+<p>实数是一个数学概念，包括有理数和无理数？浮点数显然不能表示无理数。有理数中又包括整数和分数（或等价的小数），浮点数显然无法表示分数。即使把浮点数看成可以表示小数，它也不可能表示所有小数，因为有一类小数叫无限循环小数，浮点数绝对无法表示。</p>
+<p>浮点数用来近似表示某个具体范围内的实数。</p>
+<p>浮点数则是按照某种记数规则（浮点数表示方法）所表示的数，它所能表示的只是有理数的一个有限子集。在计算机中，浮点数除了用来近似地表示某个范围内的实数，还有一些特殊值，比如NaN、inf、-inf 等（表示非数值、正负无穷）。计算机中的浮点数只有有限个。</p>
+<p>由此可见，浮点数和实数完全不是对等的概念，甚至不是同一个层次上的概念。不能把它们混为一谈。</p>
+<p>在计算机中，浮点数只能近似地表示值在某个范围之内的有理数或一些特殊值。</p>
+<p>如果一个运算符两侧的数据类型不同，则先自动进行类型转换，使两者具有同一类型，然后进行运算。</p>
+
+<pre>
+unsigned char a=64;
+printf("%d %d\n",a&lt;&lt;1,a&lt;&lt;2); // integer promotion
+</pre>
+
+<p>浮点数，小数点可以浮点，实际没有使用小数点，123.4可以表示为1.234e2，也可以表示为12.34e1，看起来好像浮点了，其实浮点数在内存中的表示将全部位分为3部分，1位的符号位，剩下的位分配给尾数与指数。</p>
+<p>指数采用移码，尾数使用直接码。</p>
 
 
+<p><h4><h5>整数类型规则</h5></h4></p>
+
+<p>1 整数的内存表达</p>
+
+<p>&nbsp;&nbsp;1.1 内存的布局与格式；</p>
+
+<p>&nbsp;&nbsp;1.2 整数范围；</p>
+
+<p>2 整数的操作规则</p>
+
+<p>&nbsp;&nbsp;2.1 算子；</p>
+
+<p>&nbsp;&nbsp;2.2 溢出规则；</p>
+
+<p>&nbsp;&nbsp;2.3 异常处理规则；</p>
+
+<p>3 整数和其他数据类型（如浮点数）的替换规则</p>
+
+<p>&nbsp;&nbsp;3.1 小数点舍去规则；</p>
+
+<p>&nbsp;&nbsp;3.2 整数转换成其他类（如浮点数）的规则；</p>
 
 
+<p>存储类型：extern、static</p>
+<p>类型限定符：const、volatile、register</p>
+<p>类型修饰符：unsigned、long、short</p>
+<p>类型：int、float、double、char</p>
+<p>C编程语言中的变量是指定的存储器位置，用户可以在程序执行期间存储相同数据类型的不同值。这意味着变量是给予内存位置的名称，我们可以在其中存储相同数据类型的不同值。换句话说，变量可以定义为在程序执行期间保存相同数据类型值的存储容器。数据类型的正式定义如下......</p>
 
+<p>When doing division with two integers (called integer division), C++ always produces an integer result. Since integers can’t hold fractional values, any fractional portion is simply dropped (not rounded!).</p>
+<p>Much like an integer can vary in size depending on the system, size_t also varies in size. size_t is guaranteed to be unsigned and at least 16 bits, but on most systems will be equivalent to the address-width of the application. That is, for 32-bit applications, size_t will typically be a 32-bit unsigned integer, and for a 64-bit application, size_t will typically be a 64-bit unsigned integer. size_t is defined to be big enough to hold the size of the largest object creatable on your system (in bytes). For example, if size_t is 4 bytes, the largest object creatable on your system can’t be larger than the largest number representable by a 4-byte unsigned integer (per the table above, 4,294,967,295 bytes).</p>
 
-
+<p>Some languages, notably BASIC, create a new variable whenever you use a new name, withoutthe aid of explicit declarations. That might seem friendlier to the user, and it is—in theshort term. The problem is that if you misspell the name of a variable, you inadvertently can create a new variable without realizing it.</p>
+<p>The wchar_t type is an integer type with sufficient space to represent the largest extended character set used on the system.This type has the same size and sign properties as one of the other integer types, which is called the underlying type.The choice of underlying type depends on the implementation, so it could be unsigned short on one system and int on another.</p>
 
 
 
@@ -585,61 +653,5 @@ band = 22; //invalid
 
 </body>
 </html>
-
-<!--
-_____________________________________________________________________________________
-
-1 段落替换
-\s*<br />\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-2 汉字中间的空格替换：
-([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
-([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
-
-
-------------------
-$1$2
-_____________________________________________________________________________________
-3 段落前的空格替换
-\s*</p>\s*
-\s*<p>\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-
-4 把第和章两个字去掉
-第(\S*)章
-------------------
-$1
-_____________________________________________________________________________________
-
-7 正则表达式参考：
-https://www.toutiao.com/i6370960744082571778/
-_____________________________________________________________________________________
-
-8
-<p class="picsay">
-<p class="picsay">
-<p class="code0">
-<p class="code2">
-<p class="code4">
-_____________________________________________________________________________________
-9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
-(\[\d\])
-------------------
-<sup>$1</sup>
-_____________________________________________________________________________________
-10 替换章不是以1-9。?！…”“结尾的段落
-([^1-90。?！…”：？“章])</p>
-<p>
-------------------
-$1
--->
 
 

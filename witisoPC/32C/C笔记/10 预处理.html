@@ -435,13 +435,179 @@ sub,sup{
 
 <p>在预编译时将宏名替换成字符串的过程称为“宏展开”。＃define是宏定义命令。</p>
 
+<p>在C程序中使用宏，实际上是经过了宏定义、宏调用、宏展开三个步骤。宏定义就是使用#define命令定义一个宏标识符所代表的字符串，而宏调用则是在程序中使用宏标识符代替相应的字符串，宏展开是指在开始编译源程序之前，将程序所有的宏调用使用相应的字符串来代替。</p>
+<p>宏定义、宏调用与宏展开。	</p>
+<p>	以下程序运行的结果为什么是29？</p>
+<p></p>
+
+<pre>
+#include &lt;stdio.h>
+#define P 3
+#define F(x) P*x*x
+//#define F(x) ((P)*(x)*(x))
+int main()
+{
+    printf("%d\n",F(3+5));
+    getchar();
+    return 0;
+}
+</pre>
+
+<p></p>
+
+<pre>
+1 x=3+5
+2 F(x)用P*x*x替换
+3 p用3替换，x用3+5替换
+展开为：P*x*x
+展开后参数替换为：3*3+5*3+5
+</pre>
+
+<p>带参宏和函数能等价吗？	</p>
+
+<p>（1）函数调用时，要先求出实参表达式的值，然后再代入形参；而宏只做简单的字符替换，不进行运算。</p>
+<p>（2）函数调用是在程序运行时处理的，为形参分配临时的存储单元；而宏的展开是在编译前进行，且展开时也不分配内存，不进行值的传递，更没有返回值的概念。</p>
+<p>（3）函数中的形参和实参都必须定义数据类型，并且要求两者类型一致，如果不一致，要进行相应的类型转换；而宏不存在任何类型问题，宏名称和参数都不需要类型，仅仅是一个符号。</p>
+
+<p># 和 ## 运算符</p>
 
 
+<p># 字符串化的意思，出现在宏定义中的#是把跟在后面的参数转换成一个字符串。</p>
 
 
+<p>当用作字符串化操作时，# 的主要作用是将宏参数不经扩展地转换成字符串常量。</p>
 
 
+<p> 宏定义参数的左右两边的空格会被忽略，参数的各个 Token 之间的多个空格会被转换成一个空格。</p>
+<p> 宏定义参数中含有需要特殊含义字符如"或\时，它们前面会自动被加上转义字符 \。</p>
+<p>## 连接符号，把参数连在一起。</p>
 
+
+<p>将多个 Token 连接成一个 Token。要点：</p>
+
+
+<p> 它不能是宏定义中的第一个或最后一个 Token。</p>
+<p> 前后的空格可有可无。</p>
+
+<p></p>
+
+<pre>
+#ifdef __cplusplus
+printf("c++");
+#else
+printf("c");
+#endif
+</pre>
+<p>使用参数的宏定义时，一般应将宏定义字符串中的参数都用括号括起来，并且，整个字符串部分也要用括号括起来，这样才能保证在任何替代情况下，把宏定义当做一个整体看待，从而得到一个合理的计算结果。否则，宏展开后，可能会出现意想不到的结果。</p>
+
+<p>注释在预处理阶段会替换为空格，多个空格会替换为一个空格。</p>
+
+
+<p>#define SIZE(arr) ( (sizeof (arr)) / (sizeof (*arr)))</p>
+
+<p>头文件的保护性定义：</p>
+<pre>
+#ifndef FILE_H  //#if !define FILE_H
+#define FILE_H
+    ……
+#endif
+</pre>
+<h4>宏</h4>
+
+<p>⑴ 宏名一般用大写字母表示，以便于与变量区别。</p>
+
+<p>⑵ 宏定义末尾不必加分号，否则连分号一并替换。</p>
+
+<p>⑶ 使用宏可提高程序通用性和易读性，减少不一致性，减少输入错误和便于修改。如数组大小常用宏定义。</p>
+
+<p>⑷ 预处理是在编译之前的处理，而编译工作的任务之一就是语法检查，预处理不做语法检查。</p>
+
+<p>⑸ 宏定义写在函数的花括号外边，作用域为其后的程序，通常在文件的最开头。</p>
+
+<p>⑹ “字符串”中永远不包含宏，否则该宏名当字符串处理。</p>
+
+<p>⑺ 宏定义不分配内存，变量定义分配内存。</p>
+<p>define与const不同之处的一点，define可以定义常量数组的数组长度；</p>
+
+<h4>宏和#、##</h4>
+<p>预处理器一般只对同一逻辑行定义有效，但如果加上反斜杠（物理行），也能一直读取下去</p>
+<p></p>
+<pre>
+#define err(flag) \
+if(flag) \
+    printf("Correctly")
+</pre>
+<p>在宏的使用中有两个有用的操作符，姑且叫它操作符#, ##</p>
+
+<p>对于# 我们可以认为#操作符的作用是将宏参数转化为字符串。</p>
+<p></p>
+
+<pre>
+#include &lt;stdio.h>
+#define HCMP(x, y) printf(#x" is equal to " #y"? %d\n", (x) == (y))
+void main()
+{
+    //...
+    int x = 100, y = 200;
+    HCMP(x, y);
+    getchar();
+}
+// x is equal to y? 0
+</pre>
+
+<p>展开以后</p>
+<p></p>
+<p>printf("x is equal to y ? %d\n", (100) == (200));</p>
+<p>对于##</p>
+<p>它实现的是将本操作符两边的参数合并成为一个完整的标记，但需要注意的是，由于预处理器只负责展开，所以程序员必须自己保证这种标记的合法性，这里涉及到一些写法问题，都列出来</p>
+
+<pre>
+#define MERGE(x, y) have_define_ ## x + y
+#define MERGE(x, y) have_define_##x + y
+...
+result = MERGE(1, 3);
+</pre>
+<p>这里首先说明，上述写法由于习惯原因，我使用第二种，但是无论哪种都无伤大雅，效果一样。上述代码展开以后是什么呢？</p>
+<p></p>
+<p>  	result = have_define_1 + 3;</p>
+<p>在我看来，这就有点C++中模版的思想了，虽然十分原始，但是总是有了一个方向，凭借这种方法我们能够使用宏来进行相似却不同函数的调用，虽然我们可以使用函数指针数组来存储，但需要提前知晓有几个函数，并且如果要实现动态增长还需要消耗内存分配，但宏则不同。</p>
+<p></p>
+<p>When you #include a file, the preprocessor replaces the #include directive with the contents of the included file. The included contents are then preprocessed (along with the rest of the file), and then compiled.</p>
+<p>The #define directive can be used to create a macro. In C++, a macro is a rule that defines how input text is converted into replacement output text.</p>
+<p></p>
+<p>There are two basic types of macros: object-like macros, and function-like macros.</p>
+<p></p>
+<p>Function-like macros act like functions, and serve a similar purpose. We will not discuss them here, because their use is generally considered dangerous, and almost anything they can do can be done by a normal function.(efficient, and generization.)</p>
+<p></p>
+<p>Object-like macros can be defined in one of two ways:</p>
+<p></p>
+<p>#define identifier</p>
+<p></p>
+<p>#define identifier substitution_text</p>
+<p></p>
+<p>The top definition has no substitution text, whereas the bottom one does. Because these are preprocessor directives (not statements), note that neither form ends with a semicolon.</p>
+<p>Object-like macros with substitution text</p>
+
+
+<p>When the preprocessor encounters this directive, any further occurrence of the identifier is replaced by substitution_text. The identifier is traditionally typed in all capital letters, using underscores to represent spaces.</p>
+<p>Object-like macros without substitution text</p>
+
+
+<p>Object-like macros can also be defined without substitution text.</p>
+
+
+<p>For example:</p>
+
+
+<p>#define USE_YEN</p>
+<p>Macros of this form work like you might expect: any further occurrence of the identifier is removed and replaced by nothing!</p>
+
+
+<p>This might seem pretty useless, and it is useless for doing text substitution. However, that’s not what this form of the directive is generally used for. We’ll discuss the uses of this form in just a moment.</p>
+
+
+<p>Unlike object-like macros with substitution text, macros of this form are generally considered acceptable to use.</p>
+<p>The conditional compilation preprocessor directives allow you to specify under what conditions something will or won’t compile.</p>
 
 </div>
 
@@ -485,61 +651,3 @@ sub,sup{
 
 </body>
 </html>
-
-<!--
-_____________________________________________________________________________________
-
-1 段落替换
-\s*<br />\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-2 汉字中间的空格替换：
-([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
-([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
-
-
-------------------
-$1$2
-_____________________________________________________________________________________
-3 段落前的空格替换
-\s*</p>\s*
-\s*<p>\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-
-4 把第和章两个字去掉
-第(\S*)章
-------------------
-$1
-_____________________________________________________________________________________
-
-7 正则表达式参考：
-https://www.toutiao.com/i6370960744082571778/
-_____________________________________________________________________________________
-
-8
-<p class="picsay">
-<p class="picsay">
-<p class="code0">
-<p class="code2">
-<p class="code4">
-_____________________________________________________________________________________
-9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
-(\[\d\])
-------------------
-<sup>$1</sup>
-_____________________________________________________________________________________
-10 替换章不是以1-9。?！…”“结尾的段落
-([^1-90。?！…”：？“章])</p>
-<p>
-------------------
-$1
--->
-
-

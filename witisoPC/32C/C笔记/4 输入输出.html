@@ -406,6 +406,166 @@ typedef struct {
 <p>文件结束符EOF为-1.</p>
 
 
+<p>打开文件是指将文件指针与某一外存中的文件关联起来，半为文件的读写做好准备，例如为文件准备缓冲区，记录读写位置等。</p>
+<p>C语言程序不能直接访问外存储器中的文件，文件访问通过一个FILE类型的结构体变量做为中介。打开文件是让文件和这个结构体变量关联起来，以后通过这个结构体变量访问对应的文件。</p>
+<p>程序不能直接访问外存中的信息，文件访问是通过缓冲区实现的，每个打开的文件在内存中都有一块对应的缓冲区，程序对文件的读写是对这块缓冲区的读写。缓冲区与文件的信息交互由系统自动完成，不需要程序的介入。</p>
+<p>程序访问文件时，必须知道对应的缓冲区在什么地方，缓冲区是空的还是满的，当前读写的信息处于文件中的什么位置等信息。C语言将这些信息定义成一个称为FILE的结构体基本类型，每个访问的文件都有一个对应的FILE类型的变量。当程序需要访问某个文件时，必须定义一个对应这个文件的指针，打开文件时，会创建一个保存该文件信息的FILE类型的变量，并返回指向该变量的指向，这个指针称为文件指针。</p>
+<p>文件定位指针记录文件中当前读写位置，是一个long int类型的变量，表示将要读写的数据是文件中的第几个字节，当程序读写文件时，系统根据文件定位指针的值把信息写入文件的指定位置。</p>
+<p>fopen()函数不仅打开一个文件，还创建一个缓冲区（在读写模式下创建两个缓冲区）以及一个包含文件和缓冲区数据的结构。另外，fopen()返回一个指向该结构的指针，以便其他函数知道如何找到该结构。假设把该指针赋给一个指针变量fp，我们说fopen()函数“打开一个流”。如果以文本模式打开该文件，就获得一个文本流，如果以二进制模式打开该文件，就获得一个二进制流。</p>
+<p>这个结构通常包含一个指定流中当前位置的文件指示器。除此之外，它还包含错误和文件结尾的指示器、一个指向缓冲区开始处的指针、一个文件标识符和一个计数（统计实际拷贝进缓冲区的字节数）。</p>
+
+<p>fgets()+fputs()：字符串方式读写，末尾会添加\n；</p>
+<p>fscanf()+fprintf()：格式化读写，可以为内容添加\t等控制字符，形成表格数据；</p>
+<p>fread()+fwrite()：字节流读写，如读写结构体数据；</p>
+<p>feof()：判断是否到达文件的结尾；</p>
+<p>EOF，对于文本文件，数据以字符的ASCII码值的形式存放，普通字符的ASCII码的范围是32到127（十进制），EOF的16进制代码为0XFF（十进制为-1），因此可以用EOF作为文件的结束标志。当把数据以二进制的形式存入到文件中时，就有可能会将数字-1存入到文件中，此时继续根据EOF来判断文件是否结束就会出问题，为了解决这个问题，ASCI C就提供了foef函数。</p>
+<p>fgetc()等函数会设置EOF。当读到文件末尾时。</p>
+
+
+<p>scanf()函数之所以要求指针作为参数，最主要的原因是希望通过调用这个函数来改变main()函数本地的变量i的值。</p>
+<p>用puts(str)代替printf("%s",str)</p>
+<p>用putchar('\n')代替printf("\n");</p>
+
+<p>用“a”方式打开文件并不要求文件事先存在，如果文件不存在不会得到出错信息，因为“a”的含义是打开或创建一个新文件。如果文件存在则向文件末尾写入新数据；如果文件不存在，则创建一个新文件，这时“a”和“w”没有什么区别。</p>
+
+<p>在scanf()函数调用时，控制字符串中的一个空白字符（“ ”、“\n”或“\t”）指令(directive)，可以匹配无穷多个连续的空白字符序列。在scanf()函数调用时，通常也不应该出现空白字符指令，尤其是在控制字符串的结尾更不应该。scanf("%f%f",&a,&b);默认就是按空格字符去区隔的，不管%f%f之间有没有空格，或有多个空格。</p>
+
+
+<p>stdin 是一个指向FILE 类型对象的指针类型的表达式。</p>
+<p>在很多实现中，它其实是一个“常量”表达式。例如在Visual C++中，stdin 是这样定义的：</p>
+<p>#define stdin (&_iob[0])</p>
+
+<p><h4>格式输出函数</h4></p>
+
+<p>函数作用：向终端（或系统隐含指定的输出设备）输出若干个任意类型的数据。</p>
+
+<p>一般格式：printf（格式控制，输出表列）</p>
+
+<p>s格式符输出字符串.</p>
+
+<p>① %s例如：</p>
+
+<p>printf("%s","china")</p>
+
+<p>输出字符串“china”（不包括双引号）。</p>
+
+<p>② %ms，输出的字符串占m列，若串长大于m，则全部输出，若串长小于m，则左补空格。</p>
+
+<p>③ %-ms，若串长小于m，字符串向左靠，右补空格。</p>
+
+<p>④ %m. ns,输出占m列，只取字符串中左端n个字符，输出在m列的右侧，左补空格。</p>
+
+<p>⑤ %-m.ns，n个字符输出在m列的左侧，右补空格，若n〉m，m自动取n值。</p>
+
+<p>printf(“%3s,%7.2s,%.4s,%-5.3s\n”, “china”, “china”, “china”, “china”);</p>
+<p>其底层是通过一个循环分析"format"的每一个字符，对字符%及其后的每一个字符进行分析，对应variable list分别进行构建字符串。</p>
+
+
+<p>通俗地说，fgets将输入流中由调用起，stdin输入的东西存入起始地址为tran_to_int的地方，并且最多读取sizeof(tran_to_int)个，并在后方sscanf函数中将刚才读入的数据按照%d的格式存入stay_here，这就是C语言一直在强调的流概念的意义所在，这两个语句组合看起来也就是读取一个数据这么简单，但是我们要知道一个问题，一个关于scanf的问题</p>
+<p></p>
+<p>  scanf("%d", &stay_here);</p>
+<p>这个语句将会读取键盘输入，直到回车之前的所有数据，什么意思？就是回车会留在输入流中，被下一个输入读取或者丢弃。这就有可能会影响我们的程序，产生意料之外的结果。而使用上当两句组合则不会。</p>
+<h4>预定义指针到设备文件（键盘或显示器）的FILE常量</h4></p>
+<p>指向FILE常量的指针：设备文件</p>
+<p>stdin：键盘</p>
+<p>stdout：显示器</p>
+<p>stderr：显示器</p>
+<p>m=fgetc(stdin); 从指向FILE常量stdin(即键盘）的指针指定的文件中读取一个字符，并返回其ASCII值，该值赋值给m。</p>
+<p>fputc(m,stdout);将字符（其ASCII值存储在m中）写入由FILE常量stdout指针指定的文件（显示器）。</p>
+<p>系统在主存中开辟一个专用的内存区域用来临时存放输入/输出信息，这种内存区域称为缓冲区。输入/输出流可以是缓冲的，也可以是非缓冲的。引入缓冲的目的是为了提高系统的效率。通常情况使用缓冲流。（FILE一般使用缓冲区）</p>
+
+<p>The first argument to printf is always a format string. The format string  provides a template for the string to be printed, and it contains any number  of special format specifiers. Format specifiers tell printf how to interpret  and format the arguments following the format string. All format specifiers  begin with %.</p>
+<p>For example, the format specifier for an int is %d. Whenever printf sees  a %d in the format string, it knows to expect an int argument following the  format specifier. Then printf replaces the format specifier with the argument’s  actual value.</p>
+<p>文件打开时，系统给文件分配一个位置指针，用于指向文件当前的读写位置。每次读取字符，文件的位置指针便会自动向下移动读取数量的字节，不需要人为进行控制。这种功能在许多读写函数中都会有体现。</p>
+
+<p>fgetc()当读到文件末尾的空字符时，返回EOF，并设置EOF。</p>
+<p>while ((c = fgetc(fp)) != EOF) {</p>
+<p>feof()用于检测EOF，以下代码用于检测EOF，如果在循环体内用fgetc()，则有一个字符的区别。</p>
+<p>while (!feof(fp)) {</p>
+
+
+<p>The program could read one character from the file, process it, read the next character from the file, and so on. Reading a file a character at a time from a disk requires a lot of hardware activity and is slow. The <strong>buffered approach</strong> is to read a large chunk from the disk, store the chunk in the buffer, and read the buffer one character at a time. Because it is much quicker to read individual bytes of data from memory than from a had disk, this approach is much faster as well as easier on the hardware. Similarly, in output, a program can first fill the buffer and then transfer the entire block of data to a hard disk, clearing the buffer for the next batch of output. This is called flushing the buffer.</p>
+
+<h4>input</h4>
+<p>The cin is to use whitespace-spaces, tabs, and newlines- to delineate a string. This means cin reads just one word when it gets input for a character array.</p>
+
+<p>After it reads this word, cin automatically adds the terminating null character when it places the string into the array.</p>
+
+<p>To be able to enter whole phrases instead of single words as a string, you can use some line-oriented class member functions: getline() and get(). getline() discards the newline character, whereas get() leaves it in the input queue.</p>
+
+
+
+
+
+<p>A buffer is a block of memory where data is accumulated before being physically read or written to the associated file or device. Streams can be either fully buffered, line buffered or unbuffered. On fully buffered streams, data is read/written when the buffer is filled, on line buffered streams this happens when a new-line character is encountered, and on unbuffered streams characters are intended to be read/written as soon as possible.</p>
+<p>Streams have certain internal indicators that specify their current state and which affect the behavior of some input and output operations performed on them:</p>
+
+
+<p>Error indicator</p>
+
+
+<p>This indicator is set when an error has occurred in an operation related to the stream. This indicator can be checked with the ferror function, and can be reset by calling either to clearerr, freopen or rewind.</p>
+
+
+<p>End-Of-File indicator</p>
+
+
+<p>When set, indicates that the last reading or writing operation performed with the stream reached the End of File. It can be checked with the feof function, and can be reset by calling either to clearerr or freopen or by calling to any repositioning function (rewind, fseek and fsetpos)， or by calling of fgetc().</p>
+
+
+<p>Position indicator</p>
+
+
+<p>It is an internal pointer of each stream which points to the next character to be read or written in the next I/O operation. Its value can be obtained by the ftell and fgetpos functions, and can be changed using the repositioning functions rewind, fseek and fsetpos.</p>
+<p>A stream buffer is an object in charge of performing the reading and writing operations of the stream object it is associated with: the stream delegates all such operations to its associated stream buffer object, which is an intermediary between the stream and its controlled input and output sequences.</p>
+
+
+<p>All stream objects, no matter whether buffered or unbuffered, have an associated stream buffer: Some stream buffer types may then be set to either use an intermediate buffer or not.</p>
+<p>I/O streams are objects of type FILE that can only be accessed and manipulated through pointers of type FILE* (Note: while it may be possible to create a local object of type FILE by dereferencing and copying a valid FILE*, using the address of such copy in the I/O functions is undefined behavior). Each stream is associated with an external physical device (file, standard input stream, printer, serial port, etc).</p>
+
+
+<p>I/O streams can be used for both unformatted and formatted input and output. They are locale-sensitive and may perform wide/multibyte conversions as necessary. All streams access the same locale object: the one most recently installed with setlocale.</p>
+
+
+<p>Besides the system-specific information necessary to access the device (e.g. a POSIX file descriptor), each stream object holds the following:</p>
+
+
+<p>1) (C95) Character width: unset, narrow, or wide</p>
+
+
+<p>2) Buffering state: unbuffered, line-buffered, fully buffered.</p>
+
+
+<p>3) The buffer, which may be replaced by an external, user-provided buffer.</p>
+
+
+<p>4) I/O mode: input, output, or update (both input and output).</p>
+
+
+<p>5) Binary/text mode indicator.</p>
+
+
+<p>6) End-of-file status indicator.</p>
+
+
+<p>7) Error status indicator.</p>
+
+
+<p>8) File position indicator (an object of type fpos_t), which, for wide character streams, includes the parse state (an object of type mbstate_t(C95)).</p>
+
+
+<p>9) (C11) Reentrant lock used to prevent data races when multiple threads read, write, position, or query the position of a stream.</p>
+<p>stdin  expression of type FILE* associated with the input stream</p>
+<p>stdout expression of type FILE* associated with the output stream</p>
+
+
+<p>stderr expression of type FILE* associated with the error output stream</p>
+
+<p>fgetc()+fputc()：字符方式读写；</p>
+
+
+
+
 
 
 
@@ -457,60 +617,5 @@ typedef struct {
 </body>
 </html>
 
-<!--
-_____________________________________________________________________________________
-
-1 段落替换
-\s*<br />\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-2 汉字中间的空格替换：
-([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
-([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
-
-
-------------------
-$1$2
-_____________________________________________________________________________________
-3 段落前的空格替换
-\s*</p>\s*
-\s*<p>\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-
-4 把第和章两个字去掉
-第(\S*)章
-------------------
-$1
-_____________________________________________________________________________________
-
-7 正则表达式参考：
-https://www.toutiao.com/i6370960744082571778/
-_____________________________________________________________________________________
-
-8
-<p class="picsay">
-<p class="picsay">
-<p class="code0">
-<p class="code2">
-<p class="code4">
-_____________________________________________________________________________________
-9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
-(\[\d\])
-------------------
-<sup>$1</sup>
-_____________________________________________________________________________________
-10 替换章不是以1-9。?！…”“结尾的段落
-([^1-90。?！…”：？“章])</p>
-<p>
-------------------
-$1
--->
 
 

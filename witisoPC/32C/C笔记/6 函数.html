@@ -511,17 +511,144 @@ else
 <p>因为函数在执行时要依赖于其所在的外部变量。如果将一个函数移到另一个文件中，还要将有关的外部变量及其值一起移过去。但若该外部变量与其他文件的变量同名时，就会出现问题，降低了程序的可靠性和通用性。一般要求把Ｃ程序中的函数做成一个封闭体，除了可以通过“实参——形参”的渠道与外界发生联系外，没有其他渠道。</p>
 
 
+<p>对于递归调用，可以理解为函数体副本机制为n份，其实只有一份，只是局部变量和参数及返回位置在栈中有函数桢的副本。</p>
+<p>当调用发生时，程序的执行流程暂时离开主调函数，进入被调函数程序的执行；找到被调函数的程序入口地址，先把实际参数的值传递给对应的形式参数，再开始被调函数体的执行，最后通过return语句把其后表达式的结果返回到主调函数的调用点；程序的执行离开被调函数后，重新回到主调函数中，在调用点对被调函数的返回值进行处理，再继续执行调用点下面的语句。</p>
+<p>在调用语句执行时，先把实参的值按对应关系传递给形参变量，作为形参的初始值参与在被调用函数中的运算。</p>
+<p>形参：左值声明，实参：右值，赋值；</p>
+<p>如果返回void或没有返回值，并不表示只有print，如传引用或地址，即使没有return，则也有可能影响被调函数的数据，也有可能修改全局变量。</p>
+<p>求值算术函数使用传值参数，用return返回计算值。</p>
+<p>功能性函数用return返回错误信息。</p>
+
+<p>The priority of function:</p>
+<p>1 Problem decomposing.</p>
+<p>2 easy to read,modify, test.</p>
+<p>3 divide between implementer and client.</p>
+<p>3 code sharing in project or by library.</p>
+<p>4 Algorithm sharing.</p>
+<p>In C, interfaces are stored in header files, which tyically end with a .h suffix. Every interface should include several lines of interface boilerplate to ensure that the compiler reads the interface only once.</p>
 
 
 
+<pre>
+// main内无代码也要执行一个功能，利用全部变量初始化
+#include &lt;stdio.h>
+int func()
+{
+    printf("Hello World!");
+    return 0;
+}
+int gi=func();
+void main()
+{
+}
+</pre>
+
+<p>函数中可以有多个return语句，但每次调用只能有一个return语句被执行，所以只有一个返回值。</p>
+
+<p>一旦遇到return语句，不管后面有没有代码，函数立即运行结束，将值返回。</p>
+<p>函数的返回值存储在一个寄存器或两个寄存器中，或在一个寄存器中存储一个内存地址，由这块内存地址来存储返回值。</p>
+
+<p>主调函数和被调用函数之间有数据传递的关系。在不同的函数之间传递数据，可以使用的方法有：</p>
+
+<p>参数：通过形式参数和实际参数</p>
+
+<p>返回值：用return语句返回计算结果</p>
+
+
+<p>我们知道场面上，C语言拥有两种传递方式:按值传递和按址传递，但是你是否有认真研究过？这里给出一个实质，其实C语言只有按值传递，所谓按址传递只不过是按值传递的一种假象。至于原因稍微一想便能明白。</p>
+<p></p>
+<p>对于形参和实参而言两个关系紧密，可以这么理解总是实参将自己的一份拷贝传递给形参，这样形参便能安全的使用实参的值，但也带给我们一些麻烦，最经典的交换两数</p>
+<pre>
+void swap_v1(int* val_1, int* val_2)
+{
+    int temp = *val_1;
+    *val_1 = *val_2;
+    *val_2 = *val_1;
+}
+</pre>
+<p>这就是所谓的按址传递，实际上只是将外部指针(实参)的值做一个拷贝，传递给形参val_1与val_2.</p>
 
 
 
+<p>函数是子程序，它允许你将大型计算任务分解为较小的计算任务；</p>
+<p>函数是由大括号分隔的一段代码，它执行一些明确定义的任务并返回一个值；</p>
+<p>函数是程序的构建块，它有助于使现有代码可重用。</p>
+<p>函数也可以视为C中的派生类型。</p>
+<p>函数是扩展C语言库的一种方法。</p>
+<p>函数也有类型，也有sizeof，为其返回值的数据类型所占用的内存空间。</p>
 
 
 
+<p>参数传递：在调用函数与被调函数之间的数据复制、读、写；</p>
+<p>函数调用时，形参会在栈帧上开辟内存单元，放置实参的值或地址。如果是地址，才是对调用函数内部的变量形成间接访问。</p>
+<p>函数执行过程</p>
+<p>在主程序中计算每个实际参数值</p>
+<p>用实际参数值初始化形式参数</p>
+<p>依次执行函数体的每个语句，直到遇见return语句或函数体结束</p>
+<p>计算return后面的表达式的值，将表达式的值存储到寄存器eax（当存储不下时，使用两个寄存器，或存储一个内存地址，值存储到内存地址对应的内存空间中）</p>
+<p>回到调用函数，用临时变量置换函数调用，继续主程序的执行</p>
+<p>函数可以将一段完成独立功能的程序封装起来。通过函数名就可执行这一段功能。使用函数可以将程序模块化</p>
+<p>函数要处理的不是指针本身，而是指针所指向的数据。</p>
+<p>we defined a function as a collection of statements that execute sequentially. While that is certainly true, that definition doesn’t provide much insight into why functions are useful. Let’s update our definition: A function is a reusable sequence of statements designed to do a particular job.</p>
+<p></p>
+<p>You already know that every program must have a function named main (which is where the program starts execution when it is run). However, as programs start to get longer and longer, putting all the code inside the main function becomes increasingly hard to manage. Functions provide a way for us to split our programs into small, modular chunks that are easier to organize, test, and use. Most programs use many functions. The C++ standard library comes with plenty of already-written functions for you to use -- however, it’s just as common to write your own. Functions that you write yourself are called user-defined functions.</p>
+<p>A function parameter is a variable used in a function. Function parameters work almost identically to variables defined inside the function, but with one difference: they are always initialized with a value provided by the caller of the function.</p>
+<p>When a function is called, all of the parameters of the function are created as variables, and the value of each of the arguments is copied into the matching parameter. This process is called pass by value.</p>
+
+<p>函数调用规则，参数顺序</p>
+<pre>
+int add(int x, int y)
+{
+    return x + y;
+}
+ 
+int main()
+{
+    int x{ 5 };
+    int value = add(x, ++x); // is this 5 + 6, or 6 + 6?
+    // It depends on what order your compiler evaluates the function arguments in
+ 
+    std::cout &lt;&lt; value; // value could be 11 or 12, depending on how the above line evaluates! 12
+    return 0;
+}
+</pre>
+
+<p>Pointers are variables that store the memory address of (point at) another variable. The address-of operator (&) can be used to get the address of a variable. The dereference operator (*) can be used to get the value that a pointer points at.</p>
+<p>return the address of a variable local to the function, agreed by VC6,but not others:</p>
+
+<pre>
+int* doubleValue(int x)
+{
+    int value = x * 2;
+    return &value; // return value by address here
+}
+</pre>
+
+<p>The call stack in action</p>
 
 
+<p>Let’s examine in more detail how the call stack works. Here is the sequence of steps that takes place when a function is called:</p>
+
+
+<p>The program encounters a function call.</p>
+<p>A stack frame is constructed and pushed on the stack. The stack frame consists of:</p>
+<p>The address of the instruction beyond the function call (called the return address). This is how the CPU remembers where to return to after the called function exits.</p>
+<p>All function arguments.</p>
+<p>Memory for any local variables.</p>
+<p>Saved copies of any registers modified by the function that need to be restored when the function returns</p>
+<p>The CPU jumps to the function’s start point.</p>
+<p>The instructions inside of the function begin executing.</p>
+<p>When the function terminates, the following steps happen:</p>
+
+
+<p>Registers are restored from the call stack</p>
+<p>The stack frame is popped off the stack. This frees the memory for all local variables and arguments.</p>
+<p>The return value is handled.</p>
+<p>The CPU resumes execution at the return address.</p>
+<p>Return values can be handled in a number of different ways, depending on the computer’s architecture. Some architectures include the return value as part of the stack frame. Others use CPU registers.</p>
+
+
+<p>Typically, it is not important to know all the details about how the call stack works. However, understanding that functions are effectively pushed on the stack when they are called and popped off when they return gives you the fundamentals needed to understand recursion, as well as some other concepts that are useful when debugging.</p>
 
 
 
@@ -568,60 +695,6 @@ else
 </body>
 </html>
 
-<!--
-_____________________________________________________________________________________
 
-1 段落替换
-\s*<br />\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-2 汉字中间的空格替换：
-([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
-([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
-
-
-------------------
-$1$2
-_____________________________________________________________________________________
-3 段落前的空格替换
-\s*</p>\s*
-\s*<p>\s*
-------------------
-</p>
-
-<p>
-_____________________________________________________________________________________
-
-4 把第和章两个字去掉
-第(\S*)章
-------------------
-$1
-_____________________________________________________________________________________
-
-7 正则表达式参考：
-https://www.toutiao.com/i6370960744082571778/
-_____________________________________________________________________________________
-
-8
-<p class="picsay">
-<p class="picsay">
-<p class="code0">
-<p class="code2">
-<p class="code4">
-_____________________________________________________________________________________
-9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
-(\[\d\])
-------------------
-<sup>$1</sup>
-_____________________________________________________________________________________
-10 替换章不是以1-9。?！…”“结尾的段落
-([^1-90。?！…”：？“章])</p>
-<p>
-------------------
-$1
--->
 
 
