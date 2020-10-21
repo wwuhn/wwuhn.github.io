@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>∆∆Ω‚excel±£ª§√‹¬Î</title> <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Á†¥Ëß£excel‰øùÊä§ÂØÜÁ†Å</title> <meta http-equiv="content-type" content="text/html; charset=utf-8">
 </meta></head>
 
 <style>
@@ -23,14 +23,14 @@ height:150px;
 padding:2px;
 margin-top:12px;
 
-}#tbrowser a:link£¨.container a:visited{
+}#tbrowser a:linkÔøΩÔøΩ.container a:visited{
 font-size:18px;
 text-decoration:none;
 }
 .container{
 font-size:1.2em;
 margin:auto;
-font-family:"ÀŒÃÂ";
+font-family:mv boli;
 width:75.29%;
 line-height:1.4em;
 }
@@ -137,7 +137,7 @@ a:active {
 	width:100%;
 	margin:auto;
 	border-collapse:collapse;
-font-family:"ÀŒÃÂ";
+font-family:"ÔøΩÔøΩÔøΩÔøΩ";
 	text-align:left;
 	line-height:1.3em;
 	table-layout:fixed;
@@ -148,7 +148,7 @@ border:1px solid #ddd;
 font-size:1em;
 color:#000000;
 text-align:left;
-font-family: "ÀŒÃÂ";
+font-family: "ÔøΩÔøΩÔøΩÔøΩ";
 padding-left:3px;
 }
 
@@ -267,155 +267,177 @@ text-align:left;
 <body>
 
 <div class="container">
+<pre>
 
+Public Sub AllInternalPasswords()
+' Breaks worksheet and workbook structure passwords. Bob McCormick
+' probably originator of base code algorithm modified for coverage
+' of workbook structure / windows passwords and for multiple passwords
+'
+' Norman Harker and JE McGimpsey 27-Dec-2002 (Version 1.1)
+' Modified 2003-Apr-04 by JEM: All msgs to constants, and
+' eliminate one Exit Sub (Version 1.1.1)
+' Reveals hashed passwords NOT original passwords
 
-  <p><a name="OLE_LINK2" id="OLE_LINK2"></a><a name="OLE_LINK1" id="OLE_LINK1">Public Sub  AllInternalPasswords()</a><br />
-    ' Breaks worksheet and workbook structure  passwords. Bob McCormick<br />
-    ' probably originator of base code algorithm  modified for coverage<br />
-    ' of workbook structure / windows passwords and for  multiple passwords<br />
-    '<br />
-    ' Norman Harker and JE McGimpsey 27-Dec-2002  (Version 1.1)<br />
-    ' Modified 2003-Apr-04 by JEM: All msgs to  constants, and<br />
-    ' eliminate one Exit Sub (Version 1.1.1)<br />
-    ' Reveals hashed passwords NOT original passwords<br />
-    Const DBLSPACE As String = vbNewLine &amp;  vbNewLine<br />
-    Const AUTHORS As String = DBLSPACE &amp; vbNewLine  &amp; _<br />
-  &quot;Adapted from Bob McCormick base code by&quot;  &amp; _<br />
-  &quot;Norman Harker and JE McGimpsey&quot;<br />
-    Const HEADER As String = &quot;AllInternalPasswords  User Message&quot;<br />
-    Const VERSION As String = DBLSPACE &amp;  &quot;Version 1.1.1 2003-Apr-04&quot;<br />
-    Const REPBACK As String = DBLSPACE &amp;  &quot;Please report failure &quot; &amp; _<br />
-  &quot;to the microsoft.public.excel.programming  newsgroup.&quot;<br />
-    Const ALLCLEAR As String = DBLSPACE &amp; &quot;The  workbook should &quot; &amp; _<br />
-  &quot;now be free of all password protection, so  make sure you:&quot; &amp; _<br />
-    DBLSPACE &amp; &quot;SAVE IT NOW!&quot; &amp;  DBLSPACE &amp; &quot;and also&quot; &amp; _<br />
-    DBLSPACE &amp; &quot;BACKUP!, BACKUP!!,  BACKUP!!!&quot; &amp; _<br />
-    DBLSPACE &amp; &quot;Also, remember that the  password was &quot; &amp; _<br />
-  &quot;put there for a reason. Don't stuff up  crucial formulas &quot; &amp; _<br />
-  &quot;or data.&quot; &amp; DBLSPACE &amp;  &quot;Access and use of some data &quot; &amp; _<br />
-  &quot;may be an offense. If in doubt, don't.&quot;<br />
-    Const MSGNOPWORDS1 As String = &quot;There were no  passwords on &quot; &amp; _<br />
-  &quot;sheets, or workbook structure or  windows.&quot; &amp; AUTHORS &amp; VERSION<br />
-    Const MSGNOPWORDS2 As String = &quot;There was no  protection to &quot; &amp; _<br />
-  &quot;workbook structure or windows.&quot; &amp;  DBLSPACE &amp; _<br />
-  &quot;Proceeding to unprotect sheets.&quot; &amp;  AUTHORS &amp; VERSION<br />
-    Const MSGTAKETIME As String = &quot;After pressing  OK button this &quot; &amp; _<br />
-  &quot;will take some time.&quot; &amp; DBLSPACE  &amp; &quot;Amount of time &quot; &amp; _<br />
-  &quot;depends on how many different passwords, the  &quot; &amp; _<br />
-  &quot;passwords, and your computer's  specification.&quot; &amp; DBLSPACE &amp; _<br />
-  &quot;Just be patient! Make me a coffee!&quot;  &amp; AUTHORS &amp; VERSION<br />
-    Const MSGPWORDFOUND1 As String = &quot;You had a  Worksheet &quot; &amp; _<br />
-  &quot;Structure or Windows Password set.&quot;  &amp; DBLSPACE &amp; _<br />
-  &quot;The password found was: &quot; &amp; DBLSPACE  &amp; &quot;$$&quot; &amp; DBLSPACE &amp; _<br />
-  &quot;Note it down for potential future use in  other workbooks by &quot; &amp; _<br />
-  &quot;the same person who set this password.&quot;  &amp; DBLSPACE &amp; _<br />
-  &quot;Now to check and clear other passwords.&quot;  &amp; AUTHORS &amp; VERSION<br />
-    Const MSGPWORDFOUND2 As String = &quot;You had a  Worksheet &quot; &amp; _<br />
-  &quot;password set.&quot; &amp; DBLSPACE &amp;  &quot;The password found was: &quot; &amp; _<br />
-    DBLSPACE &amp; &quot;$$&quot; &amp; DBLSPACE &amp;  &quot;Note it down for potential &quot; &amp; _<br />
-  &quot;future use in other workbooks by same person  who &quot; &amp; _<br />
-  &quot;set this password.&quot; &amp; DBLSPACE &amp;  &quot;Now to check and clear &quot; &amp; _<br />
-  &quot;other passwords.&quot; &amp; AUTHORS &amp;  VERSION<br />
-    Const MSGONLYONE As String = &quot;Only structure /  windows &quot; &amp; _<br />
-  &quot;protected with the password that was just  found.&quot; &amp; _<br />
-    ALLCLEAR &amp; AUTHORS &amp; VERSION &amp; REPBACK<br />
-    Dim w1 As Worksheet, w2 As Worksheet<br />
-    Dim i As Integer, j As Integer, k As Integer, l As  Integer<br />
-    Dim m As Integer, n As Integer, i1 As Integer, i2  As Integer<br />
-    Dim i3 As Integer, i4 As Integer, i5 As Integer, i6  As Integer<br />
-    Dim PWord1 As String<br />
-    Dim ShTag As Boolean, WinTag As Boolean</p>
-  <p>Application.ScreenUpdating = False<br />
-    With ActiveWorkbook<br />
-    WinTag = .ProtectStructure Or .ProtectWindows<br />
-    End With<br />
-    ShTag = False<br />
-    For Each w1 In Worksheets<br />
-    ShTag = ShTag Or w1.ProtectContents<br />
-    Next w1<br />
-    If Not ShTag And Not WinTag Then<br />
-    MsgBox MSGNOPWORDS1, vbInformation, HEADER<br />
-    Exit Sub<br />
-    End If<br />
-    MsgBox MSGTAKETIME, vbInformation, HEADER<br />
-    If Not WinTag Then<br />
-    MsgBox MSGNOPWORDS2, vbInformation, HEADER<br />
-    Else<br />
-    On Error Resume Next<br />
-    Do 'dummy do loop<br />
-    For i = 65 To 66: For j = 65 To 66: For k = 65 To  66<br />
-    For l = 65 To 66: For m = 65 To 66: For i1 = 65 To  66<br />
-    For i2 = 65 To 66: For i3 = 65 To 66: For i4 = 65  To 66<br />
-    For i5 = 65 To 66: For i6 = 65 To 66: For n = 32 To  126<br />
-    With ActiveWorkbook<br />
-    .Unprotect Chr(i) &amp; Chr(j) &amp; Chr(k) &amp; _<br />
-    Chr(l) &amp; Chr(m) &amp; Chr(i1) &amp; Chr(i2)  &amp; _<br />
-    Chr(i3) &amp; Chr(i4) &amp; Chr(i5) &amp; Chr(i6)  &amp; Chr(n)<br />
-    If .ProtectStructure = False And _<br />
-    .ProtectWindows = False Then<br />
-    PWord1 = Chr(i) &amp; Chr(j) &amp; Chr(k) &amp;  Chr(l) &amp; _<br />
-    Chr(m) &amp; Chr(i1) &amp; Chr(i2) &amp; Chr(i3)  &amp; _<br />
-    Chr(i4) &amp; Chr(i5) &amp; Chr(i6) &amp; Chr(n)<br />
-    MsgBox Application.Substitute(MSGPWORDFOUND1, _<br />
-  &quot;$$&quot;, PWord1), vbInformation, HEADER<br />
-    Exit Do 'Bypass all for...nexts<br />
-    End If<br />
-    End With<br />
-    Next: Next: Next: Next: Next: Next<br />
-    Next: Next: Next: Next: Next: Next<br />
-    Loop Until True<br />
-    On Error GoTo 0<br />
-    End If<br />
-    If WinTag And Not ShTag Then<br />
-    MsgBox MSGONLYONE, vbInformation, HEADER<br />
-    Exit Sub<br />
-    End If<br />
-    On Error Resume Next<br />
-    For Each w1 In Worksheets<br />
-    'Attempt clearance with PWord1<br />
-    w1.Unprotect PWord1<br />
-    Next w1<br />
-    On Error GoTo 0<br />
-    ShTag = False<br />
-    For Each w1 In Worksheets<br />
-    'Checks for all clear ShTag triggered to 1 if not.<br />
-    ShTag = ShTag Or w1.ProtectContents<br />
-    Next w1<br />
-    If ShTag Then<br />
-    For Each w1 In Worksheets<br />
-    With w1<br />
-    If .ProtectContents Then<br />
-    On Error Resume Next<br />
-    Do 'Dummy do loop<br />
-    For i = 65 To 66: For j = 65 To 66: For k = 65 To  66<br />
-    For l = 65 To 66: For m = 65 To 66: For i1 = 65 To  66<br />
-    For i2 = 65 To 66: For i3 = 65 To 66: For i4 = 65  To 66<br />
-    For i5 = 65 To 66: For i6 = 65 To 66: For n = 32 To  126<br />
-    .Unprotect Chr(i) &amp; Chr(j) &amp; Chr(k) &amp; _<br />
-    Chr(l) &amp; Chr(m) &amp; Chr(i1) &amp; Chr(i2)  &amp; Chr(i3) &amp; _<br />
-    Chr(i4) &amp; Chr(i5) &amp; Chr(i6) &amp; Chr(n)<br />
-    If Not .ProtectContents Then<br />
-    PWord1 = Chr(i) &amp; Chr(j) &amp; Chr(k) &amp;  Chr(l) &amp; _<br />
-    Chr(m) &amp; Chr(i1) &amp; Chr(i2) &amp; Chr(i3)  &amp; _<br />
-    Chr(i4) &amp; Chr(i5) &amp; Chr(i6) &amp; Chr(n)<br />
-    MsgBox Application.Substitute(MSGPWORDFOUND2, _<br />
-  &quot;$$&quot;, PWord1), vbInformation, HEADER<br />
-    'leverage finding Pword by trying on other sheets<br />
-    For Each w2 In Worksheets<br />
-    w2.Unprotect PWord1<br />
-    Next w2<br />
-    Exit Do 'Bypass all for...nexts<br />
-    End If<br />
-    Next: Next: Next: Next: Next: Next<br />
-    Next: Next: Next: Next: Next: Next<br />
-    Loop Until True<br />
-    On Error GoTo 0<br />
-    End If<br />
-    End With<br />
-    Next w1<br />
-    End If<br />
-    MsgBox ALLCLEAR &amp; AUTHORS &amp; VERSION &amp;  REPBACK, vbInformation, HEADER<br />
-    End Sub</p>
+Const DBLSPACE As String = vbNewLine & vbNewLine
+
+Const AUTHORS As String = DBLSPACE & vbNewLine & _
+"Adapted from Bob McCormick base code by" & _
+"Norman Harker and JE McGimpsey"
+
+Const HEADER As String = "AllInternalPasswords User Message"
+Const VERSION As String = DBLSPACE & "Version 1.1.1 2003-Apr-04"
+
+Const REPBACK As String = DBLSPACE & "Please report failure " & _
+"to the microsoft.public.excel.programming newsgroup."
+
+Const ALLCLEAR As String = DBLSPACE & "The workbook should " & _
+"now be free of all password protection, so make sure you:" & _
+DBLSPACE & "SAVE IT NOW!" & DBLSPACE & "and also" & _
+DBLSPACE & "BACKUP!, BACKUP!!, BACKUP!!!" & _
+DBLSPACE & "Also, remember that the password was " & _
+"put there for a reason. Don't stuff up crucial formulas " & _
+"or data." & DBLSPACE & "Access and use of some data " & _
+"may be an offense. If in doubt, don't."
+
+Const MSGNOPWORDS1 As String = "There were no passwords on " & _
+"sheets, or workbook structure or windows." & AUTHORS & VERSION
+
+Const MSGNOPWORDS2 As String = "There was no protection to " & _
+"workbook structure or windows." & DBLSPACE & _
+"Proceeding to unprotect sheets." & AUTHORS & VERSION
+
+Const MSGTAKETIME As String = "After pressing OK button this " & _
+"will take some time." & DBLSPACE & "Amount of time " & _
+"depends on how many different passwords, the " & _
+"passwords, and your computer's specification." & DBLSPACE & _
+"Just be patient! Make me a coffee!" & AUTHORS & VERSION
+
+Const MSGPWORDFOUND1 As String = "You had a Worksheet " & _
+"Structure or Windows Password set." & DBLSPACE & _
+"The password found was: " & DBLSPACE & "$$" & DBLSPACE & _
+"Note it down for potential future use in other workbooks by " & _
+"the same person who set this password." & DBLSPACE & _
+"Now to check and clear other passwords." & AUTHORS & VERSION
+
+Const MSGPWORDFOUND2 As String = "You had a Worksheet " & _
+"password set." & DBLSPACE & "The password found was: " & _
+DBLSPACE & "$$" & DBLSPACE & "Note it down for potential " & _
+"future use in other workbooks by same person who " & _
+"set this password." & DBLSPACE & "Now to check and clear " & _
+"other passwords." & AUTHORS & VERSION
+
+Const MSGONLYONE As String = "Only structure / windows " & _
+"protected with the password that was just found." & _
+ALLCLEAR & AUTHORS & VERSION & REPBACK
+
+Dim w1 As Worksheet, w2 As Worksheet
+Dim i As Integer, j As Integer, k As Integer, l As Integer
+Dim m As Integer, n As Integer, i1 As Integer, i2 As Integer
+Dim i3 As Integer, i4 As Integer, i5 As Integer, i6 As Integer
+Dim PWord1 As String
+Dim ShTag As Boolean, WinTag As Boolean
+
+Application.ScreenUpdating = False
+With ActiveWorkbook
+    WinTag = .ProtectStructure Or .ProtectWindows
+End With
+
+ShTag = False
+For Each w1 In Worksheets
+    ShTag = ShTag Or w1.ProtectContents
+Next w1
+
+If Not ShTag And Not WinTag Then
+    MsgBox MSGNOPWORDS1, vbInformation, HEADER
+    Exit Sub
+End If
+
+MsgBox MSGTAKETIME, vbInformation, HEADER
+
+If Not WinTag Then
+    MsgBox MSGNOPWORDS2, vbInformation, HEADER
+Else
+    On Error Resume Next
+    Do 'dummy do loop
+    For i = 65 To 66: For j = 65 To 66: For k = 65 To 66
+    For l = 65 To 66: For m = 65 To 66: For i1 = 65 To 66
+    For i2 = 65 To 66: For i3 = 65 To 66: For i4 = 65 To 66
+    For i5 = 65 To 66: For i6 = 65 To 66: For n = 32 To 126
+    With ActiveWorkbook
+        .Unprotect Chr(i) & Chr(j) & Chr(k) & _
+        Chr(l) & Chr(m) & Chr(i1) & Chr(i2) & _
+        Chr(i3) & Chr(i4) & Chr(i5) & Chr(i6) & Chr(n)
+        If .ProtectStructure = False And _
+            .ProtectWindows = False Then
+            PWord1 = Chr(i) & Chr(j) & Chr(k) & Chr(l) & _
+            Chr(m) & Chr(i1) & Chr(i2) & Chr(i3) & _
+            Chr(i4) & Chr(i5) & Chr(i6) & Chr(n)
+            MsgBox Application.Substitute(MSGPWORDFOUND1, _
+            "$$", PWord1), vbInformation, HEADER
+            Exit Do 'Bypass all for...nexts
+        End If
+
+    End With
+    Next: Next: Next: Next: Next: Next
+    Next: Next: Next: Next: Next: Next
+    Loop Until True
+    On Error GoTo 0
+End If
+
+If WinTag And Not ShTag Then
+    MsgBox MSGONLYONE, vbInformation, HEADER
+    Exit Sub
+End If
+On Error Resume Next
+For Each w1 In Worksheets
+    'Attempt clearance with PWord1
+    w1.Unprotect PWord1
+Next w1
+On Error GoTo 0
+ShTag = False
+For Each w1 In Worksheets
+    'Checks for all clear ShTag triggered to 1 if not.
+    ShTag = ShTag Or w1.ProtectContents
+Next w1
+
+If ShTag Then
+    For Each w1 In Worksheets
+        With w1
+            If .ProtectContents Then
+                On Error Resume Next
+                Do 'Dummy do loop
+                For i = 65 To 66: For j = 65 To 66: For k = 65 To 66
+                For l = 65 To 66: For m = 65 To 66: For i1 = 65 To 66
+                For i2 = 65 To 66: For i3 = 65 To 66: For i4 = 65 To 66
+                For i5 = 65 To 66: For i6 = 65 To 66: For n = 32 To 126
+                .Unprotect Chr(i) & Chr(j) & Chr(k) & _
+                Chr(l) & Chr(m) & Chr(i1) & Chr(i2) & Chr(i3) & _
+                Chr(i4) & Chr(i5) & Chr(i6) & Chr(n)
+                If Not .ProtectContents Then
+                    PWord1 = Chr(i) & Chr(j) & Chr(k) & Chr(l) & _
+                    Chr(m) & Chr(i1) & Chr(i2) & Chr(i3) & _
+                    Chr(i4) & Chr(i5) & Chr(i6) & Chr(n)
+                    MsgBox Application.Substitute(MSGPWORDFOUND2, _
+                    "$$", PWord1), vbInformation, HEADER
+                    'leverage finding Pword by trying on other sheets
+                    For Each w2 In Worksheets
+                        w2.Unprotect PWord1
+                    Next w2
+                    Exit Do 'Bypass all for...nexts
+                End If
+                Next: Next: Next: Next: Next: Next
+                Next: Next: Next: Next: Next: Next
+                Loop Until True
+                On Error GoTo 0
+            End If
+        End With
+    Next w1
+End If
+
+MsgBox ALLCLEAR & AUTHORS & VERSION & REPBACK, vbInformation, HEADER
+End Sub
+</pre>
 </div>
 </body>
 </html>
