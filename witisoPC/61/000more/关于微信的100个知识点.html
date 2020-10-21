@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>关于微信的100个知识点</h3>
+
+<p>2020 年温故知新，为大家整理了100 个关于微信的知识点，从微信基本操作到公众号、小程序相关小知识，可以说是大家的新年工作、装逼必备！建议收藏码住！</p>
+
+
+<p>1 .微信诞生的时间是2011 年1 月21 日。</p>
+
+<p>2 .微信之父是张小龙。</p>
+
+<p>3 .微信公众号于2012 年8 月23 日正式上线。2012 年4 月，朋友圈上线。2012 年7 月，视频通话上线2013 年，微信支付上线。2017 年1 月9 日，微信小程序正式上线。</p>
+
+<p>4 .微信每天的启动页画面是：一个小人远眺地球。微信启动页面地球照片拍摄时，中国正处于冬季。</p>
+
+<p>5 .微信总部位于广州。</p>
+
+<p>6 .微信地区设置第二多的国家/地区是安道尔。</p>
+
+<p>7 .微信及WeChat合并月活跃账户数达11 .51 亿，小程序日活跃账户数超3 亿。</p>
+
+<p>8 .00 后最爱的表情是，90 后最爱的表情是，80 后最爱的表情是，70 后最爱的表情是，55 岁以上人群最爱的表情是。</p>
+
+<p>9 .微信添加的单个表情最多300 个。</p>
+
+
+<p>10 .未读消息过多时，可以直接双击左下角图标，直接跳转到最新一条未读消息。</p>
+
+<p>11 .微信朋友圈的英文版是Moments。</p>
+
+<p>12 .微信号是微信的唯一ID，只能设置一次，之后不能再修改。</p>
+
+<p>13 .微信聊天记录中的图片，在未打开的情况下最长可以保存72 个小时。</p>
+
+<p>14 .微信聊天和朋友圈一次最多能发9 张图。</p>
+
+<p>15 .微信消息撤回的时间为2 分钟以内，因为2 分钟是从接收到阅读信息的平均时长。撤回后5 分钟内可以编辑文字。</p>
+
+<p>16 .语音、文字、图片、视频、名片、位置、分享的链接等都可选择撤回，但是红包无法撤回。</p>
+
+<p>17 .微信是无法互删好友的。或者说，你只能删除好友却无法同时让他也删除你。</p>
+
+<p>18 .如果不小心把微信好友删了，但对方还没有删除你的话，可以偷偷地再加回，微信不会发送提示信息。</p>
+
+<p>19 .检测对方有没有拉黑或者删除自己，有两种方式。</p>
+
+<p>第一种，可以通过转账功能，输入任意金额。如果对方已拉黑或者删除，会出现“请确认你和他（她）的好友关系是否正常”提示。</p>
+
+<p>第二种，发起群聊。如果如果对方已拉黑或者删除，无法发起群聊。</p>
+
+<p>20 .微信聊天记录在自己手机里，只要不删除，会一直保存。微信退出登录后，不会删除任何历史数据，下次登录依然可以使用。微信软件卸载后，所有的聊天记录将会清除，重新安装后将无法继续查看聊天记录。微信软件未卸载（直接覆盖安装），聊天记录将会被保存。微信服务器不会保存聊天记录。如果未备份聊天记录，更换手机后无法查看之前手机上的聊天记录。</p>
+
+<p>21 .英文版微信“在看”是wow。</p>
+
+<h4>收藏</h4>
+<p>22 .微信收藏容量上限是2 G。单个文件不超过25 M。</p>
+
+<p>23 .微信收藏支持收藏的内容包括文字、语音、图片、视频、地理位置、网页、音乐、图书、商品、街景。</p>
+
+<p>24 .微信收藏的文字、表情，仅支持转发给朋友。收藏的图片、网页、单图文消息，可转发给朋友及分享至朋友圈；收藏的语音，暂不支持转发。</p>
+
+<p>25 .你可以通过微信收藏的标签功能管理收藏内容。iOS用户直接左滑编辑标签。安卓用户长按收藏内容，选择“编辑标签”。下次想找收藏内容时，可以通过标签快速检索。</p>
+
+<p>26 .微信自带“备忘录”功能。打开微信收藏，点击右上角“+”号，写完备忘信息后，通过右上角三个点选择“在聊天中置顶”，就可以看到置顶提醒了。</p>
+
+<p>27 .目前只有安卓手机支持微信横屏模式。</p>
+<h4>微信群</h4>
+<p>28 .群主有制定群规、发群公告、设置管理员等特权，但当群聊出现违法内容，群主也要承担连带责任。</p>
+
+<p>29 .群主退出群聊后，群主由第二个进群的人来“继承”。若前群主再次回到该群，之前群主身份不会恢复。</p>
+
+<p>30 .人数在40 人以上的群才可以设置群管理员。群人数超过100 后无法通过扫码进群。</p>
+
+<p>31 .微信群的群主或管理员@所有人的唯一方式，是通过修改群公告，而不是直接在群里输入@所有人。</p>
+
+
+<p>32 .解散微信群的正确操作，是手动将群成员全部踢出，群主点击删除并退出，仅仅起到退群的效果。</p>
+
+<p>33 .微信群二维码的有效期是7 天。</p>
+
+<p>34 .微信群语音通话最多支持9 个人。</p>
+
+<p>35 .主动退出微信群后，微信群和聊天记录会删除，服务器不会保存用户任何聊天记录。若被移除微信群，可查看移除前的聊天记录。</p>
+
+<p>36 .聊天的时候，对方只有收到消息后的10 秒钟内在对话框中输入文字，才会显示“对方正在输入”。微信的一些上限：微信好友的人数上限是5000 人。</p>
+
+<p>37 .微信昵称的上限是16 个字。微信个性签名的上限是30 个字。微信群的人数上限是500 人。公众号文章标题的上限是64 个字。个人微信关注公众号的上限是999 个。单篇公众号图文的字数上限是5 万字。</p>
+<h4>朋友圈</h4>
+<p>38 .长按朋友圈右上角的相机图标，输入文字即可发送纯文字朋友圈。</p>
+
+<p>39 .在微信朋友圈发送纯文字、发布或分享信息添加文字描述，最多可输入1500 个汉字左右。</p>
+
+<p>40 .朋友圈相册暂无容量限制。</p>
+
+<p>41 .发布朋友圈时，可在@提醒谁看处添加好友，最多可以@10 个好友。</p>
+
+<p>42 .用微信拍朋友圈小视频最长可以拍15 秒。</p>
+
+<p>43 .微信可以设置允许朋友查看朋友圈的范围，包括最近三天、最近一个月、最近半年和全部。</p>
+<h4>公众号</h4>
+<p>44 .个人身份证最多注册1 个公众号，一家公司最多可以注册2 个公众号（如有额外业务需求可向微信官方申请）。</p>
+
+<p>45 .公众号名称可设置4 -30 个字符（1 个汉字算2 字符），可由中文、数字、英文、空格及部分特殊符号组成。公众号名称不能与其他帐号名称重复。</p>
+
+<p>46 .个人公众号一年内可修改两次名称，企业/媒体/政府/其他组织可以在微信认证过程中有一次重新提交命名的机会。</p>
+
+<p>47 .公众号支持定时群发，可选择5 分钟后的今、明两天内任意时刻定时群发。成功设置后不支持修改，但在设定的时间之前可取消，取消后不占用群发条数。</p>
+
+<p>48 .每篇公众号图文最多只能插3 个视频，3 个素材库音频，但可以插N首音乐。</p>
+
+<p>49 .公众号分为订阅号和服务号，一般情况下订阅号可每天推送一次，每次最多推送8 条；服务号每月推送4 次，每次最多推送8 条。</p>
+
+<p>50 .如果一篇公众号文章在00 :00 时显示发送成功，占用的是前一天的发布名额，但如果是0 点开始扫码推送，0 点过几分才发出，应该就是第二天的推送名额了。</p>
+
+
+<p>51 .公众号文章推送后，最多只能修改20 个错别字，可以替换、删除，但不包括标题；图片视频出错都无法修改。每篇文章只能修改1 次。</p>
+
+<p>52 .新注册的公众号暂时没有留言功能。目前获得留言功能的唯一办法，是购买有留言功能的公号然后迁移过来。</p>
+
+<p>53 .公众号A迁移到公众号B，A可以是个人号、企业号、订阅号、服务号，但B只能是企业号，包括企业类的订阅号和服务号。也就是说，个人号不能迁移到个人号。</p>
+
+<p>54 .订阅号升级服务号功能已于2018 年12 月27 日下线。如果你想变更公众帐号类型，可使用帐号迁移功能。</p>
+
+<p>55 .公众号迁移，默认迁移的是原账号的粉丝数、违规记录、原账号已开通的原创保护功能、留言管理功能等等，但赞赏是不能迁过去的。</p>
+
+<p>56 .公众号迁移一般需要7 -10 天时间，迁移期间原账号不能编辑推送文章，公众号迁移完成后原账号的流量主会在月底自动结算。</p>
+
+<p>57 .想不起自己的公众号登录邮箱/账号，可以在小程序「公众平台助手」中查看，公众号名称下方就是。</p>
+
+<p>58 .公众号后台可以查看“死忠粉”的占比。2019 年7 月底，微信公众平台上线“常读用户”数据分析，同时新增用户年龄、细化地域分布等，数据分析颗粒度进一步细化。据新榜2019 年8 月对七千多账号的抽样调查，公众号的常读用户比例一般为11 %。</p>
+
+<p>59 .公众号头像一个自然月只能申请修改5 次，修改头像需经过审核。头像的图片大小不可以超2 M。</p>
+
+<p>60 .图文原创文字超过300 字，可声明原创。</p>
+
+<p>61 .微信公众号关键词自动回复设置规则上限为200 条规则。每条规则名最多可设置60 个汉字。每条规则内最多设置10 条关键词（每条关键字，最多可设置30 个汉字）、5 条回复（每条回复，最多可设置300 个汉字）。</p>
+
+<p>62 .微信公众号自定义菜单最多创建3 个一级菜单。每个一级菜单下的子菜单最多可创建5 个。在子菜单下可设置动作：发送信息和跳转到网页。</p>
+
+<p>63 .编辑中的微信公众号自定义菜单不会马上被用户看到。点击发布后，自定义菜单会在24 小时后在手机端同步显示，粉丝不会收到更新提示。若多次编辑，以最后一次保存为准。</p>
+
+<p>64 .2018 年6 月6 日，公众号赞赏升级为“喜欢作者”。作者可以直接收到读者的赞赏。</p>
+
+<p>65 .赞赏账户、公众号、小程序遵循全平台名称唯一。同主体或同管理员的情况下，赞赏账户名称可以和公众号、小程序保持一致。</p>
+
+<p>66 .微信公众号申请后30 日未完成注册，公众号申请注册流程可能被终止，终止后注册所使用邮箱信息将被取消申请注册状态，可用于新公众号注册。</p>
+
+<p>67 .公众号文章内图片跳转有弹窗提示。</p>
+
+<p>68 .微信公众号可以群发的形式包括文字、图文、音频、视频、图片。群发内容为文字的字数上限为600 个字符或600 个汉字。语音限制最大5 M，最长60 min。视频限制最大20 M。</p>
+
+<p>69 .上传至素材管理中的图片、语音可多次群发，没有有效期。</p>
+
+<p>70 .公众号头图尺寸比例是2 .35 ：1 ，大概是900 x383 。</p>
+
+
+<p>71 .如果你想转载声明原创的文章，可以向公众号运营者申请转载。转载权限分为两种，第一种是可修改文章，即单勾白名单。第二种是可修改文章，不显示转载来源，即双勾白名单。如果没有获得转载权限直接转载，那你的图文会变成卡片分享模式。</p>
+
+<p>72 .公众号流量主开通的门槛是500 粉丝。同一主体最多允许20 个公众号开通流量主。</p>
+
+<p>73 .新榜指数是目前业内评价一个公众号综合表现的重要参考，指标包括总阅读数、最高阅读数、平均阅读数、头条阅读、总在看数等。想要提高新榜指数进而提升在行业榜单上的排名，不妨了解一下新榜指数的权重分布：最高的是阅读数，其次是平均阅读数，其余几项相差不多，但因为在看数的基数比较大，所以提高在看数也不失为提高新榜指数的方法。</p>
+<h4>小程序</h4>
+<p>74 .小程序目前可以实现线上卖货、扫码排队、通过微信指数查看热词趋势，唯独不能转发朋友圈。</p>
+
+<p>75 .每个小程序可跳转的其他小程序数量限制为不超过10 个。在跳转至其他小程序前，有弹窗询问用户是否跳转，用户确认后才可以跳转其他小程序。</p>
+
+<p>76 .小程序绑定公众号没有数量限制。</p>
+
+<p>77 .小程序头像在一个自然年里可修改5 次，大小不超过5 M。</p>
+
+<p>78 .小程序在发布前，名称设置成功以后有2 次修改名称机会，2 次机会用完，必须先发布后，才可通过微信认证进行改名。</p>
+
+<p>79 .小程序可申请不少于1 个不多于5 个服务范围，服务范围分两级，每级不能为空。特殊行业需提示特殊资质。一个月内可修改三次。</p>
+
+<p>80 .公众号、小程序在微信公众平台上的名称是唯一的。如果属于同一主体下，可以重名。小程序不得与不同主体的公众号名称重名。</p>
+
+<p>81 .小程序名称可以由中文、数字、英文、空格及部分特殊符号组成。长度在4 -30 个字符之间，一个中文字等于2 个字符。小程序简称可以从小程序名称中按顺序截取字符创建。长度在4 -10 个字符之间，一个中文字等于2 个字符。</p>
+
+<p>82 .企业、政府、媒体、其他组织主体可以注册50 个小程序，个体户和个人类型主体可注册5 个小程序。主体注册次数不占公众号次数限制。</p>
+
+<p>83 .个人类型申请的小程序不支持开通过微信认证、微信支付。</p>
+
+<p>84 .小程序已创建成功，已和同主体公众号关联，但未开通微信认证时，可以复用公众号微信认证资质。快速认证不需要重新提交认证资质，不需要支付300 元支付费用，即时生效。</p>
+
+<p>85 .每个小程序可最多提交10 个自定义关键词。且通过后每月最多有3 次修改机会。</p>
+
+<p>86 .已认证小程序账号可申请微信支付功能。已认证小程序可绑定最多20 个开发者，未认证小程序可绑定最多10 个开发者。</p>
+
+<p>87 .windows版微信可以打开聊天中的小程序消息。</p>
+<hr />
+<p>88 .微信运动步数每天最多98800 步。如果不想被别人看到自己的微信步数，可以开启微信步数隐藏功能。</p>
+
+<p>89 .用微信零钱支付，一年最多可以支付20 万。</p>
+
+<p>90 .转账到账时间是可以设置的，可以设置为实时到账、2 小时到账或24 小时到账。转账发起后不支持撤回。</p>
+
+<p>91 .发出的红包如果在24 小时里没被好友领取，资金会自动退回。红包退款方式有2 种，退回零钱和退回原支付方式。</p>
+
+
+<p>92 .群收款可以在支付—收付款里发起。你可以针对某个群聊，选择发起收款。群收款有2 种模式，人均模式和按人填金额模式。</p>
+
+<p>93 .在微信群发红包单次最多可以发100 个，单个最多200 元。也就是说，微信红包的单次金额不超过2 万元。</p>
+
+<p>94 .单日零钱发红包最高金额10 万元，银行卡支付金额受银行卡额度限制。</p>
+
+<p>95 .如果不是好友关系，无法进行红包发送。如果发送红包后删除或拉黑对方，对方仍可以正常接收红包。面对面红包没有好友限制，非好友也可以直接扫描领取。</p>
+
+<p>96 .开通刷卡免密支付后，每笔订单小于1000 元人民币消费免密，每天有10 次免密次数。</p>
+
+<p>97 .微信零钱通上限是500 万。</p>
+
+<p>98 .2019 年12 月11 日，微信搜索正式升级为“微信搜一搜”。微信搜一搜可以用来搜索小程序、商品、天气、股票、音乐、看病挂号、小说、新闻、百科、问答等。</p>
+
+<p>99 .在微信搜一搜点击朋友圈，输入文字，可以直接搜索朋友圈内容。同时，还可以筛选发布人和发布时间。</p>
+
+<p>100 .微信文章看到一半可以使用浮窗功能。小程序、收藏笔记、文件预览、外部链接也都支持设置浮窗。最多可同时设置5 个浮窗。</p>
+
+
+<p style='float:right;'>本页共212段，7224个字符，16766 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
