@@ -1,0 +1,525 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>MFCObject和WindowsObject的关系</h3>
+
+<p>
+</p>
+
+<p>MFC中最重要的封装是对Win32 API的封装，因此，理解Windows Object和MFC Object (C++对象，一个C++类的实例)之间的关系是理解MFC的关键之一。所谓<strong>Windows Object（Windows对象）是Win32下用句柄表示的Windows操作系统对象</strong>；所谓<strong>MFC Object (MFC对象)是C++对象，是一个C++类的实例</strong>，这里（本书范围内）MFC Object是有特定含义的，指封装Windows Object的C++ Object，并非指任意的C++ Object。
+</p>
+
+<p>MFC Object和Windows Object是不一样的，但两者紧密联系。以窗口对象为例：
+</p>
+
+<p>一个MFC窗口对象是一个C++ CWnd类（或派生类）的实例，是程序直接创建的。在程序执行中它随着窗口类构造函数的调用而生成，随着析构函数的调用而消失。而<strong>Windows窗口则是Windows系统的一个内部数据结构的实例，由一个“窗口句柄”标识，Windows系统创建它并给它分配系统资源</strong>。Windows窗口在MFC窗口对象创建之后，由CWnd类的Create成员函数创建，“窗口句柄”保存在窗口对象的m_hWnd成员变量中。Windows窗口可以被一个程序销毁，也可以被用户的动作销毁。MFC窗口对象和Windows窗口对象的关系如图2-1所示。其他的Windows Object和对应的MFC Object也有类似的关系。
+</p>
+
+<p>下面，对MFC Object和Windows Object作一个比较。有些论断对设备描述表(MFC类是CDC，句柄是HDC)可能不适用，但具体涉及到时会指出。
+</p>
+
+<p>（1） 从数据结构上比较
+</p>
+
+<p>MFC Object是相应C++类的实例，这些类是MFC或者程序员定义的；
+</p>
+
+<p>Windows Object是Windows系统的内部结构，通过一个句柄来引用；
+</p>
+
+<p>MFC给这些类定义了一个成员变量来保存MFC Object对应的Windows Object的句柄。对于设备描述表CDC类，将保存两个HDC句柄。
+</p>
+
+<p>（2） 从层次上讲比较
+</p>
+
+<p>MFC Object是高层的，Windows Object是低层的；
+</p>
+
+<p>MFC Object封装了Windows Object的大部分或全部功能，MFC Object的使用者不需要直接应用Windows Object的HANDLE（句柄）使用Win32 API，代替它的是引用相应的MFC Object的成员函数。
+</p>
+
+<p>（3） 从创建上比较
+</p>
+
+<p>MFC Object通过构造函数由程序直接创建；Windows Object由相应的SDK函数创建。
+</p>
+
+<p>MFC中，使用这些MFC Object，一般分两步：
+</p>
+
+<p>首先，创建一个MFC Object，或者在STACK中创建，或者在HEAP中创建，这时，MFC Object的句柄实例变量为空，或者说不是一个有效的句柄。
+</p>
+
+<p>然后，调用MFC Object的成员函数创建相应的Windows Object，MFC的句柄变量存储一个有效句柄。
+</p>
+
+<p>CDC(设备描述表类)的创建有所不同，在后面的2.3节会具体说明CDC及其派生类的创建和使用。
+</p>
+
+<p>当然，可以在MFC Object的构造函数中创建相应的Windows对象，MFC的GDI类就是如此实现的，但从实质上讲，MFC Object的创建和Windows Object的创建是两回事。
+</p>
+
+<p>（4） 从转换上比较
+</p>
+
+<p>可以从一个MFC Object得到对应的Windows Object的句柄；一般使用MFC Object的成员函数GetSafeHandle得到对应的句柄。
+</p>
+
+<p>可以从一个已存在的Windows Object创建一个对应的MFC Object； 一般使用MFC Object的成员函数Attach或者FromHandle来创建，前者得到一个永久性对象，后者得到的可能是一个临时对象。
+</p>
+
+<p>（5） 从使用范围上比较
+</p>
+
+<p>MFC Object对系统的其他进程来说是不可见、不可用的；<strong>而Windows Object一旦创建，其句柄是整个Windows系统全局的。一些句柄可以被其他进程使用。典型地，一个进程可以获得另一进程的窗口句柄，并给该窗口发送消息。</strong>
+</p>
+
+<p>对同一个进程的线程来说，只可以使用本线程创建的MFC Object，不能使用其他线程的MFC Object。
+</p>
+
+<p>（6） 从销毁上比较
+</p>
+
+<p>MFC Object随着析构函数的调用而消失；但Windows Object必须由相应的Windows系统函数销毁。
+</p>
+
+<p>设备描述表CDC类的对象有所不同，它对应的HDC句柄对象可能不是被销毁，而是被释放。
+</p>
+
+<p>当然，可以在MFC Object的析构函数中完成Windows Object的销毁，MFC Object的GDI类等就是如此实现的，但是，应该看到：两者的销毁是不同的。
+</p>
+
+<p>每类Windows Object都有对应的MFC Object，下面用表格的形式列出它们之间的对应关系，如表2-1所示：
+</p>
+
+<p>表2-1 MFC Object和Windows Object的对应关系
+</p>
+
+<p>描述
+</p>
+
+<p>Windows句柄
+</p>
+
+<p>MFC Object
+</p>
+
+<p>窗口
+</p>
+
+<p>HWND
+</p>
+
+<p>CWnd and CWnd-derived classes
+</p>
+
+<p>设备上下文
+</p>
+
+<p>HDC
+</p>
+
+<p>CDC and CDC-derived classes
+</p>
+
+<p>菜单
+</p>
+
+<p>HMENU
+</p>
+
+<p>CMenu
+</p>
+
+<p>笔
+</p>
+
+<p>HPEN
+</p>
+
+<p>CGdiObject类，CPen和CPen-derived classes
+</p>
+
+<p>刷子
+</p>
+
+<p>HBRUSH
+</p>
+
+<p>CGdiObject类，CBrush和CBrush-derived classes
+</p>
+
+<p>字体
+</p>
+
+<p>HFONT
+</p>
+
+<p>CGdiObject类，CFont和CFont-derived classes
+</p>
+
+<p>位图
+</p>
+
+<p>HBITMAP
+</p>
+
+<p>CGdiObject类，CBitmap和CBitmap-derived classes
+</p>
+
+<p>调色板
+</p>
+
+<p>HPALETTE
+</p>
+
+<p>CGdiObject类，CPalette和CPalette-derived classes
+</p>
+
+<p>区域
+</p>
+
+<p>HRGN
+</p>
+
+<p>CGdiObject类，CRgn和CRgn-derived classes
+</p>
+
+<p>图像列表
+</p>
+
+<p>HIMAGELIST
+</p>
+
+<p>CImageList和CImageList-derived classes
+</p>
+
+<p>套接字
+</p>
+
+<p>SOCKET
+</p>
+
+<p>CSocket,CAsynSocket及其派生类
+</p>
+
+<p>表2-1中的OBJECT分以下几类：
+</p>
+
+<p>Windows对象，
+</p>
+
+<p>设备上下文对象，
+</p>
+
+<p>GDI对象（BITMAP，BRUSH，FONT，PALETTE，PEN，RGN），
+</p>
+
+<p>菜单，
+</p>
+
+<p>图像列表，
+</p>
+
+<p>网络套接字接口。
+</p>
+
+<p>从广义上来看，文档对象和文件可以看作一对MFC Object和Windows Object，分别用CDocument类和文件句柄描述。
+</p>
+
+<p>后续几节分别对前四类作一个简明扼要的论述。
+</p>
+
+
+
+<p style='float:right;'>本页共77段，2879个字符，5544 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

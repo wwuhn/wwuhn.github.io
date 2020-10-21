@@ -1,0 +1,635 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>VC｜编辑框中的文本读写、查找、替换操作</h4>
+
+<p>
+</p>
+
+<p>1 添加编辑框(Rich Edit)
+</p>
+
+<p>1.1 编辑框ID：IDC_textbox
+</p>
+
+<p>1.2 编辑框关连的control变量：m_textblock
+</p>
+
+<p>2 变量声明和定义
+</p>
+
+<p>CString str;
+</p>
+
+<p>int nStart, nEnd;
+</p>
+
+<p>3 得到编辑框文本的方式
+</p>
+
+<p>有8种访问对话框控件的方式，下面是对这些方式的一个总结：
+</p>
+
+<p>GetDlgItem()->Get(Set)WindowText()
+</p>
+
+<p>GetDlgItemText()/SetDlgItemText()
+</p>
+
+<p>GetDlgItemInt()/SetDlgItemInt()
+</p>
+
+<p>将控件和普通变量相关联，用UpdateData();交换数据
+</p>
+
+<p>将控件和控件变量相关联
+</p>
+
+<p>SendMessage()
+</p>
+
+<p>SendDlgItemMessage()
+</p>
+
+<p>GetSelText()
+</p>
+
+<p>如：
+</p>
+
+<p>3.1
+</p>
+
+<p>GetDlgItem(IDC_textbox)->GetWindowText(str);
+</p>
+
+<p>//GetDlgItem()返回的是一个CEdit *指针
+</p>
+
+<p>3.2
+</p>
+
+<p>m_textblock.GetSel(nStart, nEnd);
+</p>
+
+<p>str = m_textblock.GetSelText();
+</p>
+
+<p>4 文本插入
+</p>
+
+<p>4.1 在编辑框全部文本的前后插入文本
+</p>
+
+<p>4.1.1
+</p>
+
+<p>m_textblock.SetSel(0, 0);
+</p>
+
+<p>m_textblock.ReplaceSel("<pre>");
+</p>
+
+<p>m_textblock.SetSel(-1, -1);
+</p>
+
+<p>m_textblock.ReplaceSel("</pre>");
+</p>
+
+<p>4.1.2
+</p>
+
+<p>m_textblock.SetSel(0, -1);
+</p>
+
+<p>str = m_textblock.GetSelText();
+</p>
+
+<p>str = "<pre>" + str + "</pre>";
+</p>
+
+<p>GetDlgItem(IDC_textbox)->SetWindowText(str);
+</p>
+
+<p>4.1.3
+</p>
+
+<p>GetDlgItem(IDC_textbox)->GetWindowText(str);
+</p>
+
+<p>str = "<pre>" + str + "</pre>";
+</p>
+
+<p>GetDlgItem(IDC_textbox)->SetWindowText(str);
+</p>
+
+<p>4.2 在编辑框文本的中间插入文本（或换行）
+</p>
+
+<p>str = "\n\r";
+</p>
+
+<p>m_textblock.ReplaceSel(str);
+</p>
+
+<p>5 文本替换
+</p>
+
+<p>任务：如果编辑框没有选择文本，则在全部文本的前面加上<pre>，在全部文本的后面加上</pre>。如果编辑框有选择文本，则在选择的文本前后操作。
+</p>
+
+<p>m_textblock.GetSel(nStart, nEnd);
+</p>
+
+<p>if(nStart == nEnd)
+</p>
+
+<p>//如果nStart和nEnd相等，表明光标处于某个位置（直观来看就是光标在闪动）；
+</p>
+
+<p>{
+</p>
+
+<p>m_textblock.SetSel(0, -1);
+</p>
+
+<p>str = m_textblock.GetSelText();
+</p>
+
+<p>str = "<pre>" + str + "</pre>";
+</p>
+
+<p>GetDlgItem(IDC_textbox)->SetWindowText(str);
+</p>
+
+<p>}
+</p>
+
+<p>else
+</p>
+
+<p>{
+</p>
+
+<p>str = m_textblock.GetSelText();
+</p>
+
+<p>str = "<pre>" + str + "</pre>";
+</p>
+
+<p>m_textblock.ReplaceSel(str);
+</p>
+
+<p>}
+</p>
+
+<p>也可以利用CString类的Relace()方法做文本替换：
+</p>
+
+<p>CString strtxt,strold,strnew;
+</p>
+
+<p>GetDlgItem(IDC_textbox)->GetWindowText(strtxt);
+</p>
+
+<p>GetDlgItem(IDC_title)->GetWindowText(strold);
+</p>
+
+<p>GetDlgItem(IDC_new)->GetWindowText(strnew);
+</p>
+
+<p>strtxt.Replace(strold,strnew);
+</p>
+
+<p>GetDlgItem(IDC_textbox)->SetWindowText(strtxt);
+</p>
+
+<p>6 编辑框内文本的全选、复制、剪切、粘贴、清空、回退操作
+</p>
+
+<p>m_textblock.SetSel(0, -1);
+</p>
+
+<p>m_textblock.Copy();
+</p>
+
+<p>m_textblock.Cut();
+</p>
+
+<p>m_textblock.Paste();
+</p>
+
+<p>m_textblock.Clear();
+</p>
+
+<p>CEdit* edit1 = (CEdit*)GetDlgItem(IDC_textbox);
+</p>
+
+<p>edit1->SetWindowText("");
+</p>
+
+<p>m_textblock.Undo();
+</p>
+
+<p>m_textblock.SetFocus();
+</p>
+
+<p>7 将光标停置于编辑框中默认文本的特定位置
+</p>
+
+<p>如编辑框设置了如下默认文本：
+</p>
+
+<p>hi,
+</p>
+
+<p>Very happy to write to you.
+</p>
+
+<p>Attached please find!
+</p>
+
+<p>Any questions, please don't hesitate to let me know.
+</p>
+
+<p>You're early reply will be highly appreciated.
+</p>
+
+<p>Best Regards
+</p>
+
+<p>Yours Sincerely
+</p>
+
+<p>想让光标停靠在第三行空白处：
+</p>
+
+<p>m_body.SetSel(45,45);
+</p>
+
+<p>8 编辑框中文本的查找操作
+</p>
+
+<p>CString blocks,finds;
+</p>
+
+<p>int start,end,lengths,lengths2, num;
+</p>
+
+<p>start =0, end = 0, lengths = 0, lengths2 = 0, num =0;
+</p>
+
+<p>GetDlgItem(IDC_textbox)->GetWindowText(blocks);
+</p>
+
+<p>GetDlgItem(IDC_title)->GetWindowText(finds);
+</p>
+
+<p>lengths = finds.GetLength();
+</p>
+
+<p>start = blocks.Find(finds);
+</p>
+
+<p>while (start >= 0)
+</p>
+
+<p>{
+</p>
+
+<p>lengths2 = blocks.GetLength();
+</p>
+
+<p>start = blocks.Find(finds);
+</p>
+
+<p>//从第start +1开始，如是在第一个字符找到，则start = 0;
+</p>
+
+<p>if((start+lengths) > (lengths2 - start+lengths))
+</p>
+
+<p>{
+</p>
+
+<p>break;
+</p>
+
+<p>}
+</p>
+
+<p>blocks = blocks.Mid(start+lengths, lengths2-start-lengths);
+</p>
+
+<p>num++;
+</p>
+
+<p>}
+</p>
+
+<p>char str3[125];
+</p>
+
+<p>itoa(num,str3,10);
+</p>
+
+<p>CString textnum = str3;
+</p>
+
+<p>textnum = "找到："+ textnum + "个！";
+</p>
+
+<p>GetDlgItem(IDC_new)->SetWindowText(textnum);
+</p>
+
+<p>-End-
+</p>
+
+
+
+<p style='float:right;'>本页共115段，2887个字符，3744 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>VC6工程设置说明及VC6相关</h3>
+
+<p>所谓：“工欲善其事，必先利其器”。如果我们精于VC开发环境，我们是不是能够做得更加游刃有余呢？</p>
+<p>先来看一下VC的处理流程，大致分为两步：编译和连接。源文件通过编译生成了.obj文件；所有.obj文件和.lib文件通过连接生成.exe文件或.dll文件。</p>
+<p><h3>1 打开工程设置对话框</h3></p>
+<p>左边的列表可以选择要设置的工程编译方式（ Debug 或 Release ），如果多个工程，还可以选择要设置的工程。右边是一个属性页，内容十分丰富，依次是： General , Debug , C/C++ , Link , Resource , MIDL , Browse Info , Custom Build , Pre-link Step , Post-build step</p>
+<p><strong>编译参数的设置</strong>。主要通过VC的菜单项Project->Settings->C/C++页来完成。我们可以看到这一页的最下面Project Options中的内容，一般如下：</p>
+<p>/nologo /MDd /W3 /Gm /GX /ZI /Od /D “WIN32″ /D “_DEBUG” /D “_WINDOWS” /D “_AFXDLL” /D “_MBCS” /Fp”Debug/WritingDlgTest.pch” /Yu”stdafx.h” /Fo”Debug/” /Fd”Debug/” /FD /GZ /c</p>
+<p>各个参数代表的意义，可以参考Msdn，文章后面有解释。</p>
+<p><h3>2 C/C++页（8个分类）</h3></p>
+<h4>1) General：一些总体设置</h4>
+<p>1.Warninig level 警告级别， VC 默认为 3 ，一般不更改，等级越低，对代码的要求就越严格。</p>
+<p>2.Optimizations Optimizations 优化级别， Debug 下默认设置为 Disable(Debug) ，就是不优化，在 Release 下默认设置为 Maximize Speed ，就是最大速度优化。在追求效率或者编译结果的时候可以选择最大速度或最小尺寸的选项，不过微软不保证优化的准确性。</p>
+<p>3.Waring as error 不用多说了，经常忽略警告的人不会选这项吧。最好别选，否则你会烦死。</p>
+<p>4.Generate browse info 用以生成 .sbr 文件，记录类、变量等符号信息，可以在 Category 的 Listing Files 项中进行更多的设置。产生浏览信息，在编辑调试加了一些功能，会产生很大的编译文件，建议不要选</p>
+<p>5.Debug info 生成调试信息，选择调试信息的详细程度，在 debug 情况下，一般选择 Program DataBase 或 Program DataBase for Editon and continue 二者区别在于后者可以在调试过程中，修改代码后，部分编译后，在当前环境继续执行，虽然功能很强，建议还是用前者吧。 Release 一般选择 None 。</p>
+<p>None ，不产生任何调试信息（编译比较快）；</p>
+<p>Line Numbers Only ，仅生成全局的和外部符号的调试信息到 .OBJ 文件或 .EXE 文件，减小目标文件的尺寸；</p>
+<p>C 7.0- Compatible ，记录调试器用到的所有符号信息到 .OBJ 文件和 .EXE 文件；</p>
+<p>Program Database ，创建 *.pdb 文件记录所有调试信息；</p>
+<p>Program Database for Edit and Continue ，创建 *.pdb 文件记录所有调试信息，并且支持调试时编辑。</p>
+<p>6.Preprocessor definitions 预定义宏， Defines a preprocessing symbol for your source file ，相当于全局【 #define 】。提示： <strong>一般定义了 UNICODE _UNICODE 则认为是使用 unicode 编码，没定义则认为是 MBCS 。</strong></p>
+<h4>2) C++ Language：</h4>
+<p>（C\C++和连接两个选项卡下还有分类可以切换到不同类别！）</p>
+<p>-pointer_to_member representation用来设置类定义/引用的先后关系，一般为Best-Case Always表示在引用类之前该类肯定已经定义了；</p>
+<p>-Enable Exception Handling，进行同步的异常处理；</p>
+<p>-Enable Run-Time Type Information迫使编译器增加代码在运行时进行对象类型检查；</p>
+<p>-Disable Construction Displacements，设置类构造/析构函数调用虚函数问题。</p>
+<h4>3) Code Generation：</h4>
+<p>-Processor表示代码指令优化，可以为80386、80486、Pentium、Pentium Pro，或者Blend表示混合以上各种优化。</p>
+<p>-Use run-time library用以指定程序运行时使用的运行时库（单线程或多线程，Debug版本或Release版本），有一个原则就是，一个进程不要同时使用几个版本的运行时库。</p>
+<p>Single-Threaded，静态连接LIBC.LIB库；</p>
+<p>Debug Single-Threaded，静态连接LIBCD.LIB库；</p>
+<p>Multithreaded，静态连接LIBCMT.LIB库；</p>
+<p>Debug Multithreaded，静态连接LIBCMTD.LIB库；</p>
+<p>Multithreaded DLL，动态连接MSVCRT.DLL库；</p>
+<p>Debug Multithreaded DLL，动态连接MSVCRTD.DLL库。连接了单线程库就不支持多线程调用，连接了多线程库就要求创建多线程的应用程序。</p>
+<p>-Calling convention可以用来设定调用约定，有三种：__cdecl、__fastcall和__stdcall。各种调用约定的主要区别在于，函数调用时，函数的参数是从左到右压入堆栈还是从右到左压入堆栈；在函数返回时，由函数的调用者来清理压入堆栈的参数还是由函数本身来清理；以及在编译时对函数名进行的命名修饰（可以通过Listing Files看到各种命名修饰方式）。</p>
+<p>-Struct member alignment用以指定数据结构中的成员变量在内存中是按几字节对齐的，根据计算机数据总线的位数，不同的对齐方式存取数据的速度不一样。这个参数对数据包网络传输等应用尤为重要，不是存取速度问题，而是数据位的精确定义问题，一般在程序中使用#pragma pack来指定。</p>
+<h4>4) Customize （自定义）：</h4>
+<p>1.Disable language extensions 禁止语言扩展 (Microsoft Extensions to C) ，表示不使用微软为标准 C 做的语言扩展。</p>
+<p>2.Eliminate Duplicate Strings 主要用于字符串优化（将字符串放到缓充池里以节省空间），使用这个参数，使得</p>
+<p>char *sBuffer = “This is a character buffer”;</p>
+<p>char *tBuffer = “This is a character buffer”;</p>
+<p>sBuffer 和 tBuffer 指向的是同一块内存空间；</p>
+<p>3.Enable Function-Level Linking 告诉编译器将各个函数按打包格式编译；</p>
+<p>4.Enables minimal rebuild ，通过保存关联信息到 .IDB 文件，使编译器只对最新类定义改动过的源文件进行重编译，提高编译速度；</p>
+<p>5.Enable Incremental Compilation ，同样通过 .IDB 文件保存的信息，只重编译最新改动过的函数；</p>
+<p>6.Suppress Startup Banner and Information Messages 设置预编译文件（ pch ）的存放路径及（或）文件名，在 Project Options 中配置。用以控制参数是否在 output 窗口输出。</p>
+<h4>5) Listing Files：</h4>
+<p>Generate browse info的功能上面已经提到过。这里可以进行更多的设置。Exclude Local Variables from Browse Info表示是否将局部变量的信息放到.SBR文件中。Listing file type可以设置生成的列表信息文件的内容：Assembly-Only Listing仅生成汇编代码文件（.ASM扩展名）；Assembly With Machine Code生成机器代码和汇编代码文件（.COD扩展名）；Assembly With Source Code生成源代码和汇编代码文件（.ASM扩展名）；Assembly, Machine Code, and Source生成机器码、源代码和汇编代码文件（.COD扩展名）。Listing file name为生成的信息文件的路径，一般为Debug或Release目录下，生成的文件名自动取源文件的文件名。</p>
+<h4>6) Optimizations：</h4>
+<p>代码优化设置。可以选择Maximize Speed生成最快速的代码，或Minimize Size生成最小尺寸的程序，或者Customize定制优化。定制的内容包括：</p>
+<p>Assume No Aliasing，不使用别名（提高速度）；</p>
+<p>Assume Aliasing Across Function Calls，仅函数内部不使用别名；</p>
+<p>Global Optimizations，全局优化，比如经常用到的变量使用寄存器保存，或者循环内的计算优化，如</p>
+<p>i = -100;</p>
+<p>while( i < 0 ){ i += x + y;}</p>
+<p>会被优化为</p>
+<p>i = -100;</p>
+<p>t = x + y;</p>
+<p>while( i < 0 ){i += t;}</p>
+<p>Generate Intrinsic Functions，使用内部函数替换一些函数调用（提高速度）；</p>
+<p>Improve Float Consistency，浮点运算方面的优化；</p>
+<p>Favor Small Code，程序（exe或dll）尺寸优化优先于代码速度优化；</p>
+<p>Favor Fast Code，程序（exe或dll）代码速度优化优先于尺寸优化；</p>
+<p>Frame-Pointer Omission，不使用帧指针，以提高函数调用速度；</p>
+<p>Full Optimization，组合了几种参数，以生成最快的程序代码。</p>
+<p>Inline function expansion，内联函数扩展的三种优化（使用内联可以节省函数调用的开销，加快程序速度）：Disable不使用内联；Only __inline，仅函数定义前有inline或__inline标记使用内联；Any Suitable，除了inline或__inline标记的函数外，编译器“觉得”应该使用内联的函数，都使用内联。</p>
+<h4>7) Precompiled Headers：</h4>
+<p>预编译头文件的设置。使用预编译可以提高重复编译的速度。VC一般将一些公共的、不大变动的头文件（比如afxwin.h等）集中放到stdafx.h中，这一部分代码就不必每次都重新编译（除非是Rebuild All）。</p>
+<h4>8) Preprocessor：</h4>
+<p>预编译处理。可以定义/解除定义一些常量。Additional include directories，可以指定额外的包含目录，一般是相对于本项目的目录，如..\Include。</p>
+<p><h3>3. Link 页(5个分类)</h3></p>
+<p>连接参数的设置。主要通过VC的菜单项Project->Settings->Link页来完成。我们可以看到这一页的最下面Project Options中的内容，一般如下：</p>
+<p>/nologo /subsystem:windows /incremental:yes /pdb:”Debug/WritingDlgTest.pdb” /debug /machine:I386 /out:”Debug/WritingDlgTest.exe” /pdbtype:sept</p>
+<p>下面我们分别来看一下Category中的各项设置。</p>
+<h4>1) General：</h4>
+<p>1.Output file name 输出文件名称，支持相对路径</p>
+<p>2.Object/library module 工程所需要的 lib ，默认当前路径</p>
+<p>3.Generate debug info 产生 debug 信息。生成 Debug 信息到 *.pdb 文件（具体格式可以在 Category->Debug 中设置）， Debug 默认为 true ， Release 默认为 false</p>
+<p>4.Ignore All Default Libraries 放弃所有默认的库连接</p>
+<p>5.Link incrementally 增量连接，必须选择 Program database 选项，提高编译连接的速度，通过生成 . ILK 文件实现递增式连接以提高后续连接速度，但一般这种方式下生成的文件（ EXE 或 DLL ）较大</p>
+<p>6.Generate Mapfile 生成 *.map 文件记录模块相关信息</p>
+<p>7.Enable profiling 允许程序以 profiling 启动，可以测试程序的效率等</p>
+<h4>2) Customize：</h4>
+<p>1.Use program database 允许使用程序数据库，这样连接器会把调试信息放在程序数据库中，如果不选中该选项，那么也不能使用递增连接方式</p>
+<p>2.Force File Output 强制产生输出文件（ EXE 或 DLL ） , 即使某个模块引用了一些未定义或者重复定义的符号，连接器仍然会强制（但不一定能正确运行）产生输出文件（ EXE 或 DLL ）</p>
+<p>3.Print Progress Messages 可以将连接过程中的进度信息输出到 Output 窗口</p>
+<h4>3) Debug：</h4>
+<p>设置是否生成调试信息，以及调试信息的格式。格式可以有Microsoft Format、COFF Format（Common Object File Format）和Both Formats三种选择；Separate Types，表示将Debug格式信息以独立的.PDB文件存放，还是直接放在各个源文件的.PDB文件中。选中的话，表示采用后者的方式，这种方式调试启动比较快。</p>
+<h4>4) Input：</h4>
+<p>这里可以指定要连接的库文件，放弃连接的库文件。还可以增加额外的库文件目录，一般是相对于本项目的目录，如..\Lib。Force Symbol References，可以指定连接特定符号定义的库。</p>
+<h4>5) Output：</h4>
+<p>1.Base Address 可以改变程序默认的基地址（ EXE 文件默认为 0x400000 ， DLL 默认为 0x10000000 ），操作系统装载一个程序时总是试着先从这个基地址开始</p>
+<p>2.Entry-Point Symbol 可以指定程序的入口地址，一般为一个函数名（且必须采用 __stdcall 调用约定）。一般 Win32 的程序， EXE 的入口为 WinMain ， DLL 的入口为 DllEntryPoint ；最好让连接器自动设置程序的入口点。默认情况下，通过一个 C 的运行时库函数来实现：控制台程序采用 mainCRTStartup ( 或 wmainCRTStartup) 去调用程序的 main ( 或 wmain) 函数； Windows 程序采用 WinMainCRTStartup ( 或 wWinMainCRTStartup) 调用程序的 WinMain ( 或 wWinMain ，必须采用 __stdcall 调用约定 ) ； DLL 采用 _DllMainCRTStartup 调用 DllMain 函数（必须采用 __stdcall 调用约定）</p>
+<p>3.Stack allocations 用以设置程序使用的堆栈大小（请使用十进制） , 默认为 1 兆字节。</p>
+<p>4.Version Information 告诉连接器在 EXE 或 DLL 文件的开始部分放上版本号</p>
+<p>值得注意的是，上面各个参数是大小写敏感的；在参数后加上 “-” 表示该参数无效；各个参数值选项，有 “*” 的表示为该参数的默认值；可以使用页右上角的 “Reset” 按钮来恢复该页的所有默认设置。</p>
+<p><h3>4. 其他选项页的参数</h3></p>
+<p>1) Project->Settings->General（常规），可以设置连接MFC库的方式（静态或动态）。如果是动态连接，在你的软件发布时不要忘了带上MFC的DLL。</p>
+<p>2) Project->Settings->Debug，可以设置调试时运行的可执行文件，以及命令行参数等。</p>
+<p>3) Project->Settings->Custom Build（自定义组建），可以设置编译/连接成功后自动执行一些操作。比较有用的是，写COM时希望VC对编译通过的COM文件自动注册，可以如下设置：</p>
+<p>Description: Register COM</p>
+<p>Commands: regsvr32 /s /c (TargetPath)echoregsvr32exe.time>(TargetDir)$(TargetName).trg</p>
+<p>Outputs: $(TargetDir)\$(TargetName).trg</p>
+<p>4) Tools->Options->Directories，设置系统的Include、Library路径。</p>
+<p><h3>5. 一些小窍门</p>
+<p></h3></p>
+<p>1) 有时候，你可能在编译的时候，计算机突然非法关机了（可能某人不小心碰了电源或你的内存不稳定等原因）。当你重启机器后打开刚才的项目，重新进行编译，发现VC会崩掉。你或许以为你的VC编译器坏了，其实不然（你试试编译其它项目，还是好的！），你只要将项目的.ncb、.opt、.aps、.clw文件以及Debug、Release目录下的所有文件都删掉，然后重新编译就行了。</p>
+<p>2) 如果你想与别人共享你的源代码项目，但是把整个项目做拷贝又太大。你完全可以删掉以下文件：.dsw、.ncb、.opt、.aps、.clw、. plg文件以及Debug、Release目录下的所有文件。</p>
+<p>3) 当你的Workspace中包含多个Project的时候，你可能不能直观地、一眼看出来哪个是当前项目。可以如下设置：Tools->Options->Format，然后在Category中选择Workspace window，改变其默认的字体（比如设成Fixedsys）就行了。</p>
+<p>4) 如何给已有的Project改名字？将该Project关掉。然后以文本格式打开.dsp文件，替换原来的Project名字即可。</p>
+<p>5) VC6对类成员的智能提示功能很有用，但有时候会失灵。你可以先关掉项目，将.clw和.ncb删掉，然后重新打开项目，点击菜单项View->ClassWizard，在弹出的对话框中按一下“Add All”按钮；重新Rebuild All。应该可以解决问题</p>
+<p>6)如何解决unexpected end of file while looking for precompiled header directive的问题?右键点工程名,选设置,然后选c/c++属性页,再选catagory选单中选 precompiled header ,将选项置成no use 或者autometic</p>
+<p>编译选项对编程人员有时候是相当的模糊，下面对其做个总结：</p>
+<p>visual studio</p>
+<p>/Od 禁用优化（默认值） disable optimizations (default)</p>
+<p>/Ox 最大化选项。(/Ogityb2 /Gs) maximum opts. (/Ogityb1 /Gs)</p>
+<p>/Og 启用全局优化 enable global optimization</p>
+<p>/Oy[-] 启用框架指针省略 enable frame pointer omission</p>
+<p>/Oi 启用内建函数 enable intrinsic functions</p>
+<p>-代码生成-</p>
+<p>/G3 为 80386 进行优化 optimize for 80386</p>
+<p>/G4 为 80486 进行优化 optimize for 80486</p>
+<p>/GR[-] 启用 C++ RTTI enable C++ RTTI</p>
+<p>/G5 为 Pentium 进行优化 optimize for Pentium</p>
+<p>/G6 为 Pentium Pro 进行优化 optimize for Pentium Pro</p>
+<p>/GX[-] 启用 C++ 异常处理（与 /EHsc 相同） enable C++ EH (same as /EHsc)</p>
+<p>/EHs 启用同步 C++ 异常处理 enable synchronous C++ EH</p>
+<p>/GD 为 Windows DLL 进行优化 optimize for Windows DLL</p>
+<p>/GB 为混合模型进行优化（默认） optimize for blended model (default)</p>
+<p>/EHa 启用异步 C++ 异常处理 enable asynchronous C++ EH</p>
+<p>/Gd __cdecl 调用约定 __cdecl calling convention</p>
+<p>/EHc extern“C”默认为 nothrow extern “C” defaults to nothrow</p>
+<p>/Gr __fastcall 调用约定 __fastcall calling convention</p>
+<p>/Gi[-] 启用增量编译 enable incremental compilation</p>
+<p>/Gz __stdcall 调用约定 __stdcall calling convention</p>
+<p>/Gm[-] 启用最小重新生成 enable minimal rebuild</p>
+<p>/GA 为 Windows 应用程序进行优化 optimize for Windows Application</p>
+<p>/Gf 启用字符串池 enable string pooling</p>
+<p>/QIfdiv[-] 启用 Pentium FDIV 修复 enable Pentium FDIV fix</p>
+<p>/GF 启用只读字符串池 enable read-only string pooling</p>
+<p>/QI0f[-] 启用 Pentium 0x0f 修复 enable Pentium 0x0f fix</p>
+<p>/Gy 分隔链接器函数 separate functions for linker</p>
+<p>/GZ 启用运行时调试检查 enable runtime debug checks</p>
+<p>/Gh 启用钩子函数调用 enable hook function call</p>
+<p>/Ge 对所有函数强制堆栈检查 force stack checking for all funcs</p>
+<p>/Gs[num] 禁用堆栈检查调用 disable stack checking calls</p>
+<p>-输出文件-</p>
+<p>/Fa[file] 命名程序集列表文件 name assembly listing file</p>
+<p>/Fo 命名对象文件 name object file</p>
+<p>/FA[sc] 配置程序集列表 configure assembly listing</p>
+<p>/Fp 命名预编译头文件 name precompiled header file</p>
+<p>/Fd[file] 命名 .PDB 文件 name .PDB file</p>
+<p>/Fr[file] 命名源浏览器文件 name source browser file</p>
+<p>/Fe 命名可执行文件 name executable file</p>
+<p>/FR[file] 命名扩展 .SBR 文件 name extended .SBR file</p>
+<p>/Fm[file] 命名映射文件 name map file</p>
+<p>-预处理器-</p>
+<p>/FI 命名强制包含文件 name forced include file</p>
+<p>/C 不吸取注释 don’t strip comments</p>
+<p>/U 移除预定义宏 remove predefined macro</p>
+<p>/D{=|#} 定义宏 define macro</p>
+<p>/u 移除所有预定义宏 remove all predefined macros</p>
+<p>/E 将预处理定向到标准输出 preprocess to stdout</p>
+<p>/I 添加到包含文件的搜索路径 add to include search path</p>
+<p>/EP 将预处理定向到标准输出，不要带行号 preprocess to stdout, no #line</p>
+<p>/X 忽略“标准位置” ignore “standard places”</p>
+<p>/P 预处理到文件 preprocess to file</p>
+<p>-语言-</p>
+<p>/Zi 启用调试信息 enable debugging information</p>
+<p>/Zl 忽略 .OBJ 中的默认库名 omit default library name in .OBJ</p>
+<p>/ZI 启用调试信息的“编辑并继续”功能 enable Edit and Continue debug info</p>
+<p>/Zg 生成函数原型 generate function prototypes</p>
+<p>/Z7 启用旧式调试信息 enable old-style debug info</p>
+<p>/Zs 只进行语法检查 syntax check only</p>
+<p>/Zd 仅要行号调试信息 line number debugging info only</p>
+<p>/vd{0|1} 禁用/启用 vtordisp disable/enable vtordisp</p>
+<p>/Zp[n] 在 n 字节边界上包装结构 pack structs on n-byte boundary</p>
+<p>/vm 指向成员的指针类型 type of pointers to members</p>
+<p>/Za 禁用扩展（暗指 /Op） disable extensions (implies /Op)</p>
+<p>/noBool 禁用“bool”关键字 disable “bool” keyword</p>
+<p>/Ze 启用扩展（默认） enable extensions (default)</p>
+<p>杂项 -</p>
+<p>/?, /help 打印此帮助消息 print this help message</p>
+<p>/c 只编译，不链接 compile only, no link</p>
+<p>/W 设置警告等级（默认 n=1） set warning level (default n=1)</p>
+<p>/H 最大化外部名称长度 max external name length</p>
+<p>/J 默认 char 类型是 unsigned default char type is unsigned</p>
+<p>/nologo 取消显示版权消息 suppress copyright message</p>
+<p>/WX 将警告视为错误 treat warnings as errors</p>
+<p>/Tc 将文件编译为 .c compile file as .c</p>
+<p>/Yc[file] 创建 .PCH 文件 create .PCH file</p>
+<p>/Tp 将文件编译为 .cpp compile file as .cpp</p>
+<p>/Yd 将调试信息放在每个 .OBJ 中 put debug info in every .OBJ</p>
+<p>/TC 将所有文件编译为 .c compile all files as .c</p>
+<p>/TP 将所有文件编译为 .cpp compile all files as .cpp</p>
+<p>/Yu[file] 使用 .PCH 文件 use .PCH file</p>
+<p>/V 设置版本字符串 set version string</p>
+<p>/YX[file] 自动的 .PCH 文件 automatic .PCH</p>
+<p>/w 禁用所有警告 disable all warnings</p>
+<p>/Zm 最大内存分配（默认为 %） max memory alloc (% of default)</p>
+<p>-链接-</p>
+<p>/MD 与 MSVCRT.LIB 链接 link with MSVCRT.LIB</p>
+<p>/MDd 与 MSVCRTD.LIB 调试库链接 link with MSVCRTD.LIB debug lib</p>
+<p>/ML 与 LIBC.LIB 链接 link with LIBC.LIB</p>
+<p>/MLd 与 LIBCD.LIB 调试库链接 link with LIBCD.LIB debug lib</p>
+<p>/MT 与 LIBCMT.LIB 链接 link with LIBCMT.LIB</p>
+<p>/MTd 与 LIBCMTD.LIB 调试库链接 link with LIBCMTD.LIB debug lib</p>
+<p>/LD 创建 .DLL Create .DLL</p>
+<p>/F 设置堆栈大小 set stack size</p>
+<p>/LDd 创建 .DLL 调试库 Create .DLL debug libary</p>
+<p>/link [链接器选项和库] [linker options and libraries]</p>
+<p><h3>小知识：</h3></p>
+<h4>1.Release 和 Debug 有什么不同</h4>
+<p>Release 版称为发行版， Debug 版称为调试版。</p>
+<p>Debug 中可以单步执行、跟踪等功能，但生成的可执行文件比较大，代码运行速度较慢。 Release 版运行速度较快，可执行文件较小，但在其编译条件小无法执行调试功能。</p>
+<p>Release 的 exe 文件链接的是标准的 MFC DLL(Use MFC in a shared or static dll), 比如 MFC42.DLL 。这些 DLL 在安装 Windows 的时候，已经配置，所以这些程序能够在没有安装 Visual C++ 6.0 的机器上运行。而 Debug 版本的 exe 链接了调试版本的 MFC DLL 文件，如 MFC42D.DLL 。在没有安装 Visual C++6.0 的机器上不能运行，因为缺 MFC42D.DLL 等，除非选择 use static dll when link 。</p>
+<h4>2.ASSERT 和 VERIFY 有什么区别</h4>
+<p>ASSERT 里面的内容在 Release 版本中不编译， VERIFY 里面的内容仍然翻译，但不再判断真假。所以后者更安全一点。</p>
+<p>例如 ASSERT(file.Open(strFileName)) 。</p>
+<p>一旦到了 Release 版本中，这一行就忽略了， file 根本就不 Open() 了，而且没有任何出错的信息。如果用 VERIFY() 就不会有这个问题。</p>
+<h4>3.Workspace 和 Project 之间是什么样的关系</h4>
+<p>每个 Workspace 可以包括几个 project ，但只有一个处于 Active 状态，各个 project 之间可以有依赖关系，在 project 的 Setting.. 中可以设定，比如那个 Active 状态的 project 可以依赖于其他的提供其函数调用的静态库。</p>
+<p>如何在非 MFC 程序中使用 ClassWizard</p>
+<p>在工程目录下新建一个空的 .RC 文件，然后加入到工程中就可以了。</p>
+<p>在编辑状态下发现成员变量或函数不能显示提示是如何打开显示功能</p>
+<p>这似乎是目前这个 Visual C++ 6.0 版本的一个 bug ，可按如下步骤使其正常，如再出现，可如法炮制：</p>
+<p>(1) 关闭 Project</p>
+<p>(2) 删除 “ 工程名 .ncb” 文件</p>
+<p>(3) 重新打开工程</p>
+<p>如何将一个通过 ClassWizard 生成的类彻底删除</p>
+<p>首先在工作区的 FileView 中选中该类的 .h 和 .cpp 文件，按 delete 删除，然后在文件管理器中将这两个文件删除，再运行 ClassWizard ，这时出现是否移走该类的提示，选择 remove 就可以了。</p>
+<p>如何将再 workspace 中消失的类找出来</p>
+<p>打开该类对应的头文件，然后将其类名随便改一下，这个时候工作区就会出现新的类，再将这个类改回原来的名字就可以了。</p>
+<p><strong>如何添加 Lib 文件到当前工程</strong></p>
+<p>单击菜单【 Project 】－ > 【 Settings… 】弹出 “Project Setting” 对话框，切换到 “Link” 标签页，在 “Object/library modules” 处输入 Lib 文件名称，不同的 Lib 之间用空格格开。</p>
+<p>如何快速删除项目下的 Debug 文件夹中临时文件</p>
+<p>在工作区的 FileView 视图中选中对应的项目，单击右键弹出菜单，选择【 Clean(selection only) 】菜单即可</p>
+<p>如何快速生成一个现有工程除了工程名外完全相同的新工程。</p>
+<p>在新建工程的 “New” 对话框中选择 “Custom Appwizard” 项，输入新工程的名字，单击【 OK 】按钮。出现 “Custom AppWizard” 项，输入新工程的名字，单击【 OK 】按钮。出现 “Custom AppWizard － Step 1 of 2” 对话框，选择 “An existing Project” 项，单击【 Next 】按钮。出现 “Custom AppWizard － Step 2 of 2” 对话框，选择现有工程的工程文件名，最后单击【 Finish 】按钮。编译后就生成一个与现有工程相同但可以重新取名的工程 AppWizard 。</p>
+<p>现在就可以项用 MFC AppWizard 一样用这个定制的向导。如果不想用了，可以在 Visual C++ 6.0 安装目录下 Common\MSDev98\Template 目录中删除该 Wizard 对应的 .awx 和 .pdb 文件。</p>
+<p>如何解决 Visual C++ 6.0 不正确连接的问题</p>
+<p>情景：明明之间改动了一个文件，却要把整个项目全部重新编译链接一次。刚刚链接好，一运行，有提示重新编译链接一次。</p>
+<p>这是因为出现了未来文件 ( 修改时间和创建时间比系统时间晚 ) 的缘故。可以这样处理：找到工程文件夹下的 debug 目录，将创建和修改时间都比系统时间晚的文件全部删除，然后再从新 “Rebuild All” 一次。</p>
+<p>12.Visual C++ 6.0 工程中的项目文件都表示什么。</p>
+<p>.opt ：工程关于开发化境的参数文件。如工具条位置等信息。</p>
+<p>.aps(AppStudio File) 资源辅助文件，二进制格式，一般不用去管他。</p>
+<p>.clw ： ClassWizard 信息文件，实际上是 INI 文件格式，又兴趣可以研究一下。有时候 ClassWizard 出了问题，手工修改 CLW 文件可以解决。如果此文件不存在的话，每次用 ClassWizard 的时候回提示是否重建。</p>
+<p>.dsp(DevelopStudio Project) ：项目文件，文本格式，不过不熟悉的或不要手工修改。</p>
+<p>.dsw(DevelopStudio Workspace) ：是工作区文件，其他特点和 .dsp 差不多。</p>
+<p>.plg ：是编译信息文件，编译时的 error 和 warning 信息文件 ( 实际上时一个 html 文件 ) ，一般用处不大。在单击菜单【 Tool 】 -> 【 Option 】弹出的对话框里面有个选项可以控制这个文件的生成。</p>
+<p>.hpj(Help Project) ：是生成帮助文件的工程，用 microsoft Help Compiler 可以处理。</p>
+<p>.mdp(Microsoft DevStudio Project) ：是旧版本的项目文件，如果要打开此文件的话，回提示你是否转换成新的 .dsp 格式。</p>
+<p>.bsc ：是用于浏览项目信息的，如果用 Source Brower 的话就必须又这个文件。如果不用这个功能的话，可以在 Project Options 里面去掉 Generate Browse Info File ，这样可以加快编译速度。</p>
+<p>.map 是执行文件的影像信息记录文件，除非对系统底层，这个文件一般用不着。</p>
+<p>.pch(Pre-Compiled File) ：是与编译文件，可以加快编译速度，但是文件非常大。</p>
+<p>.pdb(Program Database /C: 在预处理输出中保留注释语句 ) ： 记录了程序有关的一些数据和调试信息，在调试的时候可能有用。</p>
+<p>.exp ：只有在编译 DLL 的时候才会生成，记录了 DLL 文件的一些信息，一般也没有用。</p>
+<p>.ncb ：无编译浏览文件 (no compile browser) 。当自动完成功能出问题时可以删除此文件。编译工程后回自动生成。</p>
+<p>完全可以删掉以下文件： .dsw 、 .ncb 、 .opt 、 .aps 、 .clw 、 . plg 文件以及 Debug 、 Release 目录下的所有文件。</p>
+<p>如何给已有的 Project 改名字？将该 Project 关掉。然后以文本格式打开 .dsp 文件，替换原来的 Project 名字即可。</p>
+<p>15 VC6 对类成员的智能提示功能很有用，但有时候会失灵。你可以先关掉项目，将 .clw 和 .ncb 删掉，然后重新打开项目，点击菜单项 View->ClassWizard ，在弹出的对话框中按一下“ Add All ”按钮；重新 Rebuild All 。应该可以解决问题。</p>
+
+
+<p style='float:right;'>本页共262段，17308个字符，29420 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
