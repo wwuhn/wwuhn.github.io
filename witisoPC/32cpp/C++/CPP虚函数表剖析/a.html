@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>C++ </strong><strong>虚函数表剖析 </strong></p>
+
+<p>CPP语言编程&nbsp;2019-08-09 17:48:12</p>
+
+<p>一、概述</p>
+
+<p>为了实现C++的多态，C++使用了一种动态绑定的技术。这个技术的核心是虚函数表（下文简称虚表）。本文介绍虚函数表是如何实现动态绑定的。</p>
+
+<p>二、类的虚表</p>
+
+<p>每个包含了虚函数的类都包含一个虚表。</p>
+
+<p>我们知道，当一个类（A）继承另一个类（B）时，类A会继承类B的函数的调用权。所以如果一个基类包含了虚函数，那么其继承类也可调用这些虚函数，换句话说，一个类继承了包含虚函数的基类，那么这个类也拥有自己的虚表。</p>
+
+<p>我们来看以下的代码。类A包含虚函数vfunc1，vfunc2，由于类A包含虚函数，故类A拥有一个虚表。 </p>
+  </p>
+<p></p>
+<pre>
+class A {
+public:
+	virtual void vfunc1();
+	virtual void vfunc2();
+	void func1();
+	void func2();
+private:
+	int m_data1, m_data2;
+};
+</pre>
+  <p align="left">类A的虚表如下图所示。</p>
+
+<p><img width="386" height="274" src="a_clip_image001.jpg" alt="C++ 虚函数表剖析" /></p>
+
+
+
+<p>虚表是一个指针数组，其元素是虚函数的指针，每个元素对应一个虚函数的函数指针。需要指出的是，普通的函数即非虚函数，其调用并不需要经过虚表，所以虚表的元素并不包括普通函数的函数指针。</p>
+
+<p>虚表内的条目，即虚函数指针的赋值发生在编译器的编译阶段，也就是说在代码的编译阶段，虚表就可以构造出来了。</p>
+
+<p>三、虚表指针</p>
+
+<p>虚表是属于类的，而不是属于某个具体的对象，一个类只需要一个虚表即可。同一个类的所有对象都使用同一个虚表。</p>
+
+<p>为了指定对象的虚表，对象内部包含一个虚表的指针，来指向自己所使用的虚表。为了让每个包含虚表的类的对象都拥有一个虚表指针，编译器在类中添加了一个指针，*__vptr，用来指向虚表。这样，当类的对象在创建时便拥有了这个指针，且这个指针的值会自动被设置为指向类的虚表。</p>
+
+<p><img width="603" height="388" src="a_clip_image002.jpg" alt="C++ 虚函数表剖析" /></p>
+
+
+
+<p>上面指出，一个继承类的基类如果包含虚函数，那个这个继承类也有拥有自己的虚表，故这个继承类的对象也包含一个虚表指针，用来指向它的虚表。</p>
+
+<p>四、动态绑定</p>
+
+<p>说到这里，大家一定会好奇C++是如何利用虚表和虚表指针来实现动态绑定的。我们先看下面的代码。 </p>
+  </p>
+<pre>
+class A {
+public:
+    virtual void vfunc1();
+    virtual void vfunc2();
+    void func1();
+    void func2();
+private:
+    int m_data1, m_data2;
+};
+class B : public A {
+public:
+    virtual void vfunc1();
+    void func1();
+private:
+    int m_data3;
+};
+class C: public B {
+public:
+    virtual void vfunc2();
+    void func2();
+private:
+    int m_data1, m_data4;
+};
+</pre>
+  <p align="left">类A是基类，类B继承类A，类C又继承类B。类A，类B，类C，其对象模型如下图所示。</p>
+
+<p><img width="640" height="641" src="a_clip_image003.jpg" alt="C++ 虚函数表剖析" /></p>
+
+<p>由于这三个类都有虚函数，故编译器为每个类都创建了一个虚表，即类A的虚表（A vtbl），类B的虚表（B vtbl），类C的虚表（C vtbl）。类A，类B，类C的对象都拥有一个虚表指针，*__vptr，用来指向自己所属类的虚表。</p>
+
+<p>类A包括两个虚函数，故A  vtbl包含两个指针，分别指向A::vfunc1()和A::vfunc2()。</p>
+
+<p>类B继承于类A，故类B可以调用类A的函数，但由于类B重写了B::vfunc1()函数，故B vtbl的两个指针分别指向B::vfunc1()和A::vfunc2()。</p>
+
+<p>类C继承于类B，故类C可以调用类B的函数，但由于类C重写了C::vfunc2()函数，故C vtbl的两个指针分别指向B::vfunc1()（指向继承的最近的一个类的函数）和C::vfunc2()。</p>
+
+<p>虽然上图看起来有点复杂，但是只要抓住“对象的虚表指针用来指向自己所属类的虚表，虚表中的指针会指向其继承的最近的一个类的虚函数”这个特点，便可以快速将这几个类的对象模型在自己的脑海中描绘出来。</p>
+
+<p>非虚函数的调用不用经过虚表，故不需要虚表中的指针指向这些函数。</p>
+
+<p>假设我们定义一个类B的对象bObject。由于bObject是类B的一个对象，故bObject包含一个虚表指针，指向类B的虚表。 </p>
+  </p>
+<p></p>
+<pre>
+int main()
+{
+    B bObject;
+}
+</pre>
+  <p align="left">现在，我们声明一个类A的指针p来指向对象bObject。虽然p是基类的指针只能指向基类的部分，但是虚表指针亦属于基类部分，所以p可以访问到对象bObject的虚表指针。bObject的虚表指针指向类B的虚表，所以p可以访问到B vtbl。如图3所示。 </p>
+  </p>
+
+<pre>
+int main()
+{
+    B bObject;
+    A *p = &amp; bObject;
+} 
+</pre>
+
+<p>当我们使用p来调用vfunc1()函数时，会发生什么现象？ 
+<pre>
+int main()
+{
+    B bObject;
+    A *p = &amp; bObject;
+    p-&gt;vfunc1();
+}
+</pre>
+  <p align="left">程序在执行p-&gt;vfunc1()时，会发现p是个指针，且调用的函数是虚函数，接下来便会进行以下的步骤。</p>
+
+<p>首先，根据虚表指针p-&gt;__vptr来访问对象bObject对应的虚表。虽然指针p是基类A*类型，但是*__vptr也是基类的一部分，所以可以通过p-&gt;__vptr可以访问到对象对应的虚表。</p>
+
+<p>然后，在虚表中查找所调用的函数对应的条目。由于虚表在编译阶段就可以构造出来了，所以可以根据所调用的函数定位到虚表中的对应条目。对于p-&gt;vfunc1()的调用，B vtbl的第一项即是vfunc1对应的条目。</p>
+
+<p>最后，根据虚表中找到的函数指针，调用函数。从图3可以看到，B vtbl的第一项指向B::vfunc1()，所以p-&gt;vfunc1()实质会调用B::vfunc1()函数。</p>
+
+<p>如果p指向类A的对象，情况又是怎么样？ </p>
+  </p>
+
+<p></p>
+<pre>
+int main()
+{
+    A aObject;
+    A *p = &amp;aObject;
+    p-&gt;vfunc1();
+}
+</pre>
+  <p align="left">当aObject在创建时，它的虚表指针__vptr已设置为指向A vtbl，这样p-&gt;__vptr就指向A vtbl。vfunc1在A vtbl对应在条目指向了A::vfunc1()函数，所以p-&gt;vfunc1()实质会调用A::vfunc1()函数。</p>
+
+<p>可以把以上三个调用函数的步骤用以下表达式来表示： </p>
+  </p>
+
+<p>(*(p-&gt;__vptr)[n])(p)
+  <p align="left">可以看到，通过使用这些虚函数表，即使使用的是基类的指针来调用函数，也可以达到正确调用运行中实际对象的虚函数。</p>
+
+<p>我们把经过虚表调用虚函数的过程称为动态绑定，其表现出来的现象称为运行时多态。动态绑定区别于传统的函数调用，传统的函数调用我们称之为静态绑定，即函数的调用在编译阶段就可以确定下来了。</p>
+
+<p>那么，什么时候会执行函数的动态绑定？这需要符合以下三个条件。 </p>
+  <ol>
+    <li>通过指针来调用函数指针upcast向上转型（继承类向基类的转换称为upcast，关于什么是upcast，可以参考本文的参考资料）调用的是虚函数 </li>
+  </ol>
+  <p align="left">如果一个函数调用符合以上三个条件，编译器就会把该函数调用编译成动态绑定，其函数的调用过程走的是上述通过虚表的机制。</p>
+
+<p>五、总结</p>
+
+<p>封装，继承，多态是面向对象设计的三个特征，而多态可以说是面向对象设计的关键。C++通过虚函数表，实现了虚函数与对象的动态绑定，从而构建了C++面向对象程序设计的基石。</p>
+
+<p>参考资料 </p>
+  <ol>
+    <li>《C++  Primer》第三版，中文版，潘爱民等译http://www.learncpp.com/cpp-tutorial/125-the-virtual-table/侯捷《C++最佳编程实践》视频，极客班，2015Upcasting and  Downcasting, http://www.bogotobogo.com/cplusplus/upcasting_downcasting.php</li>
+  </ol>
+  <p align="left">附录</p>
+
+<p>示例代码</p>
+
+<p>https://github.com/haozlee/vtable/blob/master/main.cpp</p>
+<p></p>
+<pre>
+#include &lt;iostream>
+
+using namespace std;
+
+class A {
+public:
+	A() : m_data1(0), m_data2(0) {}
+	virtual void vfunc1() { cout &lt;&lt; "A::vfunc1" &lt;&lt; endl; };
+    virtual void vfunc2() { cout &lt;&lt; "A::vfunc2" &lt;&lt; endl; };
+    void func1() { cout &lt;&lt; "A::func1" &lt;&lt; endl; };
+    void func2() { cout &lt;&lt; "A::func2" &lt;&lt; endl; };
+private:
+    int m_data1, m_data2;
+};
+
+class B : public A {
+public:
+	B() : A(), m_data3(0) {}
+    virtual void vfunc1() { cout &lt;&lt; "B::vfunc1" &lt;&lt; endl; };
+    void func1() { cout &lt;&lt; "B::func1" &lt;&lt; endl; };
+private:
+    int m_data3;
+};
+
+class C: public B {
+public:
+	C() : B(), m_data1(0), m_data4(0) {}
+    virtual void vfunc2() { cout &lt;&lt; "C::vfunc2" &lt;&lt; endl; };
+    void func2() { cout &lt;&lt; "C::func2" &lt;&lt; endl; };
+private:
+    int m_data1, m_data4;
+};
+
+
+int main()
+{
+	B bObject;
+    A *p = &bObject;
+    p->vfunc1();
+
+	A aObject = (A)bObject;
+	aObject.vfunc1();
+
+	C cObject;
+	p = &cObject;
+	p->vfunc1();
+	p->vfunc2();
+
+	cObject.A::func1();
+
+	system("pause");
+	return 0;
+}
+</pre>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

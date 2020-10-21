@@ -1,0 +1,599 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+    (browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+    (browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+    (browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+    (browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+    (browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+    (browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+    (browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+    "other browser";
+    var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+    var obj=document.getElementById("goTopBtn"); 
+    var obj2=document.getElementById("shangy"); 
+    var obj3=document.getElementById("xiay");
+    var obj4=document.getElementById("goBottom");  
+    
+    function getScrollTop(){  
+        if(browser4=="ch"){
+            //chrome
+            //chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+            return document.documentElement.scrollTop; 
+        }else{
+            //IE、firefox
+            return document.documentElement.scrollTop;  
+        }  
+    }
+    function setScrollTop(value){ 
+        if(browser4=="ch"){ 
+            //chrome
+            document.documentElement.scrollTop=value; 
+        }else{  
+            //IE、firefox
+            document.documentElement.scrollTop=value;  
+        } 
+    }     
+    window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+    getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+    document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+    document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+    }  
+    obj.onclick=function(){  
+        var goTop=setInterval(scrollMove,10);  
+        function scrollMove(){  
+                setScrollTop(getScrollTop()/1.1);  
+                if(getScrollTop()<1)clearInterval(goTop);  
+        }  
+    }  
+}  
+function downn(){
+    if(browser4=="ch"){
+        //chrome
+        window.scrollBy(0,document.body.clientHeight);
+    }else{
+        //IE、firefox
+        window.scrollBy(0,document.documentElement.clientHeight*1000); 
+    }
+}
+</script>
+<script>
+function changePage(){ 
+    var page = document.getElementById("container");
+    page.style.background="black";
+    page.style.color="white";
+    page.style.fontSize="22px";
+    page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+    font-size:18px;
+    text-decoration:none;
+}
+a:link{
+    text-decoration:none;
+    }
+#container{
+    font-size:1.2em;
+    margin:auto;
+    font-family:"宋体";
+    width:65.29%;
+    line-height:1.6em;
+}
+P{
+    margin-top:16px;
+    margin-bottom:16px;
+    text-indent:2em;
+}
+.uls{
+    color:#CC6666;
+    font-weight:bold;
+}
+.uls>ol{
+    list-style:none;
+    font-weight:normal;
+    list-style:lower-latin;
+    color:#000000;
+    line-height:1.3em;
+}
+h3{
+    font-size:1.1em;
+    font-weight:bold;
+    text-indent:0em;
+    color:#990000;
+}
+h4{
+    font-size:1.0em;
+    font-weight:bold;
+    text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+    width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+    opacity=.3;
+    font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+    bottom:240px;
+}
+#ftsize2{
+    bottom:214px;
+}
+#ftsize3{
+    bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+    background-color:#ccc;
+    border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+    text-decoration: none;
+    color:white;
+}
+img{
+    margin-right:2em;
+    text-indent:2em;
+    border:0;
+}
+.picsay{
+    color:#930;
+    font-size:90%;
+    line-height:110%;
+    margin-top:-12px;
+    padding:0;
+}
+.remark{
+    color:#930;
+    font-size:90%;
+    line-height:140%;
+    margin-top:-12px;
+    text-indent:0em;
+    padding:0;
+}
+.ref{
+    color:#930;
+    font-size:95%;
+    line-height:150%;
+    margin-top:-12px;
+    text-indent:2em;
+    padding:0;
+}
+pre{
+    font-size:120%;
+    line-height:130%;
+    padding:0;
+    //background-color:#f6f6f6;
+    //background-color:#fff5ee;
+    //background-color:#ffe;
+    background-color:#eee;
+    padding:8px;
+    }
+.code0, .code2, .code4{
+    font-size:95%;
+    line-height:110%;
+    margin-top:-12px;
+    padding:0;
+    //background-color:#D9D1CA;
+    //background-color:#f6f6f6;
+    //background-color:#fff5ee;
+    background-color:#ffe;
+}
+.code0{
+    color:red;
+    text-indent:0em;
+}
+.code2{
+    color:#930;
+    text-indent:2em;
+}
+.code4{
+    color:blue;
+    text-indent:4em;
+}
+sub,sup{
+    font-size:80%;
+    color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>CPP模版，从精通到精神分裂</h4>
+
+
+<pre>
+// 第一段程序
+#include &lt;iostream>
+#include &lt;vector>
+using namespace std;
+class Animal{
+public:
+    virtual void talk() = 0;
+};
+class Cat :public Animal{
+public:
+    virtual void talk(){cout&lt;&lt;"Miao\n";}
+};
+class Developer: public Animal{
+public: 
+    virtual void talk(){cout&lt;&lt;"Hello world\n";}
+};
+void LetAnimalTalk(Animal* pa){
+    pa->talk(); 
+}
+int main(){
+    Developer* pd = new Developer();
+    Cat* pc = new Cat();
+    LetAnimalTalk(pd);
+    LetAnimalTalk(pc);
+    vector&lt;Animal*> va;
+    va.push_back(pd);
+    va.push_back(pc);
+    system("pause");
+    return 0;
+}
+/*
+Hello world
+Miao
+*/
+</pre>
+这是一个教科书般经典的例子。介绍C++的继承和多态。这里唯一需要重点强调的是：对函数LetAnimalTalk和vector va 来说，我们可以想象他们是客户。[face=黑体]通过继承把变化封装到基类的后面，这样使用基类接口的客户就不需要改动！[/face]对客户来说，无论基类后面怎么变化，你都影响不到我。例如，如果现在有一个经理狗加入了项目团队，你的LetAnimalTalk函数是不需要任何改变的。
+So far so good! 现在看看引入模版后，发生了什么?
+<pre>
+//第二段程序
+#include &lt;iostream>
+#include &lt;vector>
+using namespace std;
+template&lt; typename T>
+class Animal{
+ public:
+     T id_;
+     Animal(T t){id_ = t;};
+     virtual void talk() = 0;
+};
+template&lt;typename T>
+class Cat :public Animal&lt;T>{
+ public:
+     Cat(T t):Animal&lt;T>(t){};
+     virtual void talk(){cout&lt;&lt;"Miao, I am "&lt;&lt;Animal&lt;T>::id_ &lt;&lt;"\n";}
+};
+template&lt;typename T>
+class Developer: public Animal&lt;T>{
+ public: 
+     Developer(T t):Animal&lt;T>(t){};
+     virtual void talk()
+     {
+         cout&lt;&lt;"Hello world, I am "&lt;&lt;Animal&lt;T>::id_ &lt;&lt;"\n";}
+};
+template&lt;typename T>
+void LetAnimalTalk(Animal&lt;T>* pa){
+    pa->talk(); 
+}
+int main()
+{
+    Developer&lt;string>* pd = new Developer&lt;string>("Yan");
+    Cat&lt;string>* pc = new Cat&lt;string>("Fluffy");
+    LetAnimalTalk(pd);
+    LetAnimalTalk(pc);
+    vector&lt;Animal&lt;string>*> va;
+    va.push_back(pd);
+    va.push_back(pc);
+    system("pause");
+    return 0;
+}
+/* vc6 no ,cpp.sh ok
+Hello world, I am Yan
+Miao, I am Fluffy
+*/
+</pre>
+<p>基本的应用场景是这样的。对于animal, 你可以用字符串来表示他的ID， 如果你想developer是不应该享有字符串名字的，那么你也可以用整型数来表示他的ID。上面整个的程序，如果你把main中换成下面的样子，除了猫会有点意见，其它一切都没有问题！</p>
+<pre>
+int main()
+{
+    Developer&lt;int>* pd = new Developer&lt;int>(9527);
+    Cat&lt;int>* pc = new Cat&lt;int>(1234);
+    LetAnimalTalk(pd);
+    LetAnimalTalk(pc);
+    vector&lt;Animal&lt;int>*> va;
+    va.push_back(pd);
+    va.push_back(pc);
+    
+    system("pause");
+    return 0;
+}
+/* 
+Hello world, I am 9527
+Miao, I am 1234
+*/
+</pre>
+<p>上面模版继承的一个最明显的弊端是语法变得更加臃肿和复杂了。例如，你不可能在子类中直接引用基类的变量了。如果你引用他，必须使用Animal::id_这样的语法。背后的原因是当编译器编译Cat的时候，Animal是根本不存在的！具体的细节你可以看后面的参考文献1。</p>
+<p></p>
+<p>另外的一个问题就是虚函数的效率问题。这种多态是发生在程序运行的时候，主要通过虚函数表进行调用分发。所以有一定的效率损失。下面我们再看另外一个例子。由于猫不喜欢整型ID的名字，所以我们这里完全去掉这个feature，重点关注如何利用模版实现多态。</p>
+ <pre>
+//第三段程序
+ #include &lt;iostream>
+#include &lt;vector>
+using namespace std;
+template&lt; typename T>
+class Animal{
+ public:
+     void talk(){static_cast&lt;T*>(this)->talkImplement();}
+};
+class Cat :public Animal&lt;Cat>{
+public:
+    void talkImplement(){cout&lt;&lt;"Miao \n";}
+};
+class Developer: public Animal&lt;Developer>{
+public:
+    void talkImplement(){cout&lt;&lt;"Hello world \n";}
+};
+template&lt;typename T>
+void LetAnimalTalk(Animal&lt;T>& pa){
+    pa.talk(); 
+}
+int main(){
+    Developer pd;
+    Cat pc;
+    LetAnimalTalk(pd);
+    LetAnimalTalk(pc);
+    vector&lt;Animal&lt;Cat> > va;
+    va.push_back(pc); // OK
+    // va.push_back(pd); // compile error here
+    
+    system("pause");
+    return 0;
+}
+/*
+Hello world
+Miao
+*/
+</pre>
+<p>这段代码中，有几点注意一下：</p>
+<p></p>
+<p>1） 多态已经不需要用指针了，我们可以用引用来支持多态。</p>
+<p></p>
+<p>2）在函数LetAnimalTalk中，pa.talk()到底调用那一个 talkImplement是在编译的时候就决定了。这是一种静态多态技术。所以没有效率的损失。</p>
+<p></p>
+<p>3）但是函数LetAnimalTalk现在必须是模版函数，同时我们也失去了用vector同时保存Cat 和Developer的能力。这是效率提升带来的灵活性的损失！</p>
+<p></p>
+<p>4）这个是CRTP模式，更多介绍看参考文献2。翻译过来就是“好奇地不断追问自己！”这应该是一种精神分裂的明显的初期症状了。</p>
+<p></p>
+<p>目前为止，我们介绍了三个例子。还都遵循着一个基本的IS-A的逻辑关系。也就是说，Cat是一个Animal，Developer也是一个Animal。下面介绍三个IMPLEMENT-BY的逻辑关系。第一个例子完全没有使用继承。</p>
+<pre>
+//第四段程序
+#include &lt;iostream>
+#include &lt;vector>
+using namespace std;
+template&lt; typename T>
+class Animal{
+ private:
+     T t;
+ public:
+     void talk(){t.talkImplement();}
+};
+class SayMiao {
+public:
+    void talkImplement(){cout&lt;&lt;"Miao \n";}
+};
+class SayHW{
+public:
+    void talkImplement(){cout&lt;&lt;"Hello world \n";}
+};
+template&lt;typename T>
+void LetAnimalTalk(Animal&lt;T>& pa){
+    pa.talk(); 
+}
+int main(){
+    Animal&lt;SayMiao> am;
+    Animal&lt;SayHW> ah;
+    LetAnimalTalk(am);
+    LetAnimalTalk(ah);
+    vector&lt;Animal&lt;SayMiao> > va;
+    va.push_back(am); // OK
+    //va.push_back(ah); // compile error here
+    system("pause");
+    return 0;
+}
+/*
+Miao
+Hello world
+*/
+</pre>
+<p>1) 这段程序中，通过模版参数，在编译的时候就把不同的talk行为的实现方式传递给Animal类。这个方法在STL中运用的相当广泛。具体的例子像STL中的map类</p>
+<pre>
+template&lt;
+ class Key,
+ class T,
+ class Compare = std::less&lt;Key>,
+ class Allocator = std::allocator&lt;std::pair&lt;const Key, T> >
+> class map;
+</pre>
+<p>其中， std::less就类似于我们上面的SayMiao。</p>
+<p>2）由于导入的是某种行为，所有再叫做Cat就不合适了，所以这里把类的名字叫做SayMiao</p>
+<p></p>
+<p>为了实现IMPLEMENT-BY关系，我们也可以使用私有继承：</p>
+ <pre>
+//第五段程序
+ #include &lt;iostream>
+using namespace std;
+#include &lt;vector>
+template&lt; typename T>
+class Animal: private T{
+ public:
+     void talk(){T::talkImplement();}
+};
+class SayMiao {
+public:
+    void talkImplement(){cout&lt;&lt;"Miao \n";}
+};
+class SayHW{
+public:
+    void talkImplement(){cout&lt;&lt;"Hello world \n";}
+};
+template&lt;typename T>
+void LetAnimalTalk(Animal&lt;T>& pa){
+    pa.talk(); 
+}
+int main(){
+    Animal&lt;SayMiao> am;
+    Animal&lt;SayHW> ah;
+    LetAnimalTalk(am);
+    LetAnimalTalk(ah);
+    vector&lt;Animal&lt;SayMiao> > va;
+    va.push_back(am); // OK
+    //va.push_back(ah); // compile error here
+    system("pause");
+    return 0;
+}
+/*
+Miao
+Hello world
+*/
+</pre>
+<p>1) 有没有被</p>
+<p></p>
+<p>template</p>
+<p></p>
+<p>class Animal: private T{</p>
+<p></p>
+<p>这样的语法惊到！没关系，我们慢慢来。首先私有继承不是IS－A的关系。而是IMPLEMENT-BY的关系。关于什么时候使用私有继承，什么时候使用组合(composition)。请看参考文献3。</p>
+<p></p>
+<p>2)这种方式是Parameterised inheritance, 也是一种常见的设计模式，请看参考文献4</p>
+<p></p>
+<p>OK，最后的问题是，既然私有继承可以，共有继承行不行？在一个分裂的病人眼中，没啥是不行的！</p>
+<pre>
+//第六段程序
+#include &lt;iostream>
+using namespace std;
+#include &lt;vector>
+template&lt; typename T>
+class Animal: public T{
+};
+class SayMiao {
+public:
+    void talk(){cout&lt;&lt;"Miao \n";}
+};
+class SayHW{
+public:
+    void talk(){cout&lt;&lt;"Hello world \n";}
+};
+template&lt;typename T>
+void LetAnimalTalk(Animal&lt;T>& pa){
+    pa.talk(); 
+}
+int main(){
+    Animal&lt;SayMiao> am;
+    Animal&lt;SayHW> ah;
+    LetAnimalTalk(am);
+    LetAnimalTalk(ah);
+    vector&lt;Animal&lt;SayMiao> > va;
+    va.push_back(am); // OK
+    //va.push_back(ah); // compile error here
+    system("pause");
+    return 0;
+}
+/*
+Miao
+Hello world
+*/
+</pre>
+<p>1） 这就是在Modern C++ design中提到的Policy-Based design。一个小提示是：现在在Animal中已经不需要talk这个函数了。</p>
+<p></p>
+<p>上面我一共给出了六个程序。到 https://www.onlinegdb.com/ 把这六段代码拷贝进去，根据自己的理解和问题修改一下。“纸上得来终觉浅，绝知此事要运行”。这其实是陆游给广大程序猿的一句忠告。如果你有足够的耐心，你可以慢慢地深入的体会，这里好玩的东西还挺多的。由于篇章关系（主要是再展开我也不会了！）我就不多说了。</p>
+<p></p>
+<p>以上这六段程序，分别代表着六种不同的语法方式，表达出两种最基本的设计模式 IS－A还是IMPLEMENT－BY。首先，没有什么优劣之分，在不同的场景下，各有优缺点。另外，C++的模版完全不同于传统的C++编程。他的语法和想表达的语义有非常明显的分裂趋势，非常容易把传统的C++程序猿也搞分裂了。正所谓范型是C++最大的坑，但是不跳此坑，不足以谈人生！</p>
+
+
+<p style='float:right;'>本页共303段，6878个字符，9917 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+    goTopEx();
+    function xiay(){
+        window.scrollBy(0,window.innerHeight-10);
+    }
+    function shangy(){
+        window.scrollBy(0,-window.innerHeight+10);
+    }
+    var obj3=document.getElementById("xiay");
+    var obj4=document.getElementById("goBottom");
+    function getHeight(){  
+        if(browser4=="ch"){
+            //谷歌浏览器
+            return document.body.clientHeight; 
+        }else{
+            //IE、firefox等浏览器 
+            return document.documentElement.clientHeight;  
+        }  
+    }
+    getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+    getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+    if(browser4!="ch"){    //firefox需要尝一下才显示向下图标
+        xiay();
+        shangy();
+    }
+</script>
+</div>
+
+</body>
+</html>

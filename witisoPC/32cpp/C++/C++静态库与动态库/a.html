@@ -1,0 +1,1226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+pre{
+    margin-left:2em;
+	}
+a:visited, a:link{
+    color:blue;
+}
+a:visited{
+    color:#CC0000;
+}a:hover{
+    color:green;
+	}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+				<h2>C++静态库与动态库</h2>				
+					<p>这次分享的<strong>宗旨</strong>是——让大家学会创建与使用静态库、动态库，知道静态库与动态库的区别，知道使用的时候如何选择。这里不深入介绍静态库、动态库的底层格式，内存布局等，有兴趣的同学，推荐一本书《程序员的自我修养——链接、装载与库》。</p>
+
+<h2>1.什么是库</h2>
+
+<p>库是写好的现有的，成熟的，可以复用的代码。<strong>现实中每个程序都要依赖很多基础的底层库，不可能每个人的代码都从零开始，因此库的存在意义非同寻常</strong>。</p>
+<p>本质上来说库是一种可执行代码的二进制形式，可以被操作系统载入内存执行。库有两种：静态库（.a、.lib）和动态库（.so、.dll）。</p>
+<p>所谓静态、动态是指链接。回顾一下，将一个程序编译成可执行程序的步骤：</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201601-66b55a2f0ec74c5b8a773a0e1904e812.png" style="color:rgb(61,129,238)"><img title="clip_image002[4]" border="0" alt="clip_image002[4]" src="16201601-66b55a2f0ec74c5b8a773a0e1904e812.png" width="554" height="263"></a></p>
+<p align="center">图：编译过程</p>
+
+<h2>2.静态库</h2>
+
+<p>之所以成为【静态库】，是因为在链接阶段，会将汇编生成的目标文件.o与引用到的库一起链接打包到可执行文件中。因此对应的链接方式称为静态链接。</p>
+<p>试想一下，静态库与汇编生成的目标文件一起链接为可执行文件，那么静态库必定跟.o文件格式相似。其实一个静态库可以简单看成是<strong>一组目标文件（</strong><strong>.o/.obj</strong><strong>文件）的集合</strong>，即很多目标文件经过压缩打包后形成的一个文件。静态库特点总结：</p>
+<p>-&nbsp;&nbsp;静态库对函数库的链接是放在编译时期完成的。</p>
+<p>-&nbsp;&nbsp;程序在运行时与函数库再无瓜葛，移植方便。</p>
+<p>-&nbsp;&nbsp;浪费空间和资源，因为所有相关的目标文件与牵涉到的函数库被链接合成一个可执行文件。</p>
+<p>下面编写一些简单的四则运算C++类，将其编译成静态库给他人用，头文件如下所示：</p>
+
+<table cellspacing="0" cellpadding="0" border="1">
+<tbody>
+<tr>
+<td valign="top" style="background:black">
+<strong>StaticMath.h头文件</strong>
+</td>
+</tr>
+<tr>
+<td valign="top" style="background:rgb(204,204,204)">
+<pre class="prettyprint prettyprinted" style=""><span class="com">#pragma</span><span class="pln"> once
+</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">StaticMath</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">public</span><span class="pun">:</span><span class="pln">
+    </span><span class="typ">StaticMath</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">~</span><span class="typ">StaticMath</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">);</span><span class="pln">
+ 
+    </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> add</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//加法</span><span class="pln">
+    </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="kwd">sub</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//减法</span><span class="pln">
+    </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> mul</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//乘法</span><span class="pln">
+    </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> div</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//除法</span><span class="pln">
+
+    </span><span class="kwd">void</span><span class="pln"> </span><span class="kwd">print</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">};</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Linux下使用<strong><em>ar</em></strong>工具、Windows下vs使用<strong><em>lib.exe</em></strong>，将目标文件压缩到一起，并且对其进行编号和索引，以便于查找和检索。一般创建静态库的步骤如图所示：</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201602-e0b2900a915d4dce8b4af5153c8b2d72.png" style="color:rgb(61,129,238)"><img title="clip_image004[4]" border="0" alt="clip_image004[4]" src="16201602-e0b2900a915d4dce8b4af5153c8b2d72.png" width="484" height="316"></a></p>
+<p align="center">图：创建静态库过程</p>
+
+<h3>2.1.Linux下创建与使用静态库</h3>
+<h4>2.1.1.Linux静态库命名规则</h4>
+<p>Linux静态库命名规范，必须是"lib[your_library_name].a"：lib为前缀，中间是静态库名，扩展名为.a。</p>
+<h4>2.1.2.创建静态库（.a）</h4>
+<p>通过上面的流程可以知道，Linux创建静态库过程如下：</p>
+<p>-&nbsp;&nbsp;首先，将代码文件编译成目标文件.o（StaticMath.o）</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">g</span><span class="pun">++</span><span class="pln"> </span><span class="pun">-</span><span class="pln">c </span><span class="typ">StaticMath</span><span class="pun">.</span><span class="pln">cpp</span></pre>
+
+<p>注意带参数-c，否则直接编译为可执行文件</p>
+<p>-&nbsp;&nbsp;然后，通过ar工具将目标文件打包成.a静态库文件</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">ar </span><span class="pun">-</span><span class="pln">crv libstaticmath</span><span class="pun">.</span><span class="pln">a </span><span class="typ">StaticMath</span><span class="pun">.</span><span class="pln">o</span></pre>
+
+<p>生成静态库<strong><em>libstaticmath.a</em></strong>。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201604-713c3a4a83aa4c17868a16f13b49027b.jpg" style="color:rgb(61,129,238)"><img title="clip_image006[4]" border="0" alt="clip_image006[4]" src="16201604-713c3a4a83aa4c17868a16f13b49027b.jpg" width="554" height="180"></a></p>
+<p>大一点的项目会编写makefile文件（CMake等等工程管理工具）来生成静态库，输入多个命令太麻烦了。</p>
+<h4>2.1.3.使用静态库</h4>
+<p>编写使用上面创建的静态库的测试代码：</p>
+
+<table cellspacing="0" cellpadding="0" border="1">
+<tbody>
+<tr>
+<td valign="top" style="background:black">
+<strong>测试代码：</strong>
+</td>
+</tr>
+<tr>
+<td valign="top" style="background:rgb(204,204,204)">
+<pre class="prettyprint prettyprinted" style=""><span class="com">#include</span><span class="pln"> </span><span class="str">"StaticMath.h"</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;iostream&gt;</span><span class="pln">
+</span><span class="kwd">using</span><span class="pln"> </span><span class="kwd">namespace</span><span class="pln"> std</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">int</span><span class="pln"> main</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> argc</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">char</span><span class="pun">*</span><span class="pln"> argv</span><span class="pun">[])</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> a </span><span class="pun">=</span><span class="pln"> </span><span class="lit">10</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> b </span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">;</span><span class="pln">
+
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a + b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">StaticMath</span><span class="pun">::</span><span class="pln">add</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a - b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">StaticMath</span><span class="pun">::</span><span class="kwd">sub</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a * b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">StaticMath</span><span class="pun">::</span><span class="pln">mul</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a / b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">StaticMath</span><span class="pun">::</span><span class="pln">div</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">StaticMath</span><span class="pln"> sm</span><span class="pun">;</span><span class="pln">
+    sm</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">();</span><span class="pln">
+
+    system</span><span class="pun">(</span><span class="str">"pause"</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Linux下使用静态库，只需要在编译的时候，指定静态库的搜索路径（-L选项）、指定静态库名（不需要lib前缀和.a后缀，-l选项）。</p>
+<p># g++ TestStaticLibrary.cpp -<strong>L../StaticLibrary&nbsp;-lstaticmath</strong></p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201604-ae57e89353c74265a0f1d26e89ffdbd5.jpg" style="color:rgb(61,129,238)"><img title="clip_image008[4]" border="0" alt="clip_image008[4]" src="16201604-ae57e89353c74265a0f1d26e89ffdbd5.jpg" width="554" height="155"></a></p>
+<p>-&nbsp;&nbsp;-L：表示要连接的库所在目录</p>
+<p>-&nbsp;&nbsp;-l：指定链接时需要的动态库，编译器查找动态连接库时有隐含的命名规则，即在给出的名字前面加上lib，后面加上.a或.so来确定库的名称。</p>
+
+<h3>2.2.Windows下创建与使用静态库</h3>
+<h4>2.2.1.创建静态库（.lib）</h4>
+<p>如果是使用VS命令行生成静态库，也是分两个步骤来生成程序：</p>
+<p>-&nbsp;&nbsp;首先，通过使用带编译器选项&nbsp;<strong>/c</strong>&nbsp;的&nbsp;<strong>Cl.exe</strong>&nbsp;编译代码&nbsp;(<strong>cl
+ /c&nbsp;StaticMath.cpp</strong>)，创建名为"StaticMath.obj"的目标文件。</p>
+<p>-&nbsp;&nbsp;然后，使用库管理器&nbsp;<strong>Lib.exe</strong>&nbsp;链接代码&nbsp;(<strong>lib&nbsp;StaticMath.obj</strong>)，创建静态库StaticMath.lib。</p>
+<p>当然，我们一般不这么用，使用VS工程设置更方便。创建win32控制台程序时，勾选静态库类型；打开工程"属性面板"--"配置属性"--"常规"，配置类型选择静态库。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201605-6a3acac10b40402ea99343ad092f0061.jpg" style="color:rgb(61,129,238)"><img title="clip_image010[4]" border="0" alt="clip_image010[4]" src="16201605-6a3acac10b40402ea99343ad092f0061.jpg" width="554" height="359"></a></p>
+<p align="center">图：vs静态库项目属性设置</p>
+<p>Build项目即可生成静态库。</p>
+<h4>2.2.2.使用静态库</h4>
+<p>测试代码Linux下面的一样。有3种使用方法：</p>
+<h4><em>方法一：</em></h4>
+<p>在VS中使用静态库方法：</p>
+<p>-&nbsp;&nbsp;工程"属性面板"--"通用属性"--&nbsp;"框架和引用"--"添加引用"，将显示"添加引用"对话框。&nbsp;"项目"选项卡列出了当前解决方案中的各个项目以及可以引用的所有库。&nbsp;在"项目"选项卡中，选择&nbsp;StaticLibrary。&nbsp;单击"确定"。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201607-fed082fd8a134770b24c2b4569ad4405.jpg" style="color:rgb(61,129,238)"><img title="clip_image012[4]" border="0" alt="clip_image012[4]" src="16201607-fed082fd8a134770b24c2b4569ad4405.jpg" width="554" height="365"></a></p>
+<p>-&nbsp;&nbsp;添加StaticMath.h&nbsp;头文件目录，必须修改包含目录路径。打开工程"属性面板"--"配置属性"--&nbsp;"C/C++"--"常规"，在"附加包含目录"属性值中，键入StaticMath.h&nbsp;头文件所在目录的路径或浏览至该目录。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201609-9be107869b604f53bc08653fe28bfbad.jpg" style="color:rgb(61,129,238)"><img title="clip_image014[4]" border="0" alt="clip_image014[4]" src="16201609-9be107869b604f53bc08653fe28bfbad.jpg" width="554" height="359"></a></p>
+<p>编译运行OK。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201610-8630c9a19cae4143bffacd255367ffbb.png" style="color:rgb(61,129,238)"><img title="clip_image015[4]" border="0" alt="clip_image015[4]" src="16201610-8630c9a19cae4143bffacd255367ffbb.png" width="345" height="158"></a></p>
+<p align="center">图：静态库测试结果（vs）</p>
+<p>如果引用的静态库不是在同一解决方案下的子工程，而是使用第三方提供的静态库lib和头文件，上面的方法设置不了。还有2中方法设置都可行。</p>
+<h4><em>方法二：</em></h4>
+<p>打开工程"属性面板"--"配置属性"--&nbsp;"链接器"--"命令行"，输入静态库的完整路径即可。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201610-2bde8b094f5a4603848c574f1f228144.jpg" style="color:rgb(61,129,238)"><img title="clip_image017[4]" border="0" alt="clip_image017[4]" src="16201610-2bde8b094f5a4603848c574f1f228144.jpg" width="554" height="359"></a></p>
+<h4><em>方法三：</em></h4>
+<p>-&nbsp;&nbsp;"属性面板"--"配置属性"--&nbsp;"链接器"--"常规"，附加依赖库目录中输入，静态库所在目录；</p>
+<p>-&nbsp;&nbsp;"属性面板"--"配置属性"--&nbsp;"链接器"--"输入"，附加依赖库中输入静态库名StaticLibrary.lib。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201612-3af709f047ca4964898f3ce29680093c.jpg" style="color:rgb(61,129,238)"><img title="clip_image019[4]" border="0" alt="clip_image019[4]" src="16201612-3af709f047ca4964898f3ce29680093c.jpg" width="554" height="359"></a></p>
+
+<h2>3.动态库</h2>
+
+<p>通过上面的介绍发现静态库，容易使用和理解，也达到了代码复用的目的，那为什么还需要动态库呢？</p>
+<h3>3.1.为什么还需要动态库？</h3>
+<p>为什么需要动态库，其实也是静态库的特点导致。</p>
+<p>-&nbsp;&nbsp;空间浪费是静态库的一个问题。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201613-1320ec57feb24583a6b1294421c323b8.png" style="color:rgb(61,129,238)"><img title="clip_image021[4]" border="0" alt="clip_image021[4]" src="16201613-1320ec57feb24583a6b1294421c323b8.png" width="483" height="413"></a></p>
+<p>-&nbsp;&nbsp;另一个问题是静态库对程序的更新、部署和发布页会带来麻烦。如果静态库liba.lib更新了，所以使用它的应用程序都需要重新编译、发布给用户（对于玩家来说，可能是一个很小的改动，却导致整个程序重新下载，<strong>全量更新</strong>）。</p>
+<p>动态库在程序编译时并不会被连接到目标代码中，而是在程序运行是才被载入。<strong>不同的应用程序如果调用相同的库，那么在内存里只需要有一份该共享库的实例</strong>，规避了空间浪费问题。动态库在程序运行是才被载入，也解决了静态库对程序的更新、部署和发布页会带来麻烦。用户只需要更新动态库即可，<strong>增量更新</strong>。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201613-110ca9e0fd684281b3ee6d9bd9bebd78.png" style="color:rgb(61,129,238)"><img title="clip_image023[4]" border="0" alt="clip_image023[4]" src="16201613-110ca9e0fd684281b3ee6d9bd9bebd78.png" width="459" height="404"></a></p>
+<p>动态库特点总结：</p>
+<p>-&nbsp;&nbsp;动态库把对一些库函数的链接载入推迟到程序运行的时期。</p>
+<p>-&nbsp;&nbsp;可以实现进程之间的资源共享。（因此动态库也称为共享库）</p>
+<p>-&nbsp;&nbsp;将一些程序升级变得简单。</p>
+<p>-&nbsp;&nbsp;甚至可以真正做到链接载入完全由程序员在程序代码中控制（<strong>显示调用</strong>）。</p>
+<p>Window与Linux执行文件格式不同，在创建动态库的时候有一些差异。</p>
+<p>-&nbsp;&nbsp;在Windows系统下的执行文件格式是PE格式，动态库需要一个<strong>DllMain函数做出初始化的入口，通常在导出函数的声明时需要有_declspec(dllexport)</strong><strong>关键字</strong>。</p>
+<p>-&nbsp;&nbsp;Linux下gcc编译的执行文件默认是ELF格式，<strong>不需要初始化入口，亦不需要函数做特别的声明，</strong>编写比较方便。</p>
+<p>与创建静态库不同的是，不需要打包工具（ar、lib.exe），直接使用编译器即可创建动态库。</p>
+<h3>3.2.Linux下创建与使用动态库</h3>
+
+<h4>3.2.1.linux动态库的命名规则</h4>
+<p>动态链接库的名字形式为&nbsp;libxxx.so，前缀是lib，后缀名为".so"。</p>
+<p>-&nbsp;&nbsp;针对于实际库文件，每个共享库都有个特殊的名字"soname"。在程序启动后，程序通过这个名字来告诉动态加载器该载入哪个共享库。</p>
+<p>-&nbsp;&nbsp;在文件系统中，soname仅是一个链接到实际动态库的链接。对于动态库而言，每个库实际上都有另一个名字给编译器来用。它是一个指向实际库镜像文件的链接文件（lib+soname+.so）。</p>
+<h4>3.2.2.创建动态库（.so）</h4>
+<p>编写四则运算动态库代码：</p>
+
+<table cellspacing="0" cellpadding="0" border="1">
+<tbody>
+<tr>
+<td valign="top" style="background:black">
+<strong>DynamicMath.h头文件</strong>
+</td>
+</tr>
+<tr>
+<td valign="top" style="background:rgb(204,204,204)">
+<pre class="prettyprint prettyprinted" style=""><span class="com">#pragma</span><span class="pln"> once
+</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">public</span><span class="pun">:</span><span class="pln">
+        </span><span class="typ">DynamicMath</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">~</span><span class="typ">DynamicMath</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">);</span><span class="pln"> 
+
+        </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> add</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//加法</span><span class="pln">
+        </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="kwd">sub</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//减法</span><span class="pln">
+        </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> mul</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//乘法</span><span class="pln">
+        </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> div</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//除法</span><span class="pln">
+        </span><span class="kwd">void</span><span class="pln"> </span><span class="kwd">print</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">};</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>-&nbsp;&nbsp;首先，生成目标文件，此时要加编译器选项-fpic</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">g</span><span class="pun">++</span><span class="pln"> </span><span class="pun">-</span><span class="pln">fPIC </span><span class="pun">-</span><span class="pln">c </span><span class="typ">DynamicMath</span><span class="pun">.</span><span class="pln">cpp</span></pre>
+
+<p>-fPIC&nbsp;创建与地址无关的编译程序（pic，position independent code），是为了能够在多个应用程序间共享。</p>
+<p>-&nbsp;&nbsp;然后，生成动态库，此时要加链接器选项-shared</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">g</span><span class="pun">++</span><span class="pln"> </span><span class="pun">-</span><span class="pln">shared </span><span class="pun">-</span><span class="pln">o libdynmath</span><span class="pun">.</span><span class="pln">so </span><span class="typ">DynamicMath</span><span class="pun">.</span><span class="pln">o</span></pre>
+
+<p>-shared指定生成动态链接库。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201614-02f4340b15664f8a83282fb9a27ca3e5.jpg" style="color:rgb(61,129,238)"><img title="clip_image025[4]" border="0" alt="clip_image025[4]" src="16201614-02f4340b15664f8a83282fb9a27ca3e5.jpg" width="554" height="176"></a></p>
+<p>其实上面两个步骤可以合并为一个命令：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">g</span><span class="pun">++</span><span class="pln"> </span><span class="pun">-</span><span class="pln">fPIC </span><span class="pun">-</span><span class="pln">shared </span><span class="pun">-</span><span class="pln">o libdynmath</span><span class="pun">.</span><span class="pln">so </span><span class="typ">DynamicMath</span><span class="pun">.</span><span class="pln">cpp</span></pre>
+
+
+<h4>3.2.3.使用动态库</h4>
+<p>编写使用动态库的测试代码：</p>
+
+<table cellspacing="0" cellpadding="0" border="1">
+<tbody>
+<tr>
+<td valign="top" style="background:black">
+<strong>测试代码：</strong>
+</td>
+</tr>
+<tr>
+<td valign="top" style="background:rgb(204,204,204)">
+<pre class="prettyprint prettyprinted" style=""><span class="com">#include</span><span class="pln"> </span><span class="str">"../DynamicLibrary/DynamicMath.h"</span><span class="pln">
+
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;iostream&gt;</span><span class="pln">
+</span><span class="kwd">using</span><span class="pln"> </span><span class="kwd">namespace</span><span class="pln"> std</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">int</span><span class="pln"> main</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> argc</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">char</span><span class="pun">*</span><span class="pln"> argv</span><span class="pun">[])</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> a </span><span class="pun">=</span><span class="pln"> </span><span class="lit">10</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> b </span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">;</span><span class="pln">
+
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a + b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="pln">add</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a - b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="kwd">sub</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a * b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="pln">mul</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a / b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="pln">div</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">DynamicMath</span><span class="pln"> dyn</span><span class="pun">;</span><span class="pln">
+    dyn</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">();</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>引用动态库编译成可执行文件（跟静态库方式一样）：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">g</span><span class="pun">++</span><span class="pln"> </span><span class="typ">TestDynamicLibrary</span><span class="pun">.</span><span class="pln">cpp </span><span class="pun">-</span><span class="pln">L</span><span class="pun">../</span><span class="typ">DynamicLibrary</span><span class="pln"> </span><span class="pun">-</span><span class="pln">ldynmath</span></pre>
+
+<p>然后运行：./a.out，发现竟然报错了！！！</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201616-45dcaece0519453c96dfd1972295cd92.jpg" style="color:rgb(61,129,238)"><img title="clip_image027[4]" border="0" alt="clip_image027[4]" src="16201616-45dcaece0519453c96dfd1972295cd92.jpg" width="554" height="141"></a></p>
+<p>可能大家会猜测，是因为动态库跟测试程序不是一个目录，那我们验证下是否如此：</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201617-93f234207a9947a6a1caadd8acd9ead7.jpg" style="color:rgb(61,129,238)"><img title="clip_image029[4]" border="0" alt="clip_image029[4]" src="16201617-93f234207a9947a6a1caadd8acd9ead7.jpg" width="554" height="112"></a></p>
+<p>发现还是报错！！！那么，在执行的时候是如何定位共享库文件的呢？</p>
+<p>1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当系统加载可执行代码时候，能够知道其所依赖的库的名字，但是还需要知道绝对路径。此时就需要系统动态载入器(dynamic linker/loader)。</p>
+<p>2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于elf格式的可执行程序，是由ld-linux.so*来完成的，它先后搜索elf文件的&nbsp;DT_RPATH段—环境变量LD_LIBRARY_PATH—/etc/ld.so.cache文件列表—/lib/,/usr/lib&nbsp;目录找到库文件后将其载入内存。</p>
+<p>如何让系统能够找到它：</p>
+<p>-&nbsp;&nbsp;如果安装在/lib或者/usr/lib下，那么ld默认能够找到，无需其他操作。</p>
+<p>-&nbsp;&nbsp;如果安装在其他目录，需要将其添加到/etc/ld.so.cache文件中，步骤如下：</p>
+<p>--&nbsp;&nbsp;编辑/etc/ld.so.conf文件，加入库文件所在目录的路径</p>
+<p>--&nbsp;&nbsp;运行ldconfig&nbsp;，该命令会重建/etc/ld.so.cache文件</p>
+<p>我们将创建的动态库复制到/usr/lib下面，然后运行测试程序。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201618-a32a866f00c84a74893fa2181fa27b11.jpg" style="color:rgb(61,129,238)"><img title="clip_image031[4]" border="0" alt="clip_image031[4]" src="16201618-a32a866f00c84a74893fa2181fa27b11.jpg" width="553" height="136"></a></p>
+<h3>3.3.Windows下创建与使用动态库</h3>
+<h4>3.3.1.创建动态库（.dll）</h4>
+<p>与Linux相比，在Windows系统下创建动态库要稍微麻烦一些。首先，需要一个DllMain函数做出初始化的入口（创建win32控制台程序时，勾选DLL类型会自动生成这个文件）：</p>
+
+<table cellspacing="0" cellpadding="0" border="1">
+<tbody>
+<tr>
+<td valign="top" style="background:black">
+<strong>dllmain.cpp入口文件</strong>
+</td>
+</tr>
+<tr>
+<td valign="top" style="background:rgb(204,204,204)">
+<pre class="prettyprint prettyprinted" style=""><span class="com">// dllmain.cpp : Defines the entry point for the DLL application.</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">"stdafx.h"</span><span class="pln">
+
+BOOL APIENTRY </span><span class="typ">DllMain</span><span class="pun">(</span><span class="pln"> HMODULE hModule</span><span class="pun">,</span><span class="pln">
+                       DWORD  ul_reason_for_call</span><span class="pun">,</span><span class="pln">
+                       LPVOID lpReserved
+                     </span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">switch</span><span class="pln"> </span><span class="pun">(</span><span class="pln">ul_reason_for_call</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> DLL_PROCESS_ATTACH</span><span class="pun">:</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> DLL_THREAD_ATTACH</span><span class="pun">:</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> DLL_THREAD_DETACH</span><span class="pun">:</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> DLL_PROCESS_DETACH</span><span class="pun">:</span><span class="pln">
+        </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> TRUE</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>通常在导出函数的声明时需要有_declspec(dllexport)关键字：</p>
+
+<table cellspacing="0" cellpadding="0" border="1">
+<tbody>
+<tr>
+<td valign="top" style="background:black">
+<strong>DynamicMath.h头文件</strong>
+</td>
+</tr>
+<tr>
+<td valign="top" style="background:rgb(204,204,204)">
+<pre class="prettyprint prettyprinted" style=""><span class="com">#pragma</span><span class="pln"> once
+</span><span class="kwd">class</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">public</span><span class="pun">:</span><span class="pln">
+    __declspec</span><span class="pun">(</span><span class="pln">dllexport</span><span class="pun">)</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">);</span><span class="pln">
+    __declspec</span><span class="pun">(</span><span class="pln">dllexport</span><span class="pun">)</span><span class="pln"> </span><span class="pun">~</span><span class="typ">DynamicMath</span><span class="pun">(</span><span class="kwd">void</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="kwd">static</span><span class="pln"> __declspec</span><span class="pun">(</span><span class="pln">dllexport</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> add</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//加法</span><span class="pln">
+    </span><span class="kwd">static</span><span class="pln"> __declspec</span><span class="pun">(</span><span class="pln">dllexport</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="kwd">sub</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//减法</span><span class="pln">
+    </span><span class="kwd">static</span><span class="pln"> __declspec</span><span class="pun">(</span><span class="pln">dllexport</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> mul</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//乘法</span><span class="pln">
+    </span><span class="kwd">static</span><span class="pln"> __declspec</span><span class="pun">(</span><span class="pln">dllexport</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> div</span><span class="pun">(</span><span class="kwd">double</span><span class="pln"> a</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> b</span><span class="pun">);</span><span class="com">//除法</span><span class="pln">
+
+    __declspec</span><span class="pun">(</span><span class="pln">dllexport</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="kwd">print</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">};</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>生成动态库需要设置工程属性，打开工程"属性面板"--"配置属性"--"常规"，配置类型选择动态库。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201619-f190d6dd94ee48e0883bb5d5bbe4e66a.jpg" style="color:rgb(61,129,238)"><img title="clip_image033[4]" border="0" alt="clip_image033[4]" src="16201619-f190d6dd94ee48e0883bb5d5bbe4e66a.jpg" width="554" height="359"></a></p>
+<p align="center">图：v动态库项目属性设置</p>
+<p>Build项目即可生成动态库。</p>
+<h4>3.3.2.使用动态库</h4>
+<p>创建win32控制台测试程序：</p>
+
+<table cellspacing="0" cellpadding="0" border="1">
+<tbody>
+<tr>
+<td valign="top" style="background:black">
+<strong>TestDynamicLibrary.cpp测试程序</strong>
+</td>
+</tr>
+<tr>
+<td valign="top" style="background:rgb(204,204,204)">
+<pre class="prettyprint prettyprinted" style=""><span class="com">#include</span><span class="pln"> </span><span class="str">"stdafx.h"</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">"DynamicMath.h"</span><span class="pln">
+
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;iostream&gt;</span><span class="pln">
+</span><span class="kwd">using</span><span class="pln"> </span><span class="kwd">namespace</span><span class="pln"> std</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">int</span><span class="pln"> _tmain</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> argc</span><span class="pun">,</span><span class="pln"> _TCHAR</span><span class="pun">*</span><span class="pln"> argv</span><span class="pun">[])</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> a </span><span class="pun">=</span><span class="pln"> </span><span class="lit">10</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> b </span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pun">;</span><span class="pln">
+
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a + b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="pln">add</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a - b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="kwd">sub</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a * b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="pln">mul</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+    cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"a / b = "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="typ">DynamicMath</span><span class="pun">::</span><span class="pln">div</span><span class="pun">(</span><span class="pln">a</span><span class="pun">,</span><span class="pln"> b</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">DynamicMath</span><span class="pln"> dyn</span><span class="pun">;</span><span class="pln">
+    dyn</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">();</span><span class="pln">
+
+    system</span><span class="pun">(</span><span class="str">"pause"</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4><em>方法一：</em></h4>
+<p>-&nbsp;&nbsp;工程"属性面板"--"通用属性"--&nbsp;"框架和引用"--"添加引用"，将显示"添加引用"对话框。"项目"选项卡列出了当前解决方案中的各个项目以及可以引用的所有库。&nbsp;在"项目"选项卡中，选择&nbsp;DynamicLibrary。&nbsp;单击"确定"。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201623-914ff83612a4470fa59c2bc729053c6b.jpg" style="color:rgb(61,129,238)"><img title="clip_image035[4]" border="0" alt="clip_image035[4]" src="16201623-914ff83612a4470fa59c2bc729053c6b.jpg" width="554" height="363"></a></p>
+<p>-&nbsp;&nbsp;添加DynamicMath.h&nbsp;头文件目录，必须修改包含目录路径。打开工程"属性面板"--"配置属性"--"C/C++"--"&nbsp;常规"，在"附加包含目录"属性值中，键入DynamicMath.h&nbsp;头文件所在目录的路径或浏览至该目录。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201624-9cfecaf931ba4f4d96d6cf7cac3ac40e.jpg" style="color:rgb(61,129,238)"><img title="clip_image037[4]" border="0" alt="clip_image037[4]" src="16201624-9cfecaf931ba4f4d96d6cf7cac3ac40e.jpg" width="554" height="358"></a></p>
+<p>编译运行OK。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201626-29defaed72cf4a91b7c83f6bd0fecf53.png" style="color:rgb(61,129,238)"><img title="clip_image038[4]" border="0" alt="clip_image038[4]" src="16201626-29defaed72cf4a91b7c83f6bd0fecf53.png" width="320" height="137"></a></p>
+<p align="center">图：动态库测试结果（vs）</p>
+<h4><em>方法二：</em></h4>
+<p>-&nbsp;&nbsp;"属性面板"--"配置属性"--&nbsp;"链接器"--"常规"，附加依赖库目录中输入，动态库所在目录；</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201626-98727f19e0d14d43942771bac7e24238.jpg" style="color:rgb(61,129,238)"><img title="clip_image040[4]" border="0" alt="clip_image040[4]" src="16201626-98727f19e0d14d43942771bac7e24238.jpg" width="554" height="359"></a></p>
+<p>-&nbsp;&nbsp;"属性面板"--"配置属性"--&nbsp;"链接器"--"输入"，附加依赖库中输入动态库编译出来的DynamicLibrary.lib。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201628-425bd512f3bf4b51b121bdb59604bc5e.jpg" style="color:rgb(61,129,238)"><img title="clip_image042[4]" border="0" alt="clip_image042[4]" src="16201628-425bd512f3bf4b51b121bdb59604bc5e.jpg" width="554" height="359"></a></p>
+<p>这里可能大家有个疑问，动态库怎么还有一个DynamicLibrary.lib文件？即无论是静态链接库还是动态链接库，最后都有lib文件，那么两者区别是什么呢？其实，两个是完全不一样的东西。</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201631-f72543fd66ba4593996f864a7fb6f92a.jpg" style="color:rgb(61,129,238)"><img title="clip_image044[4]" border="0" alt="clip_image044[4]" src="16201631-f72543fd66ba4593996f864a7fb6f92a.jpg" width="554" height="255"></a></p>
+<p>StaticLibrary.lib的大小为190KB，DynamicLibrary.lib的大小为3KB，静态库对应的lib文件叫<strong>静态库</strong>，动态库对应的lib文件叫【<strong>导入库】</strong>。实际上静态库本身就包含了实际执行代码、符号表等等，而<strong>对于导入库而言，其实际的执行代码位于动态库中，导入库只包含了地址符号表等，确保程序找到对应函数的一些基本地址信息</strong>。</p>
+
+<h2>4.动态库的显式调用</h2>
+
+<p>上面介绍的动态库使用方法和静态库类似属于隐式调用，编译的时候指定相应的库和查找路径。其实，动态库还可以显式调用。<strong>【在</strong><strong>C</strong><strong>语言中】</strong>，显示调用一个动态库轻而易举！</p>
+<h3>4.1.在Linux下显式调用动态库</h3>
+<p>#include &lt;dlfcn.h&gt;，提供了下面几个接口：</p>
+<p>-&nbsp;&nbsp;void *&nbsp;<strong>dlopen</strong>( const char * pathname, int mode )：函数以指定模式打开指定的动态连接库文件，并返回一个句柄给调用进程。</p>
+<p>-&nbsp;&nbsp;void*&nbsp;<strong>dlsym</strong>(void* handle,const char* symbol)：dlsym根据动态链接库操作句柄(pHandle)与符号(symbol)，返回符号对应的地址。使用这个函数不但可以获取函数地址，也可以获取变量地址。</p>
+<p>-&nbsp;&nbsp;int&nbsp;<strong>dlclose</strong>&nbsp;(void *handle)：dlclose用于关闭指定句柄的动态链接库，只有当此动态链接库的使用计数为0时,才会真正被系统卸载。</p>
+<p>-&nbsp;&nbsp;const char *dlerror(void)：当动态链接库操作函数执行失败时，dlerror可以返回出错信息，返回值为NULL时表示操作函数执行成功。</p>
+<h3>4.2.在Windows下显式调用动态库</h3>
+<p>应用程序必须进行函数调用以在运行时显式加载&nbsp;DLL。为显式链接到&nbsp;DLL，应用程序必须：</p>
+<p>-&nbsp;&nbsp;调用&nbsp;<strong>LoadLibrary</strong>（或相似的函数）以加载&nbsp;DLL&nbsp;和获取模块句柄。</p>
+<p>-&nbsp;&nbsp;调用&nbsp;<strong>GetProcAddress</strong>，以获取指向应用程序要调用的每个导出函数的函数指针。由于应用程序是通过指针调用&nbsp;DLL&nbsp;的函数，编译器不生成外部引用，故无需与导入库链接。</p>
+<p>-&nbsp;&nbsp;使用完&nbsp;DLL&nbsp;后调用&nbsp;<strong>FreeLibrary</strong>。</p>
+<h3>4.3.显式调用C++动态库注意点</h3>
+<p>对C++来说，情况稍微复杂。显式加载一个C++动态库的困难<strong>一部分是因为</strong><strong>C++的name
+ mangling</strong>；<strong>另一部分是因为没有提供一个合适的</strong><strong>API</strong><strong>来装载类</strong>，在C++中，您可能要用到库中的一个类，而这需要创建该类的一个实例，这不容易做到。</p>
+<p><strong>name mangling</strong>可以通过extern "C"解决。C++有个特定的关键字用来声明采用C
+ binding的函数：extern "C"&nbsp;。用extern "C"声明的函数将使用函数名作符号名，就像C函数一样。因此，只有非成员函数才能被声明为extern
+ "C"，并且不能被重载。尽管限制多多，extern "C"函数还是非常有用，因为它们可以象C函数一样被dlopen动态加载。冠以extern
+ "C"限定符后，并不意味着函数中无法使用C++代码了，相反，它仍然是一个完全的C++函数，可以使用任何C++特性和各种类型的参数。</p>
+<p>另外如何从C++动态库中获取类，附上几篇相关文章，但我并不建议这么做：</p>
+<p>-&nbsp;&nbsp;《LoadLibrary调用DLL中的Class》：<a target="_blank" href="http://www.cppblog.com/codejie/archive/2009/09/24/97141.html" style="color:rgb(61,129,238)"><u>http://www.cppblog.com/codejie/archive/2009/09/24/97141.html</u></a></p>
+<p>-&nbsp;&nbsp;《C++ dlopen mini HOWTO》：<a target="_blank" href="http://blog.csdn.net/denny_233/article/details/7255673" style="color:rgb(61,129,238)"><u>http://blog.csdn.net/denny_233/article/details/7255673</u></a></p>
+<p><strong>"显式"使用C++动态库中的Class是非常繁琐和危险的事情，因此能用"隐式"就不要用"显式"，能静态就不要用动态。</strong></p>
+
+<h2>5.附件：Linux下库相关命令</h2>
+
+<h3>5.1.g++(gcc)编译选项</h3>
+<p>-&nbsp;&nbsp;-shared&nbsp;：指定生成动态链接库。</p>
+<p>-&nbsp;&nbsp;-static&nbsp;：指定生成静态链接库。</p>
+<p>-&nbsp;&nbsp;-fPIC&nbsp;：表示编译为位置独立的代码，用于编译共享库。目标文件需要创建成位置无关码，&nbsp;念上就是在可执行程序装载它们的时候，它们可以放在可执行程序的内存里的任何地方。</p>
+<p>-&nbsp;&nbsp;-L.&nbsp;：表示要连接的库所在的目录。</p>
+<p>-&nbsp;&nbsp;-l：指定链接时需要的动态库。编译器查找动态连接库时有隐含的命名规则，即在给出的名字前面加上lib，后面加上.a/.so来确定库的名称。</p>
+<p>-&nbsp;&nbsp;-Wall&nbsp;：生成所有警告信息。</p>
+<p>-&nbsp;&nbsp;-ggdb&nbsp;：此选项将尽可能的生成gdb&nbsp;的可以使用的调试信息。</p>
+<p>-&nbsp;&nbsp;-g&nbsp;：编译器在编译的时候产生调试信息。</p>
+<p>-&nbsp;&nbsp;-c&nbsp;：只激活预处理、编译和汇编,也就是把程序做成目标文件(.o文件)&nbsp;。</p>
+<p>-&nbsp;&nbsp;-Wl,options&nbsp;：把参数(options)传递给链接器ld&nbsp;。如果options&nbsp;中间有逗号,就将options分成多个选项,然后传递给链接程序。</p>
+<h3>5.2.nm命令</h3>
+<p>有时候可能需要查看一个库中到底有哪些函数，<strong>nm</strong><strong>命令</strong>可以打印出库中的涉及到的所有符号。库既可以是静态的也可以是动态的。nm列出的符号有很多，常见的有三种：</p>
+<p>-&nbsp;&nbsp;一种是在库中被调用，但并没有在库中定义(表明需要其他库支持)，用U表示；</p>
+<p>-&nbsp;&nbsp;一种是库中定义的函数，用T表示，这是最常见的；</p>
+<p>-&nbsp;&nbsp;一种是所谓的弱态"符号，它们虽然在库中被定义，但是可能被其他库中的同名符号覆盖，用W表示。</p>
+<p>$nm libhello.h</p>
+<h3>5.3.ldd命令</h3>
+<p><strong>ldd</strong><strong>命令可以查看一个可执行程序依赖的共享库</strong>，例如我们编写的四则运算动态库依赖下面这些库：</p>
+<p align="center"><a target="_blank" href="http://www.runoob.com/wp-content/uploads/2015/05/16201633-aebe0e8017354a9b93644043b9d013c6.jpg" style="color:rgb(61,129,238)"><img title="clip_image046[4]" border="0" alt="clip_image046[4]" src="16201633-aebe0e8017354a9b93644043b9d013c6.jpg" width="554" height="114"></a></p>
+
+<h2>6.总结</h2>
+
+<p>二者的不同点在于<strong>代码被载入的时刻不同</strong>。</p>
+<p>-&nbsp;&nbsp;静态库在程序编译时会被连接到目标代码中，程序运行时将不再需要该静态库，<strong>因此体积较大</strong>。</p>
+<p>-&nbsp;&nbsp;动态库在程序编译时并不会被连接到目标代码中，而是在程序运行是才被载入，因此在程序运行时还需要动态库存在，<strong>因此代码体积较小</strong>。</p>
+<p>动态库的好处是，不同的应用程序如果调用相同的库，那么在内存里只需要有一份该共享库的实例。带来好处的同时，也会有问题！如经典的DLL Hell问题，关于如何规避动态库管理问题，可以自行查找相关资料。</p>
+
+<h2>7.相关教程</h2>
+<p>C++ 教程：<a target="_blank" href="http://www.w3cschool.cc/cplusplus/cpp-tutorial.html">http://www.w3cschool.cc/cplusplus/cpp-tutorial.html</a></p>
+
+<p>作者：吴秦<br>
+出处：http://www.cnblogs.com/skynet/</p>				</div>
+			</div>
+			<div class="previous-next-links">
+			<div class="previous-design-link">← <a href="http://www.runoob.com/w3cnote/charset-encoding.html" rel="prev"> 字符集和字符编码（Charset &amp; Encoding）</a> </div>
+			<div class="next-design-link"><a href="http://www.runoob.com/w3cnote/php-xml2json.html" rel="next"> PHP XML 与 JSON 相互转换</a> →</div>
+			</div>
+			<style>
+.wrapper {
+  /*text-transform: uppercase; */
+  background: #ececec;
+  color: #555;
+  cursor: help;
+  font-family: "Gill Sans", Impact, sans-serif;
+  font-size: 20px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+  -webkit-transform: translateZ(0); /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
+}
+
+.wrapper .tooltip {
+  white-space: nowrap;
+  font-size: 14px;
+  text-align: left;
+  background: #96b97d;
+  bottom: 100%;
+  color: #fff;
+  display: block;
+  left: -25px;
+  margin-bottom: 15px;
+  opacity: 0;
+  padding: 14px;
+  pointer-events: none;
+  position: absolute;
+  
+  -webkit-transform: translateY(10px);
+     -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .25s ease-out;
+     -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+          transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+     -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+.tooltip a {
+	color:#fff;
+}
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.wrapper .tooltip:before {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}  
+
+/* CSS Triangles - see Trevor's post */
+.wrapper .tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid #96b97d 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  left: 20%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}
+.wrapper .tooltip1 {
+	margin-left: 50px;
+	padding-top: 0px;
+}
+/*
+.wrapper:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}
+*/
+/* IE can just show/hide with no transition */
+.lte8 .wrapper .tooltip {
+  display: none;
+}
+
+.lte8 .wrapper:hover .tooltip {
+  display: block;
+}
+
+</style>
+
+<div id="respond" class="no_webshot"> 
+		<div class="comment-signarea" style=" padding: 20px 20px;"> 
+	<h3 class="text-muted" id="share_code" style="color: #799961;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 点我分享笔记</h3>
+	<!--
+	<p style="font-size:14px;">笔记需要是本篇文章的内容扩展！</p><br>
+	<p style="font-size:12px;"><a href="//www.runoob.com/tougao" target="_blank">文章投稿，可点击这里</a></p>
+	<p style="font-size:14px;"><a href="/w3cnote/runoob-user-test-intro.html#invite" target="_blank">注册邀请码获取方式</a></p>
+		<h3 class="text-muted"><i class="fa fa-info-circle" aria-hidden="true"></i> 分享笔记前必须<a href="javascript:;" class="runoob-pop">登录</a>！</h3>
+		<p><a href="/w3cnote/runoob-user-test-intro.html#invite" target="_blank">注册邀请码获取方式</a></p>-->
+	</div>
+		
+	<form action="https://www.runoob.com/wp-content/themes/runoob/option/addnote.php" method="post" id="commentform" style="display:none;"><div id="comment-status" style="display:none;"></div>
+		<div class="comt">
+			<div class="comt-title">
+				<i style="font-size:36px;" class="fa fa-user-circle" aria-hidden="true"></i>				<p><a id="cancel-comment-reply-link" href="javascript:;">取消</a></p>
+			</div>
+			<div class="comt-box">
+			<div class="simditor">
+  <div class="simditor-wrapper"><div class="simditor-toolbar" style="top: 0px; width: 0px; left: 0px;"><ul><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-bold" href="javascript:;" title="加粗文字 ( Ctrl + b )"><span class="simditor-icon simditor-icon-bold"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-code" href="javascript:;" title="插入代码"><span class="simditor-icon simditor-icon-code"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-ul" href="javascript:;" title="无序列表 ( Ctrl + . )"><span class="simditor-icon simditor-icon-list-ul"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-ol" href="javascript:;" title="有序列表 ( ctrl + / )"><span class="simditor-icon simditor-icon-list-ol"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-image" href="javascript:;" title="插入图片"><span class="simditor-icon simditor-icon-picture-o"></span></a></li></ul></div>
+    <div class="simditor-placeholder" style="display: block; top: 1px;">写笔记...</div>
+    <div class="simditor-body" contenteditable="true"><p><br></p></div>
+  <div id="mded"></div></div>
+<div class="simditor-popover code-popover"><div class="code-settings">
+  <div class="settings-field">
+    <select class="select-lang">
+      <option value="-1">选择程序语言</option>
+    <option value="bash">Bash</option><option value="c++">C++</option><option value="cs">C#</option><option value="css">CSS</option><option value="erlang">Erlang</option><option value="less">Less</option><option value="sass">Sass</option><option value="diff">Diff</option><option value="coffeescript">CoffeeScript</option><option value="html">HTML,XML</option><option value="json">JSON</option><option value="java">Java</option><option value="js">JavaScript</option><option value="markdown">Markdown</option><option value="oc">Objective C</option><option value="php">PHP</option><option value="parl">Perl</option><option value="python">Python</option><option value="ruby">Ruby</option><option value="sql">SQL</option></select>
+  </div>
+</div></div><div class="simditor-popover image-popover"><div class="link-settings">
+  <div class="settings-field">
+    <label>图片地址</label>
+    <input class="image-src" type="text" tabindex="1">
+    
+  </div>
+  <div class="settings-field">
+    <label>图片描述</label>
+    <input class="image-alt" id="image-alt" type="text" tabindex="1">
+  </div>
+  <div class="settings-field">
+    <label>图片尺寸</label>
+    <input class="image-size" id="image-width" type="text" tabindex="2">
+    <span class="times">×</span>
+    <input class="image-size" id="image-height" type="text" tabindex="3">
+    <a class="btn-restore" href="javascript:;" title="还原图片尺寸" tabindex="-1">
+      <span class="simditor-icon simditor-icon-undo"></span>
+    </a>
+  </div>
+</div></div></div>
+			
+				<div class="comt-ctrl">
+					<div class="comt-tips"><input type="hidden" name="comment_post_ID" value="11968" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</div>
+					<button type="submit" name="submit" id="submit" tabindex="5"><i class="fa fa-pencil" aria-hidden="true"></i> 分享笔记</button>
+				</div>
+			</div>
+		
+				
+					<div class="comt-comterinfo"> 
+						<ul id="comment-author-info">
+							<li class="form-inline"><label class="hide" for="author">昵称</label><input class="ipt" type="text" name="author" id="author" value="" tabindex="2" placeholder="昵称"><span class="text-muted">昵称 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="email">邮箱</label><input class="ipt" type="text" name="email" id="email" value="" tabindex="3" placeholder="邮箱"><span class="text-muted">邮箱 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="url">引用地址</label><input class="ipt" type="text" name="url" id="url" value="" tabindex="4" placeholder="引用地址"><span class="text-muted">引用地址</span></li>
+						</ul>
+					</div>
+				
+			
+		</div>
+
+	</form>
+	</div>
+<script type="text/javascript">
+$(function() {
+	//初始化编辑器
+	
+	var editor = new Simditor({
+	  textarea: $('#mded'),
+	  placeholder: '写笔记...',
+	  upload:false,
+	 // upload: {url:'/api/comment_upload_file.php',params: null,fileKey: 'upload_file',connectionCount: 1,leaveConfirm: '文件正在上传，您确定离开?'},
+	  defaultImage: 'http://www.runoob.com/images/logo.png',
+	  codeLanguages: '',
+	  autosave: 'editor-content',
+	  toolbar: [  'bold','code','ul','ol','image' ]
+	});
+	editor.on('selectionchanged', function() {
+		$(".code-popover").hide();
+	});
+
+	// 提交数据
+	$("#share_code").click(function() {
+		$(".comment-signarea").hide();
+		$("#commentform").show();
+		
+	});
+	$("#user_add_note").click(function() {
+		$(".comment-signarea").hide();
+		$("#commentform").show();
+		$('html, body').animate({
+       	    scrollTop: $("#respond").offset().top
+    	}, 200);
+	});
+
+	// 提交笔记
+	var commentform=$('#commentform');
+	commentform.prepend('<div id="comment-status" style="display:none;" ></div>');
+	var statusdiv=$('#comment-status');
+	
+	commentform.submit(function(e){
+		e.preventDefault();
+		var noteContent = editor.getValue();
+		// console.log(noteContent);
+		noteContent = noteContent.replace(/<pre><code>/g,"<pre>");
+		noteContent = noteContent.replace(/<\/code><\/pre>/g,"</pre>");
+		
+		// 系列化表单数据
+		var comment_parent = 0;
+		var is_user_logged_in = $("#is_user_logged_in").val();
+		var comment_post_ID =  11968;
+		var _wp_unfiltered_html_comment = $("#_wp_unfiltered_html_comment").val();
+		var comment = noteContent;
+		var author = $("#author").val();
+		var url = $("#url").val();
+		var email = $("#email").val();
+		if(isBlank(author) && is_user_logged_in==0) {
+			statusdiv.html('<p  class="ajax-error">请输入昵称！</p>').show();
+		} else if(isBlank(email)  && is_user_logged_in==0) {
+			statusdiv.html('<p  class="ajax-error">请输入邮箱！</p>').show();
+		} else {
+			// var formdata=commentform.serialize() + "&comment=" + noteContent ;
+			// 添加状态信息
+			statusdiv.html('<p>Processing...</p>').show();
+			// 获取表单提交地址
+			var formurl=commentform.attr('action');
+			
+			// 异步提交
+			$.ajax({
+					type: 'post',
+					url: formurl,
+					dataType:'json',
+					data: {"comment_parent":comment_parent,"comment_post_ID":comment_post_ID, "_wp_unfiltered_html_comment":_wp_unfiltered_html_comment,"comment":comment,"url":url, "email":email,"author":author},
+					error: function(XMLHttpRequest, textStatus, errorThrown){
+					statusdiv.html('<p class="ajax-error" >数据不完整或表单提交太快了！</p>').show();
+				},
+				success: function(data, textStatus){
+					if(data.errorno=="0") {
+						$("#submit").prop('disabled', true);
+						statusdiv.html('<p class="ajax-success" >笔记已提交审核，感谢分享笔记！</p>').show();
+						alert('笔记已提交审核，感谢分享笔记！');
+					}else{
+						statusdiv.html('<p class="ajax-error" >'+data.msg+'</p>').show();
+					}
+					commentform.find('textarea[name=comment]').val('');
+				}
+			});
+			setTimeout(function(){
+		        $("#submit").prop('disabled', false);
+		    }, 10*1000);
+		}
+		return false;
+
+	});
+	$(".comt-author").click(function() {
+		href = $(this).children("a").attr("href");
+		if(href.indexOf("/note/")!=-1) {
+			var win = window.open(href, '_blank');
+  			win.focus();
+		}
+	});
+	$(".comt-author").hover(function(){
+		$(this).children(".tooltip").css({ "opacity": 1, "pointer-events": "auto"});
+	},function(){
+		$(this).children(".tooltip").css({ "opacity": 0, "pointer-events": "auto"});
+	});
+	$(".wrapper i").hover(function(){
+		$(this).siblings(".tooltip").css({ "opacity": 1, "pointer-events": "auto"});
+	},function(){
+		$(this).siblings(".tooltip").css({ "opacity": 0, "pointer-events": "auto"});
+	});
+	//Upvote.create('runoobvote-id', {callback: vote_callback});
+	var ajaxurl = 'https://www.runoob.com/wp-admin/admin-ajax.php';
+	var callback = function(data) {
+		//console.log($('#runoobvote-id').upvote('upvoted'));
+		//console.log($('#runoobvote-id').upvote('downvoted'));
+		//console.log(data);
+		_vote_action = data.action;
+		console.log(_vote_action);
+		id_arr = data.id.split('-');
+		um_id= id_arr[2];
+		//console.log(um_id);
+		
+		var re = /^[1-9]+/;
+		if (re.test(um_id)) { 
+			var ajax_data = {
+				_vote_action: _vote_action,
+				action: "pinglun_zan",
+				um_id: um_id,
+				um_action: "ding"
+			};
+			//console.log(ajax_data);
+			$.post(ajaxurl,ajax_data,function(status){
+				//console.log("Data: " + data + "nStatus: " + status);
+			});
+		}
+	};
+	if($('#comments').length){
+		$('.upvotejs').upvote({id: 11968, callback: callback});
+		
+		$.post(ajaxurl,{"action":"pinglun_zan","postid":11968},function(data){  
+			$(data).each(function(key,value) {
+				$("#runoobvote-id-" + value.commid + " .upvote").addClass(value.upvotejs_class);
+				$("#runoobvote-id-" + value.commid + " .downvote").addClass(value.downvote_class);
+				$("#runoobvote-id-" + value.commid + " .count").addClass(value.upvote_count)
+			})
+		},'json');
+	}
+	
+	
+});
+function isBlank(str) {
+    return (!str || /^\s*$/.test(str));
+}
+
+
+</script>
+
+<link rel="stylesheet" href="upvotejs.css">
+<script src="upvotejs.vanilla.js.下载"></script>
+<script src="upvotejs.jquery.js.下载"></script>
+<link rel="stylesheet" href="qa.css">
+<link rel="stylesheet" type="text/css" href="simditor.css">
+<script type="text/javascript" src="module.js.下载"></script>
+<script type="text/javascript" src="hotkeys.js.下载"></script>
+<script type="text/javascript" src="uploader.js.下载"></script>
+<script type="text/javascript" src="simditor.min.js.下载"></script>
+<script type="text/javascript" src="simditor-autosave.js.下载"></script>
+			<style>
+@media screen and (max-width: 768px) {
+	#w3cnote-ad728 {
+		display: none;
+	}
+}
+p.note-author {
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+    color: #78a15a;
+    padding-bottom: 2px;
+    margin-bottom: 4px;
+}
+</style>
+<script>
+var aid = 11968;
+</script>
+	</div>
+		
+	</div>
+	<div class="listcol last right-column">
+
+
+
+
+<!--
+	<div class="tab tab-light-blue"> 订阅</div>
+	<div class="sidebar-box">
+		<div class="socialicons">
+			<a href="//www.runoob.com/feed" class="rss">RSS 订阅</a>
+		
+			<form action="//list.qq.com/cgi-bin/qf_compose_send" method="post">
+			<input type="hidden" value="qf_booked_feedback" name="t">
+			<input type="hidden" value="4b67b6b6c1f5e792559940cab4aebb8f1126fba880bff1a8" name="id">
+			<input class="placeholder" id="feed_email" name="to" value="输入邮箱 订阅笔记" autocomplete="off">
+			<input type="submit" value="订阅" class="btn btn-primary">
+			</form>
+		
+		</div>
+ 
+	</div>
+-->	
+
+
+
+<!--
+	<div class="sidebar-box cate-list">
+	<div class="sidebar-box recommend-here list-link">
+			<a href="javascript:void(0);" style="font-size: 16px; color:#64854c;font-weight:bold;">笔记列表</a>
+		</div>
+
+ 
+
+</div>
+-->
+
+	 
+</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
