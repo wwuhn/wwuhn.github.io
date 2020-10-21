@@ -1,0 +1,515 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>中国第一代程序员潘爱民的30年程序人生</h3>
+
+<p></p>
+<p>作者 | 潘爱民</p>
+<p></p>
+<p>出品 | 程序员大本营</p>
+<p></p>
+<p>【编者按】搞技术是一件极其幸运的事情，不仅是我们迎来了最好的时代，亦在于我们的祖师爷大多还都健在甚至健谈，比如 Linux 之父 Linus Torvalds、Python 之父 Guido van Rossum，而中国第一代程序员们也都还在折腾，首推 UCDOS 发明人鲍岳桥、超级解霸创始人梁肇新，以及今天我们的主人公 —— 国内知名操作系统专家、指令集创始人兼 CEO 潘爱民博士。</p>
+<p></p>
+<p>潘爱民博士生于 70 年代，起于 BASIC 编程，师从汉字激光照排系统之父王选院士，从北大计算机研究所、微软亚洲研究院到任职盛大创新院专家顾问，又先后任阿里 YunOS、阿里安全、飞猪、阿里业务平台首席架构师，进入物联网时代创立指令集深耕并亲自主导物联网操作系统研发，历经中国互联网行业从星火到移动、AI、大数据、IoT 等各种燎原，几乎可以算作是中国互联网发展的一大缩影。</p>
+<p></p>
+<p>浮生多变化，万事有盈虚。当国内程序员们忧于「35 岁职业坎、45 岁屈服现实、55 岁就得隐退」之时，透过潘爱民博士的 30 年程序人生，我们不仅能够看到一个中国第一代程序员死磕技术，又深邃思考技术如何落地与产业融合，更能从他的身体力行中看到，后浪奔涌，老兵如何不息！</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>我第一次写程序人生是2000年，当时有很多编程实践，刚刚开始有系统性的思考；第二次是2010年写了我的成长故事（发表在《程序员》杂志上），当时即将从微软亚洲研究院毕业，准备进入国内工业界。到2020年，又10年过去了。回顾这10年，我一直在工业界努力，经历了三家公司：盛大、阿里巴巴和杭州指令集，亲历了移动互联网的发展，以及物联网时代的兴起。</p>
+<p></p>
+<p>在计算机技术飞速发展的年代，10年是一个很大的跨度，足以发生翻天覆地的变化。我有幸在正值壮年之际，又一次经历了中国互联网产业的蓬勃发展。本文记录我在这10年中的职业经历、技术感悟，以及从技术转向业务、与产业融合的实践与思考。</p>
+<p></p>
+<p></p>
+<p>职业经历</p>
+<p>2010年夏天，我离开微软亚洲研究院，踏上了南下到上海的旅程，加入盛大创新院。当时的感受是，在经历过北京大学的教学科研以及微软亚洲研究院的系统研究以后，非常渴望回到国内的企业或机构进行基础软件的研发。经过多方考察，我选择了盛大创新院作为职业生涯的下一站。</p>
+<p></p>
+<p>盛大创新院</p>
+<p>对于程序员来说，盛大创新院是一个理想的创新机构，有老板的大力支持，有大量互联网人才，正赶上移动互联网蓬勃发展的大好时机。有一批优秀的项目脱颖而出，涉及到语音、短视频、云计算、云笔记、LBS、智能手机等很多领域，其中有不少项目在盛大创新院解散以后还在延续并且做成功了。</p>
+<p></p>
+<p>当时我带领的方向是移动操作系统——VisionOS。为什么要做移动操作系统，以及如何做、技术路径如何选择，这是在立项阶段反复思考和推敲的问题。我至今认为，那是发展自有移动操作系统的最佳时期，Android尚未占据市场垄断地位，并且Android手机的体验和性能离iOS还有显著差距，自研系统有机会快速赶上来。</p>
+<p></p>
+<p>如果把微软亚洲研究院看作企业象牙塔的话，那么在盛大创新院则感受到了国内工业界的创新活跃氛围。在盛大做终端操作系统，游戏作为应用生态中的一个重要组成部分，是独特的优势。</p>
+<p></p>
+<p>当时手机游戏尚处于早期摸索阶段，但很多页游已经商业化运营了。VisionOS选择支持Flash和HTML5（H5），作为对于手机终端小游戏的基础平台。尽管当时有Flash和H5谁是未来的争论，作为基础系统平台，面对大量存量的Flash内容，VisionOS必须做好支持；同时基于前几年我对Web技术的研究，未来我更看好H5。因此VisionOS对于Flash的策略是兼容支持；对于Web则从系统底层打造形成一个应用平台(Web Runtime)。</p>
+<p></p>
+<p>这是我第一次组建并带领一个操作系统研发团队，自己做架构师，从Linux操作系统到应用层技术栈，再到云端服务，都涉及到了。</p>
+<p></p>
+<p>VisionOS的技术架构跟Windows比起来，简化太多了，所以我在VisionOS的架构设计与技术选型上都能得心应手。得益于盛大创新院良好的技术创新氛围以及相对优厚的待遇，我组建了一个非常优秀的团队，有玩Linux的，有精通图形引擎的，有精通软件工程的，有精通多媒体编解码的，也有擅长系统安全的，共十多个人，用一年多时间建立了一个性能优异的基于Linux/WebKit的移动操作系统。</p>
+<p></p>
+<p>我从一开始就没考虑跟Android兼容，而是走自建生态的道路。VisionOS从立项到决定解散，差不多两年时间，对我来说，就像一次创业经历，做出了一个原型系统，但未能实现商业化。</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>阿里巴巴</p>
+<p>离开盛大创新院，我休息了两个月，拿到了华为和阿里巴巴的操作系统首席架构师的Offer，最终命运使然，2013年初，我来到杭州，加入了阿里云OS。</p>
+<p></p>
+<p>当时阿里云OS是阿里云下属的一个部门，所以，确切来说，我加入了阿里云。杭州是我家乡的省城，一向以风景优美著称，当时还算不上互联网技术人才聚集地，但我时有耳闻，很多前端工程师经常在杭州聚会，技术的氛围正在浓厚起来。</p>
+<p></p>
+<p>我在阿里巴巴工作了将近六年，主要分三个阶段：云OS（后更名为阿里YunOS）、集团安全部，以及飞猪和业务平台部。在云OS工作的两年间，正赶上云OS蓬勃发展的时期，从一个以Android BSP为基础的兼容Android应用的移动操作系统，演变为一个自主移动操作系统。</p>
+<p></p>
+<p>作为云OS首席架构师，最大的挑战是确定新的架构，并且推动各个开发组接受新的架构。我同时也带领了核心系统模块的研发组。基于盛大VisionOS的研发经验和教训，我在设计新架构以及核心模块的技术选型方面，有足够的把握让新的云OS符合未来发展。</p>
+<p></p>
+<p>两年间，云OS技术团队已经非常强大了，聚集了国内大量的系统工程师。我一心想做成云OS，然而，天时、地利、人和很难三者得兼，最终我还是放弃了继续努力，转到了阿里巴巴安全部。</p>
+<p></p>
+<p>当时正赶上阿里的电商业务全面从PC互联网转向移动互联网，安全能力也势必要跟着升级。我一方面支持阿里业务的移动安全，另一方面带领一个架构师团队来梳理和重构阿里巴巴的安全体系。经过两年的安全领域实践以后，我希望能到业务部门学习和锻炼，于是选择了阿里飞猪。我认为这是一个小而美的业务部门，既有平台属性，也有行业属性。虽然飞猪的业务体量相对淘宝和天猫的总量小得多，但旅游是一个发展中的行业，业务空间大，创新的机会也多。</p>
+<p></p>
+<p>最后赶上中台战略下的部门调整与合并，我来到了业务平台部门。我突然发现，加入阿里巴巴时满怀着做成一个移动操作系统的梦想，但现实中却发展成为了企业中的老白兔。结合自己最后两年对于业务的认知，以及物联网行业发展的判断，也感受到杭州这块互联网热土，最终我决定离开阿里巴巴，建立一家创业公司。</p>
+<p></p>
+<p>杭州指令集</p>
+<p>在杭州，从阿里巴巴出来创业的前员工是一个广泛的群体，并且不乏成功者。我估计杭州一半以上的科技创业公司的合伙团队中都有前阿里员工的身影。在这样的群体氛围中，我选择出来创业，也就丝毫不奇怪了。</p>
+<p></p>
+<p>我创立指令集有两个初衷：</p>
+<p></p>
+<p>一、物联网是后移动互联网时代能看得到的一个大趋势，而这个产业还处于零散发展的阶段，除了一些嵌入式操作系统演变为物联网设备的操作系统以外，还缺乏基础性的系统软件，所以我认为有机会做物联网场景的系统软件（解决一些共性的基础功能需求）。</p>
+<p></p>
+<p>二、感受到了智慧园区/智慧楼宇的发展与变迁，以阿里巴巴西溪园区为例，2013年启用时就是一个普通的安装了很多智能设备的园区，但经过几年的发展，园区内的很多设施，越来越智能，包括门禁闸机、灯、空调、停车、电视屏等，这一切都源于背后有一套系统，将所有相关的设备连接到一起，并且与企业信息系统打通，从而实现了这些有良好体验的智慧功能。</p>
+<p></p>
+<p>我坚信物联网时代需要这样的系统软件。经过一年的研发和运营，指令集公司于2019年6月发布了商业智能操作系统1.0版本，可用于楼宇、园区等商业场景。通过跟大量的目标客户和合作伙伴交流，确实看到了广泛的市场前景。更进一步，在跟伙伴交流的过程中，我也看到了在工业制造场景下更加需要这样的物联网操作系统软件，因此指令集公司也把工业智能操作系统作为第二个重要的发展方向。</p>
+<p></p>
+<p>一旦加入创业大军，每天工作的重点以及思考问题的方式跟以往在大企业工作不一样了。某种程度上，这是一个身份的转变，原来是专业工作者，现在是企业经营主。尽管如此，我仍然努力做到对技术保持关注，特别是新兴的技术趋势。我坚持写技术文章，通过写文章来理清思路，对相关技术进行全面的整理，并结合实践提出一些观点。</p>
+<p></p>
+<p></p>
+<p>技术成长</p>
+<p>从2010到2020年这10年，我们经历了移动互联网的蓬勃发展、人工智能的再次复兴、大数据的各种应用，以及物联网技术在各行各业的应用。我作为一名从业者，有机会在大公司的平台上经历了这些技术的发展与应用，并且也有机会亲自主导一个物联网操作系统的研发和推广，实属幸运。</p>
+<p></p>
+<p>一、移动系统技术</p>
+<p>早在2005年，我就选择了将来往系统技术方向发展，当时还在微软亚洲研究院工作。我的想法是，在微软工作最有价值的，应该是钻研Windows操作系统，这是独有的机会，所以我从Windows性能诊断分析作为切入点，研究Windows的内部机理，将Windows线程调度、内存管理、I/O等最核心的模块剖析了一遍，并形成了一套系统性的诊断方法。有了这些基础以后，我又进一步考虑应用层的性能问题，以浏览器的渲染引擎作为研究对象，分析渲染引擎的整个计算过程，挖掘可优化的空间。核心的思想是，在计算流程中尽可能把重复的计算移除掉，从而保持整个响应过程的高效。这些研究工作为我后来做操作系统打下了扎实的基础。</p>
+<p></p>
+<p>2010年，我在盛大创新院有机会设计一个新的移动操作系统VisionOS。基本的思路是，在移动设备上，用Linux加一个Web渲染引擎来支撑一个Web运行环境(Web Runtime)，既可以运行本地的Web应用，也可以运行在线应用，并且通过插件的形式运行Flash控件。我调研了Linux平台上可使用的各种图形软件，最终决定自行开发一套适合于移动设备的图形库，与WebKit高效对接。Linux社区有许多开源的图形库，也有像Qt这类比较成熟的跨平台图形窗口系统，但它们首先为了兼容性的目的牺牲了效率，其次为了提升效率又做了很多优化，从而软件变得很复杂。在移动设备上不需要复杂的图形功能和窗口管理能力，我当时的想法是，借鉴Windows图形窗口系统的思想，简化到极致，只需要基本的图形能力和简单窗口管理，就可以支撑VisionOS的底层图形需求。移动应用内部的控件管理由WebKit自身来完成即可。</p>
+<p></p>
+<p>在当时的智能手机硬件环境下，要想做到流畅的触控体验，必须进行深入的优化，其中有一点至关重要，把芯片的图形加速能力启用起来。由于我们选择了原生的Linux系统，C库采用glibc，那就要找到芯片厂商提供的硬件加速库，才能完成这一优化。然而我接触了四五家芯片厂商，发现当时的移动芯片厂商基本上只提供Android的BSP，几乎不再提供Linux BSP，除非有足够采购量来提出特殊需求。在没有得到芯片厂商支持的情况下，我们做了一个高难度的折中方案，将Android BSP中的硬件加速库移植到VisionOS中，也就是说，将非glibc环境下的一个二进制代码库链接到glibc中，供上层模块调用。我团队中的同事足够优秀，将这些工作做得很漂亮，VisionOS比当时同机配的Android系统要明显高效，并且也很稳定。</p>
+<p></p>
+<p>跨进程通信是一个操作系统非常重要的能力，它让应用与应用之间、应用与系统之间便捷、高效地相互调用功能。系统底层往往有很多琐碎的细节要处理，包括应用数据到底层二进制数据的转换、共享缓冲区的管理等。作为一个面向终端用户的操作系统，必须要提供一套便于开发者使用的跨进程通信机制。VisionOS选择了自研方案，在Linux提供的跨进程通信基础上包装了一套可解析应用语义的系统机制。（Android对应有一套binder机制，用于应用与系统、应用与应用之间进行通信。）</p>
+<p></p>
+<p>除了支持Web应用和Flash内容，我们也移植了一些Linux原生应用。此外，有几个系统应用（包括桌面和相册应用）也是原生开发的。在当时的硬件条件下，Web版本的相册应用与原生版本的相册应用有显著的性能差异。因此，对原生应用的支持也是VisionOS的一个特点。事实上，我调研了当时Android手机上的某一家应用市场中排名前一千个Android应用，大部分应用包含了原生版本的核心模块（譬如图形处理、多媒体处理、重力模型、加解密等），Java代码只是搭建了应用的框架而已。这些核心模块是以.so文件格式打包在应用发行包中，导致非ARM处理器的其他手机或移动终端根本用不了这些应用。我曾经接触过一家MIPS芯片商，尽管他们也支持Android操作系统，但当时环境下他们的终端设备无法直接运行市场上的这些Android应用。</p>
+<p></p>
+<p>我做移动操作系统将近五年时间，先是做了VisionOS，后来两年又做了云OS，在技术发挥上可谓淋漓尽致，但遗憾的是，因为种种原因没有真正意义上建立起一个移动操作系统的生态。而随着Android系统越来越先进，其生态粘性越来越强，再要建立一个对标的移动操作系统，可能性微乎其微了，除非某种特定的产业结构需求出现。</p>
+<p></p>
+<p>二、架构师之路</p>
+<p>最近这10年，我的技术角色定为架构师可能是最合适的，虽然我自己最喜欢的称呼是系统程序员。架构师是一个泛称，在具体场景中，往往对应了一个规模或大或小的系统，可以是软件系统，也可以是软硬件结合的系统。比如一个应用软件，需要有一个架构师；一个操作系统，对应有一个架构师；一个业务模块，可能也有一个架构师。</p>
+<p></p>
+<p>随着互联网技术和业务的快速发展，架构师这一职业也跟着在互联网行业风生水起。我谈谈对软件架构师，特别是系统软件架构师的职责的理解。</p>
+<p></p>
+<p>软件基本架构首先要合理，所谓合理，指采用当时相对成熟的软件技术来实现系统功能。</p>
+<p></p>
+<p>一方面，架构师要对相关的软件技术有足够的了解或精通，才能做好基础的选型工作；另一方面也要了解技术发展趋势，对软件架构的扩展能力和前瞻性有清晰的判断。现实中的绝大多数问题在业界都有一些参考方案，或者有一些成型的模式可供参考。</p>
+<p></p>
+<p>对软件，特别是系统软件的性能，有充分的理解。性能包含多方面的指标，有关于资源使用方面的，譬如存储使用、网络带宽使用等，也包括异常情况下的表现、对大并发量的容忍、延迟等。在设计阶段有针对性能的预估，在系统上线后有对性能的监控，确保软件系统健康运行。</p>
+<p></p>
+<p>稳定性，软件的质量保障是一个工程过程，在软件发布以前经过充分测试，包括功能测试和性能测试。软件升级迭代流程要充分考虑到兼容性要求，常见的做法是，先采用灰度发布再全量发布，并且系统具有回滚能力。</p>
+<p></p>
+<p>成本控制和预测。高性能和稳定可靠（以及安全性）都是以成本为基础的。在技术选型、性能和稳定性保障方面所做的决策，都需要考虑到成本因素。成本是一个综合考虑，涉及到业务需求、商业价值、技术方案等多方面因素。</p>
+<p></p>
+<p>从软件工程师（或程序员）到成为合格的架构师需要技术积累，有足够广阔的知识面，更需要大系统经验的积累。大系统经验是难能可贵的，如果在客观的工作场景中找不到，也可以从剖析一些软件系统入手，来积累对复杂系统的认知和把控能力。</p>
+<p></p>
+<p>系统程序员在这方面有天然的优势，因为系统程序员往往精通底层工作原理，所以在系统性能、稳定性、安全性等方面能直接看到问题的本质。但是从系统程序员到架构师有一道坎，须放下对底层技术的执念，接受上层应用或中间件的各种妥协，包括一些不优雅或不精巧的习惯做法。</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>这10年间，我的架构师生涯也分几段经历：</p>
+<p></p>
+<p>在移动操作系统方向上，我核心工作在架构设计上，带领一些核心模块的开发小组。</p>
+<p></p>
+<p>得益于早年在Windows操作系统和Web渲染引擎方向的深入研究，我能够提出比较合理、先进的系统架构。最具挑战性的部分是如何构建应用生态，包括应用开发语言和环境的选择，以及是否或如何兼容市场上已有的应用。</p>
+<p></p>
+<p>在互联网业务安全方向上，依托阿里巴巴集团的业务背景，我有机会全面地梳理和构建企业服务安全体系：从系统攻防，到业务平台的安全，再到情报收集，到研发流程中植入安全要求等。</p>
+<p></p>
+<p>特别值得一提的是，阿里业务安全的背后是大数据能力和对计算平台的需求。我曾经负责过某一年双11防刷单的业务，本质上这是一个大流量场景下恶意流量的识别与阻断问题，背后的技术要求是，长期的数据积累，再加上实时计算与响应。</p>
+<p></p>
+<p>在阿里业务线做架构。电商是典型的互联网业务，从PC互联网到移动互联网，既有技术挑战（比如支撑频繁的促销活动），又有大量的数据和服务需要拓展（比如旅行服务）。</p>
+<p></p>
+<p>阿里巴巴的技术体系具有代表性，其基础平台结合了云计算的各种技术应用。我正好赶上了阿里的中台战略：业务中台+数据中台，期间收获很多。其中有一段时间，我一直在研究与思考：如何将学术界关于软件工程的研究成果与阿里的场景结合起来。阿里业务平台的工程实践在有些方面超前学术界很多，但学术界的很多研究成果并未在阿里实践中发挥作用。</p>
+<p></p>
+<p>在物联网方向，我从产业现状出发，看到一个潜在的系统需求：能够将一个物联网场景中的各种IoT设备连接起来并协同发挥作用的系统或平台。我将这样的系统软件称为物联网操作系统，而对应的运行在设备上的系统软件称为IoT设备操作系统。</p>
+<p></p>
+<p>指令集公司正是做这样一个物联网操作系统，其核心能力是连接设备、数据汇聚与处理、业务支撑平台。设备连接面对的是各种IoT设备和广泛的协议；数据汇聚解决从数据采集，到数据存储、分析和处理的全流程；业务支撑平台主要将设备和数据的共性服务暴露给上层应用。</p>
+<p></p>
+<p>架构师解决的最核心问题是软件的复杂性。首先要对软件复杂性有深刻的认识，否则容易出现“过于畏惧系统而不敢下手”或者“对系统不敬畏而导致犯不该犯的错误”的情形；其次，要有足够的经验来应对软件中的复杂性。</p>
+<p></p>
+<p>如上文所说，系统程序员更有优势成为架构师，因为系统底层往往需要提供基础的手段来克服一些本质困难，比如单机操作系统的内存管理与线程调度、分布式系统中的一致性算法等。</p>
+<p></p>
+<p>三、思考成为一种习惯</p>
+<p>胡适曾经在赠给大学生的文章中提到“总得时时找一两个值得研究的问题”。作为IT技术人，虽然已经离开学校，但身处快速发展的产业中，更应该时时思考一些问题。下面列举一些我在过去十多年曾经思考过或实践过的技术题目。</p>
+<p></p>
+<p>内存跨机调度。</p>
+<p></p>
+<p>还在PC互联网时期，曾经有一段时期桌面P2P（peer-to-peer）技术很流行。我注意到，有些机器的内存很富余，而有的机器限于当时1GB或者2GB内存配置而导致性能低下。于是很自然的想法是，让空闲机器的物理内存放出来供忙机器使用，通过千兆局域网络，把忙机器发生page fault的页面按规则调度到空闲机器上。通过改Windows内核的做法，我和实习生实现了一个原型系统。最终的效果没有预期的那么理想，但此过程中我们学到了很多，掌握了页面调度的算法和路径，并且在内核中实现了高效的网络传输。</p>
+<p></p>
+<p>快速反汇编。</p>
+<p></p>
+<p>反汇编是逆向工程的基础，但是在x86二进制可执行文件中，反汇编难以做到100%正确，原因是代码段中总有一些空隙，并且指令又是变长的，按顺序反汇编很快就会丢失线索。我改变思路，从原始的程序入口和符号表线索入手，层层递进，不断挖掘新的线索；若没有确定性的线索了，我们再从未反汇编的代码区找出疑似的线索进行尝试，直至代码段全部反汇编出来。最终实验的结果非常理想，比商用的反汇编器达到的覆盖面还要大。在调试过程中，我们也见识到某些商业软件使用花指令（很少听说吧）做了代码混淆。</p>
+<p></p>
+<p>一切计算均用查表来解决。</p>
+<p></p>
+<p>这是一个异想天开的主意，原始的想法是，既然计算机的本质是计算，每天有大量的计算在不断发生，其中必定有大量的计算是重复的，对于重复的计算，是不是只要算一次，下次直接查表就可以了。进一步的想法是，只要在云端部署一个大计算机，所有的计算都交给云端查表来完成。这其实也是函数式编程的思想，但我们不知道如何框定一个可计算的范围。这种想法也仅限于想想而已。这一思路我和实习生后来用在Web渲染引擎的性能优化上，把渲染树上的重复计算识别出来剔除掉，确实能显著提高渲染性能。</p>
+<p></p>
+<p>一个安全问题的解决办法。</p>
+<p></p>
+<p>有一次碰到一个做云安全的朋友，想在云主机里加一些防护措施，但他的方案和思路没有得到技术老大的认可。后来，一支烟的功夫，我跟他讨论了这个方案，如何把风险降到最小，尝试着建立一个最小的代码基让技术老大审核。功能性的代码可以动态加载。据说后来这个方案被接受了。这个方案就是Windows保护模式的变种，也是一些安全软件采用的手段。</p>
+<p></p>
+<p>红绿灯配时优化问题。</p>
+<p></p>
+<p>坐车或开车的时候经常等红灯，脑子里就想着是不是合理，能不能优化；等电梯也是如此。终于今年4月份我在查阅了一些专业论文以后，系统性地整理了一下思路，将一路绿灯作为目标，进行了概率意义上的分析。并且，进一步以减少停车次数为目标，在红绿灯不能控制的情况下，是否通过控制车速来做到车协同路，变相地实现车路协同。</p>
+<p></p>
+<p>计算使这个世界的运行变得更加高效，我们的生活也为之发生变化。电脑的计算只是低级（机械）的计算，人脑的才是最聪明的计算；把平时的闲暇时刻用来做一些发散性的思考，说不定会有意外的收获。曾经有一位我很尊敬的老师说过，脑子越用越灵光，对此我深信不疑。程序员受编程思想的影响，平时的思考往往是程序化的，我也逃不脱这种思维的禁锢。</p>
+<p></p>
+<p></p>
+<p>职业成长</p>
+<p>在10年以前，我还是纯粹的技术人，以深入钻研技术为乐趣。最近这10年，我的职业生涯发生了很大变化。其中最重要的是，开始接触业务，贴近业务，并且也开始思考产业，最终走向了技术创业。</p>
+<p></p>
+<p>一、技术转向业务</p>
+<p>我的经历是一段极其缓慢地从纯技术岗位走向业务的过程。先是在学校里工作，我职业初期做过一个地图编辑产品，并进一步搭建地理信息系统，但很快就走上了教学科研岗位，脱离了业务需求。接着在微软亚洲研究院工作，比在学校里还纯粹钻研技术。这是一段非常幸福的时光，大部分时间可以海阔天空地思考技术，做实验。能做成原型就不错了。</p>
+<p></p>
+<p>进入工业界做移动操作系统和安全保障这一阶段开始接触业务，前者需要运营一个移动操作系统，后者要支撑阿里移动业务的安全。实际的需求来自于运营方或业务方，我的职责是做好技术和实施方案。如果把这些工作也看成业务的话，则它们属于后台支撑性的业务。</p>
+<p></p>
+<p>我在阿里后期阶段的工作跟业务（旅行电商）结合越来越紧密，也参与一些业务发展会议。除了做一些技术决策以外，还需要在业务需求基础上平衡和分配技术资源。如果有人问我，在阿里最值得学习的是什么，我的答案是阿里做业务的方法，包括如何制定目标、拆解目标，以及如何运营一个业务（特别是利用数据来运营业务，这是阿里的优势）。虽然很多书或者文章也会讲这些方法，但再多书面的学习都抵不上亲身参与一个业务周期更为有效。</p>
+<p></p>
+<p>二、产业的思考</p>
+<p>能将自己的工作融入到一个产业中，这是扩大视野最好的做法。有些技术或产品天然要从产业的角度来看待，操作系统就是这样的典型产品。做移动操作系统要结合移动互联网产业的发展来思考，上游有芯片厂商，下游有手机厂商和移动服务商，可能中间还有设计公司或系统服务商。</p>
+<p></p>
+<p>2012年我曾经访问过多家移动芯片厂商，了解到芯片厂商对于移动操作系统的态度和技术支持，知道自研独立系统的困难，并且从一些关键点上探索可能的技术方案。另外，通用市场和垂直领域各有不同的要求，其对应的产业链不一定是相同的。最终如何形成生态，包括硬件产业的生态、移动应用的开发者生态，决定了一个移动操作系统应该使用什么架构、如何运营。</p>
+<p></p>
+<p>我花了五年时间想做成一个移动操作系统，有这样的机会是非常幸运的，但最终没有做成却是遗憾的。我个人获得了成长，这是一个额外的收获。</p>
+<p></p>
+<p>2018年我转到物联网领域，再次赶上了一个快速发展的产业。尽管物联网被提出并发展有很多年了，但是其发展空间仍然广阔。我们在各行各业都能看到设备在联网和升级，智能家居、汽车、监控摄像头、空调、电梯、人车通行道闸、工业生产设备等等，都以各种方式连接上网络。</p>
+<p></p>
+<p>基于对众多设备连接网络的技术路径和整体软件结构的分析，我认为除了设备上的操作系统，还需要一个针对物联网场景的系统软件，它解决该场景中的设备连接和数据共享的需求，让这些设备形成一个整体来协同工作。</p>
+<p></p>
+<p>从物体联网的角度来讲，这才是真正的物联网操作系统。产业界既有的做法是建立共享的物联网平台，然而大量的业务场景中这种共享平台并不能满足需要；另一方面，在许多业务领域中已经在以各种方式来解决设备连接和数据共享的问题，但往往是一些局部的非通用方案。</p>
+<p></p>
+<p>跟上一个产业的发展，比跟踪一项技术的发展，要困难得多。这需要不断学习，不断思考。产业中的很多知识和经验并没有那么高科技，它们来源于实践者的日常活动中，包括失败的和成功的各种尝试。这10年间，我接触到了一些引领产业发展的人物，从他们身上学到了很多，也开始从产业发展的角度来思考问题。</p>
+<p></p>
+<p>三、技术创业感悟</p>
+<p>从2018年我选择了加入创业大军，最深刻的体会是：离开大平台了，你就什么都不是了。经历了两年不到的创业历程，说几点感悟：</p>
+<p></p>
+<p>技术创业，要快速搭建出目标软件，并找到试用客户。</p>
+<p></p>
+<p>这一步是把创业的“故事”变成看得见、感受得到的场景，产品可以不完善，但要体现出核心理念。此步骤既可以验证可行性，也会接收到试用客户的初期反馈。创业前期是个不断试错的过程，每走好一步都可以增强支持者（包括股东、投资者，或合作伙伴等）的信心，也让团队更有信心。为了减小试错的代价，快是最有效的手段。</p>
+<p></p>
+<p>聚焦。</p>
+<p></p>
+<p>用技术来赚钱有各种途径，越贴近用户需求的技术或产品，相对而言变现容易得多。底层技术和产品要获得市场认可的周期则长得多。</p>
+<p></p>
+<p>我们经常面临各种诱惑，比如有客户希望做一些他们的应用需求（像小程序之类的），或者客户已有的系统有遗留的问题需要解决一下。承接这样的需求可以快速地赚到钱，但影响主线产品的研发进度。作为初创的技术公司，一定要抵挡住诱惑，学会拒绝。做系统软件产品，更要耐得住寂寞。</p>
+<p></p>
+<p>时刻保持危机感。</p>
+<p></p>
+<p>在大平台上工作，危机感源于自己的职业价值；而一旦开始创业，危机感来自于公司的生死存亡。这种危机感可以把一个人或一个团队的潜能发挥出来。做好技术是一种聪明，而面对内心中的危机感，需要的是智慧。</p>
+<p></p>
+<p>信任团队。</p>
+<p></p>
+<p>技术人创业，有大量知识需要补充，涉及财务、法务、品牌、市场、商务等，自己不可能在每个方向都成为专家，所以要依靠团队，信任团队。有了凝聚的、可信任的团队，企业才能走得远。</p>
+<p></p>
+<p></p>
+<p>写在最后</p>
+<p>程序人生又10年，但这10年我实际上跟程序代码的接触并不多。曾经有一次，我团队中的架构师给我讲代码实现，他怕我听不懂，就用以前DOS时代或者Windows时代的系统机制打比方，向我解释当前的架构方案。</p>
+<p></p>
+<p>感谢这些架构师对我的贴心，确实软硬件技术发展都很快，编程的理念也有不小的变化。用10年的跨度来看技术进步，老程序员的知识结构是需要升级的。在国内IT企业市场，程序员35岁是一个职业坎，45岁很多程序员就屈服于现实了，55岁绝大多数就得退群了。</p>
+<p></p>
+<p>我在20年前写第一篇程序人生时，提到了我是软件开发队伍中的老兵，那时一方面是由于身体的垮塌，另一方面也是感受到了后浪的力量。</p>
+<p></p>
+<p>最近这10年，我还培养了一个辅助习惯 —— 跑步，跑的距离从5公里开始，到10公里，再到半程马拉松（约21公里），然后到全程马拉松（约42公里）。跑得不快，但能坚持下来。我希望自己的程序人生还能有至少两次续篇，写代码不一定多，但仍然保持跟代码的接触。</p>
+<p></p>
+<p>我的程序生涯 | 2000</p>
+<p></p>
+<p>我的程序感悟 | 2002</p>
+<p></p>
+<p>我的成长故事 | 2010</p>
+<p></p>
+<p>我的程序人生之第三个 10 年 |2020</p>
+
+
+<p style='float:right;'>本页共219段，12954个字符，33895 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

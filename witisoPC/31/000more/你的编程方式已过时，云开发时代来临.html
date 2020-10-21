@@ -1,0 +1,555 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>你的编程方式已过时，云开发时代来临</h3>
+
+<p>作者 | 黄峰达，CSDN 博客专家 Phodal</p>
+<p>责编 | 唐小引</p>
+<p>头图 | 作者绘制并授权 CSDN 使用</p>
+<p>我知道这篇文章你可能读不懂，但是它值得你去分享，未来就在那儿。</p>
+<p>如你所见，在过去的几年里，发生了快速的变化（这句话，我已经说烂了）。好比如说：</p>
+<p>编程门槛的降低。大量的低编程能力水平可以进入这个行业；</p>
+<p>基础设施的完善。只需要执行 git push，便能完成 push to production（尽管四年前我们在项目上实践过）；</p>
+<p>云主机开发。远程开发机器，代码不在本地机器上；</p>
+<p>多人实时开发编辑技术。诸如 Visual Studio Live Share，可以多人实时协作编程；</p>
+<p>5G。更快速的网络连接，更好的通信质量。</p>
+<p>……</p>
+<p>在经历了与公司大佬、同事、社区大佬等的一系列的技术讨论之后，以及近年来开始云代码开发，我又有了一些新的顿悟。于是，我就撸了这篇文章。</p>
+<p>在你失去继续往下阅读的兴趣之前，让我先说第一个结论：</p>
+<p>云开发，是一种生于云上的闭环 + 代码化的软件开发方式。它可以让业务人员、开发人员、运营人员等在同一个云端共同协作、透明化地完成整个软件的生命周期（需求、设计、编码、构建、部署、运营），而非相互隔离，又或者是借助于多个软件才能完成工作。</p>
+<p>因此云开发是一种解决方案，它解决的问题是：如何以更高效的方式进行软件开发？</p>
+<p>作为 v0.1.0 的定义，我对它的定义可能还不是非常准确，但是重点有这么几个：</p>
+<p>以共同协作的方式开发软件；</p>
+<p>软件开发的在线闭环；</p>
+<p>应用生命周期的代码化和可追溯。</p>
+<p>你看吧，我们过去解决了一个又一个的线下协作问题，现在构建新的线上协作平台的时机已经逐渐成熟了，是时候开始准备构建你们的云开发平台。</p>
+<p>我知道你想说市面上已经有这样的工具，比如 xx 的 xx。但是，一来它朝着一个错误的方向前进，你知道的某公司更懂 2B；二来，它包含了大量的功能，但是却没有闭上环。当然了，我只是从官方的首页看到的功能，一眼得到这个所谓的结论。</p>
+<p>PS：只要是它们没办法体现我总结的核心三要素，笑~。套不上我的理论，他们一定是错的，手动滑稽，逃~。</p>
+<p>引子 1：核心三要素</p>
+<p>这三个要素是软件开发的要素，只有深入要素本身，才能成为真正的云平台。</p>
+<p>我不想多说废话了，手疼。</p>
+<p>如果基础设施真的已经是基础设施，那么你不应该在云平台强调它们。这就是为什么尽管基础设施很重要，但是却不是核心要素之一。基础设施已经是一个通用域，作为一家时髦的公司，如果你们还没有……</p>
+<p>微架构</p>
+<p>微架构，即以模块化的组合方式协同构建大型应用（前端、后端、App 等）的架构方式。每个微应用都可以独立开发、独立部署、独立运行，对应的替换的方式有模块化、子模块的方式，微服务、App 插件化（独立构建、独立运行）、微前端等。</p>
+<p>微架构是一个模式，它不是银弹，它以技术的方式拆解了复杂软件架构，适合于复杂场景下的问题，还有人类脑容易不够大的问题。</p>
+<p>后端：服务导向架构</p>
+<p>五年前，Martin Fowler 和 James Lewis 一起写下了那篇《微服务架构》，微服务成为了今天新项目的主流架构之一。最近几年来，它结合着《领域驱动设计》这把锤子，已经成为了一个利器。</p>
+<p>作为服务导向架构的一种实现方式，掌握它背后的设计与实现模式，是云开发中不可或缺的重要一环。</p>
+<p>后端：函数即服务</p>
+<p>两年多以前，我在 GitHub 写下了我的第 N 本电子书《Serverless 架构应用开发指南》，而在最近 Serverless 终于在国内慢慢有一点的热度。两年前，我陆续收到阿里云、腾讯云的 Serverless 尝鲜体验（作为一个 MVP 还是没白混），但是它们并不成熟，甚至于无法调用自己的云服务。而今天，越来越多的云厂商的 Serverless 终于可以跑起来了。</p>
+<p>同理于服务导向架构 BAAS （Backend as a service）又或者是 Serverless，也是如此，它们进一步拆解了复杂问题到人能 handle 的范围。</p>
+<p>App：应用即『插件』</p>
+<p>最近几年，对于 App 来说，开发者也探索出了大量的微架构方案。我习惯地称它们为应用即『插件』，因为 App 作为一个基座，提供了各式各样的能力。就目前来说有三种展现方式：</p>
+<p>App 内 Web 应用。</p>
+<p>App 插件化。市面上已经有大量这一类的方案，诸如于 RePlugin、Atlas、VirtualAPK、DynamicAPK。</p>
+<p>App 小程序。即功能以小程序的运行在容器化，即可以像 Web 容器一样实现远程更新，还能有效地控制开发商的权限，培养自己的生态。</p>
+<p>尽管让人们下载 App 的成本越来越高，App 平台化成为了一种趋势。</p>
+<p>哪怕 App 的原生仍占很重要的一部分，但是 App 平台的方案 + 应用插件化模式的生态构建，也是云开发要考虑的重要因素。</p>
+<p>前端：微前端与应用组件化</p>
+<p>今年是微前端开始火爆的一年，微前端框架层出不穷：SingleSPA、Mooa、qiankun、ngx-planet，还有诸如于《前端架构：从入门到微前端》这样的书籍。它让越来越多的企业开始思考前端架构的未来，也完善丰富的微前端相关的基础设施。从某种意义上来说，这是组件化的一种方式，只是原先的组件只是简单的 UI 组件，而现在的组件是一个完整功能的应用。只需要设计好对应的 pipe，就能完成一个应用的开发。</p>
+<p>而随着 5G 的到来，微 “服务化” 前端应用、Web Component 的体积已经变得让人可以接受。进行功能编排，将成为云开发的一个重要组成——毕竟，插件市场的不断火爆，可以看出一些端倪。</p>
+<p>代码化</p>
+<p>对于这部分的一句话总结是：</p>
+<p>Given Future[Dev]</p>
+<p>When Everything as Code，</p>
+<p>Then you can Guard</p>
+<p>Then you can Refactoring or Rewrite it.</p>
+<p>然后，以下大概就是三种完全不同的模式。</p>
+<p>设计到代码：填空式开发</p>
+<p>起先我只有两种模式，直到月初在公司内部听到了相关的分享，Get 了第三种模式：面向于大型组织的类型流 (https://github.com/notyy/TypeFlow) 开发。</p>
+<p>这种方式颇为适合大型组织的软件开发模式，由高级工程师设计出基本的模型与软件架构，生成对应的方法名称，以及其所需要的返回结果。这种模式事实上在过去已经有了，剩下的就是普通的开发人员去填充对应的代码。再结合 Serverless 等基础设施，便可以直接集成上线。</p>
+<p>它表面上看它是设计生成的代码，实则设计即代码。</p>
+<p>需求到上线：无代码编程</p>
+<p>年初，我写下了那篇《无代码编程》，通过这篇文章，我结交了更多无代码/低代码已经有大量的案例表明，这是一种可行的开发模式。</p>
+<p>无代码编程的本质是业务模式 + 编程模式的抽象化，以领域特定的场景解决领域特定的问题。所以，低代码编程 / 无代码编程它只能解决领域特定、简单场景的需求，无法解决大部分的问题。</p>
+<p>无代码编程做了一件了解不起的事情是，直接对于业务和设计即需求的抽象，实现了直接由需求到代码的直达。</p>
+<p>代码化：DSL as DSL</p>
+<p>DSL 即 DSL，即把每件事物都变成 DSL。考虑到我正在编写一篇关于 DSL 如何设计的文章，我就不展开详细的讨论：</p>
+<p>汲取领域名词</p>
+<p>模型分析与抽象</p>
+<p>模型行为抽象</p>
+<p>寻找关键抽象</p>
+<p>场景代入</p>
+<p>实现 DSL</p>
+<p>迭代优化</p>
+<p>而代码本身也应该是一种 DSL，才能进一步完成云平台的建议。需求、设计、代码、构建、部署、运营都应该抽象成 DSL，才能完成真正意义上的云平台。</p>
+<p>协作设计文化</p>
+<p>软件开发是一个集体行为，软件设计也是一个集体行为。所以，一个好的云开发平台应该要融入共同协作的基因。</p>
+<p>软件开发文化</p>
+<p>采用了敏捷，却始终敏捷不起来，有一部分的原因在于：部门墙。对于非互联网公司来说（对于大部分互联网公司也是如此），开发一个软件往往需要在多个部门甩锅：业务部门、技术部门、测试部门、市场部门……</p>
+<p>业务（领域）驱动设计</p>
+<p>以我多年的读书经验来看，人们采用开发出失败软件的原因，无非就是两点：『缺少协作设计』和『知识传递』。对了，还有技术水平不行，这个反而不是那么重要。</p>
+<p>而 《DDD （领域驱动设计）》和事件风暴，正是软件开发文化的一种实践，通过协作设计的方式，传递知识，以妥协出符合大家需要的应用。</p>
+<p>服务端服务中台与客户端组件中台</p>
+<p>可能是我对于中台的误解，我习惯性称中台为『不可清空的垃圾回收站』。但是，它做了一件不可思议的事件，将 “基础设施服务” 化，成为了一个 common 的 common 的 common。好了，调侃到此结束。</p>
+<p>随着中台建设的进一步完善，大量的基础设施，将从原先的各个业务部分，统一到了这个 ~~垃圾回收站~~ 大平台。</p>
+<p>有了这个基础部分，我们才能迈向下一步。</p>
+<p>引子 2：编程的本质</p>
+<p>好了，我要继续瞎扯了，首先再次回答那个问题，如何以更高效地方式进行软件开发？那么，首先我们需要找到一个解决方案，以应对那个问题：如何解决人类智商不够的问题？</p>
+<p>解决复杂问题</p>
+<p>于是，首先，让我们引入 Cynefin 框架来解决复杂问题。</p>
+<p>PS：复制和粘贴大法好啊，一时爽一直爽。</p>
+<p>简单（Simple），该域中的因果关系显而易见，方法是感知——分类——响应（Sense - Categorise - Respond），我们能够应用最佳实践。</p>
+<p>繁杂（Complicated），该域中的因果关系需要分析，或者需要一些其他形式的调查和 / 或专业知识的应用，方法是感知——分析——响应（Sense - Analyze - Respond ），我们能够应用好的实践。</p>
+<p>复杂（Complex），该域中的因果关系仅能够从回想中感应，不能提前，方法是探索——感知——响应（Probe - Sense - Respond ），我们能够感知涌现实践（emergent practice）。</p>
+<p>混沌（Chaotic），该域中没有系统级别的因果关系，方法是行动——感知——响应（Act - Sense - Respond ），我们能够发现新颖的实践（novel practice）。</p>
+<p>第 5 个域是失序，该域中不清楚存在什么样的因果关系，这种状态下人们将会恢复到自己舒服的域做决定。Cynefin 框架拥有子域，简单和混乱之间的一线之隔是灾难性的：骄傲自满导致失败。</p>
+<p>有了这个框架之后，我们便来到了第一个结论。对于编程来说，我们的关键性问题在于：如何将复杂问题繁杂化？因为简单的问题便简单，繁杂的问题也容易解决。</p>
+<p>复杂问题的应对之道</p>
+<p>什么是复杂问题？</p>
+<p>引用公司大佬的三句话：</p>
+<p>场景多且复杂；</p>
+<p>人类的智商不够；</p>
+<p>语言不统一。</p>
+<p>这三个问题的答案暂不免费公开，有意者可以咨询我 —— 其实都在本文里。</p>
+<p>看完文章后，回过头来回顾一下这个问题。</p>
+<p>大型组织的软件开发模式</p>
+<p>为了解决上述的问题，对于大型组织来说，采用的第一个模式就是：拆解。</p>
+<p>资深开发人员，设计架构；</p>
+<p>中级开发人员，review 代码；</p>
+<p>普通开发人员，完成开发；</p>
+<p>新手开发人员，写写测试。</p>
+<p>而就当前而言，这几个部分存在一些割裂。代码反应架构，架构实现代码。缺少相应的架构守护、质量门禁等等，并且诸如于 review 的工作是由机器完成的。</p>
+<p>云开发</p>
+<p>好了，看到这里不容易。因为剩下的内容已经不重要了。</p>
+<p>什么是云开发？</p>
+<p>再一次地，让我们看一下定义：</p>
+<p>云开发，是一种生于云上的闭环 + 代码化的软件开发方式。它可以让业务人员、开发人员、运营人员等在同一个云端共同协作、透明化地完成整个软件的生命周期（需求、设计、编码、构建、部署、运营），而非相互隔离，又或者是借助于多个软件才能完成工作。</p>
+<p>于是乎，它不同于云主机 / 远程主机开发模式，只需要一个浏览器 / 客户端 / IDE，便可以在线完成：</p>
+<p>实例化需求</p>
+<p>架构、交互的设计</p>
+<p>编码的代码化</p>
+<p>自动集成与构建</p>
+<p>无环境部署</p>
+<p>人工智能运营</p>
+<p>举起我的炒板栗：</p>
+<p>（调试）输入一个 console.log 或者 fmt.Println 便可以在生产环境对应地打出日志。</p>
+<p>（需求直接上线）改一个 Icon 的需求，在图标上传到 Kanban 的时候。NLP 后，自动提交到代码库，部署到生产环境。</p>
+<p>（代码创建需求）把默认字体的色彩，由 #000 改成 #384452 的时候，能反触发对应的需求变更——不过就是 commit message，反向地创建需求嘛。</p>
+<p>（设计同步）模型上添加一个新的字段，对应的完成前端、后端模型的自动化更新。</p>
+<p>（代码构建同步）新的分支，新的 pipeline，用完即删。</p>
+<p>……</p>
+<p>它基于这么一些原则：</p>
+<p>代码化优于过程化数据；</p>
+<p>流程自闭环优于交互；</p>
+<p>度量内建优于可视化。</p>
+<p>要的就是这么简单，对于开发来说，只是对应于领域建模、详细设计、填空式开发等。</p>
+<p>如何构建云开发平台？</p>
+<p>成熟度模型</p>
+<p>就定义来说，我们可以将其划分为五个阶段：</p>
+<p>具备基本的远程编程能力及自动化部署。即代码无需在本地</p>
+<p>在云端能完成软件开发的完整生命周期。能在云端完成所有的软件开发的工作，并且配套</p>
+<p>云开发平台上的云开发平台。（自举）</p>
+<p>借助于代码化的方式，将软件开发的每一个步骤都变成代码</p>
+<p>实现开发全流程的自动优化。如自动化的蓝绿部署，自动化选择方案，自动化优化。</p>
+<p>无人编程。Human Over</p>
+<p>第一个阶段。靠人海战术就可以实现了。</p>
+<p>第二个阶段。依赖于抽象软件开发模式。</p>
+<p>第三个阶段。证明自己，体力劳动。</p>
+<p>第四个阶段。进一步抽象软件开发。</p>
+<p>第五个阶段。抽象人工部分，智能完成。</p>
+<p>所以，嗯，大概要 N 的时间才能完成这个系统的设计。毕竟，云开发是一个复杂问题，我们需要不断拆解系统，结合微架构、代码化、协作设计三个核心要素，以免我们在历史的长河中消失。</p>
+<p>云开发平台基石</p>
+<p>虽然，我一直在强调实现只是一个细节，但是还是得大致了解一下实现机制。</p>
+<p>集成开发环境</p>
+<p>编码环境 + 设计环境。</p>
+<p>微信小程序、支付宝小程序、在线 Web IDE，VS Code / Monaco Editor 几乎已经当前成为了定制编辑器 / IDE 的最好选择。这样一看，JetBrains 再不努力，可能会失去未来，就像当年的 Delphi 一样，笑~。</p>
+<p>这方面的技术在业内已经相当成熟了，不就是加一些插件嘛。</p>
+<p>不过呢，它们只是在堆砌一些功能，缺乏闭环上的设计：</p>
+<p>需求关联设计，关联代码；</p>
+<p>代码展示设计，关联需求；</p>
+<p>构建关联代码，连接部署。</p>
+<p>如你所知的提交信息规范是一种形式，它可以关联到需求；如你所知的领域建模是一种形式，让代码关联到设计上。</p>
+<p>基础设施</p>
+<p>尽管，在文章开头的时候，我说了基础设施不重要。但是到真正需要实施的时候，我们不得不强调它的重要性。我们需要的东西有：</p>
+<p>微架构支持</p>
+<p>部署和构建支持</p>
+<p>自动配置化管理</p>
+<p>……</p>
+<p>而围绕在它背后的是各种模式的提炼。</p>
+<p>模式提炼</p>
+<p>无论是在哪个行业，值钱的东西在于原则与模式。原则与模式是用来快速提升能力的方式，换句话来说，就是让新手能像以大牛一样的方式工作——尽管会滥用模式。所以：</p>
+<p>代码的模式类库</p>
+<p>开发流程模式</p>
+<p>用户体验设计模式</p>
+<p>……</p>
+<p>这些是核心所在，抽象、提取、模式化。</p>
+<p>全流程闭环</p>
+<p>如你所猜想的一样，构建这样一个平台的难点，不在于实现功能，而在于设计。只需要保证在当前阶段的信息，能够传递到下一阶段即可，而不在于你使用什么工具。</p>
+<p>你可以使用 Jira、Trello、Mingle 或者基于 Git + DSL 的方式，只需要保证它们能关联到下一阶段，即可。一步步往下，将信息关联到设计、代码、构建、部署、运营，运营再反应到需求上，就能完成上的设计。</p>
+<p>So？</p>
+<p>原型设计与关键因子</p>
+<p>作为模式的拆解，我做了一个简单的分级，以便于一步步实现整个系统：</p>
+<p>需求</p>
+<p>事实上，采用诸如 Cucumber 一样的 Given-When-Then 三段式设计就够了。所以在我的 story 工具里，利用了注释作为额外的信息扩充。Cucumber 使用的 DSL 已经有丰富的：</p>
+<p># id: OGr9CObWR</p>
+<p># startDate: 2019-11-21T23:44:27Z</p>
+<p># endDate: 2019-11-21T23:44:27Z</p>
+<p># priority:</p>
+<p># status:</p>
+<p># author:</p>
+<p># title: add executable bin file</p>
+<p># language: zh-CN</p>
+<p>@math</p>
+<p>功能:add executable bin file</p>
+<p>场景:</p>
+<p>假设:</p>
+<p>当:</p>
+<p>并且:</p>
+<p>那么:</p>
+<p>有了这个设计，我们可以将这个设计结合到我们的下一步设计中。</p>
+<p>设计</p>
+<p>其实 UML 本身也是一个不错的原型，只需要创建一个 DSL 将其中的一部分转成 UML，再结合一下 UI 上的 DSL 便能实现流程上的设计：</p>
+<p>flow login {</p>
+<p>SEE HomePage</p>
+<p>DO [Click] "Login".Button</p>
+<p>REACT Success: SHOW "Login Success".Toast with ANIMATE(bounce)</p>
+<p>REACT Failure: SHOW "Login Failure".Dialog</p>
+<p>SEE "Login Failure".Dialog</p>
+<p>DO [Click] "ForgotPassword".Button</p>
+<p>REACT: GOTO ForgotPasswordPage</p>
+<p>SEE ForgotPasswordPage</p>
+<p>DO [Click] "RESET PASSWORD".Button</p>
+<p>REACT: SHOW "Please Check Email".Message</p>
+<p>}</p>
+<p>最近，我们在做一个对应的架构设计平台，结合我的 https://github.com/phodal/design 用于代码生成设计，设计转为代码。</p>
+<p>代码</p>
+<p>代码生成并不是一件新鲜的事物，有大量的人在做大量的事件。编写一个 DSL，用这个 DSL 结合编程语言描述 DSL 来生成不同的编程语言，这便是我最近在做的事情之一。它并不复杂，只是繁琐。</p>
+<p>嗯，我花了很多时间在设计这个步骤的两个 DSL，其中一个是生成语言的 DSL，一个则是独立的编程 DSL。</p>
+<p>与此同时，对于代码来说，我们关注于：验收标准和适应度函数。</p>
+<p>验收标准</p>
+<p>设计生成代码，代码反应设计</p>
+<p>DSL 生成代码</p>
+<p>适应度函数</p>
+<p>软件质量门槛</p>
+<p>自动化架构守护</p>
+<p>自动化测试生成（回录）</p>
+<p>系统演进设计</p>
+<p>借助于此，我们才能承上启下。</p>
+<p>构建</p>
+<p>对于持续集成来说，需要手动去配置是一个糟糕的事情。所以，我们 Jenkins 使用了 Pipeline as Code 来抽象流水线的构建。但是，它没有真正解决问题，因为现实的软件开发是非常复杂的。对于一个项目来说，它存在过多的分支，不同的构建。所以，真正意义上的持续构建，应该采用诸如于 Pipeline as Pipeline 这样的方式。</p>
+<p>部署</p>
+<p>事实上，DevOps 技术已经足够的成熟，我们已经能实施相关的步骤：</p>
+<p>部署自动化</p>
+<p>部署代码化</p>
+<p>提交即上线</p>
+<p>部署自治</p>
+<p>代码质量的控制，自动化测试，决定了部署成熟度。</p>
+<p>运营</p>
+<p>这一步，我还不是非常擅长，以我有限的经验来看，现有的工具就够了。唯一要做的事情是，收集数据，抽象模式，构建 DSL，串联起来。</p>
+<p>运营可视化</p>
+<p>运营中心化</p>
+<p>代码化运营</p>
+<p>运营需求化</p>
+<p>需求 -> 代码 -> 运营，运营反馈需求。</p>
+<p>云开发平台成熟度模型</p>
+<p>嗯，看标题就够了。</p>
+<p>Level 1：可追述、电子化</p>
+<p>Level 2：全流程闭环</p>
+<p>Level 3：云平台上的云平台</p>
+<p>Level 4：代码化云平台</p>
+<p>Level 5：自动化优化流程</p>
+<p>Level 6：human over</p>
+<p>结论</p>
+<p>最后，再让我们回到这张图上：</p>
+<p>这就是核心所在。</p>
+<p>哦，对了，做平台是一件苦逼的事情。</p>
+<p>作者简介：黄峰达（Phodal），ThoughtWorks Senior Consultant，CSDN 博客专家。长期活跃于 GitHub、CSDN，专注于物联网和前端领域。出版著作《自己动手设计物联网》，以及《Growth：全栈增长工程师指南》等六本电子书，并译有《物联网实战指南》。</p>
+<p>?朱广权李佳琦直播掉线，1.2 亿人在线等</p>
+<p>?“抗疫”新战术：世卫组织联合IBM、甲骨文、微软构建了一个开放数据的区块链项目！</p>
+<p>?快速搭建对话机器人，就用这一招！</p>
+<p>?据说，这是当代极客们的【技术风向标】...</p>
+<p>?iPhone 12系列旗舰有望分批发布；美威胁吊销中国电信在美经营许可，外交部发言人回应；VS Code新版发布| 极客头条</p>
+<p>今日福利：评论区留言入选，可获得价值299元的「2020 AI开发者万人大会」在线直播门票一张。 快来动动手指，写下你想说的话吧。</p>
+
+
+<p style='float:right;'>本页共259段，10289个字符，23134 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

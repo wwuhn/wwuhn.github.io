@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>正则表达式知识点100问</h3>
+
+<p>1. 什么叫正则表达式？</p>
+<p>答： 正则表达式（regular expression）就是用一个“字符串”来描述一个特征，然后去验证另一个“字符串”是否符合这个特征。</p>
+<p>2. 正则表达式的作用是什么？</p>
+<p>答：正则表达式可以用来：</p>
+<p>（1）验证字符串是否符合指定特征，比如验证是否是合法的邮件地址。</p>
+<p>（2）用来查找字符串，从一个长的文本中查找符合指定特征的字符串，比查找固定字符串更加灵活方便。</p>
+<p>（3）用来替换，比普通的替换更强大。</p>
+<p>3. 何为普通字符？</p>
+<p>答：字母、数字、汉字、下划线、以及后边章节中没有特殊定义的标点符号，都是"普通字符"。</p>
+<p>4. 什么是转义字符？</p>
+<p>答：加前缀 "\" 的字符或特殊符号统称转义字符</p>
+<p>5. 转义字符\r是什么意思？</p>
+<p>答：代表回车。</p>
+<p>6. 转义字符\n是什么意思？</p>
+<p>答：代表换行符。</p>
+<p>7. 转义字符\t是什么意思？</p>
+<p>答：代表制表符。</p>
+<p>8. 转义字符\\是什么意思？</p>
+<p>答：代表”\”本身。</p>
+<p>9. 表达式\^是什么意思？</p>
+<p>答：匹配 ^ 符号本身。</p>
+<p>10.表达式\^是什么意思？</p>
+<p>答：匹配 $ 符号本身</p>
+<p>11.表达式\d是什么意思？</p>
+<p>答：可匹配任意一个数字，0~9 中的任意一个。</p>
+<p>12.表达式\w是什么意思？</p>
+<p>答：可匹配任意一个字母或数字或下划线，也就是 A~Z,a~z,0~9,_ 中任意一个。</p>
+<p>13.表达式\s是什么意思？</p>
+<p>答：可匹配包括空格、制表符、换页符等空白字符的其中任意一个。</p>
+<p>14.表达式.是什么意思？</p>
+<p>答：可小数点可以匹配除了换行符（\n）以外的任意一个字符。</p>
+<p>15.什么是能够与“多种字符”匹配的表达式？</p>
+<p>答：使用方括号 [ ] 包含一系列字符，能够匹配其中任意一个字符。用 [^ ] 包含一系列字符，则能够匹配其中字符之外的任意一个字符。同样的道理，虽然可以匹配其中任意一个，但是只能是一个，不是多个。</p>
+<p>16.表达式[ab5@]是什么意思？</p>
+<p>答：匹配"a" 或 "b" 或 "5" 或 "@"。</p>
+<p>17.表达式[^abc]是什么意思？</p>
+<p>答：匹配 "a","b","c" 之外的任意一个字符。</p>
+<p>18.表达式[f-k]是什么意思？</p>
+<p>答：匹配 "f"~"k" 之间的任意一个字母。</p>
+<p>19.表达式[^A-F0-3]是什么意思？</p>
+<p>答：匹配"A"~"F","0"~"3" 之外的任意一个字符</p>
+<p>20.什么是修饰匹配次数的特殊符号？</p>
+<p>答：如果使用表达式再加上修饰匹配次数的特殊符号，那么不用重复书写表达式就可以重复匹配，这样的符号就是修饰符号，也就是花括号{}。</p>
+<p>21.表达式{n}是什么意思？</p>
+<p>答：表达式重复n次。</p>
+<p>22.表达式{m,n}是什么意思？</p>
+<p>答：表达式至少重复m次，最多重复n次。</p>
+<p>23.表达式{m,}是什么意思？</p>
+<p>答：表达式至少重复m次。</p>
+<p>24.表达式?是什么意思？</p>
+<p>答：匹配表达式0次或者1次，相当于 {0,1}。</p>
+<p>25.表达式+是什么意思？</p>
+<p>答：表达式至少出现1次，相当于 {1,}。</p>
+<p>26.表达式*是什么意思？</p>
+<p>答：表达式不出现或出现任意次，相当于 {0,}。</p>
+<p>27.表达式^是什么意思？</p>
+<p>答：与字符串开始的地方匹配，不匹配任何字符。</p>
+<p>28.表达式$是什么意思？</p>
+<p>答：与字符串结束的地方匹配，不匹配任何字符。</p>
+<p>29.表达式\b是什么意思？</p>
+<p>答：匹配一个单词边界，也就是单词和空格之间的位置，不匹配任何字符。</p>
+<p>30.表达式\b的匹配原则是什么？</p>
+<p>答："\b" 与 "^" 和 "$" 类似，本身不匹配任何字符，但是它要求它在匹配结果中所处位置的左右两边，其中一边是 "\w" 范围，另一边是非"\w" 的范围。</p>
+<p>31.表达式|是什么意思？</p>
+<p>答：左右两边表达式之间 "或" 关系，匹配左边或者右边。</p>
+<p>32.表达式()是什么意思？</p>
+<p>答：(1). 在被修饰匹配次数的时候，括号中的表达式可以作为整体被修饰。</p>
+<p>(2). 取匹配结果的时候，括号中的表达式匹配到的内容可以被单独得到。</p>
+<p>33.什么是贪婪模式？</p>
+<p>答：在使用修饰匹配次数的特殊符号时，有几种表示方法可以使同一个表达式能够匹配不同的次数，比如："{m,n}", "{m,}", "?", "*", "+"，具体匹配的次数随被匹配的字符串而定。这种重复匹配不定次数的表达式在匹配过程中，总是尽可能多的匹配，这种情况就是匹配贪婪模式。</p>
+<p>34.在字符串中xxxdxxxd，表达式(d)(\w+)是什么意思？</p>
+<p>答："\w+" 将匹配第一个 "d" 之后的所有字符 "xxxdxxxd"。</p>
+<p>35.在字符串中xxxdxxxd，表达式(d)(\w+)(d)是什么意思？</p>
+<p>答："\w+" 将匹配第一个 "d" 和最后一个 "d" 之间的所有字符 "xxxdxxx"。虽然 "\w+" 也能够匹配上最后一个 "d"，但是为了使整个表达式匹配成功，"\w+" 可以 "让出" 它本来能够匹配的最后一个 "d"。</p>
+<p>36.什么是非贪婪模式？</p>
+<p>答：在修饰匹配次数的特殊符号后再加上一个 "?" 号，则可以使匹配次数不定的表达式尽可能少的匹配，使可匹配可不匹配的表达式，尽可能的 "不匹配"。这种匹配原则叫作 "非贪婪" 模式，也叫作 "勉强" 模式。</p>
+<p>如果少匹配就会导致整个表达式匹配失败的时候，与贪婪模式类似，非贪婪模式会最小限度的再匹配一些，以使整个表达式匹配成功。</p>
+<p>37.在字符串中xxxdxxxd，表达式(d)(\w+?)是什么意思？</p>
+<p>答："\w+?" 将尽可能少的匹配第一个 "d" 之后的字符，结果是："\w+?" 只匹配了一个 "x"。</p>
+<p>38.在字符串中xxxdxxxd，表达式(d)(\w+?)(d)是什么意思？</p>
+<p>答：为了让整个表达式匹配成功，"\w+?" 不得不匹配 "xxx" 才可以让后边的 "d" 匹配，从而使整个表达式匹配成功。因此，结果是："\w+?" 匹配 "xxx"。</p>
+<p>39.表达式 "<td>(.*)</td>"与字符串"<td><p>aa</p></td> <td><p>bb</p></td>" 匹配的结果是什么？</p>
+<p>答：<td><p>aa</p></td> <td><p>bb</p></td>。</p>
+<p>40.表达式 "<td>(.*?)</td>"与字符串"<td><p>aa</p></td> <td><p>bb</p></td>" 匹配的结果是什么？</p>
+<p>答：第一次匹配结果是:<td><p>aa</p></td>,如果第二次匹配结果是: <td><p>bb</p></td>。</p>
+<p>41.小括号()的作用是什么？</p>
+<p>答：表达式在匹配时，表达式引擎会将小括号 "( )" 包含的表达式所匹配到的字符串记录下来。在获取匹配结果的时候，小括号包含的表达式所匹配到的字符串可以单独获取。在实际应用场合中，当用某种边界来查找，而所要获取的内容又不包含边界时，必须使用小括号来指定所要的范围。</p>
+<p>42.什么是反向引用？</p>
+<p>答："小括号包含的表达式所匹配到的字符串" 不仅是在匹配结束后才可以使用，在匹配过程中也可以使用。表达式后边的部分，可以引用前面 "括号内的子匹配已经匹配到的字符串"。引用方法是 "\" 加上一个数字,这就是反引用。</p>
+<p>43.反向引用的原则是什么？</p>
+<p>答：如果一对括号内包含另一对括号，则外层的括号先排序号，即哪一对的左括号 "(" 在前，那这一对就先排序号。</p>
+<p>44.表达式"\1"是什么意思？</p>
+<p>答："\1" 引用第1对括号内匹配到的字符串。</p>
+<p>45.表达式"\2"是什么意思？</p>
+<p>答："\2" 引用第2对括号内匹配到的字符串。</p>
+<p>46.表达式 "('|")(.*?)(\1)" 与" 'Hello', "World" " 的匹配结果是什么？</p>
+<p>答：匹配到的内容是：" 'Hello' "。再次匹配下一个时，可以匹配到 " "World" "。</p>
+<p>47.表达式 "(\w)\1{4,}" 与"aa bbbb abcdefg ccccc 111121111 999999999" 的匹配结果是什么？</p>
+<p>答：匹配到的内容是 "ccccc"。再次匹配下一个时，将得到 999999999。</p>
+<p>48.表达式 "<(\w+)\s*(\w+(=('|").*?\4)?\s*)*>.*?</\1>" 与"<td id='td1' style="bgcolor:white"></td>"的匹配结果是什么？</p>
+<p>答：<td id='td1' style="bgcolor:white"></td>，注意如果 "<td>" 与 "</td>" 不配对，则会匹配失败。</p>
+<p>49.什么是正向预搜索？</p>
+<p>答：在被匹配的字符串中，它所处 "缝隙"的右侧，必须能够匹配上表达式指定的字符串类型。它只是在此作为这个缝隙上附加的条件，所以它并不影响后边的表达式去真正匹配这个缝隙之后的字符。这就类似 "\b"，本身不匹配任何字符。"\b" 只是将所在缝隙之前、之后的字符取来进行了一下判断，不会影响后边的表达式来真正的匹配。</p>
+<p>50.正向预搜索的格式是什么？</p>
+<p>答：正向预搜索："(?=xxxxx)"，"(?!xxxxx)"</p>
+<p>51.格式："(?=xxxxx)"是什么意思？</p>
+<p>答：在被匹配的字符串中，它所处 "缝隙"的右侧，必须能够匹配上格式指定的字符串类型。</p>
+<p>52.格式："(?!xxxxx)"是什么意思？</p>
+<p>答：在被匹配的字符串中，它所处 "缝隙"的右侧，必须不能匹配上格式指定的字符串类型。</p>
+<p>53.表达式 "Windows (?=NT|XP)" 与字符串 "Windows 98, Windows NT, Windows 2000" 的匹配结果是什么？</p>
+<p>答：Windows NT。</p>
+<p>54.表达式 "(\w)((?=\1\1\1)(\1))+" 与字符串 "aaa ffffff 999999999" 的匹配结果是什么？</p>
+<p>答：将可以匹配6个"f"的前4个(3+1)，可以匹配9个"9"的前7个(4+3)。</p>
+<p>55.表达式 "((?!\bstop\b).)+" 与字符串 "fdjka ljfdl stop fjdsla fdj"的匹配结果是什么？</p>
+<p>答：将从头一直匹配到 "stop" 之前的位置，如果字符串中没有 "stop"，则匹配整个字符串。</p>
+<p>56.表达式 "do(?!\w)" 与字符串 "done, do, dog" 的匹配结果是什么？</p>
+<p>答：只能匹配 "do"。在本条举例中，"do" 后边使用 "(?!\w)" 和使用 "\b" 效果是一样的。</p>
+<p>57.什么是反向预搜索？</p>
+<p>答：这两种格式的概念和正向预搜索是类似的，反向预搜索要求的条件是：所在缝隙的 "左侧"，两种格式分别要求必须能够匹配和必须不能够匹配指定表达式，而不是去判断右侧。与 "正向预搜索" 一样的是：它们都是对所在缝隙的一种附加条件，本身都不匹配任何字符。</p>
+<p>58.反向预搜索的格式是什么？</p>
+<p>答：反向预搜索："(?<=xxxxx)"，"(?<!xxxxx)"。</p>
+<p>59.表达式 "(?<=\d{4})\d+(?=\d{4})" 与字符串 "1234567890123456" 的匹配结果是什么？</p>
+<p>答：将匹配除了前4个数字和后4个数字之外的中间8个数字，即56789012。</p>
+<p>60.\\xXX是什么意思？</p>
+<p>答：指号在 0 ~ 255 范围的字符。</p>
+<p>61.\\uXXXX是什么意思？</p>
+<p>答：任何字符可以使用 "\\u" 再加上其编号的4位十六进制数表示。</p>
+<p>62.\S(大写字母)是什么意思？</p>
+<p>答：匹配所有非空白字符（"\s" 可匹配各个空白字符）</p>
+<p>63.\W大写字母)是什么意思？</p>
+<p>答：匹配所有的字母、数字、下划线以外的字符。</p>
+<p>64.\D大写字母)是什么意思？</p>
+<p>答：匹配所有的非数字字符。</p>
+<p>65.\B大写字母)是什么意思？</p>
+<p>答：匹配非单词边界，即左右两边都是 "\w" 范围或者左右两边都不是 "\w" 范围时的字符缝隙。</p>
+<p>66.^是什么意思？</p>
+<p>答：匹配输入字符串的开始位置。要匹配 "^" 字符本身，请使用 "\^"。</p>
+<p>67.$什么意思？</p>
+<p>答：匹配输入字符串的结尾位置。要匹配 "$" 字符本身，请使用 "\$"。</p>
+<p>68.()么意思？</p>
+<p>答：标记一个子表达式的开始和结束位置。要匹配小括号，请使用 "\(" 和 "\)"。</p>
+<p>69.[]么意思？</p>
+<p>答：用来自定义能够匹配 '多种字符' 的表达式。要匹配中括号，请使用 "\[" 和 "\]"。</p>
+<p>70.{}么意思？</p>
+<p>答：修饰匹配次数的符号。要匹配大括号，请使用 "\{" 和 "\}"。</p>
+<p>71..什么意思？</p>
+<p>答：匹配除了换行符（\n）以外的任意一个字符。要匹配小数点本身，请使用 "\."。</p>
+<p>72.”什么意思？</p>
+<p>答：修饰匹配次数为 0 次或 1 次。要匹配 "?" 字符本身，请使用 "\?"。</p>
+<p>73.+什么意思？</p>
+<p>答：修饰匹配次数为至少 1 次。要匹配 "+" 字符本身，请使用 "\+"。</p>
+<p>74.*什么意思？</p>
+<p>答：修饰匹配次数为 0 次或任意次。要匹配 "*" 字符本身，请使用 "\*"。</p>
+<p>75.|是什么意思？</p>
+<p>答：左右两边表达式之间 "或" 关系。匹配 "|" 本身，请使用 "\|"。</p>
+<p>76.括号 "( )" 内的子表达式，如果希望匹配结果不进行记录供以后使用，应该怎么办？</p>
+<p>答：可以使用 "(?:xxxxx)" 格式。</p>
+<p>77.表达式 "(?:(\w)\1)+" 在配 "a bbccdd efg" 时表示什么意思？</p>
+<p>答：匹配是 "bbccdd"。括号 "(?:)" 范围的匹配结果不进行记录，因此 "(\w)" 使用 "\1" 来引用。</p>
+<p>78.Ignorecase是什么意思？</p>
+<p>答：默认情况下，表达式中的字母是要区分大小写的。配置为 Ignorecase 可使匹配时不区分大小写。有的表达式引擎，把 "大小写" 概念延伸至 UNICODE 范围的大小写。</p>
+<p>79.Singleline是什么意思？</p>
+<p>答：默认情况下，小数点 "." 匹配除了换行符（\n）以外的字符。配置为 Singleline 可使小数点可匹配包括换行符在内的所有字符。</p>
+<p>80.Multiline是什么意思？</p>
+<p>答：默认情况下，表达式 "^" 和 "$" 只匹配字符串的开始 ① 和结尾 ④ 位置。如：</p>
+<p>①xxxxxxxxx②\n</p>
+<p>③xxxxxxxxx④</p>
+<p>配置为 Multiline 可以使 "^" 匹配 ① 外，还可以匹配换行符之后，下一行开始前 ③ 的位置，使 "$" 匹配 ④ 外，还可以匹配换行符之前，一行结束 ② 的位置。</p>
+<p>81.Global是什么意思？</p>
+<p>答：主要在将表达式用来替换时起作用，配置为 Global 表示替换所有的匹配。</p>
+<p>82.如果表达式所匹配的内容是整个字符串，而不是从字符串中找一部分，应该怎么办？</p>
+<p>答：可以在表达式的首尾使用 "^" 和 "$"，比如："^\d+$" 要求整个字符串只有数字。</p>
+<p>83.如果要求匹配的内容是一个完整的单词，而不会是单词的一部分，应该怎么办？</p>
+<p>答：可以在表达式首尾使用 "\b"，比如：点击测试使用 "\b(if|while|else|void|int……)\b" 来匹配程序中的关键字。</p>
+<p>84.准备写一个匹配 "123"、"123."、"123.5"、".5" 这几种形式的表达式时，表达式写成："\d*\.”\d*"会有什么问题，应该怎么办？</p>
+<p>85.答：该表达式匹配了空字符串并会一直得到匹配成功，而结果什么都没有匹配到，更好的写法是"\d+\.”\d*|\.\d+"。</p>
+<p>86.如果括号内的子表达式中的每一部分都可以匹配 0 次，而这个括号整体又可以匹配无限次，会出现什么后果？</p>
+<p>87.答：匹配过程中可能会陷入死循环，故能匹配空字符串的子匹配不要循环无限次。</p>
+<p>88.在使用“|”时的注意事项是什么？</p>
+<p>答：或 "|" 的左右两边，对某个字符最好只有一边可以匹配，这样，不会因为 "|" 两边的表达式因为交换位置而有所不同。</p>
+<p>89.\d的英文单词和释义是什么？</p>
+<p>答：[digital]数字。</p>
+<p>90.\s的英文单词和释义是什么？</p>
+<p>答：[space]空字符、空格。</p>
+<p>91.\w的英文单词和释义是什么？</p>
+<p>答：[word]单词。</p>
+<p>92.\b的英文单词和释义是什么？</p>
+<p>答：[boundary]边界。</p>
+<p>93.\n的英文单词和释义是什么？</p>
+<p>答：[next]下一行。</p>
+<p>94.\r的英文单词和释义是什么？</p>
+<p>答：[return]返回。</p>
+<p>95.\t的英文单词和释义是什么？</p>
+<p>答：[tab]制表符。</p>
+<p>96.Ignorecase单词释义是什么？</p>
+<p>答：忽略大小写。</p>
+<p>97.Singleline单词释义是什么？</p>
+<p>答：单线。</p>
+<p>98.Multiline单词释义是什么？</p>
+<p>答：多线。</p>
+<p>99.Global单词释义是什么？</p>
+<p>答：全球的 / 总体的 / 球形的 / <计算机>全局的。</p>
+<p>100. regular expression的英文释义是什么?</p>
+<p>答：regular：正常的 / 规则的 / 按规定间隔的 / 频繁发生的。expression表达 / 陈述 / 表情 / 词句</p>
+
+
+<p style='float:right;'>本页共205段，8347个字符，17092 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

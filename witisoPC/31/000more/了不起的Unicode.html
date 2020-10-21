@@ -1,0 +1,549 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>了不起的Unicode</h3>
+
+<p>Unicode非常了不起！在Unicode出现之前，国际交流是一团糟——每个人都在ASCII码表的后半部分区域（称为“代码页”）定义了自己的扩展和字符集，从而导致各种冲突。想想就知道，德国人要与韩国人只使用127个字符组成的代码页进行交流会有多么困难。</p>
+<p>——幸亏有了Unicode标准和统一的交流规范。</p>
+<p>Unicode 8.0根据129多种书写体系，标准化了超过120,000个字符，其中包括现代字符、古代字符，甚至还包括人类尚未解密的文字。Unicode能处理从左到右和从右到左两种书写方式，支持组合标记，还支持多种文化、政治、宗教方面的字符，甚至还有表情符号。</p>
+<p>Unicode太了不起了，我们对它的崇拜犹如滔滔江水绵绵不绝。</p>
+<p>Unicode的背景</p>
+<p>Unicode标准支持什么字符？</p>
+<p>Unicode标准定义了今日所有主流的书写语言中用到的字符。Unicode支持的书写体系包括欧洲的语系、中东的从右至左书写的语系，以及亚洲的多种语系。</p>
+<p>Unicode标准还包含了标点符号、声调符号、数学符号、科技符号、箭头、各种图形符号、表情符号，等等。Unicode为声调符号（用来改变其他字符的符号，如波浪线~）单独提供了代码，这些代码可以与基础字符组合使用，来表示有声调的字符（如?）。Unicode标准9.0版总共提供了128,172个字符的代码，其中包括了全世界的字符、图形和符号。</p>
+<p>绝大部分的常用字符都能映射到最前面的64K个代码点上，这一区域叫做基本多文种平面（basic multilingual plane，简称为BMP）。还有十六个补充平面用来编码其他字符，目前尚有850,000个未使用的代码点。人们还在考虑在以后的版本中添加更多的字符。</p>
+<p>Unicode标准还保留了一些代码点供私人使用。供应商或最终用户可以在内部利用这些代码点表示他们自己的字符和符号，或者通过特殊的字体来使用。BMP上有6,400个私有代码点，如果不够的话，补充平面上还有131,068个私有代码点可供使用。</p>
+<p>Unicode字符编码</p>
+<p>字符编码标准不仅定义了每个字符的唯一标识（即字符的数字值，或者叫做代码点），也定义了怎样用比特来表示这个值。</p>
+<p>Unicode标准定义了三种编码形式，允许同一个数据以一字节、两字节或四字节的格式来传输（即每个代码单元可以是8比特、16比特或32比特）。同一个字符集可以使用所有三种编码形式，它们之间可以互相转换，而不会丢失数据。Unicode联盟建议根据实际需要，选择任何一种方便的编码方式来实现Unicode标准。</p>
+<p>UTF-8在HTML和类似协议上非常常用。UTF-8使用变长编码。它的优点是，对应于ASCII字符集的那些Unicode字符的字节值与它们在ASCII中的值完全相同，因此使用UTF-8编码的Unicode字符可以在绝大多数已有软件上使用，无需对软件做出任何修改。</p>
+<p>UTF-16在许多需要平衡性能和存储效率的环境中非常常用。它足够紧凑，所有常用的字符都可以用一个16比特的代码单元来表示，其他字符可以使用一对16比特代码单元来表示。</p>
+<p>UTF-32在无需顾虑内存空间的情况下使用，它是定长编码，每个字符只有一个代码单元。每个Unicode字符编码成一个32比特代码单元。</p>
+<p>在所有三种编码中，每个字符最多需要4个字节（32比特）表示。</p>
+<p>数字问题</p>
+<p>Unicode字符集被分成17个核心段，称为“平面”，每个平面又被分成若干区块。每个平面的空间足够容纳65,536（216）个代码点，因此总共有1,114,112个代码点。还有两个“私有区域”平面（#16和#17），可以按照使用者的意愿定义。这两个私有平面共包含131,072个代码点。</p>
+<p>第一个平面叫做“基本多文种平面”，或者称为BMP。它包含代码点U+0000到U+FFFF，这个范围内包含了绝大部分常用字符。另外16个平面（U+010000到U+10FFFF）称为补充平面。</p>
+<p>UTF-16代理对</p>
+<p>“BMP之外的字符，例如U+1D306 tetragram for centre ()，在UTF-16编码中只能编码成两个16比特代码单元：0xD834 0xDF06。这种情况称为代理对（surrogate pair）。注意代理对只表示一个字符。</p>
+<p>“代理对的第一个字符永远在0xD800到0xDBFF的范围内，称为高位代理，或者叫起始字节代理。代理对的第二个代码单元永远在0xDC00到0xDFFF的范围内，称为低位代理，或者叫末端代理。”</p>
+<p>——Mathias Bynens</p>
+<p>“代理对：一种表示方式，用于表示由两个16比特代码单元组成的单个抽象字符，其中第一个值称为高位代理代码单元，第二个值称为低位代理单位。代理对仅在UTF-16中使用。”</p>
+<p>——Unicode 8.0 第3.9章 ，代理对（参见Unicode编码）</p>
+<p>计算代理对</p>
+<p>代理字符 Pile of Poo (U+1F4A9) 在UTF-16中必须编码成代理对，即两个代理。要将代码点转换成代理对，可以使用以下算法（用JavaScript编写）。注意我们使用的是十六进制表示。</p>
+<p>var High_Surrogate = function(Code_Point){ return Math.floor((Code_Point - 0x10000) / 0x400) + 0xD800 };</p>
+<p>var Low_Surrogate = function(Code_Point){ return (Code_Point - 0x10000) % 0x400 + 0xDC00 };</p>
+<p>// Reverses The Conversion</p>
+<p>var Code_Point = function(High_Surrogate, Low_Surrogate){</p>
+<p>return (High_Surrogate - 0xD800) * 0x400 + Low_Surrogate - 0xDC00 + 0x10000;</p>
+<p>};</p>
+<p> > var codepoint = 0x1F4A9; // 0x1F4A9 == 128169</p>
+<p>> High_Surrogate(codepoint).toString(16)</p>
+<p>"d83d" // 0xD83D == 55357</p>
+<p>> Low_Surrogate(codepoint).toString(16)</p>
+<p>"dca9" // 0xDCA9 == 56489</p>
+<p>> String.fromCharCode( High_Surrogate(codepoint) , Low_Surrogate(codepoint) );</p>
+<p>""</p>
+<p>> String.fromCodePoint(0x1F4A9)</p>
+<p>""</p>
+<p>> '\\ud83d\\udca9'</p>
+<p>""</p>
+<p>组合和解组合</p>
+<p>Unicode包括了一种修改字符形状的机制，大幅扩展了Unicode支持的字符量。使用声调符号进行组合就是其中一种方式。声调符号写在主字符的后面。多个声调符号可以叠在同一个字符上。对于绝大部分常用的字母声调组合，Unicode还包括了预先组合好的版本。</p>
+<p>特定的字符序列也可以用单个字符表示，称为“预组合字符”（或者叫组合字符，可以解组合的字符）。例如，字符“ü”可以编码成单个代码单元U+00FC “ü”，也可以编码成基本字符U+0075 “u”后接无空白字符U+0308 “¨”。Unicode标准中设置的预组合字符是为了兼容Latin 1等标准，后者包含了许多预组合字符，如“ü”和“?”。</p>
+<p>预组合字符可以进行接组合，以保持一致性，或用于分析。例如，需要将一组名称转换为英文字母时，可以将字符“ü”解组合为“u”后接非空白字符“¨”。解组合后的结果很容易处理，因为该组合字符可以处理成“u”后接一个修饰字符。这样很容易进行按字母顺序排序等，因为修饰字符不会影响字母顺序。Unicode标准为所有预组合字符定义了解组合方式（https://unicode.org/versions/Unicode8.0.0/ch03.pdf#page=44）。它还定义了正规化的方式，以便为字符提供唯一的表示方法。</p>
+<p>Unicode之谜</p>
+<p>来自Mark Davis的《Unicode之谜》幻灯片（https://macchiato.com/slides/UnicodeMyths.pdf）。</p>
+<p>Unicode只不过是16比特编码。一些人误认为Unicode只不过是16比特编码，每个字符占用16比特，因此一共有65,536个可能的字符。实际上这是不正确的。这样是关于Unicode的最大误解，所以也难怪一些人会这么想。</p>
+<p>任何未分配的代码点都可以用于内部用途？错。最终，那些未分配的地方都会被某个字符使用。你应该使用私有用途代码点，或非字符代码点。</p>
+<p>每个Unicode代码点都表示一个字符？错。有许多非字符代码点（FFFE，FFFF，1FFFE，……）还有许多代理代码点、私有代码点和未分配的代码点，还有控制和格式“字符（RLM，ZWNJ，……）</p>
+<p>字符映射是一对一的？错。映射关系也可能是：</p>
+<p>一对多：(? → SS )</p>
+<p>上下文相关：(…Σ ? …? 和 …ΣΤ… ? …στ… )</p>
+<p>语言相关：( I ? ? 和 ? ? i )</p>
+<p>实用Unicode编码手册</p>
+<p>编码类型编码</p>
+<p>神奇的字符列表</p>
+<p>特殊字符</p>
+<p>详情可以参照Unicode联盟发布的《通用标点符号表》（https://www.unicode.org/charts/PDF/U2000.pdf）。</p>
+<p>等等，你说什么？</p>
+<p>变量标识符可以包含空白！</p>
+<p>U+3164 HANGUL FILLER 字符显示为占据空间的空白字符。如果渲染器不支持，则会渲染成完全不可见（也不会占据任何空间，即“零宽度”）。这就是说，永远不会看到丑陋的字符替代符号。</p>
+<p>我不知道为什么U+3164被设计成这种行为。有意思的是，U+3164是在Unicode 1.1版本（1993年）加入的，所以联盟一定是花了很多时间思考它。下面是几个例子：</p>
+<p>> var ? = 'foo';</p>
+<p>undefined</p>
+<p>> ?</p>
+<p>'foo'</p>
+<p>> var ?= alert;</p>
+<p>undefined</p>
+<p>> var foo = 'bar'</p>
+<p>undefined</p>
+<p>> if ( foo ===?`baz` ){} // alert</p>
+<p>undefined</p>
+<p>> var var?foo?\\u{A60C}?π = 'bar';</p>
+<p>undefined</p>
+<p>> var?foo???π</p>
+<p>'bar'</p>
+<p>注意：我在Ubuntu和OSX下测试了下述程序的渲染结果：Node，PHP，Ruby，Python3.5，Scala，Vim，Cat，Chrome+GitHub gist。Atom是唯一无法正确渲染，将其显示成空方块的程序。我还没有测试Emacs和Sublime。据我的理解，Unicode联盟不会改变或重命名字符或代码点，但有可能会改变字符属性，如ID_Start或ID_Continue等。</p>
+<p>修饰符</p>
+<p>零宽度连接符（ZWJ）是个不可打印字符，用于某些复杂语系的计算机排版系统中，如阿拉伯语系、印度语系等。将ZWJ放在两个本来不会连接的字符之间，将会导致它们以连接的形式打印。</p>
+<p>零宽度不连接符（ZWNJ）是个不可打印字符，那些使用连接的书写系统的计算机化。将ZWNJ放在两个本来会连接在一起的字符之间，会导致它们以本来的形式打印。空格字符也有同样的效果，但ZWNJ的作用是它能保证输出的两个字符尽可能靠近，或者连接一个词及其语素。</p>
+<p>> 'a'</p>
+<p>"a"</p>
+<p>> 'a\\u{0308}'</p>
+<p>"a?"</p>
+<p>> 'a\\u{20DE}\\u{0308}'</p>
+<p>"a??"</p>
+<p>> 'a\\u{20DE}\\u{0308}\\u{20DD}'</p>
+<p>"a???"</p>
+<p>// Modifying Invisible Characters</p>
+<p>> '\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}'</p>
+<p>" "</p>
+<p>> '\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}\\u{200E}'.length</p>
+<p>10</p>
+<p>大写变换冲突</p>
+<p>小写变换冲突</p>
+<p>奇怪现象和排查方法</p>
+<p>字符串长度通常由统计代码点的个数来计算。这就是说，代理对会被统计成两个字符。多个声调符号会叠放在同一个字符上，例如a + ? == ?a，从而增加长度，但它们只会产生一个字符。</p>
+<p>类似地，字符串翻转通常非常困难。同样，代理对和带有声调符号的字符必须作为整体进行翻转。ES Reverser提供了一个非常好的解决方法。</p>
+<p>字符映射是一对一的？错。映射关系也可能是：</p>
+<p>一对多：(? → SS )</p>
+<p>上下文相关：(…Σ ? …? 和 …ΣΤ… ? …στ… )</p>
+<p>语言相关：( I ? ? 和 ? ? i )</p>
+<p>一对多映射</p>
+<p>绝大多数字符，在大写的时候表示一对多关系；另一些字符小写的时候表示一对多关系。</p>
+<p>优秀的软件包和库</p>
+<p>PhantomScript：:ghost: :flashlight: 不可见的JavaScript代码执行和社会工程工具。</p>
+<p>ESReverser：用JavaScript编写的支持Unicode的字符串翻转。</p>
+<p>mimic：Unicode的恶作剧。</p>
+<p>python-ftfy：输入Unicode文本，输出更一致、更不容易出现显示错误的表现形式。</p>
+<p>vim-troll-stopper：防止Unicode的捣乱字符搞乱你的代码。</p>
+<p>表情符号</p>
+<p>Unicode联盟的表情符号表（https://www.unicode.org/emoji/charts/full-emoji-list.html）</p>
+<p>Emojipedia（https://emojipedia.org/）：关于特定表情符号的信息，新闻博客。</p>
+<p>World Translation Foundation（https://www.emojifoundation.com/）：宣传、探索，还可以将文本翻译成用表情符号表示的形式。</p>
+<p>Can I Emoji? （https://caniemoji.com/android-2/）：显示当前iOS、Android和Windows对于表情符号的原生支持情况。</p>
+<p>怎样注册一个表情符号URL（https://www.name.com/blog/how-tos/2015/12/want-an-emoji-url-this-is-how-you-register-one/）</p>
+<p>多样性</p>
+<p>Unicode联盟在支持人类的多样性和多元文化方面做出了很多努力。这里是联盟提供的多样性报告（https://unicode.org/reports/tr51/#Diversity）。</p>
+<p>现在表情符号已经支持混合型别，比如同性家庭、握手、接吻等。真正轰动的是表情符号组合序列。基本上来说：</p>
+<p>此外，表情符号现在还支持肤色修饰字符了。</p>
+<p>“有五个符号修饰字符可以为Unicode 8.0版（2015年中期）中发布的人类的表情符号提供一系列的肤色。这些字符基于Fitzpatrick度量（皮肤学上的著名标准，网上也有许多例子，比如FitzpatrickSkinType.pdf）定义的六种肤色。不同的实现的精确颜色可能不同。”</p>
+<p>——Unicode联盟的多样性报告</p>
+<p>只需要在所需的表情符号后面接上肤色修饰字符 \\u{1F466}\\u{1F3FE} 即可。</p>
+<p>有创意的变量名和方法名</p>
+<p>示例采用JavaScript（ES6）编写。</p>
+<p>一般而言，带有ID_START属性的字符可以用在变量名开头，而带有ID_CONTINUE属性的字符可以用在变量名中除了首字符之外的其他位置。</p>
+<p>function rand(μ,σ){ ... };</p>
+<p>String.prototype.reverse? = function{..};</p>
+<p>Number.prototype.isTrue? = function{..};</p>
+<p>var WhatDoesThisDo???? = 42</p>
+<p>下面是Mathias Bynes（https://mathiasbynens.be/notes/javascript-identifiers#examples）提供的一些极富创意的变量名：</p>
+<p>// How convenient!</p>
+<p>var π = Math.PI;</p>
+<p>// Sometimes, you just have to use the Bad Parts of JavaScript:</p>
+<p>var ?_? = eval;</p>
+<p>// Code, Y U NO WORK?!</p>
+<p>var ?_?益?_? = 42;</p>
+<p>// How about a JavaScript library for functional programming?</p>
+<p>var λ = function {};</p>
+<p>// Obfuscate boring variable names for great justice</p>
+<p>var \\u006C\\u006F\\u006C\\u0077\\u0061\\u0074 = 'heh';</p>
+<p>// …or just make up random ones</p>
+<p>var ???? = 'huh';</p>
+<p>// While perfectly valid, this doesn’t work in most browsers:</p>
+<p>var foo\\u200Cbar = 42;</p>
+<p>// This is *not* a bitwise left shift (`&lt;&lt;`):</p>
+<p>var ?? = 2;</p>
+<p>// This is, though:</p>
+<p>?? &lt;&lt; ??; // 8</p>
+<p>// Give yourself a discount:</p>
+<p>var price_9?9?_89 = 'cheap';</p>
+<p>// Fun with Roman numerals</p>
+<p>var Ⅳ = 4;</p>
+<p>var Ⅴ = 5;</p>
+<p>Ⅳ + Ⅴ; // 9</p>
+<p>// Cthulhu was here</p>
+<p>var H??????????????????E????????????????_?????????????????????????????O?????????????M????????????????E????????????T????????????????????????????????? = 'Zalgo';</p>
+<p>下面是David Walsh提供的一些Unicode CSS类名（https://davidwalsh.name/unicode-css-classes）：</p>
+<p><!-- place this within the document head --></p>
+<p><meta charset="UTF-8" /></p>
+<p><!-- error message --></p>
+<p><div class="?_?">You do not have access to this page.</div></p>
+<p><!-- success message --></p>
+<p><div class="?">Your changes have been saved successfully!</div></p>
+<p>.”_? {</p>
+<p>border: 1px solid #f00;</p>
+<p>}</p>
+<p>.” {</p>
+<p>background: lightgreen;</p>
+<p>}</p>
+<p>递归的HTML标签重命名脚本</p>
+<p>如果你想把所有HTML标签重命名，使之看上去像什么都没有，那么可以使用以下的脚本。</p>
+<p>但要注意，HTML并不会支持所有的Unicode字符。</p>
+<p>// U+1160 HANGUL JUNGSEONG FILLER</p>
+<p>transformAllTags('?');</p>
+<p>// An actual HTML element node designed to look like a comment node, using the U+01C3 LATIN LETTER RETROFLEX CLICK</p>
+<p>// <?-- name="viewport" content="width=device-width"></?--></p>
+<p>transformAllTags('?--');</p>
+<p>// or even <??</p>
+<p>transformAllTags('\\u{1160}\\u{20dd}');</p>
+<p>// and for a bonus, all existing tag names will have each character ensquared. h?t?m?l?</p>
+<p>transformAllTags;</p>
+<p>function transformAllTags(newName){</p>
+<p>// querySelectorAll doesn't actually return an array.</p>
+<p>Array.from(document.querySelectorAll('*'))</p>
+<p>.forEach(function(x){</p>
+<p>transformTag(x, newName);</p>
+<p>});</p>
+<p>}</p>
+<p>functionwonky(str){</p>
+<p>return str.split('').join('\\u{20de}') + '\\u{20de}';</p>
+<p>}</p>
+<p>functiontransformTag(tagIdOrElem, tagType){</p>
+<p>var elem = (tagIdOrElem instanceof HTMLElement) ? tagIdOrElem : document.getElementById(tagIdOrElem);</p>
+<p>if(!elem || !(elem instanceof HTMLElement))return;</p>
+<p>var children = elem.childNodes;</p>
+<p>var parent = elem.parentNode;</p>
+<p>var newNode = document.createElement(tagType||wonky(elem.tagName));</p>
+<p>for(var a=0;a<elem.attributes.length;a++){</p>
+<p>newNode.setAttribute(elem.attributes[a].nodeName, elem.attributes[a].value);</p>
+<p>}</p>
+<p>for(var i= 0,clen=children.length;i<clen;i++){</p>
+<p>newNode.appendChild(children[0]); //0...always point to the first non-moved element</p>
+<p>}</p>
+<p>newNode.style.cssText = elem.style.cssText;</p>
+<p>parent.replaceChild(newNode,elem);</p>
+<p>}</p>
+<p>下面是确定能够支持的字符：</p>
+<p>function testBegin(str){</p>
+<p>try{</p>
+<p>eval(`document.createElement( '${str}' );`)</p>
+<p>return true;</p>
+<p>}</p>
+<p>catch(e){ return false; }</p>
+<p>}</p>
+<p>function testContinue(str){</p>
+<p>try{</p>
+<p>eval(`document.createElement( 'a${str}' );`)</p>
+<p>return true;</p>
+<p>}</p>
+<p>catch(e){ return false; }</p>
+<p>}</p>
+<p>下面是一些基本的结果：</p>
+<p>// Test if dashes can start an HTML Tag</p>
+<p>> testBegin('-')</p>
+<p>< false</p>
+<p>> testContinue('-')</p>
+<p>< true</p>
+<p>> testBegin('?-') // Prepend dash with U+1160 HANGUL JUNGSEONG FILLER</p>
+<p>< true</p>
+<p>Unicode字体</p>
+<p>单一的TrueType / OpenType 字体格式无法支持所有UTF-8字符，因为字体文件有最大65535个字形的限制。UTF-8的字形超过了110万，因此你需要一个font-family才能覆盖所有字体。</p>
+<p>https://en.wikipedia.org/wiki/Unicode_font#List_of_Unicode_fonts</p>
+<p>https://www.unifont.org/fontguide/</p>
+<p>Unicode标准的原则</p>
+<p>Unicode标准设定了下述基本原则：</p>
+<p>通用原则——曾经出现过的一切书写系统都应该在标准中体现。</p>
+<p>逻辑顺序——在双向文本中，字符以逻辑顺序存储，而不是表现顺序存储。</p>
+<p>效率——文档必须是高效的、完整的。</p>
+<p>统一——不同文化或语言使用同一个字符时，应该仅存储一次。</p>
+<p>记录字符而不是字形——应当对字符进行编码，而不是字形。字形就是字符的实际图形表示。</p>
+<p>动态组合——新的字符可以与已有的标准化后的字符进行组合。例如，字符“?”可以用字符“A”和分音符“¨”组合而成。</p>
+<p>语义——包含的字符必须有明确定义，必须与其他字符有明确的区别。</p>
+<p>稳定——字符一旦被定义，就永远不能被移除，其代码点也不能被挪作他用。如果出错，则应该将代码点标记为弃用。</p>
+<p>纯文本——标准中的字符应当是纯文本，永远不应该包含标记或元字符。</p>
+<p>可转换——每一种编码都应该可以用Unicode编码表示。</p>
+<p>原文：https://wisdom.engineering/awesome-unicode/</p>
+
+
+<p style='float:right;'>本页共253段，12295个字符，20587 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

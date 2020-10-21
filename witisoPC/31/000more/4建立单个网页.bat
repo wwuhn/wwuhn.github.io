@@ -15,7 +15,7 @@ echo ^<body^>^<div^> >>more.html
 for /f "tokens=1,2 usebackq delims=." %%a in (`dir  /o:n /b`) do (
 	if "%%a.%%b"=="%%a." (
 	if not "%%a"=="backup" (
-		echo ^<li^>^<a href="%%a/a.html"^>^<span style="color:blue; "^>%%a^</a^>^</a^>^</li^> >>more.html
+		echo ^<li^>^<a href="%%a/a.html"^>^<span style="color:blue; "^>%%a^</span^>^</a^>^</li^> >>more.html
 	)
 	)
 

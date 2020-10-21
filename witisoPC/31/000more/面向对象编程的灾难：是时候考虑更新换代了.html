@@ -1,0 +1,552 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>面向对象编程的灾难：是时候考虑更新换代了</h3>
+
+<p><a href="https://medium.com/better-programming/object-oriented-programming-the-trillion-dollar-disaster-%EF%B8%8F-92a4b666c7c7" title="">ref</a></p>
+<p>许多人认为面向对象编程是计算机科学的珍宝，代码组织的最终解决方案，所有问题的终极回答，编写程序的唯一真正方法，编程之神赐予我们的财富……</p>
+<p>但事实证明并非如此，人们常常屈服于抽象和混杂共享可变对象的复杂图形的重压。耗费宝贵的时间和脑力来思考“抽象”和“设计模式”，而不关注解决现实问题。</p>
+<p>许多人批评面向对象编程，其中包括非常杰出的软件工程师。有意思的是，就连面向对象变成的发明者自己也是现代面向对象编程的著名批评者！</p>
+<p>每个软件开发人员都应该以编写可靠的代码为终极目标。如果代码有问题且不可靠，那其他方面的优点都不足为提。编写可靠代码的最佳方式是什么？简洁。简洁与复杂相反。因此，作为软件开发人员，我们首要的责任应该是降低代码复杂性。</p>
+<p>包络高级技术人员在内的很多人认为面向对象编程是代码组织的标准，这是不正确的。同样不可接受的是，除面对对象编程之外，许多主流语言都没有提供任何代码组织的替代方案。</p>
+<p>面向对象编程可以作为正确程序的替代品。Edsger W. Dijkstra，计算机科学的先驱</p>
+<p>面向对象编程的目的只有一个——管理过程代码库的复杂性。换句话说，它应该改进代码组织。没有客观和公开的证据表明面向对象编程优于普通的过程性编程。</p>
+<p>残酷的事实是，面向对象编程在它唯一能处理的任务上失败了。它在纸上看起来很好——有清晰的动物、狗、人类等层级。然而，一旦应用程序的复杂性开始增加，它就会停滞不前。不但没有降低复杂性，反而鼓励混杂地共享可变状态，并通过其众多的设计模式引入了额外的复杂性。面向对象程序增加了常见的开发实践(如重构和测试)的难度。</p>
+<p>有些人可能不同意这一观点，但事实是现代Java/ c# OOP从来没有正确地设计过，从未出自一个合适的研究机构(与Haskell/FP不同)。λ微积分为函数式编程提供了完整的理论基础，而面向对象编程做则没有与之匹配的理论。</p>
+<p>短期来看使用面向对象编程似乎是无害的，尤其是在绿地投资上。但是长期使用面向对象编程又会导致哪些后果呢?面向对象编程是一个定时炸弹，当代码基足够大时，将在将来某个时候爆炸。</p>
+<p>项目被推迟、错过最后期限、开发人员精力被耗尽，添加新功能几乎是不可能的。组织将代码库标记为“遗留代码库”，开发团队计划重写代码库。</p>
+<p>面向对象编程与人脑思维相悖，人类的思维过程集中在“做”事情上——散步，和朋友聊天，吃比萨饼。我们的大脑进化成了做事的方式，而不是把世界组织成抽象对象的复杂层次。</p>
+<p>面向对象编程代码充满了不确定性——与函数式编程不同，我们不能保证在给定相同输入的情况下得到相同的输出。这使得编程推理非常困难。举一个极其简单的例子——输出2+2或执行calculator.Add(2, 2) 的结果大部分等于4，但有时可能也等于3 、5，甚至是1004。Calculator对象的依赖关系可能以微妙但显著的方式改变计算结果。</p>
+<p>对弹性框架的需求</p>
+<p>不管编程范式是怎么样的，优秀的程序员会写出好的代码，糟糕的程序员会写出坏的代码，然而，编程范式应该限制糟糕的程序员造成太大的破坏。糟糕的程序员从来没有时间学习，他们只是疯狂地在键盘上乱按。不管是否愿意，你都会遇到糟糕的程序员，他们中的一些人会非常非常糟糕。不幸的是，面对对象编程没有足够的约束力来防止糟糕的程序员造成太多的破坏。</p>
+<p>如果没有一个强有力的框架来支撑工作的话，程序员很难写出好的代码。有些框架关注一些非常特殊的问题(例如Angular或ASP.Net)。</p>
+<p>框架的抽象定义是:“一个基本的支持结构”——框架关注更抽象的东西，比如代码组织和处理代码复杂性。尽管面向对象编程和函数编程都是编程范例，但它们也是高级框架。</p>
+<p>限制我们的选择</p>
+<p>c++是一种可怕的[面向对象]语言……将你的项目限制为C意味着人们不会用任何愚蠢的“对象模型”来把事情搞砸。Linus Torvalds, Linux创始人</p>
+<p>Linus Torvalds以他对c++和面向对象编程的公开批评而闻名。有一件事他是百分之百正确的，那就是限制程序员的选择。事实上，程序员的选择越少，他们的代码就越有弹性。如上面引用的句子所说，Linus Torvalds强烈建议使用一个好的框架来构建代码。</p>
+<p>许多人不喜欢道路限速，但限速对于防止车祸致死是必不可少的。同样地，好的编程框架应该提供防止人们做傻事的机制。</p>
+<p>好的编程框架可以帮助人们编写可靠的代码。首先，它应该通过提供以下内容来帮助降低复杂性：</p>
+<p>1. 模块化和可重用性</p>
+<p>2. 适当的隔离状态</p>
+<p>3. 高信噪比</p>
+<p>不幸的是，面向对象编程给开发人员提供了太多的工具和选择，却没有施加合适的限制。尽管面向对象编程承诺会解决模块化和提高可重用性，但却未能兑现其承诺(稍后将对此进行更多阐述)。面向对象编程代码鼓励使用共享的可变状态，这一点多次证明是不安全的。面向对象编程通常需要大量样板代码(低信噪比)。</p>
+<p>函数编程</p>
+<p>什么是函数编程？有些人认为它是一个高度复杂的编程范式，只适用于学术界，不适用于“现实世界”。这与事实相去甚远！</p>
+<p>函数式编程有很强的数学基础，并且植根于λ微积分。然而，它的大部分想法都是针对主流编程语言的弱点而提出的。函数是函数编程的核心抽象。如果使用得当，函数提供了在面向对象程序设计中前所未有的代码模块化和可以重复使用性。它甚至以解决可空性问题的设计模式为特色，并提供了一种出色的错误处理方式。</p>
+<p>函数式编程做得很好的一点是帮助我们编写可靠的软件。对调试器的需求几乎完全消失了——是的，不需要遍历代码并查看变量。</p>
+<p>我们所做的面对对象编程都错了</p>
+<p>我对之前为这个主题创造了“对象”这个术语感到抱歉，因为它使许多人把注意力集中在较次要的概念上。事实上，最重要的是传递信息。Alan Kay, 面向对象编程发明者</p>
+<p>通常，人们认为Erlang不是一种面向对象的语言。但是Erlang可能是唯一主流的面向对象语言。是的， Smalltalk当然是合适的面向对象语言——但是，并没有得到广泛的应用。Smalltalk和Erlang都按照面向对象编程的发明者Alan Kay最初设计的方式使用面向对象编程。</p>
+<p>信息</p>
+<p>AlanKay在20世纪60年代创造了“面向对象编程”这个词，他有生物学背景，并试图使计算机程序像活细胞一样进行通信。</p>
+<p>Alan Kay的想法是让独立的程序(细胞)通过相互发送消息进行通信。独立程序的状态永远不会与外部世界共享(封装)。</p>
+<p>面向对象编程从来没有打算拥有诸如继承、多态性、“new”关键字和无数设计模式之类的东西。</p>
+<p>最纯粹的面向对象编程设计</p>
+<p>Erlang是面向对象编程最纯粹的形式。与更主流的语言不同，它关注面向对象的核心思想——消息传递。在Erlang中，对象通过在对象之间传递不可变的消息进行通信。</p>
+<p>有证据证明不可变消息比方法调用更好吗？</p>
+<p>没有！Erlang可能是世界上最可靠的语言。它为世界上大多数电信(以及互联网)基础设施提供动力。用Erlang编写的一些系统的可靠性为99.9999999%。</p>
+<p>代码复杂性</p>
+<p>随着面向对象编程语言的改变，计算机软件变得更冗长、可读性更差、描述性更差、更难以修改和维护。Richard Mansfield</p>
+<p>软件开发最重要的方面是降低代码的复杂性。如果代码库无法维护，那么这些花哨的特性都无关紧要；如果代码库变得过于复杂和难以维持，那么即使是100%的测试覆盖率也没有任何价值。</p>
+<p>是什么使代码基变得复杂?回答这个问题需要考虑的因素有很多，但最主要的问题是——共享的可变状态、错误的抽象和低信噪比(通常由样板代码引起)。它们在面向对象编程中都很常见。</p>
+<p>状态问题</p>
+<p>什么是状态？简单地说，状态是存储在内存中的所有临时数据。想想面向对象编程中的变量或字段/属性。命令式编程(包括面向对象编程)根据程序状态和对该状态的改变来描述计算。声明式(函数式)编程描述的是期望的结果，而不是明确指定对状态的改变。</p>
+<p>可变状态——精神杂耍行为</p>
+<p>大型面向对象编程在构建这个可变对象的大型对象图时，会变得越来越复杂。尝试理解记住——当你调用一个方法时会发生什么以及副作用是什么。Rich Hickey， Clojur创造者</p>
+<p>状态本身是无害的。然而可变状态却不是，尤其当它是共享的时候。可变状态到底是什么——任何会发生改变的状态。例如面向对象编程中的变量或字段。</p>
+<p>举个现实世界的例子：</p>
+<p>假设你有一张空白的纸，在上面写了一个便条，最后得到了一张不同状态的纸（文本）。实际上，你改变了那张纸的状态。</p>
+<p>这在现实世界中完全没问题，因为没人会在意那张纸。除非这张纸是蒙娜丽莎的原画。</p>
+<p>· 人脑的局限性</p>
+<p>为什么可变状态是一个大问题？人脑是宇宙中已知的最强大的机器。然而，我们的大脑在处理状态方面确实很糟糕，因为我们在工作记忆中一次只能保存大约5个项目。如果只考虑代码的功能，而不考虑它在代码库周围所改变的变量，那么对一段代码进行推理就容易得多。</p>
+<p>可变状态的编程是一种精神杂耍。我不知道你会怎么样做，但我可能会玩两个球。给我三个或三个以上的球，我一定都接不住。为什么我们要在工作中每天都做这种精神上的杂耍？</p>
+<p>不幸的是，可变状态的精神杂耍是面向对象编程的核心。对象上存在方法的唯一目的是改变同一对象。</p>
+<p>分散状态</p>
+<p>面向对象编程通过将状态分散到整个程序中，使得代码组织问题更加严重。然后分散状态在不同的对象之间杂乱地共享。</p>
+<p>举个现实世界的例子：</p>
+<p>暂时忘记我们都是成年人，假装我们在组装一辆很酷的乐高卡车。</p>
+<p>然而，有一个陷阱——所有的卡车零件都随机与其他乐高玩具的零件混合。他们被随机地放进50个不同的盒子里。而且你不能把卡车零件组合在一起——你必须记住不同的卡车零件在哪里，并且只能一个一个地拿出来。</p>
+<p>是的，最终也能完成组装。但要花多长时间?</p>
+<p>这与编程有什么关系？</p>
+<p>在函数式编程中，状态通常是孤立的。你总是知道某种状态的来源。状态永远不会分散在不同的函数中。在面向对象编程中，每个对象都有自己的状态，在构建程序时，必须记住当前正在使用的所有对象的状态。</p>
+<p>为了使工作更容易，最好只在代码库中处理状态的一小部分。让应用程序的核心部分是无状态和纯的。这实际上是前端流量模式（又称Redux）取得巨大成功的主要原因。</p>
+<p>杂乱共享的状态</p>
+<p>因为有分散的可变状态，我们的工作并不那么困难。面向对象编程更进了一步！</p>
+<p>举个现实世界的例子：</p>
+<p>在现实世界中，可变状态几乎从来都不是问题，因为事物都是私有的，从不共享。这就是工作中的“适当封装”。想象一下，一位画家正在创作下一幅《蒙娜丽莎》。他独自完成了这幅画，完成后以数百万美元的价格卖出了他的杰作。</p>
+<p>现在，他厌倦了金钱，决定做一些不一样的事情。他认为举办一个绘画聚会是个好主意。他邀请他的朋友小精灵、甘道夫、警察和僵尸来帮助他。这是一个团队合作!他们同时开始在同一块画布上作画。当然，结果并不好，这幅画完全是一场灾难！</p>
+<p>共享可变状态在现实世界中没有任何意义。然而，这正是面向对象编程中所发生的事情——状态在不同的对象之间随意共享，并且以它们认为合适的方式对其进行修改。反过来，随着代码库的不断增长，对程序的推理也变得越来越困难。</p>
+<p>并发问题</p>
+<p>面向对象编程代码中可变状态的混杂共享使得这种代码几乎不可能并行化。为了解决这个问题，人们发明了复杂的机制。线程锁定、互斥和许多其他机制已经被发明出来。当然，这种复杂的方法也有其自身的缺点——死锁、缺乏可组合性、调试多线程代码既困难又耗时。更别提使用这种并发机制会增加复杂性。</p>
+<p>并非所有状态都是邪恶的</p>
+<p>所有的状态都是邪恶的吗？并非如此。Alan Kay状态并不邪恶！如果状态变化是真正孤立的(而不是“面向对象”的孤立)，则可能是好的。</p>
+<p>拥有不可变的数据传输对象也是完全可以的。关键是“不变”。这些对象会被用在函数之间传递数据。</p>
+<p>然而，这样的对象也会使面向对象的方法和属性完全冗余。如果一个对象不能被改变，那么它的方法和属性又有什么用呢？</p>
+<p>面向对象编程的可变性是固有的</p>
+<p>有些人可能会认为可变状态是面向对象编程设计中的一种设计选择，而不是义务。这种说法有问题。这虽然不是一个设计选择，但几乎是唯一的选择。是的，可以将不可变的对象传递给Java/C#中的方法，但是这很少被实现，因为大多数开发人员默认数据可变。即使开发人员试图在他们的面向对象程序中正确使用不变性，这些语言也没有为不变性有效地处理不可变数据（即持久数据结构）提供内置机制。</p>
+<p>当然也有例外——即Scala和OCaml，但它们不是主流面向对象语言，本文将不会讨论它们。</p>
+<p>封装的木马病毒</p>
+<p>封装被誉为是面向对象编程的最大优点之一。它应该保护对象的内部状态不受外部访问的影响。不过这有个小问题。它并不起作用。</p>
+<p>封装是面向对象编程的木马病毒。它通过使共享可变状态看起来安全来推销这种想法。封装允许（甚至鼓励）不安全的代码潜入我们的代码库，使代码库从内部腐烂。</p>
+<p>全球状态问题</p>
+<p>众所周知，全球状态是万恶之源。无论如何都应该避免。然而，封装实际上是美化的全局状态这一事实却鲜有人知。</p>
+<p>为了使代码更有效，传递对象不是通过对象的值，而是通过对象的引用。这就是“依赖注入”失败的地方。</p>
+<p>试着解释一下：无论何时在面向对象编程中创建对象，都会将对其依赖项的引用传递给构造函数。这些依赖项也有己的内部状态。新创建的对象将对这些依赖项的引用存储在其内部状态中，然后以自己喜欢的方式修改它们。它还将这些引用传递给它可能最终使用的其他东西。</p>
+<p>这就创建了一个杂乱共享对象的复杂图像，这些对象最终都改变了彼此的状态。由于几乎不可能看到是什么导致了程序状态的更改，而导致了巨大的问题。调试这样的状态更改可能会浪费几天的时间。</p>
+<p>方法/属性</p>
+<p>提供对特定字段的访问的方法或属性并不比直接更改字段的值更好。不管是否使用一个特别的属性或方法来修改对象的状，结果都是一样的——修改后的状态。</p>
+<p>现实世界建模的问题</p>
+<p>有人说面向对象编程试图模拟现实世界。这根本不是真的——面向对象编程与现实世界没有任何关联。试图将程序建模为对象可能是面向对象编程设计中最大的错误之一。</p>
+<p>现实世界不是层级森严的</p>
+<p>面向对象编程设计试图把一切都建模为对象的层次结构。不幸的是，现实世界并非如此运转。现实世界中的对象使用消息进行交互，但绝大多是相互独立的。</p>
+<p>现实世界中的继承</p>
+<p>面向对象编程的继承不是模仿现实世界。现实世界中的父对象在运行时无法更改子对象的行为。即使你从父母那里继承了你的基因，他们也不能随心所欲地改变你的基因。你不是从父母那里继承“行为”，而是发展自己的行为。进一步而言，你也不能“无视”你父母的行为。</p>
+<p>现实世界没有办法</p>
+<p>你正在用的那张纸上有“写”的这一方法吗？并没有。你拿着一张空纸，拿起一支笔，写一些文字。作为一个人，你也没有“写”的方法——你根据外部事件或你的内心想法来决定写一些文字。</p>
+<p>对象以不可分割的单位将函数和数据结构绑定在一起。我认为这是一个根本性的错误，因为函数和数据结构完全属于不同的世界。Joe Armstrong，二郎的创造者</p>
+<p>对象(或名词)是面向对象编程的核心。面向对象编程的一个基本限制是它将所有东西都强制转换成名词。不是所有的东西都应该被建模为名词。操作(功能)不应被建模为对象。只需要一个将两个数字相乘的函数，为何却要被迫创建一个乘法类？简单的使用一个乘法函数，让数据成为数据，让函数成为函数！</p>
+<p>在非面向对象编程中，类似将数据保存到文件这样的小事很简单——就像用简单的英语描述一个动作。</p>
+<p>举一个真实的例子：</p>
+<p>让我们回到画家的例子，该画家拥有一个绘画工厂。他雇佣了一名专职的刷墙经理、色彩经理、一名画布经理和一名MonaLisa供应商。他的好朋友僵尸利用了大脑消耗策略。这些对象依次定义了以下方法：创建绘画、查找画笔、拾取颜色、调用MonaLisa和消费链接。</p>
+<p>当然这相当愚蠢，在现实世界中是不可能发生的。画一幅画这个简单的动作产生了多少不必要的复杂性？</p>
+<p>当它们能和对象分开存在时，就没有必要发明奇怪的概念来容纳你的函数。</p>
+<p>单元测试</p>
+<p>自动化测试是开发过程中的一个重要部分，它极大地有助于防止回归(即缺陷被引入到现有代码中)。单元测试在自动化测试过程中起着巨大的作用。</p>
+<p>有些人可能不同意，但众所周知的是，面向对象程序代码很难进行单元测试。单元测试假设独立地测试事物，并使得方法成为单元可测试的：</p>
+<p>1. 它的依赖关系必须被提取到一个单独的类中。</p>
+<p>2. 为新创建的类创建一个接口。</p>
+<p>3. 声明字段以此来保存新创建类的实例。</p>
+<p>4. 利用模拟框架来模拟依赖关系。</p>
+<p>5. 利用依赖注入框架来注入依赖项。</p>
+<p>为了使一段代码可测试，还需要创建多少复杂性？ 浪费了多少时间才能使一些代码可测试？</p>
+<p>备注：为了测试一个方法，我们还必须实例化整个类。这也将从它的所有父类中引入代码。</p>
+<p>有了面向对象编程，为遗留代码编写测试更加困难——几乎不可能。围绕测试遗留面向对象程序代码的问题，已经创建了整个公司((TypeMock)。</p>
+<p>样板代码</p>
+<p>谈到信噪比，样板代码可能是最大的违规者。样板代码是程序编译所需的“噪音”。样板代码需要时间编写，并且由于增加了噪声，使得代码库可读性降低。</p>
+<p>虽然“编程到接口，而不是执行”是面向对象编程中推荐的方法，但并不是所有的东西都应该成为接口。为了测试性的唯一目的，不得不诉诸于在整个代码库中使用接口。还可能不得不利用依赖注入，这进一步引入了不必要的复杂性。</p>
+<p>测试私有方法</p>
+<p>有些人说私有方法不应该被测试……不置可否，单元测试被称为“单元”是有原因的——单独测试小的代码单元。然而，在面向对象编程中测试私有方法几乎是不可能的。我们不应该仅仅为了测试性而将私有方法内部化。</p>
+<p>为了实现私有方法的可测试性，通常必须将它们提取到单独的对象中。这反过来又引入了不必要的复杂性和样板代码。</p>
+<p>重构</p>
+<p>重构是开发人员日常工作的重要组成部分。讽刺的是，众所周知，面向对象程序代码很难重构。重构应该使代码不那么复杂，且更容易维护。相反，重构的面向对象编程代码变得非常复杂——为了使代码可测试，我们必须利用依赖注入，并为重构的类创建一个接口。即便如此，如果没有像Resharper这样的专用工具，重构面向对象程序代码真的很难。</p>
+<p>// before refactoring:</p>
+<p>public class CalculatorForm {</p>
+<p> private string aText, bText;</p>
+<p> </p>
+<p> private bool IsValidInput(string text) => true;</p>
+<p> </p>
+<p> private void btnAddClick(object sender, EventArgs e) {</p>
+<p> if ( !IsValidInput(bText) || !IsValidInput(aText) ) {</p>
+<p> return;</p>
+<p> }</p>
+<p> }</p>
+<p>}</p>
+<p>// after refactoring:</p>
+<p>public class CalculatorForm {</p>
+<p> private string aText, bText;</p>
+<p> </p>
+<p> private readonly IInputValidator _inputValidator;</p>
+<p> </p>
+<p> public CalculatorForm(IInputValidator inputValidator) {</p>
+<p> _inputValidator = inputValidator;</p>
+<p> }</p>
+<p> </p>
+<p> private void btnAddClick(object sender, EventArgs e) {</p>
+<p> if ( !_inputValidator.IsValidInput(bText)</p>
+<p> || !_inputValidator.IsValidInput(aText) ) {</p>
+<p> return;</p>
+<p> }</p>
+<p> }</p>
+<p>}</p>
+<p>public interface IInputValidator {</p>
+<p> bool IsValidInput(string text);</p>
+<p>}</p>
+<p>public class InputValidator : IInputValidator {</p>
+<p> public bool IsValidInput(string text) => true;</p>
+<p>}</p>
+<p>public class InputValidatorFactory {</p>
+<p> public IInputValidator CreateInputValidator() => new InputValidator();</p>
+<p>}</p>
+<p>以上简单示例，仅仅为了提取一个方法，行数就增加了一倍多。当代码被重构以降低复杂性的时候，为什么会产生更多的复杂性呢？</p>
+<p>将它与JavaScript中类似的非面向对象编程代码重构对比：</p>
+<p>// before refactoring:</p>
+<p>// calculator.js:</p>
+<p>const isValidInput = text => true;</p>
+<p>const btnAddClick = (aText, bText) => {</p>
+<p> if (!isValidInput(aText) || !isValidInput(bText)) {</p>
+<p> return;</p>
+<p> }</p>
+<p>}</p>
+<p>// after refactoring:</p>
+<p>// inputValidator.js:</p>
+<p>export const isValidInput = text => true;</p>
+<p>// calculator.js:</p>
+<p>import { isValidInput } from './inputValidator';</p>
+<p>const btnAddClick = (aText, bText, _isValidInput = isValidInput) => {</p>
+<p> if (!_isValidInput(aText) || !_isValidInput(bText)) {</p>
+<p> return;</p>
+<p> }</p>
+<p>}</p>
+<p>代码实际上保持不变——不过是将isValidInput函数移到不同的文件中，并添加一行来导入该函数。为了测试性，我们还在函数签名中添加了_isValidInput。</p>
+<p>这是一个简单的例子，但是在实践中，随着代码库变大，复杂性呈指数级增长。</p>
+<p>这还不是全部。重构面向对象程序代码风险极大。复杂的依赖图和状态分散在面向对象程序代码库中，使得人脑不可能考虑所有潜在的问题。</p>
+<p>Band-aids</p>
+<p>当某些东西不起作用时，我们该怎么办？很简单，只有两个选择——扔掉或者试着修理。面向对象则难以去除，数百万开发人员接受了面向对象的培训。全世界数百万的组织都在使用面向对象程序。</p>
+<p>你可能已经看到面向对象编程并不能真正起作用，它使我们的代码变得复杂和不可靠。然并非只有你一人面临这样的问题！几十年来，人们一直在努力解决面向对象程序代码中普遍存在的问题。他们想出了无数的设计模式。</p>
+<p>设计模式</p>
+<p>面向对象程序编程提供了一套原则，理论上应该可支持开发人员逐步构建越来越大的系统:SOLID原则、依赖注入、设计模式等等。</p>
+<p>不幸的是，设计模式只不过是创可贴。它们的存在仅仅是为了解决面向对象程序设计的缺点。关于这个主题，已经写了无数的书。如果不是给代码库带来了巨大的复杂性，面向对象编程也就不会那么糟糕。</p>
+<p>问题工厂</p>
+<p>事实上，编写好的、可维护的面向对象代码是不可能的。</p>
+<p>另一方面，一个不一致的面向对象编程库，似乎不符合任何标准。另一方面，有一个过度设计的代码塔，一堆错误的抽象一个接一个地建立起来。设计模式对于构建这样的抽象塔非常有帮助。</p>
+<p>很快，增加新的功能，甚至理解所有的复杂性，变得越来越难。代码库将充满像SimpleBeanFactoryAwareAspectInstanceFactory, AbstractInterceptorDrivenBeanDefinitionDecorator, TransactionAwarePersistenceManagerFactoryProxyorRequestProcessorFactoryFactory.</p>
+<p>试图理解开发人员自己创造的抽象之塔，必须浪费宝贵的脑力。没有结构在很多情况下比结构不好要好。</p>
+<p>四大面向对象编程支柱的衰落</p>
+<p>面向对象编程的四大支柱是：抽象、继承、封装和多态。</p>
+<p>让我们逐一来看看四大支柱到底是怎样的。</p>
+<p>继承</p>
+<p>可重用性的缺乏来自面向对象编程的语言，而不是函数语言。因为面向对象编程语言的问题是，其拥有所有这些隐含的环境。你想要一根香蕉，但你得到的是一直拿着香蕉的大猩猩和整个丛林。Joe Armstrong, Erlang的创造者</p>
+<p>面向对象编程继承与现实世界无关。事实上，继承是实现代码可重用性的低劣方式。“四人帮”已经明确提出，比起继承，更喜欢组合。一些现代编程语言完全避免继承。</p>
+<p>继承有几个问题：</p>
+<p>1. 引入许多类不需要的代码(香蕉和丛林问题)。</p>
+<p>2. 将类的一部分定义在其他地方会使代码很难推理，尤其是在有多个继承级别的情况下。</p>
+<p>3. 在多数编程语言中，多重继承几乎是不可能的。这主要使得继承作为代码共享机制毫无用处。</p>
+<p>多态</p>
+<p>多态很棒，它允许我们在运行时改变编程行为。然而，这是计算机编程中非常基本的概念。面向对象编程多态性完成了这项工作，但再次导致精神杂耍行为。这会使得代码库变得非常复杂，并且关于被调用的具体方法的推理变得非常困难。</p>
+<p>另一方面，函数编程使得我们以更简洁的方式实现相同的多态性……只需传递一个定义所需运行时行为的函数。还有什么比这更简单的呢？不需要在多个文件(和接口)中定义一堆重载的抽象虚拟方法。</p>
+<p>封装</p>
+<p>正如前面讨论的，封装是面向对象编程设计的特洛伊木马。它实际上是一个美化的全局可变状态，并使不安全的代码看起来是安全的。不安全的编码实践是面向对象编程人员在日常工作中依赖的支柱……</p>
+<p>抽象</p>
+<p>面向对象编程中的抽象试图通过向程序员隐藏不必要的细节来解决复杂性。理论上，它应该允许开发人员对代码库进行推理，而不必考虑隐藏的复杂性。</p>
+<p>在过程/功能语言中，我们可以简单地在相邻文件中“隐藏”实现细节。没有必要称这一基本行为为“抽象”。</p>
+<p>为什么面向对象编程控制了这个行业？</p>
+<p>答案很简单，爬虫类的外星种族与国家安全局(和俄罗斯人)合谋将美国程序员折磨致死……</p>
+<p>但是说真的，Java可能是答案。</p>
+<p>自从微软拒绝服务以来，Java是计算领域发生的最令人苦恼的事情。Alan Kay,面向对象编程的发明者</p>
+<p>Java很简单</p>
+<p>当JAVA在1995年首次被引入时，与其他语言相比，Java是一种非常简单的编程语言。当时，编写桌面应用程序的门槛很高。开发桌面应用程序需要用C语言编写低级win32应用程序接口，开发人员还必须关心手动内存管理。另一种选择是Visual Basic，但许多人可能不想把自己锁在微软的生态系统中。</p>
+<p>当Java被引入时，对许多开发人员来说，它是一个简单的工具，因为它是免费的，可以在所有平台上使用。像内置垃圾收集、友好命名的APIs(与神秘的win32 APIs相比)、合适的名称空间和熟悉的类C语法这样的东西使Java更容易使用。</p>
+<p>图形用户界面编程也变得越来越流行，似乎各种用户界面组件都很好地映射到类上。IDEs中的方法自动完成也使人们声称面向对象编程接口更容易使用。</p>
+<p>如果不是把面向对象编程强加给开发人员，也许Java不会那么糟糕。Java的所有功能都很好。其中垃圾收集、可移植性、异常处理特性，是其他主流编程语言所缺乏的，但在1995年非常棒</p>
+<p>然后C#出现了</p>
+<p>最初，微软一直严重依赖Java。当事情开始出错时(在与太阳微系统公司就Java许可进行了长时间的法律斗争之后)，微软决定投资自己的Java版本。这就是C# 1.0诞生的时候。C#作为一种语言，一直被认为是“更好的Java”。然而，也存在个巨大的问题——隐藏在稍微改进的语法下，它同样也属于面向对象语言，有着同样的缺陷。</p>
+<p>微软一直在大力投资NET生态系统，其中还包括良好的开发工具。多年来，视觉工作室可能是最好的集成开发环境之一。这反过来又导致了NET框架的广泛使用，尤其是在企业中。</p>
+<p>最近，微软一直在大力投资浏览器生态系统，推出它的TypeScript。TypeScript很棒，因为它可以编译成JavaScript并添加静态类型检查等内容。不足之处在于没有对函数构造的适当支持——没有内置的不可变数据结构，没有函数组合，没有适当的模式匹配。 TypeScript是面向对象编程的第一步，对于浏览器来说主要是C#。Anders Hejlsberg 甚至负责C#和打字稿的设计。</p>
+<p>功能语言</p>
+<p>另一方面，函数式语言从未得到像微软这样大公司的支持。鉴于投资不多，F#不算数。功能语言的发展主要是由社区驱动的。这可能解释了面向对象程序设计语言和浮点语言之间流行程度的差异。</p>
+<p>是时候继续前进了？</p>
+<p>我们现在知道面向对象是一个失败的实验。是向前看的时候了。现在是我们作为一个社区承认这个想法让我们失望的时候了，我们必须放弃它。Lawrence Krubner</p>
+<p>为什么我们坚持使用从根本上说是次优的程序组织方式？这是明显的无知吗？从事软件工程的人并不愚蠢。通过使用像“设计模式”这样花哨的面向对象的术语如抽象”、“封装”、“多态性”和“接口隔离”，我们是否更担心在我们的同行面前“看起来聪明”？可能不会。</p>
+<p>继续使用已经使用了几十年的东西真的很容易。大多数人从未真正尝试过函数式编程。那些使用过的人再也不会回去写面向对象程序代码了。</p>
+<p>亨利·福特曾经说过一句名言——“如果我问人们想要什么，他们会说跑得快的骏马”。在软件世界里，大多数人可能想要一种“更好的面向对象语言”。人们可以很容易地描述他们遇到的一个问题(使代码库有条理，不那么复杂)，但不是最好的解决方案。</p>
+<p>还有哪些替代方案？</p>
+<p>如果像functors和monads这样的术语让你有点不安，那么你并不孤单！如果函数式编程为某些概念提供更直观的名称，那么它们就不会那么可怕。函子？ 这只是我们可以用函数转换的东西，想想list.map？ 简单的计算可以链接！</p>
+<p>尝试函数式编程会让你成为更好的开发者。你将最终有时间编写解决现实世界问题的真实代码，而不是花大部分时间思考抽象和设计模式。</p>
+<p>你可能没有意识到这一点，但是你已经是一个功能性的程序员了。你在日常工作中使用功能吗？是的？那你已经是一个功能性程序员了！你只需要学会如何充分利用这些功能。</p>
+<p>两种学习曲线非常平缓的伟大函数语言是埃利希兰德榆树。它们让开发人员专注于最重要的事情——编写可靠的软件，同时消除更多传统功能语言的复杂性。</p>
+<p>还有其他选择吗？试试F#吧——它是一种令人惊叹的功能语言，并提供了与现有语言的良好互操作性。NET代码。使用Java？那么使用Scala或Clojure都是很好的选择。使用JavaScript？有了正确的指导和限制，JavaScript可以成为一种很好的功能性语言。</p>
+<p>面向对象编程的捍卫者</p>
+<p>期待面向对象编程的捍卫者们做出某种反应。他们会说这篇文章不准确。有些人甚至可能开始骂人。</p>
+<p>他们有权发表自己的意见。然而，他们为面向对象编程设计辩护的论点通常相当薄弱。讽刺的是，他们中的大多数人可能从未真正用真正的函数语言编程。如果从未真正尝试过两件事，又怎会在两件事之间进行比较呢？这样的比较是无用的。</p>
+<p>德米特里定律不是很有用——它无助于解决非决定论的问题，不管你如何访问或改变那个状态，共享的可变状态仍然是共享的可变状态。a.total()并不比a.getB().getC().total()好多少。只是掩盖了问题。</p>
+<p>领域驱动设计？这是一种有用的设计方法，它对复杂性有所帮助。然而，仍然没有解决共享可变状态的基本问题。</p>
+<p>只是工具箱里的一个工具……</p>
+<p>人们经常说面向对象只是工具箱中的另一个工具。是的，它是工具箱中的一个工具，就像马和汽车都是交通工具一样……毕竟，它们都服务于相同的目的，对吗？当我们可以继续骑好马的时候，为什么还要用汽车呢？</p>
+<p>历史会重演</p>
+<p>1900年，纽约路上形式的车辆寥寥无几，人们一直用马来运输。1917年，公路上不再有马了。围绕马匹运输为中心产生了一个巨大的产业。整个企业都是围绕着粪肥清理这样的事情创建的。</p>
+<p>人们抵制变革。他们称汽车是最终会过去的另一种“时尚”。毕竟，马已经存在几个世纪了！有些人甚至要求政府干预。</p>
+<p>这有什么关系？软件业以面向对象编程为中心。数百万人接受了面向对象编程的培训，数百万公司在其代码中使用了面向对象编程。当然，他们会试图诋毁任何威胁他们生计的东西！这是常识。</p>
+<p>我们清楚地看到历史在重演——在20世纪是马对汽车，在21世纪是面向对象编程与函数式编程。</p>
+<p>https://medium.com/better-programming/object-oriented-programming-the-trillion-dollar-disaster-%EF%B8%8F-92a4b666c7c7</p>
+
+
+<p style='float:right;'>本页共256段，15328个字符，36862 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
