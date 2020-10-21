@@ -1,2 +1,4 @@
-1 注意href的大小写；
-2 
+<p>1 注意href的大小写；</p>
+<p>2 注意编码必须是utf-8，包括<meta content="text/html; charset=utf-8" />声明；</p>
+<p>3 一次传输的文件数量不能超过100；</p>
+<p>4 文件大小不能超过25M；</p>
