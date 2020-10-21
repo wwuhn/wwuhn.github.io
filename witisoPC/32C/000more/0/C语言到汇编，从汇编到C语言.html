@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>C语言到汇编，从汇编到C语言</title>
+
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<p>一、循环语句与发汇编后的机器语言</p>
+
+<p>1、for循环</p>
+
+<p>下面是一段C语言的代码，我们的目的是来看其反汇编的结果:</p>
+
+<p></p>
+<pre>
+int myfuncn(int a,int b)
+{
+    int c = a+b;
+    int i;
+    for(i=0;i&lt;50;i++)
+    {
+        c = c+i;
+    }
+    return c;
+}
+</pre>
+
+<p>前面的反汇编暂时不理它，这里从for的地方开始反汇编，结果如下:</p>
+<p></p>
+<pre>
+for(i=0;i&lt;50;i++)
+00412BC7  mov  dword ptr [i],0           // i=0; 给循环变量赋初值
+00412BCE  jmp  myfunction+39h (412BD9h)  // 跳到第一次循环处
+00412BD0  mov  eax,dword ptr [i]
+00412BD3  add  eax,1                     // i++;修改循环变量
+00412BD6  mov  dword ptr [i],eax
+00412BD9  cmp  dword ptr [i],32h         // 比较 i 与50的关系, 检查循环条件
+00412BDD  jge  myfunction+4Ah (412BEAh)   // 当 i&gt;=50 [即 !(i&lt;50) ] 时则跳出循环
+{
+    c = c+i;
+    00412BDF  mov  eax,dword ptr [c]      // 变量 c
+    00412BE2  add  eax,dword ptr [i]      // 变量 i
+    00412BE5  mov  dword ptr [c],eax      // c=c+i;
+}
+00412BE8  jmp  myfunction+30h (412BD0h)   // 跳回去修改循环变量
+00412BEA  mov  eax,dword ptr [c]
+}
+</pre>
+
+<p><p>可以看到for循环主要用这么几条指令来实现:mov进行初始化。jmp跳过循环变量改变代码。cmp实现条件判断，jge根据条件跳转。</p>
+<p>用jmp回到循环改变代码进行下一次循环。所以for结构有以下的显著特征: </p>
+<p></p>
+<pre>
+mov &lt;循环变量&gt;,&lt;初始值&gt;   //给循环变量赋初值
+jmp B      							 //跳到第一次循环处
+A: (改动循环变量)                    //修改循环变量。
+…
+B: cmp &lt;循环变量&gt;,&lt;限制变量&gt;  //检查循环条件
+jgp  跳出循环
+(循环体)
+…
+jmp A                                //跳回去修改循环变量
+
+</pre>
+
+<p>2、do循环</p>
+
+<p>再看一下do循环，因为 do循环没有修改循环变量的部分，所以比for循环要简单一些。</p>
+<p></p>
+<pre>
+do
+{
+    c = c+i;
+    00411A55  mov        eax,dword ptr [c]
+    00411A58  add         eax,dword ptr [i]
+    00411A5B  mov         dword ptr [c],eax
+} while(c&lt; 100);
+00411A5E  cmp        dword ptr [c],64h
+00411A62  jl           myfunction+35h (411A55h)
+return c;
+</pre>
+
+<p>do循环就是一个简单的条件跳转回去。只有两条指令：</p>
+
+<p>cmp &lt;循环变量&gt;,&lt;限制变量&gt;</p>
+
+<p>jl &lt;循环开始点&gt;</p>
+
+<p></p>
+
+<p>3、while循环</p>
+<p></p>
+<pre>
+while(c&lt;100){
+    00411A55  cmp         dword ptr [c],64h
+    00411A59  jge         myfunction+46h (411A66h)
+    c = c+i;
+    00411A5B  mov         eax,dword ptr [c]
+    00411A5E  add         eax,dword ptr [i]
+    00411A61  mov         dword ptr [c],eax
+}
+00411A64  jmp         myfunction+35h (411A55h)
+return c;
+</pre>
+
+<p>很明显，我们会发现while要更复杂一点。因为while除了开始的时候判断循环条件之外，后面还必须有一条无条件跳转回到循环开始的地方，共用三条指令实现:</p>
+
+<p></p>
+<pre>
+A: cmp &lt;循环变量&gt;,&lt;限制变量&gt;
+jge  B
+( 循环体)
+…
+jmp A
+B: (循环结束了)
+
+</pre>
+
+<p>这样，我们对C语言中的循环结构的分析，就基本弄完了！当然，我们用同样的方法也可以分析出C语言在“分支语句”、以及其它的数据结构中的C代码与机器反汇编代码的关系了！*转载请注明来自看雪论坛@PEdiy.com 
+  </p>
+  </p>
+<p>&nbsp;</p>
+<p>二、分支语句</p>
+
+<p></p>
+
+<p>1、if-else 语句</p>
+
+<p>为了观察其汇编语句，下面是一个简单的if判断结构：</p>
+<p></p>
+<pre>
+if(a&gt;0 &amp;&amp; a&lt;10)
+{
+    printf(&quot;a&gt;0&quot;);
+}
+else if( a&gt;10 &amp;&amp; a&lt;100)
+{
+    printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+}
+else
+{
+    printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+}
+
+</pre>
+
+<p>if 判断都是使用cmp再加上条件跳转指令。对于if( A &amp;&amp; B)的情况，一般都是使用否决法。如果A不成立，立刻跳下一个分支。依次，如果 B 不成立，同样跳下一分支。</p>
+
+<p>cmp 条件</p>
+
+<p>jle 下一个分支</p>
+
+<p>所以开始部分的反汇编为:</p>
+<p></p>
+<pre>
+if(a&gt;0 &amp;&amp; a&lt;10)
+00411A66  cmp       dword ptr [c],0
+00411A6A  jle       411A81h   ; 跳下一个else if的判断点
+00411A6C  cmp       dword ptr [c],0Ah
+00411A70  jge       411A81h   ; 跳下一个else if的判断点
+{
+    printf(&quot;a&gt;0&quot;);
+    00411A72  push       offset string &quot;a&gt;0&quot; (4240DCh)
+    00411A77  call       @ILT+1300(_printf) (411519h)
+    00411A7C  add        esp,4
+}
+
+</pre>
+
+<p>else if 的和 else 的特点是，开始都有一条无条件跳转到判断结束处，阻止前面的分支执行结束后，直接进入这个分支。这个分支能执行到的唯一途径只是,前面的判断条件不满足。</p>
+
+<p>else 则在jmp之后直接执行操作。而else if则开始重复if之后的操作，用cmp比较，然后用条件跳转指令时行跳转。</p>
+<p></p>
+<pre>
+else if( a&gt;10 &amp;&amp; a&lt;100)
+00411A7F  jmp  411AA9h     ;直接跳到判断块外
+00411A81  cmp  dword ptr [c],0Ah ;比较+条件跳转，目标为下一个分支处
+00411A85  jle  411A9Ch
+00411A87  cmp  dword ptr [c],64h
+00411A8B  jge  411A9Ch
+{
+    printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+    00411A8D  push  offset string &quot;a&gt;10 &amp;&amp; a&lt;100&quot; (424288h)
+    00411A92  call  @ILT+1300(_printf) (411519h)
+    00411A97  add  esp,4
+}
+else
+    00411A9A  jmp  411AA9h   ;这里是else，所以只有简单的一条跳转。
+{
+    printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+    00411A9C  push  offset string &quot;a&gt;10 &amp;&amp; a&lt;100&quot; (424288h)
+    00411AA1  call  @ILT+1300(_printf) (411519h)
+    00411AA6  add   esp,4
+}
+return c;
+
+</pre>
+
+<p>2、switch-case 语句</p>
+
+<p>switch 的特点是有多个判断。因为 swtich 显然不用判断大于小于，所以都是je（因此，C语言中switch语句不支持float类型的变量），分别跳到每个case处。最后一个是无条件跳转，直接跳到default处。以下的代码:</p>
+<p></p>
+<pre>
+switch(a)
+{
+    case 0:
+    printf(&quot;a&gt;0&quot;);
+    case 1:
+    {
+        printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+        break;
+    }
+    default:
+    printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+}
+</pre>
+
+<p>反汇编的switch(a)</p>
+<p></p>
+<pre>
+00411A66  mov         eax,dword ptr [a]
+00411A69  mov         dword ptr [ebp-0E8h],eax
+00411A6F  cmp         dword ptr [ebp-0E8h],0  // case 0:
+00411A76  je            411A83h
+00411A78  cmp         dword ptr [ebp-0E8h],1  // case 1:
+00411A7F  je            411A90h
+00411A81  jmp         411A9Fh  // default:
+{
+    …
+</pre>
+
+<p>显然是比较a 是否是0、1这两个数字。汇编指令先把a移动到[ebp-0E8h]这个地址，然后再比较，这是调试版本编译的特点。可能是为了防止直接操作堆栈而导致堆栈破坏？最后一条直接跳转到default处。当然，如果没有default，就会跳到swtich{}之外。</p>
+
+<p>从这里我们可以发现：switch语句里，完成“比较判断”的指令会与“case”指令的两部分，在汇编中，不是按照C语句逐句翻译的，而是分开为两个指令模块来实现的！</p>
+<p></p>
+<pre>
+case 0:
+printf(&quot;a&gt;0&quot;);
+00411A83  push        offset string &quot;a&gt;0&quot;  (4240DCh)
+00411A88  call          @ILT+1300(_printf) (411519h)
+00411A8D  add         esp,4
+case 1:
+{
+    printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+    00411A90  push        offset string &quot;a&gt;10 &amp;&amp; a&lt;100&quot; (424288h)
+    00411A95  call          @ILT+1300(_printf) (411519h)
+    00411A9A  add         esp,4
+    break;
+    00411A9D  jmp         myfunction+8Ch (411AACh)
+}
+default:
+printf(&quot;a&gt;10 &amp;&amp; a&lt;100&quot;);
+00411A9F  push        offset string &quot;a&gt;10 &amp;&amp; c&lt;100&quot; (424288h)
+00411AA4  call          @ILT+1300(_printf) (411519h)
+00411AA9  add         esp,4
+}
+</pre>
+
+<p>至于case 和 default分支中，如果有break，则会增加一个无条件跳转汇编指令。若没有break，则就没有任何循环控制代码。</p>
+
+<p></p>
+
+<p>小结：如果在反汇编代码中发现连续多个“比较cmp”和“相等跳转je”就会让人联想到“switch”语句了！ </p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
