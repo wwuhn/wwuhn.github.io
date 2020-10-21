@@ -1,0 +1,1598 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p><strong><a href="https://www.toutiao.com/i6827240850863424008/">计算机核心理论知识全详解</a> </strong></p>
+
+<p>原创&nbsp;程序员cxuan&nbsp;2020-05-16 09:01:22</p>
+
+<pre>
+<a href="#p1" title="">1 CPU</a>
+<a href="#p2" title="">2 内存</a> 
+<a href="#p3" title="">3 磁盘构造 </a>
+<a href="#p4" title="">4 压缩算法 </a>
+<a href="#p5" title="">5 操作系统</a> 
+<a href="#p6" title="">6 汇编语言和本地代码 </a>
+</pre>
+<p>我们每个程序员或许都有一个梦，那就是成为大牛，我们或许都沉浸在各种框架中，以为框架就是一切，以为应用层才是最重要的，你错了。在当今计算机行业中，会应用是基本素质，如果你懂其原理才能让你在行业中走的更远，而计算机基础知识又是重中之重。下面，跟随我的脚步，为你介绍一下计算机底层知识。</p>
+
+<h4><strong>1 CPU</strong></h4>
+
+<p>还不了解 CPU 吗？现在就带你了解一下 CPU 是什么</p>
+
+<p>CPU 的全称是 Central Processing Unit，它是你的电脑中最硬核的组件，这种说法一点不为过。CPU 是能够让你的计算机叫计算机的核心组件，但是它却不能代表你的电脑，CPU 与计算机的关系就相当于大脑和人的关系。CPU 的核心是从程序或应用程序获取指令并执行计算。此过程可以分为三个关键阶段：<strong>提取，解码和执行</strong>。CPU从系统的主存中提取指令，然后解码该指令的实际内容，然后再由 CPU 的相关部分执行该指令。</p>
+
+<p><strong>CPU </strong><strong>内部处理过程 </strong></p>
+
+<p>下图展示了一般程序的运行流程（以 C 语言为例），可以说了解程序的运行流程是掌握程序运行机制的基础和前提。</p>
+
+<p><img width="640" height="462" src="a_clip_image001.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>在这个流程中，CPU 负责的就是解释和运行最终转换成机器语言的内容。</p>
+
+<p>CPU 主要由两部分构成：控制单元和算术逻辑单元（ALU） </p>
+  <ul>
+    <li>控制单元：从内存中提取指令并解码执行 </li>
+    <li>算数逻辑单元（ALU）：处理算数和逻辑运算 </li>
+  </ul>
+  <p>CPU 是计算机的心脏和大脑，它和内存都是由许多晶体管组成的电子部件。它接收数据输入，执行指令并处理信息。它与输入/输出（I / O）设备进行通信，这些设备向 CPU 发送数据和从 CPU 接收数据。</p>
+
+<p>从功能来看，CPU 的内部由<strong>寄存器、控制器、运算器和时钟</strong>四部分组成，各部分之间通过电信号连通。</p>
+
+<p><img width="640" height="335" src="a_clip_image002.jpg" alt="计算机核心理论知识全详解" /> </p>
+  <ul>
+    <li>寄存器是中央处理器内的组成部分。它们可以用来暂存指令、数据和地址。可以将其看作是内存的一种。根据种类的不同，一个 CPU 内部会有 20 - 100个寄存器。 </li>
+    <li>控制器负责把内存上的指令、数据读入寄存器，并根据指令的结果控制计算机 </li>
+    <li>运算器负责运算从内存中读入寄存器的数据 </li>
+    <li>时钟负责发出 CPU 开始计时的时钟信号 </li>
+  </ul>
+  <p><strong>CPU </strong><strong>是一系列寄存器的集合体 </strong></p>
+
+<p>在 CPU 的四个结构中，我们程序员只需要了解寄存器就可以了，其余三个不用过多关注，为什么这么说？因为程序是把寄存器作为对象来描述的。</p>
+
+<p>不同类型的 CPU ，其内部寄存器的种类，数量以及寄存器存储的数值范围都是不同的。不过，根据功能的不同，可以将寄存器划分为下面这几类</p>
+
+<p>种类功能累加寄存器存储运行的数据和运算后的数据。标志寄存器用于反应处理器的状态和运算结果的某些特征以及控制指令的执行。程序计数器程序计数器是用于存放下一条指令所在单元的地址的地方。基址寄存器存储数据内存的起始位置变址寄存器存储基址寄存器的相对地址通用寄存器存储任意数据指令寄存器储存正在被运行的指令，CPU内部使用，程序员无法对该寄存器进行读写栈寄存器存储栈区域的起始位置</p>
+
+<p>其中<strong>程序计数器、累加寄存器、标志寄存器、指令寄存器和栈寄存器</strong>都只有一个，其他寄存器一般有多个。</p>
+
+<p><img width="640" height="281" src="a_clip_image003.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>下面就对各个寄存器进行说明</p>
+
+<p><strong>程序计数器 </strong></p>
+
+<p>程序计数器(Program Counter)是用来存储下一条指令所在单元的地址。</p>
+
+<p>程序执行时，PC的初值为程序第一条指令的地址，在顺序执行程序时，控制器首先按程序计数器所指出的指令地址从内存中取出一条指令，然后分析和执行该指令，同时将PC的值加1指向下一条要执行的指令。</p>
+
+<p>我们还是以一个事例为准来详细的看一下程序计数器的执行过程</p>
+
+<p><img width="640" height="472" src="a_clip_image004.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>这是一段进行相加的操作，程序启动，在经过编译解析后会由操作系统把硬盘中的程序复制到内存中，示例中的程序是将 123 和 456 执行相加操作，并将结果输出到显示器上。</p>
+
+<p>地址 0100 是程序运行的起始位置。Windows 等操作系统把程序从硬盘复制到内存后，会将程序计数器作为设定为起始位置  0100，然后执行程序，每执行一条指令后，程序计数器的数值会增加1（或者直接指向下一条指令的地址），然后，CPU 就会根据程序计数器的数值，从内存中读取命令并执行，也就是说，<strong>程序计数器控制着程序的流程</strong>。</p>
+
+<p><strong>条件分支和循环机制 </strong></p>
+
+<p>高级语言中的条件控制流程主要分为三种：顺序执行、条件分支、循环判断三种，顺序执行是按照地址的内容顺序的执行指令。条件分支是根据条件执行任意地址的指令。循环是重复执行同一地址的指令。 </p>
+  <ul>
+    <li>顺序执行的情况比较简单，每执行一条指令程序计数器的值就是+ 1。 </li>
+    <li>条件和循环分支会使程序计数器的值指向任意的地址，这样一来，程序便可以返回到上一个地址来重复执行同一个指令，或者跳转到任意指令。 </li>
+  </ul>
+  <p>下面以条件分支为例来说明程序的执行过程（循环也很相似）</p>
+
+<p><img width="640" height="456" src="a_clip_image005.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>程序的开始过程和顺序流程是一样的，CPU 从0100处开始执行命令，在0100和0101都是顺序执行，PC 的值顺序+1，执行到0102地址的指令时，判断0106寄存器的数值大于0，跳转（jump）到0104地址的指令，将数值输出到显示器中，然后结束程序，0103 的指令被跳过了，这就和我们程序中的 if()判断是一样的，在不满足条件的情况下，指令会直接跳过。所以 PC 的执行过程也就没有直接+1，而是下一条指令的地址。</p>
+
+<p><strong>标志寄存器 </strong></p>
+
+<p>条件和循环分支会使用到 jump（跳转指令），会根据当前的指令来判断是否跳转，上面我们提到了标志寄存器，无论当前累加寄存器的运算结果是正数、负数还是零，标志寄存器都会将其保存</p>
+
+<p>CPU 在进行运算时，标志寄存器的数值会根据当前运算的结果自动设定，运算结果的正、负和零三种状态由标志寄存器的三个位表示。标志寄存器的第一个字节位、第二个字节位、第三个字节位各自的结果都为1时，分别代表着正数、零和负数。</p>
+
+<p><img width="640" height="297" src="a_clip_image006.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>CPU 的执行机制比较有意思，假设累加寄存器中存储的 XXX 和通用寄存器中存储的 YYY 做比较，执行比较的背后，CPU 的运算机制就会做减法运算。而无论减法运算的结果是正数、零还是负数，都会保存到标志寄存器中。结果为正表示 XXX 比 YYY 大，结果为零表示  XXX 和 YYY 相等，结果为负表示 XXX 比 YYY 小。程序比较的指令，实际上是在 CPU 内部做减法运算。</p>
+
+<p><strong>函数调用机制 </strong></p>
+
+<p>接下来，我们继续介绍函数调用机制，哪怕是高级语言编写的程序，函数调用处理也是通过把程序计数器的值设定成函数的存储地址来实现的。函数执行跳转指令后，必须进行返回处理，单纯的指令跳转没有意义，下面是一个实现函数跳转的例子</p>
+
+<p><img width="640" height="474" src="a_clip_image007.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>图中将变量 a 和 b 分别赋值为 123 和 456 ，调用  MyFun(a,b)方法，进行指令跳转。图中的地址是将 C 语言编译成机器语言后运行时的地址，由于1行 C 程序在编译后通常会变为多行机器语言，所以图中的地址是分散的。在执行完 MyFun(a,b)指令后，程序会返回到 MyFun(a,b)的下一条指令，CPU 继续执行下面的指令。</p>
+
+<p>函数的调用和返回很重要的两个指令是 call 和 return 指令，再将函数的入口地址设定到程序计数器之前，call 指令会把调用函数后要执行的指令地址存储在名为栈的主存内。函数处理完毕后，再通过函数的出口来执行 return 指令。return 指令的功能是把保存在栈中的地址设定到程序计数器。MyFun 函数在被调用之前，0154 地址保存在栈中，MyFun 函数处理完成后，会把 0154 的地址保存在程序计数器中。这个调用过程如下</p>
+
+<p><img width="640" height="706" src="a_clip_image008.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>在一些高级语言的条件或者循环语句中，函数调用的处理会转换成 call 指令，函数结束后的处理则会转换成 return 指令。</p>
+
+<p><strong>通过地址和索引实现数组 </strong></p>
+
+<p>接下来我们看一下基址寄存器和变址寄存器，通过这两个寄存器，我们可以对主存上的特定区域进行划分，来实现类似数组的操作，首先，我们用十六进制数将计算机内存上的 00000000 - FFFFFFFF 的地址划分出来。那么，凡是该范围的内存地址，只要有一个 32 位的寄存器，便可查看全部地址。但如果想要想数组那样分割特定的内存区域以达到连续查看的目的的话，使用两个寄存器会更加方便。</p>
+
+<p>例如，我们用两个寄存器（基址寄存器和变址寄存器）来表示内存的值</p>
+
+<p><img width="640" height="476" src="a_clip_image009.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>这种表示方式很类似数组的构造，数组是指同样长度的数据在内存中进行连续排列的数据构造。用数组名表示数组全部的值，通过索引来区分数组的各个数据元素，例如: a[0] - a[4]，[]内的 0  - 4 就是数组的下标。</p>
+
+<p><strong>CPU </strong><strong>指令执行过程 </strong></p>
+
+<p>几乎所有的冯·诺伊曼型计算机的CPU，其工作都可以分为5个阶段：<strong>取指令、指令译码、执行指令、访存取数、结果写回</strong>。 </p>
+  <ul>
+    <li>取指令阶段是将内存中的指令读取到 CPU 中寄存器的过程，程序寄存器用于存储下一条指令所在的地址 </li>
+    <li>指令译码阶段，在取指令完成后，立马进入指令译码阶段，在指令译码阶段，指令译码器按照预定的指令格式，对取回的指令进行拆分和解释，识别区分出不同的指令类别以及各种获取操作数的方法。 </li>
+    <li>执行指令阶段，译码完成后，就需要执行这一条指令了，此阶段的任务是完成指令所规定的各种操作，具体实现指令的功能。 </li>
+    <li>访问取数阶段，根据指令的需要，有可能需要从内存中提取数据，此阶段的任务是：根据指令地址码，得到操作数在主存中的地址，并从主存中读取该操作数用于运算。 </li>
+    <li>结果写回阶段，作为最后一个阶段，结果写回（Write Back，WB）阶段把执行指令阶段的运行结果数据“写回”到某种存储形式：结果数据经常被写到CPU的内部寄存器中，以便被后续的指令快速地存取； </li>
+  </ul>
+  <a name="p2" id="p2"></a>
+  <h4><strong>2 内存 </strong></h4>
+
+<p>CPU 和内存就像是一堆不可分割的恋人一样，是无法拆散的一对儿，没有内存，CPU 无法执行程序指令，那么计算机也就失去了意义；只有内存，无法执行指令，那么计算机照样无法运行。</p>
+
+<p>那么什么是内存呢？内存和 CPU 如何进行交互？下面就来介绍一下</p>
+
+<p><strong>什么是内存 </strong></p>
+
+<p>内存（Memory）是计算机中最重要的部件之一，它是程序与CPU进行沟通的桥梁。计算机中所有程序的运行都是在内存中进行的，因此内存对计算机的影响非常大，内存又被称为主存，其作用是存放 CPU 中的运算数据，以及与硬盘等外部存储设备交换的数据。只要计算机在运行中，CPU 就会把需要运算的数据调到主存中进行运算，当运算完成后CPU再将结果传送出来，主存的运行也决定了计算机的稳定运行。</p>
+
+<p><strong>内存的物理结构 </strong></p>
+
+<p>内存的内部是由各种 IC 电路组成的，它的种类很庞大，但是其主要分为三种存储器 </p>
+  <ul>
+    <li>随机存储器（RAM）：内存中最重要的一种，表示既可以从中读取数据，也可以写入数据。当机器关闭时，内存中的信息会丢失。 </li>
+    <li>只读存储器（ROM）：ROM 一般只能用于数据的读取，不能写入数据，但是当机器停电时，这些数据不会丢失。 </li>
+    <li>高速缓存（Cache）：Cache 也是我们经常见到的，它分为一级缓存（L1 Cache）、二级缓存（L2 Cache）、三级缓存（L3 Cache）这些数据，它位于内存和 CPU 之间，是一个读写速度比内存更快的存储器。当 CPU 向内存写入数据时，这些数据也会被写入高速缓存中。当 CPU 需要读取数据时，会直接从高速缓存中直接读取，当然，如需要的数据在Cache中没有，CPU会再去读取内存中的数据。 </li>
+  </ul>
+  <p>内存 IC 是一个完整的结构，它内部也有电源、地址信号、数据信号、控制信号和用于寻址的 IC 引脚来进行数据的读写。下面是一个虚拟的 IC 引脚示意图</p>
+
+<p><img width="640" height="465" src="a_clip_image010.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>图中 VCC 和 GND 表示电源，A0 - A9 是地址信号的引脚，D0 - D7 表示的是控制信号、RD 和 WR 都是好控制信号，我用不同的颜色进行了区分，将电源连接到 VCC 和 GND 后，就可以对其他引脚传递 0 和 1 的信号，大多数情况下，<strong>+5V </strong><strong>表示1，0V 表示 0</strong>。</p>
+
+<p>我们都知道内存是用来存储数据，那么这个内存 IC 中能存储多少数据呢？D0 - D7 表示的是数据信号，也就是说，一次可以输入输出 8 bit = 1  byte 的数据。A0 - A9 是地址信号共十个，表示可以指定 00000 00000 - 11111 11111 共 2 的 10次方 = 1024个地址。每个地址都会存放 1 byte 的数据，因此我们可以得出内存 IC 的容量就是 1 KB。</p>
+
+<p><strong>内存的读写过程 </strong></p>
+
+<p>让我们把关注点放在内存 IC 对数据的读写过程上来吧！我们来看一个对内存IC 进行数据写入和读取的模型</p>
+
+<p><img width="640" height="533" src="a_clip_image011.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>来详细描述一下这个过程，假设我们要向内存 IC 中写入 1byte 的数据的话，它的过程是这样的： </p>
+  <ul>
+    <li>首先给 VCC 接通+5V 的电源，给  GND 接通 0V 的电源，使用 A0 - A9 来指定数据的存储场所，然后再把数据的值输入给 D0 - D7 的数据信号，并把 WR（write）的值置为 1，执行完这些操作后，即可以向内存 IC 写入数据 </li>
+    <li>读出数据时，只需要通过 A0 - A9 的地址信号指定数据的存储场所，然后再将 RD 的值置为 1 即可。 </li>
+    <li>图中的 RD 和 WR 又被称为控制信号。其中当WR 和 RD 都为 0 时，无法进行写入和读取操作。 </li>
+  </ul>
+  <p><strong>内存的现实模型 </strong></p>
+
+<p>为了便于记忆，我们把内存模型映射成为我们现实世界的模型，在现实世界中，内存的模型很想我们生活的楼房。在这个楼房中，1层可以存储一个字节的数据，楼层号就是地址，下面是内存和楼层整合的模型图</p>
+
+<p><img width="640" height="502" src="a_clip_image012.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>我们知道，程序中的数据不仅只有数值，还有数据类型的概念，从内存上来看，就是占用内存大小（占用楼层数）的意思。即使物理上强制以 1 个字节为单位来逐一读写数据的内存，在程序中，通过指定其数据类型，也能实现以特定字节数为单位来进行读写。</p>
+
+<p><strong>二进制 </strong></p>
+
+<p>我们都知道，计算机的底层都是使用二进制数据进行数据流传输的，那么为什么会使用二进制表示计算机呢？或者说，什么是二进制数呢？在拓展一步，如何使用二进制进行加减乘除？下面就来看一下</p>
+
+<p><strong>什么是二进制数 </strong></p>
+
+<p>那么什么是二进制数呢？为了说明这个问题，我们先把 00100111 这个数转换为十进制数看一下，二进制数转换为十进制数，直接将各位置上的值 * 位权即可，那么我们将上面的数值进行转换</p>
+
+<p><img width="640" height="264" src="a_clip_image013.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>也就是说，二进制数代表的 00100111 转换成十进制就是 39，这个 39 并不是 3 和 9 两个数字连着写，而是 3 * 10 + 9 * 1，这里面的 10 , 1 就是位权，以此类推，上述例子中的位权从高位到低位依次就是 7 6 5 4  3 2 1 0。这个位权也叫做次幂，那么最高位就是2的7次幂，2的6次幂等等。二进制数的运算每次都会以2为底，这个2 指得就是基数，那么十进制数的基数也就是 10 。在任何情况下位权的值都是&nbsp;<strong>数的位数- 1</strong>，那么第一位的位权就是 1 - 1 = 0，第二位的位权就睡 2 - 1 = 1，以此类推。</p>
+
+<p>那么我们所说的二进制数其实就是用0和1两个数字来表示的数，它的基数为2，它的数值就是每个数的位数 * 位权再求和得到的结果，我们一般来说数值指的就是十进制数，那么它的数值就是 3 *  10 + 9 * 1 = 39。</p>
+
+<p><strong>移位运算和乘除的关系 </strong></p>
+
+<p>在了解过二进制之后，下面我们来看一下二进制的运算，和十进制数一样，加减乘除也适用于二进制数，只要注意逢 2 进位即可。二进制数的运算，也是计算机程序所特有的运算，因此了解二进制的运算是必须要掌握的。</p>
+
+<p>首先我们来介绍移位运算，移位运算是指将二进制的数值的各个位置上的元素坐左移和右移操作，见下图</p>
+
+<p><img width="640" height="339" src="a_clip_image014.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>补数 </strong></p>
+
+<p>刚才我们没有介绍右移的情况，是因为右移之后空出来的高位数值，有 0 和 1 两种形式。要想区分什么时候补0什么时候补1，首先就需要掌握二进制数表示负数的方法。</p>
+
+<p><strong>二进制数中表示负数值时，一般会把最高位作为符号来使用，因此我们把这个最高位当作符号位。</strong>&nbsp;符号位是 0 时表示正数，是 1  时表示负数。那么-1 用二进制数该如何表示呢？可能很多人会这么认为：因为 1 的二进制数是 0000 0001，最高位是符号位，所以正确的表示-1 应该是 1000 0001，但是这个答案真的对吗？</p>
+
+<p>计算机世界中是没有减法的，计算机在做减法的时候其实就是在做加法，也就是用加法来实现的减法运算。比如 100 - 50 ，其实计算机来看的时候应该是 100 +(-50)，为此，在表示负数的时候就要用到二进制补数，补数就是用正数来表示的负数。</p>
+
+<p>为了获得补数，我们需要将二进制的各数位的数值全部取反，然后再将结果+ 1 即可，先记住这个结论，下面我们来演示一下。</p>
+
+<p><img width="640" height="324" src="a_clip_image015.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>具体来说，就是需要先获取某个数值的二进制数，然后对二进制数的每一位做取反操作(0  ---&gt; 1 , 1 ---&gt; 0)，最后再对取反后的数+1 ，这样就完成了补数的获取。</p>
+
+<p>补数的获取，虽然直观上不易理解，但是逻辑上却非常严谨，比如我们来看一下 1 -  1 的这个过程，我们先用上面的这个 1000 0001(它是1的补数，不知道的请看上文，正确性先不管，只是用来做一下计算)来表示一下</p>
+
+<p><img width="640" height="440" src="a_clip_image016.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>奇怪，1 - 1 会变成 130  ，而不是0，所以可以得出结论 1000 0001 表示-1 是完全错误的。</p>
+
+<p>那么正确的该如何表示呢？其实我们上面已经给出结果了，那就是 1111 1111，来论证一下它的正确性</p>
+
+<p><img width="640" height="389" src="a_clip_image017.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>我们可以看到 1 - 1 其实实际上就是 1 +(-1)，对-1 进行上面的取反+ 1 后变为 1111 1111,然后与 1 进行加法运算，得到的结果是九位的 1 0000 0000，结果发生了溢出，计算机会直接忽略掉溢出位，也就是直接抛掉最高位 1 ，变为 0000 0000。也就是 0，结果正确，所以 1111 1111 表示的就是-1 。</p>
+
+<p><strong>所以负数的二进制表示就是先求其补数，补数的求解过程就是对原始数值的二进制数各位取反，然后将结果+ 1</strong>。</p>
+
+<p><strong>算数右移和逻辑右移的区别 </strong></p>
+
+<p>在了解完补数后，我们重新考虑一下右移这个议题，右移在移位后空出来的最高位有两种情况 0 和 1。</p>
+
+<p>将二进制数作为带符号的数值进行右移运算时，移位后需要在最高位填充移位前符号位的值(  0 或 1)。这就被称为算数右移。如果数值使用补数表示的负数值，那么右移后在空出来的最高位补 1，就可以正确的表示 1/2,1/4,1/8等的数值运算。如果是正数，那么直接在空出来的位置补 0 即可。</p>
+
+<p>下面来看一个右移的例子。将-4 右移两位，来各自看一下移位示意图</p>
+
+<p><img width="640" height="303" src="a_clip_image018.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>如上图所示，在逻辑右移的情况下，-4 右移两位会变成 63，显然不是它的 1/4，所以不能使用逻辑右移，那么算数右移的情况下，右移两位会变为-1，显然是它的 1/4，故而采用算数右移。</p>
+
+<p>那么我们可以得出来一个结论：<strong>左移时，无论是图形还是数值，移位后，只需要将低位补 0 即可；右移时，需要根据情况判断是逻辑右移还是算数右移。</strong></p>
+
+<p>下面介绍一下符号扩展：<strong>将数据进行符号扩展是为了产生一个位数加倍、但数值大小不变的结果，以满足有些指令对操作数位数的要求，例如倍长于除数的被除数，再如将数据位数加长以减少计算过程中的误差。</strong></p>
+
+<p>以8位二进制为例，符号扩展就是指在保持值不变的前提下将其转换成为16位和32位的二进制数。将0111  1111这个正的 8位二进制数转换成为 16位二进制数时，很容易就能够得出0000 0000 0111 1111这个正确的结果，但是像 1111 1111这样的补数来表示的数值，该如何处理？直接将其表示成为1111 1111 1111 1111就可以了。也就是说，不管正数还是补数表示的负数，只需要将 0 和 1 填充高位即可。</p>
+
+<p><strong>内存和磁盘的关系 </strong></p>
+
+<p>我们大家知道，计算机的五大基础部件是存储器、控制器、运算器、输入和输出设备，其中从存储功能的角度来看，可以把存储器分为内存和磁盘，我们上面介绍过内存，下面就来介绍一下磁盘以及磁盘和内存的关系</p>
+
+<p><strong>程序不读入内存就无法运行 </strong></p>
+
+<p>计算机最主要的存储部件是内存和磁盘。<strong>磁盘中存储的程序必须加载到内存中才能运行</strong>，在磁盘中保存的程序是无法直接运行的，这是因为负责解析和运行程序内容的 CPU 是需要通过程序计数器来指定内存地址从而读出程序指令的。</p>
+
+<p><img width="640" height="462" src="a_clip_image019.jpg" alt="计算机核心理论知识全详解" /></p>
+<a name="p3" id="p3"></a>
+<h4><strong>3 磁盘构造 </strong></h4>
+
+<p><strong>磁盘缓存 </strong></p>
+
+<p>我们上面提到，磁盘往往和内存是互利共生的关系，相互协作，彼此持有良好的合作关系。每次内存都需要从磁盘中读取数据，必然会读到相同的内容，所以一定会有一个角色负责存储我们经常需要读到的内容。我们大家做软件的时候经常会用到缓存技术，那么硬件层面也不例外，磁盘也有缓存，磁盘的缓存叫做磁盘缓存。</p>
+
+<p>磁盘缓存指的是把从磁盘中读出的数据存储到内存的方式，这样一来，当接下来需要读取相同的内容时，就不会再通过实际的磁盘，而是通过磁盘缓存来读取。某一种技术或者框架的出现势必要解决某种问题的，那么磁盘缓存就大大<strong>改善了磁盘访问的速度</strong>。</p>
+
+<p><img width="640" height="413" src="a_clip_image020.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>虚拟内存 </strong></p>
+
+<p>虚拟内存是内存和磁盘交互的第二个媒介。虚拟内存是指把磁盘的一部分作为假想内存来使用。这与磁盘缓存是假想的磁盘（实际上是内存）相对，虚拟内存是假想的内存（实际上是磁盘）。</p>
+
+<p>虚拟内存是计算机系统内存管理的一种技术。它使得应用程序认为它拥有连续可用的内存（一个完整的地址空间），但是实际上，它通常被分割成多个物理碎片，还有部分存储在外部磁盘管理器上，必要时进行数据交换。</p>
+
+<p>通过借助虚拟内存，在内存不足时仍然可以运行程序。例如，在只剩 5MB 内存空间的情况下仍然可以运行 10MB 的程序。由于 CPU 只能执行加载到内存中的程序，因此，虚拟内存的空间就需要和内存中的空间进行置换（swap），然后运行程序。</p>
+
+<p><strong>虚拟内存与内存的交换方式 </strong></p>
+
+<p>虚拟内存的方法有分页式和分段式两种。Windows 采用的是分页式。该方式是指在不考虑程序构造的情况下，把运行的程序按照一定大小的页进行分割，并以页为单位进行置换。在分页式中，我们把磁盘的内容读到内存中称为 Page In，把内存的内容写入磁盘称为 Page Out。Windows 计算机的页大小为 4KB ，也就是说，需要把应用程序按照 4KB 的页来进行切分，以页（page）为单位放到磁盘中，然后进行置换。</p>
+
+<p><img width="640" height="344" src="a_clip_image021.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>为了实现内存功能，Windows 在磁盘上提供了虚拟内存使用的文件（page file，页文件）。该文件由 Windows 生成和管理，文件的大小和虚拟内存大小相同，通常大小是内存的 1 - 2 倍。</p>
+
+<p><strong>磁盘的物理结构 </strong></p>
+
+<p>之前我们介绍了CPU、内存的物理结构，现在我们来介绍一下磁盘的物理结构。<strong>磁盘的物理结构指的是磁盘存储数据的形式</strong>。</p>
+
+<p>磁盘是通过其物理表面划分成多个空间来使用的。划分的方式有两种：可变长方式和扇区方式。前者是将物理结构划分成长度可变的空间，后者是将磁盘结构划分为固定长度的空间。一般 Windows 所使用的硬盘和软盘都是使用扇区这种方式。扇区中，把磁盘表面分成若干个同心圆的空间就是磁道，把磁道按照固定大小的存储空间划分而成的就是扇区</p>
+
+<p><img width="640" height="428" src="a_clip_image022.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>扇区是对磁盘进行物理读写的最小单位。Windows 中使用的磁盘，一般是一个扇区 512 个字节。不过，Windows 在逻辑方面对磁盘进行读写的单位是扇区整数倍簇。根据磁盘容量不同功能，1簇可以是 512 字节（1 簇 = 1扇区）、1KB（1簇 = 2扇区）、2KB、4KB、8KB、16KB、32KB( 1 簇 = 64 扇区)。簇和扇区的大小是相等的。</p>
+<a name="p4" id="p4"></a>
+<h4><strong>4 压缩算法 </strong></h4>
+
+<p>我们想必都有过压缩和解压缩文件的经历，当文件太大时，我们会使用文件压缩来降低文件的占用空间。比如微信上传文件的限制是100 MB，我这里有个文件夹无法上传，但是我解压完成后的文件一定会小于 100 MB，那么我的文件就可以上传了。</p>
+
+<p>此外，我们把相机拍完的照片保存到计算机上的时候，也会使用压缩算法进行文件压缩，文件压缩的格式一般是JPEG。</p>
+
+<p>那么什么是压缩算法呢？压缩算法又是怎么定义的呢？在认识算法之前我们需要先了解一下文件是如何存储的</p>
+
+<p><strong>文件存储 </strong></p>
+
+<p>文件是将数据存储在磁盘等存储媒介的一种形式。程序文件中最基本的存储数据单位是字节。文件的大小不管是xxxKB、xxxMB等来表示，就是因为文件是以字节 B = Byte 为单位来存储的。</p>
+
+<p>文件就是字节数据的集合。用 1 字节（8 位）表示的字节数据有 256 种，用二进制表示的话就是 0000 0000 - 1111 1111 。如果文件中存储的数据是文字，那么该文件就是文本文件。如果是图形，那么该文件就是图像文件。在任何情况下，文件中的字节数都是连续存储的。</p>
+
+<p><img width="640" height="481" src="a_clip_image023.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>压缩算法的定义 </strong></p>
+
+<p>上面介绍了文件的集合体其实就是一堆字节数据的集合，那么我们就可以来给压缩算法下一个定义。</p>
+
+<p>压缩算法（compaction algorithm）指的就是数据压缩的算法，主要包括压缩和还原（解压缩）的两个步骤。</p>
+
+<p>其实就是在不改变原有文件属性的前提下，降低文件字节空间和占用空间的一种算法。</p>
+
+<p>根据压缩算法的定义，我们可将其分成不同的类型：</p>
+
+<p><strong>有损和无损</strong></p>
+
+<p>无损压缩：能够无失真地从压缩后的数据重构，准确地还原原始数据。可用于对数据的准确性要求严格的场合，如可执行文件和普通文件的压缩、磁盘的压缩，也可用于多媒体数据的压缩。该方法的压缩比较小。如差分编码、RLE、Huffman编码、LZW编码、算术编码。</p>
+
+<p>有损压缩：有失真，不能完全准确地恢复原始数据，重构的数据只是原始数据的一个近似。可用于对数据的准确性要求不高的场合，如多媒体数据的压缩。该方法的压缩比较大。例如预测编码、音感编码、分形压缩、小波压缩、JPEG/MPEG。</p>
+
+<p><strong>对称性</strong></p>
+
+<p>如果编解码算法的复杂性和所需时间差不多，则为对称的编码方法，多数压缩算法都是对称的。但也有不对称的，一般是编码难而解码容易，如 Huffman 编码和分形编码。但用于密码学的编码方法则相反，是编码容易，而解码则非常难。</p>
+
+<p><strong>帧间与帧内</strong></p>
+
+<p>在视频编码中会同时用到帧内与帧间的编码方法，帧内编码是指在一帧图像内独立完成的编码方法，同静态图像的编码，如 JPEG；而帧间编码则需要参照前后帧才能进行编解码，并在编码过程中考虑对帧之间的时间冗余的压缩，如 MPEG。</p>
+
+<p><strong>实时性</strong></p>
+
+<p>在有些多媒体的应用场合，需要实时处理或传输数据（如现场的数字录音和录影、播放MP3/RM/VCD/DVD、视频/音频点播、网络现场直播、可视电话、视频会议），编解码一般要求延时≤50 ms。这就需要简单/快速/高效的算法和高速/复杂的CPU/DSP芯片。</p>
+
+<p><strong>分级处理</strong></p>
+
+<p>有些压缩算法可以同时处理不同分辨率、不同传输速率、不同质量水平的多媒体数据，如JPEG2000、MPEG-2/4。</p>
+
+<p>这些概念有些抽象，主要是为了让大家了解一下压缩算法的分类，下面我们就对具体的几种常用的压缩算法来分析一下它的特点和优劣</p>
+
+<p><strong>4 几种常用压缩算法的理解 </strong></p>
+
+<p><strong>RLE </strong><strong>算法的机制 </strong></p>
+
+<p>接下来就让我们正式看一下文件的压缩机制。首先让我们来尝试对  AAAAAABBCDDEEEEEF 这 17 个半角字符的文件（文本文件）进行压缩。虽然这些文字没有什么实际意义，但是很适合用来描述 RLE 的压缩机制。</p>
+
+<p>由于半角字符（其实就是英文字符）是作为 1 个字节保存在文件中的，所以上述的文件的大小就是 17 字节。如图</p>
+
+<p><img width="640" height="620" src="a_clip_image024.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>那么，如何才能压缩该文件呢？大家不妨也考虑一下，只要是能够使文件小于 17 字节，我们可以使用任何压缩算法。</p>
+
+<p>最显而易见的一种压缩方式我觉得你已经想到了，就是把相同的字符去重化，也就是字符  * 重复次数的方式进行压缩。所以上面文件压缩后就会变成下面这样</p>
+
+<p><img width="640" height="499" src="a_clip_image025.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>从图中我们可以看出，<strong>AAAAAABBCDDEEEEEF</strong>&nbsp;的17个字符成功被压缩成了&nbsp;<strong>A6B2C1D2E5F1</strong>&nbsp;的12个字符，也就是 12 /  17 = 70%，压缩比为 70%，压缩成功了。</p>
+
+<p>像这样，把文件内容用数据 * 重复次数的形式来表示的压缩方法成为 RLE(Run Length Encoding,行程长度编码)算法。RLE 算法是一种很好的压缩方法，经常用于压缩传真的图像等。因为图像文件的本质也是字节数据的集合体，所以可以用 RLE 算法进行压缩</p>
+
+<p><strong>哈夫曼算法和莫尔斯编码 </strong></p>
+
+<p>下面我们来介绍另外一种压缩算法，即哈夫曼算法。在了解哈夫曼算法之前，你必须舍弃半角英文数字的1个字符是1个字节(8位)的数据。下面我们就来认识一下哈夫曼算法的基本思想。</p>
+
+<p>文本文件是由不同类型的字符组合而成的，而且不同字符出现的次数也是不一样的。例如，在某个文本文件中，A 出现了 100次左右，Q仅仅用到了 3 次，类似这样的情况很常见。哈夫曼算法的关键就在于&nbsp;<strong>多次出现的数据用小于 8 位的字节数表示，不常用的数据则可以使用超过 8 位的字节数表示</strong>。A 和 Q 都用 8 位来表示时，原文件的大小就是 100次 * 8 位+ 3次 * 8 位 = 824位，假设 A 用 2 位，Q 用 10 位来表示就是 2 * 100 + 3 * 10 = 230 位。</p>
+
+<p>不过要注意一点，最终磁盘的存储都是以8位为一个字节来保存文件的。</p>
+
+<p>哈夫曼算法比较复杂，在深入了解之前我们先吃点甜品，了解一下莫尔斯编码，你一定看过美剧或者战争片的电影，在战争中的通信经常采用莫尔斯编码来传递信息，例如下面</p>
+
+<p><img width="640" height="293" src="a_clip_image026.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>接下来我们来讲解一下莫尔斯编码，下面是莫尔斯编码的示例，大家把 1 看作是短点(嘀)，把 11 看作是长点(嗒)即可。</p>
+
+<p><img width="640" height="331" src="a_clip_image027.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>莫尔斯编码一般把文本中出现最高频率的字符用短编码来表示。如表所示，假如表示短点的位是 1，表示长点的位是 11 的话，那么  E（嘀）这一数据的字符就可以用 1 来表示，C（滴答滴答）就可以用 9 位的 110101101来表示。在实际的莫尔斯编码中，如果短点的长度是 1 ，长点的长度就是 3，短点和长点的间隔就是1。这里的长度指的就是声音的长度。比如我们想用上面的 AAAAAABBCDDEEEEEF  例子来用莫尔斯编码重写，在莫尔斯曼编码中，各个字符之间需要加入表示时间间隔的符号。这里我们用 00 加以区分。</p>
+
+<p>所以，AAAAAABBCDDEEEEEF 这个文本就变为了 A * 6 次+ B * 2次+  C * 1次+ D * 2次+ E * 5次+ F * 1次+字符间隔 *  16 = 4 位 * 6次+ 8 位 * 2次+ 9 位 * 1 次+ 6位 * 2次+ 1位 * 5次+ 8 位 * 1次+ 2位 * 16次 = 106位 = 14字节。</p>
+
+<p><strong>所以使用莫尔斯电码的压缩比为 14 / 17  = 82%</strong>。效率并不太突出。</p>
+
+<p><strong>用二叉树实现哈夫曼算法 </strong></p>
+
+<p>刚才已经提到，莫尔斯编码是根据日常文本中各字符的出现频率来决定表示各字符的编码数据长度的。不过，在该编码体系中，对 AAAAAABBCDDEEEEEF 这种文本来说并不是效率最高的。</p>
+
+<p>下面我们来看一下哈夫曼算法。哈夫曼算法是指，为各压缩对象文件分别构造最佳的编码体系，并以该编码体系为基础来进行压缩。因此，用什么样的编码（哈夫曼编码）对数据进行分割，就要由各个文件而定。用哈夫曼算法压缩过的文件中，存储着哈夫曼编码信息和压缩过的数据。</p>
+
+<p><img width="640" height="389" src="a_clip_image028.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>接下来，我们在对 AAAAAABBCDDEEEEEF 中的 A - F 这些字符，按照出现频率高的字符用尽量少的位数编码来表示这一原则进行整理。按照出现频率从高到低的顺序整理后，结果如下，同时也列出了编码方案。</p>
+
+<p>字符出现频率编码（方案）位数A601E511B2102D2112C11003F11013</p>
+
+<p>在上表的编码方案中，随着出现频率的降低，字符编码信息的数据位数也在逐渐增加，从最开始的 1位、2位依次增加到3位。不过这个编码体系是存在问题的，你不知道100这个3位的编码，它的意思是用 1、0、0这三个编码来表示 E、A、A 呢？还是用10、0来表示 B、A 呢？还是用100来表示 C 呢。</p>
+
+<p>而在哈夫曼算法中，通过借助哈夫曼树的构造编码体系，即使在不使用字符区分符号的情况下，也可以构建能够明确进行区分的编码体系。不过哈夫曼树的算法要比较复杂，下面是一个哈夫曼树的构造过程。</p>
+
+<p><img width="640" height="519" src="a_clip_image029.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>自然界树的从根开始生叶的，而哈夫曼树则是叶生枝 </p>
+  <p><strong>哈夫曼树能够提升压缩比率 </strong></p>
+
+<p>使用哈夫曼树之后，出现频率越高的数据所占用的位数越少，这也是哈夫曼树的核心思想。通过上图的步骤二可以看出，枝条连接数据时，我们是从出现频率较低的数据开始的。这就意味着出现频率低的数据到达根部的枝条也越多。而枝条越多则意味着编码的位数随之增加。</p>
+
+<p>接下来我们来看一下哈夫曼树的压缩比率，用上图得到的数据表示  AAAAAABBCDDEEEEEF 为 000000000000 100100 110 101101  0101010101 111，40位 = 5 字节。压缩前的数据是 17 字节，压缩后的数据竟然达到了惊人的5 字节，也就是压缩比率 = 5 / 17 = 29%如此高的压缩率，简直是太惊艳了。</p>
+
+<p>大家可以参考一下，无论哪种类型的数据，都可以用哈夫曼树作为压缩算法</p>
+
+<p>文件类型压缩前压缩后压缩比率文本文件14862字节4119字节28%图像文件96062字节9456字节10%EXE文件24576字节4652字节19%</p>
+
+<p><strong>可逆压缩和非可逆压缩 </strong></p>
+
+<p>最后，我们来看一下图像文件的数据形式。图像文件的使用目的通常是把图像数据输出到显示器、打印机等设备上。常用的图像格式有 : BMP、JPEG、TIFF、GIF 格式等。 </p>
+  <ul>
+    <li>BMP ：是使用 Windows 自带的画笔来做成的一种图像形式 </li>
+    <li>JPEG：是数码相机等常用的一种图像数据形式 </li>
+    <li>TIFF: 是一种通过在文件中包含&quot;标签&quot;就能够快速显示出数据性质的图像形式 </li>
+    <li>GIF：是由美国开发的一种数据形式，要求色数不超过 256个 </li>
+  </ul>
+  <p>图像文件可以使用前面介绍的 RLE 算法和哈夫曼算法，因为图像文件在多数情况下并不要求数据需要还原到和压缩之前一摸一样的状态，允许丢失一部分数据。我们把能还原到压缩前状态的压缩称为可逆压缩，无法还原到压缩前状态的压缩称为非可逆压缩。</p>
+
+<p><img width="640" height="370" src="a_clip_image001_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>一般来说，JPEG格式的文件是非可逆压缩，因此还原后有部分图像信息比较模糊。GIF 是可逆压缩</p>
+<a name="p5" id="p5"></a>
+<h4><strong>5 操作系统 </strong></h4>
+
+<p><strong>操作系统环境 </strong></p>
+
+<p>程序中包含着运行环境这一内容，可以说&nbsp;<strong>运行环境 = 操作系统+硬件</strong>&nbsp;，操作系统又可以被称为软件，它是由一系列的指令组成的。我们不介绍操作系统，我们主要来介绍一下硬件的识别。</p>
+
+<p>我们肯定都玩儿过游戏，你玩儿游戏前需要干什么？是不是需要先看一下自己的笔记本或者电脑是不是能肝的起游戏？下面是一个游戏的配置（怀念一下wow）</p>
+
+<p><img width="640" height="328" src="a_clip_image002_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>图中的主要配置如下 </p>
+  <ul>
+    <li>操作系统版本：说的就是应用程序运行在何种系统环境，现在市面上主要有三种操作系统环境，Windows 、Linux和  Unix，一般我们玩儿的大型游戏几乎都是在 Windows 上运行，可以说 Windows 是游戏的天堂。Windows 操作系统也会有区分，分为32位操作系统和64位操作系统，互不兼容。 </li>
+    <li>处理器：处理器指的就是 CPU，你的电脑的计算能力，通俗来讲就是每秒钟能处理的指令数，如果你的电脑觉得卡带不起来的话，很可能就是 CPU 的计算能力不足导致的。想要加深理解，请阅读博主的另一篇文章：程序员需要了解的硬核知识之CPU</li>
+    <li>显卡：显卡承担图形的输出任务，因此又被称为图形处理器（Graphic Processing Unit，GPU），显卡也非常重要，比如我之前玩儿的剑灵开五档（其实就是图像变得更清晰）会卡，其实就是显卡显示不出来的原因。 </li>
+    <li>内存：内存即主存，就是你的应用程序在运行时能够动态分析指令的这部分存储空间，它的大小也能决定你电脑的运行速度，想要加深理解，请阅读博主的另一篇文章程序员需要了解的硬核知识之内存 </li>
+    <li>存储空间：存储空间指的就是应用程序安装所占用的磁盘空间，由图中可知，此游戏的最低存储空间必须要大于 5GB，其实我们都会遗留很大一部分用来安装游戏。 </li>
+  </ul>
+  <p>从程序的运行环境这一角度来考量的话，CPU 的种类是特别重要的参数，为了使程序能够正常运行，必须满足 CPU 所需的最低配置。</p>
+
+<p>CPU 只能解释其自身固有的语言。不同的 CPU 能解释的机器语言的种类也是不同的。机器语言的程序称为本地代码(native code)，程序员用 C 等高级语言编写的程序，仅仅是文本文件。文本文件(排除文字编码的问题)在任何环境下都能显示和编辑。我们称之为源代码。通过对源代码进行编译，就可以得到本地代码。</p>
+
+
+
+<p><strong>Windows </strong><strong>操作系统克服了CPU以外的硬件差异 </strong></p>
+
+<p>计算机的硬件并不仅仅是由 CPU 组成的，还包括用于存储程序指令的数据和内存，以及通过 I/O 连接的键盘、显示器、硬盘、打印机等外围设备。</p>
+
+<p>在 WIndows 软件中，键盘输入、显示器输出等并不是直接向硬件发送指令。而是通过向 Windows 发送指令实现的。因此，程序员就不用注意内存和 I/O 地址的不同构成了。Windows 操作的是硬件而不是软件，软件通过操作 Windows 系统可以达到控制硬件的目的。</p>
+
+<p><img width="640" height="460" src="a_clip_image003_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>不同操作系统的 API 差异性 </strong></p>
+
+<p>接下来我们看一下操作系统的种类。同样机型的计算机，可安装的操作系统类型也会有多种选择。例如：AT 兼容机除了可以安装 Windows 之外，还可以采用 Unix系列的 Linux以及  FreeBSD （也是一种Unix操作系统）等多个操作系统。当然，应用软件则必须根据不同的操作系统类型来专门开发。<strong>CPU </strong><strong>的类型不同，所对应机器的语言也不同</strong>,同样的道理，<strong>操作系统的类型不同，应用程序向操作系统传递指令的途径也不同</strong>。</p>
+
+<p>应用程序向系统传递指令的途径称为 API(Application  Programming Interface)。Windows 以及 Linux操作系统的 API，提供了任何应用程序都可以利用的函数组合。因为不同操作系统的 API 是有差异的。所以，如何要将同样的应用程序移植到另外的操作系统，就必须要覆盖应用所用到的 API 部分。</p>
+
+<p>键盘输入、鼠标输入、显示器输出、文件输入和输出等同外围设备进行交互的功能，都是通过 API 提供的。</p>
+
+<p><strong>这也就是为什么 Windows 应用程序不能直接移植到 Linux操作系统上的原因，API 差异太大了。</strong></p>
+
+<p>在同类型的操作系统下，不论硬件如何，API 几乎相同。但是，由于不同种类 CPU 的机器语言不同，因此本地代码也不尽相同。</p>
+
+<p><strong>操作系统功能的历史 </strong></p>
+
+<p>操作系统其实也是一种软件，任何新事物的出现肯定都有它的历史背景，那么操作系统也不是凭空出现的，肯定有它的历史背景。</p>
+
+<p>在计算机尚不存在操作系统的年代，完全没有任何程序，人们通过各种按钮来控制计算机，这一过程非常麻烦。于是，有人开发出了仅具有加载和运行功能的监控程序，这就是操作系统的原型。通过事先启动监控程序，程序员可以根据需要将各种程序加载到内存中运行。虽然仍旧比较麻烦，但比起在没有任何程序的状态下进行开发，工作量得到了很大的缓解。</p>
+
+<p><img width="640" height="455" src="a_clip_image004_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>随着时代的发展，人们在利用监控程序编写程序的过程中发现很多程序都有公共的部分。例如，通过键盘进行文字输入，显示器进行数据展示等，如果每编写一个新的应用程序都需要相同的处理的话，那真是太浪费时间了。因此，基本的输入输出部分的程序就被追加到了监控程序中。初期的操作系统就是这样诞生了。</p>
+
+<p><img width="640" height="377" src="a_clip_image005_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>类似的想法可以共用，人们又发现有更多的应用程序可以追加到监控程序中，比如硬件控制程序，编程语言处理器(汇编、编译、解析)以及各种应用程序等，结果就形成了和现在差异不大的操作系统，也就是说，其实操作系统是多个程序的集合体。</p>
+
+<p><img width="640" height="317" src="a_clip_image006_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>Windows </strong><strong>操作系统的特征 </strong></p>
+
+<p>Windows 操作系统是世界上用户数量最庞大的群体，作为 Windows 操作系统的资深用户，你都知道 Windows 操作系统有哪些特征吗？下面列举了一些 Windows 操作系统的特性 </p>
+  <ul>
+    <li>Windows 操作系统有两个版本：32位和64位 </li>
+    <li>通过  API 函数集成来提供系统调用 </li>
+    <li>提供了采用图形用户界面的用户界面 </li>
+    <li>通过  WYSIWYG 实现打印输出，WYSIWYG 其实就是  What You See Is What You Get ，值得是显示器上显示的图形和文本都是可以原样输出到打印机打印的。 </li>
+    <li>提供多任务功能，即能够同时开启多个任务 </li>
+    <li>提供网络功能和数据库功能 </li>
+    <li>通过即插即用实现设备驱动的自设定 </li>
+  </ul>
+  <p>这些是对程序员来讲比较有意义的一些特征，下面针对这些特征来进行分别的介绍</p>
+
+<p><strong>32</strong><strong>位操作系统 </strong></p>
+
+<p>这里表示的32位操作系统表示的是<strong>处理效率最高的数据大小</strong>。Windows 处理数据的基本单位是 32 位。这与最一开始在 MS-DOS 等16位操作系统不同，因为在16位操作系统中处理32位数据需要两次，而32位操作系统只需要一次就能够处理32位的数据，所以一般在windows 上的应用，它们的最高能够处理的数据都是 32 位的。</p>
+
+<p>比如，用 C 语言来处理整数数据时，有8位的 char 类型，16位的short类型，以及32位的long类型三个选项，使用位数较大的 long 类型进行处理的话，增加的只是内存以及磁盘的开销，对性能影响不大。</p>
+
+<p>现在市面上大部分都是64位操作系统了，64位操作系统也是如此。</p>
+
+<p><strong>通过 API 函数集来提供系统调用 </strong></p>
+
+<p>Windows 是通过名为 API 的函数集来提供系统调用的。API是联系应用程序和操作系统之间的接口，全称叫做 Application  Programming Interface,应用程序接口。</p>
+
+<p>当前主流的32位版  Windows API 也称为 Win32 API，之所以这样命名，是需要和不同的操作系统进行区分，比如最一开始的 16 位版的 Win16 API，和后来流行的 Win64 API 。</p>
+
+<p>API 通过多个 DLL 文件来提供，各个 API 的实体都是用 C 语言编写的函数。所以，在 C 语言环境下，使用 API 更加容易，比如 API 所用到的 MessageBox()函数，就被保存在了 Windows 提供的 user32.dll 这个 DLL 文件中。</p>
+
+<p><strong>提供采用了 GUI 的用户界面 </strong></p>
+
+<p>GUI(Graphical User Interface)指得就是图形用户界面，通过点击显示器中的窗口以及图标等可视化的用户界面，举个例子：Linux操作系统就有两个版本，一种是简洁版，直接通过命令行控制硬件，还有一种是可视化版，通过光标点击图形界面来控制硬件。</p>
+
+<p><strong>通过 WYSIWYG 实现打印输出 </strong></p>
+
+<p>WYSIWYG 指的是显示器上输出的内容可以直接通过打印机打印输出。在 Windows 中，显示器和打印机被认作同等的图形输出设备处理的，该功能也为 WYSIWYG 提供了条件。</p>
+
+<p>借助 WYSIWYG 功能，程序员可以轻松不少。最初，为了是现在显示器中显示和在打印机中打印，就必须分别编写各自的程序，而在 Windows 中，可以借助 WYSIWYG 基本上在一个程序中就可以做到显示和打印这两个功能了。</p>
+
+<p><strong>提供多任务功能 </strong></p>
+
+<p>多任务指的就是同时能够运行多个应用程序的功能，Windows 是通过时钟分割技术来实现多任务功能的。时钟分割指的是短时间间隔内，多个程序切换运行的方式。在用户看来，就好像是多个程序在同时运行，其底层是 CPU 时间切片，这也是多线程多任务的核心。</p>
+
+<p><img width="640" height="337" src="a_clip_image007_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>提供网络功能和数据库功能 </strong></p>
+
+<p>Windows 中，网络功能是作为标准功能提供的。数据库(数据库服务器)功能有时也会在后面追加。网络功能和数据库功能虽然并不是操作系统不可或缺的，但因为它们和操作系统很接近，所以被统称为中间件而不是应用。意思是处于操作系统和应用的中间层，操作系统和中间件组合在一起，称为系统软件。应用不仅可以利用操作系统，也可以利用中间件的功能。</p>
+
+<p><img width="640" height="379" src="a_clip_image008_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>相对于操作系统一旦安装就不能轻易更换，中间件可以根据需要进行更换，不过，对于大部分应用来说，更换中间件的话，会造成应用也随之更换，从这个角度来说，更å换中间件也不是那么容易。</p>
+
+<p><strong>通过即插即用实现设备驱动的自动设定 </strong></p>
+
+<p>即插即用(Plug-and-Play)指的是新的设备连接(plug)后就可以直接使用的机制，新设备连接计算机后，计算机就会自动安装和设定用来控制该设备的驱动程序</p>
+
+<p>设备驱动是操作系统的一部分，提供了同硬件进行基本的输入输出的功能。键盘、鼠标、显示器、磁盘装置等，这些计算机中必备的硬件的设备驱动，一般都是随操作系统一起安装的。</p>
+
+<p>有时 DLL 文件也会同设备驱动文件一起安装。这些 DLL 文件中存储着用来利用该新追加的硬件API，通过 API ，可以制作出运行该硬件的心应用。</p>
+<a name="p6" id="p6"></a>
+<h4><strong>6 汇编语言和本地代码 </strong></h4>
+
+<p>我们在之前的文章中探讨过，计算机 CPU 只能运行本地代码(机器语言)程序，用 C 语言等高级语言编写的代码，需要经过编译器编译后，转换为本地代码才能够被 CPU 解释执行。</p>
+
+<p>但是本地代码的可读性非常差，所以需要使用一种能够直接读懂的语言来替换本地代码，那就是在各本地代码中，附带上表示其功能的英文缩写，比如在加法运算的本地代码加上add(addition)的缩写、在比较运算符的本地代码中加上cmp(compare)的缩写等，这些通过缩写来表示具体本地代码指令的标志称为助记符，使用助记符的语言称为汇编语言。这样，通过阅读汇编语言，也能够了解本地代码的含义了。</p>
+
+<p>不过，即使是使用汇编语言编写的源代码，最终也必须要转换为本地代码才能够运行，负责做这项工作的程序称为编译器，转换的这个过程称为汇编。在将源代码转换为本地代码这个功能方面，汇编器和编译器是同样的。</p>
+
+<p>用汇编语言编写的源代码和本地代码是一一对应的。因而，本地代码也可以反过来转换成汇编语言编写的代码。把本地代码转换为汇编代码的这一过程称为反汇编，执行反汇编的程序称为反汇编程序。</p>
+
+<p><img width="640" height="366" src="a_clip_image009_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>哪怕是 C 语言编写的源代码，编译后也会转换成特定 CPU 用的本地代码。而将其反汇编的话，就可以得到汇编语言的源代码，并对其内容进行调查。不过，<strong>本地代码变成 C 语言源代码的反编译，要比本地代码转换成汇编代码的反汇编要困难</strong>，这是因为，C 语言代码和本地代码不是一一对应的关系。</p>
+
+<p><strong>通过编译器输出汇编语言的源代码 </strong></p>
+
+<p>我们上面提到本地代码可以经过反汇编转换成为汇编代码，但是只有这一种转换方式吗？显然不是，C 语言编写的源代码也能够通过编译器编译称为汇编代码，下面就来尝试一下。</p>
+
+<p>首先需要先做一些准备，需要先下载 Borland C++ 5.5 编译器，为了方便，我这边直接下载好了读者直接从我的百度网盘提取即可（链接:https://pan.baidu.com/s/19LqVICpn5GcV88thD2AnlA 密码:hz1u）</p>
+
+<p>下载完毕，需要进行配置，下面是配置说明（https://wenku.baidu.com/view/22e2f418650e52ea551898ad.html），教程很完整跟着配置就可以，下面开始我们的编译过程</p>
+
+<p>首先用 Windows 记事本等文本编辑器编写如下代码 </p>
+<p></p>
+
+<pre>
+//返回两个参数值之和的函数
+int AddNum(int a,int b)
+{
+    return a + b;
+}
+
+//调用 AddNum 函数的函数
+void MyFunc()
+{
+    int c;
+    c = AddNum(123,456);
+}
+</pre>
+
+
+  <p>编写完成后将其文件名保存为 Sample4.c ，C 语言源文件的扩展名，通常用.c 来表示，上面程序是提供两个输入参数并返回它们之和。</p>
+
+<p>在 Windows 操作系统下打开命令提示符，切换到保存 Sample4.c 的文件夹下，然后在命令提示符中输入 </p>
+
+
+<pre>bcc32 -c -S Sample4.c </pre>
+  <p>bcc32 是启动 Borland C++的命令，-c 的选项是指仅进行编译而不进行链接，-S 选项被用来指定生成汇编语言的源代码</p>
+
+<p>作为编译的结果，当前目录下会生成一个名为Sample4.asm 的汇编语言源代码。汇编语言源文件的扩展名，通常用.asm 来表示，下面就让我们用编辑器打开看一下 Sample4.asm 中的内容 </p>
+<p></p>
+
+<pre>
+.386p
+ifdef   version
+if      version GT 500H
+.mmx
+endif
+endif
+model flat
+ifndef    version
+ debug  macro
+endm
+endif
+ debug  S &quot;Sample4.c&quot;
+ debug  T &quot;Sample4.c&quot;
+_TEXT   segment dword public use32  'CODE'
+_TEXT   ends
+_DATA   segment dword public use32  'DATA'
+_DATA   ends
+_BSS    segment dword public use32  'BSS'
+_BSS    ends
+DGROUP  group   _BSS,_DATA
+_TEXT   segment dword public use32  'CODE'
+_AddNum proc    near
+ live1@0:
+;
+;    int AddNum(int a,int b){
+;
+push      ebp
+mov       ebp,esp
+;
+;
+;        return a + b;
+;
+@1:
+mov       eax,dword ptr [ebp+8]
+add       eax,dword ptr [ebp+12]
+;
+;    }
+;
+@3:
+@2:
+pop       ebp
+ret
+_AddNum endp
+_MyFunc proc    near
+ live1@48:
+;
+;    void MyFunc(){
+;
+push      ebp
+mov       ebp,esp
+;
+;        int c;
+;        c = AddNum(123,456);
+;
+@4:
+push      456
+push      123
+call      _AddNum
+add       esp,8
+;
+;    }
+;
+@5:
+pop       ebp
+ret
+_MyFunc endp
+_TEXT   ends
+public  _AddNum
+public  _MyFunc
+ debug  D &quot;Sample4.c&quot; 20343 45835
+end
+</pre>
+
+  <p>这样，编译器就成功的把 C 语言转换成为了汇编代码了。</p>
+
+<p><strong>不会转换成本地代码的伪指令 </strong></p>
+
+<p>第一次看到汇编代码的读者可能感觉起来比较难，不过实际上其实比较简单，而且可能比  C 语言还要简单，为了便于阅读汇编代码的源代码，需要注意几个要点</p>
+
+<p>汇编语言的源代码，是由转换成本地代码的指令（后面讲述的操作码）和针对汇编器的伪指令构成的。伪指令负责把程序的构造以及汇编的方法指示给汇编器（转换程序）。不过伪指令是无法汇编转换成为本地代码的。下面是上面程序截取的伪指令 </p>
+<p></p>
+
+<pre>
+_TEXT    segment dword public use32 'CODE'
+_TEXT   ends
+_DATA   segment dword public use32  'DATA'
+_DATA   ends
+_BSS    segment dword public use32  'BSS'
+_BSS    ends
+DGROUP  group   _BSS,_DATA
+
+_AddNum proc    near
+_AddNum endp
+
+_MyFunc proc    near
+_MyFunc endp
+
+_TEXT   ends
+end
+</pre>
+  <p>由伪指令 segment 和  ends 围起来的部分，是给构成程序的命令和数据的集合体上加一个名字而得到的，称为段定义。段定义的英文表达具有区域的意思，在这个程序中，段定义指的是命令和数据等程序的集合体的意思，一个程序由多个段定义构成。</p>
+
+<p>上面代码的开始位置，定义了3个名称分别为 _TEXT、_DATA、_BSS 的段定义，_TEXT 是指定的段定义，_DATA 是被初始化（有初始值）的数据的段定义，_BSS 是尚未初始化的数据的段定义。这种定义的名称是由 Borland C++定义的，是由 Borland C++编译器自动分配的，所以程序段定义的顺序就成为了 _TEXT、_DATA、_BSS ，这样也确保了内存的连续性 </p>
+<p></p>
+
+<pre>
+_TEXT    segment dword public use32 'CODE'
+_TEXT   ends
+_DATA   segment dword public use32  'DATA'
+_DATA   ends
+_BSS    segment dword public use32  'BSS'
+_BSS    ends
+</pre>
+
+  <p>段定义( segment )是用来区分或者划分范围区域的意思。汇编语言的 segment 伪指令表示段定义的起始，ends 伪指令表示段定义的结束。段定义是一段连续的内存空间</p>
+
+<p>而group 这个伪指令表示的是将 _BSS和_DATA 这两个段定义汇总名为 DGROUP 的组 </p>
+  <div></p>
+
+<p>DGROUP   group   _BSS,_DATA </div>
+  <p>围起 _AddNum 和  _MyFun 的 _TEXT segment 和 _TEXT  ends ，表示_AddNum 和 _MyFun 是属于 _TEXT 这一段定义的。 </p>
+<p></p>
+
+<pre>
+_TEXT    segment dword public use32 'CODE'
+_TEXT   ends
+</pre>
+
+  <p>因此，即使在源代码中指令和数据是混杂编写的，经过编译和汇编后，也会转换成为规整的本地代码。</p>
+
+<p>_AddNum proc 和 _AddNum endp 围起来的部分，以及_MyFunc proc 和 _MyFunc endp 围起来的部分，分别表示 AddNum 函数和 MyFunc 函数的范围。 </p>
+<p></p>
+
+<pre>
+_AddNum proc near
+_AddNum endp
+
+_MyFunc proc near
+_MyFunc endp
+</pre>
+
+  <p>编译后在函数名前附带上下划线_ ，是 Borland C++的规定。在 C 语言中编写的 AddNum 函数，在内部是以 _AddNum 这个名称处理的。伪指令 proc 和 endp 围起来的部分，表示的是过程(procedure)的范围。在汇编语言中，这种相当于 C 语言的函数的形式称为过程。</p>
+
+<p>末尾的 end 伪指令，表示的是源代码的结束。</p>
+
+<p><strong>汇编语言的语法是操作码+操作数 </strong></p>
+
+<p>在汇编语言中，一行表示一对 CPU 的一个指令。汇编语言指令的语法结构是&nbsp;<strong>操作码+操作数</strong>，也存在只有操作码没有操作数的指令。</p>
+
+<p>操作码表示的是指令动作，操作数表示的是指令对象。操作码和操作数一起使用就是一个英文指令。比如从英语语法来分析的话，操作码是动词，操作数是宾语。比如这个句子 Give me money这个英文指令的话，Give 就是操作码，me 和 money就是操作数。汇编语言中存在多个操作数的情况，要用逗号把它们分割，就像是 Give me,money这样。</p>
+
+<p>能够使用何种形式的操作码，是由 CPU 的种类决定的，下面对操作码的功能进行了整理。</p>
+
+<p><img width="640" height="365" src="a_clip_image010_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>本地代码需要加载到内存后才能运行，内存中存储着构成本地代码的指令和数据。程序运行时，CPU会从内存中把数据和指令读出来，然后放在 CPU 内部的寄存器中进行处理。</p>
+
+<p><img width="640" height="531" src="a_clip_image011_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>如果 CPU 和内存的关系你还不是很了解的话，请阅读作者的另一篇文章程序员需要了解的硬核知识之CPU 详细了解。</p>
+
+<p>寄存器是 CPU 中的存储区域，寄存器除了具有临时存储和计算的功能之外，还具有运算功能，x86 系列的主要种类和角色如下图所示</p>
+
+<p><img width="640" height="420" src="a_clip_image012_0000.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>指令解析 </strong></p>
+
+<p>下面就对 CPU 中的指令进行分析</p>
+
+<p><strong>最常用的 mov指令</strong></p>
+
+<p>指令中最常使用的是对寄存器和内存进行数据存储的 mov指令，mov指令的两个操作数，分别用来指定数据的存储地和读出源。操作数中可以指定寄存器、常数、标签(附加在地址前)，以及用方括号([])围起来的这些内容。如果指定了没有用([])方括号围起来的内容，就表示对该值进行处理；如果指定了用方括号围起来的内容，方括号的值则会被解释为内存地址，然后就会对该内存地址对应的值进行读写操作。让我们对上面的代码片段进行说明 </p>
+<p></p>
+
+<pre>
+mov ebp,esp
+mov eax,dword ptr [ebp+8]
+</pre>
+
+  <p>mov ebp,esp 中，esp 寄存器中的值被直接存储在了 ebp 中，也就是说，如果 esp 寄存器的值是100的话那么 ebp 寄存器的值也是  100。</p>
+
+<p>而在 mov eax,dword ptr [ebp+8] 这条指令中，ebp 寄存器的值+ 8 后会被解析称为内存地址。如果 ebp</p>
+
+<p>寄存器的值是100的话，那么  eax寄存器的值就是 100 + 8 的地址的值。dword  ptr 也叫做 double word pointer 简单解释一下就是从指定的内存地址中读出4字节的数据 </p>
+  <p><strong>对栈进行 push 和 pop</strong></p>
+
+<p>程序运行时，会在内存上申请分配一个称为栈的数据空间。栈（stack）的特性是后入先出，数据在存储时是从内存的下层（大的地址编号）逐渐往上层（小的地址编号）累积，读出时则是按照从上往下进行读取的。</p>
+
+<p><img width="640" height="509" src="a_clip_image001_0001.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>栈是存储临时数据的区域，它的特点是通过 push 指令和 pop 指令进行数据的存储和读出。向栈中存储数据称为入栈，从栈中读出数据称为出栈，32位x86 系列的 CPU 中，进行1次 push 或者 pop，即可处理 32 位（4字节）的数据。</p>
+
+<p><strong>函数的调用机制 </strong></p>
+
+<p>下面我们一起来分析一下函数的调用机制，我们以上面的 C 语言编写的代码为例。首先，让我们从MyFunc 函数调用AddNum 函数的汇编语言部分开始，来对函数的调用机制进行说明。栈在函数的调用中发挥了巨大的作用，下面是经过处理后的 MyFunc 函数的汇编处理内容 </p>
+<p></p>
+
+<pre>
+_MyFunc proc  near
+push ebp     ; 将 ebp 寄存器的值存入栈中(1)
+mov ebp,esp  ; 将 esp 寄存器的值存入 ebp 寄存器中(2)
+push 456     ; 将 456 入栈(3)
+push 123     ; 将 123 入栈(4)
+call _AddNum ; 调用 AddNum 函数(5)
+add esp,8    ; esp 寄存器的值+ 8 (6)
+pop ebp      ; 读出栈中的数值存入 esp 寄存器中(7)
+ret          ; 结束 MyFunc 函数，返回到调用源(8)
+_MyFunc endp
+</pre>
+
+  <p>代码解释中的(1)、(2)、(7)、(8)的处理适用于 C 语言中的所有函数，我们会在后面展示 AddNum 函数处理内容时进行说明。这里希望大家先关注(3)-(6)这一部分，这对了解函数调用机制至关重要。</p>
+
+<p>(3)和(4)表示的是将传递给  AddNum 函数的参数通过 push 入栈。在 C 语言源代码中，虽然记述为函数 AddNum(123,456)，但入栈时则会先按照 456，123 这样的顺序。也就是位于后面的数值先入栈。这是 C 语言的规定。(5)表示的 call 指令，会把程序流程跳转到 AddNum 函数指令的地址处。在汇编语言中，函数名表示的就是函数所在的内存地址。AddNum  函数处理完毕后，程序流程必须要返回到编号(6)这一行。call  指令运行后，call 指令的下一行(也就指的是(6)这一行)的内存地址(调用函数完毕后要返回的内存地址)会自动的 push 入栈。该值会在  AddNum 函数处理的最后通过 ret 指令 pop 出栈，然后程序会返回到(6)这一行。</p>
+
+<p>(6)部分会把栈中存储的两个参数(456 和 123)进行销毁处理。虽然通过两次的 pop 指令也可以实现，不过采用 esp 寄存器+ 8 的方式会更有效率(处理 1 次即可)。对栈进行数值的输入和输出时，数值的单位是4字节。因此，通过在负责栈地址管理的 esp 寄存器中加上4的2倍8，就可以达到和运行两次 pop 命令同样的效果。虽然内存中的数据实际上还残留着，但只要把 esp 寄存器的值更新为数据存储地址前面的数据位置，该数据也就相当于销毁了。</p>
+
+<p>我在编译 Sample4.c 文件时，出现了下图的这条消息</p>
+
+<p><img width=100% src="a_clip_image002_0001.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>图中的意思是指 c 的值在  MyFunc 定义了但是一直未被使用，这其实是一项编译器优化的功能，由于存储着 AddNum 函数返回值的变量 c 在后面没有被用到，因此编译器就认为&nbsp;<strong>该变量没有意义</strong>，进而也就<strong>没有生成与之对应的汇编语言代码</strong>。</p>
+
+<p>下图是调用 AddNum 这一函数前后栈内存的变化</p>
+
+<p><img width="640" height="410" src="a_clip_image003_0001.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>函数的内部处理 </strong></p>
+
+<p>上面我们用汇编代码分析了一下 Sample4.c 整个过程的代码，现在我们着重分析一下 AddNum 函数的源代码部分，分析一下参数的接收、返回值和返回等机制 </p>
+<p></p>
+
+<pre>
+_AddNum proc near
+push ebp            -----------(1)
+mov ebp,esp         -----------(2)
+mov eax,dword ptr[ebp+8] ------(3)
+add eax,dword ptr[ebp+12] -----(4)
+pop ebp             -----------(5)
+ret                  ----------(6)
+_AddNum endp &lt;/div>
+</pre>
+  <p>ebp 寄存器的值在(1)中入栈，在(5)中出栈，这主要是为了把函数中用到的 ebp 寄存器的内容，恢复到函数调用前的状态。</p>
+
+<p>(2)中把负责管理栈地址的 esp 寄存器的值赋值到了 ebp 寄存器中。这是因为，在 mov指令中方括号内的参数，是不允许指定 esp 寄存器的。因此，这里就采用了不直接通过 esp，而是用 ebp 寄存器来读写栈内容的方法。</p>
+
+<p>(3)使用[ebp + 8] 指定栈中存储的第1个参数123，并将其读出到 eax寄存器中。像这样，不使用 pop 指令，也可以参照栈的内容。而之所以从多个寄存器中选择了 eax寄存器，是因为 eax是负责运算的累加寄存器。</p>
+
+<p>通过(4)的 add 指令，把当前 eax寄存器的值同第2个参数相加后的结果存储在 eax寄存器中。[ebp + 12] 是用来指定第2个参数456的。在 C 语言中，函数的返回值必须通过 eax寄存器返回，这也是规定。也就是&nbsp;<strong>函数的参数是通过栈来传递，返回值是通过寄存器返回的</strong>。</p>
+
+<p>(6)中 ret 指令运行后，函数返回目的地内存地址会自动出栈，据此，程序流程就会跳转返回到(6)(Call _AddNum)的下一行。这时，AddNum 函数入口和出口处栈的状态变化，就如下图所示</p>
+
+<p><img width="640" height="405" src="a_clip_image004_0001.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>全局变量和局部变量 </strong></p>
+
+<p>在熟悉了汇编语言后，接下来我们来了解一下全局变量和局部变量，在函数外部定义的变量称为全局变量，在函数内部定义的变量称为局部变量，全局变量可以在任意函数中使用，局部变量只能在函数定义局部变量的内部使用。下面，我们就通过汇编语言来看一下全局变量和局部变量的不同之处。</p>
+
+<p>下面定义的 C 语言代码分别定义了局部变量和全局变量，并且给各变量进行了赋值，我们先看一下源代码部分 </p>
+<p></p>
+
+<pre>
+//定义被初始化的全局变量
+int a1 = 1;
+int a2 = 2;
+int a3 = 3;
+int a4 = 4;
+int a5 = 5;
+
+//定义没有初始化的全局变量
+int b1,b2,b3,b4,b5;
+
+//定义函数
+void MyFunc(){
+//定义局部变量
+int  c1,c2,c3,c4,c5,c6,c7,c8,c9,c10;
+
+// 给局部变量赋值
+c1 = 1;
+c2 = 2;
+c3 = 3;
+c4 = 4;
+c5 = 5;
+c6 = 6;
+c7 = 7;
+c8 = 8;
+c9 = 9;
+c10 = 10;
+
+// 把局部变量赋值给全局变量
+a1 = c1;
+a2 = c2;
+a3 = c3;
+a4 = c4;
+a5 = c5;
+b1 = c6;
+b2 = c7;
+b3 = c8;
+b4 = c9;
+b5 = c10;
+} 
+</pre>
+
+  <p>上面的代码挺暴力的，不过没关系，能够便于我们分析其汇编源码就好，我们用  Borland C++编译后的汇编代码如下，编译完成后的源码比较长，这里我们只拿出来一部分作为分析使用（我们改变了一下段定义顺序，删除了部分注释） </p>
+<p></p>
+
+<pre>
+_DATA segment dword public use32 'DATA'
+align 4
+_a1 label dword
+dd 1
+align 4
+_a2 label dword
+dd 2
+align 4
+_a3 label dword
+dd 3
+align 4
+_a4 label dword
+dd 4
+align 4
+_a5 label dword
+dd 5
+_DATA ends
+
+_BSS segment dword public use32 'BSS'
+align 4
+_b1 label dword
+db 4 dup()
+align 4
+_b2 label dword
+db 4 dup()
+align 4
+_b3 label dword
+db 4 dup()
+align 4
+_b4 label dword
+db 4 dup()
+align 4
+_b5 label dword
+db 4 dup()
+_BSS ends
+
+_TEXT segment dword public use32 'CODE'
+_MyFunc proc near
+
+push ebp
+mov ebp,esp
+add esp,-20
+push ebx
+push esi
+mov eax,1
+mov edx,2
+mov ecx,3
+mov ebx,4
+mov esi,5
+mov dword ptr [ebp-4],6
+mov dword ptr [ebp-8],7
+mov dword ptr [ebp-12],8
+mov dword ptr [ebp-16],9
+mov dword ptr [ebp-20],10
+mov dword ptr [_a1],eax
+mov dword ptr [_a2],edx
+mov dword ptr [_a3],ecx
+mov dword ptr [_a4],ebx
+mov dword ptr [_a5],esi
+mov eax,dword ptr [ebp-4]
+mov dword ptr [_b1],eax
+mov edx,dword ptr [ebp-8]
+mov dword ptr [_b2],edx
+mov ecx,dword ptr [ebp-12]
+mov dword ptr [_b3],ecx
+mov eax,dword ptr [ebp-16]
+mov dword ptr [_b4],eax
+mov edx,dword ptr [ebp-20]
+mov dword ptr [_b5],edx
+pop esi
+pop ebx
+mov esp,ebp
+pop ebp
+ret
+
+_MyFunc endp
+_TEXT ends
+</pre>
+
+  <p>编译后的程序，会被归类到名为段定义的组。 </p>
+<p>**初始化的全局变量，会汇总到名为 _DATA 的段定义中**</p>
+<p></p>
+
+<pre>
+_DATA segment dword public use32 'DATA'
+...
+_DATA ends 
+**没有初始化的全局变量，会汇总到名为 _BSS 的段定义中**
+
+_BSS segment dword public use32 'BSS'
+...
+_BSS ends 
+**被段定义 _TEXT 围起来的汇编代码则是 Borland C++的定义**
+
+_TEXT segment dword public use32 'CODE'
+_MyFunc proc near
+...
+_MyFunc endp
+_TEXT ends 
+</pre>
+
+  <p>我们在分析上面汇编代码之前，先来认识一下更多的汇编指令，此表是对上面<strong>部分操作码及其功能</strong>的接续</p>
+
+<p>操作码操作数功能addA,B把A和B的值相加，并把结果赋值给AcallA调用函数AcmpA,B对A和B进行比较，比较结果会自动存入标志寄存器中incA对A的值+ 1ige标签名和 cmp 命令组合使用。跳转到标签行jl标签名和 cmp 命令组合使用。跳转到标签行jle标签名和 cmp 命令组合使用。跳转到标签行jmp标签名和 cmp 命令组合使用。跳转到标签行movA,B把 B 的值赋给 ApopA从栈中读取数值并存入ApushA把A的值存入栈中ret无将处理返回到调用源xorA,BA和B的位进行亦或比较，并将结果存入A中</p>
+
+<p>我们首先来看一下 _DATA 段定义的内容。_a1 label dword 定义了 _a1 这个标签。标签表示的是相对于段定义起始位置的位置。由于_a1 在 _DATA 段定义的开头位置，所以相对位置是0。 _a1 就相当于是全局变量a1。编译后的函数名和变量名前面会加一个(_)，这也是 Borland C++的规定。dd 1 指的是，申请分配了4字节的内存空间，存储着1这个初始值。 dd指的是 define  double word表示有两个长度为2的字节领域(word)，也就是4字节的意思。</p>
+
+<p>Borland C++中，由于int 类型的长度是4字节，因此汇编器就把 int a1 = 1 变换成了 _a1 label dword 和 dd 1。同样，这里也定义了相当于全局变量的 a2 - a5 的标签 _a2 - _a5，它们各自的初始值 2 - 5 也被存储在各自的4字节中。 </p>
+  <p>接下来，我们来说一说 _BSS 段定义的内容。这里定义了相当于全局变量 b1 - b5 的标签 _b1 - _b5。其中的db 4dup(?)表示的是申请分配了4字节的领域，但值尚未确定（这里用 ? 来表示）的意思。db(define byte)表示有1个长度是1字节的内存空间。因而，db  4 dup(?)的情况下，就是4字节的内存空间。</p>
+
+<p>注意：db 4 dup(?)不要和 dd 4 混淆了，前者表示的是4个长度是1字节的内存空间。而 db 4 表示的则是双字节( = 4 字节)的内存空间中存储的值是 4</p>
+
+<p><strong>临时确保局部变量使用的内存空间 </strong></p>
+
+<p>我们知道，局部变量是临时保存在寄存器和栈中的。函数内部利用栈进行局部变量的存储，函数调用完成后，局部变量值被销毁，但是寄存器可能用于其他目的。所以，<strong>局部变量只是函数在处理期间临时存储在寄存器和栈中的</strong>。</p>
+
+<p>回想一下上述代码是不是定义了10个局部变量？这是为了表示存储局部变量的不仅仅是栈，还有寄存器。为了确保 c1 - c10 所需的域，寄存器空闲的时候就会使用寄存器，寄存器空间不足的时候就会使用栈。</p>
+
+<p>让我们继续来分析上面代码的内容。_TEXT段定义表示的是 MyFunc 函数的范围。在 MyFunc 函数中定义的局部变量所需要的内存领域。会被尽可能的分配在寄存器中。大家可能认为使用高性能的寄存器来替代普通的内存是一种资源浪费，但是编译器不这么认为，只要寄存器有空间，编译器就会使用它。由于寄存器的访问速度远高于内存，所以直接访问寄存器能够高效的处理。局部变量使用寄存器，是 Borland C++编译器最优化的运行结果。</p>
+
+<p>代码清单中的如下内容表示的是向寄存器中分配局部变量的部分 </p>
+<p></p>
+
+<pre>
+mov eax,1
+mov edx,2
+mov ecx,3
+mov ebx,4
+mov esi,5 
+</pre>
+
+  <p>仅仅对局部变量进行定义是不够的，只有在给局部变量赋值时，才会被分配到寄存器的内存区域。上述代码相当于就是给5个局部变量 c1 - c5 分别赋值为  1 - 5。<strong>eax</strong><strong>、edx、ecx、ebx、esi</strong>&nbsp;是x86 系列32位 CPU 寄存器的名称。至于使用哪个寄存器，是由编译器来决定的。</p>
+
+<p>x86 系列 CPU 拥有的寄存器中，程序可以操作的是十几，其中空闲的最多会有几个。因而，局部变量超过寄存器数量的时候，可分配的寄存器就不够用了，这种情况下，编译器就会把栈派上用场，用来存储剩余的局部变量。</p>
+
+<p>在上述代码这一部分，给局部变量c1 - c5 分配完寄存器后，可用的寄存器数量就不足了。于是，剩下的5个局部变量c6 - c10 就被分配给了栈的内存空间。如下面代码所示 </p>
+<p></p>
+
+<pre>
+mov       dword ptr [ebp-4],6
+mov       dword ptr [ebp-8],7
+mov       dword ptr [ebp-12],8
+mov       dword ptr [ebp-16],9
+mov       dword ptr [ebp-20],10
+</pre>
+  <p>函数入口 add esp,-20 指的是，对栈数据存储位置的 esp 寄存器(栈指针)的值做减20的处理。为了确保内存变量 c6 - c10 在栈中，就需要保留5个 int 类型的局部变量（4字节 * 5 = 20 字节）所需的空间。mov ebp,esp这行指令表示的意思是将 esp 寄存器的值赋值到 ebp 寄存器。之所以需要这么处理，是为了通过在函数出口处 mov esp ebp 这一处理，把 esp 寄存器的值还原到原始状态，从而对申请分配的栈空间进行释放，这时栈中用到的局部变量就消失了。这也是栈的清理处理。在使用寄存器的情况下，局部变量则会在寄存器被用于其他用途时自动消失，如下图所示。</p>
+
+<p><img width="640" height="393" src="a_clip_image001_0002.jpg" alt="计算机核心理论知识全详解" /> </p>
+
+<pre>
+mov       dword ptr [ebp-4],6
+mov       dword ptr [ebp-8],7
+mov       dword ptr [ebp-12],8
+mov       dword ptr [ebp-16],9
+mov       dword ptr [ebp-20],10
+</pre>
+
+  <p>这五行代码是往栈空间代入数值的部分，由于在向栈申请内存空间前，借助了 mov  ebp, esp 这个处理，esp 寄存器的值被保存到了  esp 寄存器中，因此，通过使用[ebp - 4]、[ebp  - 8]、[ebp - 12]、[ebp - 16]、[ebp - 20] 这样的形式，就可以申请分配20字节的栈内存空间切分成5个长度为4字节的空间来使用。例如，mov  dword ptr [ebp-4],6 表示的就是，从申请分配的内存空间的下端(ebp寄存器指示的位置)开始向前4字节的地址([ebp - 4])中，存储着6这一4字节数据。</p>
+
+<p><img width="640" height="395" src="a_clip_image002_0002.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p><strong>循环控制语句的处理 </strong></p>
+
+<p>上面说的都是顺序流程，那么现在就让我们分析一下循环流程的处理，看一下 for 循环以及 if 条件分支等 c 语言程序的流程控制是如何实现的，我们还是以代码以及编译后的结果为例，看一下程序控制流程的处理过程。 </p>
+<p></p>
+<pre style="line-height:130%; background-color:#F0F0F0; font-size:120%; padding:8px; margin-left:2em; ">
+<span style="color:#ccc; ">// 定义MySub 函数</span>
+<span style="color:#0000FF;">void</span> MySub()
+{
+    <span style="color:#ccc; ">// 不做任何处理</span>
+    
+}
+
+<span style="color:#ccc; ">// 定义MyFunc 函数</span>
+<span style="color:#0000FF;">void</span> Myfunc()
+{
+    <span style="color:#0000FF;">int</span> i;
+    <span style="color:#0000FF;">for</span>(<span style="color:#0000FF;">int</span> i = 0;i < 10;i++)
+    {
+        <span style="color:#ccc; ">// 重复调用MySub十次</span>
+        MySub();
+    }
+}</pre>
+<p>上述代码将局部变量 i 作为循环条件，循环调用十次MySub 函数，下面是它主要的汇编代码 </p>
+<pre>
+xor         ebx, ebx    ; 将寄存器清0
+@4  call    _MySub      ; 调用MySub函数
+inc         ebx         ; ebx寄存器的值 + 1
+cmp         ebx,10      ; 将ebx寄存器的值和10进行比较
+jl          short @4    ; 如果小于10就跳转到 @4 &lt;
+</pre>
+
+  <p>C 语言中的 for 语句是通过在括号中指定循环计数器的初始值(i = 0)、循环的继续条件(i &lt; 10)、循环计数器的更新(i++)这三种形式来进行循环处理的。与此相对的汇编代码就是通过比较指令(cmp)和跳转指令(jl)来实现的。</p>
+
+<p>下面我们来对上述代码进行说明</p>
+
+<p>MyFunc 函数中用到的局部变量只有 i ，变量 i 申请分配了 ebx寄存器的内存空间。for 语句括号中的 i = 0 被转换为xor ebx,ebx这一处理，xor 指令会对左起第一个操作数和右起第二个操作数进行 XOR 运算，然后把结果存储在第一个操作数中。由于这里把第一个操作数和第二个操作数都指定为了 ebx，因此就变成了对相同数值的 XOR 运算。也就是说不管当前寄存器的值是什么，最终的结果都是0。类似的，我们使用 mov ebx,0 也能得到相同的结果，但是xor 指令的处理速度更快，而且编译器也会启动最优化功能。</p>
+
+<p>XOR 指的就是异或操作，它的运算规则是&nbsp;<strong>如果a、b两个值不相同，则异或结果为1。如果a、b两个值相同，异或结果为0</strong>。</p>
+
+<p>相同数值进行 XOR 运算，运算结果为0。XOR 的运算规则是，值不同时结果为1，值相同时结果为0。例如 01010101 和  01010101 进行运算，就会分别对各个数字位进行 XOR 运算。因为每个数字位都相同，所以运算结果为0。</p>
+
+<p>ebx寄存器的值初始化后，会通过 call 指定调用 _MySub 函数，从 _MySub 函数返回后，会执行inc ebx指令，对 ebx的值进行+ 1 操作，这个操作就相当于 i++的意思，++表示的就是当前数值+ 1。</p>
+
+<p>这里需要知道 i++和++i 的区别</p>
+
+<p>i++是先赋值，复制完成后再对 i执行+ 1 操作</p>
+
+<p>++i 是先进行+1 操作，完成后再进行赋值</p>
+
+<p>inc 下一行的 cmp 是用来对第一个操作数和第二个操作数的数值进行比较的指令。 cmp ebx,10 就相当于 C 语言中的 i &lt; 10 这一处理，意思是把 ebx寄存器的值与10进行比较。汇编语言中比较指令的结果，会存储在 CPU 的标志寄存器中。不过，标志寄存器的值，程序是无法直接参考的。那如何判断比较结果呢？</p>
+
+<p>汇编语言中有多个跳转指令，这些跳转指令会根据标志寄存器的值来判断是否进行跳转操作，例如最后一行的 jl，它会根据 cmp ebx,10 指令所存储在标志寄存器中的值来判断是否跳转，jl 这条指令表示的就是 jump on less than(小于的话就跳转)。发现如果 i 比 10 小，就会跳转到 @4 所在的指令处继续执行。</p>
+
+<p>那么汇编代码的意思也可以用 C 语言来改写一下，加深理解 </p>
+<p></p>
+
+<pre>
+i ^= i;
+L4: MySub();
+i++;
+if(i &lt; 10) goto L4;
+</pre>
+
+  <p>代码第一行 i ^= i 指的就是 i 和 i 进行异或运算，也就是  XOR 运算，MySub()函数用 L4 标签来替代，然后进行 i 自增操作，如果i 的值小于 10 的话，就会一直循环 MySub()函数。</p>
+
+<p><strong>条件分支的处理方法 </strong></p>
+
+<p>条件分支的处理方式和循环的处理方式很相似，使用的也是 cmp 指令和跳转指令。下面是用 C 语言编写的条件分支的代码 </p>
+<p></p>
+
+<pre>
+// 定义MySub1 函数
+void MySub1()
+{ 
+    // 不做任何处理
+}
+
+// 定义MySub2 函数
+void MySub2()
+{
+    // 不做任何处理
+}
+
+// 定义MySub3 函数
+void MySub3()
+{
+    // 不做任何处理
+}
+
+// 定义MyFunc 函数
+void MyFunc()
+{
+    int a = 123;
+    // 根据条件调用不同的函数
+    if(a &gt; 100)
+    {
+        MySub1();
+    }
+    else if(a &lt; 50)
+    {
+        MySub2();
+    }
+    else
+    {
+        MySub3();
+    }
+    
+}
+</pre>
+
+  <p>很简单的一个实现了条件判断的 C 语言代码，那么我们把它用 Borland C++编译之后的结果如下 </p>
+<p></p>
+
+<pre>
+_MyFunc proc near
+push      ebp
+mov       ebp,esp
+mov       eax,123          ; 把123存入 eax寄存器中
+cmp       eax,100          ; 把 eax寄存器的值同100进行比较
+jle       short @8         ; 比100小时，跳转到@8标签
+call      _MySub1          ; 调用MySub1函数
+jmp       short @11        ; 跳转到@11标签
+@8:
+cmp       eax,50           ; 把 eax寄存器的值同50进行比较
+jge       short @10        ; 比50大时，跳转到@10标签
+call      _MySub2          ; 调用MySub2函数
+jmp       short @11        ; 跳转到@11标签
+@10:
+call      _MySub3          ; 调用MySub3函数
+@11:
+pop       ebp
+ret
+_MyFunc endp
+</pre>
+
+  <p>上面代码用到了三种跳转指令，分别是jle(jump on less or  equal)比较结果小时跳转，jge(jump on greater or equal)比较结果大时跳转，还有不管结果怎样都会进行跳转的jmp，在这些跳转指令之前还有用来比较的指令 cmp，构成了上述汇编代码的主要逻辑形式。</p>
+
+<p><strong>了解程序运行逻辑的必要性 </strong></p>
+
+<p>通过对上述汇编代码和 C 语言源代码进行比较，想必大家对程序的运行方式有了新的理解，而且，从汇编源代码中获取的知识，也有助于了解 Java 等高级语言的特性，比如 Java 中就有 native 关键字修饰的变量，那么这个变量的底层就是使用 C 语言编写的，还有一些 Java 中的语法糖只有通过汇编代码才能知道其运行逻辑。在某些情况下，对于查找 bug  的原因也是有帮助的。</p>
+
+<p>上面我们了解到的编程方式都是串行处理的，那么串行处理有什么特点呢？</p>
+
+<p><img width="640" height="356" src="a_clip_image003_0002.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>串行处理最大的一个特点就是专心只做一件事情，一件事情做完之后才会去做另外一件事情。</p>
+
+<p>计算机是支持多线程的，多线程的核心就是 CPU切换，如下图所示</p>
+
+<p><img width="640" height="341" src="a_clip_image004_0002.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>我们还是举个实际的例子，让我们来看一段代码 </p>
+<p></p>
+
+<pre>
+// 定义全局变量
+int counter = 100;
+
+// 定义MyFunc1()
+void MyFunc()
+{
+    counter *= 2;
+}
+
+// 定义MyFunc2()
+void MyFunc2()
+{
+    counter *= 2;
+}
+</pre>
+
+  <p>上述代码是更新 counter 的值的 C 语言程序，MyFunc1()和MyFunc2()的处理内容都是把 counter 的值扩大至原来的二倍，然后再把 counter 的值赋值给 counter 。这里，我们假设使用多线程处理，同时调用了一次MyFunc1 和 MyFunc2 函数，这时，全局变量 counter 的值，理应编程 100 * 2 * 2 = 400。如果你开启了多个线程的话，你会发现 counter 的数值有时也是 200，对于为什么出现这种情况，如果你不了解程序的运行方式，是很难找到原因的。</p>
+
+<p>我们将上面的代码转换成汇编语言的代码如下 </p>
+<p></p>
+
+<pre>
+mov eax,dword ptr[_counter]     ; 将 counter 的值读入 eax 寄存器
+add eax,eax                     ; 将 eax 寄存器的值扩大2倍。
+mov dword ptr[_counter],eax     ; 将 eax 寄存器的值存入 counter 中。
+</pre>
+
+  <p>在多线程程序中，用汇编语言表示的代码每运行一行，处理都有可能切换到其他线程中。因而，假设 MyFun1 函数在读出 counter 数值100后，还未来得及将它的二倍值200写入 counter 时，正巧 MyFun2 函数读出了 counter 的值100，那么结果就将变为 200 。</p>
+
+<p><img width="640" height="392" src="a_clip_image005_0001.jpg" alt="计算机核心理论知识全详解" /></p>
+
+<p>为了避免该bug，我们可以采用以函数或 C 语言代码的行为单位来禁止线程切换的锁定方法，或者使用某种线程安全的方式来避免该问题的出现。</p>
+
+<p>现在基本上没有人用汇编语言来编写程序了，因为  C、Java等高级语言的效率要比汇编语言快很多。不过，汇编语言的经验还是很重要的，通过借助汇编语言，我们可以更好的了解计算机运行机制。 </p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
