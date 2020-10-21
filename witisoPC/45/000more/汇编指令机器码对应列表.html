@@ -1,0 +1,818 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>汇编指令机器码对应列表</h3>
+
+<p>指令集依照机器操作码、汇编助记符和汇编操作数来描述指令，遵循下列约定：</p>
+<p>reg8: 8位寄存器。</p>
+<p>reg16: 16位寄存器。</p>
+<p>mem8: 8位内存数值。</p>
+<p>mem16: 16位内存数值。</p>
+<p>immed8: 8位立即数值。</p>
+<p>immed16: 16位立即数值。</p>
+<p>immed32: 32位立即数值。</p>
+<p>segReg: 16位段寄存器。</p>
+<p>机器操作码</p>
+<p>汇编助记符和操作数</p>
+<p>00</p>
+<p>ADD reg8/mem8,reg8</p>
+<p>01</p>
+<p>ADD reg16/mem16,reg16</p>
+<p>02</p>
+<p>ADD reg8,reg8/mem8</p>
+<p>03</p>
+<p>ADD reg16,reg16/mem16</p>
+<p>04</p>
+<p>ADD AL,immed8</p>
+<p>05</p>
+<p>ADD AX,immed16</p>
+<p>06</p>
+<p>PUSH es</p>
+<p>07</p>
+<p>POP es</p>
+<p>08</p>
+<p>OR reg8/mem8,reg8</p>
+<p>09</p>
+<p>OR reg16/mem16,reg16</p>
+<p>0A</p>
+<p>OR reg8,reg8/mem8</p>
+<p>0B</p>
+<p>OR reg16,reg16/mem16</p>
+<p>0C</p>
+<p>OR al,immed8</p>
+<p>0D</p>
+<p>OR ax,immed16</p>
+<p>0E</p>
+<p>PUSH cs</p>
+<p>0F</p>
+<p>Not used</p>
+<p>10</p>
+<p>ADC reg8/mem8,reg8</p>
+<p>11</p>
+<p>ADC reg16/mem16,reg16</p>
+<p>12</p>
+<p>ADC reg8,reg8/mem8</p>
+<p>13</p>
+<p>ADC reg16,reg16/mem16</p>
+<p>14</p>
+<p>ADC al,immed8</p>
+<p>15</p>
+<p>ADC ax,immed16</p>
+<p>16</p>
+<p>PUSH ss</p>
+<p>17</p>
+<p>POP ss</p>
+<p>18</p>
+<p>SBB reg8/mem8,reg8</p>
+<p>19</p>
+<p>SBB reg16/mem16,reg16</p>
+<p>1A</p>
+<p>SBB reg8,reg8/mem8</p>
+<p>1B</p>
+<p>SBB reg16,reg16/mem16</p>
+<p>1C</p>
+<p>SBB al,immed8</p>
+<p>1D</p>
+<p>SBB ax,immed16</p>
+<p>1E</p>
+<p>PUSH ds</p>
+<p>1F</p>
+<p>POP ds</p>
+<p>20</p>
+<p>AND reg8/mem8,reg8</p>
+<p>21</p>
+<p>AND reg16/mem16,reg16</p>
+<p>22</p>
+<p>AND reg8,reg8/mem8</p>
+<p>23</p>
+<p>AND reg16,reg16/mem16</p>
+<p>24</p>
+<p>AND al,immed8</p>
+<p>25</p>
+<p>AND ax,immed16</p>
+<p>26</p>
+<p>Segment override</p>
+<p>27</p>
+<p>DAA</p>
+<p>28</p>
+<p>SUB reg8/mem8,reg8</p>
+<p>29</p>
+<p>SUB reg16/mem16,reg16</p>
+<p>2A</p>
+<p>SUB reg8,reg8/mem8</p>
+<p>2B</p>
+<p>SUB reg16,reg16/mem16</p>
+<p>2C</p>
+<p>SUB al,immed8</p>
+<p>2D</p>
+<p>SUB ax,immed16</p>
+<p>2E</p>
+<p>Segment override</p>
+<p>2F</p>
+<p>DAS</p>
+<p>30</p>
+<p>XOR reg8/mem8,reg8</p>
+<p>31</p>
+<p>XOR reg16/mem16,reg16</p>
+<p>32</p>
+<p>XOR reg8,reg8/mem8</p>
+<p>33</p>
+<p>XOR reg16,reg16/mem16</p>
+<p>34</p>
+<p>XOR al,immed8</p>
+<p>35</p>
+<p>XOR ax,immed16</p>
+<p>36</p>
+<p>Segment override</p>
+<p>37</p>
+<p>AAA</p>
+<p>38</p>
+<p>CMP reg8/mem8,reg8</p>
+<p>39</p>
+<p>CMP reg16/mem16,reg16</p>
+<p>3A</p>
+<p>CMP reg8,reg8/mem8</p>
+<p>3B</p>
+<p>CMP reg16,reg16/mem16</p>
+<p>3C</p>
+<p>CMP al,immed8</p>
+<p>3D</p>
+<p>CMP ax,immed16</p>
+<p>3E</p>
+<p>Segment override</p>
+<p>3F</p>
+<p>AAS</p>
+<p>40</p>
+<p>INC ax</p>
+<p>41</p>
+<p>INC cx</p>
+<p>42</p>
+<p>INC dx</p>
+<p>43</p>
+<p>INC bx</p>
+<p>44</p>
+<p>INC sp</p>
+<p>45</p>
+<p>INC bp</p>
+<p>46</p>
+<p>INC si</p>
+<p>47</p>
+<p>INC di</p>
+<p>48</p>
+<p>DEC ax</p>
+<p>49</p>
+<p>DEC cx</p>
+<p>4A</p>
+<p>DEC dx</p>
+<p>4B</p>
+<p>DEC bx</p>
+<p>4C</p>
+<p>DEC sp</p>
+<p>4D</p>
+<p>DEC bp</p>
+<p>4E</p>
+<p>DEC si</p>
+<p>4F</p>
+<p>DEC di</p>
+<p>50</p>
+<p>PUSH ax</p>
+<p>51</p>
+<p>PUSH cx</p>
+<p>52</p>
+<p>PUSH dx</p>
+<p>53</p>
+<p>PUSH bx</p>
+<p>54</p>
+<p>PUSH sp</p>
+<p>55</p>
+<p>PUSH bp</p>
+<p>56</p>
+<p>PUSH si</p>
+<p>57</p>
+<p>PUSH di</p>
+<p>58</p>
+<p>POP ax</p>
+<p>59</p>
+<p>POP cx</p>
+<p>5A</p>
+<p>POP dx</p>
+<p>5B</p>
+<p>POP bx</p>
+<p>5C</p>
+<p>POP sp</p>
+<p>5D</p>
+<p>POP bp</p>
+<p>5E</p>
+<p>POP si</p>
+<p>5F</p>
+<p>POP di</p>
+<p>60</p>
+<p>PUSHA</p>
+<p>61</p>
+<p>POPA</p>
+<p>62</p>
+<p>BOUND reg16/mem16,reg16</p>
+<p>63</p>
+<p>Not used</p>
+<p>64</p>
+<p>Not used</p>
+<p>65</p>
+<p>Not used</p>
+<p>66</p>
+<p>Not used</p>
+<p>67</p>
+<p>Not used</p>
+<p>68</p>
+<p>PUSH immed16</p>
+<p>69</p>
+<p>IMUL reg16/mem16,immed16</p>
+<p>6A</p>
+<p>PUSH immed8</p>
+<p>6B</p>
+<p>IMUL reg8/mem8,immed8</p>
+<p>6C</p>
+<p>INSB</p>
+<p>6D</p>
+<p>INSW</p>
+<p>6E</p>
+<p>OUTSB</p>
+<p>6F</p>
+<p>OUTSW</p>
+<p>70</p>
+<p>JO immed8</p>
+<p>71</p>
+<p>JNO immed8</p>
+<p>72</p>
+<p>JB immed8</p>
+<p>73</p>
+<p>JNB immed8</p>
+<p>74</p>
+<p>JZ immed8</p>
+<p>75</p>
+<p>JNZ immed8</p>
+<p>76</p>
+<p>JBE immed8</p>
+<p>77</p>
+<p>JA immed8</p>
+<p>78</p>
+<p>JS immed8</p>
+<p>79</p>
+<p>JNS immed8</p>
+<p>7A</p>
+<p>JP immed8</p>
+<p>7B</p>
+<p>JNP immed8</p>
+<p>7C</p>
+<p>JL immed8</p>
+<p>7D</p>
+<p>JNL immed8</p>
+<p>7E</p>
+<p>JLE immed8</p>
+<p>7F</p>
+<p>JG immed8</p>
+<p>80</p>
+<p>Table2 reg8</p>
+<p>81</p>
+<p>Table2 reg16</p>
+<p>82</p>
+<p>Table2 reg8</p>
+<p>83</p>
+<p>Table2 reg8, reg16</p>
+<p>84</p>
+<p>TEST reg8/mem8,reg8</p>
+<p>85</p>
+<p>TEST reg16/mem16,reg16</p>
+<p>86</p>
+<p>XCHG reg8,reg8</p>
+<p>87</p>
+<p>XCHG reg16,reg16</p>
+<p>88</p>
+<p>MOV reg8/mem8,reg8</p>
+<p>89</p>
+<p>MOV reg16/mem16,reg16</p>
+<p>8A</p>
+<p>MOV reg8,reg8/mem8</p>
+<p>8B</p>
+<p>MOV reg16,reg16/mem16</p>
+<p>8C</p>
+<p>MOV reg16/mem16,segReg</p>
+<p>8D</p>
+<p>LEA reg16,reg16/mem16</p>
+<p>8E</p>
+<p>MOV segReg,reg16/mem16</p>
+<p>8F</p>
+<p>POP reg16/mem16</p>
+<p>90</p>
+<p>NOP</p>
+<p>91</p>
+<p>XCHG ax,cx</p>
+<p>92</p>
+<p>XCHG ax,dx</p>
+<p>93</p>
+<p>XCHG ax,bx</p>
+<p>94</p>
+<p>XCHG ax,sp</p>
+<p>95</p>
+<p>XCHG ax,bp</p>
+<p>96</p>
+<p>XCHG ax,si</p>
+<p>97</p>
+<p>XCHG ax,di</p>
+<p>98</p>
+<p>CBW 99CWD</p>
+<p>9A</p>
+<p>CALL immed32</p>
+<p>9B</p>
+<p>WAIT</p>
+<p>9C</p>
+<p>PUSHF</p>
+<p>9D</p>
+<p>POPF</p>
+<p>9E</p>
+<p>SAHF</p>
+<p>9F</p>
+<p>LAHF</p>
+<p>A0</p>
+<p>MOV al,[mem8]</p>
+<p>A1</p>
+<p>MOV ax,[mem16]</p>
+<p>A2</p>
+<p>MOV [mem8],al</p>
+<p>A3</p>
+<p>MOV [mem16],ax</p>
+<p>A4</p>
+<p>MOVSB</p>
+<p>A5</p>
+<p>MOVSW</p>
+<p>A6</p>
+<p>CMPSB</p>
+<p>A7</p>
+<p>CMPSW</p>
+<p>A8</p>
+<p>TEST al,[mem8]</p>
+<p>A9</p>
+<p>TEST ax,[mem16]</p>
+<p>AA</p>
+<p>STOSB</p>
+<p>AB</p>
+<p>STOSW</p>
+<p>AC</p>
+<p>LODSB</p>
+<p>AD</p>
+<p>LODSW</p>
+<p>AE</p>
+<p>SCASB</p>
+<p>AF</p>
+<p>SCASW</p>
+<p>B0</p>
+<p>MOV al,immed8</p>
+<p>B1</p>
+<p>MOV cl,immed8</p>
+<p>B2</p>
+<p>MOV dl,immed8</p>
+<p>B3</p>
+<p>MOV bl,immed8</p>
+<p>B4</p>
+<p>MOV ah,immed8</p>
+<p>B5</p>
+<p>MOV ch,immed8</p>
+<p>B6</p>
+<p>MOV dh,immed8</p>
+<p>B7</p>
+<p>MOV bh,immed8</p>
+<p>B8</p>
+<p>MOV ax,immed16</p>
+<p>B9</p>
+<p>MOV cx,immed16</p>
+<p>BA</p>
+<p>MOV dx,immed16</p>
+<p>BB</p>
+<p>MOV bx,immed16</p>
+<p>BC</p>
+<p>MOV sp,immed16</p>
+<p>BD</p>
+<p>MOV bp,immed16</p>
+<p>BE</p>
+<p>MOV si,immed16</p>
+<p>BF</p>
+<p>MOV di,immed16</p>
+<p>C0</p>
+<p>Table1 reg8</p>
+<p>C1</p>
+<p>Table1 reg8, reg16</p>
+<p>C2</p>
+<p>RET immed16</p>
+<p>C3</p>
+<p>RET</p>
+<p>C4</p>
+<p>LES reg16/mem16,mem16</p>
+<p>C5</p>
+<p>LDS reg16/mem16,mem16</p>
+<p>C6</p>
+<p>MOV reg8/mem8,immed8</p>
+<p>C7</p>
+<p>MOV reg16/mem16,immed16</p>
+<p>C8</p>
+<p>ENTER immed16, immed8</p>
+<p>C9</p>
+<p>LEAVE</p>
+<p>CA</p>
+<p>RET immed16</p>
+<p>CB</p>
+<p>RET</p>
+<p>CC</p>
+<p>INT 3</p>
+<p>CD</p>
+<p>INT immed8</p>
+<p>CE</p>
+<p>INTO</p>
+<p>CF</p>
+<p>IRET</p>
+<p>D0</p>
+<p>Table1 reg8</p>
+<p>D1</p>
+<p>Table1 reg16</p>
+<p>D2</p>
+<p>Table1 reg8</p>
+<p>D3</p>
+<p>Table1 reg16</p>
+<p>D4</p>
+<p>AAM</p>
+<p>D5</p>
+<p>AAD</p>
+<p>D6</p>
+<p>Not used</p>
+<p>D7</p>
+<p>XLAT [bx]</p>
+<p>D8</p>
+<p>ESC immed8</p>
+<p>D9</p>
+<p>ESC immed8</p>
+<p>DA</p>
+<p>ESC immed8</p>
+<p>DB</p>
+<p>ESC immed8</p>
+<p>DC</p>
+<p>ESC immed8</p>
+<p>DD</p>
+<p>ESC immed8</p>
+<p>DE</p>
+<p>ESC immed8</p>
+<p>DF</p>
+<p>ESC immed8</p>
+<p>E0</p>
+<p>LOOPNE immed8</p>
+<p>E1</p>
+<p>LOOPE immed8</p>
+<p>E2</p>
+<p>LOOP immed8</p>
+<p>E3</p>
+<p>JCXZ immed8</p>
+<p>E4</p>
+<p>IN al,immed8</p>
+<p>E5</p>
+<p>IN ax,immed16</p>
+<p>E6</p>
+<p>OUT al,immed8</p>
+<p>E7</p>
+<p>OUT ax,immed16</p>
+<p>E8</p>
+<p>CALL immed16</p>
+<p>E9</p>
+<p>JMP immed16</p>
+<p>EA</p>
+<p>JMP immed32</p>
+<p>EB</p>
+<p>JMP immed8</p>
+<p>EC</p>
+<p>IN al,dx</p>
+<p>ED</p>
+<p>IN ax,dx</p>
+<p>EE</p>
+<p>OUT al,dx</p>
+<p>EF</p>
+<p>OUT ax,dx</p>
+<p>F0</p>
+<p>LOCK</p>
+<p>F1</p>
+<p>Not used</p>
+<p>F2</p>
+<p>REPNE</p>
+<p>F3</p>
+<p>REP</p>
+<p>F4</p>
+<p>HLT</p>
+<p>F5</p>
+<p>CMC</p>
+<p>F6</p>
+<p>Table3 reg8</p>
+<p>F7</p>
+<p>Table3 reg16</p>
+<p>F8</p>
+<p>CLC</p>
+<p>F9</p>
+<p>STC</p>
+<p>FA</p>
+<p>CLI</p>
+<p>FB</p>
+<p>STI</p>
+<p>FC</p>
+<p>CLD</p>
+<p>FD</p>
+<p>STD</p>
+<p>FE</p>
+<p>Table4 reg8</p>
+<p>FF</p>
+<p>Table4 reg16</p>
+
+
+<p style='float:right;'>本页共522段，7684个字符，8418 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
