@@ -1,0 +1,585 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:5px;
+	margin-left:2em;
+	background-color:RGB(240,240,240);
+    color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+pre{
+    margin-left:2em;
+	}
+a:visited, a:link{
+    color:blue;
+}
+a:visited{
+    color:#CC0000;
+}a:hover{
+    color:green;
+	}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+<h4><a name="p1" id="p1"></a>1 <a href="https://baike.baidu.com/item/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95">分治算法</a></h4>
+<p>解决问题的关键在于能抓住主要矛盾，删繁就简，特别是对于复杂的问题，可以考虑将其分割成一些规模较小的相同问题，以便各个击破，分而治之。</p>
+
+<p>1.1 基本概念</p>
+
+<p>在计算机科学中，分治法是一种很重要的算法。字面上的解释是“分而治之”，就是把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。</p>
+
+<p>任何一个可以用计算机求解的问题所需的计算时间都与其规模有关。问题的规模越小，越容易直接求解，解题所需的计算时间也越少。例如，对于n个元素的排序问题，当n=1时，不需任何计算。n=2时，只要作一次比较即可排好序。n=3时只要作3次比较即可…。而当n较大时，问题就不那么容易处理了。要想直接解决一个规模较大的问题，有时是相当困难的。</p>
+
+<p>1.2 基本策略</p>
+
+<p>对于一个规模为n的问题，若该问题可以容易地解决（比如说规模n较小）则直接解决，否则将其分解为k个规模较小的子问题。这些子问题互相独立且与原问题形式相同，递归地解这些子问题，然后将各子问题的解合并得到原问题的解，这种算法设计策略叫做分治法。</p>
+
+<p>如果原问题可分割成k个子问题，1&lt;k≤n,且这些子问题都可解并可利用这些子问题的解求出原问题的解，那么这种分治法就是可行的。由分治法产生的子问题往往是原问题的较小模式，这就为使用递归技术提供了方便。在这种情况下，反复应用分治手段，可以使子问题与原问题类型一致而其规模却不断缩小，最终使子问题缩小到很容易直接求出其解，这自然导致递归过程的产生。分治与递归像一对孪生兄弟，经常同时应用在算法设计之中，并由此产生许多高效算法。</p>
+
+<p>1.3 适用的情况</p>
+
+<p>（1)该问题的规模缩小到一定的程度就可以容易地解决；</p>
+
+<p>（2)该问题可以分解为若干个规模较小的相同问题，即该问题具有最优子结构性质；</p>
+
+<p>（3)利用该问题分解出的子问题的解可以合并为该问题的解；</p>
+
+<p>（4)该问题所分解出的各个子问题是相互独立的，即子问题之间不包含公共的子子问题。</p>
+
+<p>第一特征是绝大多数问题都可以满足的，因为问题的计算复杂性一般是随着问题规模的增加而增加。</p>
+
+<p>第二特征是应用分治法的前提它也是大多数问题可以满足的，此特征反映了递归思想的应用。</p>
+
+<p>第三特征是关键，能否利用分治法完全取决于问题是否具有第三特征，如果具备了第一和第二特征，而不具备第三特征，则可以考虑用贪心法或动态规划法。</p>
+
+<p>第四特征涉及到分治法的效率，如果各子问题是不独立的，则分治法要做许多不必要的工作，重复地解公共的子问题，此时虽然可用分治法，但一般用动态规划法较好。</p>
+
+<p>1.4 基本步骤</p>
+
+<p>step1 分解：将原问题分解为若干个规模较小，相互独立，与原问题形式相同的子问题；</p>
+
+<p>step2 解决：若子问题规模较小而容易被解决则直接解，否则递归地解各个子问题；</p>
+
+<p>step3 合并：将各个子问题的解合并为原问题的解。</p>
+
+<p>它的一般的算法设计模式如下：</p>
+
+<p></p>
+
+<pre>
+Divide-and-Conquer(P)
+if |P|≤n0
+then return(ADHOC(P))
+</pre>
+
+
+<p>将P分解为较小的子问题 P1 ,P2 ,...,Pk</p>
+
+<p></p>
+
+<pre>
+for i←1 to k
+do yi ← Divide-and-Conquer(Pi) △递归解决Pi
+T ← MERGE(y1,y2,...,yk)        △合并子问题
+return(T)
+</pre>
+
+
+<p>其中|P|表示问题P的规模，n0为一阈值，表示当问题P的规模不超过n0时，问题已容易直接解出，不必再继续分解。ADHOC(P)是该分治法中的基本子算法，用于直接解小规模的问题P，因此，当P的规模不超过n0时直接用算法ADHOC(P)求解。算法MERGE(y1,y2,...,yk)是该分治法中的合并子算法，用于将P的子问题P1 ,P2 ,...,Pk的相应的解y1,y2,...,yk合并为P的解。</p>
+
+<p>1.5 复杂性分析</p>
+
+<p>一个分治法将规模为n的问题分成k个规模为n／m的子问题去解。设分解阀值n0=1，且adhoc解规模为1的问题耗费1个单位时间，再设将原问题分解为k个子问题以及用merge将k个子问题的解合并为原问题的解需用f(n)个单位时间。用T(n)表示该分治法解规模为|P|=n的问题所需的计算时间，则有：</p>
+
+<p>T（n）= k T(n/m)+f(n)</p>
+
+<p>通过迭代法求得方程的解：</p>
+
+<p>递归方程及其解只给出n等于m的方幂时T(n)的值，但是如果认为T(n)足够平滑，那么由n等于m的方幂时T(n)的值可以估计T(n)的增长速度。通常假定T(n)是单调上升的，从而当mi≤n&lt;mi+1时，T(mi)≤T(n)&lt;T(mi+1)。</p>
+
+<p>1.6 依据分治法设计程序时的思维过程</p>
+
+<p>实际上就是类似于数学归纳法，找到解决本问题的求解方程公式，然后根据方程公式设计递归程序。</p>
+
+<p>(1) 一定是先找到最小问题规模时的求解方法</p>
+
+<p>(2) 然后考虑随着问题规模增大时的求解方法</p>
+
+<p>(3) 找到求解的递归函数式后（各种规模或因子），设计递归程序即可。</p>
+
+
+
+<p><h4>1.7 可使用分治法求解的一些经典问题</h4></p>
+<p>（1）二分搜索</p>
+<p>（2）大整数乘法</p>
+<p>（3）Strassen矩阵乘法</p>
+<p>（4）棋盘覆盖</p>
+<p>（5）合并排序</p>
+<p>（6）快速排序</p>
+<p>（7）线性时间选择</p>
+<p>（8）最接近点对问题</p>
+<p>（9）循环赛日程表</p>
+<p>（10）汉诺塔</p>
+<p>对于排序，如果排序的数据元素成千上万，是不是很头痛，但如果是只有两个元素，那就简单了，只需比较一下，需要时交换一下位置就行了，对于一个元素，本身就是有序的了。合并呢，对于有序的数组，合并起来也很简单。这种排序的就是归并排序，是分治法的典型应用。</p>
+<p>归并排序（merge sort）是建立在归并操作上的一种有效的排序算法。该算法是分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为2-路归并（2-way or binary merges sort）。</p>
+
+
+<p>归并排序在1945年由冯·诺伊曼首次提出。</p>
+
+
+<p>2-路归并的基本思路就是将数组分成二组A，B，如果这二组组内的数据都是有序的，那么就可以很方便的将这二组数据进行排序。如何让这二组组内数据有序？</p>
+
+
+<p>可以将A，B组各自再分成二组。依次类推，当分出来的小组只有一个数据时，可以认为这个小组组内已经达到了有序，然后再合并相邻的二个小组就可以了。这样通过先递归的分解数列，再合并数列就完成了归并排序。</p>
+
+
+<p>归并排序的效率是比较高的，设数列长为N，将数列分开成小数列一共要logN步，每步都是一个合并有序数列的过程，时间复杂度可以记为O(N)，故一共为O(N*logN)。因为归并排序每次都是在相邻的数据中进行操作，所以归并排序在O(N*logN)的几种排序方法（快速排序，归并排序，希尔排序，堆排序）也是效率比较高的。</p>
+
+
+<p>归并排序的实现分为递归实现与非递归(迭代)实现。递归实现的归并排序是算法设计中分治策略的典型应用，我们将一个大问题分割成小问题分别解决，然后用所有小问题的答案来解决整个大问题。非递归(迭代)实现的归并排序首先进行是两两归并，然后四四归并，然后是八八归并，一直下去直到归并了整个数组。</p>
+<img src="11.jpg" />
+
+
+
+
+<p>可以看到这种结构很像一棵完全二叉树，分阶段可以理解为就是递归拆分子序列的过程，递归深度为log2n。</p>
+
+
+<p>1.2 合并相邻有序子序列</p>
+
+
+<p>再来看看并阶段，我们需要将两个已经有序的子序列合并成一个有序序列，比如上图中的最后一次合并，要将[4,5,7,8]和[1,2,3,6]两个已经有序的子序列，合并为最终序列[1,2,3,4,5,6,7,8]，来看下实现步骤。</p>
+
+
+<p>申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列；</p>
+<p>设定两个指针，最初位置分别为两个已经排序序列的起始位置；</p>
+<p>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置；temp[index++] = A[i] <= A[j] ? A[i++] : A[j++];</p>
+<p>重复步骤3直到某一指针到达序列尾；</p>
+<p>将另一序列剩下的所有元素直接复制到合并序列尾；</p>
+
+<img src="12.jpg" />
+
+
+<p>代码：</p>
+<p></p>
+
+<pre>
+#include &lt;stdio.h>
+#include &lt;stdlib.h>
+#include &lt;limits.h>
+
+// 分类 -------------- 内部比较排序
+// 数据结构 ---------- 数组
+// 最差时间复杂度 ---- O(nlogn)
+// 最优时间复杂度 ---- O(nlogn)
+// 平均时间复杂度 ---- O(nlogn)
+// 所需辅助空间 ------ O(n)
+// 稳定性 ------------ 稳定
+
+// 合并两个已排好序的数组A[left...mid]和A[mid+1...right]
+void Merge(int A[], int left, int mid, int right)
+{
+    int len = right - left + 1;
+    int *temp = new int[len];       // 辅助空间O(n)
+    int index = 0;                  // 辅助数组的下标
+    int i = left;                   // 前一数组的起始元素
+    int j = mid + 1;                // 后一数组的起始元素
+    while (i &lt;= mid && j &lt;= right)  // 左右相等长度部分
+    {
+        temp[index++] = A[i] &lt;= A[j] ? A[i++] : A[j++];  
+    }                               // 带等号保证归并排序的稳定性
+
+    while (i &lt;= mid)                // 左边超长部分
+        temp[index++] = A[i++];
+    while (j &lt;= right)              // 右边超长部分
+        temp[index++] = A[j++];
+
+    for (int k = 0; k &lt; len; k++)   // 临时空间到数据A[]
+        A[left++] = temp[k];
+}
+
+// 递归实现的归并排序(自顶向下)
+void MergeSortRecursion(int A[], int left, int right)    
+{
+    if (left == right) // 当待排序的序列长度为1时，递归开始回溯，进行merge操作
+        return;
+    int mid = (left + right) / 2;
+    MergeSortRecursion(A, left, mid);
+    MergeSortRecursion(A, mid + 1, right);
+    Merge(A, left, mid, right);
+}
+
+// 非递归(迭代)实现的归并排序(自底向上)
+void MergeSortIteration(int A[], int len)    
+{
+    int left, mid, right;                   // 子数组索引,前一个为A[left...mid]，
+	                                        // 后一个子数组为A[mid+1...right]
+    for (int i = 1; i &lt; len; i *= 2)        // 子数组的大小i初始为1，每轮翻倍
+    {
+        left = 0;
+        while (left + i &lt; len)              // 后一个子数组存在(需要归并)
+        {
+            mid = left + i - 1;
+            right = mid+i &lt; len ? mid+i : len-1;// 后一个子数组大小可能不够
+            Merge(A, left, mid, right);
+            left = right + 1;               // 前一个子数组索引向后移动
+        }
+    }
+}
+
+int main()
+{
+    int A1[] = { 6, 5, 3, 1, 8, 7, 2, 4 };      // 从小到大归并排序
+    int A2[] = { 6, 5, 3, 1, 8, 7, 2, 4 };
+    int n1 = sizeof(A1) / sizeof(int);
+    int n2 = sizeof(A2) / sizeof(int);
+    MergeSortRecursion(A1, 0, n1 - 1);          // 递归实现
+    MergeSortIteration(A2, n2);                 // 非递归实现
+    printf("递归实现的归并排序结果：");
+    for (int i = 0; i &lt; n1; i++)
+    {
+        printf("%d ", A1[i]);
+    }
+    printf("\n");
+    printf("非递归实现的归并排序结果：");
+    for (i = 0; i &lt; n2; i++)
+    {
+        printf("%d ", A2[i]);
+    }
+    printf("\n");
+	system("pause");
+    return 0;
+}
+</pre>
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
