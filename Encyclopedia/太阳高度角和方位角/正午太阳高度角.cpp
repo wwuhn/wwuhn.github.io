@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+main()
+{
+	//x为α代表当地地理纬度
+	//y为β代表太阳直射点地理纬度
+	//i为判断(+/-)是所求地理纬度与太阳直射是否在同一半球
+	//h为太阳高度角
+	int i;
+	float x,y,h;
+	//判断所求地理纬度与太阳直射是否在同一半球
+	printf("输入(0或1)判断所求地理纬度与太阳直射是否在同一半球，0表示相同，1表示不同：\n");
+	scanf("%d",&i);
+	printf("请输入所求地理纬度:(只输入数值，如：23.27)\n");
+	scanf("%f",&x);
+	printf("请输入太阳直射点地理纬度:(只输入数值，如：23.27)\n");
+	scanf("%f",&y);
+	if(i==0)
+	{
+		//Fabs(x-y)求(x-y)的绝对值
+		h=90-fabs(x-y);
+		printf("太阳的高度角H=%4.2f",h);
+	}
+	else
+	{
+		h=90-fabs(x+y);
+		printf("太阳的高度角H=%4.2f",h);
+	}
+	system("pause");
+}
