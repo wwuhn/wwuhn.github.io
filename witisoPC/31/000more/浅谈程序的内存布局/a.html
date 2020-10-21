@@ -1,0 +1,596 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p><strong>浅谈程序的内存布局 </strong></p>
+  <p align="left">&nbsp;</p>
+  <p>herongwei</p>
+
+<p><strong>前言</strong></p>
+
+<p>1、什么是 User space 与 Kernel space？</p>
+
+<p>2、什么是栈区？</p>
+
+<p>3、什么是堆区？</p>
+
+<p>4、malloc 算法是如何实现的？</p>
+
+<p>5、Linux 系统下，有几种堆空间分配方式？</p>
+
+<p>6、Linux 下一个进程地址空间布局是怎样的？</p>
+
+<p>上面几个问题，你心里有答案吗？如果没有，跟我一起来探究一下吧。</p>
+
+<p><strong>User space </strong><strong>与</strong><strong> Kernel space</strong></p>
+
+<p>现代的应用程序都运行在一个内存空间里，在 32 位系统中，这个内存空间拥有 4GB （2 的 32 次方）的寻址能力。</p>
+
+<p>尽管现在大部分计算机的内存空间配置越来越高，但实际上内存仍然在不同的地址区间有着不同的地位，例如，大多数操作系统都会将 4GB 的内存空间一部分挪给内核使用，应用程序无法直接访问这一段内存，这一部分内存地址被称为内核空间。</p>
+
+<p>Windows 在默认的情况下会将高地址的 2GB 空间分配给内核（也可以配置 1GB）。</p>
+
+<p>Linux 默认情况下将高地址的 1GB 空间分配给内核。</p>
+
+<p>用户使用的剩下的 2GB 或 3GB 的内存空间称为用户空间。</p>
+
+<p><strong>为什么要区分内核空间和用户空间？</strong></p>
+
+<p>大致有三点因素：</p>
+
+<p>第一点：操作系统的数据都是存放于系统空间的，用户进程的数据是存放于用户空间的；</p>
+
+<p>第二点：分开来存放，就让系统的数据和用户的数据互不干扰，保证系统的稳定性，并且管理上很方便；</p>
+
+<p>第三点：也是重要的一点，将用户的数据和系统的数据隔离开，就可以对两部分的数据的访问进行控制。这样就可以确保用户程序不能随便操作系统的数据，这样防止用户程序误操作或者是恶意破坏系统。</p>
+
+<p>下面这一张图，比较形象的解释了 User space 与 Kernel space 的区别。</p>
+
+<p><img width="640" height="495" src="a_clip_image001.jpg" alt="http://pics7.baidu.com/feed/faedab64034f78f0b164ba8218443053b2191cca.jpeg?token=7395ddd6ad1d84bce50e6cdff1c75b86&amp;s=0E867C220BBED1EB004C84DE0000C0B1" /></p>
+
+<p>第一点：操作系统的数据都是存放于系统空间的，用户进程的数据是存放于用户空间的；</p>
+
+<p>简单说，Kernel space 是 Linux 内核的运行空间，User space 是用户程序的运行空间。为了安全，它们是隔离的，即使用户的程序崩溃了，内核也不受影响。</p>
+
+<p>Kernel space 可以执行任意命令，调用系统的一切资源；</p>
+
+<p>相对来说，User space 执行的是较为简单的运算，执行的运算不影响其他程序的执行，并且不能直接调用系统资源，必须通过系统接口（又称 system call），才能向内核发出指令。</p>
+
+<p>这里补充下知乎网友@风云评论：</p>
+
+<p>其实，在用户空间，几乎所有内核资源在用户空间都是可以访问的（必须有相应的权限），即使是操作系统内核的大脑（调度程序）。</p>
+
+<p><strong>Linux </strong><strong>进程地址空间布局</strong></p>
+
+<p>在用户空间里，也有许多地址区间有特权的地位，一般来讲，应用程序使用的内存空间里有如下“默认”的区域。</p>
+
+<p><strong>栈区：</strong><strong>&nbsp;</strong>栈用于维护函数调用的上下文，离开了栈，函数调用就无法实现，栈通常在用户空间的最高地址处分配，通常有数兆字节的大小。</p>
+
+<p><strong>堆区：</strong><strong>&nbsp;</strong>堆是用来容纳应用程序动态分配的内存区域，当程序使用 malloc 或者 new 分配内存的时候，得到的内存会来自堆里。</p>
+
+<p>堆通常存在栈的下方（低地址方向），在某些时候，堆也可能没有固定统一的存储区域。堆一般比栈大很多，可以有几十至数百兆字节的容量。</p>
+
+<p><strong>可执行文件映像：</strong>存储着可执行文件在内存里的映像，由装载器在装载时将可执行文件的内存读取或映射到这里。</p>
+
+<p><strong>保留区：</strong>保留区并不是一个单一的内存区域，而是对内存中受到保护而禁止访问的内存区域的总称：例如大多数操作系统中，极小的地址通常都是不允许访问的，如 NULL，C 语言将无效指针赋值为 0 也是这个考虑。</p>
+
+<p><strong>动态链接库映射区：</strong><strong>&nbsp;</strong>这个区域用于映射装载的动态链接库。在 Linux 下，如果可执行文件依赖其它共享库，那么系统就会为它在从 0x40000000 开始的地址分配相应的空间，并将共享库载入该空间。</p>
+
+<p>剩下的还有以下几部份组成：</p>
+
+<p>（1）代码段</p>
+
+<p>（2）初始化数据段（数据段）</p>
+
+<p>（3）未初始化数据段（BSS 段）</p>
+
+<p>下图是 Linux 下一个进程里典型的内存布局</p>
+
+<p><img width="408" height="534" src="a_clip_image002.jpg" alt="http://pics5.baidu.com/feed/42166d224f4a20a4f686f921f027a224730ed03c.jpeg?token=8881581a4f4809e581708a50c982aca1&amp;s=7AAC3462419F41CC4CFDE1DF0000E0B1" /></p>
+
+<p>图中的箭头，标明了几个大小可变的尺寸增长的方向，在这里，可以清晰地看出：</p>
+
+<p>栈是由高地址向低地址增长。</p>
+
+<p>堆是由低地址向高地址增长。</p>
+
+<p>当栈或堆现有的大小不够用的时候，它将按照图中的增长方向扩大自身的尺寸，直到预留的空间被用完为止。</p>
+
+<p>在讲堆和栈之前，我们先来看一下代码段，初始化数据段和未初始化数据段。</p>
+
+<p><strong>代码段</strong></p>
+
+<p>代码段中存放可执行的指令，在内存中，为了保证不会因为堆栈溢出被覆盖，将其放在了堆栈段下面（从上图可以看出）。</p>
+
+<p>通常来讲代码段是共享的，这样多次反复执行的指令只需要在内存中驻留一个副本即可，比如 C 编译器，文本编辑器等。</p>
+
+<p>代码段一般是只读的，这样程序执行时不能随意更改指令，也是为了进行隔离保护。</p>
+
+<p><strong>初始化数据段</strong></p>
+
+<p>初始化数据段有时就称之为数据段。数据段是一个程序虚拟地址空间的一部分，包括一全局变量和静态变量，这些变量在编程时就已经被初始化。数据段是可以修改的，不然程序运行时变量就无法改变了，这一点和代码段不同。</p>
+
+<p>数据段可以细分为初始化只读区和初始化读写区。这一点和编程中的一些特殊变量吻合。比如全局变量 int global n = 1就被放在了初始化读写区，因为 global 是可以修改的。而 const int m = 2 就会被放在只读区，很明显，m 是不能修改的。</p>
+
+<p><strong>栈</strong></p>
+
+<p>栈 (stack) 是现代计算机程序里最为重要的概念之一，几乎每一个程序都使用了栈，没有栈就没有函数，没有局部变量，也就没有我们如今能够看见的所有的计算机语言。</p>
+
+<p>在解释为什么栈会如此重要之前，让我们来先了解一下传统的栈的定义：</p>
+
+<p>在经典的计算机科学中，栈被定义为一个特殊的容器，用户可以将数据压入栈中（入栈,push），也可以将已经压入栈中的数据弹出(出栈, pop)。</p>
+
+<p>但栈这个容器必须遵守一条规则：<strong>先入栈的数据后出栈</strong><strong>(First In Last Out, FIFO)</strong><strong>，多多少少像叠成一叠的书：先叠上去的书在最下面：因此要最后才能取出。</strong></p>
+
+<p>在计算机系统中，栈则是一个具有以上属性的动态内存区域，程序可以将数据压入栈中，也可以将数据从栈顶弹出，压栈操作使得栈增大,而弹出操作使栈减小。</p>
+
+<p>在经典的操作系统里，栈总是向下增长的。</p>
+
+<p>在 i386 下，栈顶由称为 esp 的寄存器进行定位。压栈的操作使栈顶的地址减小，弹出的操作使栈顶地址增大。</p>
+
+<p><img width="486" height="262" src="a_clip_image003.jpg" alt="http://pics0.baidu.com/feed/7a899e510fb30f24062ed099a8e0eb45ac4b036a.jpeg?token=70644e8d1786391638742e5102d06e05&amp;s=7AAC346293DA4DC81E7534CE0000E0B1" /></p>
+
+<p>这里栈底的地址是 0xbffff，而 esp 寄存器标明了栈顶，地址为 0xbifff4。</p>
+
+<p><strong>在栈上压入数据会导致</strong><strong> esp </strong><strong>减小，弹出数据使得</strong><strong> esp </strong><strong>增大。</strong></p>
+
+<p>栈在程序运行中具有举足轻重的地位。最重要的，栈保存了一个函数调用所需要的维护信息，这常常被称为堆栈帧(Stack Frame)或活动记录(Activate Record)，堆栈帧一般包括如下几方面内容：</p>
+
+<p>1、函数的返回地址和参数。</p>
+
+<p>2、临时变量:包括函数的非静态局部变量以及编译器自动生成的其他临时变量。</p>
+
+<p>3、保存的上下文:包括在函数调用前后需要保持不变的寄存器。</p>
+
+<p><strong>堆</strong></p>
+
+<p>相对于栈，堆这片内存面临着一个稍微复杂的行为模式：在任意时刻，程序可能发出请求，要么申请一段内存，要么释放一段已经申请过的内存，而且申请的大小从几个字节到数 GB 都是有可能的。</p>
+
+<p>我们不能假设程序会一次申请多少堆空间，因此，这时候堆的作用就凸显出来了，同样，相比较与栈，堆的管理显得较为复杂。</p>
+
+<p>光有栈，对于面向过程的程序设计还远远不够，因为栈上的数据在函数返回的时候就会被释放掉，所以无法将数据传递至函数外部。而全局变量没有办法动态地产生，只能在编译的时候定义，有很多情况下缺乏表现力，在这种情况下，堆（Heap）是一种唯一的选择。</p>
+
+<p>堆是一块巨大的内存空间，常常占据整个虚拟空间的绝大部分，在这片空间里，程序可以请求一块连续的内存，并自由地使用，这块内存在程序主动放弃之前都活一直保持有效，下面是一个申请堆空间最简单的例子：</p>
+
+<p>int main(){char*  p = (char*) malloc(233);&nbsp;free(p);&nbsp;return 0;}</p>
+
+<p>在代码中，第 3 行用 malloc 申请了 233 个字节的空间之后，程序可以自由地使用这 233个字节，直到程序用 free 函数释放它。</p>
+
+<p><strong>那么</strong><strong> malloc </strong><strong>到底是怎么实现的呢？</strong></p>
+
+<p>有一种做法是，把进程的内存管理交给操作系统内核去做，既然内核管理着进程的地址空间，那么如果它提供一个系统调用，可以让程序使用这个系统调用申请内存，不就可以了吗？</p>
+
+<p>当然这是一种理论上可行的做法，但实际上这样做的性能比较差，原因在于每次程序申请或者释放堆空间都需要进行系统调用。</p>
+
+<p>我们知道系统调用的性能开销是很大的，当程序对堆的操作比较频繁时，这样做的结果是会严重影响程序的性能的。</p>
+
+<p>比较好的做法就是：<strong>程序向操作系统申请一块适当大小的堆空间，然后由程序自己管理这块空间，而具体来讲，管理着堆空间分配的往往是程序的运行</strong>库。</p>
+
+<p>运行库相当于是向操作系统 “批发” 了一块较大的堆空间，然后 “零售” 给程序用。</p>
+
+<p>当全部“售完”或程序有大量的内存需求时，再根据实际需求向操作系统“进货”。</p>
+
+<p>当然运行库在向程序零售堆空间时，必须管理它批发来的堆空间，不能把同一块地址出售两次，导致地址的冲突。</p>
+
+<p><strong>Linux </strong><strong>进程堆管理</strong></p>
+
+<p>由第一节可知，进程的地址空间中，除了可执行文件，共享库和栈之外，剩余的未分配的空间都可以用来作为堆空间。</p>
+
+<p>Linux 系统下，提供两种堆空间分配方式：</p>
+
+<p><strong>brk() </strong><strong>统调用和</strong><strong> mmap() </strong><strong>系统调用。</strong></p>
+
+<p>这两种方式分配的都是虚拟内存，没有分配物理内存。在第一次访问已分配的虚拟地址空间的时候，发生缺页中断，操作系统负责分配物理内存，然后建立虚拟内存和物理内存之间的映射关系。</p>
+
+<p>在标准 C 库中，提供了malloc/free 函数分配释放内存，这两个函数底层是由 brk，mmap，munmap 这些系统调用实现的。</p>
+
+<p><strong>brk() </strong><strong>系统调用</strong></p>
+
+<p>C 语言形式声明：int brk() {void* end_data_segment;}</p>
+
+<p>brk() 的作用实际上就是设置进程数据段的结束地址，即它可以扩大或者缩小数据段（Linux 下数据段和 BBS 合并在一起统称数据段）。</p>
+
+<p>如果我们将数据段的结束地址向高地址移动，那么扩大的那部分空间就可以被我们使用，把这块空间拿过来使用作为堆空间是最常见的做法。</p>
+
+<p><strong>mmap() </strong><strong>系统调用</strong></p>
+
+<p>和 Windows 系统下的 VirtualAlloc 很相似，它的作用就是向操作系统申请一段虚拟地址空间，（堆和栈中间，称为文件映射区域的地方）这块虚拟地址空间可以映射到某个文件。</p>
+
+<p>glibc 的 malloc 函数是这样处理用户的空间请求的：对于小于 128KB 的请求来说，它会在现有的堆空间里面，按照堆分配算法为它分配一块空间并返回；对于大于128KB 的请求来说，它会使用 mmap() 函数为它分配一块匿名空间，然后在这个匿名空间中为用户分配空间。</p>
+
+<p>声明如下：</p>
+
+<p>void* mmap{void*  start;&nbsp;size_t length;&nbsp;int prot;&nbsp;int flags;&nbsp;int  fd;&nbsp;off_t offset;}</p>
+
+<p>mmap 前两个参数分别用于指定需要申请的空间的起始地址和长度，如果起始地址设置 0，那么 Linux 系统会自动挑选合适的起始地址。</p>
+
+<p>prot/flags 参数：用于设置申请的空间的权限（可读，可写，可执行）以及映射类型（文件映射，匿名空间等）。</p>
+
+<p>最后两个参数用于文件映射时指定的文件描述符和文件偏移的。</p>
+
+<p>了解了 Linux 系统对于堆的管理之后，我们可以思考这么一个问题：</p>
+
+<p><strong>malloc </strong><strong>到底一次能够申请的最大空间是多少？</strong></p>
+
+<p>为了回答这个问题，就不得不再回头仔细研究一下之前的图一。我们可以看到在有共享库的情况下，留给堆可以用的空间还有两处。</p>
+
+<p>第一处就是从 BSS 段结束到 0x40 000 000 即大约 1GB 不到的空间；</p>
+
+<p>第二处是从共享库到栈的这块空间，大约是 2GB 不到。这两块空间大小都取决于栈、共享库的大小和数量。</p>
+
+<p>于是可以估算到 malloc 最大的申请空间大约是 2GB 不到。（Linux 内核 2.4 版本）。</p>
+
+<p>当然还有其它诸多因素会影响 malloc 的最大空间大小，比如系统的资源限制（ulimit），物理内存和交换空间的总和等。</p>
+
+<p>mmap 申请匿名空间时，系统会为它在内存或交换空间中预留地址，但是申请的空间大小不能超过空闲内存+空闲交换空间的总和。</p>
+
+<p><strong>堆分配算法</strong></p>
+
+<p><strong>1</strong><strong>、空闲链表法（即调用</strong><strong> malloc </strong><strong>分配）</strong></p>
+
+<p>就是把堆中各个空闲的块按照链表的方式连接起来，当用户请求一块空间的时候，可以遍历整个列表，直到找到合适大小的块并且将它拆分；当用户释放空间的时候将它合并到空闲链表中。</p>
+
+<p>空闲链表是这样一种结构，在堆里的每一个空闲空间的开头(或结尾)有一个头 (header)，头结构里记录了上一个 (prev) 和下一个 (next) 空闲块的地址，也就是说，所有的空闲块形成了一个链表。如图所示。</p>
+
+<p><img width="282" height="388" src="a_clip_image004.jpg" alt="http://pics2.baidu.com/feed/ac6eddc451da81cba2bf12803213ea1008243199.jpeg?token=cbc809e2868d6894ca6c2b1b9b60ffeb&amp;s=7AA83C63414FE6EE4E7D60DF000080A0" /></p>
+
+<p>具体实现方案：</p>
+
+<p>malloc 函数的实质是它有一个将可用的内存块连接为一个长长的列表的所谓空闲链表。调用 malloc函数时，它沿着连接表寻找一个大到足以满足用户请求所需要的内存块。然后，将该内存块一分为二（一块的大小与用户申请的大小相等，另一块的大小就是剩下来的字节）。接下来，将分配给用户的那块内存存储区域传给用户，并将剩下的那块（如果有的话）返回到连接表上。调用 free 函数时，它将用户释放的内存块连接到空闲链表上。到最后，空闲链会被切成很多的小内存片段，如果这时用户申请一个大的内存片段， 那么空闲链表上可能没有可以满足用户要求的片段了。于是，malloc() 函数请求延时，并开始在空闲链表上检查各内存片段，对它们进行内存整理，将相邻的小空闲块合并成较大的内存块。<strong>2</strong><strong>、位图法</strong></p>
+
+<p>针对空闲链表的弊端，另一种分配方式显得更加稳健。这种方式称为位围(Bitmap)，其核心思想是将整个堆划分为大量的块(block)，每个块的大小相同。</p>
+
+<p>当用户请求内存的时候，总是分配整数个块的空间给用户，第一个块我们称为已分配区域的头(Head)，其余的称为己分配区域的主体(Body)，而我们可以使用一个整数数组来记录块的使用情况，由于每个块只有头/主体/空闲三种状态，因此仅仅需要两位即可表示一个块，因此称为位图。</p>
+
+<p><strong>3</strong><strong>、对象池</strong></p>
+
+<p>还有一种方法是对象池，也是把堆空间分成了大小相等的一些块，它是认为某些场合每次分配的空间都相等，所以每次就直接返回一个块的大小，它的管理方法可以是链表也可以是位图。因为不用每次查找合适的大小的内存返回，所以效率很高。</p>
+
+<p>实际上很多现实应用中，堆的分配算法往往是采取多种算法复合而成的。</p>
+
+<p>比如对于glibc来说，它对于小于64字节的空间申请是采用类似于对象池的方法。</p>
+
+<p>而对于大于512字节的空间申请采用的是最佳适配算法；</p>
+
+<p>对于大于64字节而小于512字节的，它会根据情况采取上述方法中的最佳折中策略；</p>
+
+<p>对于大于128KB的申请，它会使用mmap机制直接向操作系统申请空间。</p>
+
+<p><strong>参考资料：</strong></p>
+
+<p>《程序员的自我修养》http://www.ruanyifeng.com/blog/2016/12/user_space_vs_kernel_space.htm </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
