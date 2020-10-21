@@ -1,8 +1,10 @@
+chcp 65001
+
 echo ^<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" >more.html
 echo  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"^> >>more.html
 echo ^<html xmlns="http://www.w3.org/1999/xhtml"^> >>more.html
 echo ^<base target="_blank" /^> >>more.html
-
+echo ^<meta content="text/html; charset=utf-8" /^> >>more.html
 echo ^<head^> >>more.html
 echo ^<title^>contents^</title^> >>more.html
 echo ^<link  href="../../more.css" rel="stylesheet" type="text/css" /^> >>more.html
