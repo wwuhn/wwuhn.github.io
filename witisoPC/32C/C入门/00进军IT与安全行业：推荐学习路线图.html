@@ -1,0 +1,550 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>00进军IT与安全行业：推荐学习路线图</h4>
+
+
+<p>IT是一个生机勃勃的行业，不少年轻人选择IT作为自己的职业规划与选项，希望能够在IT行业里挖掘自己的潜力，奔一个好的前程。但很多朋友发现，IT行业入门也并非易事，不少人无法坚持就只好中途放弃。很多数程序员都是靠自学，这其中的艰辛自不必多言，他们有时会很迷茫，发现自己看了很多书，花了很多时间，依然无法写出像样的程序。这可能是学习的步骤不对。一个循序渐进的学习步骤，能够帮助程序员朋友在最短的时间内达到最好的效果。</p>
+<p>首先我们要有一个意识就是，无论干哪行，学哪个方面的技术，在我们下决心学习它的时候，第一个需要解决的问题就是：学习它可以分为哪几个阶段？每个阶段都有哪几本经典的好书供学习？只有在每个阶段都找到了一两本相关的经典的好书，才为我们学习这个方面的技术找准了方向，学习起来也会事半功倍。所以，在我学习程序设计的时候，我对书的要求很高，不是随便拿一本来看，看一本差书，既浪费时间，又毫无收获，而是要找口碑最好，写得非常经典的书籍来看。</p>
+<p>假如你是一个IT行业零基础而且年龄小于26周岁的年轻人，渴望进入IT行业发展，那么下面我们就来介绍一个底层安全程序员的学习阶段， 并同时推荐在每个阶段相关的好的学习书籍。</p>
+<p>学习周期：</p>
+<p>我们把学习划分为十一个阶段。首先来看下学完这十一个阶段花费的时间，也就是学习周期。</p>
+<p>自学模式：阶段一到阶段十应计划1年时间；阶段十一应计划1年时间，共2年时间</p>
+<p>培训模式：如果参加一些系统的优质的培训可少走弯路，可以将学习周期缩减为1年时间</p>
+<p>注意：在看书学习的时候，要习惯性的打开VC，经常实践书中的理论和例子。一些重要的代码在理解了之后应该再背着写一遍（注意：不是照着抄），加深印象，当背着写不出来的时候，再回头看看书中的代码。要明白，书看懂了，离会写代码还有一段距离，在写代码的时候还会遇到很多问题。遇到问题不要怕，解决了，才是学会了。</p>
+<h4>阶段一，C语言学习</h4>
+<p>要进入IT行业，做码农，首先就得精通一两门计算机编程语言。就好比你想成为一个伟大的作家，首先也得会一两门人类语言一样。否则，你即使能力再大，想法再多，也是无法实现的。计算机编程语言，是人类与计算机交流的主要途径。正是程序员通过编程语言，让计算机完成相应的任务。</p>
+<p>作为程序员的入门编程语言，我们推荐选择C语言。曾经就职于Amazon和Google的卓越程序员Steve Yegge在他的文章《几种编程语言的优缺点》以及《程序员的呐喊》中指出“你必须懂C”，因为C最懂冯诺依曼计算机， 而冯诺依曼计算机是当今计算机的架构标准。</p>
+<p>C语言是一门很好很实用的入门编程语言。C语言运行效率高，它是做底层和安全开发的必备语言。很多低效率的编程语言，也提供了访问C语言库的接口，就是因为C语言的执行效率高。时至今日，绝大多数的底层软件，包括操作系统（如Windows, Linux, UNIX等），数据库软件（如MySQL），办公软件（如OpenOffice），杀毒软件，网络通信协议，包括JAVA语言的实现，互联网，以及各种内核驱动等都是用C语言开发的。C语言作为编程语言之王，是当之无愧的。截止2016年9月，C语言在TIOBE（http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html）编程语言使用排行榜上依然占据TOP2的位置，仅次于排名第一的Java语言。</p>
+<p>但是C语言的学习有一定的难度，这使得一些初学者望而生畏，学到中途就半途而废。某些高校为了减轻大家的学习负担，也放弃将C语言作为编程入门的教学语言，而选择更容易的语言比如Java作为编程语言。但是，只要坚持学习，C语言是可以学会的。而且只要把C语言掌握了，学习其它语言，就变得非常容易。事实上，很多优秀的程序员只懂C和汇编。</p>
+<p>C语言的学习书籍推荐：可以选择谭浩强老师编著的《C程序设计》，或者C语言创始人写的《C程序设计语言(K&R)》，以及《一站式学习C编程》等。当然，最权威的参考还包括我们在周哥教IT推出的《周哥教IT.C语言深学活用》以及麦洛科菲的官网入门专区推出的<a href="http://www.mallocfree.com/basic_outline.htm#c" title="">《C语言学习》</a>，它包含了麦洛科菲多年C语言和内核安全教学的经验总结，深入全面的讲解了C语言编程知识，值得大家收藏学习。</p>
+<p>在C语言学习过程中，需要重点掌握的地方包括：</p>
+<pre>
+整数编码与存储；
+二进制，八进制，十六进制与转换；
+变量的类型，作用域，存储空间，生命周期；
+字符串的定义以及常见操作；
+函数的传参：传值，传指针，（传引用）；
+函数的调用约定：cdecl,stdcall,fastcall,nakedcall,(thiscall)；
+指针，指针定义，*与&，指针加减运算，指针与数组关系，常量指针与指针常量，
+数组指针与指针数组，函数指针与指针函数，二级指针；
+内存布局，分配与泄漏；
+结构体，自然对齐与sizeof计算大小，结构体赋值（浅拷贝，深拷贝）；
+位运算与应用
+学会调试工具的使用
+</pre>
+<p>入门C之后，需要进一步学习的书籍包括《高质量C/C++编程》--林锐博士，《C语言编程精粹》--姜静波</p>
+<h4>阶段二，数据结构学习</h4>
+<p>数据结构是算法的基础。算法又是程序的核心。所以，学完C语言后，应该立即学习数据结构。数据结构包含：字符串，数组，链表，堆栈，队列，二叉树，排序，查找，HASH表等等，这些都要牢固掌握。</p>
+<p>数据结构教材推荐使用清华严蔚敏老师的《数据结构（C语言版）》教材。除了严蔚敏的教材，还推荐一本李春葆老师的《数据结构习题与解析》 李春葆 C语言版。这两本书结合看效果最好。此外，也同样可以参考麦洛科菲官网入门专区的《数据结构》部分。</p>
+<p>数据结构是程序设计中的关键。因此我们一定要多花精力把数据结构学好，打下牢固的基础。不能急于求成，数据结构都没学好，就想用VC等开发工具，写一个不错的软件出来，当然这也是不可能的。</p>
+<p>数据结构中需要重点掌握的包括：</p>
+<pre>
+链表常规操作：创建，遍历，查找，插入，修改，删除
+队列：先进先出，出队，入队，队空判断，链队与数组队列实现
+栈：后进先出，堆栈，入栈，栈空判断，链栈和数组栈实现
+树：二叉树定义，遍历（先序，中序，后序），二叉排序树，平衡二叉树
+排序：插入（希尔排序），选择（堆排序），交换排序（冒泡排序，快速排序）思想，实现与复杂度
+查找：折半查找，hash查找，平衡二叉树查找
+</pre>
+<p>实现与提高算法设计能力的一般方法：</p>
+<p>http://www.mallocfree.com/interview/algo-1-advice.htm</p>
+<h4>阶段三，汇编语言学习</h4>
+<p>汇编是一门很有价值的课程。在调试程序，逆向和漏洞挖掘等方面都会涉及到汇编知识。有了程序设计和C语言的基础，我们可以紧接着学习汇编语言。与C语言相比，汇编语言显得晦涩难懂。汇编语言包括各种各样的寄存器，内存地址，寻址方法，8086的常用汇编指令，再加上一些伪操作，还有 DOS和BIOS中断的调用。有了这些概念和汇编基础，我们就可以看懂书上的汇编程序了。到此，你应该会对计算机的理解更深一层。学好汇编语言，对于理解计算机程序执行的底层机制，以及以后程序调试和分析，都有很大的帮助。推荐汇编学习书籍：《汇编语言》--王爽，《天书夜读》--邵坚磊。</p>
+<p>汇编语言学习重点：</p>
+<pre>
+1、CPU与寄存器（X86，X64）
+2、汇编指令集
+(1)CISC VS RISC
+(2)传送指令：Mov/lea/push/pop
+(3)算术指令
+(4)逻辑指令
+(5)串操作指令
+(6)控制转移指令
+(7)处理机控制指令
+(8)指令机器码
+</pre>
+<pre>
+3、C语句、函数调用的汇编分析
+(1) 循环语句（for,while,do-while）与汇编
+(2) 条件语句与汇编
+(3) 数组访问与汇编
+(4) 结构体访问与汇编
+(5) 结构体数组与汇编
+(6) cdecl调用汇编
+(7) stdcall调用汇编
+(8) fastcall调用汇编
+</pre>
+<h4>阶段四、C++与面向对象
+</h4>
+<p>C是面向过程语言，C++是面向对象语言。一个程序员，是需要掌握面向对象的思想的。以把大象装入冰箱为例子，虽然同样是为了解决问题，在面向过程的程序员眼里，需要分为3步，第一步打开冰箱，第二步把大象放进冰箱，第三步关上冰箱门，然后每一步实现一个函数；但是在面向对象程序员眼里，首先是分析解决问题中各种不同的对象，这里涉及的对象有3个：人、冰箱、和大象。然后再分析各个对象的属性和行为以及它们之间的关系。</p>
+<p>找本C++上手的书（推荐《C++ Primer》），用一个月的时间去了解C++和面向对象语言程序设计思想，包括数据的封装、关系的继承、和多态等。C++的推荐书籍包括：《C++Primer》，《Effective C++》，《Thinking in C++》，《More Effective C++》。</p>
+<p>C++重点学习内容：</p>
+<pre>
+封装
+继承
+多态
+STL模板库
+</pre>
+<h4>阶段五、多线程与进程通信</h4>
+<p>现在大多数程序，为了提高自己任务的并发，都使用了多线程。在多线程环境里，程序为了保证全局资源的一致性，而提供了各种同步与互斥机制。</p>
+<p>多线程与多进程重点学习内容：</p>
+<pre>
+线程与进程的概念和区别：资源分为基本单位，调度基本单位
+事件
+互斥体
+信号量
+临界区
+死锁
+共享内存
+管道
+</pre>
+<h4>阶段六、网络协议与编程学习</h4>
+<p>现在是互联网时代，而网络协议是互联网的基础协议。因此，必须学会网络编程。在网络学习这块，最重要的就是TCP/IP协议的学习，SOCKET编程的学习。学会如何使用SOCKET进行通信，传输数据。</p>
+<p>推荐的书籍包括：《TCP/IP 详解 卷1-2》 W. RICHARD STEVENS 机械工业出版社。</p>
+<p>网络协议学习重点：</p>
+<pre>
+TCP/IP协议：协议分层，TCP建立连接握手，断开连接，UDP协议，IP协议，ARP协议等
+HTTP协议：GET,POT,PUT,DEL等
+SOCKET编程：ip/port,socket,accept,recv,send,recvfrom,sendto等
+服务器端IO通信模型：比如完成端口模型（IOCP），SELECT模型，以及EPOLL模型等。
+</pre>
+<p>阶段七、数据库与sql学习</p>
+<p>后台程序一般都需要管理数据，比如注册的用户信息，订单信息等。这些信息一般都是存放在各种数据库中。因此，我们有必要系统的学习一下数据库。数据库的学习，最重要的就是SQL编程的学习，包括insert,update,delete,select等语句的灵活使用。学习SQL编程可以结合具体的MySQL数据库来学习。各个编程语言都提供了访问数据库和执行SQL语句的接口。</p>
+<p>此外，还必须了解一些非关系数据库，比如redis,mecached等。这些数据库比传统的关系数据库有更高的执行效率，一般用来做后台的优化和性能的提升。</p>
+<p>SQL的学习推荐网站: http://www.w3school.com.cn/sql/index.asp。书籍：《sql语句用法与讲解》，《MySQL中文参考手册》等。</p>
+<p>阶段八、界面开发学习</p>
+<p>后台服务器端程序，可以不用界面。但如果要写客户端程序，就必然会涉及到界面的开发。作为底层程序员，界面开发可以不精通，但必须要会。界面开发就是要处理各种控件来接受数据的输入和输出用作人机交互，比如按钮，编辑框，单选，多选，列表等等，此外还需要掌握控件的消息处理机制。</p>
+<p>在WINDOWS平台可以学习MS官方的MFC界面库（对WIN32 SDK的封装，但开发更容易了），也可以学习跨平台的QT界面库，以及开源的DUILIB库。Linux中有GTK或者是QT界面库。当然还包括移动端的Android界面，IOS界面开发等。</p>
+<p>实际上界面开发的原理都差不多，都是在处理各种控件和消息，所以入门还是很容易的，掌握了其中一个界面库，学习新的界面库也很容易。</p>
+<p>界面开发推荐书籍：《VC技术内幕》，《深入浅出MFC》，《疯狂的Android》等。</p>
+<p>曾经WINDOWS是一统天下，不可一世的WINTEL联盟长期占据IT市场绝对支配地位。但是，时过境迁，随着LINUX不但完善和发展，尤其是在Android将Linux选为底层操作系统之后，Linux系统得到了极大的普及和发展。现在谁也不敢小觑Linux了。</p>
+<p>作为程序员，掌握Linux系统与开发成为必要，Linux平台的程序设计与开发是必备技巧。很难想象一个程序员，不懂Linux意味着什么。</p>
+<p>Linux入门书籍推荐：《UNIX环境高级编程第二版》，《Linux程序设计（第四版）》</p>
+<p>Linux系统学习重点：</p>
+<pre>
+Linux各种管理命令
+LINUX文件系统
+VIM or EMACS
+GCC
+GDB
+LINUX开源项目：lamp/mysql,redis,memcached,curl,json等
+</pre>
+<h4>阶段十、其它语言学习</h4>
+<p>一般来说，程序员应该精通一门语言，熟悉2到3种语言，所以有必要学习一些其它语言。这里的其它语言包括JAVA Python等。在学好了C语言之后，如果再学习Java，python,php,C#等别的语言，就非常容易了。因为语言都是触类旁通的，拿来就用了，而且C和C++算是语言中最难掌握的，如果都学会了，那么其它语言都很容易的了。</p>
+<p>学习了JAVA，就可以进一步学习移动编程，比如Android应用编程（比如 《疯狂的Android》）了，而在一开始又学习了MFC的消息映射的思想，学习ANDROID界面编程也应该很容易理解里面的事件和监听机制，Android的界面布局与MFC不一样，是通过XML来进行独立布局的，这个需要重新理解。从长远来看，程序员起码应该掌握：C，C++，Java，Python这几种语言，是很有必要的。</p>
+<p>推荐书籍：《Java语言程序设计-基础篇》，《Java语言程序设计-进阶篇》，《简明 Python 教程》，《Python学习手册》</p>
+<p>语言学习多了，各种语言语法容易混淆：</p>
+<p>各编程语言比较分析: http://www.mallocfree.com/data/bcyycmp-mallocfree.com.pdf</p>
+<h4>阶段十一、底层安全学习
+</h4>
+<p>在有了C语言基础之后，我们就可以向自己最感兴趣和最擅长的领域发展了。其中安全方向是一个很好的选择，我们在这里给大家强烈推荐，理由请参考《从事IT安全行业前景分析报告》。对于安全专业来讲，可以分为如下几个领域，当然这些领域不是孤立的，而是互相联系，相辅相成的。</p>
+<p><strong>1、内核开发</strong></p>
+<p>主要分为Windows内核驱动开发和Linux内核驱动开发。所用语言主要为C语言，负责为系统编写.sys驱动或者.ko驱动。用来完成各种底层监控和管理工作。这是各类安全软件，主动防御，防火墙，自保护等必须用到的底层技术。</p>
+<p>Windows平台内核驱动开发的重点内容为：</p>
+<pre>
+SSDT，SHADOW SSDT ,INLINE HOOK
+各种回调框架
+SFILTER文件过滤
+MINIFILTER文件过滤
+DISKPERF磁盘过滤
+TDI/NDIS/WFP网络防火墙
+主动防御HIPS
+ARK等
+LINUX内核重点内容包括：
+内核的编译与裁剪
+内核模块的开发与编译
+内核内存分配
+内核同步与互斥
+内核中断上半部与下半部机制
+内核HOOK与调试
+基于linux内核的网络防火墙开发
+</pre>
+<p>推荐书籍：《Windows Internal》，《Windows 2000设备驱动程序设计指南》，《Windows驱动开发技术详解》（张帆著），《寒江独钓：Windows内核安全编程》，《Linux设备驱动程序第三版》，《Linux内核设计与实现第三版》，《Linux设备驱动开发详解》，《Linux_内核完全注释_V11_赵炯》，《深入分析Linux内核源码》</p>
+<p><strong>2、逆向技术</strong></p>
+<p>逆向技术就是使用反汇编工具，将二进制程序还原成汇编代码，然后再基于汇编代码分析整理，得到程序的算法逻辑，甚至还原出C语言代码。逆向工具一般都是使用强大的IDA Pro工具。当然，现实中很多程序为了防止被逆向，会使用一些保护措施，比如加壳加花指令等。注意，逆向技术与开发技术是相辅相成的。并且学习逆向技术，必须以开发技术为前提。如果开发技术都没有掌握好，甚至想绕过开发技术的学习，直接学习逆向技术，迟早会让你付出代价。大家可以关注下所有招聘逆向工作的帖子里，都会对开发能力提出明确要求， 要求熟练掌握C和相关平台的开发技术。</p>
+<p>推荐书籍：《The IDA Pro Book》</p>
+<p><strong>3、移动安全</strong></p>
+<p>随着移动互联网的普及，移动安全问题越来越突出，尤其是开放平台Android系统，面临着日益突出和严重的安全问题，针对手机安全的威胁层出不穷。因此，移动安全是未来必须重点面对的技术领域。</p>
+<p>推荐学习书籍：《Android软件安全与逆向分析》《Android应用安全防护和逆向分析》（姜维著）</p>
+<p>移动安全学习的重要内容：</p>
+<pre>
+NDK编程
+SMALI语言
+ARM汇编
+HOOK
+ROOT
+动态调试
+</pre>
+<p><strong>4、漏洞挖掘</strong></p>
+<p>漏洞分析与挖掘是系统安全的一个重要分支。每当IT界有重大漏洞曝出，都让人心惊胆战，更何况还有很多黑客手握0Day而尚未曝光的各种漏洞，利用这些未公开的漏洞，可以随时入侵用户的计算机，窃取各种机密数据。</p>
+<p>漏洞挖掘重要内容：</p>
+<pre>
+缓冲区溢出漏洞：栈溢出，堆溢出
+任意地址写入任意数据攻击
+XSS攻击
+SQL注入攻击
+竞争条件漏洞攻击
+PATH攻击等
+FUZZ测试
+操作系统安全机制：Security cookie, SAFE SHE ,DEP, ASLR, SEHOP, Safe Unlink等
+安全编码
+</pre>
+<p>相关书籍推荐：《0day安全软件漏洞分析技术》</p>
+<p><strong>5、WEB安全与渗透测试</strong></p>
+<p>任何一个企业无论大小，都会有自己的网站，有的企业甚至一些重要的业务和交易完全基于Web展开。而Web面临的安全威胁是最普遍和广泛的一类安全威胁。因此，无论大中小公司（包括银行，企事业单位，电子商务），为了维护自己的Web服务的可靠性和安全性， 都不惜重金投入到Web安全的建设中去。因此，在互联网时代，Web安全人才也有很广泛的就业前景。 Web安全与渗透这一块的重要内容包括：</p>
+<p>5.1 WEB安全基础</p>
+<p>如何搭建一个网站（前端html+css+js和后端:php,mysql,redis等），实现注册登录功能 tcp/ip，http,https协议，session，cookie Sql编程 脚本语言：python ICP备案 https证书申请</p>
+<pre>
+5.2，SQL注入
+5.3，XSS跨站攻击
+5.4，CSRF攻击
+5.5，上传漏洞
+5.6，CSRF攻击
+5.7，钓鱼与挂马
+5.8，代码注入
+5.9，中间件漏洞
+5.10，旁注攻击
+5.11，DOS攻击
+5.12，权限控制
+5.13，基于metasploit的WEB渗透技术
+等等
+</pre>
+<p>以上便是我们针对初学者学习IT编程技术的一些指导性建议。如果认真掌握了上面的知识点，很难在IT行业找不到一个非常不错的工作。</p>
+<p>最后如果您在自学的时候遇到了瓶颈或者困难，欢迎大家报考麦洛科菲IT安全培训(www.mallocfree.com)。前面十点将在麦洛科菲全日制零基础班中给大家强化深入讲解；第十一点是将在麦洛科菲高级班中详细深入讲解。</p>
+<p>祝大家学习进步，顺利进入IT行业，做一个相当体面的IT白领，挖掘自己潜力，实现个人价值，创造美好未来！</p>
+<p>附录：</p>
+<p>1、数学不好能不能学习计算机编程？</p>
+<p>从接触计算机程序设计的时刻开始，身边的很多老师，师兄，同学，朋友都在告戒到，计算机与数学有很大关联，实际上，计算机就起源于数学理论。因此，嘱托大家要好好学习数学。计算机专业就开设了很多数学的专业课，计算机专业考研也把数学作为必考内容。</p>
+<p>很多朋友，因为数学水平不足而没有信心学习计算机程序设计，畏惧不前。在这里，笔者想要提出不同的看法。实际上，数学确实对计算机很重要，这一点毋庸质疑。但是，数学一般应用在一些复杂的算法和复杂问题的解决上。比如搜索引擎，比如图形学等相关研究领域。这些问题的解决，一般是计算机领域的科学家致力于的。</p>
+<p>而大多数情况下，大家学习计算机程序设计，并不需要去解决这么复杂的理论问题，大多数解决的是一些实际的应用工程问题。这些问题的解决，对数学的要求就没有那么高了。</p>
+<p>通俗的讲，如果大家只打算做个程序员，而不是计算机科学家，那么数学知识的掌握，就不要求那么高了。更具体的讲，只要具备高中数学基础，学习计算机程序设计是没有任何问题的。</p>
+<p>笔者从事计算机IT工作这么久，也很少在实际项目中用到很深的数学理论知识。</p>
+<p>当然，数学作为一门思维体操，数学体现出来的思维方式，解决问题的思想和方法，是值得程序设计领域借鉴的。我们只需要补充如下的基础数学知识即可：</p>
+<pre>
+1，  集合定义与运算：子集，交集，补集，并集
+2，  数列：等差数列，斐波那契数列
+3，  不等式求解
+4，  简易逻辑：
+</pre>
+<pre>
+（0）布尔值：0,1,true,false
+（1）命题：判断真（1）或假（0）的语句
+（2）或(or∨)，且(and∧)，非(not －)
+（3）命题形式：p,q,p或q,p且q,非p
+（4）求真值。若p=1,q=0, 那么p或q=? p且q=?非p=? 非(p且q)=?
+（5）逻辑推理
+</pre>
+<pre>
+5，  幂运算：n2,2n
+6，  对数运算loga1=0 logaa=1
+7，函数：
+（1）函数定义
+（2）定义域，值域
+（3）奇函数，偶函数，增函数，减函数
+</pre>
+<p>但总的来说，不要因为数学不好，而不敢学习计算机程序设计。</p>
+<p>2、英语与计算机的关系</p>
+<p>有一句话说得好：英语是计算机的母语，是程序的母语，所以必然是程序员的母语。大家知道，计算机诞生于英语为母语的国家。这就注定了，计算机与英语是分不开的。英语能力对于计算机程序设计的学习无疑是非常重要的。英语不好，学习编程会受到很大的影响。所以，在学习程序设计的同时，提高自己的英语水平是必须的。那么，英语水平对于计算机编程有哪些影响呢？</p>
+<p>程序设计里面的语言是以英语的形式存在的。其中就有很多关键字。更重要的是，写程序时候的变量起名也很讲究。用英文单词或者缩写起名字的可读性要比使用拼音的可读性强得多。能起可读性强的英语变量名字，是写程序的一个重要的方面。新生的小孩的父母为他取名会费劲心血，而程序员为变量取个可读性好的名字，也很重要。</p>
+<p>程序中的变量名、函数名起得好不好是决定代码质量和可维护性的最关键因素。高质量的代码应该是这样的：代码基本上是自解释的（self-explanatory），不需要太多注释，不管代码的规模有多大，具有相关知识背景的读过文档的人都可以立刻上手、立刻参与维护和开发。要想使代码能够自解释，给变量和函数起个好名字很关键，很显然，只能用英文起名字，一是用汉语拼音起名字可读性很差，二是英文单词通常比汉语更expressive（看吧，如果用汉语来说，就得说“表达能力更强”、“更有表现力”这么罗嗦），由于程序的复杂性，变量和函数往往表示一些很抽象的概念，起个既准确又简洁的名字并不容易，可是很多时候，用汉语需要很多字才能说清楚的一件事，用英文一个单词再加点词形变化就能说清楚了。</p>
+<p>另外，大量的技术首先是通过英文技术书出版的。因此，想要第一时间获得新技术，就得首先要会英语，能够阅读英语技术书籍。虽然很多经典的英语书籍翻译成了中文，但是也并不是所有书籍能被翻译成中文的。而且中译本的质量也可能参差不齐。当然，如果有好的中文译本，建议也可以直接看中文，以提高学习效率。</p>
+<p>除了大量的技术书籍之外，更多的技术文档，手册，以及Windows开发的技术参考MSDN都是用英语表述的。如果说书籍有人去专门翻译，那么这些技术文档也许就很难有人为你翻译了。你只能和英语面对面，去啃这些技术文档。甚至有的论坛里对一个问题的解决也是通过英语来讨论的。要想理解其中的解决方法，你也得会英语才能读懂。</p>
+<p>其次，与计算机相关的很多问题，首先可以利用搜索引擎去解决。你遇到的每一个问题，都不可能是第一个遇到的，没准网上就有了现成的解决方案。所以，遇到问题，第一就是要会利用搜索引擎去解决问题。由于计算机是一门西方引入的科学，因此，有的问题在使用搜索关键词的时候，如果用中文很难搜到，没准使用对应的英文作为关键词，就很快能搜到相应的问题答案。因此，学会英语，对于使用用英文去向搜索引擎寻找答案也具有很大的优势。</p>
+<p>既然英语这么重要，那么很多人可能就会比较着急的要问了，究竟要多好的英语才能有资格学习程序设计呢？英语不好难道就不能学习程序设计了呢？大家知道，英语能力分为听说读写这四项技能。而在计算机程序设计领域里，读最重要，写次之，说和听对程序设计并无太大的关联，除非你要进一个外企工作，必须与老外用英语交流。程序员需要使用英语阅读大量的文档资料，需要用英语来写程序，写注释等。因此，平常通俗的被大家所批判的哑巴英语，在程序设计里面，依然可以有用武之地，只要你会读会写，就不会影响大家。</p>
+<p>实际上，高中英语的水平，就不会影响你进一步使用计算机相关的英语了。因为，高中之后，英语的语法基本上都涉及了，唯一需要补充的就是大家的英语词汇问题了。</p>
+<p>那么，如果英语很差，怎么提高自己的英语水平呢？这要取决自己在英语的哪块比较欠缺。如果语法比较差，那么请尽快找本讲语法的书籍，恶补一下英语语法。如果语法没什么问题了，那么请通过大量阅读来提高自己的词汇量和语感。笔者在大学学英语的时候，就明白了学习英语的最好的途径就是大量的阅读，并记住那些遇到的生词。有人建议在阅读过程中，遇到生词就放过。笔者持相反的观点。遇到生词，都应该去查词典，然后记住它，这样就能快速的提高自己的词汇量。</p>
+
+
+<p style='float:right;'>本页共252段，11505个字符，28333 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

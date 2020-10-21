@@ -1,0 +1,529 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>14递归</h4>
+
+
+<h4>14.1递归定义</h4>
+<p>递归是指某个函数直接或间接的调用自身。递归首先需要有一个递归式，这个递归式规定如何将原问题划分成子问题。递归还要包含一个递归出口，即递归终止的条件，也就是最小子问题的求解，可以允许多个出口。</p>
+<p>一个关于递归的典型例子就是阶乘。大家知道，阶乘的定义就是：</p>
+<pre>
+1．  n!=n*(n-1)!
+2．  0!=1，1!=1
+</pre>
+<p>在阶乘的定义中，第一句是递归式，第二句就是递归的出口。也就是说，要求出n的阶乘，只需要求处 n-1的阶乘，然后再乘以n就是n的阶乘。而要求出n-1的阶乘，又只需要求出n-2的阶乘，再乘以n-1就是n-1的阶乘。以次类推。但是，这样推下去，必须需要一个最初的值，才能不能无限推下去，因此需要一个出口。于是，就定义0!=1，1!=1。这样，出口找到了。</p>
+<h4>14.2 递归应用：阶乘</h4>
+<p>根据阶乘的定义很容易就想到递归方法，做法如下：</p>
+<pre>
+int fact(unsigned int  n)
+{
+    if(n==0)
+        return 1;       // 递归出口
+    return n*fact(n-1); //n*Fact(n-1)就是递归式,将求n的阶乘，转化为子问题求n-1的阶乘
+}
+int main(void)
+{
+    printf("10!=%d\n", fact(10));
+    return 0;
+}
+</pre>
+<p>因此在计算f(n)的阶乘的时候，如下图所示，需要递归调用函数计算f(n-1)，直到遇到递归出口f(0)，再将结果逐层返回上层函数，供上层函数计算。</p>
+<img src="img/1401.gif" />
+<p>比如，欲计算10的阶乘，根据递归函数：</p>
+<p>f(10)=10*f(9)=10*9*f(8)=10*9*8*f(7)=…10*9*8*7*6*5*4*3*2*1*f(0)</p>
+<p>而根据递归的出口，f(0)为1，然后逐层返回上层函数，则f(10)=10*9*8*7*6*5*4*3*2*1，最近得到10的阶乘。</p>
+<h4>14.3 递归应用：斐波那契数列</h4>
+<p>斐波那契数列指的是这样一个数列  1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...这个数列从第三项开始，每一项都等于前两项之和。</p>
+<p>因此可以写出它的递归函数与递归出口：</p>
+<pre>
+f(1) = 1;
+f(2) = 1;
+f(n) = f(n-1) + f(n-2) n > 2
+</pre>
+<p>最简子问题（递归出口）：f(1),f(2)</p>
+<p>子问题转化：f(n)=f(n-1)+f(n-2) n>2</p>
+<pre>
+unsigned long feibo(unsigned int n)
+{
+    if (n == 1 || n==2)
+    {
+       return 1;
+    }
+    else
+    {
+       return feibo(n-1) + feibo(n-2);
+    }
+}
+</pre>
+<h4>14.4 递归遍历树</h4>
+<p>树的基础理论请参考数据结构第五章。因为树本身就是使用了递归定义，因此在解决树的很多问题的时候都可以使用递归方法。</p>
+<p>树的中序遍历的定义是：先遍历左子树，然后遍历根节点，最后遍历右子树。因此中序遍历一颗树的方法：</p>
+<pre>
+typedef struct _btree
+{
+      int value;
+      struct _btree *left;
+      struct _btree *right;
+}btree,*pbtree;
+void inorder(btree *t)
+{
+   if(t==NULL)
+      return;
+   inorder(t->left);          // 先递归遍历左子树
+   printf(“%d\n”,t->value); // 遍历根节点
+   inorder(t->right) ;        // 递归遍历右子树
+}
+</pre>
+<p>如下图所示，中序遍历图中所示的二叉树时，递归函数调用的关系：当递归调用到叶子结点时，由于叶子结点无左右子树，所以遍历了叶子结点后，下层函数返回后，回到上层的递归函数，把上层的根结点遍历后（中序），再遍历上层根节点的右子树。</p>
+<img src="img/1402.jpg" />
+<p>因此，在递归中，递归函数是不断嵌套调用自己，当遇到递归出口的时候，再返回到上层函数，一层层返回。</p>
+<p>14.5 递归优缺点</p>
+<p>一般来说，递归的时间复杂度和对应的非递归差不多，但是递归的效率是相当低的。次数不超过一定时候的情况下速度比迭代版本慢，比如二路归并内排序、二分查找等算法的实用实现都用迭代而不用递归。因为它主要花费在反复的函数调用和进栈出栈，各种中断等机制上。更有甚者，在递归求解过程中，某些解会重复的求好几次，这是不能容忍的，这些也是引入非递归机制的原因之一。递归如果嵌套过深，会造成栈溢出（为了防止栈溢出，可以跟踪栈的深度，如果超过某个深度，就返回）。</p>
+<p>内核是不能使用递归，因为内核栈只有几KB到几十KB，栈很容易溢出。</p>
+<p>递归看做到楼顶取东西。从一楼爬，看，不是的，继续爬，每层楼梯看上去都一样，你执行的过程都一样，但是实际上，1到2，2到3的楼梯是两个楼梯，等你到楼顶了，取了东西，你不能直接就跳楼，还得从楼顶一层层退回来。而驴子拉磨，则属于for循环。无论跑多少次，都是在原地。变化的只是磨盘里磨的东西，而不是驴每圈所在的不同位置。</p>
+<h4>14.6 递归算法应用</h4>
+<p>递归程序设计是一个重要的程序设计思想。可以应用递归设计来解决字符串，链表，树中一些常见的问题。尤其是树中，很多问题都可以使用递归的方法来解决。在利用递归解决问题的时候，有2个关键的地方：</p>
+<p>首先就是要找到问题的最简子问题，也就是问题中最简单的情况，比如对于一个链表，最简单情况就是链表为空或者只有一个结点；对于一个字符串，最简单情况就是字符串为NULL或者只有一个’\0’字符；自然数最简单的情况就是0或者1；树最简单的情况就是为NULL或者只有一个结点等，而更多的问题已经明确提出了最简子问题，比如阶乘中的0！和1！，在定义中已经给了出来。所以，最简子问题往往是很容易分析出来的。</p>
+<p>然后是要通过分析和转换，将原问题转化为子问题。<strong>子问题和原问题是同类问题，但子问题的规模应该比原问题要小。</strong>比如求n!那么它的子问题就是(n-1)!，只需要把(n-1)!乘以n就是n的阶乘了。又比如要求斐波那契数列的第n个值，只需要求出(n-1)的值和(n-2)的值，那么就可以求出n的值了。在先序遍历树t的时候，当把根节点遍历完后，因为t->left和t->right是它的子树，也就是子问题，所以然后用递归遍历t->left和t->right就可以了。</p>
+<p>14.6.1 字符串长度计算</p>
+<p>问题：不允许使用任何全局或局部变量编写 int strlen(char *s)，计算字符串的长度。</p>
+<p>分析：</p>
+<p>递归出口即最简子问题：</p>
+<p>S==NULL 长度为0</p>
+<p>*s==’\0’，长度为0</p>
+<p>原问题与子问题的转化：</p>
+<p>s是一个字符串，s+1也是一个字符串，而且是s的子串，所以只需要求出s+1字符串的长度，再加1就是s的长度，即：</p>
+<p>1+strlen(s+1)</p>
+<p>因此可以得出下面的算法：</p>
+<pre>
+size_t strlen(const char *s)
+{
+    if(s==NULL || *s==’\0’)
+    {
+        return 0;
+    }
+    return 1+strlen(s+1);
+}
+</pre>
+<p>或者用三元运算符，进一步简化为：</p>
+<pre>
+size_t strlen( const char* s )
+{
+    return (s==NULL||*s==’\0’)?0:1+strlen(s+1);
+}
+</pre>
+<p>14.6.2 反向输出字符串</p>
+<p>问题：请反向的输出一个字符串：比如”hello, world!”，打印出来是：”!dlrow, olleh”。</p>
+<p>分析：</p>
+<p>递归出口：</p>
+<p>当字符串为NULL或者为’\0’时：直接return。</p>
+<p>递归子问题：</p>
+<p>要反向输出字符串，只需要将s+1这个子串输出后，再输出*s（即字符串s的第一个字符），即完成反向打印。</p>
+<pre>
+void inverse_print(char *s)
+{
+    if( *s = = '\0'||s==NULL )
+        return;
+    inverse_print( s+1 );//先递归反向打印s的子串s+1
+    printf( "%c", *s );
+}
+</pre>
+<p>14.6.3 递归实现链表转置。</p>
+<p>将一个单向链表进行转置，使其头变尾，尾变头，各个结点指向它的前个结点。如下图所示：</p>
+<img src="img/1403.gif" />
+<p>分析：</p>
+<p>递归的出口：当链表为空或者只有一个结点，不用处理，直接返回</p>
+<p>递归子问题：只要将链表head的子链表：head->next逆置了，然后将head->next的尾结点指向head，那么整个链表head就得到了逆置。</p>
+<img src="img/1404.gif" />
+<pre>
+typedef struct _node
+{
+    int value;
+    struct _node *next;
+}node,*list
+list resverse_list(list l)
+{
+   if(!l || !l->next)
+      return l;
+   list n = resverse_list (l->next);//先逆置l->next子链表,逆置后l->next即为l->next的尾结点
+   l->next->next = l;//把子链表的尾结点l->next指向l，l就变为了尾结点
+   l->next=null;     //将尾结点的next指针设置为NULL
+   return n;
+ }
+</pre>
+<p>14.6.4 字符串逆置</p>
+<p>用递归的方法将一个字符串逆置，比如”hello world”→”dlrow olleh”。</p>
+<p>分析：</p>
+<p>最简子问题（递归出口）：str==NULL或者len==1或者len==0,这个时候，不需要逆置</p>
+<p>子问题转化：只要将str+1，长度为len-2的子串用同样的方法进行逆置之后，再将字符串最左边与最右边的字符交换了，即可完成字符串的逆置。</p>
+<p>比如”hello world”，先逆置除了最左边和最右边字符的子串：”ello worl”，然后再交换’h’和’d’:</p>
+<pre>
+void reverse_str(char *str，size_t len)
+{
+    if(str==NULL || len==1||len==0)
+        return;
+    reverse_str(str+1,len-2);//先逆置子串
+    char tmp=*str;//再交换主串最左边与最右边的字符
+    *str=*(str+len-1)
+    *(st+len-1)=tmp;
+}
+</pre>
+<p>14.6.5台阶问题</p>
+<p>有一个50阶的楼梯，每次可以上一阶或者两阶，总共的方法有多少种。</p>
+<p>分析：</p>
+<p>最简子问题（递归出口）：当只有1个台阶的时候，走法为1种；当有2个台阶的时候，走法有2个（一次上1阶，或者一次上2阶）。</p>
+<p>子问题转化：在到达第n个台阶的时候，必然会经过第n-1或者n-2个台阶。那么，当一个人到达n-1个台阶的时候，他向上走一步就可以到达第n个台阶，所以，前往n个台阶的走法包含了n-1个台阶的走法数，记为f(n-1)；当一个人到达第n-2个台阶的时候，他向前一次走2个台阶就可以到达第n个台阶或者向前一次走1个台阶共走2步即可到达第n个台阶，由于一次走1个台阶会走到n-1个台阶，这种走法已经被包含在了n-1个台阶的走法中，所以只需要考虑从第n-2个台阶一次走2个台阶达到第n个台阶，假如到达n-2个台阶的走法为f(n-2)，那么可以得出，到达第n个台阶的走法实际上是达到n-1个台阶和n-2个台阶的总和，因为当这个人走到了n-1个台阶或者n-2个台阶的时候，它再向前的走法都是唯一的了。于是得出下面的公式：</p>
+<pre>
+f(1)=1
+f(2)=2
+f(3)=3
+f(n)=f(n-1)+f(n-2)
+long step_method_num(size_t n)
+{
+    if(n==1)
+        return 1;
+    if(n==2)
+       return 2;
+    return step_method_num(n-1)+step_method_num(n-2);
+}
+</pre>
+<p>14.6.6 求一棵树中2个结点的最近公共结点。</p>
+<p>如下图所示：结点1和6的最近公共结点是3。</p>
+<img src="img/1405.jpg" />
+<p>2个结点的最近公共结点的本质是这2个结点，一个在某个结点的左子树，一个在某个结点的右子树，那么该结点必然是这2个结点的最近公共结点。因此，只要在遍历该树的时候，对于遍历中的每一个结点，判断这2个结点是不是分别在这个结点的左右子树上，如果是，则该结点即为最近公共结点。如果这2个结点都在该结点的左子树，那么就递归判断左子树；在右子树，就递归判断右子树。</p>
+<p>判断一个值是不是在树中：</p>
+<pre>
+bool search_tree(btree *t, int value)
+{
+    if(t==NULL)
+        return false;
+    if(t->value==value)
+        return true;
+    return (search_tree(t->left,value) || search_tree(t->right,value));
+}
+</pre>
+<p>查找2个结点v1,v2的公共结点，放入res中。成功返回1，失败返回0。</p>
+<pre>
+int find_lowest_common_node(btree *t, int v1,int v2,int *res)
+{
+    if(t==NULL || res==NULL)
+        return 0;
+    bool v1_beleft=false;
+    bool v1_beright= false;
+    bool v2_beleft= false;
+    bool v2_beright= false;
+    v1_beleft=search_tree(t->left,v1);
+        if(!v1_beleft)
+            v1_beright=search_tree(t->right,v1);
+    v2_beleft=search_tree(t->left,v2);
+    if(!v2_beleft)
+        v2_beright=search_tree(t->right,v2)
+  
+    //v1,v2分别在该结点的左右子树
+    if(v1_beleft&&v2_beright ||
+       v2_beleft&&v1_beright)
+    {
+        *res=t->value;
+        return 1;
+    }
+      //v1,v2在结点的左子树，递归查找左子树
+    if(v1_beleft && v2_beleft)
+        return find_loweset_common_node(t->left,v1,v2,res);
+    //v1,v2在结点的右子树，递归查找右子树
+    return find_loweset_common_node(t->right,v1,v2,res);
+}Xh
+</pre>
+
+
+<p style='float:right;'>本页共231段，7092个字符，13201 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

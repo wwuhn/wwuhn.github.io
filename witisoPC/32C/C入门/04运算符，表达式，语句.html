@@ -1,0 +1,1436 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>04运算符，表达式，语句</h4>
+
+
+<h4>4.1 C运算符与分类</h4>
+<p>在第三章里已经提到了C语言中的数据类型和对应的常量与变量，这是C语言中的两种最基本的数据对象。在使用一个变量前，需要对变量先进行声明，甚至还需要对变量赋一个初值，比如下面的语句就声明了2个整型变量：</p>
+<pre>
+int a;
+int b = 100;
+</pre>
+<p>上面两条C语言语句，第一句声明了一个整型变量a，但是没有给a赋初值，所以这个时候a的值是一个任何可能的值，是随机的，也叫垃圾值；第二句声明了一个整型变量b，并且在声明的同时还给b设置了一个初始值100。在完成了对变量a和b的声明之后，就可以在程序中按照a和b的作用域来使用它了。</p>
+<p>有了变量和常量来存放和表现数据，然而还缺少对这些数据的处理或者运算的能力。因此C语言提供了一系列的运算符，运算符就是用于指定对特定类型的变量与常量要进行的操作，在运算符中被操作的这样的变量或者常量叫做操作数。只有一个操作数的运算符叫单目运算符，只有2个操作数的叫双目运算符，有3个操作数的叫三目运算符。</p>
+<p>下面来逐一的介绍每一个C语言操作符的使用方法。注意：由于某些操作符和后面的C语言知识息息相关，比如位运算操作符，所以目前大家可能对它还比较陌生，但没有关系，等具备了更多的相关知识，再来学习，就问题不大了。</p>
+<p>()：扩号运算符</p>
+ 
+<pre>
+int a = 2;
+int b = 1;
+int c = 10;
+(a+b)*c;
+ 
+printf(“hello world”);
+</pre>
+<p>[]：数组下标运算符</p>
+<pre>
+int a[10] = {0};
+a[0] = 10;
+</pre>
+<p>->：成员选择运算符（左边一般为结构体指针）</p>
+<p>.：成员选择运算符（左边一般为结构体变量）</p>
+<p>参考第十章，结构体中会详细介绍。</p>
+ 
+<p>单目运算符：</p>
+<p>!：逻辑非运算符，将真值变为假值，将假值变为真值。</p>
+<pre>
+int a = 10;
+if (!(a==0))//if中的表达式的值为true
+{
+}
+</pre>
+<p>~：按位取反运算符</p>
+<pre>
+int a = 10;
+~a;
+</pre>
+<p>参考第十二章位运算中详细介绍。</p>
+<p>++：自增运算符</p>
+<pre>
+int a = 10;
+a++;
+int b = a++;
+int c = ++a;
+</pre>
+<p>注意a++与++a的区别：</p>
+<p>如果单独如下写：</p>
+<pre>
+a++;
+++a;
+</pre>
+<p>没有任何区别。</p>
+<p>但是如果是在其它场景下，比如：</p>
+<pre>
+int b = a++;//此时相当于：b=a;a = a+1;
+int c = ++a;//此时相当于：a=a+1;c=a;
+</pre>
+<p>这个时候a++是先取a的值，再对a加1；++a是先对a加1，再取a的值。</p>
+<p> </p>
+<p>--：自减运算符</p>
+<pre>
+int a = 10;
+a--;
+int b = a--;
+int c = --a;
+</pre>
+<p>a—与—a的区别与a++与++a类似。</p>
+<p> </p>
+<p>+：正号运算符</p>
+<p>-：负号运算符</p>
+<pre>
+int a=10;
+int b = -a;
+</pre>
+ 
+<p><p>*：取值运算符</p></p>
+<p><p>&：取址运算符</p></p>
+<p><p>   参见第八章指针中会详细介绍。</p></p>
+<p>(type)：强制类型转换运算符</p>
+<pre>
+int a = 10;
+float f=(float)a;
+</pre>
+ 
+<p>sizeof：长度运算符</p>
+<pre>
+int a = 10;
+int length = sizeof(a);
+int len = sizeof(int);
+</pre>
+ 
+<p>算术运算符：</p>
+<p>*：乘法运算符</p>
+<pre>
+int a = 10;
+a = a*10;
+</pre>
+ 
+<p>/：除法运算符</p>
+<pre>
+int a = 10;
+int b = a/3;
+int c = a/5;
+</pre>
+ 
+<p>%：取余运算符</p>
+<pre>
+int a = 10;
+int b = a%5;
+int c = a%3;
+</pre>
+ 
+<p>+：加法运算符</p>
+<pre>
+int a = 10;
+int b = 20;
+int c = a + b;
+</pre>
+ 
+<p>-：减法运算符</p>
+<pre>
+int a = 10;
+int b = 5;
+int c = a – 5;
+</pre>
+ 
+ 
+<p>&lt;&lt;：左移运算符</p>
+<p>>>：右移运算符</p>
+<p>参见十二章位运算会详细介绍</p>
+<p> </p>
+<p>比较运算符：</p>
+<p><：小于运算符</p>
+<p><= ：小于等于运算符</p>
+<p>>：大于运算符</p>
+<p>>=：大于等于运算符</p>
+<p>==：等于运算符</p>
+<p>!=：不等于运算符</p>
+<pre>
+int a = 10;
+int b = 20;
+ 
+if (a > b)
+{
+}
+if (a >= b)
+{
+}
+ 
+if (a &lt; b)
+{
+}
+if (a &lt;=b )
+{
+}
+if (a != b)
+{
+}
+if (a==b)
+{
+}
+</pre>
+ 
+<p>在数学里类似的表达式a<b<c，在程序设计语言里不能这样写，而应该写成：</p>
+<pre>
+a&lt;b &&b&lt;c。
+</pre>
+<p>而在数学的等于（=）符号，在程序里必须用==。这是一个初学者经常犯下的错误，即很容易把==写成=。看下面的程序：</p>
+<pre>
+int a = 0;
+if (a == 1)
+{
+}
+else
+{
+}
+</pre>
+<p>由于a不等于1，所以上面的程序将执行else分支里的语句。但是，假如由于错误的把==写成了=，则变成了：</p>
+<pre>
+int a = 0;
+if (a = 1)
+{
+}
+else
+{
+}
+</pre>
+<p>这个时候，整个表达式的值就是a的值，而a已经被赋值为1，所以，if(a=1)为真，那么就应该执行if分支里的语句，而永远不会执行else分支的值了。</p>
+<p>要避免这个错误的发生，一个推荐的方法是把常量写在==左边，而变量写在==的右边。这样以来，程序在编译的时候，就会被编译器捕获错误，因为一旦把==写成了=，你不可能给常量赋值。比如：</p>
+<p>1==a</p>
+<p>不小心写成了</p>
+<p>1=a</p>
+<p>编译器一看就知道错误发生了。1是常量，不可能被赋值。</p>
+ 
+<p>&：按位与运算符</p>
+<p>^：异或运算符</p>
+<p>|：按位或运算符</p>
+<p> </p>
+<p>位运算&,^,|的具体计算参见十二章位运算会详细介绍。</p>
+<p> </p>
+<p>逻辑运算符：</p>
+<p>&&：逻辑与运算符</p>
+<p>||：逻辑或运算符</p>
+ 
+<pre>
+int a = 10;
+int b = 20;
+ 
+if (a>b && a>0)
+{
+}
+ 
+if (a&lt;b || b > 0)
+{
+ 
+}
+</pre>
+ 
+<p>&&运算符中，比如：a&&b&&c，假如计算出左边的某个值为假，那么就没有必要计算后面的表达式了。比如，假如a为真，那么继续计算b的值，如果b为真，那么就计算c的值，如果a，b，c都为真，那么整个表达式就为真。而一旦a为假，那么就不用计算b和 c了，整个表达式就为假。</p>
+<p> </p>
+<p>||运算符中，比如：a || b ||c，假如计算出左边的某个值为真，那么就没有必要计算后面的表达式了。比如假如a为假，那么继续计算b的值，假如b 为假，那么就计算c的值，如果a，b，c都为假，那么整个表达式的值就为假。而一旦a为真，那么就不用计算b和c的值了，整个表达式就为真。</p>
+<p> </p>
+<p>比如上面的表达式：a>b && a >0，由于a值为10，b的值为20， a大于b 为假，所以根本就不用结算a>0了，整个表达式必为假。而对于表达式a&lt;b || b>0，由于a大于b为真，所以，根本就不用计算b>0的值，整个表达式的值就为真。</p>
+ 
+<p>?:：三元运算符</p>
+<p>三元运算符A?B:C，在计算的时候，先计算A部分的值，如果A部分位真，就计算B部分的值作为整个表达式的值，否则计算C部分表达式的值，作为整个表达式的值。</p>
+<p>求2个数最大值：</p>
+<pre>
+int a = 10;
+int b = 20;
+a > b ? a : b;
+</pre>
+<p>判断一年是否为润年：</p>
+<pre>
+year%(year%100?400:4)?1:0
+</pre>
+ 
+ 
+<p>=：赋值运算符</p>
+<pre>
+int a = 10;
+int b = a;
+</pre>
+ 
+<p>复合运算符：</p>
+<pre>
++=
+-=
+*=
+/=
+%=
+&=
+^=
+</pre>
+<p>例子：</p>
+<pre>
+int a = 10;
+a += 10;// 等价于a = a+10;
+a *= 10;// 等价于a = a*10;
+a -= 10;// 等价于a = a -10;
+a /= 10;// 等价于a = a / 10;
+a %= 10;// 等价于a = a %10;
+a &= 10;// 等价于a = a&10;
+a ^= 10;// 等价于a = a^10;
+a |= 10;// 等价于a = a | 10;
+</pre>
+<h4>4.2运算符的优先级与结合律</h4>
+<p>在C语言中，每一种运算符有自己的优先级，还有对应的结合律，每个运算符的优先级和结合律请见上表：表中同一行的运算符优先级相同，并大于下面的运算符，从表中可以看出运算符的优先级，而结合律分为两种：从左到右结合或者从右到左结合，其中大部分是从左到右结合，只有一目运算符，?:运算符，符合运算符如+=，赋值运算符=，以及逗号运算符，是从右往左运算符，剩余的都是从左到右运算符。</p>
+<p>由多个运算符与变量或常量组成的式子叫做符合表达式（表达式的进一步介绍请参考第六章）。每个表达式都会有一个值。复合表达式的值由操作数的结合方式决定。而运算符的优先级和结合律就确立了操作数的结合方式。其中的原则为：</p>
+<p>当复合表达式中的运算符的优先级不同时，操作数的结合方式由优先级决定。操作数总是围绕优先级较高的运算符进行结合；当复合表达式中的运算符的优先级相同时，操作数的结合方式由结合律决定。</p>
+<p>比如， 乘法运算符（*）的优先级高于加法（+）的优先级，那么对于下面的复合表达式：</p>
+<p>5+4*3</p>
+<p>不可能是5和4先结合，然后再和3结合，而是4和3先结合，完成乘法运算，然后再和5完成加法运算，因此它的值是：17。</p>
+<p>而当复合表达式中的所有运算符相同时，比如下面的复合表达式：</p>
+<p>1+2+3+4</p>
+<p>由于加法运算符的结合律是从左到右，因此，1和2先结合，结果再和3结合，结果再和4结合，计算结果为：10。再看一个复合表达式：</p>
+<p>1+ 8/ 2 *4</p>
+<p>该复合表达式中，除法和乘法的优先级相同，而且结合律都是从左往右（即从左往右结合），于是先是8和2结合做除法运算，计算结果为4，再和4结合，计算结果为16，再和1结合，做加法运算，最终的值为17。</p>
+<p>此外，也可以利用括号运算符来强制更改复合表达式的结合方式。比如，对于下面的表达式：</p>
+<p>3+5*4</p>
+<p>如果想先要让3和5结合，做加法运算，然后再和4结合做乘法运算，可以加上括号如下：</p>
+<p>(3+5)*4</p>
+<p>这样符合表达式的结合律就改成了希望的3和5先结合，再和4结合了。计算的结果就是32。</p>
+<p> </p>
+<p>记忆不能死记，即使通过死记记住了，那也是短期记忆，长久之后也记不住，因此需要讲究特别的技巧。下表用三句话记住所有运算符的优先级：</p>
+<p>结合律的记忆，则可以考虑记住右结合律的运算符，这部分运算符比较少，只有4类，即：</p>
+<p>一元运算符和三元运算符都是右结合律；赋值（=）运算符和逗号（，）运算符是右结合律，剩下的就是左结合律。</p>
+ 
+<h4>4.3表达式与求值</h4>
+<p>在C语言中，表达式由运算符、常量及变量构成。每一个表达式，都有对应的一个值。该值与表达式中操作符的优先级和结合律有关。大家已经学习了运算符的概念，那么在本章将进一步学习各种不同的表达式。</p>
+<p>赋值表达式，比如对于整数变量：</p>
+<pre>
+a = 0
+</pre>
+<p>就是一个赋值表达式，表达式的值就是a的值。</p>
+<p>算术表达式：</p>
+<pre>
+a + b
+a*b
+a/b
+a%b
+</pre>
+ 
+<p>逗号表达式：</p>
+<p>a,b,c,d</p>
+<p>逗号表达式是用逗号运算符将表达式连接在一起形成新的表达式。逗号表达式的格式为：</p>
+<p>表达式1，表达式2，…，表达式n</p>
+<p>逗号表达式的计算顺序是从左往右，逗号表达式最终的值是表达式n的值，即表达式最右边的值为逗号表达式的值。</p>
+<p>在计算逗号表达式的值的时候，一定要注意，逗号运算符的优先级是最低的运算符，所以逗号运算符是最后参加运算的。比如考虑如下程序的输出是什么呢？</p>
+<pre>
+int main(void)
+{
+    int a,b,c;
+    
+    a=b=1;
+    
+    c=a++,b++,++b;
+    
+    printf("%d,%d,%d\n",a,b,c);
+    
+    return 0;
+}
+</pre>
+<p>首先，由于逗号运算符的优先级最低，所以也就低于赋值运算符，所以表达式：</p>
+<pre>
+c=a++,b++,++b
+等价于：
+(c=a++),b++,++b
+等价于：
+(c=a; a++),b++,++b
+其结果为：
+c=1, a=2, b= 3
+所以输出应该是：2,3,1。而整个逗号表达式的值为3。
+</pre>
+<pre>
+int main()
+{
+    int a=2,b=4,c=6,x,y,z;
+    z=(y=(x=a+b),(b+c));
+    printf("y=%d,x=%d,z=%d",y,x,z);
+    return 0;
+}
+</pre>
+ 
+<p>由于赋值运算符优先级高于逗号运算符，所以，应该先算x=a+b，即x=6,再算y=(x=6)，即y也等于6，再算b+c，即10，所以z=(6,10)，所以，z=10。于是输出为：y=6,x=6,z=10</p>
+<p>当然，需要注意的是并不是任何地方出现的逗号都是作为逗号运算符。例如函数参数也是用逗号来间隔的。如</p>
+<pre>
+printf("%d  %d  %d"，a，b，c)；
+func(a, b,c);
+</pre>
+ 
+<p>逻辑表达式：</p>
+<pre>
+a&&b&&c
+a||b||c
+</pre>
+<p>比较表达式：</p>
+<pre>
+a>b
+a==b
+a!=b
+</pre>
+ 
+<p>复合表达式：</p>
+<pre>
+a+5*b+(c&gt;&gt;2)
+ 
+a==NULL
+a==true
+a==false
+a==0
+</pre>
+<p>实数与零进行比较：</p>
+<p>浮点运算是不精确的，运算结果本该等0的地方，有可能实际算出是0.0000001，所以，一般只要小于某个数，就认为等于0了。</p>
+ 
+<pre>
+float a;
+…
+if (a>-1e-6 && a&lt;1e-6)
+{
+}
+if (a == 0.0)
+{
+}
+</pre>
+<p>在实数中，用1e-6表示0。所以实数与零比较用下面的表达式：</p>
+ 
+<pre>
+fabs(a) == 1e-6
+fabs(a) != 1e-6
+fabs(a) > 1e-6
+fabs(a) &lt; 1e-6
+</pre>
+<p>其中fabs()是求实数的绝对值的库函数，它的头文件为“math.h”。</p>
+<p>三元表达式求值</p>
+<p>三元运算符A?B:C，在计算的时候，先计算A部分的值，如果A部分位真，就计算B部分的值作为整个表达式的值，否则计算C部分表达式的值，作为整个表达式的值。</p>
+<h4>4.4语句的三种结构</h4>
+<p>在C语言里，语句是程序的执行单元，程序的功能由程序中的每一条语句实现和完成。程序员写程序，也是通过每一条语句来体现程序的逻辑。</p>
+<p>在C语言中，每条语句都以分号结束。比如：</p>
+<p>语句1;</p>
+<p>语句2;</p>
+<p>C程序的语句，从程序执行流程来看，可以分为顺序结构，语句从上往下顺序执行；分支结构，根据不同的条件判断，执行不同分支部分的语句；循环结构，在满足循环条件下，反复执行一组语句。</p>
+<p>吃饭；喝水；睡觉；</p>
+<p>如果饿了吃饭；如果渴了喝水；如果困了睡觉</p>
+<p>循环：吃饭</p>
+ 
+ 
+<h4>4.5表达式语句</h4>
+<p>表达式语句由表达式加上分号“；”组成。执行表达式语句就是计算表达式的值。其一般形式为：</p>
+<p>表达式；</p>
+<p>例如：</p>
+<p>1 赋值语句：</p>
+<pre>
+x=y+z；
+a=520；
+</pre>
+<p>2 算术语句：</p>
+<pre>
+y+z；
+</pre>
+<p>3 自增语句，是先取i的值后再加1：</p>
+<pre>
+i++；
+</pre>
+<p>4 自增语句，是先把i值增1后再取i的值：</p>
+<pre>
+++i；
+</pre>
+ 
+<h4>4.6 函数调用语句</h4>
+<p>由函数名、实际参数加上分号“；”组成。其一般形式为：</p>
+<p>函数名(参数1，参数2，…，参数n);</p>
+<p>执行函数语句就是调用函数体并把实际参数赋予函数定义中的形式参数，然后执行被调函数体中的语句，求取函数值。</p>
+<p>例如：</p>
+<pre>
+printf(“Hello world\n”);
+add(a,b);
+</pre>
+<h4>4.7 控制语句</h4>
+<p>控制语句用于控制程序的流程， 以实现程序的各种结构方式。它们由特定的语句定义符组成。C语言有九种控制语句。可分成以下几类：</p>
+<p>4.7.1 if语句</p>
+<p>if语句是最常见的一种条件判断语句。当对应的条件成立，则执行对应的代码。if语句的格式如下：</p>
+<pre>
+if(条件1)
+{
+       语句;
+}
+</pre>
+<p>或者：</p>
+<pre>
+if(条件1)
+{
+       语句1;
+}
+else
+{
+       语句2;
+}
+</pre>
+<p>或者：</p>
+<pre>
+if(条件1)
+{
+       语句1;
+}
+else if (条件2)
+{
+       语句2;
+}
+else
+{
+       语句3;
+}
+</pre>
+ 
+<p>4.7.2 switch语句</p>
+<p>switch语句的格式为：</p>
+<pre>
+switch(变量)
+{
+case 变量值1：
+     语句；
+     Break；
+case 变量值2：
+     语句；
+     Break；
+…
+default:
+     语句；
+}
+</pre>
+<p>switch语句的每个case分支，都应该有break语句，这样就不会执行break下面的其它语句了，否则，程序在执行完一个case的所有语句后，会紧接着执行下一个case语句。switch中间哪些类型的变量可以？char,short,int,long可以，但指针和浮点数不可以。Switch语句中当变量的值为下面case中某个值的时候，就会执行该case下的语句，直到遇到break语句。如果所有case的值都不相等，就执行default下面的语句。</p>
+<p>下面是一个具体的switch语句的例子：</p>
+ 
+<pre>
+char  c;
+scanf_s(“%c”,&c,1);//从键盘输入一个字符作为变量c的值。
+switch(c)
+{
+       case ‘A’://输入A
+              语句;
+              break;
+       case ‘B’://输入B
+              语句;
+              break;
+       case ‘C’://输入C
+              语句;
+              break;
+       default:           ;
+}
+</pre>
+ 
+<pre>
+4.7.3 for循环语句
+for语句的书写格式如下：
+</pre>
+<pre>
+for(表达式1;表达式2;表达式3)
+{
+       语句;
+}
+</pre>
+第一次执行的时候，先执行表达式1，然后判断表达式2的值，如果为真，则执行{}里的语句，接下来，执行完{}语句之后，只要没有退出循环（如执行了break或者return语句），就会执行并计算表达式3的值。从第二次开始之后，表达式1将不会再执行，而直接计算表达式2的值，如果为真继续执行{}里的语句，否则，就退出循环。
+比如：
+<pre>
+for(int i=0;i&lt;10;i++)
+{
+    printf(“%d\n”,i);
+}
+</pre>
+<p>for语句的三个表达式都可以缺省，如下：</p>
+<pre>
+for(;;)
+{
+ 
+}
+</pre>
+<p>这个时候，for循环是一个死循环，需要在循环里使用break语句或者return语句来退出循环。</p>
+<p>循环嵌套，二重循环</p>
+<p>4.7.4while循环语句</p>
+<p>while语句的书写格式如下：</p>
+<pre>
+while(条件)
+{
+       语句;
+}
+</pre>
+<p>计算顺序：先计算while()里的条件表达式的值，如果为真，再执行{}里的语句。</p>
+<pre>
+while(1)
+{
+}
+</pre>
+<p>while(1)循环因为条件为1，恒为真，所以是一个死循环，需要在循环内部使用break或者return语句跳出循环。</p>
+ 
+<p>4.7.5do-while循环语句</p>
+<p>do-while语句的书写格式如下：</p>
+<pre>
+do
+{
+ 
+       语句;
+ 
+}while(条件);//注意此处需要有分号，否则编译会报错
+</pre>
+ 
+<p>do-while()循环是先执行语句，再进行条件判断，所以无论条件是否成立，语句都会执行至少一次。</p>
+<p>上面的例子中，只要i>0，那么循环就会继续执行里面的语句，打印出i的值。而当i<=0之后，循环条件并不满足，所以循环会退出。注意，因为do-while循环是先执行，再判断，所以：</p>
+<pre>
+i=0;
+do
+{
+     printf("%d\n",i);
+}while(i>0);
+</pre>
+<p>或者：</p>
+<pre>
+do
+{
+    printf("hello world\n"); 
+}while(0);
+</pre>
+<p>尽管循环的条件都为假，但因为是先执行，再判断，所以循环都会执行一次，再退出。</p>
+<p> </p>
+<p><strong>各种结构的循环常见写法：</strong></p>
+<p>前几节中，几乎每个算法都用到了循环语句。以循环语句为核心，循环语句把其他语句联系起来。</p>
+<p>下面把常用的循环语句列出，方便大家在编程的时候使用：</p>
+<p>1．数组</p>
+ 
+<pre>
+for (int i = 0; i &lt; n; i++)
+{
+     printf(“%d\n”, a[i]);
+}
+</pre>
+ 
+<p>2．字符串</p>
+ 
+<pre>
+while (*str !=’\0’)
+{
+     str++;
+}
+</pre>
+ 
+<p>3．链表</p>
+ 
+<pre>
+while (p)
+{
+     p = p->next;
+}
+</pre>
+ 
+<p>4．栈空/栈满/队空/队满</p>
+ 
+<pre>
+while(栈非空)
+{
+     出栈；
+     操作出栈元素
+}
+</pre>
+ 
+<p>5．指针大小比较</p>
+ 
+<pre>
+while (pStart &lt; pEnd)
+{
+     pStart++;
+}
+</pre>
+ 
+<p>6．数为正</p>
+ 
+<pre>
+while (size--)
+{
+}
+do
+{
+}while(size--)
+</pre>
+ 
+<p>7．反复循环直到条件成熟</p>
+ 
+<pre>
+while(1)
+{
+     if (something is true)
+         break;
+}
+</pre>
+ 
+ <p>熟练各种循环语句的写法，为实现各种复杂的算法奠定了基础。因此，要在各种循环语句上下功夫，达到熟练书写，灵活运用的程度。</p>
+<p>4.7.6转向语句：continue/break/goto/return</p>
+<p>1．break语句</p>
+<p>break语句的格式为：</p>
+<pre>
+break;
+</pre>
+<p>break语句一般用在循环语句来退出循环，或者用在switch语句中，用来退出switch语句的执行。</p>
+<p>2．goto语句</p>
+<p>C语言中的goto语句是用来控制程序执行从一个地方跳转到另外一个地方执行的。其应用格式为：</p>
+<pre>
+LabelA:
+    语句3;
+……
+</pre>
+<p>语句1;</p>
+<pre>
+goto LabelA;
+</pre>
+<p>语句2;</p>
+<p>在上面的伪代码中，程序在执行完语句1之后，继续执行goto语句，程序就会跳转到标签 LabelaA下面继续执行语句3。</p>
+<p>一般会看到C语言代码里出现了goto语句，让人觉得很奇怪。因为几乎所有的人都会告诉你，在程序里尽量少用goto语句。Goto语句为什么人见人恨呢？先看看goto语句的一些典型的缺点：goto语句可以实现无条件跳转，如果不加限制，它的确会破坏结构化程序设计风格。其次，goto语句经常带来错误和隐患。它可能跳过某些对象的构造，变量的初始化，重要的计算等语句。</p>
+<p>那么goto语句是不是就一无是处了呢？也不是这样的。比如goto语句还可以用在下面2种情况下：</p>
+<p>l 跳出循环</p>
+<pre>
+for(int i=0;i&lt;10;i++)
+{
+       for(int j=0;j&lt;10;j++)
+       {
+              for(int k=0;k&lt;10;k++)
+              {
+                     if(k==5)
+                     {
+                            goto out;
+                     }
+              }
+       }
+}
+</pre>
+<p>l 出错处理</p>
+<pre>
+char *p1=(char *)malloc(128);
+if(p1==NULL)
+    goto exit;
+char *p2=(char *)malloc(16);
+if(p2==NULL)
+    goto exit;
+exit:
+    if(p1)
+       free(p1);
+    if(p2)
+       free(p2);
+</pre>
+<p>3 continue语句</p>
+<p>语句continue用于在循环语句中，结束本次循环，即跳过循环体中continue下面尚未执行的语句，紧接着进行下一次是否再进行循环的判断，也就是说当语句执行到continue时,立即结束本次循环,重新去判断循环条件是否为真，如果为真，那么就会继续执行下一次循环；如果为假，循环就退出。。</p>
+<p>以while循环为例子，语句continue在循环中的使用格式为：</p>
+<pre>
+while(条件1)
+{
+    if(条件2)
+    {
+         continue; // 当条件2位真，那么循环后面的”其它语句”就不会再执行
+                   // 而重新判断条件1是否为真
+    }
+    // 其它语句;
+}
+int i=10;
+while(i>0)
+{
+    i--;
+    if(i==7)
+    {
+        // 当i等于7的时候，下面的printf函数语句会被忽略
+        // 所以不会打印出7这个数字
+        continue;
+    }
+    printf(“%d\n”,i);
+}
+</pre>
+ 
+<p>4．return语句</p>
+<p>return 表示从被调函数返回到主调函数继续执行，返回时可附带一个返回值，由return后面的参数指定，return返回的值类型由函数声明中的返回类型确定。比如：</p>
+<p>（1）在返回类型是char的函数中，return后应该是char类型的值；</p>
+<p>（2）在返回类型是int的函数中，如果是要停止函数的调用，最好应该为0；其他的按照你的目的而定，只要是int 类型就行了；</p>
+<p>（3）在返回类型是结构类型的函数中，return后应该是结构的一个实例对象；</p>
+<p>（4）return后面也可以跟表达式，比如函数调用等；</p>
+<p>（4）如果函数无返回类型，而是void，则无需要返回任何类型的值。</p>
+<p>return语句的使用格式：</p>
+<pre>
+类型 func(参数列表)
+{
+       类型 value;
+       ……
+       ……
+       return value;
+}
+</pre>
+<pre>
+int func(参数列表)
+{
+       int result = 0;
+       ……
+       return result;
+}
+</pre>
+<p>在汇编语言里，返回值一般都是放在ax寄存器中。</p>
+<h4>4.8空语句</h4>
+<p>只有分号“；”组成的语句称为空语句。空语句是什么也不执行的语句。在程序中空语句可用来作空循环体。</p>
+<p>例如：</p>
+<pre>
+while(*str1++==*str2++ &&
+     *str1&&
+     *str2)
+    ；
+</pre>
+<p>本语句的功能是，如果字符串str1和 str2字符相等，就继续执行下一个字符的比较，直到二者不等或者其中一个遍历到末尾。这里的循环体就是一条只有分号的空语句。</p>
+ 
+<h4>4.9复合语句</h4>
+<p>把多个语句用括号{}括起来组成的一个语句称复合语句。 在程序中应把复合语句看成是单条语句，而不是多条语句，例如：</p>
+<pre>
+{
+       x=y+z；
+       a=b+c；
+       printf(“%d%d”，x，a)；
+}
+</pre>
+ 
+<p>上面的代码就是一条复合语句。复合语句内的各条语句都必须以分号“；”结尾；但在括号“}”外不能加分号。</p>
+ 
+<h4>4.10代码风格</h4>
+<p>学习了C语言的语句写法，紧跟着就要养成良好的编码习惯。良好的C代码书写习惯，需要具有一些典型的语句编码风格。下面介绍一下C语言语句的编码风格。</p>
+<p>好的代码风格，让代码看着结构清晰，逻辑分明，并具有一种美感。每个公司都有自己的代码风格要求。但总体来说，C代码的风格需要注意如下几个地方：</p>
+<p>1．注释</p>
+<p>       注释有两种方式，它们分别是：</p>
+<p>       方式1：</p>
+<pre>
+/*
+ *  this is a comment
+ *  the following code will do something
+ *  copyright@mallocfree.com
+ *  email:xxxx@126.com
+ */
+ 
+/*  this is a comment  */
+</pre>
+ 
+<p>方式2：</p>
+ 
+<pre>
+//  this is a comment
+</pre>
+ 
+<p>注意/* */风格的注释不能嵌套使用。比如：</p>
+ 
+<pre>
+1./*
+2. * xxxx
+3. /*
+4.  * yyy
+5.  */
+6. * zzz
+7.*/
+</pre>
+ 
+<p>在1到7行的注释中嵌套了3到5行的注释。那么注释将在第5行终止。第6，7行将失去注释作用。</p>
+<p>2．  断行</p>
+<p>       为了便于阅读，一行代码不要太长。在Solaris内核代码中，要求一行不应超过80个字符。断行时应该选择将操作符留在最右边。新起一行应该在原来行缩进的基础上空4个字符。    例如：</p>
+ 
+<pre>
+if(pEnumProcesses == NULL ||
+     pGetModuleFileName == NULL ||
+     pEnumProcessModules == NULL)
+{
+         return;
+}
+</pre>
+ 
+<p>3．  每行只写一条语句</p>
+ 
+<pre>
+int a, b, t;
+ 
+t = a; a = b; b = t;
+</pre>
+ 
+<p>应该写为：</p>
+ 
+<pre>
+int a;
+int b;
+int t;
+ 
+t = a;
+a = b;
+b = t;
+</pre>
+ 
+       这样写很方便注释与调试。
+<p>4．  分行定义变量</p>
+<p>       参加条例3的定义</p>
+<p>5．  使用空行分隔代码块</p>
+<p>       将完成同一逻辑的代码放在一个段中。适当地添加空行则是一个非常有效的代码整理方式——有点像文章中的分段，一段意思也许需要若干个句子才能表达清楚，在表达下一段意思之前，应当另起一段。</p>
+<p>6．  使用空格降低代码密度</p>
+<p>       运算符与操作数之间以空格间隔；关键字与非关键字之间空格间隔。但单目运算符与它的操作数之间应紧密相接，不需要空格。括号（包括小括号、中括号与大括号）的内侧应该紧靠操作数或其他运算符，不需要添加额外的空格。不要在函数名和其后的括号之间添加空格。</p>
+<p>       需要空格的位置：</p>
+<p>1）  for、if、while、switch等关键字与之后的左括号’(‘之间，如：</p>
+ 
+<pre>
+while (b)
+{
+}
+</pre>
+ 
+<p>2）  左花括号’{‘之前，如：</p>
+ 
+<pre>
+if (b) {
+ 
+}
+</pre>
+ 
+<p>3）双目运算符两侧，例如：</p>
+<pre>
+p == NULL;
+a += b;
+</pre>
+ 
+<p>4）逗号’,’与分号’;’之后，如：</p>
+<pre>
+for (i = 0; i &lt; 10; i++)
+{
+}
+printf(“%d, %c\n”, a, ch);
+</pre>
+ 
+<p>不要空格的位置：</p>
+<p>1）  函数名与之后的左括号’(‘，包括带参数的宏与之后的左括号’(‘，如：</p>
+ 
+<pre>
+max(a, b);
+</pre>
+ 
+<p>2）分号’;’与冒号’:’之前，如：</p>
+ 
+<pre>
+a = b;
+switch (i)
+{
+case 1:
+     break;
+defaut:
+     break;
+}
+</pre>
+ 
+<p>3）左括号’(‘右边，右括号’)’左边，如：</p>
+<pre>
+if (p == NULL)。
+</pre>
+<p>       4）单目运算符，如：</p>
+<pre>
+i++， !b等
+</pre>
+<p>1）  关键字与其他字符之间，如：</p>
+ 
+<pre>
+int length = sizeof (b);
+</pre>
+ 
+<p>其中的int和sizeof都是关键字。</p>
+<p>2）  括号（大，中，小）内侧：</p>
+ 
+<pre>
+int a[500];
+if (a >= b)
+{
+     return (a);
+}
+</pre>
+ 
+<p>7）’.’与’->’运算符不需要空格，如：</p>
+ 
+<pre>
+if (b->left)
+{
+}
+list.val = 0;
+</pre>
+      
+<p>需要空行的位置：</p>
+<p>       1）函数的定义之前、函数的定义之后；</p>
+<p>       2）一组联系紧密的代码段之前和之后。</p>
+<pre>
+/* other code above */
+void swap(int a, int b)
+{
+     int t;
+ 
+     t = a;
+     a = b;
+     b = t;
+ 
+     return;
+}
+/* other code below */
+</pre>
+ 
+<p>7．  return</p>
+ 
+<pre>
+return (a);
+return (NULL);
+return (a + b);
+return;
+</pre>
+ 
+<h4>8．  缩进</h4>
+<p>是通过在每一行的代码左端空出一部分长度（一般为一个TAB键），更加清晰地从外观上体现出程序的层次结构。当遇到有关命名空间、类、结构、函数、以及枚举等等复杂程序结构的定义的时候，我们通常需要将它的内容缩进一层。</p>
+<p>       一般函数体、过程体、循环体(for,while,do)、条件判断体(if)和条件选择(switch,case,select)需要向内缩进一格，同层次的代码在同层次的缩进层上。</p>
+ 
+<pre>
+if (condition)
+{
+     //缩进
+printf(“hello world”);
+}
+else if (condition)
+{
+     //缩进
+}
+else
+{
+     //缩进
+}
+for (int i = 0; i &lt; n; i++)
+{
+     //缩进
+}
+ 
+while (condition)
+{
+     //缩进
+}
+ 
+do
+{
+     //缩进
+} while(conditon)
+ 
+switch(var)
+{
+case a:
+     //缩进
+     break;
+case b:
+     //缩进
+     break;
+default:
+     //缩进
+     break;
+}
+ 
+int function(int a, int b)
+{
+     //缩进
+}
+ 
+class MyClass
+{
+     //缩进
+}
+struct MyStruct
+{
+     //缩进
+};
+</pre>
+ 
+<h4>9．  大括号</h4>
+<p>如果if、while、for等等的结构体仅为一条语句，那么大括号是可以不写的。其实复合体就是将多条语句合并起来充当单条语句来用的。甚至我们可以将结构体与if、while、for写成一行。当代码数量增加，上下文的代码变得复杂时，我们有可能会对if、while、for的结构体究竟包含哪些语句产生误解。因此，我们建议，即使if、while、for结构的内容只有一条语句，也应该像处理多条语句那样，写在大括号内。</p>
+<p>下面是大括号与各种语句的布局写法例子：</p>
+ 
+<pre>
+if (condition) {
+ 
+}
+else if (condition) {
+ 
+}
+else {
+ 
+}
+for (int i = 0; i &lt; n; i++) {
+ 
+}
+ 
+while (condition)
+{
+ 
+}
+ 
+do
+{
+ 
+} while(conditon)
+ 
+switch(var)
+{
+case a:
+     break;
+case b:
+     break;
+default:
+     break;
+}
+ 
+int function(int a, int b)
+{
+ 
+ 
+}
+ 
+class MyClass
+{
+ 
+}
+struct MyStruct
+{
+    
+};
+</pre>
+ 
+<p>10．NULL，0，FALSE, 100等常量与变量的比较写法</p>
+<p>把常量写在左边，可以提早发现错误，在编译阶段</p>
+<p>指针：</p>
+<pre>
+if (NULL  ==  p)
+</pre>
+<p>或</p>
+<pre>
+if (p == NULL)
+</pre>
+<p>整数：</p>
+<pre>
+if (i == 0)
+</pre>
+<p>或</p>
+<pre>
+if （0 == i）
+</pre>
+<p>布尔值：</p>
+<pre>
+if  (b) if(b==TRUE)
+</pre>
+<p>或</p>
+<pre>
+if (!b)  if(b==FALSE)
+</pre>
+<p>实数：</p>
+<p>不要将实数和零直接比较，如：</p>
+<pre>
+float f;
+if (f == 0)
+…
+</pre>
+<p>上面的写法是错误的。应该按照如下的方式进行：</p>
+ 
+<pre>
+#define DELTA 0.00001
+if (f >= -DELTA && f &lt;= DELTA)
+ 
+int a = 10;
+if (a==0)
+{
+}
+else
+{
+}
+</pre>
+
+
+<p style='float:right;'>本页共1140段，17703个字符，33025 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
