@@ -87,7 +87,7 @@ a:link{
 	font-size:1.2em;
 	margin:auto;
 	font-family:"宋体";
-	width:65.29%;
+	width:40em;
 	line-height:1.6em;
 }
 P{
@@ -106,11 +106,15 @@ P{
 	color:#000000;
 	line-height:1.3em;
 }
-h2{
-	font-size:20px;
+h3{
+	font-size:1.1em;
 	font-weight:bold;
-	margin-top:15px;
-	margin-bottom:0px;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
 	text-indent:0em;
 }
 
@@ -240,97 +244,220 @@ sub,sup{
 
 
 
-<h4>js 里面的 function 与 Function</h4>
 
-<p>function 是 js 的标识符</p>
+<script>
 
-<p>Function 是 js 里面的一个构造函数</p>
+var lunarInfo=new Array(
+0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
+0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977, // 1910-1919
+0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,
+0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,
+0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,
+0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0, // 1950-1959
+0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,
+0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6,
+0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570, // 1982
+0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,
+0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5, // 2000-2009
+0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,
+0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530, // 2020-2029
+0x05aa0,0x076a3,0x096d0,0x04bd7,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,
+0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0);
+function lYearDays(y) {
+   var i, sum = 348  							// 29*12
+   for(i=0x8000; i>0x8; i>>=1)  				// 1000 0000 0000 0000
+   		sum += (lunarInfo[y-1900] & i)? 1: 0	// 大月加1
+   return(sum+leapDays(y))						// 闰年加29或30
+   
+}
+function leapDays(y) {
+   if(leapMonth(y))  
+   		return((lunarInfo[y-1900] & 0x10000)? 30: 29) // 1 0000 0000 0000 0000
+   else return(0) 					 // 2017年 0x15176 0001 0101 0001 0111 0110  闰6月30
 
-<p>1、new function 与 new Function 的区别</p>
+}
 
-<p>new 运算符在 js 里面是创建一个自定义的对象的实例或者是一个具有构造函数的本地对象</p>
+//====================================== 传回农历 y年闰哪个月 1-12 , 没闰传回 0
+function leapMonth(y) {
 
-<p>语法：new constructor [ ( [ arguments ] ) ]</p>
+   return(lunarInfo[y-1900] & 0xf)  // 1111
+      
+}
+function monthDays(y,m) {
+   return( (lunarInfo[y-1900] & (0x10000>>m))? 30: 29 ) // 1 0000 0000 0000 0000
+}
+//====================================== 算出农历, 传入Date对象, 传回农历日期对象
+//              该Date对象属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
+function Lunar(objDate) {
 
-<p>new function() {......} 初始化一个可操作对象，相当于 new function 匿名函数() {......}</p>
+   var i, leap=0, temp=0
+   var baseDate = new Date(1900,0,31)
+   var offset   = (objDate - baseDate)/86400000   		// 86400000：一天的毫秒数
 
-<p>new Function('参数', '函数体') 是实例化一个函数，相当于 function 函数名() {......}</p>
+   this.dayCyl = offset + 40  			// 在函数中，this 表示全局对象。
+   										// 函数的所属者默认绑定到 this 上。
+										// 在浏览器中，window 就是该全局对象为 [object Window]:
+   										// https://www.runoob.com/js/js-this.html
+   this.monCyl = 14
 
-<p>2、立即执行函数 ( function(){...} () ) 和 ( function(){...} )()</p>
+   for(i=1900; i<2050 && offset>0; i++) {
+      temp = lYearDays(i)
+      offset -= temp
+      this.monCyl += 12
+   }
 
-<p>// 1、</p>
+   if(offset<0) {
+      offset += temp;
+      i--;
+      this.monCyl -= 12
+   }
 
-<p>// 定义一个命名函数 a 并调用，正常运行</p>
+   this.year = i
+   this.yearCyl = i-1864
 
-<p>function a(){}a()</p>
+   leap = leapMonth(i) 					// 闰哪个月
+   this.isLeap = false
 
-<p>// 2、</p>
+   for(i=1; i<13 && offset>0; i++) {	// 闰月
+      if(leap>0 && i==(leap+1) && this.isLeap==false)
+         { 
+		 	--i; 
+			this.isLeap = true; 
+			temp = leapDays(this.year); }
+      else
+         { temp = monthDays(this.year, i); }
 
-<p>// 2 假设使用匿名函数的方式呢？</p>
+      if(this.isLeap==true && i==(leap+1))  // 解除闰月
+	  	  this.isLeap = false
 
-<p>function (){}()</p>
+      offset -= temp
+      if(this.isLeap == false) 
+	  		this.monCyl ++
+   }
 
-<p>//这种方式会报错：Uncaught SyntaxError: Unexpected token (</p>
+   if(offset==0 && leap>0 && i==leap+1)
+      if(this.isLeap)
+         { this.isLeap = false; }
+      else
+         { 
+		 	this.isLeap = true; 
+		 	--i; 
+			--this.monCyl;}
 
-<p>// 3、</p>
+   if(offset<0){ 
+   		offset += temp; 
+		--i; 
+		--this.monCyl; }
 
-<p>//按到如上思路测试，寻找 2 报错的原因</p>
+   this.month = i
+   this.day = offset + 1
+}
+</script>
 
-<p>function () {}//前端全栈交流学习圈：866109386</p>
-
-<p>// 3 会报错，与 2 报错相同：Uncaught SyntaxError: Unexpected token (</p>
-
-<p>// 4、</p>
-
-<p>();</p>
-
-<p>// 4 会报错：Uncaught SyntaxError: Unexpected token )</p>
-
-<p>// 5、</p>
-
-<p>(1);</p>
-
-<p>// 5 不会报错正常运行</p>
-
-<p>// 6、</p>
-
-<p>(function(){});</p>
-
-<p>// 6 不会报错正常运行</p>
-
-<p>可以看出，上述现象报错的原因都是：语法错误。究其原因发现是因为 ()运算符的优先级函数调用，而 () 运算符的括号内必须有表达式，否则就会有语法错误。</p>
-
-<p>因此可以用 (function(){})() 的形式定义一个自调用的匿名函数</p>
-
-<p>//1、</p>
-
-<p>(1+2)(5+6);</p>
-
-<p>//在进行如上表达式运算的时候，会报错：Uncaught TypeError: 3 is not a function，也就是说如果第一个表达式是一个 function 的话，就会正常运行。</p>
-
-<p>//2、所以在保证整个运算为表达式运算的情况下，第一个子表达式为 function，则得出如下写法</p>
-
-<p>(function(){}());</p>
-
-<p>// 2 正常运行不会报错</p>
-
-<p>// 3、因此可以得出如下写法也都是正确的</p>
-
-<p>!function(){};</p>
-
-<p>+function(){};</p>
-
-<p>-function(){};</p>
-
-<p>~function(){};</p>
-
-<p>......</p>
-
-<p>对前端的技术，架构技术感兴趣的同学关注我的头条号，并在后台私信发送关键字：“前端”即可获取免费的架构师学习资料</p>
+<h4>函数测试4</h4>
+<div id="test4">
+	<script language="JavaScript1.2" type="text/javascript">  
+	var Today = new Date();
+	var tY = Today.getFullYear()-1;
+	var tM = Today.getMonth();
+	var tD = Today.getDate();
+	var mm = new Array(1,2,3,4,5,6,7,8,9,10,11,12,0);
+	if(leapMonth(tY)==0)
+	{
+		for(i=0;i<12;i++)
+		{
+			mm[i] = monthDays(tY,i+1)
+			document.write(mm[i] + ' ')
+		}
+	}
+	else
+	{
+		for(i=0;i<leapMonth(tY);i++)
+		{
+			mm[i] = monthDays(tY,i+1)
+		}
+		mm[leapMonth(tY)] = monthDays(tY,tM)
+		for(i=leapMonth(tY)+1;i<13;i++)
+		{
+			mm[i] = monthDays(tY,i)
+		}
+		//mm[0]=monthDays(tY,tM)
+		for(i=0;i<13;i++)
+		{
+			document.write(mm[i] + ' ')
+		}
+	}
+	var mm2 = new Array(1,2,3,4,5,6,7,8,9,10,11,12,0);
+	mm=mm2;
+		for(i=0;i<13;i++)
+		{
+			document.write(mm[i] + ' ')
+		}	
+	</script>
+</div>
 
 
+<h4>函数测试</h4>
+<script>
+function lunarday(y,m,d)
+{
+	var sDObj,lDObj
+	sDObj = new Date(y,m,d)    // 当月一日日期
+	lDObj = new Lunar(sDObj)     // 农历
+	lY    = lDObj.year           // 农历年
+	lM    = lDObj.month          // 农历月
+	lD    = lDObj.day            // 农历日
+	lL    = lDObj.isLeap         // 农历是否闰月
+	lX    = lL ? leapDays(lY): monthDays(lY,lM) // 农历当月最後一天
+	var i = lD  
+	document.write(y+' '+ (m+1) + ' ' + d)
+	document.write('<br >')
+	document.write(lY+' '+ lM + ' ' + lD)
+	document.write('<br >')
+	document.write(lL)
+	document.write('<br >')
+}
+		</script>
+<div id="test">
+	<script language="JavaScript1.2" type="text/javascript">  
+	lunarday(2019,4,21);
+	lunarday(2019,5,21);
+	lunarday(2019,6,21);
 
-<p style='float:right;'>本页共44段，1215个字符，2175 Byte(字节)</p>﻿
+		
+	</script>
+</div>
+
+<h4>函数测试2</h4>
+<div id="test2">
+	<script language="JavaScript1.2" type="text/javascript">  
+	lunarday(2020,4,21);
+	lunarday(2020,5,21);
+	lunarday(2020,6,21);
+	lunarday(2020,5,1);
+
+		
+	</script>
+</div>
+
+<h4>函数测试3</h4>
+<div id="test3">
+	<script language="JavaScript1.2" type="text/javascript">  
+	var Today = new Date();
+	var tY = Today.getFullYear();
+	var tM = Today.getMonth();
+	var tD = Today.getDate();
+	document.write(tY + ' ' + tM + ' ' + tD)
+		
+	</script>
+</div>
+
+
+
+
+
+
+
 
 
 
@@ -377,3 +504,61 @@ sub,sup{
 
 </body>
 </html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
