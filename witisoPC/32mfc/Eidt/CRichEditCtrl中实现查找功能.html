@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>CRichEditCtrl中实现查找功能</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+.container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+	background-color:white;
+	border:#ccc 1px solid;
+	color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+	 background-color:white;
+	 border:#ccc 1px solid;
+	 color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	text-indent:4em;
+}sub,sup{
+font-size:80%;
+color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <p>在我的一个程序中，需要提供类似于记事本的查找功能。如图：</p>
+    <p> <img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/firefox1/3.jpg" /></p>
+    <p>我写此文的目的是想向初学MFC的朋友们介绍</p>
+    <ol>
+      <li>如何通过CRichEditCtrl来实现文本查找</li>
+      <li>如何在窗体间发送消息</li>
+    </ol>
+    <p>实现文本查找功能，大致分为以下几步：</p>
+    <ol>
+      <li>创建一个包含有CRichEditCtrl的窗体资源以及该窗体对应的处理类</li>
+      <li>创建一个录入查找文本的窗体资源以及该窗体对应的处理类</li>
+      <li>处理文本查找的消息传递</li>
+      <li>处理文本查找</li>
+    </ol>
+    <p><strong>创建一个包含有CRichEditCtrl的窗体资源以及该窗体对应的处理类</strong></p>
+    <p>新建一个工程，通过AppWizard创建Dialog类型的工程，窗体处理类命名为CTestDlg。打开窗体资源文件，通过资源设计器，在窗体上创建一个Rich Edit Control，然后再创建该窗体的成员变量m_RichEdit。<br />
+      头文件为：<br />
+<pre>
+class CTestDlg : public CDialog
+{
+    public:
+    ....
+    CRichEditCtrl m_RichEdit;
+}
+</pre>
+    <p><strong>创建一个录入查找文本的窗体资源以及该窗体对应的处理类</strong></p>
+    <p> 再新建一个窗体资源，如图：</p>
+    <p><img alt="" src="http://p.blog.csdn.net/images/p_blog_csdn_net/firefox1/4.jpg" /></p>
+    <p>打开ClassWizard，创建一个继承于CDialog的雷CFindDlg。</p>
+    <p><strong>处理文本查找的消息传递</strong></p>
+    <p>首先在系统的全局头文件中，定义发送查找命令的消息<br />
+ <p></p>
+<pre>
+#define WM_FINDMESSAGE (WM_USER + 1)
+在CFindDlg的查找按钮的查找事件中，发送WM_FINDMESSAGE
+    void CKnFindDlg::OnBnClickedFindButton()
+{
+    CString str;
+    LPCTSTR findstr;
+    CEdit* edit = (CEdit*) this-&gt;GetDlgItem(IDC_EDIT_FIND);
+    edit-&gt;GetWindowText(str);
+    findstr = (LPCTSTR)str;
+   ::SendMessage(this-&gt;GetParent()-&gt;m_hWnd, WM_FINDMESSAGE,(WPARAM)findstr,NULL);
+    //因为CFindDlg是通过CTestDlg打开的，打开的代码为：CFindDlg finddlg(this);finddlg.DoModal();
+    //所以这里可以通过this-&gt;GetParent()-&gt;m_hWnd获取它的句柄
+}
+</pre>
+    <p>在这个自定义的消息传递中，我们通过wParam来传递查找字符串的地址。<br />
+      在CTestDlg的.h文件中，声明WM_FINDMESSAGE的处理函数<br />
+      afx_msg LRESULT OnFindMessage(WPARAM wParam, LPARAM lParam);<br />
+      在CTextDlg的.cpp文件中，声明WM_FINDMESSAGE的消息处理<br />
+      BEGIN_MESSAGE_MAP(CTestDlg,CDialog)<br />
+            
+      ON_MESSAGE(WM_FINDMESSAGE,OnFindMessage)<br />
+      END_MESSAGE_MAP</p>
+    <p>.......</p>
+    <p><strong>处理文本查找</strong></p>
+ <p></p>
+<pre>
+LRESULT CTestDlg::OnFindMessage(WPARAM wParam, LPARAM lParam)
+{
+
+      static findpos = 0;//通过静态变量来保存当前查找到的匹配的字符串的位置
+
+       LPCTSTR str = (LPCTSTR)wParam;
+       FINDTEXTEX f;
+       f.chrg.cpMin = findpos;
+       f.chrg.cpMax = -1; 
+        f.lpstrText = (LPSTR)str;
+
+       findpos = this->m_RichEdit.FindText(FR_DOWN, &f);
+       if (findpos != -1)
+       {
+        this->m_RichEdit.SetSel(f.chrgText);
+        findpos ++;
+       }
+       else
+       {
+        AfxMessageBox(_T("没有找到匹配的字符串"));
+        findpos = 0;
+       }
+
+       return 0;
+}
+</pre>
+    <p>这段查找代码中如果要加上大小写匹配和全字匹配，相应的代码应该写为：<br />
+      ......<br />
+      findpos = this-&gt;m_RichEdit.FindText(FR_DOWN | FR_MATCHCASE | FR_WHOLEWORD, &amp;f);<br />
+    ......</p>
+    <p>&nbsp;</p>
+    <p><a href="http://blog.csdn.net/firefox1/article/details/776059">ref</a><br />
+    </p>
+  </div>
+  <p></p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

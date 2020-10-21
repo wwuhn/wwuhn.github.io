@@ -1,0 +1,689 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<p><strong>Windows</strong><strong><a href="https://blog.csdn.net/guzhou_diaoke/article/details/8155171">程序的窗口和消息 -- 一个Windows程序从生到死</a> </strong></p>
+<p><a name="t1" id="t1"></a><strong>1.</strong><strong>一个完整的<a href="https://www.baidu.com/s?wd=Windows&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank">Windows</a>程序 </strong></p>
+<pre>
+#include &lt;windows.h>
+#include &lt;mmsystem.h>
+#pragma comment(lib,"winmm.lib")
+//Windows项目要使用Windows子系统, 而不是Console, 可以这样设置: 
+//[Project] --> [Settings] --> 选择"Link"属性页,
+//在Project Options中将/subsystem:console改成/subsystem:windows
+ 
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+ 
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
+{
+    static TCHAR    szAppName[] = TEXT("HelloWin32");
+    HWND            hwnd;
+    MSG                msg;
+    WNDCLASS        wndclass;
+ 
+    wndclass.style            = CS_HREDRAW | CS_VREDRAW;
+    wndclass.lpfnWndProc    = WndProc;
+    wndclass.cbClsExtra        = 0;
+    wndclass.cbWndExtra        = 0;
+    wndclass.hInstance        = hInstance;
+    wndclass.hIcon            = LoadIcon(NULL, IDI_APPLICATION);
+    wndclass.hCursor        = LoadCursor(NULL, IDC_ARROW);
+    wndclass.hbrBackground    = (HBRUSH)GetStockObject(WHITE_BRUSH);
+    wndclass.lpszMenuName    = NULL;
+    wndclass.lpszClassName    = szAppName;
+ 
+    if (!RegisterClass(&wndclass))
+    {
+        MessageBox(NULL, TEXT("This program requires windows NT!"), szAppName, MB_ICONERROR);
+        return 0;
+    }
+ 
+    hwnd = CreateWindow(szAppName,                    // window class name
+        TEXT("The Hello Program"),    // window caption
+        WS_OVERLAPPEDWINDOW,        // window style
+        CW_USEDEFAULT,                // initial x position
+        CW_USEDEFAULT,                // initial y position
+        CW_USEDEFAULT,                // initial x size
+        CW_USEDEFAULT,                // initial y size
+        NULL,                        // parent window handle
+        NULL,                        // window menu handle
+        hInstance,                    // program instance handle
+        NULL);                        // creation parameters
+ 
+    ShowWindow(hwnd, iCmdShow);
+    UpdateWindow(hwnd);
+ 
+    while (GetMessage(&msg, NULL, 0, 0))
+    {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+ 
+    return msg.wParam;
+}
+ 
+LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    HDC            hdc;
+    PAINTSTRUCT    ps;
+    RECT        rect;
+ 
+    switch (message)
+    {
+    case WM_CREATE:
+        PlaySound(TEXT("hellowin32.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        return 0;
+ 
+    case WM_PAINT:
+        hdc = BeginPaint(hwnd, &ps);
+ 
+        GetClientRect(hwnd, &rect);
+        DrawText(hdc, TEXT("Hello Windows 7!"), -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+ 
+        EndPaint(hwnd, &ps);
+        return 0;
+ 
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        return 0;
+    }
+ 
+    return DefWindowProc(hwnd, message, wParam, lParam);
+}
+</pre>
+<p>运行效果：</p>
+<img src="1.png" />
+<p><a name="t2" id="t2"></a><strong>2.</strong><strong>注册窗口类 </strong></p>
+
+<p>要创建窗口，首先需要注册一个窗口类，而窗口类又需要窗口过程来处理窗口消息。</p>
+
+<p>窗口总是基于窗口类来创建的。窗口类确定了处理窗口消息的窗口过程。多个窗口可以同时基于某一窗口类来创建。 </p>
+<pre>
+typedef struct { 
+    UINT style;
+    WNDPROC lpfnWndProc;
+    int cbClsExtra;
+    int cbWndExtra;
+    HINSTANCE hInstance;
+    HICON hIcon;
+    HCURSOR hCursor;
+    HBRUSH hbrBackground;
+    LPCTSTR lpszMenuName;
+    LPCTSTR lpszClassName;
+} WNDCLASS,  *PWNDCLASS;
+</pre>
+<p>ATOM RegisterClass(CONST WNDCLASS  *lpWndClass);</p>
+
+<p>过程：定义一个WNDCLASS结构并对它的10个子段进行初始化，并调用RegisterClass来完成该窗口类的注册。 </p>
+<p><a name="t3" id="t3"></a><strong>3.</strong><strong>窗口的创建 </strong></p>
+
+<p>通过调用CreateWindow来完成。 </p>
+<pre>
+HWND CreateWindow(LPCTSTR lpClassName,	// 窗口类名称
+    LPCTSTR lpWindowName,		// 窗口标题
+    DWORD dwStyle,			// 窗口风格，或称窗口格式
+    int x,				// 初始x坐标
+    int y,				// 初始y坐标
+    int nWidth,				// 初始x方向尺寸
+    int nHeight,			// 初始y方向尺寸
+    HWND hWndParent,			// 父窗口句柄
+    HMENU hMenu,			// 窗口菜单句柄
+    HINSTANCE hInstance,		// 程序实例句柄
+    LPVOID lpParam			// 创建参数
+);
+
+</pre>
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p>句柄：Windows中，句柄的使用非常频繁。句柄本质上是引用某个对象的数值。Windows中的句柄非常类似于传统的C或MS-DOS程序中使用的文件句柄。</p>
+
+<p>如果新建的窗口为顶级窗口，则父窗口句柄为NULL。</p>
+
+<p>CreateWindow的返回值为一个指向所创建窗口的句柄。</p>
+
+<p></p>
+
+<p><a name="t4" id="t4"></a><strong>4.</strong><strong>窗口的显示 </strong></p>
+
+<p>CreateWindow调用返回时，窗口已在Windows内部被创建。这表示Windows已经分配了一块内存来保存指定的窗口信息以及一些其他信息。</p>
+
+<p>要将窗口显示在屏幕上，还需要：</p>
+
+<p>1）ShowWindow(hwnd, iCmdShow);</p>
+
+<p>用于将窗口显示在屏幕中。如果第二个参数为SW_SHOWNORMAL，则该窗口的客户区将被在窗口类中所指定的背景画刷擦除。</p>
+
+<p>2）UpdateWindow(hwnd);</p>
+
+<p>通过向窗口过程发送一条WM_PAINT消息，使窗口客户区重绘。 </p>
+<p><a name="t5" id="t5"></a><strong>5.</strong><strong>消息循环 </strong></p>
+
+<p>在UpdateWindow被调用之后，新建窗口在屏幕中便完全可见了。此时，该程序必须能够接收来自用户的键盘输入和鼠标输入。Windows为当前在其中运行的每一个Windows程序都维护一个消息队列。当输入事件发生后，Windows会自动将这些事件转换为消息，并将其放置在应用程序的消息队列中。</p>
+
+<p>应用程序通过执行一段名为“消息循环”的代码段来从消息队列中获取消息： </p>
+<pre>
+while (GetMessage(&amp;msg,  NULL, 0, 0))
+{
+    TranslateMessage(&amp;msg);
+    DispatchMessage(&amp;msg);
+}
+</pre>
+<p>GetMessage用于从消息队列中对消息进行检索。若消息为WM_QUIT，则返回0值，while循环退出。</p>
+
+<p>TranslateMessage将msg结构返还给Windows以进行某些键盘消息的转换。</p>
+
+<p>DispatchMessage将msg再次返回给Windows，Windows会将这条消息发送给合适的窗口过程来处理。即Windows调用了窗口过程。 </p>
+<p><a name="t6" id="t6"></a><strong>6.</strong><strong>窗口过程 </strong></p>
+
+<p>前面的都是常规步骤。真正有意义的事情发生在窗口过程中。正是窗口过程决定了窗口客户区的显示内容以及窗口如何对用户的输入做出响应。</p>
+
+<p>应用程序通常并不直接对窗口过程进行调用。窗口过程几乎总是由Windows自身调用的。应用程序如果希望调用自身的窗口过程，则可通过调用函数SendMessage来实现。 </p>
+<p><a name="t7" id="t7"></a><strong>7.</strong><strong>消息的处理 </strong></p>
+
+<p>窗口<a href="https://www.baidu.com/s?wd=%E8%BF%87%E7%A8%8B%E6%89%80&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank">过程所</a>接收的每一条消息都由一个数字来标示，即窗口过程的message参数。</p>
+
+<p>通常使用switch-case结构来确定窗口过程所收到的消息的类型以及相应的处理方法。当窗口过程对消息进行处理后，返回0。</p>
+
+<p>所有窗口过程不进行处理的消息必须传给名称为DefWindowProc的函数。该函数的返回值必须从窗口过程返回。若不如此，其他的正常行为（如结束程序）将无法进行。 </p>
+<p><a name="t8" id="t8"></a><strong>8.WM_CREATE</strong></p>
+
+<p>窗口过程所接收到的第一条消息为WM_CREATE。当Windows在WinMain函数中处理CreateWindow时，WndProc将收到该消息。WndProc处理完WM_CREATE消息后，将控制权返回给Windows。然后，Windows从CreateWindow调用返回，继续执行WinMain中的其他代码。</p>
+
+<p>通常情况下，窗口过程会在处理WM_CREATE消息期间对窗口进行一次性的初始化。 </p>
+<p><a name="t9" id="t9"></a><strong>9.WM_PAINT</strong></p>
+
+<p>WndProc所处理的第二条消息是WM_PAINT。当窗口的客户区的部分或全部“无效”且必须“更新”时，应用程序将得到此通知。这也就意味着窗口必须被“重绘”。</p>
+
+<p>窗口尺寸发生变化、最小化然后恢复到原先的尺寸、拖动窗口发生重叠时会标记窗口无效，窗口过程会收到WM_PAINT消息，并对窗口的内容进行重绘。</p>
+
+<p>对WM_PAINT消息的处理几乎总是从调用BeginPaint开始，以调用EndPaint结束。</p>
+
+<p>BeginPaint调用期间，如果客户区的背景尚未被擦除，则Windows会对其使用WNDCLASS中的hbrBackground指定的画刷进行擦除。BeginPaint的调用将使整个客户区有效，并返回一个“设备环境句柄”。设备环境是指物理输出设备（如视频显示器）及其设备驱动程序。我们需要设备环境句柄以在窗口客户区显示文本和图像，该句柄无法在客户区以外的区域进行绘制。EndPaint用于释放设备环境句柄，以使其无效。 </p>
+<p><a name="t10" id="t10"></a><strong>10.WM_DESTROY</strong></p>
+
+<p>当用户点击关闭按钮或其他关闭程序手段时，发出WM_DESTROY消息。</p>
+
+<p>标准响应方式：PostQuitMessage。</p>
+
+<p>该函数是将一个WM_QUIT消息插入到程序的消息队列中。 </p>
+<p><a name="t11" id="t11"></a><strong>11.</strong><strong>何时调用WndProc</strong></p>
+
+<p>在下面的场景下，WndProc会被Windows系统调用：</p>
+
+<p>1）新建窗口</p>
+
+<p>2）窗口被最终销毁时</p>
+
+<p>3）窗口尺寸发生变化或被移动或被最小化时</p>
+
+<p>4）用户用鼠标在窗口中执行单击或双击操作时</p>
+
+<p>5）用户从键盘输入字符时</p>
+
+<p>6）用户从菜单中选择某个菜单项时</p>
+
+<p>7）用户用鼠标或单击滚动条时</p>
+
+<p>8）窗口的客户区需要重绘时 </p>
+<p><a name="t12" id="t12"></a><strong>12.</strong><strong>队列消息和非队列消息 </strong></p>
+
+<p>消息既可以是“队列消息”，也可以是“非队列消息”。队列消息是指那些由Windows放入程序的消息队列中的消息。非队列消息则是由Windows对窗口过程的直接调用而产生的。</p>
+
+<p>队列消息一般由用户的输入产生，如按键、鼠标消息等；非队列消息则包括队列消息以外的其他所有消息，通常由调用特定的Windows函数引起。uCreateWindow时，发送的WM_CREATE消息。 </p>
+<p>注：以下内容来自侯捷先生所著<a href="https://www.baidu.com/s?wd=%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAMFC%E3%80%8B&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank">《深入浅出MFC》</a></p>
+
+<p><a name="t13" id="t13"></a><strong>13.RegisterClass</strong><strong>与CreateWindow</strong></p>
+
+<p><img border="0" width="678" height="571" src="a_clip_image002.gif" alt="https://img-my.csdn.net/uploads/201211/06/1352215999_2389.PNG" /></p>
+
+<p>一开始，Windows 程序必须做些初始化工作，为的是产生应用程序的工作舞台：窗口。这没有什么困难，因为API 函数CreateWindow 完全包办了整个巨大的工程。但是窗口</p>
+
+<p>产生之前，其属性必须先设定好。所谓属性包括窗口的「外貌」和「行为」，一个窗口的边框、颜色、标题、位置等等就是其外貌，而窗口接收消息后的反应就是其行为（具</p>
+
+<p>体地说就是指窗口函数本身）。程序必须在产生窗口之前先利用API 函数RegisterClass设定属性（我们称此动作为注册窗口类别）。RegisterClass  需要一个大型数据结构</p>
+
+<p>WNDCLASS 做为参数，CreateWindow 则另需要11  个参数。 </p>
+<p><a name="t14" id="t14"></a><strong>14.Windows</strong><strong>程序的生与死---窗口的生命周期 </strong></p>
+
+<p><img border="0" width="699" height="515" src="a_clip_image004.gif" alt="https://img-my.csdn.net/uploads/201211/06/1352215950_4576.PNG" /></p>
+
+<p>1）程序初始化过程中调用CreateWindow，为程序建立了一个窗口，做为程序的萤幕舞台。CreateWindow  产生窗口之后会送出WM_CREATE 直接给窗口函数，后者于是可以在此时机做些初始化动作（例如配置内存、开文件、读初始资料...）。</p>
+
+<p>2）程序活着的过程中，不断以GetMessage 从消息贮列中抓取消息。如果这个消息是WM_QUIT，GetMessage 会传回0 而结束while 循环，进而结束整个程序。</p>
+
+<p>3）DispatchMessage 透过Windows  USER 模块的协助与监督，把消息分派至窗口函数。消息将在该处被判别并处理。</p>
+
+<p>4）程序不断进行2. 和3. 的动作。</p>
+
+<p>5）当使用者按下系统菜单中的Close 命令项，系统送出WM_CLOSE。通常程序的窗口函数不栏截此消息，于是DefWindowProc 处理它。</p>
+
+<p>6）DefWindowProc 收到WM_CLOSE 后，  调用DestroyWindow 把窗口清除。DestroyWindow 本身又会送出WM_DESTROY。</p>
+
+<p>7）程序对WM_DESTROY 的标准反应是调用PostQuitMessage。</p>
+
+<p>8）PostQuitMessage 没什么其它动作，就只送出WM_QUIT  消息，准备让消息循环中的GetMessage 取得，如步骤2，结束消息循环。 </p>
+<p><a name="t15" id="t15"></a><strong>15.OnIdle</strong></p>
+
+<p>所谓空闲时间（idle time），是指「系统中没有任何消息等待处理」的时间。举个例子，没有任何程序使用定时器（timer，它会定时送来WM_TIMER），使用者也没有碰触键盘和鼠标或任何外围，那么，系统就处于所谓的空闲时间。</p>
+
+<p>空闲时间常常发生。不要认为你移动鼠标时产生一大堆的WM_MOUSEMOVE，事实上夹杂在每一个WM_MOUSEMOVE 之间就可能存在许多空闲时间。毕竟，计算机速度超乎想像。</p>
+
+<p>背景工作最适宜在空闲时间完成。传统的SDK 程序如果要处理空闲时间，可以以下列循环取代WinMain 中传统的消息循环： </p>
+<pre>
+while (TRUE) 
+{
+    if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) 
+    {
+        if (msg.message == WM_QUIT)
+            break;
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+    else 
+    {
+        OnIdle();
+    }
+}
+</pre>
+<p></p>
+
+<p></p>
+
+<p>原因是PeekMessage 和GetMessage 的性质不同。它们都是到消息队列中抓消息，如果抓不到，程序的主执行线程（primary thread，是一个UI 执行线程）会被操作系统虚悬住。当操作系统再次回来照顾此一执行线程，而发现消息队列中仍然是空的，这时候两个API函数的行为就有不同了：</p>
+
+<p>&nbsp; GetMessage 会过门不入，于是操作系统再去照顾其它人。</p>
+
+<p>&nbsp; PeekMessage 会取回控制权，使程序得以执行一段时间。于是上述消息循环进入OnIdle 函数中。</p>
+
+<p></p>
+
+<p></p>
+
+<p><a name="t16" id="t16"></a><strong>16.</strong><strong>一个进程的诞生与死亡 </strong></p>
+
+<p>1）shell 调用CreateProcess 激活App.exe。</p>
+
+<p>2）系统产生一个「进程核心对象」，计数值为1。</p>
+
+<p>3）系统为此进程建立一个4GB 地址空间。</p>
+
+<p>4）加载器将必要的码加载到上述地址空间中，包括App.exe 的程序、资料，以及所需的动态联结函数库（DLLs）。加载器如何知道要加载哪些DLLs 呢？它们被记录在可执行文件（PE 文件格式）的.idata section 中。</p>
+
+<p>5）系统为此进程建立一个执行线程，称为主执行线程（primary thread）。执行线程才是CPU 时间的分配对象。</p>
+
+<p>6）系统调用C runtime 函数库的Startup  code。</p>
+
+<p>7）Startup code 调用App 程序的WinMain 函数。</p>
+
+<p>8）App 程序开始运作。</p>
+
+<p>9）使用者关闭App 主窗口，使WinMain 中的消息循环结束掉，于是WinMain 结束。</p>
+
+<p>10）回到Startup code。</p>
+
+<p>11）回到系统，系统调用ExitProcess 结束进程。 </p>
+<p><a name="t17" id="t17"></a><strong>17.</strong><strong>一个执行线程的诞生与死亡 </strong></p>
+
+<p>1）配置「执行线程对象」，其handle 将成为CreateThread 的传回值。</p>
+
+<p>2）设定计数值为1。</p>
+
+<p>3）配置执行线程的context。</p>
+
+<p>4）保留执行线程的堆栈。</p>
+
+<p>5）将context 中的堆栈指针缓存器（SS）和指令指针缓存器（IP）设定妥当。 </p>
+<p><a name="t18" id="t18"></a><strong>18.Windows</strong><strong>程序与操作系统之间的关系 </strong></p>
+
+<p><img border="0" width="633" height="476" src="a_clip_image006.gif" alt="https://img-my.csdn.net/uploads/201211/06/1352215875_9806.PNG" /></p>
+
+<p>Windows 程序的进行系依靠外部发生的事件来驱动。换句话说，程序不断等待（利用一个while 回路），等待任何可能的输入，然后做判断，然后再做适当的处理。上述的「输入」是由操作系统捕捉到之后，以消息形式（一种数据结构）进入程序之中。操作系统如何捕捉外围设备（如键盘和鼠标）所发生的事件呢？噢，USER 模块掌管各个外围的驱动程序，它们各有侦测回路。</p>
+
+<p>如果把应用程序获得的各种「输入」分类，可以分为由硬件装置所产生的消息（如鼠标移动或键盘被按下），放在系统队列（system  queue）中，以及由Windows 系统或其它</p>
+
+<p>Windows 程序传送过来的消息，放在程序队列（application queue）中。以应用程序的眼光来看，消息就是消息，来自哪里或放在哪里其实并没有太大区别，反正程序调用</p>
+
+<p>GetMessage API 就取得一个消息，程序的生命靠它来推动。所有的GUI 系统，包括UNIX的X Window 以及OS/2  的Presentation Manager，都像这样，是以消息为基础的事件驱动系统。</p>
+
+<p>接受并处理消息的主角就是窗口。每一个窗口都应该有一个函数负责处理消息，程序员必须负责设计这个所谓的「窗口函数」（window procedure，或称为window function）。</p>
+
+<p>如果窗口获得一个消息，这个窗口函数必须判断消息的类别，决定处理的方式。以上就是Windows 程序设计最重要的观念。至于窗口的产生与显示，十分简单，有专门的API 函数负责。稍后我们就会看到Windows 程序如何把这消息的取得、分派、处理动作表现出来。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

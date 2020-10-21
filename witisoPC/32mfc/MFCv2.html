@@ -1,0 +1,435 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	//text-indent:2em;
+	padding:8px;
+	margin-left:2em;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+<p>1 VC6代码格式化：selectionformat</p>
+<p>定制→编辑→lelectionformat：alt+F8、ctrl+alt+A</p>
+<p>2 完全取词功能</p>
+<p>在代码编辑区中将光标定位在某个类的任意方法上，单击鼠标右键，在弹出的快捷菜单中选择“List Members”命令或以显示出方法所在类的所有成员信息。</p>
+<p>如果出现以上功能不好使的情况，可以关闭当前的工程，然后在工程目录下删除扩展名为“.ncb”的文件，然后重新打开工程，Visual C++会 重建一个“.ncb”文件，此时完全取词功能将恢复正常。</p>
+<p>VC++ Intellisense Database (.ncb)</p>
+<p>Visual Assist X插件。</p>
+
+
+<h4>如果删掉了dsw文件，怎样手动链接各.cpp、.h文件？</h4>
+<p>1 新建两个文件夹：source files、header files;</p>
+<p>2 将.h文件加入到header files</p>
+<p>3 将.cpp、.rc文件加入到source files</p>
+<p>4 如果有windows.h头文件，VC→工程→选项→连接：最下面的文本框：将其中的subsystem:console改为subsystem:windows</p>
+
+<h4>运算符重载时VC++报错</h4>
+<p>对于VC++报错:fatal error C1001: INTERNAL COMPILER ERROR</p>
+<p>有以下两种可能：</p>
+<p>1、运算符重载时遇到以上错误代码</p>
+<p>将#include&lt;iostream> 改成 #include&lt;iostream.h></p>
+<p>然后去掉 using namespace std;</p>
+<p>或者你要前向声明类，然后声明友元函数（注意不要加friend），也可以顺利通过编译！</p>
+<p>或者你打上vc6.0的sp6补丁就可以了！</p>
+<p>2、如果你在用 VC6 编一个规模较大的工程，如果你在用 VC6 编译一个用到了模板的工程，那恭喜你，这个错误会时不时冒地出来和你打招呼，搞得你手足无措。</p>
+
+
+<h4>字符编码的问题</h4>
+<p>编辑器的编码，工程的编码选择、环境（系统）的编码。还有字节序的问题。</p>
+<pre>
+#ifdef UNICODE
+typedef wchar_t TCHAR
+#else
+typedef char TCHAR
+</pre>
+<p>同时，为了简便操作，还定义了一个更简短的宏 _T / _TEXT，来表示一个通用字符串</p>
+<pre>
+#define _T(x) __T(x)
+UNICODE: #define __T(x) L##x
+ASCII: #define __T(x) x
+</pre>
+<p>Class CString 类模板为基础CStringT 类。 CString 是typedef的CStringT。 更准确地说CString是typedef的显式专用化的CStringT，这是 使用类模板定义的类的常用方法。 同样定义的类是CStringA和CStringW。</p>
+<p>在windows平台下，ms的编译器（也就是vc带的那个）在 Debug 模式下，会把未初始化的栈内存全部填成 0xcc，用字符串来看就是”烫烫烫烫 烫烫烫”，未初始化的堆内存全部填成0xcd，字符串看就是“屯屯屯屯屯屯屯屯”。</p>
+
+<h4>Serialize</h4>
+<p>打开和保存文档时，系统都会自动调用Serialize函数。用户处理的数据往往需要存盘作永久备份。将文档类中的数据成员变量的值保存在磁盘 文件中，或者将存储的文档文件中的数据读取到相应的成员变量中。这个过程称为序列化(Serialize)。</p>
+<p>Serialization是指将对象内容写到文件中，或从文件中读出。如此一来对象的生命就可以在程序结束之后还延续下去，而在程序重新激活之后 ，再被读入。这样的对象可说是"persistent"（永续存在）。</p>
+<p>如果按下【File/Open】，Application Framework 会激活对话框让你指定文件名，然后自动调用CMyDoc::Serialize 读档。Application  Framework 还会调用CMyView::OnDraw，把资料显示出来。</p>
+<p>如果屏幕状态改变， 产生了WM_PAINT ， Framework 会自动调用你的CMyView::OnDraw，传一个Display DC 让你重新绘制窗口内容。</p>
+<p>实际上并没有数据写到显示屏上，所有到显示屏的输出都是图形，不管是直线，圆，还是文本。</p>
+<p>如果按下【File/Print...】，Framework 会自动调用你的CMyView::OnDraw，这次传进去的是个Printer DC，因此绘图动作的输出对象就成了 打印机。</p>
+
+<h4>对话框的数据交换</h4>
+<p>程序运行界面中，用户往往会改变控件的属性，例如，在编辑框中输入字符串，或者改变组合框的选中项，又或者改变复选框的选中状态等。 控件的属性改变后MFC会相应修改控件关联变量的值。这种同步的改变是通过MFC为对话框类自动生成的成员函数DoDataExchange()来实现的， 这也叫做对话框的数据交换和检验机制。</p>
+<p>这种数据交换机制中，DoDataExchange()并不是被自动调用的，而是需要我们在程序中调用CDialogEx::UpdateData()函数，由UpdateData()函 数再去自动调用DoDataExchange()的。</p>
+<pre>
+CDialogEx::UpdateData()函数的原型为：
+BOOL UpdateData(BOOL bSaveAndValidate = TRUE);
+</pre>
+<p>参数：bSaveAndValidate用于指示数据传输的方向，TRUE表示从控件传给变量，FALSE表示从变量传给控件。默认值是TRUE，即从控件传给变量 。</p>
+<p>返回值：CDialogEx::UpdateData()函数的返回值表示操作是否成功，成功则返回TRUE，否则返回FALSE。</p>
+
+
+<h4>MFC程序的生与死</h4>
+<p>1 程序的诞生</p>
+<p>1.1 Application object 产生，内存于是获得配置，初值亦设立了。</p>
+<p>1.2 Afx WinMain 执行AfxWinInit，后者又调用AfxInitThread，把消息队列尽量加大到96。</p>
+<p>1.3 Afx WinMain 执行InitApplication。这是CWinApp 的虚拟函数，但我们通常不改写它。</p>
+<p>1.4 AfxWinMain 执行InitInstance。这是CWinApp 的虚拟函数，我们必须改写它。</p>
+<p>1.5 CMyWinApp::InitInstance 'new' 了一个CMyFrameWnd 对象。</p>
+<p>1.6 CMyFrameWnd 构造式调用Create，产生主窗口。我们在Create 参数中指定的窗口类别是NULL， 于是MFC 根据窗口种类， 自行地为我们注 册一个名为"AfxFrameOrView42d" 的窗口类别。</p>
+<p>1.7 回到InitInstance 中继续执行ShowWindow，显示窗口。</p>
+<p>1.8 执行UpdateWindow，于是发出WM_PAINT。</p>
+<p>1.9 回到AfxWinMain，执行Run，进入消息循环。</p>
+<p>2 程序开始运作</p>
+<p>2.1 程序获得WM_PAINT 消息（藉由CWinApp::Run 中的::GetMessage 循环）。</p>
+<p>2.2 WM_PAINT 经由::DispatchMessage 送到窗口函数CWnd::DefWindowProc 中。</p>
+<p>2.3 CWnd::DefWindowProc 将消息绕行（routing）过消息映射表格（Message Map）。</p>
+<p>2.4 绕行过程中发现有吻合项目，于是调用项目中对应的函数。此函数是应用程序利用BEGIN_MESSAGE_MAP 和END_MESSAGE_MAP 之间的宏设立 起来的。</p>
+<p>2.5 标准消息的处理例程亦有标准命名，例如WM_PAINT 必然由OnPaint 处理。</p>
+<p>3 程序的死亡</p>
+<p>3.1 使用者选按【File/Close】，于是发出WM_CLOSE。</p>
+<p>3.2 CMyFrameWnd 并没有设置WM_CLOSE 处理例程，于是交给预设之处理例程。</p>
+<p>3.3 预设函数对于WM_CLOSE 的处理方式是调用::DestroyWindow， 并因而发出WM_DESTROY。</p>
+<p>3.4 预设之WM_DESTROY 处理方式是调用::PostQuitMessage，因此发出WM_QUIT。</p>
+<p>3.5 CWinApp::Run 收到WM_QUIT 后会结束其内部之消息循环， 然后调用ExitInstance，这是CWinApp 的一个虚拟函数。</p>
+<p>3.6 如果CMyWinApp 改写了ExitInstance ， 那么CWinApp::Run 所调用的就是CMyWinApp::ExitInstance，否则就是WinApp::ExitInstance。</p>
+<p>3.7 最后回到AfxWinMain，执行AfxWinTerm，结束程序。Sub 格式化文本框()</p>
+
+
+
+<h4>MFC与API</h4>
+
+
+<p>对于绘图、事件响应，C本身都没有对应库，一般都由OS提供API。</p>
+<p>操作系统会提供用于某种语言编程的API接口，编程就要使用这些API函数进行，包括绘制控件、事件响应。</p>
+<p>SDK 程序只要包含windows.h就好，所有API的函数声明、消息定义、常数定义、宏定义、都在windows.h档中。除非程序另调用了操作系统 提供的新模块（如CommDlg、ToolHelp、DDEML...），才需要再各别包含对应的.h档。</p>
+<p>windows.h过去是一个巨大文件，大约在5000行上下。现在已拆分内容为数十个较小的.h档，再由windows.h包含进来。也就是说它变成一个"Master included file for Windows applications"。</p>
+<p>任何Windows应用程序与Windows本身之间的所有通信，都要使用Windows应用程序编程接口，也称为Windows API。该接口由多达数百个函数组成，它们是Windows操作系统提供的标准函数，可以提供应用程序与Windows相互通信的方法。</p>
+<p>编写某种操作系统的应用程序，一般需要调用该操作系统为某种编程语言提供的API函数。这样，应用程序只需与该操作系统交互，由该操作系统与硬件交互。</p>
+<p>Windows API的数据类型为了增加程序的可读性和可移植性，使用typedef重新定义了数据类型或复合数据类型。</p>
+<p>句柄也是用typedef对结构体的重新定义。</p>
+<p>句柄是使用了宏定义，指向一个被隐藏了结构的数据区域的指针。</p>
+<p>Windows数据类型是对C数据类型的重定义，是为了增强程序的可读性、为了便于移植。</p>
+
+<p>面向对象的一个重要特点，不但是数据与处理这些数据的函数的关联性很强，同时，函数之间也可以形成逻辑关系。前者是封装，后者是继承与多态。</p>
+
+<p>Windows API是在C还是主要通用语言的年代开发的，很久以后C++才出现，因此经常用在Windows和应用程序之间传递数据的是结构而不是类。</p>
+
+<p>Windows API覆盖了Windows与应用程序之间通信的所有方面。VC以面向对象的方式重新组织了这些API函数，并提供了在C++中使用该接口更容易的方法，且带有更多的默认功能，也就是MFC。</p>
+
+<p>MFC帮助我们把这些浩繁的APIs，利用对象导向的原理，逻辑地组织起来，使它们具备抽象化、封装化、继承性、多态性、模块化的性质。</p>
+<p>Windows API有超过1000个函数，这些函数的类别不是特别清晰。MFC用C++的类进行封装，相同类别的函数封装到相同的类内，相互的关系便变得清晰起来。这就是类类型的思想，将数据和操作这些数据的函数聚合起来，但通过继承可以共享数据和代码。通过访问控制可以实现数据隐藏。</p>
+
+<p>1989年微软公司成立Application Framework技术团队，名为AFX小组，用以开发C++对象导向工具给Windows应用程序开发人员使用。AFX的"X" 其实没有什么意义，只是为了凑成一个响亮好念的名字。</p>
+<p>类封装的是数据和算法，且相互之间有了联系（继承与多态），这是没有联系的全局函数所不能比拟的。</p>
+
+<p>MFC是对win32的封装，使用win32编程方法，写了一个又一个类，让我们不用再重复大量劳动。但毕竟是封装，所以不可能完全实现win32所有功能。用着虽然方便，但距离细节毕竟远了，在个性、特殊化方面还有差距。</p>
+<p>MFC中除了MFC类（封装API）以外，还包括部分宏和全局成员，这些都不属于类的成员，比如全局函数和全局变量。</p>
+<p>C++ 并不是纯种的对象导向语言（SmallTalk 和Java 才是）。所以，MFC之中得以存在有不属于任何类别的全域函数，它们统统在函数名称开头冠以Afx。</p>
+<p>VC中可调用的函数大致可分三类</p>
+<p>1、类自己的函数，只对类自己的数据成员有作用。例如MFC中 MessageBox的原型，它是属于 CWnd 类的成员函数，只能在 CWnd 和CWnd的派生 类的对象中调用；当然，也可以直接调用类中的其他成员函数；</p>
+<p>2、AFX小组在设计Application Framworks 时设计的全局函数，多冠在Afx前缀，在包含了MFC库/框架的工程中可用。例如AfxMessageBox可在 任何地方调用。</p>
+<p>3、Windows API的全局函数。对所有Windows平台下的程序设计都可以调用，如Vb，Vc，Dephi等等。</p>
+<p>新建console程序时，可以选择创建一个支持MFC（如支持CString类型）的程序，在工程中会增加一个stdafx的.h和.cpp文件，包含了以下头文件。</p>
+<pre>
+#include &lt;afx.h>
+#include &lt;afxwin.h>         // MFC core and standard components
+#include &lt;afxext.h>         // MFC extensions
+#include &lt;afxdtctl.h>       // MFC support for Internet Explorer 4 Common Controls
+#ifndef _AFX_NO_AFXCMN_SUPPORT
+#include &lt;afxcmn.h>         // MFC support for Windows Common Controls#include &lt;iostream>
+</pre>
+<p>所以，如果你创建了一个console文件后，如果当时没有选择MFC支持，只需加入上述头文件即可以得到MFC支持。</p>
+
+<p>每一个MFC 程序都想从MFC 中衍生出适当的类别来用（不然又何必以MFC 写程序呢），其中两个不可或缺的类别CWinApp 和CFrameWnd 在 Hello程序中会表现出来。</p>
+<p>MFC 类别中某些函数一定得被应用程序改写（例如CWinApp::InitInstance）。</p>
+<p>一般习惯为每个类别准备一个.h（头文件）和一个.cpp（实现）。</p>
+<p>MFC已经把程序大架构完成了，模块与模块间的消息流动路径以及各函数的功能职司都已确定好（这是MFC 之所以够格称为一个Framework的原因），所以我们写程序的焦点就放在那些必须改写的虚拟函数身上即可。</p>
+
+
+<p>GUI的资源：用一个结构体描述资源的属性，具体的资源所需内存用一个指针指向。这样的一个结构体指针就是句柄，其与MFC类可以相互转换 。</p>
+
+<p>Application Framework 带来的革命精神是，程序模型已经存在，程序员只要依个人需求加料就好：在衍生类别中改写虚拟函数，或在衍生类 别中加上新的成员函数。这很像你在火锅拼盘中依个人口味加盐添醋。</p>
+<p>C#这些年也有所涉猎，但主要用来写WEB程序，桌面程序也写过，各种类封装的非常多，开发效率高，但是有时感觉封装过度，而且让使用者远 离事情真相，有一种隔靴搔痒的感觉，对于我这种操作系统都想自己编译完跟进去调试的人来说，感觉超级别扭，另外一个就是运行期即时编 译的方式也感觉很不爽，还有就是安全性，不混淆的代码用工具一分钟就能把源码逆出来，即便是混淆后的，如果抽一天时间学习以下IL，也 是轻而易举的事情，凡此种种吧，.net基本上也是能不用则不用。</p>
+<p>我们学习XX语言XX框架XX库实际上是为了解决具体问题的，而解决问题的能力就如同编程中的数据结构和算法一样是通用的东西，也应该成为 我们特别关注的一点。</p>
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

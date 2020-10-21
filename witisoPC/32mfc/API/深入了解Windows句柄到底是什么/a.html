@@ -1,0 +1,558 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+  <p align="left"><strong>深入了解Windows句柄到底是什么 </strong></p>
+
+<p>2013年12月30日 11:02:23&nbsp;<a href="https://me.csdn.net/wenzhou1219" target="_blank">文大侠</a>&nbsp;阅读数：67763</p>
+
+<p>&nbsp;版权声明：本文为博主原创文章，未经博主允许不得转载。 https://blog.csdn.net/wenzhou1219/article/details/17659485</p>
+
+<p>总是有新入门的Windows程序员问我Windows的句柄到底是什么，我说你把它看做一种类似指针的标识就行了，但是显然这一答案不能让他们满意，然后我说去问问度娘吧，他们说不行网上的说法太多还难以理解。今天比较闲，我上网查了查，光是百度百科词条“句柄”中就有好几种说法，很多叙述还是错误的，天知道这些误人子弟的人是想干什么。</p>
+
+<p>这里我列举词条中的关于句柄的叙述不当之处，至于如何不当先不管，继续往下看就会明白:</p>
+
+<p>1.windows 之所以要设立句柄，根本上源于<a href="http://baike.baidu.com/view/1082.htm" target="_blank">内存</a>管理机制的问题—<a href="http://baike.baidu.com/view/1499823.htm" target="_blank">虚拟地址</a>，简而言之数据的地址需要变动，变动以后就需要有人来记录管理变动，（就好像户籍管理一样），因此系统用句柄来记载数据地址的变更。</p>
+
+<p>2.如果想更透彻一点地认识句柄，我可以告诉大家，句柄是一种指向<a href="http://baike.baidu.com/view/159417.htm" target="_blank">指针</a>的<a href="http://baike.baidu.com/view/159417.htm" target="_blank">指针</a>。</p>
+
+<p></p>
+
+<p></p>
+
+<p>通常我们说句柄是WINDOWS用来标识被应用程序所建立或使用的对象的唯一整数。这句话是没有问题的，但是想把这句话对应到具体的内存结构上就做不到了。下面我们来详细探讨一下Windows中的句柄到底是什么。</p>
+
+<p><a name="t0" id="t0"></a><strong>1.</strong><strong>虚拟内存结构 </strong></p>
+
+<p>要理解这个问题，首先不能避开Windows的虚拟内存结构。对于这个问题已有前人写了比较好的解释，这里我为了保证博客连贯性，直接贴上需要的部分(原文是讲解Java JVM虚拟机的性能提升的文章，在其中涉及到了虚拟内存的内容，解释的非常好，这里我截取这部分略加修改，这里是<a href="http://blog.csdn.net/chluknight/article/details/6689323" target="_blank">文章链接</a>)</p>
+  <div align="center">
+    <hr size="3" width="100%" align="center" />
+  </div>
+  <p align="left">我们知道，CPU是通过寻址来访问内存的。32位CPU的寻址宽度是  0~0xFFFFFFFF ，计算后得到的大小是4G，也就是说可支持的物理内存最大是4G。但在实践过程中，碰到了这样的问题，程序需要使用4G内存，而可用物理内存小于4G，导致程序不得不降低内存占用。</p>
+
+<p>为了解决此类问题，现代CPU引入了&nbsp;<a href="http://baike.baidu.com/view/969924.htm" target="_blank">MMU</a>（Memory Management Unit&nbsp;内存管理单元）。</p>
+
+<p>MMU 的核心思想是利用虚拟地址替代物理地址，即CPU寻址时使用虚址，由 MMU 负责将虚址映射为物理地址。MMU的引入，解决了对物理内存的限制，对程序来说，就像自己在使用4G内存一样。</p>
+
+<p>内存分页(Paging)是在使用MMU的基础上，提出的一种内存管理机制。它将虚拟地址和物理地址按固定大小（4K）分割成页(page)和页帧(page  frame)，并保证页与页帧的大小相同。这种机制，从数据结构上，保证了访问内存的高效，并使OS能支持非连续性的内存分配。在程序内存不够用时，还可以将不常用的物理内存页转移到其他存储设备上，比如磁盘，这就是大家耳熟能详的虚拟内存。</p>
+
+<p>在上文中提到，虚拟地址与物理地址需要通过映射，才能使CPU正常工作。</p>
+
+<p>而映射就需要存储映射表。在现代CPU架构中，映射关系通常被存储在物理内存上一个被称之为页表(page table)的地方。</p>
+
+<p>如下图：</p>
+
+<p><img border="0" width="527" height="436" src="a_clip_image001.jpg" alt="物理内存之间的交互关系" /></p>
+
+<p>从这张图中，可以清晰地看到CPU与页表，物理内存之间的交互关系。</p>
+
+<p>进一步优化，引入TLB（Translation  lookaside buffer，页表寄存器缓冲）</p>
+
+<p>由上一节可知，页表是被存储在内存中的。我们知道CPU通过总线访问内存，肯定慢于直接访问寄存器的。</p>
+
+<p>为了进一步优化性能，现代CPU架构引入了<a href="http://baike.baidu.com/view/129737.html?fromTaglist" target="_blank">TLB</a>，用来缓存一部分经常访问的页表内容。</p>
+
+<p>如下图：</p>
+
+<p><img border="0" width="555" height="440" src="a_clip_image002.jpg" alt="加入了TLB物理内存之间的交互关系" /></p>
+
+<p>对比 9.6 那张图，在中间加入了TLB。</p>
+
+<p>为什么要支持大内存分页？</p>
+
+<p>TLB是有限的，这点毫无疑问。当超出TLB的存储极限时，就会发生 TLB miss，之后，OS就会命令CPU去访问内存上的页表。如果频繁的出现TLB miss，程序的性能会下降地很快。</p>
+
+<p>为了让TLB可以存储更多的页地址映射关系，我们的做法是调大内存分页大小。</p>
+
+<p>如果一个页4M，对比一个页4K，前者可以让TLB多存储1000个页地址映射关系，性能的提升是比较可观的。 </p>
+  <div align="center">
+    <hr size="3" width="100%" align="center" />
+  </div>
+  <p align="left">简而言之，虚拟内存将内存逻辑地址和物理地址之间建立了一个对应表，要读写逻辑地址对应的物理内存内容，必须查询相关页表(当然现在有还有段式、段页式内存对应方式，但是从原理上来说都是一样的)找到逻辑地址对应的物理地址做相关操作。我们常见的对程序员开放的内存分配接口如malloc等分配的得到的都是逻辑地址，C指针指向的也是逻辑地址。</p>
+
+<p>这种虚拟内存的好处是很多的，这里以连续内存分配和可移动内存为例来讲一讲。</p>
+
+<p>首先说一说连续内存分配，我们在程序中经常需要分配一块连续的内存结构，如数组，他们可以使用指针循环读取，但是物理内存多次分配释放后实际上是破碎的，如下图</p>
+
+<p><img border="0" width="774" height="147" src="a_clip_image004.jpg" alt="https://img-blog.csdn.net/20131229220145437?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VuemhvdTEyMTk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" /></p>
+
+<p></p>
+
+<p>图中白色为可用物理内存，黑色为被其他程序占有的内存，现在要分配一个12大小的连续内存，那么显然物理内存中是没有这么大的连续内存的，这时候通过页表对应的方式可以看到我们很容易得到逻辑地址上连续的12大小的内存。</p>
+
+<p>再说一说可移动内存，我们使用GlobalAlloc等函数时，经常会指定GMEM_MOVABLE和GMEM_FIXED参数，很对人对这两个参数很头疼，搞不明白什么意思。</p>
+
+<p>实际上这里的MOVABLE和FIXED都是针对的逻辑地址来说的。GMEM_MOVABLE是说允许操作系统（或者应用程序）实施对内存堆(逻辑地址)的管理，在必要时，操作系统可以移动内存块获取更大的块，或者合并一些空闲的内存块，也称“垃圾回收”，它可以提高内存的利用率，这里的地址都是指逻辑地址。同样以分配12大小连续的内存，在某种状态时，内存结构如下</p>
+
+<p><img border="0" width="775" height="149" src="a_clip_image006.jpg" alt="https://img-blog.csdn.net/20131229223204890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VuemhvdTEyMTk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" /></p>
+
+<p>显然这时候是无法分配12连续大小的内存，但是如果这里的逻辑地址都指明为GMEM_MOVABLE的话，操作系统这时候会对逻辑地址做管理，得到如下结果</p>
+
+<p><img border="0" width="774" height="138" src="a_clip_image008.jpg" alt="https://img-blog.csdn.net/20131229223353406?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VuemhvdTEyMTk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" /></p>
+
+<p>这时候就实现了逻辑地址的MOVE，相对比实现物理内存的移动，这样的代价当然要小得多撒，但是聪明的小伙伴们是不是要问，这样在逻辑地址中移动了内存，那么实际访问数据不都乱套了吗，还能找到自己分配的实际物理内存数据吗，等等，不要心急，这就是等下要讲的句柄做的事情了。</p>
+
+<p>GMEM_FIXED是说允许在物理内存中移动内存块，但是必须保证逻辑地址是不变的，在早期16位Windows操作系统不支持在物理内存中移动内存，所以禁止使用GMEM_FIXED，现在的你估计体会不到了。</p>
+
+<p>事实上用GlobalAlloc分配内存时指定GMEM_FIXED参数返回的句柄就是指向内存分配的内存块的指针，不理解？？？接着看下面的句柄结构，你就明白了。</p>
+
+<p><a name="t1" id="t1"></a><strong>2.</strong><strong>句柄结构 </strong></p>
+
+<p>在上面讲解虚拟内存结构的过程中，我们就引出了几个问题：MOVABLE的内存访问为什么不会乱，FIXED的内存为什么说就是指向分配内存块的指针。</p>
+
+<p>事实上我们尽管Windows没有给出源码，但是从一些头文件、MSDN和Windows早期内存分配函数中我们还是可以一窥端倪。</p>
+
+<p>在Winnt.h头文件中做了通用句柄的定义 </p>
+  <ol>
+    <li>#ifdef STRICT </li>
+    <li>typedef void *HANDLE;</li>
+    <li>#define  DECLARE_HANDLE(name) struct name##__ { int unused; }; typedef struct name##__  *name </li>
+    <li>#else </li>
+    <li>typedef PVOID HANDLE;</li>
+    <li>#define  DECLARE_HANDLE(name) typedef HANDLE name </li>
+    <li>#endif </li>
+    <li>typedef HANDLE  *PHANDLE;</li>
+  </ol>
+  <p align="left">在Windef.h做了特殊句柄的定义 </p>
+  <ol>
+    <li>#if  !defined(_MAC) || !defined(GDI_INTERNAL) </li>
+    <li>DECLARE_HANDLE(HFONT);</li>
+    <li>#endif </li>
+    <li>DECLARE_HANDLE(HICON);</li>
+    <li>#if  !defined(_MAC) || !defined(WIN_INTERNAL) </li>
+    <li>DECLARE_HANDLE(HMENU);</li>
+    <li>#endif </li>
+    <li>DECLARE_HANDLE(HMETAFILE);</li>
+    <li>DECLARE_HANDLE(HINSTANCE);</li>
+    <li>typedef HINSTANCE  HMODULE;      <em>/* HMODULEs  can be used in place of HINSTANCEs */</em> </li>
+    <li>#if  !defined(_MAC) || !defined(GDI_INTERNAL) </li>
+    <li>DECLARE_HANDLE(HPALETTE);</li>
+    <li>DECLARE_HANDLE(HPEN);</li>
+    <li>#endif </li>
+    <li>DECLARE_HANDLE(HRGN);</li>
+    <li>DECLARE_HANDLE(HRSRC);</li>
+    <li>DECLARE_HANDLE(HSTR);</li>
+    <li>DECLARE_HANDLE(HTASK);</li>
+    <li>DECLARE_HANDLE(HWINSTA);</li>
+    <li>DECLARE_HANDLE(HKL);</li>
+  </ol>
+  <p align="left">这里微软把通用句柄HANDLE定义为void指针，显然啦，他是不想让人知道句柄的真实类型，但是和他以往的做法一样，微软空有一个好的想法结果没有实现。马上，如果定义了强制类型检查STRICT，他又定义了特殊类型句柄宏DECLARE_HANDLE，这里用到了##，这是比较偏僻的用法，翻译过来，对于诸如DECLARE_HANDLE(HMENU)定义其实就是 </p>
+  <ol>
+    <li>typedef struct HMENU__ </li>
+    <li>{</li>
+    <li>    int unused;</li>
+    <li>} *HMENU;</li>
+  </ol>
+  <p align="left">到这里，你是不是觉得有一点眉目了呢，对，句柄是一种指向结构体的指针，结合这里的int unused定义很容易猜到结构体的第一个字段就是我们的逻辑地址(指针) 。那么，是不是仅仅如此呢，当然不是！！！由于指向结构体指针可以强制截断只获取第一个字段，这里的struct结构体绝对不止一个字段，联系我们在Windows中的编程经验，对于线程HANDLE有计数那么必须有计数段，对于事件HEVENT等内核对象会要求指定属性那么必须有属性段，对于内存分配HANDLE有可移动和不可移动之说那么必须有内存可移动属性段，等等。基于此我们可以大胆猜测Windows的句柄指向的结构类似如下 </p>
+  <ol>
+    <li>struct  </li>
+    <li>{</li>
+    <li>                 int pointer;                    <em>//</em><em>指针段</em> </li>
+    <li>                 int count;                                         <em>//</em><em>内核计数段</em> </li>
+    <li>                 int attribute;                                     <em>//</em><em>文件属性段:SHARED等等</em> </li>
+    <li>                 int memAttribute;         <em>//</em><em>内存属性段:MOVABLE和FIXED等等</em> </li>
+    <li>                 ...</li>
+    <li>};</li>
+  </ol>
+  <p align="left">事实上，Windows内存管理器管理的其实都是句柄，通过句柄来管理指针，Windows的系统整理内存时检测内存属性段，如果是可以移动的就能够移动逻辑地址，移动完后将新的地址更新到对应句柄的指针段中，当要使用MOVABLE地址时的时候必须Lock住，这时候计数加1，内存管理器检测到计数&gt;0便不会移动逻辑地址，这时候才能获得固定的逻辑地址来操作物理内存，使用完后Unlock内存管理器又可以移动逻辑地址了，到此MOVABLE的内存访问为什么不会乱这个问题就解决了。</p>
+
+<p>下面再说一说，FIXED的内存为什么说就是指向分配内存块的指针。我们看上面的通用句柄定义，可以发现HANDLE的句柄定义一直是void指针，其他的特殊句柄在严格类型检查的时候定义为结构体指针，为什么不把二者定义为一样的呢。查看MSDN关于GlobalAlloc的叙述对于GMEM_FIXED类型&quot;Allocates fixed memory. The return value is a  pointer.&quot;，这里返回的是一个指针，为了验证这个说法，我写了一小段程序 </p>
+  <ol>
+    <li>                 <em>//GMEM_FIXED</em> </li>
+    <li>                 hGlobal =  GlobalAlloc(GMEM_FIXED, (lstrlen(szBuffer)+1) * sizeof(TCHAR));</li>
+    <li>                 pGlobal = GlobalLock(hGlobal);</li>
+    <li>                 lstrcpy(pGlobal, szBuffer);</li>
+    <li>                 _tprintf(TEXT(&quot;pGlobal和hGlobal%s\n&quot;), pGlobal==hGlobal ? TEXT(&quot;相等&quot;) : TEXT(&quot;不相等&quot;));</li>
+    <li>                 GlobalUnlock(hGlobal);</li>
+    <li> </li>
+    <li>                 _tprintf(TEXT(&quot;使用句柄当做指针访问的数据为:%s\n&quot;), hGlobal);</li>
+    <li> </li>
+    <li>                 GlobalFree(hGlobal);</li>
+  </ol>
+  <p align="left">运行结果为</p>
+
+<p>pGlobal和hGlobal相等</p>
+
+<p>使用句柄当做指针访问的数据为:Test text</p>
+
+<p>对比使用GMEM_MOVABLE程序为 </p>
+  <ol>
+    <li>                 <em>//GMEM_MOVABLE</em> </li>
+    <li>                 hGlobal =  GlobalAlloc(GMEM_MOVEABLE, (lstrlen(szBuffer)+1) * sizeof(TCHAR));</li>
+    <li>                 pGlobal = GlobalLock(hGlobal);</li>
+    <li>                 lstrcpy(pGlobal, szBuffer);</li>
+    <li>                 _tprintf(TEXT(&quot;pGlobal和hGlobal%s\n&quot;), pGlobal==hGlobal ? TEXT(&quot;相等&quot;) : TEXT(&quot;不相等&quot;));</li>
+    <li>                 _tprintf(TEXT(&quot;使用句柄当做指针访问的数据为:%s\n&quot;), hGlobal);</li>
+    <li>                 GlobalUnlock(hGlobal);</li>
+    <li>                 </li>
+    <li>                 GlobalFree(hGlobal);</li>
+  </ol>
+  <p align="left">运行结果为 </p>
+  <ol>
+    <li>pGlobal和hGlobal不相等 </li>
+    <li>使用句柄当做指针访问的数据为:?</li>
+  </ol>
+  <p align="left">显然，使用GMEM_FIXED和使用GMEM_MOVABLE得到的数据类型不是一样的，我们有理由相信Windows在调用GlobalAlloc使用GEM_FIXED的时候返回的就是数据指针，使用Windows在调用GMEM_MOVABLE的时候返回的是指向结构体的句柄，这样操作的原因相信是为了使用更加方便。那么这里我们就要修正一下前面的说法了：通用句柄HANDLE有时候是逻辑指针，大多数时候是结构体指针，特殊句柄如HMENU等是结构体指针。这样第二个问题也解决了。</p>
+
+<p></p>
+
+<p></p>
+
+<p>那么总结来说，就是下面一幅图了</p>
+
+<p><img border="0" width="514" height="263" src="a_clip_image010.jpg" alt="https://img-blog.csdn.net/20131230103702500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VuemhvdTEyMTk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" /> </p>
+  <p align="left">下面，我们再回头看一看博文开头说的叙述不当之处，说他们不当是因为不是完全错误：第一点，确实句柄有管理内存地址变动之用，但是并不只是这个作用，内核对象访问级别、文件是否打开都是和他相关的；第二点，指向指针的指针，看得出来作者也是认真思考了的，但是他忽略了句柄包含的其他功能和管理内存地址的作用。 </p>
+  <p align="left">那么到这里对于句柄你应该非常理解了，在此基础我们在Windows编程上是不是可以有一些启发:</p>
+
+<p>1.通用句柄HANDLE和特殊句柄一般情况下是可以相互转换的，但是有时候会出错</p>
+
+<p>2.如果不考虑跨平台移植的话，应该多采用Windows SDK提供的内存管理函数，这样可以获得更好的内存管理</p>
+
+<p>3.C语言的内存分配函数的实现都是依靠使用GMEM_FIXED调用Windows SDK的内存分配函数的</p>
+
+<p></p>
+
+<p>完整测试源代码<a href="http://download.csdn.net/detail/wenzhou1219/6786893" target="_blank">下载链接</a></p>
+
+<p>注意可能在新的VS2005等系列编译器中看不到本文说的一些内容，因为在VC6时候有些代码还不是那么完善，所以给了我们机会去挖掘潜在的内容。至于微软苦心积虑不让我们看到句柄的真实定义那是必然的，试想一下主要的内存对象结构都被摸清楚了，那么黑客们还不反了天了。</p>
+
+<p>原创，转载请注明来自<a href="http://blog.csdn.net/wenzhou1219" target="_blank">http://blog.csdn.net/wenzhou1219</a></p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
