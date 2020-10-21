@@ -1,0 +1,993 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+<p>For high-level applications  programming to be effective and convenient, we need <strong>libraries</strong>. Using just the bare language  features makes almost all programming quite painful. That’s true for every general-purpose  language. Conversely, giv en suitable libraries just about any programming task can be pleasant.</p>
+
+<p><strong>Procedural programming</strong>: This is programming focused on processing and the design of suitable data structures. </p>
+
+<p><strong>Data abstraction</strong>: This is programming focused on the design of interfaces, hiding implementation details in general and representations in particular. C++ supports concrete and abstract classes. The facilities for defining classes with private implementation details, constructors and destructors, and associated operations directly support this. The notion of an abstract class provides direct support for complete data hiding. </p>
+
+<p><strong>Object-oriented programming</strong>: This is programming focused on the design, implementation, and use of class hierarchies. In addition to allowing the definition <a href="#" title="lattice
+US ['lætɪs]
+UK ['lætɪs]
+n.格栅（用作篱笆等）；斜条结构；斜格图案
+v.把…制成格子状；用格子覆盖[装饰]
+晶格；点阵；格点">lattices</a> of classes, C++ provides a variety of features for navigating class lattices and for simplifying the definition of a class out of existing ones. Class hierarchies provide run-time polymorphism and encapsulation. </p>
+
+<p><strong>Generic programming</strong>: This is programming focused on the design, implementation, and use of general algorithms. Here, "general" means that an algorithm can be designed to accept a wide variety of types as long as they meet the algorithm's requirements on its arguments. The template is C++’s main support for generic programming. Templates provide (compiletime) parametric polymorphism. Just about anything that increases the flexibility</p>
+
+<p>Member functions, constructors, destructors, and user-defined assignment provide a clean <strong>functional interface</strong> to objects as needed by data abstraction and object-oriented programming.</p>
+
+<p>The notion of static types and compile-time type checking is central to effective use of C++.</p>
+
+<p>C++ type-checking and data-hiding features rely on compile-time analysis of programs to prevent accidental corruption of data.</p>
+
+<p>An executable program is created for a specific hardware/system combination; it is not portable,  say, from a Mac to a Windows PC. When we talk about portability of C++ programs, we usually  mean <strong>portability of source code</strong>; that is, the source code can be successfully compiled and run on a  variety of systems.</p>
+<hr />
+
+<p>C++ is a statically typed language. That is, the type of every entity (e.g., object, value, name, and expression) must be known to the compiler at its point of use. The type of an object determines the set of operations applicable to it.</p>
+
+<p>For example, the declaration</p>
+
+<p>int inch;</p>
+
+<p>specifies that inch is of type int; that is, inch is an integer variable.</p>
+
+<p>A declaration is a statement that introduces a name into the program. It specifies a type for the named entity.</p>
+
+<p>A type defines a set of possible values and a set of operations (for an object).</p>
+<p>数据结构亦是相同的定义：数组元素之间的关系，及作用于数据元素之上的操作，如增、删、改、查、遍历等。</p>
+
+
+<p>An object is some memory that holds a value of some type.</p>
+
+<p>A value is a set of bits interpreted according to a type.</p>
+
+<p>A variable is a named object.</p>
+<hr />
+
+<p>Having the data specified separately from the operations on it has advantages, such as the ability to use the data in arbitrary ways. However, <strong>a tighter connection between the representation and the operations</strong> is needed for a user-defined type to have all the properties expected of a "real type." In particular, we often want to keep the representation inaccessible to users, so as to ease use, guarantee consistent use of the data, and allow us to later improve the representation. To do that we have to distinguish between<strong> the interface to a type</strong> (to be used by all) and its implementation (which has access to the otherwise inaccessible data). The language mechanism for that is called a <strong>class</strong>. A class is defined to have a set of members, which can be data, function, or type members. The interface is defined by the public members of a class, and private members are accessible only through that interface.</p>
+<hr />
+
+
+
+<p>A program built out of a well chosen set of classes is far easier to understand and get right than one that builds everything directly in terms of the built-in types. In particular, classes are often what libraries offer.</p>
+<p>C++'s support for abstraction and resource management。</p>
+<p>Essentially all language facilities beyond the fundamental types, operators, and statements exist to help define better classes or to use them more conveniently. By "better," I mean more correct, easier to maintain, more efficient, more elegant, easier to use, easier to read, and easier to reason about. Most programming techniques rely on the design and implementation of specific kinds of classes. The needs and tastes of programmers vary immensely. Consequently, the support for classes is extensive.</p>
+<pre>
+class Container {
+public:
+    virtual double& operator[](int) = 0; // pure virtual function
+    virtual int size() const = 0; // const member function (§3.2.1.1)
+    virtual ~Container() {} // destructor (§3.2.1.2)
+};
+</pre>
+
+<p>This class is a pure interface to specific containers defined later. The word virtual means "may be redefined later in a class derived from this one." Unsurprisingly, a function declared virtual is called a virtual function. A class derived from Container provides an implementation for the Container interface. The curious =0 syntax says the function is pure virtual; that is, some class derived from Container must define the function. Thus, it is not possible to define an object that is just a Container; a Container can only serve as the interface to a class that implements its operator[]() and size() functions. A class with a pure virtual function is called an <strong>abstract class</strong>.</p>
+<hr />
+
+<p>No significant program is written in just a bare programming language. First, a set of libraries is developed. These then form the basis for further work. Most programs are tedious to write in the bare language, whereas just about any task can be rendered simple by the use of good libraries.</p>
+
+<p>A resource is something that must be acquired and later (explicitly or implicitly) released. Examples are memory, locks, sockets, thread handles, and file handles. For a long-running program, failing to release a resource in a timely manner ("a leak") can cause serious performance degradation and possibly even a miserable crash.</p>
+<hr />
+
+<p>unique_ptr to represent unique ownership </p>
+
+<p>shared_ptr to represent shared ownership</p>
+<hr />
+
+<h4>void</h4>
+<p>In low-level code, we occasionally need to store or pass along an address of a memory location without actually knowing what type of object is stored there. A void* is used for that. You can read void* as "pointer to an object of unknown type."</p>
+<p>void x; // error : there are no void objects</p>
+
+<p>void& r; // error : there are no references to void</p>
+
+<p>void f(); // function f does not return a value</p>
+
+<p>void* pv; // pointer to object of unknown type</p>
+
+
+
+<p>When declaring a function, you must specify the type of the value returned. Logically, you would expect to be able to indicate that a function didn’t return a value by omitting the return type. Howev er, that would make a mess of the grammar. Consequently, void is used as a "pseudo return type" to indicate that a function doesn’t return a value.</p>
+
+<p>It is used either to specify that a function does  not return a value or as the base type for pointers to objects of unknown type.</p>
+<hr />
+
+<p>A floating-point number is an approximation of a real number represented in a fixed amount of memory.</p>
+<hr />
+
+<p>Before a name (identifier) can be used in a C++ program, it must be declared. That is, its type must be specified to inform the compiler what kind of entity the name refers to.</p>
+
+<p>As can be seen from these examples, a  can do more than simply associate a type with a name. Most of these <strong>declarations are also definitions</strong>. A definition is a declaration that supplies all that is needed in a program for the use of an entity. In particular, if it takes memory to represent something, that memory is set aside by its definition. A different terminology deems declarations parts of an interface and definitions parts of an implementation.</p>
+<hr />
+
+<p>prefix & lvalue reference</p>
+
+<p>prefix && rvalue reference</p>
+<hr />
+
+<p>type:</p>
+
+<p>fundermental types;</p>
+
+<p>new user-defined types;</p>
+
+<p>aliases;</p>
+
+<hr />
+<p>typedef char* Pchar;</p>
+<p>using Pchar = char*; // pointer to character</p>
+<p>typedef int(* PF)(double);</p>
+<p>using PF = int(*)(double); // pointer to function taking a double and returning an int</p>
+<hr />
+
+
+
+<p>sizeof("Bohr")==5</p>
+
+<p>The type of a string literal is "array of the appropriate number of const characters," so "Bohr" is of type const char[5].</p>
+
+<p>char* p = "Plato"; // error, but accepted in pre-C++11-standard code</p>
+
+<p>p[4] = 'e'; // error : assignment to const</p>
+
+<p>If we want a string that we are guaranteed to be able to modify, we must place the characters in a non-const array:</p>
+
+<p>char p[] = "Zeno"; // p is an array of 5 char</p>
+
+<p>p[0] = 'R'; // OK</p>
+
+<p>A string literal is statically allocated so that it is safe to return one from a function. For example:</p>
+
+<p></p>
+<pre>
+const char* error_message(int i)
+{
+    // ...
+    return "range error";
+}
+</pre>
+
+<p>string var {"Cambridge"};</p>
+
+<p>string f();</p>
+
+<p>string& r1 {var}; // lvalue reference, bind r1 to var (an lvalue)</p>
+
+<p>string& r2 {f()}; // lvalue reference, error : f() is an rvalue</p>
+
+<p>string& r3 {"Princeton"}; // lvalue reference, error : cannot bind to temporar y</p>
+
+<p>string&& rr1 {f()}; // rvalue reference, fine: bind rr1 to rvalue (a temporar y)</p>
+
+<p>string&& rr2 {var}; // rvalue reference, error : var is an lvalue</p>
+
+<p>string&& rr3 {"Oxford"}; // rr3 refers to a temporar y holding "Oxford"</p>
+
+<p>const string cr1& {"Harvard"}; // OK: make temporar y and bind to cr1</p>
+
+<hr />
+
+<p>Often, the compiler must introduce an object to hold an intermediate result of an expression. For example, for v=x+y*z the result of y*z has to be put somewhere before it is added to x. For built-in types, this is all handled so that a temporary object (often referred to as just a temporary) is invisible to the user. However, for a user-defined type that holds a resource knowing the lifetime of a temporary can be important. Unless bound to a reference or used to initialize a named object, a temporary object is destroyed at the end of the full expression in which it was created. A full expression is an expression that is not a subexpression of some other expression.</p>
+<hr />
+
+<p>Integral and floating-point types can be mixed freely in assignments and expressions. Wherever possible, values are converted so as not to lose information. Unfortunately, some valuedestroying ("narrowing") conversions are also performed implicitly. A conversion is value-preserving if you can convert a value and then convert the result back to its original type and get the original value. If a conversion cannot do that, it is a narrowing <strong>conversion</strong>.</p>
+<hr />
+
+<p>y=++x is equivalent to y=(x=x+1). The value of x++, however, is the old value of x. For example, y=x++ is equivalent to y=(t=x,x=x+1,t), where t is a variable of the same type as x.</p>
+<hr />
+
+
+
+<p>The semantics of argument passing are identical to the semantics of copy initialization.  Argument types are checked and implicit argument type conversion takes place when necessary.</p>
+<hr />
+
+<p>The number of errors in code correlates strongly with the amount of code and the complexity of the code. Both problems can be addressed by using more and shorter functions. Using a <strong>function</strong> to do a specific task often saves us from writing a specific piece of code in the middle of other code; making it a function forces us to name the activity and document its dependencies. Also, function call and return saves us from using error-prone control structures, such as gotos and continues. Unless they are very regular in structure, nested loops are an avoidable source of errors (e.g., use a dot product to express a matrix algorithm rather than nesting loops;). </p>
+
+<p>The most basic advice is to keep <strong>a function of a size</strong> so that you can look at it in total on a screen. Bugs tend to creep in when we can view only part of an algorithm at a time. For many programmers that puts a limit of about 40 lines on a function. My ideal is a much smaller size still, maybe an average of 7 lines.</p>
+
+
+
+<p>In addition to specifying a name, a set of arguments, and a return type, a function declaration can contain a variety of specifiers and modifiers. In all we can have:</p>
+
+<p>The name of the function; required</p>
+
+<p>The argument list, which may be empty (); required</p>
+
+<p>The return type, which may be void and which may be prefix or suffix (using auto); required</p>
+
+<p>inline, indicating a desire to have function calls implemented by inlining the function body</p>
+
+
+<p>constexpr, indicating that it should be possible to evaluate the function at compile time if given constant expressions as arguments </p>
+
+<p>noexcept, indicating that the function may not throw an exception</p>
+
+<p>A linkage specification, for example, static >[[noreturn]], indicating that the function will not return using the normal call/return mechanism</p>
+
+<p>In addition, a member function may be specified as:</p>
+
+<p>virtual, indicating that it can be overridden in a derived class</p>
+
+<p>override, indicating that it must be overriding a virtual function from a base class</p>
+
+<p>final, indicating that it cannot be overriden in a derived class</p>
+
+<p>static, indicating that it is not associated with a particular object</p>
+
+<p>const, indicating that it may not modify its objec</p>
+
+<p>How do we choose among the ways of passing arguments? My rules of thumb are:</p>
+
+<p>[1] Use pass-by-value for small objects.</p>
+
+<p>[2] Use pass-by-const-reference to pass large values that you don’t need to modify.</p>
+
+<p>[3] Return a result as a return value rather than modifying an object through an argument.</p>
+
+<p>[4] Use rvalue references to implement move and forwarding.</p>
+
+<p>[5] Pass a pointer if "no object" is a valid alternative (and represent "no object" by nullptr).</p>
+
+<p>[6] Use pass-by-reference only if you have to.</p>
+
+<p>The "when you have to" in the last rule of thumb refers to the observation that passing pointers is often a less obscure mechanism for dealing with objects that need modification than using references.</p>
+
+<p>A program can terminate in several ways:</p>
+
+<p>[1] By returning from main()</p>
+
+<p>[2] By calling exit()</p>
+
+<p>[3] By calling abort()</p>
+
+<p>[4] By throwing an uncaught exception</p>
+
+<p>[5] By violating noexcept</p>
+
+<p>[6] By calling quick_exit()</p>
+
+<p>In addition, there are a variety of ill-behaved and implementation-dependent ways of making a program crash (e.g., dividing a double by zero).</p>
+
+<p>If a program is terminated using the standard-library function exit(), the destructors for constructed static objects are called. However, if the program is terminated using the standard-library function abort(), they are not. Note that this implies that exit() does not terminate a program immediately. Calling exit() in a destructor may cause an infinite recursion.</p>
+
+<p>By default, a class provides:</p>
+
+<p>A default constructor: X()</p>
+
+<p>A copy constructor: X(const X&)</p>
+
+<p>A copy assignment: X& operator=(const X&)</p>
+
+<p>A move constructor: X(X&&)</p>
+
+<p>A move assignment: X& operator=(X&&)</p>
+
+<p>A destructor: ~X()</p>
+<hr />
+
+<p>From Simula, C++ borrowed the ideas of classes and class hierarchies.</p>
+
+<p>Interface inheritance is often referred to as run-time polymorphism (or dynamic polymorphism). In contrast, the uniform use of classes not related by inheritance provided by templates (§3.4, Chapter 23) is often referred to as compile-time polymorphism (or static polymorphism).</p>
+
+<p>Virtual functions overcome the problems with the type-field solution by allowing the programmer to declare functions in a base class that can be redefined in each derived class.</p>
+
+<p>A dynamic_cast can cast from a polymorphic virtual base class to a derived class or a sibling class. A static_cast does not examine the object it casts from。</p>
+
+<p>Construction  is bottom-up, destruction is top-down, and a class object is an object to the extent that it  has been constructed or destroyed. This order is necessary to ensure that an object is not accessed  before it has been initialized. It is unwise to try to access base and member objects early or out of  order through "clever" pointer manipulation.</p>
+<hr />
+
+<p>unique_ptr  to represent exclusive ownership</p>
+
+<p>shared_ptr  to represent shared ownership</p>
+
+<p>weak_ptr  to break loops in circular shared data structures</p>
+
+<p>A unique_ptr cannot be copied (has no copy constructor or copy assignment). However, it can be moved.</p>
+
+<hr />
+
+<p><h4>How can I make windowed programs</h4></p>
+
+<p>You need a C++ compiler and linker that can generate code for your windowing environment (Windows, XWindow, MacOS, ...). Windowed programs do not generally use the console to communicate with the user. They use a set of functions or classes to manipulate windows instead, which are specific to each environment. Anyway, the same principles apply both for console and windowed programs, except for communicating with the user.</p>
+
+<p><h4>What is Visual C++? And what does "visual programming" mean?</h4></p>
+
+<p>Visual C++ is the name of a C++ compiler with an integrated environment from Microsoft. It includes special tools that simplify the development of large applications as well as specific libraries that improve productivity. The use of these tools is generally known as visual programming. Other manufacturers also develop these types of tools and libraries, like Borland C++, Visual Age, etc...</p>
+<hr />
+
+<p>An executable program is created for a specific hardware/system combination. When we talk about portability of C++ programs, we usually mean protability of source ocde.</p>
+<hr />
+
+<p>The ISO C++ standard defines two kinds of entities:</p>
+
+<p>1 Core language features, such as built-in types and loops;</p>
+
+<p>2 standard-library component, such as containers and I/O operations.</p>
+<hr />
+
+<p>Essentially all executable code is placed in functions and called directly or indirectly form main(), we can compose fnctions forces us to name the activity and document is dependencies.</p>
+<hr />
+
+<p>Every name and every expression has a type that determined the operations that may be performed on it.</p>
+
+<p>A type defines a set possible values and a set of operations.</p>
+
+<p>an object is some memory that holds a value of some type.</p>
+
+<p>A value is  a set of bits interpreted according to a type.</p>
+
+<p>A variable is a name object.</p>
+
+<p>Each fundamental type corresponds directly to hardware facilities and has a fixed size that determines the ranges of values that can be store in it.</p>
+<hr />
+
+<p>C++ provides a conventional set of statements for expressing selection and looping.</p>
+<hr />
+
+<p>Type built out of the built-in type using C++'s abstraction mechanisms are called user-defined types. they are refered to as classes and enumerations.</p>
+
+<p>Having the data specified separately from the operations on it has advantages such as the bility to use the data in arbitrary ways. However, a tighter connection between the representation and the operations is need for a user-defined of a "real type." In particular, we often want to keep the representation inaccessible to users.</p>
+<hr />
+
+<p>A union is a struct in  which all members are allocated at the same same address so that the union occupies only as much space as its largest member. Naturally, a union can hold a value for only one member at a time.</p>
+
+<p>Use enumerations to represent sets of name constants that enumerate the value.</p>
+<p>A struct is simply a class with its members public by default.</p>
+<p>organize related data into structures.</p>
+
+
+
+<p>a set of data related data and a set of operations about those data.</p>
+<hr />
+
+<p>No significant program is written in just a bare programming language. First, a set of libraries is developed. These then form the basis for further work.</p>
+<hr />
+
+<p>Statements are analogous to sentences in a natural language. In C++ there are simple statements that execute a single task and compound statements that consist of a block of statements that execute as a unit. Like most languages, C++ provides statements for conditional execution and loops that repeatedly execute the same body of code. </p>
+
+<p>语句类似于自然语言中的句子。C++ 语言既有只完成单一任务的简单语句，也有作为一个单元执行的由一组语句组成的复合语句。和大多数语言一样，C++ 也提供了实现条件分支结构的语句以及重复地执行同一段代码的循环结构。</p>
+
+<p>By default, statements are executed sequentially. Except for the simplest programs, <strong>sequential execution is inadequate</strong>. Therefore, C++ also defines a set of flow-of-control statements that allow statements to be executed conditionally or repeatedly. The if and switch statements support conditional execution. The for, while, and do while statements support repetitive execution. These latter statements are often referred to as loops or iteration statements.</p>
+
+<p>通常情况下，语句是顺序执行的。但是，除了最简单的程序外，只有顺序执行往往并不足够。为此，C++ 定义了一组控制流语句，允许有条件地执行或者重复地执行某部分功能。if 和 switch 语句提供了条件分支结构，而 for、while 和 do while 语句则支持重复执行的功能。后几种语句常称为循环或者迭代语句。</p>
+
+<p>A compound statement, usually referred to as a block, is a (possibly empty) sequence of statements surrounded by a pair of curly braces. A block is a scope. Names introduced within a block are accessible only from within that block or from blocks nested inside the block. As usual, a name is visible only from its point of definition until the end of the enclosing block.</p>
+
+<p>复合语句，通常被称为块，是用一对花括号括起来的语句序列（也可能是空的）。块标识了一个作用域，在块中引入的名字只能在该块内部或嵌套在块中的子块里访问。通常，一个名字只从其定义处到该块的结尾这段范围内可见。</p>
+
+<p>Compound statements can be used where the rules of the language require a single statement, but the logic of our program needs to execute more than one. For example, the body of a while or for loop must be a single statement. Yet, we often need to execute more than one statement in the body of a loop. We can do so by enclosing the statements in a pair of braces, thus turning the sequence of statements into a block.</p>
+
+<p>复合语句用在语法规则要求使用单个
+语句但程序逻辑却需要不止一个语句的地方。例如，while 或 for 语句的循环体必须是单个语句。然而，大多数情况都需要在循环体里执行多个语句。因而可使用一对花括号将语句序列括起来，使其成为块语句。</p>
+
+<p>One advantage of limiting the scope of variables defined within a control statement to that statement is that the names of such variables can be reused without worrying about whether their current value is correct at each use. If the name is not in scope, then it is impossible to use that name with an incorrect, leftover value.</p>
+
+<p>对于在控制语句中定义的变量，限制其作用域的一个好处是，这些变量名可以重复使用而不必担心它们的当前值在每一次使用时是否正确。对于作用域外的变量，是不可能用到其在作用域内的残留值的。</p>
+
+<p>Deeply nested if else statements can often be correct syntactically and yet not correctly reflect the programmer's logic. For example, mistaken else if matchings are more likely to pass unnoticed. Adding a new condition and associated logic or making other changes to the statements is also hard to get right. A switch statement provides a more convenient way to write deeply nested if/else logic.</p>
+
+<p>深层嵌套的 if else 语句往往在语法上是正确的，但逻辑上去却没有正确地反映程序员的意图。例如，错误的 else if 匹配很容易被忽略。添加新的条件和逻辑关系，或者对语句做其他修改，都很难保证正确。switch 语句提供了一种更方便的方法来实现深层嵌套的 if/else 逻辑。</p>
+<hr />
+
+<p>The other circumstance in which reference parameters are useful is when passing a large object to a function. Although copying an argument is okay for objects of built-in data types and for objects of class types that are small in size, it is (often) too inefficient for objects of most class types or large arrays. Some class types cannot be copied. By using a reference parameter,<strong> the function can access the object directly without copying it</strong>.</p>
+<p>在向函数传递大型对象时，需要使用引用形参，这是引用形参适用的另一种情况。虽然复制实参对于内置数据类型的对象或者规模较小的类类型对象来说没有什么问题，但是对于大部分的类类型或者大型数组，它的效率（通常）太低了；某些类类型是无法复制的。使用引用形参，函数可以直接访问实参对象，而无须复制它。</p>
+<p>Two functions that appear in the same scope are overloaded if they have the same name but have different parameter lists.</p>
+
+<p>出现在相同作用域中的两个函数，如果具有相同的名字而形参表不同，则称为重载函数。</p>
+<p>Implicit parameter of a member function. this points to the object on which the function is invoked. It is a pointer to the class type. In a const member function the pointer is a pointer to const.</p>
+
+<p>成员函数的隐式形参。this 指针指向调用该函数的对象，是指向类类型的指针。在 const 成员函数中，该指针也指向 const 对象。</p><hr />
+
+<p>cout (pronounced see-out) an ostream object that writes to the standard output</p>
+
+<p>cout（发音为 see-out）：写到标准输出的 ostream 对象。</p>
+
+<p>operator >>, which is used to read input from an istream object</p>
+
+<p>>> 操作符，用于从 istream 对象中读入输入。</p>
+
+<p>operator &lt;&lt;, which is used to write output to an ostream object</p>
+
+<p>&lt;&lt; 操作符，用于把输出写到 ostream 对象中。</p>
+
+<p>cerr (pronounced see-err) an ostream object that writes to the standard error. cerr is usually used for program error messages.</p>
+
+<p>cerr（发音为 see-err）：输出标准错误的 ostream 对象。cerr 常用于程序错误信息。</p>
+<hr />
+
+
+<p>Sales_item operator+(const Sales_item&, const Sales_item&);</p>
+
+<p>声明了加号操作符，可用于将两个 Sales_item 对象“相加”并获得一个 Sales_item 对象的副本。</p>
+
+<p>Overloaded Operators Must Have an Operand of Class Type</p>
+
+<p>重载操作符必须具有一个类类型操作数</p>
+
+<p>Precedence and Associativity Are Fixed</p>
+
+<p>操作符的优先级、结合性或操作数目不能改变。</p>
+
+<p>Short-Ciruit Evaluation Is Not Preserved</p>
+
+<p>不再具备短路求值特性</p>
+<hr />
+
+<p>smart pointer（智能指针） </p>
+
+<p>A class that defines pointer-like behavior and other functionality, such as reference counting, memory management, or more thorough checking. Such classes typically define overloaded versions of dereference (operator*) and member access (operator->).</p>
+
+<p>一个类，定义了指针式行为和其他功能，如，引用计数、内存管理、更全面的检查等。这种类通常定义了解引用操作符（operator*）和成员访问操作符（operator->）的重载版本。</p>
+<hr />
+
+
+<p>The ideas of inheritance and dynamic binding are simple but powerful. Inheritance lets us write new classes that share behavior with their base class(es) but redefine that behavior as needed. Dynamic binding lets the compiler decide at run time which version of a function to run based on an object's dynamic type. The combination of inheritance and dynamic binding lets us write type-independent programs that have type-specific behavior.</p>
+
+<p>继承和动态绑定的思想，简单但功能强大。继承使我们能够编写新类，新类与基类共享行为但重定义必要的行为。动态绑定使编译器能够在运行时根据对象的动态类型确定运行函数的哪个版本。继承和动态绑定的结合使我们能够编写具有特定类型行为而又独立于类型的程序。</p>
+
+<hr />
+
+<p><strong>The function header describe the interface bewteen called function and  calling function.</strong></p>
+
+<p><strong>The main() function header describes the interface between program and the operating system.</strong></p>
+
+<p>The augument is the value let calling function assign to the parameter of the called function.</p>
+
+<p>A return statement sends a value from a called function back to the called function, also the type of return value must be consistent with the return type of called function.</p>
+<hr />
+
+<p>As computers have grown more powerful, computer programs have become larger and more complex. In response to these conditions, computer languages have evolved so that it's easier to manage the programming process. The C language incorporated features such as control structures and functions to better control the flow of a program and to enable a more structured, modular approach. To these tools C++ adds support for object-oriented programming and generic programming. This enables even more modularity and facilitates the creation of reusable code, which waves time and increases program reliability.</p>
+<hr />
+
+<p>The popularity of C++ has resulted in a large of number of implementations for many computing platforms; The C++ ISO standards(C++98/03 and c++11) provide a basis for keeping these many implementations mutually compatible. The standards establishes the features the lanugage should have, the behavior the lanugage should display, and a standard language of functions, classes, and templates. The standards supports the goal of a portable language across different computing platforms and different implementations of the language.</p>
+
+<p>To create a C++ program, you create one or more source files containing the program as expressed in the C++ language. These are text files that must be compiled and linked to produce the machine-language files that constitute executable programs. These tasks are often accomplished in an <strong>IDE</strong> that provides a text editor for creating the source files, a compiler and a linker for producing executable files, and other resources, such as project management and debugging capabilities. But the same tasks can also be performed in a command-line environment by invoking the appropriate tools individually.</p>
+<hr />
+
+<p>Simple Variables</p>
+
+<p>int num;</p>
+
+<p>num = 5;</p>
+
+<p>These statements tell the program that it is storing an integer and that the name num represents the integer's value, 5 in this case, the program locates a chunk of memory large enough to hold an integer, notes the location, and copies the value 5 into the location. You then can use num later in your program to access that memory location. These statements don't tell you where in memory the value is stored, but the program does keep track of that information, too. Indeed, you can use the & operator to retrieve num's address in memory. You'll learn about that operator when you investigate a second strategy for indentifying data-using pointers.</p>
+
+<p><p>cout &lt;&lt; typeid(ptr[1]).name() &lt;&lt; endl;</p> <p>The char type: characters and small integers</p>  <p>char ch;</p>  <p>cin >>ch;  // input a letter M</p>  <p>cout &lt;&lt;ch;</p>  <p>On input, cin converts the keystroke input M to the value 77. On output, cout converts the value 77 to the displayed character M.</p></p>
+
+<p>Characters are represented by their numeric codes. The I/O system determines whether a code is interpreted as a character or as a number.</p>
+
+<p>From smallest to largest, the integer types are bool, char, signed char,  unsigned char, short, unsigned short, int, unsigned int, long, unsigned  long, and, with C++11, long long, and unsigned long long. There is also a  wchar_t type whose placement in this sequence of size depends on the  implementation.</p>
+
+<hr />
+
+
+<p><h4>String</h4></p>
+
+<p>C-style strings: a arrays of chars, the last character of every strings is the null character,written \0.</p>
+
+<p>char bird[11] = "cheeps"; // the \0 is understood</p>
+
+<p>char fish[] = "bubbles"; //let the compiler count</p>
+
+<p>A string is a series of characters stored in consecutive bytes of memory. C++ has two ways of dealing with strings. The first, taken from C and often called a C-style string, then, an alternative method based on a string class library.</p>
+
+<p>The string class definition hides the array nature of a string and lets you treat a string much like an ordinary variable.</p>
+
+<p>C-style strings use functions library to process string with header file <string.h> or <cstring>, and string class use class member function to process string with header <string>.</p>
+<p>The string class, is more convenient and safe than using an array. For example, you can't simply assign one array to another, but you can assign one string object to another. </p>
+<p>The string class simplifies combining strings. You can use the + operator to add two string objects together and the += operator to take on a string to the end of an existing string object. (C-style string use strcat() to combine two strings)</p>
+
+
+<p>The special relationship between arrays and pointers extends to c-style string.</p>
+<p>const char * bird = "wren"; // bird holds address of string</p>
+<p>the string "wren" is a literal string, the first address is assigned to a point bird, and the literal string is a constant, so bird must be a pointer constant, a pointer, point to a constant.</p>
+
+<p>"wren"作为字面有单独的内存空间，储存在内存的数据段，并返回一个地址。（字符串以外的字面量由代码直接表示，不另外开辟内存空间。）</p>
+<hr />
+
+<p>For built-in types, the information about operations is built in to the compiler. But when you define a user-defined type in C++, you have to pvovide the same kind of information yourself. In exchange for this extra work, you gain the power and flexibility to custom fit new data types to match real-world requirements.</p>
+
+<p>Using classes is a good way to implement what computer scientiests describe as abstract data types(ADTs). As the name suggests, an ADT describes a data type in a general fashion without bringing in language or implementation details.</p>
+<hr />
+
+<p>Friends mechanism let nonemember function access private data.</p>
+<hr />
+
+<p>A derived class has some special relationships with the base class. One,which you've just seen, is that a derived-class object can use base-class methods.</p>
+
+<p>Two other important relationships are that a base-class pointer can point to a derived class object without an explicit type cast and that a base-class reference can refer to a derived-class object without an explicit type cast.</p>
+<hr />
+
+<p>In general, a class defines what data is used to represent an object and the operations that can be performed on that data.</p>
+<p>通常，类定义了用来表示对象的数据以及可以对该数据执行的操作。</p>
+<hr />
+
+<p>new and delete enable you to allocate memory in one function and free it in another.Thus, the lifetime of the data is not tied arbitrarily to the life of the program or the life of a function.</p>
+<p>The new opertor lets you request memory for a data object while a program is running. The operator returns the address of the memory it obtains, and you can assign that address to a pointer.</p>
+<p>C++ offers many choiced for storing data in memory. You have choices for how long data remains in memory(storage duration) and choices for which parts of a program have access to data(scope and linkage). You can allocate memory dynamically by using new.</p>
+<hr />
+
+<p>Many programs read text input or text files character-by-character. The istream class provides several ways to do this.</p>
+<hr />
+
+<p>Function templates automate the process of overloading functions. You define a function by using a generic type and a particular algorithm, and the compiler generates appropriate function definitions for the particular argument types you use in a program.</p>
+<hr />
+
+
+
+
+<p>Objects that have members pointing to memory allocated by new also have problems with initializing one object to another or assigning one object to another. By default, C++ uses memberwise initialization and assignment, which means that the initialized or the assigned-to object to another winds up with exact copies of the original object's members. If an original member points to a block of data, the copy member points to the same block. When the program eventually deletes the two objects, the class destructor attempts to delete the same block of memory twice, which is an error. The solution is to define a special copy constructor that redefines initialization and to overload the assignment operator. In each case, the new definition should create duplicates of any pointed-to data and have the new object point to the copies. That way, both the old and the new objects refer to separate but identical data, with no overlap. The same reasoning applies to defining an assignment operator. In each case, the goal is to make a <strong>deep copy-that is, to copy the real data and not just pointers to that data</strong>.</p>
+<hr />
+
+<p>The C++ stream library in C++ supports the reading and writing of data files. You can read the file character by character using the get methods, line by line using the getline method, or as formatted data using the >> extraction operator.</p>
+
+<p>The <sstream> library makes it possible to use the >> and &lt;&lt; operators to read and write string data.</p>
+
+<p><font color="#0000FF">You can think of a text file as a sequence of characters stored in a permanent medium and identified by a file name. The name of the file and the character it contains have the same relationship as the name of a variable and its contents.</font></p>
+
+<p><font color="#FF3399">Because the stream libraries predate the introduction of the string class, so open method expects a C-style string as the file name.</font></p>
+
+<p>With the exception of Stack and Queue, all collection classes support the foreach pattern, which makes it easy to cycle through the elements of the collection.</p>
+
+<p><font color="#6666CC">Programmers who create a library are its implementers; programmers who make use of one are called its clients. The connection between the implementer and the client is called an interface. interfaces typically export functions, types, and constants, which are collectively known as interface entries.</p>
+
+<p>In c++, interface are stored in header file, which typically end with a .h suffix. Every interface should include several lines of interface <a href="#" title="US ['bɔɪlər.pleɪt]
+UK ['bɔɪlə(r).pleɪt]
+n.（可供模仿的）样板文件
+Web构建样板；创建样板；飞行器的试验样品">boilerplate</a> to ensure that the compiler reads the interface only once.</p>
+
+<p>When you design an interface, you must balance several criteria. Well-designed interfaces are unified, simple, sufficient, general, and stable.</font></p>
+<hr />
+
+<p>C++ is designed to be a compiled language, meaning that it is generally translated into machine language that can be understood directly by the system, making the generated program highly efficient. For that, a set of tools are needed, known as the development toolchain, whose core are a compiler and its linker.</p>
+<hr />
+
+<p>a = (b=3, b+2);///a=5</p>
+<hr />
+
+<p>cin extraction always considers spaces (whitespaces, tabs, new-line...) as terminating the value being extracted, and thus extracting a string means to always extract a single word, not a phrase or an entire sentence.</p>
+<p>To get an entire line from cin, there exists a function, called getline, that takes the stream (cin) as first argument, and the string variable as second. For example:getline (cin, mystr);</p>
+<hr />
+
+<p>a class can include a special function called its constructor, which is automatically called whenever a new object of this class is created, <strong>allowing the class to initialize member variables or allocate storage.</strong></p>
+
+<p>Like any other function, a constructor can also be overloaded with different versions taking different parameters: with a different number of parameters and/or parameters of different types. The compiler will automatically call the one whose parameters match the arguments。</p>
+
+<p>When a constructor is used to initialize other members, these other members can be initialized directly, without resorting to statements in its body. This is done by inserting, before the constructor's body, a colon (:) and a list of initializations for class members. For example, consider a class with the following declaration:</p>
+
+<pre>
+class Rectangle 
+{
+    int width,height;
+public:
+    Rectangle(int,int);
+    int area() {return width*height;}
+};
+</pre>
+
+
+<p>The constructor for this class could be defined, as usual, as:</p>
+
+
+<p>Rectangle::Rectangle (int x, int y) { width=x; height=y; }</p>
+
+
+<p>But it could also be defined using member initialization as:</p>
+
+
+<p>Rectangle::Rectangle (int x, int y) : width(x) { height=y; }</p>
+
+
+<p>Or even:</p>
+
+
+<p>Rectangle::Rectangle (int x, int y) : width(x), height(y) { }</p>
+
+
+<p>Note how in this last case, the constructor does nothing else than initialize its members, hence it has an empty function body.</p>
+<p>For members of fundamental types, it makes no difference which of the ways above the constructor is defined, because they are not initialized by default, but for member objects (those whose type is a class), if they are not initialized after the colon, they are default-constructed.</p>
+<hr />
+
+<p>The function operator+ of class CVector overloads the addition operator (+) for that type. Once declared, this function can be called either implicitly using the operator, or explicitly using its functional name:</p>
+
+
+<p>c = a + b;</p>
+
+<p><strong>c = a.operator+ (b);</strong></p>
+<hr />
+
+<p>Destructors fulfill the opposite functionality of constructors: They are responsible for the necessary cleanup needed by a class when its lifetime ends. The classes we have defined did not<strong> allocate any resource</strong> and thus did not really require any clean up.</p>
+<p>But now, let's imagine that the class in the last example <strong>allocates dynamic memory</strong> to store the string it had as data member; in this case, it would be very useful to have a function called automatically at the end of the object's life in charge of releasing this memory. To do this, we use a destructor.</p>
+
+<hr />
+
+<p>If the function is used inside only a particular file, you generally declare and define the function in the source file. If the function is for use by other modules or files, you generally put the declaration in a header file and the definition in a source file.</p>
+<hr />
+
+<p>Arrays hold a series of values, all of the same type, each of which can be accessed by its position in the array. In C++, you must provide the size of the array when the array is declared. You cannot give a variable as the size—it must be a constant, or a constant expression (constexpr).</p>
+<hr />
+
+<p>cout &lt;&lt; "hello" &lt;&lt; endl;</p>
+
+<p>“hello” is a string literal because it is written as a value, not a variable. <strong>String literals are actually stored in a read-only part of memory</strong>. This allows the compiler to optimize memory usage by reusing references to equivalent string literals. That is, even if your program uses the string literal “hello” 500 times, the compiler is allowed to create just one instance of hello inmemory. This is called literal pooling.</p>
+<hr />
+
+<p>OOP is based on the notion that you should divide your program not into <strong>tasks</strong>, but into models of physical <strong>objects</strong>. While this seems abstract at first, it becomes clearer when you consider physical objects in terms of their classes, components, properties, and behaviors.</p>
+
+<p>Object-oriented languages provide a number of mechanisms for dealing with such relationships between objects. The tricky part is to understand what the relationship actually is. There are two main types of object relationships—<strong>a has-a</strong> relationship(combination) and an <strong>is-a</strong> relationship.</p>
+
+<p>The Is-A Relationship (Inheritance)</p>
+
+<p>The key to abstraction is effectively separating the <strong>interface</strong> from the implementation. The implementation is the code you're writing to accomplish the task you set out to accomplish. The interface is the way that other people use your code. In C, the header file that describes the functions in a library you've written is an interface. In object-oriented programming, the interface to a class is the collection of publicly accessible properties and methods. A good interface contains only public methods.Properties of a class should never be made public but can be exposed through public methods,also called getters and setters.</p>
+
+<p>Preventing Inheritance  C++ allows you to mark a class as <strong>final</strong>, which means trying to inherit from it will result in a  compilation error. A class can be marked as final with the final keyword right behind the name  of the class. For example, the following Base class is marked as final:  class Base final{};</p>
+
+<p><strong>Header files are a mechanism for providing an abstract interface</strong> to a subsystem or piece of code.  One of the trickier parts of using headers is avoiding multiple includes of the same header file and  circular references.</p>
+<hr />
+
+<p>If you are familiar with the C language, you have undoubtedly used printf() and scanf().  As I/O mechanisms, printf() and scanf() are certainly flexible. Through escape codes and  variable placeholders, they can be customized to read in specially formatted data, or output  any value that the formatting codes permit, which is currently limited to integer/character values,  floating point values, and strings. However, printf() and scanf() falter on other measures  of good I/O systems. They do not handle errors particularly well, they are not flexible  enough to handle custom data types, and in an object-oriented language like C++, they are not  at all object oriented.</p>
+<hr />
+
+<p>In C++, there are  <strong>three common sources and destinations for streams: console, file, and string</strong>.</p>
+
+<p>The cout stream is the built-in stream for writing to the console, or standard output. You can  “chain” uses of &lt;&lt; together to output multiple pieces of data. This is because the &lt;&lt; operator returns  a reference to the stream as its result so you can immediately use &lt;&lt; again on the same stream.</p>
+
+<p>Just like output streams, input streams have several methods that allow a lower level of access than  the functionality provided by the more common >> operator.</p>
+<hr />
+
+<p>When dealing with the <strong>file</strong> system, it is especially important to detect and handle <strong>error</strong> cases. The  file you are working with could be on a network file store that just went offline, or you may be trying  to write to a file that is located on a disk that is full. Maybe you are trying to open a file for  which the current user does not have permissions. Error conditions can be detected by using the  standard error handling mechanisms described earlier.</p>
+
+<p>The only major difference between output file streams and other output streams is that the file  stream constructor can take the name of the file and the mode in which you would like to open it.  The default mode is write, ios_base::out, which starts writing to a file at the beginning, overwriting  any existing data. You can also open an output file stream in append mode by specifying the  constant ios_base::app as second argument to the file stream constructor. </p>
+<hr />
+
+<p>Streams provide a flexible and object-oriented way to perform input and output.</p>
+
+<p>C++ provides a more refined method of input and output through a mechanism known as streams.  Streams are a flexible and object-oriented approach to I/O.</p>
+
+<p>More generally, all streams  can be viewed as data chutes. Streams vary in their direction and their associated source or destination.  For example, the cout stream that you are already familiar with is an output stream, so its  direction is “out.” It writes data to the console so its associated destination is “console.” The c in  cout does not stand for “console” as you might expect, but stands for “character” as it's a character-  based stream. There is another standard stream called cin that accepts input from the user.  Its direction is “in,” and its associated source is “console.” As with cout, the c in cin stands for  "character". Both cout and cin are predefined instances of streams that are defined within the std  namespace in C++.</p>
+<hr />
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

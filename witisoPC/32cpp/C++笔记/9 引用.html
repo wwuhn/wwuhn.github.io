@@ -1,0 +1,615 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+<p>引用是C++的概念，在C中没有此定义。
+
+
+
+
+<p>复制庞大而复杂的值有昂贵的开销。为了避免传递副本的开销，可将形参指定为引用类型。对引用形参的任何修改会直接影响实参本身。应将不需要修改相应实参的引用形参定义为 const 引用。</p>
+
+
+<p>引用是变量的别名，变量直接使用变量对应的内存单元中的值，而引用是指向变量对应的内存单元；与指针不同，指针需要创建一个指针变量（局部变量），用于保存指向的变量的内存单元地址。而引用与引用指向的变量的内存地址是同一的。</p>
+<p><strong>引用本质上应该是一个常量指针，它的值初始化为其指向的变量，此后使用时无须解引用即直接表示其指向变量的值。它是一个常量，不能再指向其它变量，但指向的变量当然是一个可以更新的变量。</strong></p>
+<p>使用引用指向的变量的值时也与使用指针时不同，指针需解引用，引用不需要，可以如同变量一样使用。</p>
+
+<p>引用有指针一样的威力，但语法要简单一些。</p>
+
+<p>如有一个int的someInt变量，就可以定义一个引用：</p>
+
+<p>int &rSomeRef = someInt;</p>
+
+<p>rSomeRef与someInt的地址是同一的。</p>
+
+<p>在C++中&现出在声明或等式的左边时，是引用，出现在等式的右边是，是取址；</p>
+
+<p>引用比指针更容易使用和理解，引用的间接关系被隐藏，无须不断解除引用。</p>
+
+<p>但引用不能为空，也不能重新赋值。指针提供了更大的灵活性，但使用起来更难。</p>
+
+<p>按值传递时，将变量的备份而不是变量本身传递给函数，这让函数无法修改原始值。为了避免按值传递，一种方式是使用指针，这将传递原始变量的地址；另一种方式是使用引用，这将传递原始变量的别名。</p>
+
+<p>按引用传递可以避免创建备份；</p>
+
+<p>使用引用清晰、容易，然而，引用不能重新赋值，如果需要依次指向不同的对象，就必须使用指针。引用不能为NULL，因此如果要指向的对象可能为NULL，就必须使用指针，而不能使用引用。如果需要从堆中分配动态内存，也必须使用指针。</p>
+
+<p>处理大量数据时，按引用传递比按值传递要好，可以更节省内存，因为不需要复制参数复本。</p>
+
+<p>动态内存及动态数组，函数参数传址可以更新函数外部的值，同时用指针传址不需要再为参数开辟内存空间，当涉及到大指数据时，这样的设计更有效率。</p>
+<p>在C、C++中，就引入了指针的概念来映射内存中的地址并表示这个地址的线性关系。</p>
+
+<p>其它语言也通过其它的方式（如引用）来达成类似的操作。</p>
+
+<p>引用如果是参数传递，则引用传递的是一个变量的内存地址，而不是值。</p>
+
+
+<h4>C++引用和指针的区别</h4>
+
+<p>1 引用必须指向一个对象，C++要求引用必须初始化，并且没有NULL引用这种概念；</p>
+
+<p>2 指针可以被重定向指向不同的对象，引用记录指向它初始化指向的对象；</p>
+
+<p>3 基本上，当你可能会指向空（或什么都不指向）或可能会在不同时间指向不同对象的时候，使用指针！反之，则使用引用。</p>
+<p>引用是对象的另一个名字，在实际程序中，引用主要用作函数的形式参数来使用。</p>
+
+<p>在C++中，值传递是指将要传递的值作为一个副本传递。值传递过程中，被调函数的形参作为被调函数的局部变量处理，在内存的堆栈中开辟空间以存放由主调函数放进来的实参的值，从而成为了实参的一个副本。值传递的特点是被调函数对形参的任何操作都是作为局部变量进行，不会更改主调函数的实参变量的值。</p>
+
+<p>引用传递传递的是引用对象的内存地址。在地址传递过程中，被调函数的形参也作为局部变量在堆栈中开辟了内存空间，但是这时存放的是由主调函数放进来的实参变量的地址。被调函数对形参的任何操作都被处理成间接寻址，即通过堆栈中存放的地址访问主调函数中的实参变量。所以，被调函数对形参做的任何操作都会影响主调函数中的实参变量。</p>
+
+<p>指针是一个实体，而引用仅是个别名； </p>
+
+<p>引用使用时无需解引用(*)，指针需要解引用； </p>
+
+<p>引用只能在定义时被初始化一次，之后不可变；指针可变； </p>
+
+<p>引用没有 const，指针有const； </p>
+
+<p>引用不能为空，指针可以为空； </p>
+
+<p>“sizeof引用”得到的是所指向的变量(对象)的大小，而“sizeof指针”得到的是指针本身（所指向的变量或对象的地址）的大小； </p>
+
+<p>和引用的自增（++）运算意义不一样； </p>
+
+<p>在内存分配上，程序为指针变量分配内存区域，而引用不需要分配内存区域。（应该也是分配4个字节的内存空间，引用的实质是一个常量指针。）</p>
+
+
+
+<p>（1）引用在创建的同时必须初始化，即引用到一个有效的对象，而指针在定义的时候不必初始化，可以在定义后面的任何地方重新赋值。 </p>
+
+<p>（2）不存在NULL引用，引用必须与合法的存储单元关联；而指针则可以是NULL。 </p>
+
+<p>（3）引用一旦被初始化为指向一个对象，它就不能被改变为另一个对象的引用；而指针在任何时候都可以改变为指向另一个对象。给引用赋值并不是改变它和原始对象的绑定关系。 </p>
+
+<p>（4）引用的创建和销毁并不会调用类的拷贝构造函数。 </p>
+
+<p>（5）语言层面，引用的用法和对象一样。在二进制层面，引用一般都是通过指针来实现的，只不过编译器帮我们完成了转换。 </p>
+
+<p>不存在空引用，并且引用一旦被初始化为指向一个对象，它就不能被改变为另一个对象引用，显得很安全。const 指针仍然存在空指针，并且有可能产生野指针。总的来说，引用既具有指针的效率，又具有变量使用的方便性和直观性。</p>
+
+<p>传值方式适合一般数值传送，并且不改变原数据，但要消耗内存空间； </p>
+
+<p>传指针方式适合传递数组、指针，由于传递的是地址，所以直接操作会改变原数据； </p>
+
+<p>引用方式和指针比较类似，是相对比较新的一种方式。一般情况下能用传址的就能用引用，而且使用引用更方便一点。 </p>
+
+
+<p>引用传递是地址传递的另一种更简单明了的实现方法</p>
+
+<p>引用的定义：给一个变量取一个别名。</p>
+
+<p>例：int i;</p>
+
+<p>int &j=i;</p>
+
+<p>j是i的别名，i与j是同一个内存单元。</p>
+
+<p>引用实际上是一种隐式指针。每次使用引用变量时，可以不用书写间接引用运算符“*”，因而引用简化了程序。</p>
+
+<p>C++引入引用的主要目的是将引用作为函数的参数。</p>
+
+<p>定义引用时必须立即对它初始化，不能定义完成后再赋值。如：</p>
+
+
+<pre>
+int i;
+int &j; //错误
+j=i;
+</pre>
+
+<p>为引用提供的初始值可以是一个变量或另一个引用。如：</p>
+
+<pre>
+int i=5;
+int &j1=i;
+int &j2=j1;
+</pre>
+
+<p>引用不可重新赋值，不可使其作为另一变量的别名，而指针可以指向另一个变量。</p>
+
+
+<pre>
+int i, k;
+int &j=i;
+j=&k;//错误
+</pre>
+
+<p>C++引入引用的主要目的是将引用作为函数的参数。</p>
+
+<p>指针参数</p>
+
+
+<pre>
+void swap(int *m, int *n)
+{ 
+    int temp;
+    temp=*m;
+    *m=*n;  *n=temp;
+}
+</pre>
+
+<p>调用：swap(&x, &y)</p>
+
+<p>引用参数</p>
+
+
+<pre>
+void swap(int &m, int &n)
+{
+    int temp;
+    temp=m;
+    m=n; n=temp;
+}
+</pre>
+
+<p>调用：swap( x, y)</p>
+
+<p>注意：实参必须是变量，而不能是一个表达式</p>
+
+<p>在C++中，函数参数一般都采用引用传递。</p>
+
+<p>利用引用传递的好处是减少函数调用时的开销。</p>
+
+<p>如果在函数内不许改变参数的值，则参数用const限定。</p>
+
+<p>对非const的参数，实际参数不能是常量或临时量。</p>
+
+<p>返回引用的函数的主要用途</p>
+
+<p>将函数用于赋值运算符的左边，即作为左值。</p>
+
+<pre>
+int a[] = {1, 3, 5, 7, 9};
+int &index(int);    //声明返回引用的函数
+void main()
+{
+    index(2) = 25;     //将a[2]重新赋值为25
+    cout &lt;&lt; index(2);
+}
+int &index(int j)
+{return a[j];}     //函数是a[j]的一个引用
+</pre>
+
+
+<p>引用&是一个变量的别名；例如: int& b=a；//b声明为a的引用，b和a拥有相同的内存地址，可以通过改变b的值来改变a包含的值。</p>
+
+<p>常量指针表示存储在指针中的地址不能修改；像这样的指针只能指向初始化时指定的地址，但是，地址中的内容不是常量，可以修改；(和指向常量的指针不同，指向常量的指针表示指向的内容是常量，不能够修改)。</p>
+
+<p>至于引用和常量指针的区别:int& b=a； int* const p=&a； b是a的引用，他们拥有相同的内存地址，指针p存储的是变量a的地址，指针p自己拥有另一个内存地址，可以通过间接运算符来解除指针的引用:int c=*p；</p>
+
+<p>另外一个区别，引用不占用额外的内存，而指针是占内存的（存疑，https://blog.csdn.net/dead_of_winter/article/details/1641373）。</p>
+
+<p>引用比较安全，指针用好了很好，用不好就非常不好。</p>
+
+<p>引用：引用主要用于函数参数，相对于指针和传值，引用变量不需要占用内存空间；相对于传值，不需要因为赋值而浪费时间（指针参数也有此优势）；相对于指针，函数体内不需要使用解引用*符号，显得更简洁。</p>
+
+<p>引用是与变量的固定关联，而指针却可以修改为指向其它空间。引用这种语法机制的定义主要是为了突破函数参数对数据的保护，我们知道，函数参数传递时是值传递，让引用做参数时传递的是地址值。</p>
+<h4>2</h4>
+<p>引用对象只能在初始化时设置目标对象，其后对引用对象的操作实际上都是对目标对象的操作。</p>
+
+<p>如果这个指针变量需要定义为只读，即不能再另有指向，同时由编译器实现自动解引用，也就像使用一个变量一样来引用地址指向的值，则这样的指针变量在C++里称为引用，引用可以理解为一个变量的别名。</p>
+<p>References are safer, more convenient versions of pointers. You declare references  with the & declarator appended to the type name. References cannot  be assigned to null (easily), and they cannot be reseated (or reassigned).  These characteristics eliminate some bugs endemic to pointers.</p>
+<p>为什么有的函数返回引用</p>
+<p>如果一个函数的返回值是一个对象的值，它就被认为是一个常量，不能成为左值。</p>
+<p>如果返回值为引用。由于引用是对象的别名，所以通过引用当然可以改变对象的值。</p>
+<p>void setToNull(int *&tempPtr)</p>
+<p>{</p>
+<p>    tempPtr = nullptr; // use 0 instead if not C++11</p>
+<p>}</p>
+<p>int* p;</p>
+<p>&tempPtr = p; //tempPtr is a int*</p>
+<p>pass by address is actually just passing an address by value!</p>
+<p></p>
+<p>Therefore, we can conclude that C++ really passes everything by value! The properties of pass by address (and reference) comes solely from the fact that we can dereference the passed address to change the argument, which we can not do with a normal value parameter!</p>
+<p>Advantages of passing by address:</p>
+<p></p>
+<p>Pass by address allows a function to change the value of the argument, which is sometimes useful. Otherwise, const can be used to guarantee the function won’t change the argument. (However, if you want to do this with a non-pointer, you should use pass by reference instead).</p>
+<p>Because a copy of the argument is not made, it is fast, even when used with large structs or classes.</p>
+<p>We can return multiple values from a function via out parameters.</p>
+<p>Disadvantages of passing by address:</p>
+<p></p>
+<p>Because literals and expressions do not have addresses, pointer arguments must be normal variables.</p>
+<p>All values must be checked to see whether they are null. Trying to dereference a null value will result in a crash. It is easy to forget to do this.</p>
+<p>Because dereferencing a pointer is slower than accessing a value directly, accessing arguments passed by address is slower than accessing arguments passed by value.</p>
+<p>When to use pass by address:</p>
+<p></p>
+<p>When passing built-in arrays (if you’re okay with the fact that they’ll decay into a pointer).</p>
+<p>When passing a pointer and nullptr is a valid argument logically.</p>
+<p>When not to use pass by address:</p>
+<p></p>
+<p>When passing a pointer and nullptr is not a valid argument logically (use pass by reference and dereference the pointer argument).</p>
+<p>When passing structs or classes (use pass by reference).</p>
+<p>When passing fundamental types (use pass by value).</p>
+<p>As you can see, pass by address and pass by reference have almost identical advantages and disadvantages. Because pass by reference is generally safer than pass by address, pass by reference should be preferred in most cases.</p>
+<p>When to use return by address:</p>
+<p></p>
+<p>When returning dynamically allocated memory</p>
+<p></p>
+<p>When returning function arguments that were passed by address</p>
+<p></p>
+<p>When not to use return by address:</p>
+<p></p>
+<p>When returning variables that were declared inside the function or parameters that were passed by value (use return by value)</p>
+<p></p>
+<p>When returning a large struct or class that was passed by reference (use return by reference)</p>
+<p>When to use return by reference:</p>
+<p></p>
+<p>When returning a reference parameter</p>
+<p></p>
+<p>When returning an element from an array that was passed into the function</p>
+<p></p>
+<p>When returning a large struct or class that will not be destroyed at the end of the function (e.g. one that was passed in)</p>
+<p></p>
+<p>When not to use return by reference:</p>
+<p></p>
+<p>When returning variables that were declared inside the function or parameters that were passed by value (use return by value)</p>
+<p></p>
+<p>When returning a built-in array or pointer value (use return by address)</p>
+<p></p>
+<p>大多数情况下，应该使用引用而不是指针。对象的引用甚至可像指向对象的指针那样支持多态性。但也有一些情况下要求使用指针，一个例子是更改指向的位置，因为无法改变引用所指的变量。例如，动态分配内存时，应该将结果存储在指针而不是引用中。需要使用指针的另一种情况是可选参数，即指针参数可以定义为带默认值nullptr的可选函数，而引用参数不能这样定义。还有一种情况是要在容器中存储多态类型。</p>
+<p>有一种方法可以判断使用指针还是引用作为参数和返回值：考虑谁拥有内存。如果接收变量的代码负责释放相关对象的内存，那么必须使用指向对象的指针，最好是智能指针，这是传递拥有权的推荐方式。如果接收变量的代码不需要释放内存，那么应该使用引用。</p>
+<p>dereference ptr (get the value that ptr is pointing to)</p>
+
+
+<p>One of the most annoying issues with C-style arrays is that in most cases they decay to pointers when evaluated. However, if a C-style array is passed by reference, this decaying does not happen.</p>
+
+
+<pre>
+#include &lt;iostream>
+// Note: You need to specify the array size in the function declaration
+void printElements(int (&arr)[4])
+{
+    int length = sizeof(arr)/sizeof(arr[0]); 
+    // we can now do this since the array won't decay
+    
+    for (int i=0; i &lt; length; ++i)
+    {
+        std::cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+}
+</pre>
+
+<p>引用从实现的角度来看，引用的底层都是通过指针来实现的。但是从逻辑的角度来看，引用又不是指针，我们看到引用，就要像看到变量本身一样，例如一个int类型变量，其引用也应该看成整数。</p>
+
+
+<p>引用就是一个变量的别名，引用就是那个变量。引用一旦创建，就不能再代表其他变量了。如果此时再将某个变量赋值给这个引用，相当于赋值给引用代表的变量。参照前面第4点。</p>
+
+
+<p>所以，对引用最好的理解方式，就是认为引用就是变量，不用关心为什么，编译器给我们制造了一个假象，就像一个人有大名和小名一样。你对引用做的任何操作，就相当于对变量本身做操作。</p>
+<p>采用引用传递方式来传递一个指针非常有用。尤其当函数需要改变指针所存储的内存地址时，换句话说，当需要被传递的指针变量进行重定向时可以采用引用方式来传递它。 下面来看一个例子。</p>
+
+
+
+<pre>
+void first_bigger(int*& p, int threshold) 
+{ 
+    while (*p &lt;=* threshold) 
+        p++;
+}
+</pre>
+
+<p>使用引用时还需要注意的是，首先，不能建立引用的数组。因为数组是某个数 据类型元素的集合，数组名表示该元素集合空间的起始地址，它自己不是一个名副其实的数 据类型。其次，引用本身不是一种数据类型，定义引用在概念上不产生内存空间，因此没有 引用的引用，也没有引用的指针。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+ 
+
+
