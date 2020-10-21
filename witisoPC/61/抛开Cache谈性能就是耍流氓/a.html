@@ -1,0 +1,567 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓 </strong></p>
+
+<p>江南一散人&nbsp;2020-04-29 23:55:30</p>
+
+<p><strong>引言 </strong></p>
+
+<p>近日，网上看到一篇文章，分析数组访问的性能问题。文章经过一系列“有理有据”的论证之后，得出结论：访问数组的任意一个元素，性能上没有任何差异。</p>
+
+<p>看到这里，顿时方了！ </p>
+  <p align="left">真的没有差异吗？还是用数据说话吧！</p>
+
+<p><strong>实例一 多维数组交换行列访问顺序 </strong></p>
+
+<p>这是演示Cache对性能数据影响的很经典的例子：</p>
+
+<p><img width="640" height="279" src="a_clip_image001.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>array1.c 和 array2.c</p>
+
+<p>两个程序只有一行差异： </p>
+  <ul>
+    <li>第一个程序对数组按行进行访问 </li>
+    <li>第二个程序对数组按列进行访问 </li>
+  </ul>
+  <p align="left"><strong>测试环境</strong></p>
+
+<p>几个关键参数： </p>
+  <ul>
+    <li>OS：Ubuntu  19.04(Linux Kernel 5.0.0)</li>
+    <li>CPU：Intel(R)  Xeon(R) Gold 6130</li>
+    <li>主频：2.10GHz</li>
+    <li>Cache 大小：22MB</li>
+    <li>Cache line 大小：64 Bytes</li>
+  </ul>
+  <p align="left">具体参数看下图：</p>
+
+<p><img width="640" height="486" src="a_clip_image002.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>测试环境</p>
+
+<p><strong>编译</strong></p>
+
+<p>使用GCC编译，使用默认优化级别。如下图所示：</p>
+
+<p><img width="591" height="92" src="a_clip_image003.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>编译</p>
+
+<p><strong>运行</strong></p>
+
+<p>用time命令测量一下两个程序的性能差异。运行结果如下图：</p>
+
+<p><img width="513" height="311" src="a_clip_image004.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>运行结果</p>
+
+<p><strong>结果</strong></p>
+
+<p>从测试结果看，第一个程序运行花费0.265秒，第二个花费1.998秒。第二个程序消耗的时间居然是第一个程序的7.5倍！</p>
+
+<p>这是为什么呢？当然是因为Cache！后面进行解释。</p>
+
+<p>我们再来看一个多线程的例子。</p>
+
+<p><strong>实例二 多线程访问数据结构的不同字段 </strong></p>
+
+<p>这个例子中，我们定义个全局结构体变量 data，然后创建两个线程，分别访问data的两个字段data.a和data.b。</p>
+
+<p>两个程序的线程实现代码如下：</p>
+
+<p><img width="640" height="474" src="a_clip_image005.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>thread1.c(左) 和 thread2.c(右)</p>
+
+<p>main()函数很简单，只是创建两个线程：</p>
+
+<p><img width="640" height="344" src="a_clip_image006.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>main()函数</p>
+
+<p>两个例子中唯一的不同之处是： </p>
+  <ul>
+    <li>第一个程序中，字段a和字段b是紧挨着的 </li>
+    <li>第二个程序中，字段a和字段b中间有一个大小为64个字节的字符数组。 </li>
+  </ul>
+  <p align="left">测试环境和第一个例子一样。</p>
+
+<p><strong>编译</strong></p>
+
+<p>创建线程使用到了pthread库，因此编译时需要加上 -lpthread。</p>
+
+<p><img width="762" height="92" src="a_clip_image007.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>编译</p>
+
+<p><strong>运行</strong></p>
+
+<p>同样使用time命令测量两个程序的执行时间，结果如下图所示：</p>
+
+<p><img width="573" height="293" src="a_clip_image008.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>执行结果</p>
+
+<p><strong>结果</strong></p>
+
+<p>从测试结果看，第一个程序消耗的时间是第二个程序的3倍！</p>
+
+<p>这又是为什么？仍然是Cache！</p>
+
+<p>在解释具体原因之前，先简单介绍一些关于计算机存储的基础知识。</p>
+
+<p><strong>存储金字塔 </strong></p>
+
+<p>“存储金字塔”这个词，大家应该都不陌生吧，它指的是现代计算机系统的分级存储器体系结构。</p>
+
+<p>简单来说，就是离CPU越近的存储器访问速度越快，但是生产成本越高，因此容量就越小。而离CPU越远的存储器访问越慢，但是成本越低，因此容量就越大。</p>
+
+<p>它看起来就像一个金字塔一样，这就是“存储金字塔”这个词的由来。</p>
+
+<p><img width="640" height="430" src="a_clip_image009.jpg" alt="访问任意数组元素的性能相同？抛开Cache谈性能就是耍流氓" /></p>
+
+<p>存储金字塔</p>
+
+<p>最顶端，离CPU最近的是寄存器，它的访问速度最快，容量也最小，现代的CPU一般最多只有几十个内置寄存器。</p>
+
+<p>最底端，离CPU最远的是网络存储设备，既然要通过网络进行访问，可想而知，它的速度肯定是最慢的，但是容量却几乎不受限制。尤其随着近年来云计算的蓬勃发展，我们的很多数据都是存储在云端，分布在世界各地。</p>
+
+<p>我们可以简单的认为，高一级的存储器是低一级存储器的缓存。也就是把低一级层存储器中最经常被访问的数据，存放在高一层的存储器中，因为它离CPU更近，访问速度更快。CPU每次访问数据时，首先在高一级存储器中查找，如果数据存在，就可以直接访问，否则需要到低一级的存储器中去查找。</p>
+
+<p>这种金字塔式的存储结构之所以能够很好的工作，得益于计算机程序的<strong>局部性原理</strong>。</p>
+
+<p><strong>局部性原理 </strong></p>
+
+<p>一个设计优良的计算机程序通常具有很好的局部性，包括时间局部性和空间局部性。 </p>
+  <ul>
+    <li><strong>时间局部性：如果一个数据被访问过一次，那么很有可能它会在很短的时间内再次被访问。</strong> </li>
+    <li><strong>空间局部性：如果一个数据被访问了，那么很有可能位于这个数据附近的其它数据也会很快被访问到。</strong> </li>
+  </ul>
+  <p align="left">一般来说，具有良好局部性的程序会比局部性较差的程序运行的更快，性能更好。</p>
+
+<p>数组就是一种把局部性原理利用到极致的数据结构，后面会详细说明。</p>
+
+<p><strong>高速缓存存储器 - Cache</strong></p>
+
+<p>我们知道，程序在执行之前，必须要先加载到内存（DRAM主存储器）中，然后数据和指令才能被CPU访问。</p>
+
+<p>但是，由于CPU和内存访问速度之间存在着几个数量级的巨大的差距，如果CPU每次都要从内存中去读取数据的，就会导致大量的计算资源闲置，这对现代CPU是不可接受的。</p>
+
+<p>为了解决这个问题，在CPU和内存之间设计了高速缓存存储器，即Cache。 </p>
+  <p align="left">现代的CPU一般都有三级或者更多级的Cache，离CPU最近的是L1Cache（一级缓存），然后是L2 Cache、L3 Cache。L1  Cache的访问速度几乎和寄存器一样快，容量也最小， L3速度最慢，但容量最大。</p>
+
+<p>这样一来，CPU在读取数据时，就会先逐级在Cache中查找，如果找到就直接从Cache读取，找不到则从内存中读取。</p>
+
+<p>在Cache中找到所需的数据被称为命中（Cache hit），找不到则称为未命中（Cache miss）。</p>
+
+<p>Cache miss的时候，CPU就不得不直接从内存中访问数据，会面临严重的性能惩罚。因此Cache miss率比较高的程序，性能会比较差。</p>
+
+<p><strong>Cache Line</strong></p>
+
+<p><strong>Cache Line </strong><strong>可以理解为是 Cache和内存之间进行数据传输的最小单位</strong>。</p>
+
+<p>很多现代CPU的Cache  line大小是64个字节，我所用的测试环境Cache Line大小就是64个字节。也就是说每次数据在Cache和内存之间传输，并不是一个字节一个字节进行传输的，而是把整个Cache Line进行传输的。</p>
+
+<p>比如下面这个数组：</p>
+
+<p>int a[3][4] = {{1, 2, 3, 4}, {5, 6, 7,  8}, {9, 10, 11, 12}};</p>
+
+<p>假设数组a的的起始地址在内存中是Cache  Line对齐的（简单理解就是数组a的起始地址能被64整除），假如我们执行下面的代码：</p>
+
+<p>int k = a[0][0];</p>
+
+<p>在x86机器上，int是4个字节，在把a[0][0]赋值给k时，会把一个Cache line大小的数据从内存加载到Cache中，64/4 = 16个int，也就是说整个数组都被加载进了Cache中。如果接下来一条指令继续访问数组a的某个元素的话，就可以直接访问Cache的内容。</p>
+
+<p><strong>Cache </strong><strong>一致性 </strong></p>
+
+<p>在多CPU的系统中，每个CPU都有自己的本地Cache。因此，同一个地址的数据，有可能在多个CPU的本地 Cache 里存在多份拷贝。</p>
+
+<p>为了保证程序执行的正确性，就必须对于同一个变量，每个CPU看到的值都是一样的。也就是说，必须要保证每个CPU的本地Cache中能够如实反映内存中的真实数据。 </p>
+  <p align="left">假设一个变量在CPU0和CPU1的本地Cache中都有一份拷贝，当CPU0修改了这个变量时，就必须以某种方式通知CPU1，以便CPU1能够及时更新自己本地Cache中的拷贝，这样才能在两个CPU之间保持数据的同步。</p>
+
+<p>注：现代CPU为了保证Cache一致性，都实现了非常复杂的Cache一致性协议，如MESI等。篇幅有限，这里不再赘述，以后会更新专门的文章进行讲解，有兴趣的童鞋不妨关注一下。</p>
+
+<p>需要注意的是，CPU之间的这种同步，是有很大开销的。这其实也是案例二的主要原因，后面会进行说明。</p>
+
+<p>了解存储金字塔和Cache的背景知识后，现在我们分析一下前面的两个案例。</p>
+
+<p><strong>案例一原因分析 </strong></p>
+
+<p>案例一中，两个程序程序都是对一个同样大小的数组逐个元素进行赋值。唯一的区别是： </p>
+  <ul>
+    <li>第一个程序对数组按行进行赋值 </li>
+    <li>第二个程序对数组按列进行赋值 </li>
+  </ul>
+  <p align="left">为什么性能差距竟有7倍之大呢？ </p>
+  <p align="left">我们知道，数组元素存储在地址连续的内存中，多维数组在内存中是按行进行存储的。</p>
+
+<p>第一个程序按行访问某个元素时，该元素附近的一个Cache Line大小的元素都会被加载到Cache中，这样一来，在访问紧挨着的下一个元素时，就可以直接访问Cache中的数据，不需要再从内存中加载数据。也就是说，<strong>对数组按行进行访问时，具有更好的空间局部性， Cache命中率更高</strong>。</p>
+
+<p>第二个程序按列访问某个元素时，虽然该元素附近的一个Cache Line大小的元素也会被加载进Cache中，但是程序接下来要访问的数据却不是紧挨着的那个元素，因此很有可能会再次产生Cache  miss，而不得不从内存中加载数据。 </p>
+  <p align="left">而且，虽然Cache中会尽量保存最近访问过的数据，但由于Cache大小有限，当Cache被占满时，就不得不把一些数据给替换掉。这也是空间局部性差的程序更容易产生Cache miss的重要原因之一。</p>
+
+<p><strong>案例二原因分析 </strong></p>
+
+<p>案例二中，两个程序都有两个线程，每个线程分别访问一个结构体变量的不同字段。唯一的区别是， </p>
+  <ul>
+    <li>第一个程序中，字段a和字段b是紧挨着的。 </li>
+    <li>第二个程序中，字段a和字段b中间有一个大小为64个字节的字符数组。 </li>
+  </ul>
+  <p align="left">这其实涉及到Cache Line的伪共享（false sharing）问题。</p>
+
+<p><strong>Cache Line</strong><strong>伪共享</strong></p>
+
+<p>所谓Cache Line 伪共享，是由于运行在不同CPU上的不同线程，同时修改处在同一个Cache Line上的数据引起的。</p>
+
+<p>虽然在每个CPU看来，各自修改的是不同的变量，但是由于这些变量在内存中彼此紧挨着的，因此它们处于同一个Cache Line上。一个CPU修改这个Cache Line之后，为了保证Cache数据的一致性，必然导致另一个CPU的本地Cache内容的无效，因而触发Cache miss。</p>
+
+<p>多个线程频繁的修改处于同一个Cache Line的数据，会导致大量的Cache miss，因而造成性能大幅下降。</p>
+
+<p><strong>原因分析</strong> </p>
+  <p align="left">第一个程序中，字段a和字段b是紧挨着的，处于同一个Cache Line上，因此，两个线程同时修改这两个字段时，触发Cache Line伪共享问题，造成频繁的Cache miss，性能很差。</p>
+
+<p>第二个程序中，字段a和字段b中间添加了一个64字节的数组，这样就保证了这两个字段处在不同的Cache Line上。如此一来，两个线程即便同时修改这两个字段，相互之间也互不影响，因此性能会比较好。</p>
+
+<p><strong>结语 </strong></p>
+
+<p>除了上述的两个案例之外，其实，在系统中CPU Cache对性能的影响随处可见。</p>
+
+<p>尤其在操作系统内核关键代码中，对CPU Cache更要是特别注意。比如，Linux 内核在进行进程调度和负载均衡时，CPU Cache是其着重考量的一个因素之一，我在<a href="https://www.toutiao.com/a1664560466250763" target="_blank">《CPU负载真的是在任何情况下都越均衡越好吗？》</a>一文中对其进行了介绍，有兴趣的童鞋不妨去看下。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

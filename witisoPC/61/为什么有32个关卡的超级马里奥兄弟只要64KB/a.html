@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>为什么有</strong><strong>32</strong><strong>个关卡的超级马里奥兄弟只要</strong><strong>64KB</strong><strong>？</strong><strong> </strong></p>
+
+<p>2020年04月17日 19:00:00</p>
+
+<p>来源：<a href="http://feng.ifeng.com/author/485" target="_blank">果壳网</a></p>
+
+<p>差评君前两天逛知乎的时候看到一个问题：为什么魂斗罗只有 128 KB 却可以实现那么长的剧情？</p>
+<img src="1.jpeg" />
+
+<p>其实以现在的标准来看，1987 年发布的《 魂斗罗 》剧情并不是很长，一共也就 8 个场景线性布置关卡，我拿出一晚上花在动森上的时间没准就能通关。。。</p>
+
+<p>但魂斗罗的 8 个关卡在当时看来也算得上是精心制作了，可它<strong>真的只有 128 KB 。</strong></p>
+
+
+
+<p>128 KB 是什么概念？这篇花几分钟就能看完的文章所需的流量，都是它的<strong>&nbsp;10 </strong><strong>倍以上。</strong></p>
+
+<p>而在 90 年代前后，游戏开发人员可以用这 128 KB 让人快乐一整晚，这是咋做到的呢？</p>
+
+<p>巧了。。。差评君自己是个游戏狂 + 开发者，而且每年都会参加 48  小时极限游戏开发活动。</p>
+
+
+
+<p>因此这种关于游戏开发的小问题，俺还真插得上话。。。所以今天来和大家聊聊以前那些能玩挺久的老游戏是咋做得这么小的。</p>
+
+<p>和现在动辄几十 G 的单机游戏相比，<strong>由于早些年电子产品技术落后，家用机磁盘空间、显存以及内存捉襟见肘，开发一个效果不错的游戏就像是在电线杆上跳舞。</strong></p>
+
+<p>因此，和现在的游戏开发者们相比，当时人们在</p>
+
+<p><strong>空间利用率上可谓是登峰造极。</strong></p>
+
+<p>一般认知来说，游戏 = 艺术 + 技术。从技术角度上来看，“艺术” 通过素材展现，“技术”通过代码实现。</p>
+
+<p>翻译成人话，古早的 2D 游戏由贴图 + 代码 + 音效组成。</p>
+
+<p><strong>代码其实一点都不占地儿</strong>，说白了就是<strong>一堆英文 + 数字 + 标点符号的文本文件</strong>。</p>
+
+<img src="2.jpeg" />
+
+<p>差评君打开记事本，用脸滚键盘瞎敲<strong>&nbsp;1000 </strong><strong>个英文数字</strong>保存起来，这个 txt 文件也就<strong>&nbsp;4KB&nbsp;</strong>。</p>
+
+
+
+<p>与之相比，</p>
+
+<p><strong>贴图和音效这些美术素材是当时开发者要头疼的玩意儿。</strong></p>
+
+<p>先说说贴图吧，在计算机里任何东西本质上都是一堆信息，一张图要包含每个像素的颜色信息 + 像素所在的位置信息。</p>
+
+<p>比如说我前一张拿来说明 1000 个字符占地 4KB 大小的示意图，它本身其实占用了<strong>&nbsp;44 KB&nbsp;</strong>。</p>
+
+
+
+<p>虽然 FC 时代的主流游戏素材存储格式上和现在有所差别，但大致是这么个意思。</p>
+
+<p>那张 44 KB 的图尺寸是 788 * 388，而 FC 经典游戏《 超级马里奥兄弟 》第一关地图所有场景尺寸加起来起码得是那张图尺寸的  N 倍。</p>
+<img src="3.jpeg" />
+
+<p>而且它还有 8 个场景，每个场景又有 4 小关。</p>
+
+<p><strong>可《 超级马里奥兄弟 》的大小只有 64 KB</strong>，比魂斗罗还小。</p>
+
+<p>这时候得介绍个方法：</p>
+
+<p><strong>Tile Map</strong></p>
+
+<p>。</p>
+
+<p>这是个类似调色板的东西，游戏开发者把游戏里会出现的素材提前准备好，然后运行游戏的时候把素材拼接起来就行，这一个个素材叫 Tile ，整个素材包叫做 Tile Map 。</p>
+
+<p>这样一来，上面展示的那长长的第一关场景就不用提前搭建好再存储了，而是你<strong>在玩的时候重复利用</strong>提前准备好的东西。</p>
+
+<p>FC 版本的《 超级马里奥兄弟 》看似有这么多关卡，其实出现过的东西就这么多。</p>
+
+<img src="4.png" />
+
+<p>其实这一点只要大家仔细观察就能发现，当时的老游戏重复素材特别多，例如一开始提到的《 魂斗罗 》也不例外。</p>
+
+<img src="5.jpeg" />
+
+<p>在红白机时代的游戏，只要素材读取好了，运行的时候用<strong>代码告诉计算机这块素材应该出现在哪个位置就行了</strong>。。。<strong>代码占地儿小啊，写起来不心疼！</strong></p>
+
+<p>也就是说，你小时候在电视里浴血奋战的地方其实是 “赶工”赶出来的，只不过这个赶工运算量并不大，当时游戏帧率要求也不高，所以完全不影响体验。</p>
+
+<p>差评君甚至见过一个极端例子：整关的 Tile 加起来才 10 个，然后剩下的都是代码。。。</p>
+
+<p>然而，用重复素材搭场景还是不能满足贪心的老开发者，他们还有些<strong>骚操作</strong>。</p>
+
+<p>咱们再看看这张熟悉得不能再熟悉的场景吧。</p>
+
+<img src="6.jpeg" />
+
+<p>这个场景里的<strong>云朵和草垛其实是一个玩意儿</strong>，差评君当年刚听说这个冷知识的时候，感觉童年被敲碎了。。。你不信再仔细瞅瞅形状和纹理，<strong>它俩除了颜色一模一样</strong>。</p>
+
+<img src="7.jpeg" />
+
+<p>如此一来只需要在生成草垛的时候借云朵过来，加一个颜色的信息，就行了。</p>
+
+<p>这让我想起大学时代月底零花钱濒临透支时，只买一个菜然后问阿姨多打点汤汁浇在饭上的感觉一样，<strong>人在资源缺少的时候能做到多抠，你永远想像不到。</strong></p>
+
+<p>这个手法其实也挺常见。。。魂斗罗双人模式下的奖牌，两个兄贵的模型，也是这么干的。</p>
+
+<img src="8.jpeg" />
+
+<p>一个游戏除了画面，还要有音效，声色俱佳才能成为经典，但<strong>音效这种多媒体素材也是个占地方的玩意儿。</strong></p>
+
+<p>去任天堂官方网站下载了《 超级马里奥兄弟 》用 MP3 格式存储的背景音乐，短短 1 分 21 秒你猜猜占地多少？</p>
+
+<p>3.13 MB 。。。而&nbsp;<strong>FC </strong><strong>版本整个游戏的大小前面也说了 —— 64 KB 。</strong></p>
+
+<img src="9.jpeg" />
+
+<p>其实在 FC 时代的游戏里，音效存储和现在很不一样。</p>
+
+<p>现在的主流音乐格式其实是音频文件，这类文件里存储的信息要描述整个声音的构成。</p>
+
+<img src="10.jpeg" />
+
+<p>但在 FC 时代，游戏音效的处理思路可以参考 MIDI 文件，只存储排列好的音符当中的音色、频率和音高等。</p>
+
+
+
+<p>这两类文件，哪个信息量大，一看就明白了吧。</p>
+
+<p>说白了，用类似&nbsp;<strong>MIDI </strong><strong>文件存储的是一本乐谱，而音频存储的是整个演奏出来的音乐。</strong></p>
+
+<p>现在咱们对几 M 的空间一点都不心疼，所以就直接存下整个音频了。但在当时。。。想想差评君那个食堂里打饭的例子吧。</p>
+
+<p>那么问题来了，<strong>只存储乐谱确实省下很多空间</strong>，但得有人演奏才能出声啊。</p>
+
+<p>因此<strong>老游戏机里往往会用一块专用的音乐合成芯片</strong>，专门用来处理这些 “乐谱”，实时合成音乐。</p>
+
+<img src="11.jpeg" />
+
+<p>只不过这些芯片能合成的音色种类有限，往往听上去都大同小异，但也颇有风味，被称作 Chiptune ——&nbsp;<strong>芯片音乐或者是 8-bit 音乐，</strong>现在还有些音乐人在玩儿这个风格。</p>
+
+<p>除了小格式 + 专用芯片，FC 时代的老游戏音乐往往不长，就是几个旋律来回循环，这么一来游戏音效占地也就不大了。</p>
+
+<p>再加上当时没有游戏引擎的概念，代码直接用硬件跑，这又省了很多不必要的文件。</p>
+
+<p>于是，我们看到了一个仅仅占用 128 KB 却包含 8 个关卡的《  魂斗罗 》，或者是占用 64 KB 却包含 32 个关卡的 《  超级马里奥兄弟 》。</p>
+
+<img src="12.jpeg" />
+
+<p>在当年的极限开发环境下，一个游戏程序员不光要知道怎么实现功能，还要知道怎么省资源，想骚点子压缩素材。。。放现在的游戏公司里，那些人个个都是特种兵。</p>
+
+<p>存储和传输技术都比较落后导致的这一情况，其实持续得挺久。</p>
+
+<p>哪怕 2000 年之后开发者已经能稍微放开手动作大一点了，人们对空间大小依旧很敏感：游戏下载要吃网速，安装要占硬盘。</p>
+
+<p>在网络游戏时代，差评君还听说过有产品经理<strong>因为安装包太大会考虑砍功能</strong>的坊间传说，就怕用户嫌下载时间久，不尝试了。</p>
+
+<img src="13.jpeg" />
+
+<p>不知道各位还记不记得，小时候和同学在课间讨论游戏时，假设有人吃下了某人的推荐，一定会问一句：<strong>这游戏多大？</strong></p>
+
+<p>随着网络基础建设突飞猛进导致网速变快，存储技术提升导致存储成本下降，开发环境没那么极限了，人们没这么敏感了，「<strong>&nbsp;</strong><strong>这游戏多大 」这句话也很少听到了。</strong></p>
+
+<p>回到当时音频和 MIDI 的例子，现在存下大音频文件花的成本，可能比加一块音乐合成芯片低很多。</p>
+
+<p>放开了手脚的游戏业界，把 3D 游戏做出了新高度，用大量逼真建模和素材堆出极度真实画面的同时。。。</p>
+
+<img src="14.jpeg" />
+
+<p>在占用空间上也开始放飞自我：在 2011 年 id  Software 发售了一款游戏《 狂怒 》，需要占用<strong>&nbsp;25G&nbsp;</strong>硬盘空间，这大胆动作在当时被各大玩家论坛吐槽，但也就这么卖了出去。</p>
+
+
+<p>2018 年 R 星发售的 《 荒野大镖客：救赎2 》占用了<strong>&nbsp;100 </strong><strong>多 G</strong>，差评君买的 PS4 版本到手是<strong>两张蓝光碟的罕见情况</strong>，周围尽管有吐槽，但似乎没有 7 年前吐槽 《 狂怒 》那么狠。</p>
+
+<img src="15.jpeg" />
+
+
+<p>技术发展，对一切事物的改变是很大的：<strong>当时的人们理所当然为了几十 KB 绞尽脑汁做优化，现在的我们理所当然觉得一个 3A 大作占用几十个 G 非常合理，这两者差了好几个数量级。</strong></p>
+
+<p>科技发展改变的不光是我们的生活，也能极大改变我们的认知。</p>
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

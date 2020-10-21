@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong>这才是真正的Git——Git内部原理揭秘！ </strong></p>
+
+<p>Java技术架构&nbsp;2020-04-03 12:02:00</p>
+
+<p>作者：lzaneli，腾讯  TEG 前端开发工程师</p>
+
+<p>本文以一个具体例子结合动图介绍了Git的内部原理，包括Git是什么储存我们的代码和变更历史的、更改一个文件时，Git内部是怎么变化的、Git这样实现的有什么好处等等。</p>
+
+<p>通过例子解释清楚上面这张动图，让大家了解Git的内部原理。如果你已经能够看懂这张图了，下面的内容可能对你来说会比较基础。</p>
+
+<p>视频链接：</p>
+
+<p>https://www.bilibili.com/video/av77252063</p>
+
+<p>PPT 链接：</p>
+
+<p>https://www.lzane.com/slide/git-under-the-hood</p>
+  <p align="left"><img width="640" height="640" src="a_clip_image001.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /> </p>
+  <p align="left"><strong>前言</strong><strong> </strong></p>
+
+<p>近几年技术发展十分迅猛，让部分同学养成了一种学习知识停留在表面，只会调用一些指令的习惯。我们时常有一种“我会用这个技术、这个框架”的错觉，等到真正遇到问题，才发现事情没有那么简单。</p>
+
+<p>而Git也是一个大部分人都知道如何去使用它，知道有哪些命令，却只有少部分人知道具体原理的东西。了解一些底层的东西，可以更好的帮你理清思路，知道你真正在操作什么，不会迷失在Git大量的指令和参数上面。 </p>
+  <p align="left"><strong>Git</strong><strong>是怎么储存信息的</strong><strong> </strong></p>
+
+<p>这里会用一个简单的例子让大家直观感受一下git是怎么储存信息的。</p>
+
+<p>首先我们先创建两个文件 </p>
+  <div></p>
+
+<p>$ git init</p>
+
+<p>$ echo '111' &gt; a.txt</p>
+
+<p>$ echo '222' &gt; b.txt</p>
+
+<p>$ git add *.txt </div>
+  <p align="left">Git会将整个数据库储存在.git/目录下，如果你此时去查看.git/objects目录，你会发现仓库里面多了两个object。 </p>
+  <div></p>
+
+<p>$ tree .git/objects</p>
+
+<p>.git/objects</p>
+
+<p>├── 58</p>
+
+<p>│   └──  c9bdf9d017fcd178dc8c073cbfcbb7ff240d6c</p>
+
+<p>├── c2</p>
+
+<p>│   └──  00906efd24ec5e783bee7f23b5d7c941b0c12c</p>
+
+<p>├── info</p>
+
+<p>└── pack </div>
+  <p align="left">好奇的我们来看一下里面存的是什么东西 </p>
+  <div></p>
+
+<p>$ cat  .git/objects/58/c9bdf9d017fcd178dc8c073cbfcbb7ff240d6c</p>
+
+<p>xKOR0a044K% </div>
+  <p align="left">怎么是一串乱码？这是因为Git将信息压缩成二进制文件。但是不用担心，因为Git也提供了一个能够帮助你探索它的api git cat-file [-t] [-p]， -t可以查看object的类型，-p可以查看object储存的具体内容。 </p>
+  <div></p>
+
+<p>$ git cat-file -t 58c9</p>
+
+<p>blob</p>
+
+<p>$ git cat-file -p 58c9</p>
+
+<p>111 </div>
+  <p align="left">可以发现这个object是一个blob类型的节点，他的内容是111，也就是说这个object储存着a.txt文件的内容。</p>
+
+<p>这里我们遇到第一种Git object，blob类型，它只储存的是一个文件的内容，不包括文件名等其他信息。然后将这些信息经过SHA1哈希算法得到对应的哈希值58c9bdf9d017fcd178dc8c073cbfcbb7ff240d6c，作为这个object在Git仓库中的唯一身份证。</p>
+
+<p>也就是说，我们此时的Git仓库是这样子的：</p>
+
+<p><img width="720" height="95" src="a_clip_image002.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /></p>
+
+<p>我们继续探索，我们创建一个commit。 </p>
+  <div></p>
+
+<p>$ git commit -am '[+] init'</p>
+
+<p>$ tree .git/objects</p>
+
+<p>.git/objects</p>
+
+<p>├── 0c</p>
+
+<p>│   └──  96bfc59d0f02317d002ebbf8318f46c7e47ab2</p>
+
+<p>├── 4c</p>
+
+<p>│   └──  aaa1a9ae0b274fba9e3675f9ef071616e5b209</p>
+
+<p>... </div>
+  <p align="left">我们会发现当我们commit完成之后，Git仓库里面多出来两个object。同样使用cat-file命令，我们看看它们分别是什么类型以及具体的内容是什么。 </p>
+  <div></p>
+
+<p>$ git cat-file -t 4caaa1</p>
+
+<p>tree</p>
+
+<p>$ git cat-file -p 4caaa1</p>
+
+<p>100644 blob 58c9bdf9d017fcd178dc8c0...      a.txt</p>
+
+<p>100644 blob c200906efd24ec5e783bee7...     b.txt </div>
+  <p align="left">这里我们遇到了第二种Git object类型——tree，它将当前的目录结构打了一个快照。从它储存的内容来看可以发现它储存了一个目录结构（类似于文件夹），以及每一个文件（或者子文件夹）的权限、类型、对应的身份证（SHA1值）、以及文件名。</p>
+
+<p>此时的Git仓库是这样的：</p>
+
+<p><img width="720" height="220" src="a_clip_image003.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /> </p>
+  <div></p>
+
+<p>$ git cat-file -t 0c96bf</p>
+
+<p>commit</p>
+
+<p>$ git cat-file -p 0c96bf</p>
+
+<p>tree 4caaa1a9ae0b274fba9e3675f9ef071616e5b209</p>
+
+<p>author lzane 李泽帆  1573302343 +0800</p>
+
+<p>committer lzane 李泽帆  1573302343 +0800</p>
+
+<p>[+] init </div>
+  <p align="left">接着我们发现了第三种Git object类型——commit，它储存的是一个提交的信息，包括对应目录结构的快照tree的哈希值，上一个提交的哈希值（这里由于是第一个提交，所以没有父节点。在一个merge提交中还会出现多个父节点），提交的作者以及提交的具体时间，最后是该提交的信息。</p>
+
+<p>此时我们去看Git仓库是这样的： </p>
+  <p align="left"><img width="259" height="377" src="a_clip_image004.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /> </p>
+  <p align="left">到这里我们就知道Git是怎么储存一个提交的信息的了，那有同学就会问，我们平常接触的分支信息储存在哪里呢？ </p>
+  <div></p>
+
+<p>$ cat .git/HEAD</p>
+
+<p>ref: refs/heads/master</p>
+
+<p></p>
+
+<p>$ cat .git/refs/heads/master</p>
+
+<p>0c96bfc59d0f02317d002ebbf8318f46c7e47ab2 </div>
+  <p align="left">在Git仓库里面，HEAD、分支、普通的Tag可以简单的理解成是一个指针，指向对应commit的SHA1值。</p>
+
+<p><img width="289" height="393" src="a_clip_image005.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /></p>
+
+<p>其实还有第四种Git object，类型是tag，在添加含附注的tag（git  tag -a）的时候会新建，这里不详细介绍，有兴趣的朋友按照上文中的方法可以深入探究。</p>
+
+<p>至此我们知道了Git是什么储存一个文件的内容、目录结构、commit信息和分支的。<strong>其本质上是一个key-value的数据库加上默克尔树形成的有向无环图（DAG）</strong>。这里可以蹭一下区块链的热度，区块链的数据结构也使用了默克尔树。 </p>
+  <p align="left"><strong>Git</strong><strong>的三个分区</strong><strong> </strong></p>
+
+<p>接下来我们来看一下Git的三个分区（工作目录、Index 索引区域、Git仓库），以及Git变更记录是怎么形成的。了解这三个分区和Git链的内部原理之后可以对Git的众多指令有一个“可视化”的理解，不会再经常搞混。</p>
+
+<p>接着上面的例子，目前的仓库状态如下： </p>
+  <p align="left"><img width="640" height="771" src="a_clip_image006.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /> </p>
+  <p align="left">这里有三个区域，他们所储存的信息分别是： </p>
+  <ul>
+    <li>工作目录 （ working directory ）：操作系统上的文件，所有代码开发编辑都在这上面完成。 </li>
+    <li>索引（ index or staging area ）：可以理解为一个暂存区域，这里面的代码会在下一次commit被提交到Git仓库。 </li>
+    <li>Git仓库（ git repository ）：由Git object记录着每一次提交的快照，以及链式结构记录的提交变更历史。 </li>
+  </ul>
+  <p align="left">我们来看一下更新一个文件的内容这个过程会发生什么事。 </p>
+  <p align="left"><img width="640" height="640" src="a_clip_image007.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /> </p>
+  <p align="left">运行echo &quot;333&quot; &gt; a.txt将a.txt的内容从111修改成333，此时如上图可以看到，此时索引区域和git仓库没有任何变化。 </p>
+  <p align="left"><img width="640" height="640" src="a_clip_image008.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /> </p>
+  <p align="left">运行git add a.txt将a.txt加入到索引区域，此时如上图所示，git在仓库里面新建了一个blob object，储存了新的文件内容。并且更新了索引将a.txt指向了新建的blob object。 </p>
+  <p align="left"><img width="640" height="640" src="a_clip_image009.jpg" alt="这才是真正的Git——Git内部原理揭秘！" /> </p>
+  <p align="left">运行git commit -m 'update'提交这次修改。如上图所示 </p>
+  <ul>
+    <li>Git首先根据当前的索引生产一个tree object，充当新提交的一个快照。 </li>
+    <li>创建一个新的commit object，将这次commit的信息储存起来，并且parent指向上一个commit，组成一条链记录变更历史。 </li>
+    <li>将master分支的指针移到新的commit结点。 </li>
+  </ul>
+  <p align="left">至此我们知道了Git的三个分区分别是什么以及他们的作用，以及历史链是怎么被建立起来的。<strong>基本上Git的大部分指令就是在操作这三个分区以及这条链。</strong>可以尝试的思考一下git的各种命令，试一下你能不能够在上图将它们<strong>“可视化”</strong>出来，这个很重要，建议尝试一下。</p>
+
+<p>如果不能很好的将日常使用的指令“可视化”出来，推荐阅读 图解Git</p>
+  <p align="left"><strong>一些有趣的问题</strong><strong> </strong></p>
+
+<p>有兴趣的同学可以继续阅读，这部分不是文章的主要内容</p>
+
+<p><strong>问题1：为什么要把文件的权限和文件名储存在tree object里面而不是blob object呢？</strong><strong> </strong></p>
+
+<p>想象一下修改一个文件的命名。</p>
+
+<p>如果将文件名保存在blob里面，那么Git只能多复制一份原始内容形成一个新的blob object。而Git的实现方法只需要创建一个新的tree object将对应的文件名更改成新的即可，原本的blob object可以复用，节约了空间。</p>
+
+<p><strong>问题2：每次commit，Git储存的是全新的文件快照还是储存文件的变更部分？</strong><strong> </strong></p>
+
+<p>由上面的例子我们可以看到，Git储存的是全新的文件快照，而不是文件的变更记录。也就是说，就算你只是在文件中添加一行，Git也会新建一个全新的blob object。那这样子是不是很浪费空间呢?</p>
+
+<p>这其实是Git在空间和时间上的一个取舍，思考一下你要checkout一个commit，或对比两个commit之间的差异。如果Git储存的是问卷的变更部分，那么为了拿到一个commit的内容，Git都只能从第一个commit开始，然后一直计算变更，直到目标commit，这会花费很长时间。而相反，Git采用的储存全新文件快照的方法能使这个操作变得很快，直接从快照里面拿取内容就行了。</p>
+
+<p>当然，在涉及网络传输或者Git仓库真的体积很大的时候，Git会有垃圾回收机制gc，不仅会清除无用的object，还会把已有的相似object打包压缩。</p>
+
+<p><strong>问题3：Git怎么保证历史记录不可篡改？</strong><strong> </strong></p>
+
+<p>通过SHA1哈希算法和哈系树来保证。假设你偷偷修改了历史变更记录上一个文件的内容，那么这个问卷的blob object的SHA1哈希值就变了，与之相关的tree object的SHA1也需要改变，commit的SHA1也要变，这个commit之后的所有commit SHA1值也要跟着改变。又由于Git是分布式系统，即所有人都有一份完整历史的Git仓库，所以所有人都能很轻松的发现存在问题。</p>
+
+<p>希望大家读完有所收获，下一篇文章会写一些我日常工作中觉得比较实用的Git技巧、经常被问到的问题、以及发生一些事故时的处理方法。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
