@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>VC++使用DC画出点,线,矩形,椭圆 </title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.6em;
+}
+P{
+margin:16px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ 
+img{
+border:0;
+}
+.picsay{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+}
+.code0{
+color:red;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:0em;
+}
+.code2{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:2em;
+}
+.code4{
+color:blue;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:4em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<p>void CGraphicView::OnLButtonDown(UINT nFlags, CPoint point)<br />
+  {<br />
+//鼠标按下,设置坐标.<br />
+m_ptOrigin = point;<br />
+CView::OnLButtonDown(nFlags, point);<br />
+}</p>
+
+<p>void CGraphicView::OnLButtonUp(UINT nFlags, CPoint point)<br />
+  {<br />
+  //构造一个DC,传入当前对象.表示在当前对象使用.<br />
+  CClientDC dc(this);<br />
+  //创建一个画笔.(线的类型, 宽度, 颜色);<br />
+  CPen pen(PS_SOLID, 1, RGB(255, 0, 0));<br />
+  //把画笔选到设置描述表当中.覆盖默认画笔.<br />
+  dc.SelectObject(&amp;pen);<br />
+  //创建一个透明的画刷,来填充矩形的内部.<br />
+  CBrush *pBrush = CBrush::FromHandle((HBRUSH)GetStockObject(NULL_BRUSH));<br />
+  //把画刷加入设置描述表.<br />
+  dc.SelectObject(pBrush);</p>
+<p> switch(m_nDraeType) {<br />
+  case 1:<br />
+  //画点,传入一个坐标,设置画出的颜色.<br />
+  dc.SetPixel(point, RGB(255, 0, 0));<br />
+  break;<br />
+  case 2:<br />
+  //画直线.<br />
+  dc.MoveTo(m_ptOrigin);	//光标移动到按下鼠标的位置.<br />
+  dc.LineTo(point);		//画线画到鼠标抬起的位置.<br />
+  break;<br />
+  case 3:<br />
+  //画矩行.传入一个矩行对象.<br />
+  dc.Rectangle(CRect(m_ptOrigin, point));<br />
+  break;<br />
+  case 4:<br />
+  //画椭圆.传入一个矩行对象.<br />
+  dc.Ellipse(CRect(m_ptOrigin, point));<br />
+  break;<br />
+  }</p>
+<p> CView::OnLButtonUp(nFlags, point);<br />
+  }</p>
+<div id="article_content">
+  <p> 用了两年的VC，其实对OnPaint的工作原理一直都是一知半解。这两天心血来潮，到BBS上到处发帖询问，总算搞清楚了，现在总结一下。</p>
+  <p>      对于窗口程序，一般有个特点：窗口大部分的区域保持不变，只有不分区域需要重新绘制。如果将整个窗口全部刷新的画，就做了许多不必要的工作，因而，MFC采用了一套基于无效区的处理机制。在分析无效区处理之前，我们要明白一个现实，现在的机器还不够牛，如果够牛的话，我们干脆将整个窗口不断的重新绘制好了。事实上即使够牛也不行，对于一个单线程程序，通过一个while循环不断的刷新窗口，程序也无法相应其他消息（除非使用多线程），看来使用无效区的处理机制还是有其必然性的。</p>
+  <p>      VC程序是基于消息机制的，你所做的任何操作，比如点击鼠标，拖动窗口，首先进入系统的消息队列。这里的系统消息队列包括多个程序的消息，系统再将消息发送给相应的程序。既然是队列，这就有一个先进先出的问题，屏幕上的无效区更新消息出现的频率就会特别高。比如当左上角更新的消息还没有处理，右下角更新的消息已经过来了。为了避免多次处理WM_PAINT消息，系统就将这些窗口更新消息合并到一条，只是将无效区范围变成包括这两次更新无效区范围在内的矩形区域。这样就减少了WM_PAINT消息的处理次数，提高了效率。</p>
+  <p>      那么，在OnPaint消息处理函数中，又是怎样实现更新无效区的呢？首先，要明白MFC中所有绘图操作都是基于设备描述表(Device     Context，简称DC)的，具体信息可参看任何一本VC教材。DC中包含了绘图设备的各种信息，对于屏幕绘图，其实就是有一块内存（显存），专门用来存放要显示到屏幕上的信息，显示器以85HZ的频率（我以前的显示器）将其内容刷新的屏幕上。这里就到了关键点，显示器的刷新是将显存中的内容完全更新到显示器上，不存在无效区处理的问题，那么，无效区的处理一定发生在DC的绘图处理上。事实确实如此，当程序调用OnPaint消息时，首先将无效区范围传递给DC，DC在进行绘图操作时，就只更新无效区范围内的信息，其他地方的不管，这就提高了效率。开启OnPaint函数有下面三种选择:</p>
+  <p> 1）  直接发送WM_PAINT消息，用PostMessage()，SendMessage()函数发送WM_PAINT消息。使用以上两函数发送WM_PAINT消息，能将WM_PAINT消息发送到WINDOWS程序消息队列中，当WINDOWS将WM_PAINT消息发送给具体的消息处理函数时，如果窗口的无效区域为空则WINDOWS将不理睬该消息。若存在无效区域，则调用窗口处理函数处理。要注意的这里需要存在无效区域，因此要调用2）中的函数使得窗体（或者部分）无效，其处理过程与2）相同，将WM_PAINT消息送入消息处理队列。与3）不同的是WM_PAINT并不立即处理；</p>
+  <p> 2）  调用相应的API实现WM_PAINT消息的发送：Invalidate()，InvalidateRect()， InvalidateRgn()：以上函数将窗口的特定区域标定为无效，当WINDOWS检测到窗口中存在无效区域时将向消息队列发送WM_PAINT 消息。我当时用的就是Invalidate()函数；</p>
+  <p> 3）  UpdateWindow()：该函数调用后WINDOWS将向窗口发送一个非队列化的WM_PAINT消息，它不经过消息循环而直接发送给了窗口消息处理函数。如果窗口无效区域不存在，WINDOWS将不理睬该消息。注意这里因为要使得窗口无效区不存在，因此还是调用Invalidate()，InvalidateRect()， InvalidateRgn()函数，和2）中不同的是这里的WM_PAINT消息会被立即处理，而2）中是加入消息处理队列。</p>
+  <p> 简单起见，你可以使用2）中方案进行问题解决。</p>
+  <p>      现在你明白OnPaint的处理是怎么一回事了吧？这里还想说一下Invalidate和UpdateWindow的区别。Invalidate在消息队列中加入一条WM_PAINT消息，其无效区为整个客户区。而UpdateWindow直接发送一个WM_PAINT消息，其无效区范围就是消息队列中WM_PAINT消息（最多只有一条）的无效区。效果很明显，调用Invalidate之后，屏幕不一定马上更新，因为WM_PAINT消息不一定在队列头部，而调用UpdateWindow会使WM_PAINT消息马上执行的，绕过了消息队列。如果你调用Invalidate之后想马上更新屏幕，那就加上UpdateWindow()这条语句。</p>
+</div>
+<p> </p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
