@@ -1,0 +1,491 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>张小龙-年薪近3亿的微信之父</h3>
+
+<p>张小龙生于湖南邵东魏家桥镇，</p>
+<p>家庭主要特点：穷。</p>
+<p>不仅自己穷，亲戚也都很穷，可以说穷以类聚。爷爷做过铜匠，总的来说，标准的劳动阶级出身。</p>
+<p>家有兄弟两人，</p>
+<p>一个小龙，一个小虎。</p>
+<p>小虎好动，与邻里打成一片，</p>
+<p>小龙好静，喜好读书。</p>
+<p>“文静的像个妹子。”张小龙的表哥如是说。</p>
+<p>穷文富武，做个读书郎是个不错的选择。</p>
+<p>87年至94年，</p>
+<p>华中科技大学本硕连读。</p>
+<p>本科就读电信系，</p>
+<p>不喜欢上课，昼伏夜出，</p>
+<p>经常以拖鞋示人，</p>
+<p>晚上常与舍友守着酒精炉煮面，边打双升。</p>
+<p>硕士微波系，</p>
+<p>后在导师支持下开始做计算机软件开发，</p>
+<p>每天睡到自然中午醒，</p>
+<p>然后骑单车去实验室，</p>
+<p>一台386一坐就是晚上12点，</p>
+<p>c，c++，OOP，数据结构，算法...样样精通，</p>
+<p>接着说小龙哥，</p>
+<p>时常弄个小发明创造，</p>
+<p>随手设计个电路自个焊着玩，</p>
+<p>日常娱乐主要限于跟小基友们玩围棋，桌球，网球，保龄球，喝喝啤酒，吹吹牛，</p>
+<p>至于女朋友，</p>
+<p>切，男女比例100比3，好伐</p>
+<p>华中科技大学属性设置是一所男子学校~~~</p>
+<p>幸好还可以去录像厅，正所谓谈笑间，强橹灰飞烟灭</p>
+<p>一、初入职</p>
+<p>毕业后分配到电信机关工作，</p>
+<p>那个年代这可是令人羡慕的铁饭碗呀，</p>
+<p>可小龙哥站在电信那栋楼就开始觉得不爽，</p>
+<p>他掐指一算：</p>
+<p>吾名小龙，大射手座，阳光少男</p>
+<p>火象，宜居采光通风之所，</p>
+<p>此地阴凉破败，可谓龙遇浅滩，</p>
+<p>与发展不利，人生不利，找女朋友不利，</p>
+<p>直接拒了！</p>
+<p>第一个作品: Foxmail</p>
+<p>没多久小龙去了当时改革开放高地广州，</p>
+<p>在这里前后在两家小电脑公司工作。</p>
+<p>工作期间，闲着没事，撸了个免费软件叫：Foxmail。</p>
+<p>这是他的成名之作，</p>
+<p>直接奠定了小龙顶级程序员的江湖地位。</p>
+<p>Foxmail是当时国内最先进的邮件系统，单挑微软的Outlook，很快就聚集了几百万用户，什么概念?同期的QQ才10万用户。而且由于软件确实好用，以至于他不得不放了语言包，让粉丝翻译了十几种语言给国外的用户用。</p>
+<p>瞅瞅标题，真特么有个性</p>
+<p>二、约串周鸿祎</p>
+<p>一时间，小龙声名在外，</p>
+<p>彼时还在方正混的周鸿祎，</p>
+<p>出于对小龙的满心崇拜，</p>
+<p>经人引荐，奔赴广州拜见。</p>
+<p>就此两人开始了相约撸串的基友生涯，</p>
+<p>周鸿祎去广州出差时就会找他，</p>
+<p>一起下馆子、淘影碟(不知道包括爱情动作片不，值得深思的问题呀)。</p>
+<p>同样程序员出身的周鸿祎，</p>
+<p>老周可是极具商业头脑，</p>
+<p>他不厌其烦劝小龙「要在邮箱加上广告，要赚钱」。</p>
+<p>每到这时候，张小龙都会陷入长时间的沉默，任由金丝猴香烟燃烧，许久才喃喃自语般回答「为什么非要这样？只要有用户，有情怀就好了。」</p>
+<p>周鸿祎：....</p>
+<p>劝了几次，老周觉得这个人有些痴线，空有一身才华，却没商业头脑，真不上道，朽木不可雕也~~~</p>
+<p>以至于后来小龙哥做了微信，老周不可思议的说：就这人，咋能做出微信这样的产品~~~</p>
+<p>吃瓜群众们可能不知道，维护一个软件是意见特别耗费时间和精力的事情，小龙后来甚至不惜辞去工作进行邮箱的日常维护，为此生活十分艰困。「穷」就一个字，贯穿了他独自研发Foxmai的成名之路。</p>
+<p>三、和雷军通电话</p>
+<p>这一天，</p>
+<p>小龙收到一封邮件，</p>
+<p>署名是金山软件CEO雷军，</p>
+<p>表明有一些技术问题需要沟通。</p>
+<p>强忍着内心的激动(那时小龙虽然出名但依然是屌丝，而雷军已是偶像人物)，</p>
+<p>接通雷军电话，</p>
+<p>两人开始沟通技术问题。</p>
+<p>当然这都是雷军的套路，没哪个老总会闲着没事找bug玩，醉翁之意不在酒~~~</p>
+<p>讨论完技术问题，雷军直奔主题。</p>
+<p>雷军：有没有可能卖给金山吗？</p>
+<p>小龙难抑激动：15万，怎么样？</p>
+<p>免费的Foxmail不知道如何赚钱，维护繁重，小龙已经抗不下去了，早点卖了，还能改善一下生活，出口就低价，是怕价太高吓跑雷军~~</p>
+<p>雷军：那就这么定了，改天见面聊再定价格。</p>
+<p>雷军心说：Are you OK？这么低，毕竟几百万用户呢，一下这么低，整的我不好意思压价了，台词都白准备好啦~~</p>
+<p>但最后还是没有成交。</p>
+<p>雷军后来给的解释是当时忙于联想注资的事，派下属去找张小龙洽谈收购事宜。双方见面，不善言辞的张小龙令对方颇为鄙夷：「就这些？金山的人一两个月就能做出来。」价值被否，谈判告吹，不了了之。</p>
+<p>让程序员去买另外一个程序员的作品，这几乎是不可能的，雷军或许那会已经不想买了，就找个人打发了小龙。</p>
+<p>雷军后来还想1000万买网易，当时丁磊就呵呵了两下。</p>
+<p>雷军那时功成名就，或许有些精英思想上身，自以为是，要不然怎么解释连连错失多个牛人(马云，马化腾等)</p>
+<p>四、成了富翁</p>
+<p>一年多后(2000年)，</p>
+<p>博大互联网络公司花1200万元收购了Foxmail，张小龙加盟博大。</p>
+<p>“从灵魂到外表，我能数出它每一个细节，每一个典故。在我的心中，它是有灵魂的，因为它的每一段代码，都有我那一刻塑造它时的意识。我突然有了一种想反悔的冲动。”</p>
+<p>忍住了冲动，小龙哥收钱先买了一辆好车，放了个假，来了一趟西藏游，回来后接着上班。</p>
+<p>看到FoxMail1200万出售的消息，雷军有些后悔。</p>
+<p>当时有记者问他怎么看，他说“直到今天，还有程序员告诉我，一两个月就能做好一个FoxMail。我做过差不多十年软件，我非常清楚一两个月，只能做出一个e-mail软件的原型，要做到FoxMail的易用性和所有功能，绝没可能。”</p>
+<p>之后几年，不断优化Foxmail，坐实邮箱界领航者的地位。</p>
+<p>但博大不善经营，最终2005年把Foxmail专卖给腾讯，张小龙就这样被加盟腾讯。</p>
+<p>张小龙终于迎来了自己的终极贵人和伯乐：马化腾。</p>
+<p>马化腾可能在其他人的使用上有过失误，或者错过一些人，但在张小龙身上，小马哥一直耐心宽容，坚决支持，展现了一个眼光高远的领袖应该有的气质。</p>
+<p>五、QQ邮箱</p>
+<p>刚开始加入腾讯这个大家庭，</p>
+<p>马化腾允许小龙和他的团队继续留在广州。</p>
+<p>这个特区般的待遇一直保持到现在，也就是传说中的广研了。</p>
+<p>小马哥只说了一句：</p>
+<p>“将QQ邮箱打造成为中国的hotmail。”</p>
+<p>然后背手飘然而去。</p>
+<p>那一刻，可能小龙心中一凛：好帅呀~</p>
+<p>接下QQ邮箱这个烂摊子后，</p>
+<p>张小龙团队陷入对hotmail的疯狂模仿中。</p>
+<p>半年后，一款被称为“巨无霸”的邮箱面世。</p>
+<p>果然很巨——无比笨重，速度超慢。</p>
+<p>“连张小龙自己都不想用这款邮箱。”</p>
+<p>一时间，团队处于迷茫、士气消沉的状态。</p>
+<p>2006年，想清楚思路的张小龙在年会上向团队宣布“我们要做七星级的邮箱，最好的邮箱”时，台下的工程师都笑了。</p>
+<p>QQ邮箱推到重构，</p>
+<p>重写全部代码，</p>
+<p>功能精简注重稳定，</p>
+<p>一切重新出发，</p>
+<p>2007年QQ邮箱新版本上线，</p>
+<p>超大附件上线，</p>
+<p>漂流瓶上线，</p>
+<p>漂流瓶让人叫绝，谁能想到邮箱可以这么玩，产品经理做到小龙哥这份上，可以算是开创历史了</p>
+<p>阅读空间上线，</p>
+<p>........</p>
+<p>终于QQ邮箱做到了全国用户量第一，</p>
+<p>那段时间，作者用网易邮箱，后来改用QQ邮件是我唯一的常用邮件。</p>
+<p>虽然QQ邮箱取得了不错的成绩，</p>
+<p>但盈利模式一直模糊不清，</p>
+<p>在以营收论英雄的腾讯体系内，</p>
+<p>偏距广州的张小龙团队一直游离在边缘。</p>
+<p>张小龙每两周驱车去深圳开一次总裁办公会议，开完即回，几乎很少留宿过夜。</p>
+<p>在腾讯内部，张小龙的名气主要来自两个方面：</p>
+<p>1.他是公司某次运动会网球赛的冠军，</p>
+<p>2.他是全广州最大的KENT香烟消费者之一。</p>
+<p>六、封神之作-微信</p>
+<p>2010年10月19日，</p>
+<p>Kik在国外横空出世，</p>
+<p>在短短15天里吸引了100万名使用者。</p>
+<p>注意到这款产品后，</p>
+<p>张小龙非常激动，</p>
+<p>深夜给马化腾写邮件，</p>
+<p>建议由他的广州团队做一个类似Kik的产品。</p>
+<p>马化腾立即回邮件：整！立马整！</p>
+<p>同时注意到Kik的还有雷军，</p>
+<p>他下令研发米聊：</p>
+<p>“如果腾讯介入这个领域，那米聊成功的可能性就会被大大降低接入得越早，我们成功的难度越大。据内部消息，腾讯给了我们3个月的时间”，</p>
+<p>2010年12月10日，米聊先于上线。</p>
+<p>在微信诞生两年后的一次公开演讲中，</p>
+<p>马化腾揭晓了一个秘密：</p>
+<p>“微信概念出来的时候，有三个团队都在做。”</p>
+<p>最后胜出的是张小龙。</p>
+<p>根据经验揣测最大的原因是，深圳两个团队是手Q团队的，产品思路必然延续手Q，并需要考虑各方面利益，生怕会侵害到QQ和合作伙伴的利益，在束手束脚的情况下，做出的产品高度不会超过QQ，最大可能性事阉割版的手Q。既然已经有了手Q了，为啥还需要一个阉割版的，所以没有历史包袱的张小龙相对来说会大胆博出位。</p>
+<p>总之，马化腾选择押宝张小龙。</p>
+<p>2011年1月21日，</p>
+<p>也就是米聊上线一个月后，</p>
+<p>微信上线。</p>
+<p>刚开始的时候，有老大的支持，小龙哥信心满满，在下属面前夸下海口，信誓旦旦要做一个替代QQ的跨时代的产品，当时给微信准备了一个域名叫next.qq.com，由此可见小龙哥当时真是直接暴漏野心，这下可炸锅了，各方面的意见和压力直接反馈给了小马哥。</p>
+<p>江湖有传言，当时小马哥把几位腾讯副总和张小龙叫道一起吃饭，名为吃饭，实际上是教小龙哥如何做人，整个过程极其压抑，几位腾讯副总各怀心事，小龙哥低头听老大训示。</p>
+<p>之后第二天，next.qq.com被勒令停止使用。</p>
+<p>除了内部，外部运营商通过腾讯内部向张小龙施压。</p>
+<p>腾讯某副总裁致电张小龙：希望停止更新微信版本。</p>
+<p>老大态度不明，</p>
+<p>张小龙更是怀着随时都是最后一个版本的心情，</p>
+<p>破釜沉舟地授意下属推出了带语音的微信，</p>
+<p>虽然得罪了领导，但微信终于站稳了脚跟。</p>
+<p>很快小马哥下定决心，</p>
+<p>全部资源倾向微信，</p>
+<p>包括QQ的用户数据和资源，</p>
+<p>并为此开除了一个QQ的副总祭旗，</p>
+<p>小马哥挺小龙的手段，</p>
+<p>相比另外一个大佬马云当年挺王坚的曲线优柔，</p>
+<p>可谓是非常激烈。</p>
+<p>到了2011年7月，</p>
+<p>微信推出“查看附近的人”功能，</p>
+<p>这一功能的推出彻底扭转了局面。</p>
+<p>微信用户开始呈现几何数增长，</p>
+<p>将米聊远远甩在后面。</p>
+<p>2012年3月29日，</p>
+<p>在微信上线433天，</p>
+<p>马化腾宣布微信在线用户数突破1亿，</p>
+<p>成为当时用户数破亿最快的APP。</p>
+<p>米聊已无反击之势。</p>
+<p>“米聊输给微信在情理之中，因为微信是QQ的马甲。”</p>
+<p>在一次公开活动上，雷军略有怨气地说道。</p>
+<p>有些偏颇，实际上基于熟人关系的微信跟QQ有一些本质区别。</p>
+<p>不管怎么说，一个顶级的产品经理，加上QQ多年积累的社交沉淀，终于给腾讯孕育出了一张互联网移动时代的船票。</p>
+<p>微信孕育出来的微信支付更是在马云的电商帝国打开一个大洞！</p>
+<p>张小龙所有做过的产品，都有一个特质，那就是坚持在极简和商业之间找到最大的平衡，并且略倾向于极简。</p>
+<p>有些人可能要反驳我，说微信现在就是个超级APP，哪块极简了，我想说的是，如果换个产品经理，微信会做的更巨大，商业化会更浓，而且是你作为用户，一定会很讨厌的那种巨大。</p>
+<p>现在的微信，很巨大，但小龙哥很小心很克制，很努力不去触碰用户的底线和感受，这样做最大的好处，避免透支微信的生命，延长了微信的存活周期。</p>
+<p>举个例子，微信火了之后，腾讯高层和股东让他添加很多商业功能，张小龙态度十分强硬：“等我离开腾讯你再加吧。”</p>
+<p>朋友圈的推荐广告是马化腾亲自跟小龙哥谈了很久，然后双方妥协出来的结果，小龙哥说：只放大客户，频率低，用户可以自主屏蔽，缺一不可。</p>
+<p>试问，天底下能跟老板叫板的产品经理能有几人，霸道如斯~~~如斯~~~斯~~~</p>
+<p>七、跟小程序相关的小故事</p>
+<p>一个叫DCloud的公司，邀请小龙哥访问自己的公司，并介绍了自己流应用产品，希望能跟微信合作(微信控股或者收购)，小龙哥和团队的成员详细沟通了很多细节，后来，小程序就诞生了。</p>
+<p>怕吃瓜群众看不懂，翻译一下：小龙哥自己写了一个Dcloud公司的流应用，起名字叫小程序。</p>
+<p> </p>
+<p>或许小龙哥当时突然理解了当年金山的技术负责人评价Foxmail说的那句话：“就这些，我们一个两月就做出来”。</p>
+<p>让一个程序员买另外一个程序员的软件，终归是妄想。</p>
+
+
+<p style='float:right;'>本页共195段，6102个字符，14643 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
