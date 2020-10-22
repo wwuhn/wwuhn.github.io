@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>从VCPP6.0到VS2019及下载、安装、使用细节</h3>
+
+<p>Microsoft Visual C++（简称Visual C++、MSVC、VC++或VC）是微软公司的C++开发工具，具有集成开发环境，可提供编辑C语言，C++以及C++/CLI等编程语言。VC++集成了便利的除错工具，特别是集成了微软Windows视窗操作系统应用程序接口（Windows API）、三维动画DirectX API，Microsoft .NET框架。
+</p>
+
+<p>1992年MS推出Microsoft Visual C++ 1.0，集成了MFC2.0，是Visual C++第一代版本，可同时支援16位处理器与32位处理器版，是Microsoft C/C++ 7.0的更新版本。
+</p>
+
+<p>1995年，微软发布了 Visual Studio（一个集成多种语言的开发环境）。
+</p>
+
+<p>1997年，微软发布了 Visual Studio 97。包含有面向 Windows 开发使用的Visual Basic 5.0、Visual C++ 5.0，面向Java开发的Visual J++和面向数据库开发的 Visual FoxPro，还包含有创建 DHTML (Dynamic HTML) 所需要的 Visual InterDev。其中，Visual Basic 和 Visual FoxPro 使用单独的开发环境，其他的开发语言使用统一的开发环境。
+</p>
+
+<p>1998 年，微软发布了 Visual Studio 6.0。所有开发语言的开发环境版本均升至 6.0。这也是 Visual Basic 最后一次发布，从下一个版本 (7.0) 开始，Microsoft Basic 进化成了一种新的面向对象的语言：Microsoft Basic .NET 2002。
+</p>
+
+<p>2002年MS发行了Microsoft Visual C++ .NET 2002，集成了MFC7.0，支持链接时代码生成和调试执行时检查。这个版本还集成了Managed Extension for C++，以及一个全新的用户界面（与Visual Basic和Visual C#共用）。从这个版本开始，所有的API形式上都被定义成位数无关的，并且开始支持原生64位软件的开发。	与此同时，微软引入了建立在 .NET 框架上（版本1.0）的托管代码机制以及一门新的语言	C#（读作 C Sharp）。C# 是一门建立在	C++	和 Java 基础上的现代语言，是编写 .NET 框架的语言。
+</p>
+
+<p>目前最新的版本是Microsoft Visual C++ 2017。
+</p>
+
+<p>一、C++ 6.0
+</p>
+
+<p>Microsoft Visual C++ 6.0，简称VC6.0，是微软于1998年推出的一款C++编译器，集成了	MFC 6.0，包含标准版（Standard Edition）、专业版（Professional Edition）与企业版（Enterprise Edition），整合在Visual Studio 98中，可单单独安装	。发行至今一直被广泛地用于大大小小的项目开发。
+</p>
+
+<p>VC++ 6.0占用的系统资源比较少，打开工程、编译运行都比较快，能够直接新建.cpp文件编译运行，所以赢得很多软件开发者的青睐。但因为它先于C++标准推出，所以对C++标准的支持不太好。举个例子：
+</p>
+
+<p>for(int i=0; i<5; i++)
+</p>
+
+<p>{
+</p>
+
+<p>;
+</p>
+
+<p>}
+</p>
+
+<p>cout&lt;&lt;i; //输出5
+</p>
+
+<p>for(int i=0; i<5; i++) //'i' : redefinition; multiple initialization
+</p>
+
+<p>{
+</p>
+
+<p>;
+</p>
+
+<p>}
+</p>
+
+<p>for语句中声明的变量i，对于VC++ 6.0来说，出了for循环仍能使用。但很显然这与C++标准对于变量生存期的规定不符合。
+</p>
+
+<p>以下提供一个下载地址（才30M，要知道VS2010可有2.5G）：
+</p>
+
+<p>https://pan.baidu.com/s/1o6wzGeu
+</p>
+
+<p>二、Visual Studio 2010
+</p>
+
+<p>Visual Studio 2010版本于2010年4月12日上市，其集成开发环境（IDE）的界面被重新设计和组织，变得更加简单明了。Visual Studio 2010同时带来了 NET Framework 4.0、Microsoft Visual Studio 2010 CTP( Community Technology Preview--CTP)，并且支持开发面向	Windows 7	的应用程序。除了	Microsoft SQL Server	，它还支持 IBM DB2	和	Oracle	数据库。Visual Studio 可以用来创建 Windows 平台下的 Windows 应用程序和网络应用程序，也可以用来创建网络服务、智能设备应用程序和 Office 插件。
+</p>
+
+<p>以下是下载、安装流程：
+</p>
+
+<p>1 下载VS 2010的ISO安装文件，文件达2.6G
+</p>
+
+<p>以下是微软VS最新版的下地址：
+</p>
+
+<p>https://visualstudio.microsoft.com/zh-hans/
+</p>
+
+<p>提供一个破解版的下载地址：
+</p>
+
+<p>http://pan.baidu.com/s/1hq26I8k
+</p>
+
+<p>2 下载并安装一个ISO文件使用工具ultraiso9
+</p>
+
+<p>（可使用的注册名和注册码：王涛 7C81-1689-4046-626F）
+</p>
+
+<p>3 VS 2010ISO安装文件右击→右键菜单荐：ultraiso→加载到光驱，此时在资源管理器可以看到虚拟光驱图标：
+</p>
+
+<p>4 点击图标后开始安装↓
+</p>
+
+<p>5 开始加载组件↓
+</p>
+
+<p>6 许可条款↓
+</p>
+
+<p>7 自定义还是完全安装↓
+</p>
+
+<p>要安装的功能，有两种：Full（完全）和Custom（自定义）。Full选项表示安装所有编程语言和工具，Custom选择表示可以自定义要安装的编程语言和工具。右侧可以更改安装路径。
+</p>
+
+<p>下图可以看到需要的磁盘空间达6.2G。
+</p>
+
+<p>8 选择自定义，可以看到可安装的组件↓
+</p>
+
+<p>其中VC++需要空间达1.6G，SQL需要1.3G，后面的工具需要2.8的空间。
+</p>
+
+<p>大家可以根据自己的需要取消某些语言或工具的安装，比如不想安装Visual C#，取消选择它就可以了。如果觉得以后都有可能会用到，那就选择完全安装吧。
+</p>
+
+<p>9 开始安装↓
+</p>
+
+<p>大概有40多个组件，需要安装50分钟左右。
+</p>
+
+<p>组件的后一屏↓
+</p>
+
+<p>本人安装时提示SQL安装失败↓
+</p>
+
+<p>10 选择默认开发环境↓
+</p>
+
+<p>11 启动后的起始页↓
+</p>
+
+<p>12 安装MSDN
+</p>
+
+<p>我们使用VS2010进行软件开发同样离不开帮助文档，即MSDN。在本地安装MSDN的方法如下：
+</p>
+
+<p>12.1 在开始菜单的“所有程序”->“Microsoft Visual Studio 2010”->“Visual Studio Tools”下选择“Manage Help Settings - CHS”↓
+</p>
+
+<p>12.2 选择从磁盘安装内容↓（过会选择虚拟光驱下的路径）
+</p>
+
+<p>12.3 选择虚拟光驱下的路径↓
+</p>
+
+<p>12.4 选择内容，点击启用↓
+</p>
+
+<p>12.5 新建项目，开始开发↓
+</p>
+
+<p>－End－
+</p>
+
+
+
+<p style='float:right;'>本页共57段，2885个字符，5582 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

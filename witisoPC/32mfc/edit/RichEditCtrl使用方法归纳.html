@@ -1,0 +1,506 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>RichEditCtrl使用方法归纳</h4>
+
+
+ 
+<h4>一.常见问题</h4>
+<h4>a.可以编译,不能执行的</h4>
+<p>除非你是在使用CRichEditView，否则你必须在显示该对话框之前调用AfxInitRichEdit初始化RichEditCtrl的运行环境，通常是在你的应用程序的IniInstance成员函数中调用这个函数。</p>
+<p>AfxInitRichEdit();</p>
+<h4>b.升级默认的Riched版本(默认的有一些bug)，如</h4>
+<p>可在InitInstance中添加</p>
+<p>LoadLibrary("RICHED20.DLL")</p>
+<p>最后注意 FreeLibrary 如果是CRichEditView基类的可用</p>
+<pre>
+BOOL CXXXXXXView::PreCreateWindow(CREATESTRUCT& cs)
+{
+    //装入rich edit version 2.0
+    if (LoadLibraryA("RICHED20.DLL") == NULL)
+    {
+        AfxMessageBox(_T("Fail to load "riched20.dll"."),MB_OK | MB_ICONERROR);
+        PostMessage(WM_QUIT,0,0);
+        return FALSE;
+    } m_strClass = RICHEDIT_CLASSA;//for 2.0 class return CRichEditView::PreCreateWindow(cs);
+}
+</pre>
+<h4>c.最后追加行</h4>
+<p>richeditctrl.SetSel(-1, -1);     //将光标移动到最后</p>
+<p>richeditctrl.ReplaceSel( (LPCTSTR)str );</p>
+<h4>d.字数限制</h4>
+<p>CRichEditCtrl::LimitText(long nChars)</p>
+<h4>e.换行切换</h4>
+<p>CRichEditView的OnInitialUpdate()函数中加入下面两句：</p>
+<p>m_nWordWrap = WrapNone;</p>
+<p>WrapChanged();</p>
+<p>WrapChanged实际上也是调用</p>
+<p>ctrl.SetTargetDevice(NULL, 1); //m_nWordWrap == WrapNone</p>
+<p>ctrl.SetTargetDevice(NULL, 0); //m_nWordWrap == WrapToWindow</p>
+<p>还有不常用的 m_nWordWrap == WrapToTargetDevice</p>
+<p>ctrl.SetTargetDevice(m_dcTarget, GetPrintWidth());</p>
+<p>如果是在Dialog中，可使用SetTargetDevice，注意在属性里面加上want return 
+<h4>f.有时候不希望带格式的数据粘贴，可通过PasteSpecial选择性粘贴</h4>
+<p>pmyRichEditCtrl->;PasteSpecial(CF_TEXT);</p>
+<h4>g.随着输入随着自动滚动条滚动到最后一行</h4>
+<pre>
+int nFirstVisible = pmyRichEditCtrl->GetFirstVisibleLine();
+if (nFirstVisible > 0)
+{
+   pmyRichEditCtrl->LineScroll(-nFirstVisible, 0);
+}
+</pre>
+或
+<p>m_cRichEdit.PostMessage(WM_VSCROLL, SB_BOTTOM,0);</p>
+<h4>h.设置UNDO的次数(只能用在RICHED20以上，即默认不支持，必须升级)</h4>
+<p>SendMessage(EM_SETTEXTMODE,TM_MULTILEVELUNDO,0);</p>
+<p>TM_MULTILEVELUNDO 支持多取消(默认值).可通过EM_SETUNDOLIMIT设置最大次数</p>
+<p>SendMessage(EM_SETUNDOLIMIT,100,0);</p>
+<h4>i.响应OnChange</h4>
+<p>EM_SETEVENTMASK 设置 ENM_CHANGE</p>
+<p>long lMask = GetEventMask();</p>
+<p>lMask |= ENM_CHANGE;</p>
+<p>lMask &= ~ENM_PROTECTED;</p>
+<p>SetEventMask(lMask);</p>
+<h4>j.设置只读</h4>
+<p>CRichEditCtrl::SetReadOnly( BOOL bReadOnly = TRUE );</p>
+<h4>二.函数应用
+a.设置字体（主要是通过SetSelectionCharFormat）</h4>
+<pre>
+CHARFORMAT cf;
+ZeroMemory(&cf, sizeof(CHARFORMAT));
+cf.cbSize = sizeof(CHARFORMAT);
+cf.dwMask|=CFM_BOLD;
+cf.dwEffects|=CFE_BOLD;//设置粗体，取消用cf.dwEffects&=~CFE_BOLD;
+cf.dwMask|=CFM_ITALIC;
+cf.dwEffects|=CFE_ITALIC;//设置斜体，取消用cf.dwEffects&=~CFE_ITALIC;
+cf.dwMask|=CFM_UNDERLINE;
+cf.dwEffects|=CFE_UNDERLINE;//设置斜体，取消用cf.dwEffects&=~CFE_UNDERLINE;
+cf.dwMask|=CFM_COLOR;
+cf.crTextColor = RGB(255,0,0);//设置颜色
+cf.dwMask|=CFM_SIZE;
+cf.yHeight =200;//设置高度
+cf.dwMask|=CFM_FACE;
+strcpy(cf.szFaceName ,_T("隶书"));//设置字体
+rich.SetSelectionCharFormat(cf);
+</pre>
+<h4>b.设置字体的行间距</h4>
+<p>要用richedit2.0以上</p>
+<pre>
+PARAFORMAT2 pf;
+pf.cbSize = sizeof(PARAFORMAT2);
+pf.dwMask = PFM_NUMBERING | PFM_OFFSET;
+pf.wNumbering = PFN_BULLET;//注意PFM_NUMBERING
+pf.dxOffset = 10;
+VERIFY(SetParaFormat(pf));
+</pre>
+<p>常用的dwMask有</p>
+<p>PFM_NUMBERING 成员 wNumbering 才起作用，项目符号，</p>
+<p>默认用PFN_BULLET</p>
+<p>2 使用阿拉伯数字 (1, 2, 3, ...).  </p>
+<p>3 使用小写字母 (a, b, c, ...).  </p>
+<p>4 使用大写字母 (A, B, C, ...).  </p>
+<p>5 使用小写罗马数字 (i, ii, iii, ...).  </p>
+<p>6 使用大写罗马数字 (I, II, III, ...).  </p>
+<p>7 自定义，字符见成员 wNumberingStart.  </p>
+<p>PFM_OFFSET 成员 dxOffset 才起作用，缩进，单位twips</p>
+<p>PFM_STARTINDENT 成员 dxStartIndent 才起作用，首行缩进</p>
+<p>PFM_SPACEAFTER 成员 dySpaceAfter 才起作用，段间距</p>
+<p>PFM_LINESPACING 成员 dyLineSpacing 才起作用，行间距</p>
+<h4>c.设置CRichEditCtrl(2.0)背景透明</h4>
+<pre>
+long style = ::GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE);
+style &= WS_EX_TRANSPARENT;
+::SetWindowLong(GetSafeHwnd(), GWL_EXSTYLE, style);
+</pre>
+<p>或 CreateEx，然后把WS_EX_TRANSPARENT样式加上</p>
+<h4>e.得到内容有三种</h4>
+<p>1)GetWindowText</p>
+<p>2)使用EM_GETTEXTEX</p>
+<pre>
+GETTEXTEX gt;
+gt.cb = 200;
+gt.flags = GT_DEFAULT;
+gt.codepage = CP_ACP ;
+gt.lpDefaultChar = NULL;
+gt.lpUsedDefChar = NULL;
+SendMessage(EM_GETTEXTEX,(WPARAM)>,(LPARAM)text);
+</pre>
+<p>3)StreamOut(主要用于RTF等格式输出)</p>
+<pre>
+static DWORD CALLBACK
+MyStreamOutCallback(DWORD dwCookie, LPBYTE pbBuff, LONG cb, LONG *pcb)
+{
+    CFile* pFile = (CFile*) dwCookie;    pFile->Write(pbBuff, cb);
+    *pcb = cb;    return 0;
+}
+CFile cFile(TEXT("myfile.rtf"), CFile::modeCreate|CFile::modeWrite);
+EDITSTREAM es;
+es.dwCookie = (DWORD) &cFile;//设置用例参数,以便回调函数调用
+es.pfnCallback = MyStreamOutCallback;
+pmyRichEditCtrl->StreamOut(SF_RTF, es);
+</pre>
+<p>读入可以此类推，SetWindowText,EM_SETTEXTEX,StreamIn</p>
+<h4>f.查找字符串</h4>
+<pre>
+FINDTEXTEX ft;
+ft.chrg.cpMin = 0;
+ft.chrg.cpMax = -1;
+ft.lpstrText = "|";
+long lPos = FindText(0, &ft); 如果要继续查找，修改cpMin,如
+int nCount = 0;
+do
+{
+    long lPos = GetRichEditCtrl().FindText(0, &ft);
+    if( -1 == lPos) break;
+    ft.chrg.cpMin = lPos + strlen(ft.lpstrText);
+    ++nCount;
+}while(TRUE);
+</pre>
+<h4>g.重载OnProtected函数得到对应的消息，如粘贴等</h4>
+<pre>
+void CMYichEditorView::OnProtected(NMHDR* pNMHDR, LRESULT* pResult)
+{
+    ENPROTECTED* pEP = (ENPROTECTED*)pNMHDR;  
+    switch (pEP->msg) {
+        case WM_KEYDOWN://按键，判断pEP->wParam
+        case WM_PASTE://粘贴
+        case WM_CUT://剪切
+        case EM_SETCHARFORMAT:
+        default:
+            break;
+    };
+    *pResult = FALSE;
+}
+</pre>
+<h4>三.聊天常用</h4>
+h4>a.LINK 链接功能</h4>
+<p>1.  LoadLibrary(_T("Riched20.dll"));</p>
+<p>2. 创建RichEdit2.0控件</p>
+<pre>
+CreateEx(0, _T("RichEdit20A"), NULL, WS_CHILD|WS_VISIBLE|WS_VSCROLL|WS_TABSTOP
+         |ES_READONLY|ES_WANTRETURN|ES_MULTILINE,
+         rect.left, rect.top, cx, cy,
+         pParentWnd->m_hWnd, (HMENU)nID, NULL);
+</pre>
+<p>3. 设定选中的文字为链接显示</p>
+<pre>
+CHARFORMAT2 cf2;
+ZeroMemory(&cf2, sizeof(CHARFORMAT2));//
+cf2.cbSize = sizeof(CHARFORMAT2);
+cf2.dwMask = CFM_LINK;
+cf2.dwEffects |= CFE_LINK;
+m_cRichEdit.SendMessage(EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf2);
+</pre>
+<h4>4.支持链接的点击响应</h4>
+<p>m_cRichEdit.SetEventMask(ENM_LINK);</p>
+<h4>5.响应链接的点击</h4>
+<pre>
+EN_LINK BEGIN_MESSAGE_MAP(CMyRichEdit, CRichEditCtrl)
+ON_NOTIFY_REFLECT(EN_LINK,OnURL)
+END_MESSAGE_MAP()
+...... 
+void CMyRichEdit::OnURLClick(NMHDR *pNmhdr, LRESULT *pResult)
+{
+    TCHAR LinkChar[512];
+    ENLINK *pLink = (ENLINK *)pNmhdr;
+    if (pLink->msg == WM_LBUTTONUP)
+    {
+        SetSel(penLink->chrg);//这是链接的文字范围
+        long Res = GetSelText((char *)LinkChar);//这是链接文字
+        //后面是你的处理过程
+        ......
+    }
+}
+</pre>
+
+<p style='float:right;'>本页共211段，6276个字符，7684 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

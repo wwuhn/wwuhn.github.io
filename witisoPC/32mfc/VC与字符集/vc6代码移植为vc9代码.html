@@ -1,0 +1,581 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>vc6代码移植为vc9代码</h3>
+
+<p><a href="https://www.cnblogs.com/watchdatalearn2012620/archive/2012/08/07/2627111.html" title="">ref</a></p>
+<p>首先可以直接用Visual Studio 2008的打开VC6的工作区文件和项目文件(dsw和dsp)，并将其升级为VS2008的解决方案格式和项目格式(sln和vcproj)，VC9的编译器相对于VC6有了很大的变化，一些编译参数和链接参数被废弃(比如/map:line)，有一些改变了名称,还有新增的选项，不过不用担心，升级过程会自动对其进行转换，最终都会得到一个正确的解决方案和VC项目文件，这个过程不会遇到太多的麻烦，问题都出在随后的编译过程中，下面就将我在移植的过程中遇到的问题和我的解决方法总结一下，希望对还在用VC6维护代码的朋友有所帮助。</p>
+<h4>一、_WIN32_WINNT 与_WIN32_IE 设置冲突</h4>
+<p>_WIN32_WINNT 与_WIN32_IE设置不兼容会导致如下C1189致命错误：</p>
+<p>StdAfx.cpp</p>
+<p>c:\program files\microsoft sdks\windows\v6.0a\include\sdkddkver.h(217) : fatal error C1189: #error : _WIN32_WINNT settings conflicts with _WIN32_IE setting</p>
+<p>StdAfx.cpp通常是项目中第一个编译的文件，这个错误将导致编译无法继续进行。产生这个错误的原因是原因是_WIN32_WINNT的版本定义太老，老的VC代码对_WIN32_WINNT的典型设置是：</p>
+<p>#ifndef _WIN32_WINNT</p>
+<p>#define _WIN32_WINNT 0x0400</p>
+<p>#endif</p>
+<p>0x0400相对于VS2008所带的Plarform SDK(在文件sdkddkver.h中)中_WIN32_IE的定义来说太老了，导致不兼容，可以将其改成0x0501或更高的版本避免这个问题，如下所示：</p>
+<p>#ifndef _WIN32_WINNT</p>
+<p>#define _WIN32_WINNT 0x0501</p>
+<p>#endif</p>
+<p>也可以将这三行_WIN32_WINNT定义删除，这样就会使用Plarform SDK中的_WIN32_WINNT定义，自然就不存在不兼容问题了。不过出于对老版本VC的兼容考虑(毕竟以后可能还要使用VC6编译代码)，最好这样修改：</p>
+<p>#if _MSC_VER <= 1200 // MFC 6.0 or earlier</p>
+<p>#ifndef _WIN32_WINNT</p>
+<p>#define _WIN32_WINNT 0x0400</p>
+<p>#endif</p>
+<p>#endif</p>
+<h4>二、afximpl.h文件中的语法错误</h4>
+<p>MFC出现的时候STL还没有成为C++的标准，所以MFC使用一套自己的模版库，比如CArray、CList、CMap等等，这些类型声明都在afximpl.h文件中。原来在VC6编译器适用的模版语法可能不适用VC9，特别是当以下四个环境变量设置不兼容时，就会出现这个编译错误，大致情况如下：</p>
+<p>e:/software/microsoft visual studio 9.0/vc/atlmfc/src/mfc/afximpl.h(625) : error C2059: syntax error : '<L_TYPE_raw>'</p>
+<p>e:/software/microsoft visual studio 9.0/vc/atlmfc/src/mfc/afximpl.h(625) : error C2238: unexpected token(s) preceding ';'</p>
+<p>e:/software/microsoft visual studio 9.0/vc/atlmfc/src/mfc/afximpl.h(629) : error C2059: syntax error : '<L_TYPE_raw>'</p>
+<p>e:/software/microsoft visual studio 9.0/vc/atlmfc/src/mfc/afximpl.h(629) : error C2238: unexpected token(s) preceding ';'</p>
+<p>合理调整stdafx.h中WINVER、_WIN32_WINNT、_WIN32_WINDOWS和_WIN32_IE的设置可以避免这个问题，将三个与Windows版本有关的环境变量设置为0x0501或更高版本，将IE版本的环境变量设置为0x0500以后的版本就可以解决这个问题。当然，考虑到与旧的VC6代码兼容，可以采用上一个问题中提到的最后一个解决办法，用_MSC_VER进行隔离。</p>
+<h4>三、 旧的CRT库和新的安全CRT库引起的C4996告警</h4>
+<p>解决了环境变量设置不匹配导致的问题后，编译过程就真正开始了，不过首先映入眼帘的应该是成堆的C4996编译告警，对每个使用了含字符串参数的CRT库函数都会有C4996编译告警，一个典型的输出如下所示：</p>
+<p>f:\project\.....\commonfunc.cpp(280) : warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.</p>
+<p>e:\software\microsoft visual studio 9.0\vc\include\string.h(74) : see declaration of 'strcpy'</p>
+<p>MSDN online 是这样解释的：为了显著增加CRT库的安全性，许多CRT函数都有了一个更安全的新版本，新版本和旧版本的区别就是新版本函数名多了一个_s后缀。只要一个CRT函数有新的安全版本，编译器就会产生一个C4996告警，不过，出现这个告警的目的并不是说旧版本的CRT函数将淡出CRT库，告警出现只是为了提醒程序员这个函数有更安全的版本存在。一种安全的或者是被鼓励的做法是用安全版本的函数替换现有的CRT函数，不过对于一个有相当代码量的项目，替换工作量也是巨大的，这可不是用名称查找、替换就能简单解决的问题，因为许多安全版本的CRT函数参数个数也发生了变化。也可以用预处理指令消除这个告警：</p>
+<p>#pragma warning( disable : 4996 )</p>
+<p>或者定义_CRT_SECURE_NO_WARNINGS 压制这个告警(在stdafx.h中define或在项目属性中设置预处理符号,PreProcessor Definitions)。</p>
+<p>除了C语言的CRT函数外，POSIX 兼容函数也存在这个告警，解决方法是用POSIX标准名称替换(比如access换成_access)或者是定义_CRT_NONSTDC_NO_WARNINGS 压制这个告警(方法同上)。</p>
+<h4>四、“CWinApp::Enable3dControls”引起的C4996告警</h4>
+<p>这个是编译使用了老的向导生成的MFC代码时遇到的问题，一个典型的告警信息输出如下所示：</p>
+<p>CrpFileCrack.cpp</p>
+<p>f:\project\.....\crpfilecrack.cpp(52) : warning C4996: 'CWinApp::Enable3dControls': CWinApp::Enable3dControls is no longer needed. You should remove this call.</p>
+<p>e:\software\microsoft visual studio 9.0\vc\atlmfc\include\afxwin.h(4818) : see declaration of 'CWinApp::Enable3dControls'</p>
+<p>通常向导生成的代码是：</p>
+<p>#ifdef _AFXDLL</p>
+<p>Enable3dControls(); // Call this when using MFC in a shared DLL</p>
+<p>#else</p>
+<p>Enable3dControlsStatic(); // Call this when linking to MFC statically</p>
+<p>#endif</p>
+<p>这两个函数的调用是旧的MFC版本对新版本的操作系统特性的支持，在新的(那个时候是新的)Windows 95平台上要这样调用一下才能使用新的Windows 3D样式的控件，否则就是老的Win 3.2样子的控件。想当初喜欢OWL就是因为感觉它的控件比较“酷”，比如那个带底纹的对话框，菱形的checkbox，还有带图标的“OK”按钮，看到MFC作出来的灰灰的界面就觉得土，不过后来就知道MFC做界面也是很漂亮的，比如我做的。。。。，再打住。对于新的MFC版本来说已经不需要再调用这两个函数了，参考前面的方法，用_MSC_VER对其隔离就行了：</p>
+<p>复制代码</p>
+<p>#if _MSC_VER <= 1200 // MFC 6.0 or earlier</p>
+<p>#ifdef _AFXDLL</p>
+<p>    Enable3dControls(); // Call this when using MFC in a shared DLL</p>
+<p>#else</p>
+<p>    Enable3dControlsStatic(); // Call this when linking to MFC statically</p>
+<p>#endif</p>
+<p>#endif</p>
+<p>复制代码</p>
+<h4>五、.def文件引起的连接告警</h4>
+<p>对于普通的DLL项目中使用的.def文件通常会引起LNK4017链接告警，如下所示：</p>
+<p>.\ComFunc.def(4) : warning LNK4017: DESCRIPTION statement not supported for the target platform; ignored</p>
+<p>Creating library .\..\Debug/ComFunc.lib and object .\..\Debug/ComFunc.exp</p>
+<p>一个典型的.def文件通常有以下内容：</p>
+<p>LIBRARY "XorCryptor"</p>
+<p>DESCRIPTION 'XorCryptor Windows Dynamic Link Library'</p>
+<p>EXPORTS</p>
+<p>; Explicit exports can go here</p>
+<p>..................</p>
+<p>消除这个连接告警的方法就是从.def文件中删除DESCRIPTION描述信息，不过这个告警也不是什么大问题，不删也可以。另一个可能产生的连接告警是LNK4222，通常出现在ocx控件和com组件的项目中，一个典型输出是：</p>
+<p>Linking...</p>
+<p>.\PlusInModule.def : warning LNK4222: exported symbol 'DllCanUnloadNow' should not be assigned an ordinal</p>
+<p>.\PlusInModule.def : warning LNK4222: exported symbol 'DllGetClassObject' should not be assigned an ordinal</p>
+<p>.\PlusInModule.def : warning LNK4222: exported symbol 'DllRegisterServer' should not be assigned an ordinal</p>
+<p>.\PlusInModule.def : warning LNK4222: exported symbol 'DllUnregisterServer' should not be assigned an ordinal</p>
+<p>出现这个告警的原因是旧的项目的.def文件通常这样定义ocx和com必需的四个导出函数：</p>
+<p>EXPORTS</p>
+<p>DllCanUnloadNow @1 PRIVATE</p>
+<p>DllGetClassObject @2 PRIVATE</p>
+<p>DllRegisterServer @3 PRIVATE</p>
+<p>DllUnregisterServer @4 PRIVATE</p>
+<p>其中为这四个重要的导出函数指定了四个顺序号。Windows平台上通常用两种方式定位DLL文件中的导出函数，一种是根据导出函数名称，一种是根据顺序号，上学时曾经写过一个显示图片的程序，能处理大多数当时流行的图像格式文件，唯独jpeg格式的搞不定，有一次看到一个图像处理软件中包含了一个LoadJpeg.dll，很显然这个DLL是处理jpeg格式的图像文件的嘛，于是赶快用depends look了一下，顿时高喊：鬼啊～～～。原来这个depends竟然查不到导出函数的名字，后来才知道还有NONAME参数强制用顺序号定位导出函数，于是就常常弄个没有导出函数名字的DLL到处show。。。。嗯，又扯远了。话说为什么旧的系统要以此指定这四个导出函数的顺序号我就没有研究了，反正现在不需要指定了，只要将@1，@2之类的删除就行了，不过不删好像也没什么问题，它们会被自动忽略。</p>
+<h4>六、使用MFC的消息映射宏引起的编译错误</h4>
+<p>错误现象之一：</p>
+<p>f:\project\.....\plusmaindlg.cpp(220) : error C2440: 'static_cast' : cannot convert from 'void (__thiscall CPlusMainDlg::* )(int,BOOL)' to 'LRESULT (__thiscall CWnd::* )(WPARAM,LPARAM)'</p>
+<p>None of the functions with this name in scope match the target type</p>
+<p>错误现象之二：</p>
+<p>f:\project\.....\crpfileopavdlg.cpp(87) : error C2440: 'static_cast' : cannot convert from 'LRESULT (__thiscall CCrpFileOpavDlg::* )(LPCTSTR,int)' to 'LRESULT (__thiscall CWnd::* )(WPARAM,LPARAM)'</p>
+<p>None of the functions with this name in scope match the target type</p>
+<p>以上两个编译错误产生是因为新旧版本的MFC 中对ON_MESSAGE消息映射宏定义不同引起的，先看看老版本的MFC的ON_MESSAGE消息宏定义：</p>
+<p>#define ON_MESSAGE(message, memberFxn) \</p>
+<p>{ message, 0, 0, 0, AfxSig_lwl, \</p>
+<p>(AFX_PMSG)(AFX_PMSGW)(LRESULT (AFX_MSG_CALL CWnd::*)(WPARAM, LPARAM))&memberFxn },</p>
+<p>再看看新版本的ON_MESSAGE定义：</p>
+<p>#define ON_MESSAGE(message, memberFxn) \</p>
+<p>{ message, 0, 0, 0, AfxSig_lwl, \</p>
+<p>(AFX_PMSG)(AFX_PMSGW) \</p>
+<p>(static_cast< LRESULT (AFX_MSG_CALL CWnd::*)(WPARAM, LPARAM) > \</p>
+<p>(memberFxn)) },</p>
+<p> </p>
+<p>注意，函数类型没有变化，都是：</p>
+<p>LRESULT (AFX_MSG_CALL CWnd::*)(WPARAM, LPARAM);</p>
+<p>类型的函数指针(CWnd以及派生类的类成员函数指针)，区别之处是新的ON_MESSAGE宏使用C++的static_cast 操作符代替了C类型的强制转换。产生这两个错误其实是因为用户没有按照ON_MESSAGE宏的约定声明和定义消息响应函数造成的，比如，对于某些不需要处理返回值的消息响应函数，用户通常这样声明和定义消息响应函数：</p>
+<p>在头文件中声明：</p>
+<p>afx_msg void OnFileProcess(WPARAM wParam,LPARAM lParam);</p>
+<p>在源文件中实现：</p>
+<p>void CCrpFileOpavDlg::OnFileProcess(WPARAM wParam, LPARAM lParam)</p>
+<p>{</p>
+<p>.......</p>
+<p>}</p>
+<p>或者更过分一些，直接指定为实际参数类型:</p>
+<p>在头文件中声明：</p>
+<p>afx_msg void OnFileProcess(LPCTSTR lpszMessage, int nPercent);</p>
+<p>在源文件中实现：</p>
+<p>void CCrpFileOpavDlg::OnFileProcess(LPCTSTR lpszMessage, int nPercent)</p>
+<p>{</p>
+<p>.......</p>
+<p>}</p>
+<p>旧版本的ON_MESSAGE使用了C类型的强制转换，宏解开后的代码后不会产生错误信息，但是改成对类型检查很严格的static_cast 操作符时就出问题了，因为通不过static_cast 操作符的检查。解决方法就是修改代码，同时吸取教训，普遍使用的方法并不一定就能约定俗成，一切还是要按照规矩来。</p>
+<p>错误现象之三：</p>
+<p>f:\project\.....\WzButton.cpp(74) : error C2440: 'static_cast' : cannot convert from 'UINT (__thiscall CWzButton::* )(CPoint)' to 'LRESULT (__thiscall CWnd::* )(CPoint)'</p>
+<p>Cast from base to derived requires dynamic_cast or static_cast</p>
+<p>出现这个错误的原因可是“人力不可抗拒”之原因造成的，因为旧版本的ON_WM_NCHITTEST 宏使用了</p>
+<p>UINT (__thiscall CWzButton::* )(CPoint);</p>
+<p>类型的类成员函数指针，其定义如下：</p>
+<p>#define ON_WM_NCHITTEST() \</p>
+<p>{ WM_NCHITTEST, 0, 0, 0, AfxSig_wp, \</p>
+<p>(AFX_PMSG)(AFX_PMSGW)(UINT (AFX_MSG_CALL CWnd::*)(CPoint))&OnNcHitTest },</p>
+<p>但是新版本变成了：</p>
+<p>#define ON_WM_NCHITTEST() \</p>
+<p>{ WM_NCHITTEST, 0, 0, 0, AfxSig_l_p, \</p>
+<p>(AFX_PMSG)(AFX_PMSGW) \</p>
+<p>(static_cast< LRESULT (AFX_MSG_CALL CWnd::*)(CPoint) > (&ThisClass :: OnNcHitTest)) },</p>
+<p>注意返回值类型由UINT改成了LRESULT，再加上static_cast的严格检查，所以就出错了。修改的方法就是将你的OnNcHitTest函数由：</p>
+<p>afx_msg UINT OnNcHitTest(CPoint point);</p>
+<p>改成：</p>
+<p>afx_msg LRESULT OnNcHitTest(CPoint point);</p>
+<p>不必太在意，这个不是你的错，不过，如果你要维护一个老的界面库(通常很多控件的subclass都会用到ON_WM_NCHITTEST)，改起来还是很痛苦地，不扯了，继续下一个。</p>
+<h4>七、statreg.cpp 和atlimpl.cpp 的废弃(obsolete)问题</h4>
+<p>在编译老的ATL向导生成的代码时，会遇到下面的编译输出：</p>
+<p>StdAfx.cpp</p>
+<p>statreg.cpp is obsolete. Please remove it from your project.</p>
+<p>atlimpl.cpp is obsolete. Please remove it from your project.</p>
+<p>因为老的ATL向导生成的代码通常在stdafx.cpp文件中添加以下代码：</p>
+<p>#ifdef _ATL_STATIC_REGISTRY</p>
+<p>#include&lt;/p>
+<p>#include&lt;/p>
+<p>#endif</p>
+<p>#include&lt;/p>
+<p>根据提示删除#include 和#include 两行代码就行了，不过更好的办法是这样改：</p>
+<p>#ifdef _ATL_STATIC_REGISTRY</p>
+<p>#include&lt;/p>
+<p>#if _MSC_VER <= 1200 // MFC 6.0 or earlier</p>
+<p>#include&lt;/p>
+<p>#endif</p>
+<p>#endif</p>
+<p>#if _MSC_VER <= 1200 // MFC 6.0 or earlier</p>
+<p>#include&lt;/p>
+<p>#endif</p>
+<h4>八、新的C++编译器不再支持默认类型的变量定义</h4>
+<p>错误现象是：</p>
+<p>f:\project\.....\WzCheckBox.cpp(464) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int</p>
+<p>产生这个错误的原因是程序中出现了这样的代码：</p>
+<p>const some_const_var = 10;</p>
+<p>或</p>
+<p>static some_static_bool = FALSE;</p>
+<p>新的C++编译器严格按照C++标准，不再支持默认类型的变量定义方式，必须严格指定变量类型，如下使用：</p>
+<p>const int some_const_var = 10;</p>
+<p>或</p>
+<p>static BOOL some_static_bool = FALSE;</p>
+<h4>九、for 语句的变量作用域问题</h4>
+<p>考察下面的代码：</p>
+<p>for(int i = 0; i < 120; i++)</p>
+<p>{</p>
+<p>if(something_happen)</p>
+<p>{</p>
+<p>break;</p>
+<p>}</p>
+<p>.............</p>
+<p>}</p>
+<p>if(i < 120)</p>
+<p>{</p>
+<p>//something happen</p>
+<p>}</p>
+<p>在VC6的编译器中，这样的代码是没有问题的，因为VC6的编译器为了兼容旧的Microsoft C/C++编译器，没有严格按照C++标准执行，但是从VC7开始，VC的编译器开始遵守C++标准，所以就会出现“变量i没有定义的错误”。解决的方法也很简单，按照Jim Hyslop 和Herb Sutter的经典对话系列的第四篇中的方法，改成如下就可以了：</p>
+<p>int i;</p>
+<p>for(i = 0; i < 120; i++)</p>
+<h4>十、字符串函数的返回值问题</h4>
+<p>strchr(_tcschr)、strpbrk(_tcspbrk)、strrchr(_tcsrchr)和strstr(_tcsstr)这四个函数在VC6的CRT库中定义的返回值都是char *(TCHAR *) （#add 括号里和括号外的也是依次对应），所以以前的代码通常是这样使用的：</p>
+<p>TCHAR *cp = _tcschr( pszPath, _T('\\') );</p>
+<p>//使用*cp，可以通过cp指针修改pszPath的内容</p>
+<p>这其实是一个“漏洞”，因为如果pszPath是const char(TCHAR) *字符串，那么就表示它不希望修改字符串的内容，但是调用strchr(_tcschr)函数后就可以通过cp指针修改其内容了，这岂不荒谬？所以在新版本的CRT库中，这几个函数的返回值都改成了const char *，这就会导致上面的代码产生编译错误。建议的修改方式是改成如下方式：</p>
+<p>const TCHAR *cp = _tcschr( pszPath, _T('\\') );</p>
+<p>//不能再通过cp指针修改pszPath的内容</p>
+<p>但是这样修改可能对代码的影响比较大，比如下面的代码：</p>
+<p>TCHAR buf[256]; //局部缓冲区</p>
+<p>......</p>
+<p>TCHAR *cp = _tcschr( buf, _T('\\') );</p>
+<p>//作为局部缓冲区(非const)，希望通过cp修改buf的内容</p>
+<p>这种情况怎么办呢？对了，C++还有个const_cast操作符，这时就可以排上用场了：</p>
+<p>TCHAR *cp = const_char(_tcschr( buf, _T('\\') ));</p>
+<p>不过上面的方法要慎用，除非确定buf是非const的，否则最好老老实实地修改代码。</p>
+<h4>十一、类成员函数指针做为函数参数的“C3867”错误</h4>
+<p>考察下面的代码，CWzWindowsHook类的构造函数使用一个该类的成员函数指针，这样构造对象时可以选择消息过滤的handler，可以是MouseMsgFilter，也可以是KeyboardMsgFilter：（#add 这个类的设计值得学习）</p>
+<p>typedef BOOL (CWzWindowsHook::*FILTERPROC)(WPARAM wParam, LPARAM lParam);</p>
+<p>// A hook used in customization sheet to filter keyboard/mouse events</p>
+<p>class CWzWindowsHook</p>
+<p>{</p>
+<p>private:</p>
+<p>FILTERPROC m_pFilter;</p>
+<p>BOOL MouseMsgFilter(WPARAM wParam, LPARAM lParam);</p>
+<p>BOOL KeyboardMsgFilter(WPARAM wParam, LPARAM lParam);</p>
+<p>public:</p>
+<p>CWzWindowsHook(FILTERPROC pFilter) : m_pFilter(pFilter)</p>
+<p>旧的遗留代码存在这样的用法：</p>
+<p>CWzWindowsHook mouseHooker(CWzWindowsHook::MouseMsgFilter);</p>
+<p>在VC6的编译器下编译可能没有问题，但是在VC9的编译器下编译会有如下报错：</p>
+<p>f:\project\.....\WzWindowsHook.cpp(272) : error C3867: 'CWzWindowsHook::MouseMsgFilter': function call missing argument list; use '&CWzWindowsHook::MouseMsgFilter' to create a pointer to member</p>
+<p>虽然C++从C继承来了函数名即是函数地址的语法规则，但是根据C++的标准，类成员函数的指针仍然需要一个取地址符“&”。解决方法很简单，按照提示改成如下代码即可：</p>
+<p>CWzWindowsHook mouseHooker(&CWzWindowsHook::MouseMsgFilter);</p>
+<h4>十二、wchar_t *类型与USHORT *的转换错误</h4>
+<p>VC6的编译器不支持wchar_t数据类型，wchar_t实际上被定义成unsigned short，VC9的编译器已经支持wchar_t为内置数据类型，但是由一个编译选项控制，这个选项默认是打开的，也就是将wchar_t作为编译器的内置数据类型。但是OLECHAR和WCHAR的定义仍然是unsigned short，在VC6的编译环境中，两者的指针都是USHORT *，相互赋值和做为函数参数传递没有问题，但是如果wchar_t作为编译器的内置数据类型，那就意味着wchar_t *与OLECHAR *或WCHAR *是两种不同类型的指针，相互赋值就会报编译错误，下面的信息就是一个典型的错误输出：</p>
+<p>f:\project\.....\shellpidl.cpp(290) : error C2664: 'MultiByteToWideChar' : cannot convert parameter 5 from 'USHORT *' to 'LPWSTR'</p>
+<p>Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast</p>
+<p>解决的方法就是使用C++的reinterpret_cast操作符或使用C-style强制转换，当然也可以在项目属性设置中关闭前面提到的那个选项(这个偶美试过，不知道会不会有其它问题)。</p>
+<p>附：</p>
+<h4>十三、模板特化(Template specialization)</h4>
+<p>模板的特殊化是当模板中的pattern有确定的类型时，模板有一个具体的实现。例如假设我们的类模板pair 包含一个取模计算（module operation）的函数，而我们希望这个函数只有当对象中存储的数据为整型(int)的时候才能工作，其他时候，我们需要这个函数总是返回0。这可以通过下面的代码来实现：</p>
+<p>template <class T></p>
+<p>class Pair {</p>
+<p>    T value1, value2;</p>
+<p>public:</p>
+<p>    Pair (T first, T second){</p>
+<p>        value1=first;</p>
+<p>        value2=second;</p>
+<p>    }</p>
+<p>    T module () {return 0;}</p>
+<p>};</p>
+<p>template <></p>
+<p>class Pair<int> {</p>
+<p>    int value1, value2;</p>
+<p>public:</p>
+<p>    Pair (int first, int second){</p>
+<p>        value1=first;</p>
+<p>        value2=second;</p>
+<p>    }</p>
+<p>    int module ();</p>
+<p>};</p>
+<p>//在模板特例化中,NET的特性</p>
+<p>template<> int Pair<int>::module() {</p>
+<p>    return value1%value2;</p>
+<p>}</p>
+<p>这里要注意,在.NET中template<>是不需要的,否则会发生</p>
+<p>Compiler Error C2910</p>
+<p>Error Message</p>
+<p>'function' : cannot be explicitly specialized错误,</p>
+<p>见:http://msdn.microsoft.com/en-us/library/cx7k7hcf(VS.80).aspx</p>
+<h4>十四、关于DX8SDK使用中link时出现的libci.lib无法找到的问题</h4>
+<p>    最近开发过程中碰到了用DX8 SDK编译项目时,在link的时候,无法打开libci.lib的问题.</p>
+<p>    LINK:fatal error  LNK1104:无法打开文件:libci.lib"</p>
+<p>     解决办法如下:</p>
+<p>    选择工程的属性,在linker选项中选择Command line ,增加下面一行:</p>
+<p>      /nodefaultlib:libci</p>
+<p>   原因：</p>
+<p>出现在Vc9中,可能没有选择“安装旧的iostream库”.导致这个问题.在我看来,还是微软的问题.</p>
+<h4>十五、关于#define WINVER</h4>
+<p>提到这个问题是因为，这里涉及到Winodws版本的定义。关于版本定义的关键无外乎为程序头文件中对于#define WINVER 和#define _WIN32_WINNT 的使用，具体为：</p>
+<p>#define WINVER 0xXXXX</p>
+<p>#define _WIN32_WINNT 0xXXXX</p>
+<p>该定义一般用于标示程序对运行环境的要求，另外在某些头文件中也有这样的宏定义。如果版本匹配的话就会在编译的时候将这些内容编译，否则就不编译。</p>
+<p>定义正确的Windows版本，不仅关系到程序的正确编译，同时也关系到程序的正确运行；在升级的过程中，我就碰到了程序编译正确但运行出错的问题。</p>
+<p>版本的定义关系到被编译到程序中的内容，这里主要是指系统提供的功能代码。Windows各个版本的功能虽然大差不差，但特定于某个系统功能还是存在的，于是关系到这些功能的API代码也就有所不一样。当我们在程序中定义了错误的系统版本，被编译进程序的内容便可能包含当前系统不支持的代码片段，这样的程序即使可能正确编译通过，但在运行的时候，由于在当前系统中找不到相应的内容资源，从而发生错误。这一点熟悉动态链接库(DLL)的人都很清楚，其实该问题就是和系统动态链接库有关。</p>
+<p>    考虑到我迁移程序的时候，是直接利用VS2008将VC6程序转化的方式，然后按VS2008新建项目的StdAfx.h文件内容更新了原来的StdAfx.h头文件，并添加了VS2008项目才有的targerver.h头文件。(工程转换时，没有targerver.h为我们生成，默认的WINVER = 0x0600 的系统环境（这里指明了系统为Vista），所以要改变就要自己手动添加targerver.h)</p>
+<p>根据targetver.h头文件里的下列定义：</p>
+<p>#ifndef WINVER                  // 指定要求的最低平台是Windows Vista。</p>
+<p>#define WINVER 0x0600           // 将此值更改为相应的值，以适用于Windows 的其他版本。</p>
+<p>#endif</p>
+<p>#ifndef _WIN32_WINNT            // 指定要求的最低平台是Windows Vista。</p>
+<p>#define _WIN32_WINNT 0x0600     // 将此值更改为相应的值，以适用于Windows 的其他版本。</p>
+<p>#endif</p>
+<p>PS：</p>
+<p>0×0500为Windows 2000，</p>
+<p>0×0501为Windows XP，</p>
+<p>0×0502为Windows Server 2003，</p>
+<p>0×0600为Windows Vista。</p>
+
+
+<p style='float:right;'>本页共283段，16124个字符，25179 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

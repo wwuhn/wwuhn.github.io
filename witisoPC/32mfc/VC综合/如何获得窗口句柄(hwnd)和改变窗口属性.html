@@ -1,0 +1,1201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>如何获得窗口句柄(hwnd)和改变窗口属性</title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop属性.  
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//谷歌浏览器  
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox等浏览器
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//谷歌浏览器  
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox等浏览器  
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000">红色</option><option value="#006600">绿色</option><option value="#0000ff">蓝色</option><option value="#660000">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:75.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+<h3></h3>
+<p>
+1、 对于一个窗口如何进行操作呢首先要得到其使用句柄我们可以用FindWindow()函数来获取当前</p>
+
+<p>窗口句柄具体使用如下</p>
+
+<p>HWND hFig = ::FindWindow(NULL,HWND);</p>
+
+<p>如果得到找到则返回窗口的句柄否则返回NULL。 当然我们可以使用 SetWindowPos(HWND</p>
+
+<p>hWnd, HWND hWndIsertAfter, int X, int Y, int cx, int cy , UINT Uflags) 改变窗口的大小和</p>
+
+<p>位置Uflags是标志窗口的显示属性具体值可以是SWP_NOMOVE 、SWP_NOZORDER 、SWP_N</p>
+
+<p>OACTIVATE 、SWP_FRAMECHANGED等。 具体的调用实例如下</p>
+
+<p>HWND hFig = ::FindWindow(NULL,&quot;Fig No. 1&quot;); //找到窗口并返回窗口句柄</p>
+
+<p>if(hFig == NULL) {</p>
+
+<p>AfxMessageBox(&quot;未能产生Figure窗口图形绘制失败&quot;);</p>
+
+<p>return;</p>
+
+<p>} // 获取绘图区域的位置和大小</p>
+
+<p>RECT PlotRec;</p>
+
+<p>CWnd *PlotArea = GetDlgItem(IDC_PLOTAREA); // 获取绘图区域指针</p>
+
+<p>PlotArea-&gt;GetWindowRect(&amp;PlotRec); // 将绘图区域矩形赋给 定义矩形</p>
+
+<p>long Width = PlotRec.right - PlotRec.left; long Height = PlotRec.bottom - PlotRec.to</p>
+
+<p>p; // 获得绘图区域的宽和高</p>
+
+<p>// 设置Figure窗口为绘图区域窗口的子窗口并调整其位置</p>
+
+<p>::SetParent(hFig,PlotArea-&gt;GetSafeHwnd()); // 设置绘图区域窗口为 Figure窗口的父窗口</p>
+
+<p>::SetWindowPos(hFig,NULL,1,1,Width,Height,SWP_NOZORDER | SWP_NOACTIVATE);</p>
+
+<p>// 设置绘图窗口的大小和位置</p>
+
+<p>// 设置窗口可见</p>
+
+<p>SetVisible(h_a,mwArray(&quot;ON&quot;));</p>
+
+<p>// 进入窗口等待状态</p>
+
+<p>bWait = 1; mlfHGWaitForFiguresToDie();</p>
+
+<p>2、当然你想改变窗口属性的话还可以增加以下函数来改变窗口的属性</p>
+
+<p>long lStyle. = ::GetWindowLong(hFig,GWL_STYLE);</p>
+
+<p>::SetWindowLong(hFig,GWL_STYLE,lStyle. &amp; (~WS_CAPTION) &amp; (~WS_THICKFRAM</p>
+
+<p>E));</p>
+
+<p>::SetWindowPos(hFig,NULL,0,0,0,0,SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTI</p>
+
+<p>VATE | SWP_FRAMECHANGED);  www.docin.com就写到这吧其他的学会了再统一以一个实例的形式给出。 教你如何用WORD文档 (2012-06-27 192246)转载▼</p>
+
+<p>标签 杂谈</p>
+
+<p>1. 问WORD 里边怎样设置每页不同的页眉如何使不同的章节显示的页眉不同</p>
+
+<p></p>
+
+<p>答分节每节可以设置不同的页眉。文件――页面设置――版式――页眉和页脚――首页</p>
+
+<p>不同。</p>
+
+<p></p>
+
+<p>2. 问请问word 中怎样让每一章用不同的页眉怎么我现在只能用一个页眉一改就全</p>
+
+<p>部改了</p>
+
+<p></p>
+
+<p>答在插入分隔符里选插入分节符可以选连续的那个然后下一页改页眉前按一下“同</p>
+
+<p>前”钮再做的改动就不影响前面的了。简言之分节符使得它们独立了。这个工具栏上的</p>
+
+<p>“同前”按钮就显示在工具栏上不过是图标的形式把光标移到上面就显示出”同前“两</p>
+
+<p>个字来。</p>
+
+<p></p>
+
+<p>3. 问如何合并两个WORD 文档不同的页眉需要先写两个文件然后合并如何做</p>
+
+<p></p>
+
+<p>答页眉设置中选择奇偶页不同与前不同等选项。</p>
+
+<p></p>
+
+<p>4. 问WORD 编辑页眉设置如何实现奇偶页不同 比如单页浙江大学学位论文这一</p>
+
+<p>个容易设双页每章标题这一个有什么技巧啊</p>
+
+<p></p>
+
+<p>答插入节分隔符与前节设置相同去掉再设置奇偶页不同。</p>
+
+<p></p>
+
+<p>5. 问怎样使WORD 文档只有第一页没有页眉页脚</p>
+
+<p></p>
+
+<p>答页面设置页眉和页脚选首页不同然后选中首页页眉中的小箭头格式边框和底</p>
+
+<p>纹选择无这个只要在“视图”――“页眉页脚”其中的页面设置里不要整个文档</p>
+
+<p>就可以看到一个“同前”的标志不选前后的设置情况就不同了。</p>
+
+<p></p>
+
+<p>6. 问如何从第三页起设置页眉</p>
+
+<p></p>
+
+<p>答在第二页末插入分节符在第三页的页眉格式中去掉同前节如果第一、二页还有页眉</p>
+
+<p>把它设置成正文就可以了</p>
+
+<p>在新建文档中菜单―视图―页脚―插入页码―页码格式―起始页码为0确定菜单―</p>
+
+<p>文件―页面设置―版式―首页不同确定将光标放到第一页末菜单―文件―页面设置―</p>
+
+<p>版式―首页不同―应用于插入点之后确定。第2 步与第三步差别在于第2 步应用于整篇</p>
+
+<p>文档第3 步应用于插入点之后。这样做两次首页不同以后页码从第三页开始从1 编</p>
+
+<p>号完成。</p>
+
+<p></p>
+
+<p>7. 问WORD 页眉自动出现一根直线请问怎么处理</p>
+
+<p></p>
+
+<p>答格式从“页眉”改为“清除格式”就在“格式”快捷工具栏最左边选中页眉文字和www.docin.com箭头格式边框和底纹设置选无。</p>
+
+<p></p>
+
+<p>8. 问页眉一般是---------上面写上题目或者其它想做的是把这根线变为双线WORD 中</p>
+
+<p>修改页眉的那根线怎么改成双线的</p>
+
+<p></p>
+
+<p>答按以下步骤操作去做</p>
+
+<p>选中页眉的文字包括最后面的箭头格式边框和底纹选线性为双线的在预览里</p>
+
+<p>点击左下小方块预览的图形会出现双线确定▲上面和下面自己可以设置点击在预览周</p>
+
+<p>围的四个小方块页眉线就可以在不同的位置。</p>
+
+<p></p>
+
+<p>9. 问Word 中的脚注如何删除把正文相应的符号删除内容可以删除但最后那个格式</p>
+
+<p>还在应该怎么办</p>
+
+<p></p>
+
+<p>答步骤如下1</p>
+
+<p>、切换到普通视图菜单中“视图”――“脚注”这时最下方出现了尾注</p>
+
+<p>的编辑栏。2、在尾注的下拉菜单中选择“尾注分隔符”这时那条短横线出现了选中它</p>
+
+<p>删除。3、再在下拉菜单中选择“尾注延续分隔符”这是那条长横线出现了选中它删除。</p>
+
+<p>4</p>
+
+<p>、切换回到页面视图。尾注和脚注应该都是一样的。</p>
+
+<p></p>
+
+<p>10. 问Word 里面有没有自动断词得功能常常有得单词太长了如果能设置下自动断词就</p>
+
+<p>好了</p>
+
+<p></p>
+
+<p>答在工具―语言―断字―自动断字勾上word 还是很强大的。</p>
+
+<p></p>
+
+<p></p>
+
+<p>11. 问如何将word 文档里的繁体字改为简化字</p>
+
+<p></p>
+
+<p>答工具―语言―中文简繁转换。</p>
+
+<p></p>
+
+<p>12. 问怎样微调WORD 表格线WORD 表格上下竖线不能对齐用鼠标拖动其中一条</p>
+
+<p>线可是一拖就跑老远想微调表格竖线让上下对齐请问该怎么办</p>
+
+<p></p>
+
+<p>答选定上下两个单元格然后指定其宽度就可以对齐了再怎么拉都行pressAlt打开绘</p>
+
+<p>图其中有个调整坐标线单击将其中水平间距与垂直间距都调到最小值即可。打开绘图</p>
+
+<p>然后在左下脚的绘图网格里设置把水平和垂直间距设置得最小。</p>
+
+<p></p>
+
+<p>13. 问怎样微调word 表格线我的word 表格上下竖线不能对齐用鼠标拖动其中一条</p>
+
+<p>线可是一拖就跑老远我想微调表格竖线让上下对齐请问该怎么办</p>
+
+<p></p>
+
+<p>答可以如下操作按住ctl 键还是shift你have a trydouble click the line, try it )打</p>
+
+<p>开绘图设置一下网格在左下角。使水平和垂直都为最小试一把press Alt</p>
+
+<p></p>
+
+<p>14. 问怎么把word 文档里已经有的分页符去掉</p>
+
+<p></p>
+
+<p>答先在工具―― 选项――  视图―― 格式标记选中全部然后就能够看到分页符delete www.docin.com就ok了。</p>
+
+<p></p>
+
+<p></p>
+
+<p>15. 问Word 中下标的大小可以改的吗</p>
+
+<p></p>
+
+<p>答格式―字体</p>
+
+<p></p>
+
+<p>16. 问Word 里怎么自动生成目录啊</p>
+
+<p></p>
+
+<p>答用“格式样式和格式”编辑文章中的小标题然后插入-索引和目录</p>
+
+<p></p>
+
+<p>17. 问Word 的文档结构图能否整个复制 论文要写目录了不想再照着文档结构图输入一</p>
+
+<p>遍有办法复制粘贴过来吗</p>
+
+<p></p>
+
+<p>答可以自动生成的插入索引目录。</p>
+
+<p></p>
+
+<p>18. 问做目录的时候有什么办法时右边的页码对齐比如1.1 标题..........11.2 标</p>
+
+<p>题...............2</p>
+
+<p></p>
+
+<p>答画表格然后把页码都放到一个格子里靠右或居中然后让表格的线条消隐就可以了</p>
+
+<p>打印出来就很整齐。</p>
+
+<p></p>
+
+<p>19. 问怎样在word 中将所有大写字母转为小写比如一句全大写的转为全小写的答格</p>
+
+<p>式-更改大小写-小写</p>
+
+<p></p>
+
+<p>20. 问在存盘的时候出现了问题症状如下磁盘已满或打开文件过多不能保存另</p>
+
+<p>开新窗口重存也不管用。如何解决</p>
+
+<p></p>
+
+<p>答把word 文档全选然后复制然后关掉word电脑提示你粘贴板上有东西要不要</p>
+
+<p>用于别的程序选是然后再重</p>
+
+<p>新打开word然后粘贴然后保存。</p>
+
+<p></p>
+
+<p>21. 问WORD 中的表格一复制粘贴到PPT 中就散掉了怎么把WORD 里面的表格原样</p>
+
+<p>粘贴到PPT 中</p>
+
+<p>答1</p>
+
+<p>比较好的方法是先把表格单独存为一WORD 文件然后插入对象选由文</p>
+
+<p>件创建然后选中上面的WORD 文件确定2还可以先把表格copy 到excel 中然后</p>
+
+<p>copy 到PPT 中这个也是比较好的办法3可以先做成文本框再粘贴过去4复制粘</p>
+
+<p>贴但是在PPT 中不能粘在文本框里面5拷屏做成图片再弄到PPT 里面。</p>
+
+<p></p>
+
+<p></p>
+
+<p>22. 问有没有办法将PPT 的文字拷入WORD 里面</p>
+
+<p></p>
+
+<p>答另存就可以了。只要以.rtf 格式另存即可</p>
+
+<p>www.docin.com23. 问word 中图片的分栏如何处理假如有1 2 图3 4 这样的结构我想实现1 3 图</p>
+
+<p>要横跨两栏2 4 但是试了半天总是1 2 图3 4 怎么办呀help</p>
+
+<p></p>
+
+<p>答设置图片格式――版式――高级――文字环绕――环绕方式选上下型――图片位置――</p>
+
+<p>对齐方式选居中――度量依据选页面要先改文字环绕然后才能改图片位置</p>
+
+<p></p>
+
+<p>24. 问用word 写东西时字距老是变动有时候自动隔得很开有时候进入下一行的时侯</p>
+
+<p>上一行的字距又自动变大了这是为什么怎么纠正啊</p>
+
+<p>答是因为自动对齐的功能格式――段落――对齐方式可以选。还有允许断字的功能如果</p>
+
+<p>check 上就不会出现你说的情况了。</p>
+
+<p></p>
+
+<p></p>
+
+<p>25. 问在使用WORD 的样式之后如标题1、标题2 之类的在这些样式前面总会出现</p>
+
+<p>一个黑黑的方块虽然打印的时候看不到但看着总是不舒服有没有办法让它不要显示呢</p>
+
+<p>答“视图”“显示段落标志”把前面的勾去掉。其实这个很有用可以便于知道哪个</p>
+
+<p>是标题段落</p>
+
+<p></p>
+
+<p></p>
+
+<p>26. 问文章第一页下面要写作者联系方式等。通常格式是一条短划线下面是联系方式</p>
+
+<p>基金支持等。这样的格式怎么做出来就是注明页脚吗</p>
+
+<p>答插入――脚注和尾注</p>
+
+<p></p>
+
+<p></p>
+
+<p>27. 问文字双栏而有一张图片特别大想通栏显示应该怎么操作</p>
+
+<p>答可以选择的内容按双栏排。选择其他内容按单栏排。</p>
+
+<p></p>
+
+<p></p>
+
+<p>28. 问Word 里面如何不显示回车换行符</p>
+
+<p>答把视图-显示段落标记的勾去掉或工具-选项-视图-段落标记</p>
+
+<p></p>
+
+<p></p>
+
+<p>29. 问有没有方法把WORD 里的软回车一下子替换掉识别出来的文字全带着软回车</p>
+
+<p>能把他们一次全删掉吗</p>
+
+<p>答查找替换按CTRL+H软回车好象是^l在特殊字符里有</p>
+
+<p></p>
+
+<p></p>
+
+<p>30. 问在WORD 里的框框里怎么打勾</p>
+
+<p>答画个文本框文本框里写一个钩然后拖过去或者先在WORD 里插入符号“√”</p>
+
+<p>然后选中“√”到-》格式-》中文版式-》带圈字符-》选“□”</p>
+
+<p></p>
+
+<p>31. 问还是不行这样拷过去的框框字体是windings 的而原来的是宋体的两者有很</p>
+
+<p>大的区别。</p>
+
+<p>答根据模板新建专业型传真里面有框双击后打勾copy 就ok</p>
+
+<p>www.docin.com</p>
+
+<p>32. 问Word 中怎么在一个英文字母上打对号</p>
+
+<p>答透明方式插入图片对象内容是一个√</p>
+
+<p></p>
+
+<p></p>
+
+<p>33. 问WORD 里怎么显示修订文档的状态文档修订后改后标记很多但是在菜单里</p>
+
+<p>没有“显示修订最终状态”等怎么调出来</p>
+
+<p>答工具自定义命令类别工具命令修订把“修订”等拖到工具栏上</p>
+
+<p></p>
+
+<p></p>
+
+<p>34. 问怎样把许多分开的word 文档合并成一个文档。我的论文是按照章节分开写的但</p>
+
+<p>现在图书馆要提交电子版的学位论文是一个文档的我找了很多选项但好象不能合并选</p>
+
+<p>择插入文件功能可以加入内容但文档中的页眉却插不进去有谁有高见</p>
+
+<p>答acrobat6 可以直接把多个文档打印成一个pdf 文档。可以提交pdf 格式的论文先一</p>
+
+<p>个一个word 文档转换为pdf 格式的然后在pdf 文档菜单的文件菜单中选上作为pdf 格</p>
+
+<p>式打开追加上就可。</p>
+
+<p></p>
+
+<p></p>
+
+<p>35. 问Word 里面要写方程式怎么办啊</p>
+
+<p>答插入对象公式编辑器equation如果没有公式编辑器Equation要自己从光盘中安</p>
+
+<p>装或者安装Mathtype 公式编辑器按右键把它拖出来插入命令自定义工</p>
+
+<p>具应该是倒过来</p>
+
+<p></p>
+
+<p></p>
+
+<p>36. 问想在WORD 里面表示矩阵怎样才能画出那个很大的矩阵括号</p>
+
+<p>答装公式编辑器mathtype 好了~</p>
+
+<p></p>
+
+<p></p>
+
+<p>37. 问Word 的公式编辑器怎么安装</p>
+
+<p>答工具自定义插入公式编辑器把它拖到工具条上即可或者安装OFFICE 后</p>
+
+<p>再次安装选增加功能吧会有提示的</p>
+
+<p></p>
+
+<p></p>
+
+<p>38. 问Word2000 下调用公式编辑器的快捷键</p>
+
+<p>答点击菜单[工具]-[自定义]点击对话框下方[键盘]在[类别]里选择[插入]在命令里选</p>
+
+<p>择[InsertEquation]指定你的快捷方式</p>
+
+<p></p>
+
+<p></p>
+
+<p>39. 问WORD 中出现公式的行往往要比只有文字的行来得宽如何把这些行改的跟只有</p>
+
+<p>文字的行一样宽</p>
+
+<p>答段落行距设为固定值即可。这样会有一个问题比如设置为18 磅有些公式符号特</p>
+
+<p>别是有下标的不能全部显示打印稿可以显示。怎么解决这个问题这个如何解决还需要考</p>
+
+<p>虑。</p>
+
+<p>www.docin.com</p>
+
+<p>40. 问我的文档就是公式多应该怎么办</p>
+
+<p>答公式多的时候最好的消除这个问题的办法就是每打几个公式就要存盘如果连续打太</p>
+
+<p>多就会出现这个问题。出现问题的时候选中所有内容ctrlC把WORD 所有文档</p>
+
+<p>关闭。</p>
+
+<p>最关键出现一条信息务必选择“是”重新打开WORD 编辑器ctrl</p>
+
+<p>V粘贴</p>
+
+<p>ctrlS存盘</p>
+
+<p></p>
+
+<p>41. 问怎样在word 里面的公式编辑器中输入空格</p>
+
+<p>答ctrl+shift+space</p>
+
+<p></p>
+
+<p></p>
+
+<p>42. 问如何使word 中公式全都小一号一个一个选实在麻烦</p>
+
+<p>答在Mathtype公式编辑器中首先在Mathtype 中的菜单Size 中选define,定义所需的</p>
+
+<p>字号大小再次在Mathtype 中的菜单preferences 中的equation preference 的save to file 存</p>
+
+<p>贮所定义的字号文件返回word 中在Mathtype菜单中选Format equation1在MathType</p>
+
+<p>preference file 中选你刚才所定义的文件2在Range 中选Whole document。最后</p>
+
+<p>选OK即OK了。</p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p>43. 问如何将WORD 中的公式编缉拉到外面</p>
+
+<p>答工具自定义命令插入右边找公式编辑器往上脱</p>
+
+<p></p>
+
+<p></p>
+
+<p>44. 问怎样可以去掉word 里面公式或是图片上方总是出现的灰色的横条啊以前没有</p>
+
+<p>的不知道怎么跑出来了看着怪晕糊的。。。。。</p>
+
+<p></p>
+
+<p>答工具选项-视图-域底纹选不显示或选取时显示就可以了</p>
+
+<p></p>
+
+<p></p>
+
+<p>45. 问整个论文用一个WORD 文档太大不好编辑一个地方有增删后面那么长一</p>
+
+<p>个文档版面分布会变得乱七八糟特别是图表之类的东东。想让每章的偶数页自动显示自己</p>
+
+<p>的章号和题目WORD 里这个能够自动实现吗</p>
+
+<p>答不要整个论文放一个WORD 文档一章一个然后每章就可以奇偶分开处理了</p>
+
+<p></p>
+
+<p></p>
+
+<p>46. 问论文按照章节写的想把它们合并成一个文件并保持原有的文件格式。采用了在</p>
+
+<p>文件末尾插入分节符的方法但插入后有些文件的部分格式发生了变化请问如何解决</p>
+
+<p>答用主控文档的方法比较好在大纲模式里设置的采取插入文件的方式格式有些变化</p>
+
+<p></p>
+
+<p></p>
+
+<p>47. 问WORD 里边怎么样显示行号</p>
+
+<p>答在页面设置那里板式选项最下面有个行号选项 www.docin.com48. 问Word 里面怎么插入半个空格</p>
+
+<p>答先在word 的工具栏上点中双箭头那个纽就可以看到原先看不到的空格然后再编</p>
+
+<p>辑一下这个空格的大小比如小五或小四什么的。</p>
+
+<p></p>
+
+<p></p>
+
+<p>49. 问只要一回车或是改变光标位置的任何操作都会使上一行的变成有人遇到</p>
+
+<p>过这个问题么</p>
+
+<p>答是不是设置了自动替换啊符号里的自动替换看看吧</p>
+
+<p></p>
+
+<p></p>
+
+<p>50. 问WORD 有没有可以按单词的首字母进行排序就是从A-Z 进行排</p>
+
+<p>答表格中的内容可以按照拼音排序弄到excel 里排序再回来</p>
+
+<p></p>
+
+<p></p>
+
+<p>51. 问怎么在word 里面打R^2</p>
+
+<p>答先打R2然后用鼠标选中2,同时按Ctrl“shift”和+</p>
+
+<p></p>
+
+<p></p>
+
+<p>52. 问Word 中发现空格都是小圆点是怎么回事情每输入一个空格就出现一个小圆点</p>
+
+<p>怎么把它消除掉啊这个空格会打印出来吗</p>
+
+<p>答不会打印出来如果想不显示工具选项视图格式标记中前面的勾去掉即可</p>
+
+<p></p>
+
+<p></p>
+
+<p>53. 问word 如何使两个表格能排在一起我做的表格每一个都比较小但是表格数比较</p>
+
+<p>多我想两个表格排成一行请问该怎么做</p>
+
+<p>答试试在局部分栏每个分栏中一个表格。</p>
+
+<p></p>
+
+<p></p>
+
+<p>54. 问为什么换机器打开WORD 文档排版变了在一台机器上排好板的WORD 文档换</p>
+
+<p>在另一台机器打开就变了页码都不对了怪哉。</p>
+
+<p>答是默认的页面设置不一样吧或者版本不同</p>
+
+<p></p>
+
+<p></p>
+
+<p>55. 问Word 里面插入表格的问题同一表格前后两行被分在了不同的页上想他们在同</p>
+
+<p>一页怎么做</p>
+
+<p>答转换成图文框可能更容易排版一点或者加个文本框</p>
+
+<p></p>
+
+<p></p>
+
+<p>56. 问怎么在word 里画坐标图在word 里有了坐标图文字却加不加去怎么办</p>
+
+<p>答作图时直接将文字加上去word 中的绘图工具条文字环绕里面寻找合适的方案把</p>
+
+<p>图放在文字的底层</p>
+
+<p></p>
+
+<p></p>
+
+<p>57. 问WORD 文件有密码怎么办呢 www.docin.com答找破解软件比如advanced_office_2000_password_recovery_pro_v1.03但不一定好用。</p>
+
+<p></p>
+
+<p></p>
+
+<p>58. 问怎么给word 文档加密</p>
+
+<p>答打开文档另存为―工具―常规选项―打开、修改权限密码保存</p>
+
+<p></p>
+
+<p></p>
+
+<p>59. 问Word 文件怎么转化为postscript 文件</p>
+
+<p>答先转化为pdf然后打印到文件通过distiller 生成ps。</p>
+
+<p></p>
+
+<p></p>
+
+<p>60. 问Word 无法识别origin 中的汉字怎么办用origin 做的图形中有汉字copy 到word</p>
+
+<p>中就成了问号因此我不得不先用export 把图形变为jpg 文件才能解决这个问题有没有</p>
+
+<p>方便的解决办法</p>
+
+<p>答ORIGIN 里面的字体改成宋体或者仿宋</p>
+
+<p></p>
+
+<p>61. 问请教怎么把Origin 中的图表拷贝到Word</p>
+
+<p>答点origin 的Edit 菜单里的copy page 到word 里粘贴就行了</p>
+
+<p></p>
+
+<p></p>
+
+<p>62. 问把origin 的图复制粘贴到word总有一大块的空白这个空白有什么工具可以去</p>
+
+<p>掉吗还有就是用word 自带的图表工具画图时也是有一大块空白去不掉这个可以解决</p>
+
+<p>吗</p>
+
+<p>答右键选择图片工具栏点裁减</p>
+
+<p></p>
+
+<p></p>
+
+<p>63. 问插入的图片为什么老是处于页面的顶端想拖下来放到其他地方却又自动跑到顶</p>
+
+<p>端去就是拖不下来请问该如何处理</p>
+
+<p>答改变图片的属性就可以了。</p>
+
+<p></p>
+
+<p></p>
+
+<p>64. 问如何保证一幅图像固定在某一段的后面另一段的前面而不会因为前面段落的删</p>
+
+<p>减而位置改变</p>
+
+<p>答右键点击图片设置对象格式―版式―嵌入型</p>
+
+<p></p>
+
+<p></p>
+
+<p>65. 问如何把在WORD 里面图形工具画的图转化为jpg</p>
+
+<p>答另存为html 格式然后在html 文件对应的文件夹里找</p>
+
+<p></p>
+
+<p></p>
+
+<p>66. 问请问什么格式的图片插入word 最清晰手头持有png 和tif 格式复制粘贴到word</p>
+
+<p>中模糊一片请问转换成什么图片格式用于word 最清晰什么方法插入图片来自文件还</p>
+
+<p>是直接复制粘贴对清晰度有否影响</p>
+
+<p>答emfeps 等矢量图最清晰不会因为缩放损失分辨率而jpegbmp 等点阵图就不行www.docin.com了。</p>
+
+<p></p>
+
+<p></p>
+
+<p>67. 问在WORD 中如何让图片的左、上、下边都是文本</p>
+
+<p>答在分栏的数量为1的情况下实现。图片选中后右键设置图片格式--版式-四周型就可以</p>
+
+<p>了</p>
+
+<p></p>
+
+<p></p>
+
+<p>68. 问jpg 文件插入word 文件以后怎么让文件变小jpg 格式图片插到word文件以后文</p>
+
+<p>件变的巨大有什么方法可以让它小一点最好能一张软盘放的下。</p>
+
+<p>答两个方法用photoshop 改变图片的分辨率当然要看得清楚然后插入wordword</p>
+
+<p>有强大的压缩功能把文档另存为比如temp.doc看看是不是小了很多。</p>
+
+<p></p>
+
+<p></p>
+
+<p>69. 问Matlab 仿真图片大家一般怎么弄到word 里面的相对横轴和纵轴修改一下的说</p>
+
+<p>答一般都是在Matlab 里面把所有的直接修改好了然后再保存的时候用jpg 格式在</p>
+
+<p>word 中间导入就好了</p>
+
+<p></p>
+
+<p></p>
+
+<p>70. 问如何向WORD 中的图片添加文本想在图片上输入一些说明文字</p>
+
+<p>答插入文本框将版式设成“悬浮”在WORD 的绘图工具里面有个自选图形找到你要</p>
+
+<p>的括号直接在页面上画就可以了。可以移动大小也可以改。然后把他挪到文字边上即</p>
+
+<p>可。一个小窍门就是用CTRL+箭头可以进行微调。如果你觉得经常需要对这些文字编辑</p>
+
+<p>怕图形错位的话可以将需要的文字打在一个文本框里记得将文本框设置成透明无色的这</p>
+
+<p>样就看不见文本框了然后将文本框和你的括号或其他符号组合成一个图形就万无</p>
+
+<p>一失了</p>
+
+<p></p>
+
+<p>71. 问AUTOCAD 的图拷贝到WORD 下如何处理</p>
+
+<p>答有几种办法一是可以在WORD 中进行CAD 编辑的方法将CAD 的背景设为白色</p>
+
+<p>然后将CAD 窗口缩小到你想复制的图形的大小正好可以容纳就可以了否则WORD 里</p>
+
+<p>面有很大的空白然后拷贝选中所有的图形中的线条右键。到WORD 中粘贴。二是</p>
+
+<p>先转为wmf 文件具体先将窗口缩小如上然后按emport选中线条存储。WORD</p>
+
+<p>中插入图形来自, 文件找到文件就可以插入了。</p>
+
+<p></p>
+
+<p></p>
+
+<p>72. 问文章用WORD 打开时原有的公式全是红叉以及WORD 中图变成red cross红</p>
+
+<p>叉怎么办</p>
+
+<p></p>
+
+<p>答基本上没有办法挽救回来了只能重新插一遍图。据微软的技术支持所说红叉是由于</p>
+
+<p>资源不够引起的。也就是说如果你所编辑的文档过大可能因为资源问题导致图片无法调</p>
+
+<p>入从而显示红叉。可是实际情况是有时候所编辑的文档并不大可是还是出现红叉。这</p>
+
+<p>就可能是因为你设置了快速保存在选项菜单中可以找到。这是由WORD 的文档结构所决</p>
+
+<p>定的。当你设置为快速保存时每次保存的时候只是把你改动过的部分添加到文档尾部并</p>
+
+<p>不重写文档本身以达到快速的目的。所以你会看到一个本来并不长的文档的实际大小可www.docin.com能有好几兆。当取消了快速保存后文档长度将大大减小。还有一个减小红叉出现可能性的</p>
+
+<p>办法是把图片的属性中的浮动去掉。这样可能在编辑的时候有一定的困难但是对于避免红</p>
+
+<p>叉的出现确实很灵。再说一句一旦红叉出现了应该是没有办法恢复的只有再重新贴图。</p>
+
+<p></p>
+
+<p></p>
+
+<p>73. 问如果Word 突然定在那里了怎么办</p>
+
+<p>答重新打开会回复或者在word自身的templates 里面找到近期文件重写的不用太多。</p>
+
+<p></p>
+
+<p></p>
+
+<p>74. 问如何解决word 说磁盘已满不让保存的问题</p>
+
+<p>答有时候当要保存一个文件时Word 会弹出一个对话框说是磁盘空间已满无法保存</p>
+
+<p>文件可实际上磁盘上空间还很大。这是非常令人恼火的一件事情。这一信息最常见的原因</p>
+
+<p>是Temp 文件夹已经达到了一个文件夹中可以包含的最多文件数的上限。这时的解决方法很</p>
+
+<p>简单在【资源管理器】中右击安装有Windows 系统的磁盘在出现的快捷菜单中单击【属</p>
+
+<p>性】将出现【属性】对话框从【常规】选项卡中选择【磁盘清理】按钮此时将出现【磁</p>
+
+<p>盘清理】对话框。执行磁盘清理完毕以后Windows 会弹出一个新的对话框。在【要删除</p>
+
+<p>的文件】框中选中【临时文件】选项然后选择【确定】。Windows 将删除临时文件。要人</p>
+
+<p>工删除临时文件进入临时文件夹删除任何旧的临时文件临时文件以波浪号开始以tmp</p>
+
+<p>扩展名结束返回Word再次试着保存文件。如果此时还不能正确保存文档可以采取以</p>
+
+<p>下的方法步骤如下</p>
+
+<p>l按CtrlA 选定整个文档。2按CtrlC 将整个文档复制到内</p>
+
+<p>存中。3关闭Word 程序。此时系统会提示您将大量文本放在了'剪贴板'中是否希望</p>
+
+<p>在退出Word 后这些文本仍可用于其他程序。4选择【是】按钮。5重新打开Word 程</p>
+
+<p>序。6按CtrlV将复制下来的文本粘贴到新文件中。注意在删除临时文件时可能</p>
+
+<p>会出现一个对话框提示不能删除正在使用的文件。这是因为Windows 运行的时候需要</p>
+
+<p>不断地用到一些临时文件。因而在人工删除临时文件时试着在开始时只删除几个文件</p>
+
+<p>然后对桌面上的回收站进行清空。否则可能无法删除所有选择的文件。</p>
+
+<p>www.docin.com</p>
+</div>
+
+
+<div>
+<div id="ftsize1"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em">大</a></div>
+<div id="ftsize2"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em">中</a></div>
+<div id="ftsize3"><a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em">小</a></div>
+<div style="display:none" id="goTopBtn"><a target="_self" style="color:#fff;">&and;</a></div>
+<div style="display:none" id="shangy">
+	<a onclick="shangy()" target="_self" style="color:#fff;">&uarr;</a></div>
+<div id="xiay">
+	<a onclick="xiay()" target="_self" style="color:#fff;">&darr;</a></div>
+<div id="goBottom">
+	<a onclick="downn()" target="_self" style="color:#fff;">&or;</a></div>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器  
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->

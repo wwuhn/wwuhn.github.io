@@ -1,0 +1,518 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function goTopEx(){
+	var obj=document.getElementById("goTopBtn");
+	function getScrollTop(){
+			return document.documentElement.scrollTop;
+		}
+	function setScrollTop(value){
+			document.documentElement.scrollTop=value;
+		}    
+	window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+	obj.onclick=function(){
+		var goTop=setInterval(scrollMove,10);
+		function scrollMove(){
+				setScrollTop(getScrollTop()/111);
+				if(getScrollTop()<1)clearInterval(goTop);
+			}
+	}
+}
+
+ 
+ function goTopEx(){
+        var obj=document.getElementById("goTopBtn");
+        function getScrollTop(){
+                return document.documentElement.scrollTop;
+            }
+        function setScrollTop(value){
+                document.documentElement.scrollTop=value;
+            }    
+        window.onscroll=function(){getScrollTop()>0?obj.style.display="":obj.style.display="none";}
+        obj.onclick=function(){
+            var goTop=setInterval(scrollMove,10);
+            function scrollMove(){
+                    setScrollTop(getScrollTop()/111);
+                    if(getScrollTop()<1)clearInterval(goTop);
+                }
+        }
+    }
+
+
+</script>
+<title>VC++ 之 RichEdit2</title>
+
+<style type="text/css">
+#tbrowser a:link，.container a:visited{
+font-size:18px;
+text-decoration:none;
+}
+.container{
+font-size:1.2em;
+margin:auto;
+font-family:"宋体";
+width:75.29%;
+line-height:1.6em;
+}
+P{
+margin:16px;
+text-indent:2em;
+}
+.uls{
+color:#CC6666;
+font-weight:bold;
+}
+.uls>ol{
+list-style:none;
+font-weight:normal;
+list-style:lower-latin;
+color:#000000;
+line-height:1.3em;
+}
+h2{
+font-size:20px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:0px;
+text-indent:0em;
+}
+img{
+margin-right:5px;
+}
+.fc{
+color:red;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+
+
+#goTopBtn {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color:#eee;
+    color:#000;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 105px;
+    _bottom: "auto";
+    cursor: pointer;
+    opacity: .6;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ #goTopBtn:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ 
+ 
+#goBottom {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 30px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	writing-mode:tb-rl;
+}
+ #goBottom:hover{
+ background-color:white;
+ border:#ccc 1px solid;
+ color:red;
+ }
+ #shangy {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 80px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+#xiay {
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    background-color: #eee;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+    _position: absolute;
+ 
+    right: 10px;
+    bottom: 55px;
+    _bottom: "auto";
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+}
+ 
+img{
+border:0;
+}
+.picsay{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+}
+.code0{
+color:red;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:0em;
+}
+.code2{
+color:#930;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:2em;
+}
+.code4{
+color:blue;
+font-size:90%;
+line-height:110%;
+margin-top:-12px;
+padding:0;
+text-indent:4em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<p><strong>1、使用2.0版本的富文本控件的准备工作</strong></p>
+
+<p>如何在程序中使用2.0版本的富文本控件呢？方法如下：</p>
+
+<p>方法一：（msdn上的做法，适用于用VC.NET及以后版本创建的工程）</p>
+
+<p>To update rich edit controls in existing Visual C++ applications to version 2.0,</p>
+
+<p>open the .RC file as text, change the class name of each rich edit control from &quot;RICHEDIT&quot; to &quot;RichEdit20a&quot;.</p>
+
+<p>Then replace the call to AfxInitRichEdit with AfxInitRichEdit2.</p>
+
+<p>方法二：（以VC6对话框为例）--（我的是VC6的工程，所以使用这种方法）</p>
+
+<p>(1) 在CxxxApp中增加一成员变量 HMODULE m_hMod;</p>
+
+<p>(2) 在CxxxApp::InitInstance()中添加一句m_hMod = LoadLibrary(_T(&quot;riched20.dll&quot;))，加载2.0版本的dll库;</p>
+
+<p>在CxxxApp::ExitInstance()中添加一句FreeLibrary(m_hMod)，即在程序退出时，释放dll库;</p>
+
+<p>(3) 以已有的富文本控件的ID，搜索到.rc文件中的相关内容，将richedit控件的类名由&quot;RICHEDIT&quot; 修改成 &quot;RICHEDIT20A&quot;，如下所示：</p>
+
+
+  <ol start="1">
+    <li>IDD_INFO_STATUS_DLGDIALOGDISCARDABLE0,0,243,219</li>
+    <li>STYLEWS_POPUP|WS_CLIPSIBLINGS</li>
+    <li>FONT9,&quot;宋体&quot;</li>
+    <li>BEGIN</li>
+    <li>PUSHBUTTON&quot;&quot;,IDC_CLOSE,221,7,15,14</li>
+    <li>CONTROL&quot;&quot;,IDC_EDIT_INFO,&quot;RICHEDIT20A&quot;,ES_MULTILINE|</li>
+    <li>ES_AUTOVSCROLL|ES_READONLY|WS_VSCROLL|WS_TABSTOP,</li>
+    <li>25,37,195,148</li>
+    <li>END</li>
+  </ol>
+
+<p><strong>注意：在将&quot;RICHEDIT&quot; 替换成 &quot;RICHEDIT20A&quot;时，一定要所有的地方都替换掉，否则运行时在显示相关窗口时会出现ASSERT(::IsWindow(m_hWnd))错误</strong>。原因是程序载入的2.0版本的富文本控件，如果继续使用1.0版本，将会导致所在的窗口创建失败，从而在显示窗口的时候出现assert错误，比如程序会在下面的代码错报错（CInfoDlg对话框中使用到richedit，资源中忘记将&quot;RICHEDIT&quot;   替换成 &quot;RICHEDIT20A&quot;）：</p>
+
+  
+    <ol start="1">
+    <li>CInfoDlg::Instance().Create(CInfoDlg::IDD,this-&gt;GetParent());</li>
+    <li>CInfoDlg::Instance().CenterWindow(this-&gt;GetParent());</li>
+    <li>CInfoDlg::Instance().ShowWindow(SW_HIDE);//程序会在此句报错</li>
+  </ol>
+
+<p><strong> 2、在现有内容尾部追加新字符</strong></p>
+<p>要在现有内容结尾处追加新字符，则要先调用SetSel选中最末尾处，然后调用ReplaceSel将新内容加上去。richedit 1.0是按多字节进行处理的，要在richedit 1.0控件中添加新字符，可以用以下的方法：</p>
+
+  
+    <ol start="1">
+    <li>nTotalTextLength=m_ChatDisplay.GetWindowTextLength();//调用CWnd的GetWindowTextLength接口获取当前字符数</li>
+    <li>m_ChatDisplay.SetSel(nTotalTextLength,nTotalTextLength);</li>
+    <li>m_ChatDisplay.ReplaceSel(_T(&quot;打开文件&quot;));</li>
+  </ol>
+
+<p>richedit   2.0则包括RICHEDIT20A和RICHEDIT20W版本，前者是ANSI版本的，后者是宽字节版本。根据工程是否是UNICODE来选择使用哪个版本，本文主要讨论RICHEDIT20A版本的问题（因为我们的工程是非UNICODE的）。对于RICHEDIT20A，要添加新内容就不能使用上面的代码了，GetWindowTextLength()获得的是字节数，而<strong>RICHEDIT20A在计算字符位置时，是将一个汉字看成一个字符的</strong>，所以要使用上面的代码就不对了，应该使用下面的代码：</p>
+
+  
+    <ol start="1">
+    <li>m_ChatDisplay.SetSel(-1,-1);//选中结尾处</li>
+    <li>m_ChatDisplay.ReplaceSel(_T(&quot;打开文件&quot;));</li>
+  </ol>
+
+<p><strong>RICHEDIT20A在计算字符位置时，将一个汉字看成一个字符</strong>，这个规则很重要，在很多地方需要注意。在下面添加超链接时会用到；在发送截图时，截图是以文件传输的方式发到对端的，对于接收端在收到聊天消息时，先用一个预设图片显示到richedit中，带截图文件接收完成后再找到对应的预设图片位置用实际图片将预设图片替换掉，这里面也牵涉到位置计算问题。</p>
+<p><strong> 3、在RICHEDIT20A中添加自定义超链接</strong></p>
+<p>之前这个问题折腾了很长时间，一度以为RICHEDIT20A不能添加自定义超链接。因为不知道<strong>RICHEDIT20A在计算字符位置时，将一个汉字看成一个字符这个原则</strong>，一直使用CWnd的GetWindowTextLength接口来计算字符位置，导致添加链接失败。</p>
+<p>一般我们要改写MFC提供的控件，都是将MFC控件作为基类派生出来一个类，稍加改造实现我们想要的功能，所以我们可以从CRichEditCtrl派生一个类出来。要使richedit能响应超链接点击事件，需设置事件位ENM_LINK；要使richedit能自动识别超链接，比如我们输入网址，它会自动检测到并将值设置为超链接，需向richedit发送一个EM_AUTOURLDETECT消息，我们可以重写CRichEditCtrl的PreSubclassWindow接口，在这个接口中完成上述设置。另外，要能响应超链接点击事件，需要添加映射和效应函数，相关代码如下所示：</p>
+<ol start="1">
+    <li>classCRichEditCtrlEx:publicCRichEditCtrl</li>
+    <li>......</li>
+  </ol>
+<ol start="1">
+    <li>voidCRichEditCtrlEx::PreSubclassWindow()</li>
+    <li>{</li>
+    <li>CRichEditCtrl::PreSubclassWindow();</li>
+    <li></li>
+    <li>SetEventMask(ENM_LINK);//使richedit能响应超链接点击事件</li>
+    <li>SendMessage(EM_AUTOURLDETECT,(WPARAM)true,0);//使richedit能自动检测超链接</li>
+    <li>}</li>
+  </ol>
+<ol start="1">
+    <li>ON_NOTIFY_REFLECT(EN_LINK,OnURLClick)//消息映射</li>
+  </ol>
+<ol start="1">
+    <li>voidCRichEditCtrlEx::OnURLClick(NMHDR*pNmhdr,LRESULT*pResult)//链接点击响应函数</li>
+    <li>{</li>
+    <li>ENLINK*pLink=(ENLINK*)pNmhdr;</li>
+    <li>ASSERT(pLink);</li>
+    <li></li>
+    <li>if(pLink-&gt;msg==WM_LBUTTONUP)</li>
+    <li>{</li>
+    <li>SetSel(pLink-&gt;chrg);</li>
+    <li></li>
+    <li>TCHARcUrl[MAX_PATH*2]={0};</li>
+    <li>GetSelText(cUrl);</li>
+    <li></li>
+    <li>TCHARachFilePath[MAX_PATH]={0};</li>
+    <li>CStringstrFilePath;</li>
+    <li>CStringstrFilePathParam;</li>
+    <li></li>
+    <li>//对于文件传输，传输结束后在界面中会显示“打开文件”和“打开所在文件夹”的链接</li>
+    <li>if(_tcscmp(cUrl,_T(&quot;打开文件&quot;))==0)//“打开文件”链接</li>
+    <li>{</li>
+    <li>strFilePath=GetFilepath(pLink-&gt;chrg.cpMin,TRUE);//获取对应的路径信息</li>
+    <li>strFilePathParam.Format(_T(&quot;\&quot;%s\&quot;&quot;),strFilePath);//加上双引号以防路径中有空格导致ShellExecute参数解析错误，2012/05/18</li>
+    <li>ShellExecute(NULL,&quot;open&quot;,strFilePathParam,NULL,NULL,SW_SHOWNORMAL);</li>
+    <li>}</li>
+    <li>elseif(_tcscmp(cUrl,_T(&quot;打开所在文件夹&quot;))==0)//“打开所在文件夹”链接</li>
+    <li>{</li>
+    <li>strFilePath=GetFilepath(pLink-&gt;chrg.cpMin,FALSE);//获取对应的路径信息</li>
+    <li>CStringstrTemp;//打开文件夹并选中文件，要使用“/select,”选项</li>
+    <li>strTemp.Format(_T(&quot;\&quot;%s\&quot;&quot;),strFilePath);//加上双引号以防路径中有空格导致ShellExecute参数解析错误，2012/05/18</li>
+    <li>strFilePathParam=_T(&quot;/select,&quot;);</li>
+    <li>strFilePathParam+=strTemp;</li>
+    <li>ShellExecute(NULL,&quot;open&quot;,_T(&quot;explorer.exe&quot;),strFilePathParam,NULL,SW_SHOWNORMAL);//使用资源管理器打开</li>
+    <li>}</li>
+    <li>else</li>
+    <li>{</li>
+    <li>ShellExecute(NULL,&quot;open&quot;,cUrl,NULL,NULL,SW_SHOWNORMAL);</li>
+    <li>}</li>
+    <li>}</li>
+    <li>pResult=FALSE;</li>
+    <li>}</li>
+  </ol>
+
+<p>上面简单叙述了一下使用超链接的前期准备工作，下面着重说一下如何添加自定义超链接的事情。</p>
+<p>其实<strong>设置自定义超链</strong>接也容易，关键是<strong>找到超链接字符对象的位置，然后选中超链接字符，设置超链接格式即可</strong>。那么不能使用CWnd的GetWindowTextLength接口，如何得到超链接字符的位置呢？用下面的代码段即可实现：</p>
+
+  
+    <ol start="1">
+    <li>longnStart=0;</li>
+    <li>longnEnd=0;</li>
+    <li>m_ChatDisplay.SetSel(-1,-1);//选中现有文字的末尾</li>
+    <li>m_ChatDisplay.GetSel(nStart,nEnd);//得到末尾处的位置</li>
+  </ol>
+
+   
+具体一点，比如在文件传输模块中，当文件接收完成后，将文件接收完成的信息写入到richedit中显示，此时需要紧接在后面添加“打开文件”和“打开所在文件夹”超链接，给用户提供快捷的查看接收到的文件的简洁途径，方便用户操作。下面以添加“打开文件”超链接为例：</p>
+
+<p>
+
+<ol start="1">
+    <li>//前面已经将文件传输提示信息加入到richedit中，下面紧接着在后面添加“打开文件”的超链接</li>
+    <li>CHARFORMATcf;</li>
+    <li>ZeroMemory(&amp;cf,sizeof(CHARFORMAT));</li>
+    <li>cf.cbSize=sizeof(CHARFORMAT);</li>
+    <li>cf.dwMask=CFM_COLOR|CFM_FACE|CFM_LINK|CFM_SIZE/*|CFM_UNDERLINE*/;</li>
+    <li>cf.dwEffects=CFE_LINK|~CFE_AUTOCOLOR;</li>
+    <li>cf.crTextColor=RGB(0,114,193);&lt;spanstyle=&quot;font-weight:bold;&quot;&gt;//文字颜色，这句改变颜色好像是无效的&lt;/span&gt;</li>
+    <li></li>
+    <li>longnStart=0;</li>
+    <li>longnEnd=0;</li>
+    <li>longnStart2=0;</li>
+    <li>longnEnd2=0;</li>
+    <li></li>
+    <li>//设置“打开文件”的超连接</li>
+    <li>m_ChatDisplay.SetSel(-1,-1);//选中现有文字的末尾</li>
+    <li>m_ChatDisplay.GetSel(nStart,nEnd);//找到现有文字的末尾位置，并记录</li>
+    <li>CStringstrLinkText=_T(&quot;打开文件&quot;);</li>
+    <li>m_ChatDisplay.ReplaceSel((LPCSTR)strLinkText);</li>
+    <li>m_ChatDisplay.SetSel(-1,-1);//选中现有文字的末尾</li>
+    <li>m_ChatDisplay.GetSel(nStart2,nEnd2);//找到添加“打开文件”后的末尾位置，并记录</li>
+    <li>m_ChatDisplay.SetSel(nStart,nStart2);//选中“打开文件”字样</li>
+    <li>m_ChatDisplay.SetSelectionCharFormat(cf);//设置超链接格式</li>
+  </ol>
+
+   
+有人可能会说，这样处理有点麻烦，因为我们知道超链接的长度，按照RICHEDIT20A在计算字符位置时，将一个汉字看成一个字符这个原则，可以计算得到末尾位置，不用两次调用GetSel。事实上，超链接长度有时是未知的，是不好去实时计算的，特别是超链接文字中既包含字母又包含汉字的情况，所以还是有必要调用两次GetSel来获取末尾位置的。</p>
+
+<p><p><strong> 4、如何让自定义超链接执行指定的操作</strong></p>
+<p>根据实际的需求，从超链接处找到相关的数据，在超链接点击的响应函数中来执行指定的操作。以文件传输为例，文件传输的界面如下图所示：</p>
+<p>&nbsp;</p>
+<p>首先，我要解析出文件路径，然后传递给ShellExecute函数去执行我们预定的操作。难点在于如何解析出文件路径，我这个地方采用的是笨办法，从“打开文件”超链接处向前找，因为提示文字使用统一的格式，考虑到路径长度一般不超过MAX_PATH长度，所以向前推MAX_PATH个位置，但是此处又要注意这一原则：<strong>RICHEDIT20A在计算字符位置时，将一个汉字看成一个字符</strong>，所以考虑到截取的字符传中可能包含汉字字符，所以在原有的长度基础上增加一倍，以免调用GetSelText时buf溢出。获取到字符串以后，根据提示文字的格式，就可以解析出具体的路径信息。由于上面已给出响应超链接单击的接口，下面接着给出解析路径的相关代码：</p>
+
+  
+    <ol start="1">
+    <li>//获取“打开文件”链接前面的文字，解析出文件的完整路径</li>
+    <li>CStringCRichEditCtrlEx::GetFilepath(UINTnCurPos,BOOLbForOpenFile)</li>
+    <li>{</li>
+    <li>UINTnTempCurPos=nCurPos;</li>
+    <li></li>
+    <li>//下面对文件路径的解析，严格按照提示信息的格式进行解析，提示信息的格式</li>
+    <li>//为：您成功接收了文件“E:\test-13.txt”。打开文件打开所在文件夹</li>
+    <li></li>
+    <li>//如果是为“打开所在文件夹”链接解析文件路径，要将链接前面的“打开文件”文字给</li>
+    <li>//偏移掉(“打开文件”四个汉字以及两个英文输入法下的空格)</li>
+    <li>if(!bForOpenFile)</li>
+    <li>{</li>
+    <li>nTempCurPos-=2*1;//偏移两个英文输入法下的空格</li>
+    <li>nTempCurPos-=4*1;//4*1，偏移“打开文件”四个汉字</li>
+    <li>}</li>
+    <li></li>
+    <li>//考虑文件路径最长不超过MAX_PATH长度，所以由“打开文件”链接的位置，找到前MAX_PATH长度的文字</li>
+    <li>intnStartPos=0;</li>
+    <li>intnEndPos=0;</li>
+    <li>if(nTempCurPos&gt;=MAX_PATH*sizeof(TCHAR)+2*1)//2*1表示将“打开文件夹”链接前的&quot;”。&quot;两个汉字字符去掉</li>
+    <li>{</li>
+    <li>nStartPos=nTempCurPos-MAX_PATH*sizeof(TCHAR)-2*1;//2*1，保证nStartPos大于等于0</li>
+    <li>}</li>
+    <li>else</li>
+    <li>{</li>
+    <li>nStartPos=0;</li>
+    <li>}</li>
+    <li></li>
+    <li>nEndPos=nTempCurPos-2*1;//去掉链接前面的&quot;”。&quot;两个汉字字符</li>
+    <li></li>
+    <li>//对于RICHEDIT2.0有点奇怪，它在计算字符的位置时，将汉字看作一个字符，所以下面在计算nBufLen时要乘以2，</li>
+    <li>//防止buf越界</li>
+    <li>intnBufLen=(nEndPos-nStartPos+1)*2;//防止选中文字长度大于buf长度，导致数组越界</li>
+    <li></li>
+    <li>SetSel(nStartPos,nEndPos);</li>
+    <li>TCHAR*pchText=newTCHAR[nBufLen];</li>
+    <li>memset(pchText,0,nBufLen);</li>
+    <li>GetSelText(pchText);</li>
+    <li></li>
+    <li>//截取的文字中可能包含多个路径信息，下面要找到最后一个路径信息，即找到最后一个_T(&quot;“&quot;)</li>
+    <li>CStringstrFilePath=pchText;</li>
+    <li>intnPos=0;</li>
+    <li>intnTemp=strFilePath.Find(_T(&quot;“&quot;));</li>
+    <li>CStringstrTemp=strFilePath;</li>
+    <li>while(nTemp!=-1)</li>
+    <li>{</li>
+    <li>nPos+=nTemp;</li>
+    <li>strTemp=strTemp.Right(strTemp.GetLength()-nTemp-2);//2表示将_T(&quot;“&quot;)字符偏移掉</li>
+    <li>nTemp=strTemp.Find(_T(&quot;“&quot;));</li>
+    <li>if(nTemp!=-1)</li>
+    <li>{</li>
+    <li>nPos+=2;//2表示将_T(&quot;“&quot;)字符偏移掉</li>
+    <li>}</li>
+    <li>}</li>
+    <li></li>
+    <li>intnLen=strFilePath.GetLength()-nPos-2;</li>
+    <li>strFilePath=strFilePath.Right(strFilePath.GetLength()-nPos-2);//2表示将_T(&quot;“&quot;)字符偏移掉</li>
+    <li></li>
+    <li>nLen=strFilePath.GetLength();</li>
+    <li></li>
+    <li>delete[]pchText;</li>
+    <li></li>
+    <li>SetSel(-1,-1);</li>
+    <li></li>
+    <li>returnstrFilePath;</li>
+    <li>}</li>
+  </ol>
+
+<p>上面的代码始终要结合<strong>RICHEDIT20A在计算字符位置时，将一个汉字看成一个字符</strong>这一原则来看，看起来可能有很多感觉别扭的地方，但为了实现我们的目标，不得不改造出上面的代码。</p>
+ 
+以上就是将richedit1.0改造成2.0版本的RICHEDIT20A过程中遇到的一些细节问题，鉴于网上关于RICHEDIT20A细节处理方面的问题介绍的很少，所以在此分享出来。
+<p></p>
+</div>
+<a name="bottom" id="bottom"></a>
+<DIV style="DISPLAY: none" id=goTopBtn>&and;</DIV>
+<div id="goBottom"><a href="#bottom" target="_self">&or;</a></div>
+<SCRIPT type=text/javascript>goTopEx();</SCRIPT>
+</body>
+</html>
+<script language="javascript"> 
+bg_evensssss("tbrowser","#fff","#F5F5F5","#FFFFCC","#FFDDFF");/*#FFFF84*/
+</script>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换：
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+[\s*</p>\s*]
+[\s*<p>\s*]
+------------------
+</p>
+
+<p><p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+-->
