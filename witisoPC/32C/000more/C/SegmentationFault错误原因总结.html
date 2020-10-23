@@ -295,16 +295,18 @@ int *p = null;
 <pre>
 #include &lt;stdio.h>
  
-int  main(){ 
-        char test[1]; 
-        printf("%c", test[10]); 
-        return 0; 
+int  main()
+{ 
+    char test[1]; 
+    printf("%c", test[10]); 
+    return 0; 
 }
 </pre>
 <p>这就是明显的数组越界了，或者这个地址根本不存在。</p>
 <p>（5）试图把一个整数按照字符串的方式输出</p>
 <pre>
-int  main() { 
+int  main() 
+{ 
     int b = 10; 
     printf("%s\n", b);
     return 0; 
@@ -313,19 +315,20 @@ int  main() {
 <p>这是什么问题呢？由于还不熟悉调试动态链接库，所以我只是找到了printf的源代码的这里。</p>
 <p>声明部分：</p>
 <pre>
-   int pos =0 ,cnt_printed_chars =0 ,i ;
+int pos =0, cnt_printed_chars = 0, i;
 unsigned char *chptr ;
 va_list ap ;
 </pre>
 <pre>
 %s格式控制部分：
 case 's':
-    chptr =va_arg (ap ,unsigned char *);
-    i =0 ;
-    while (chptr [i ])
-    {...
-        cnt_printed_chars ++;
-        putchar (chptr [i ++]);
+chptr = va_arg(ap, unsigned char*);
+i =0;
+while(chptr[i])
+{
+    //...
+    cnt_printed_chars++;
+    putchar(chptr[i++]);
 }
 </pre>
 <p>仔细看看，发现了这样一个问题，在打印字符串的时候，实际上是打印某个地址开始的所有字符，但是当你想把整数当字符串打印的时候，这个整数被当成了一个地址，然后printf从这个地址开始去打印字符，直到某个位置上的值为\0。所以，如果这个整数代表的地址不存在或者不可访问，自然也是访问了不该访问的内存——segmentation fault。</p>
@@ -336,12 +339,13 @@ case 's':
 char c='c';
 int i=10;
 char buf[100];
-printf("%s", c);        //试图把char型按照字符串格式输出，这里的字符会解释成整数，再解释成地址，所以原因同上面那个例子
-printf("%s", i);            //试图把int型按照字符串输出
+printf("%s", c);       //试图把char型按照字符串格式输出，这里的字符会解释成整数，再解释成地址，
+                       // 所以原因同上面那个例子
+printf("%s", i);       //试图把int型按照字符串输出
 memset(buf, 0, 100);
-sprintf(buf, "%s", c);    //试图把char型按照字符串格式转换
+sprintf(buf, "%s", c); //试图把char型按照字符串格式转换
 memset(buf, 0, 100);
-sprintf(buf, "%s", i);   //试图把int型按照字符串转换
+sprintf(buf, "%s", i); //试图把int型按照字符串转换
 </pre>
 <p>（6）栈溢出了，有时SIGSEGV，有时却啥都没发生</p>
 <p> 大部分C语言教材都会告诉你，当从一个函数返回后，该函数栈上的内容会被自动“释放”。“释放”给大多数初学者的印象是free()，似乎这块内存不存在了，于是当他访问这块应该不存在的内存时，发现一切都好，便陷入了深深的疑惑。</p>
