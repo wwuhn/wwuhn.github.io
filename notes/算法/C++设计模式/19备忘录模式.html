@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script type="text/javascript" src="./js/encoder.js.下载"></script>
+<script src="./js/jquery-2.2.0.min.js.下载"></script>
+<script src="./js/blog-common.min.js.下载"></script>
+
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>备忘录模式</h3>
+
+<p><h4 >1 备忘录模式</h4 ></p>
+<p>在GOF的《设计模式:可复用面向对象软件的基础》一书中对备忘录模式是这样说的：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到原先保存的状态。</p>
+<p>有时有必要记录一个对象的内部状态。为了允许用户取消不确定的操作或从错误中恢复过来，需要实现检查点和取消机制，而要实现这些机制，你必须事先将状态信息保存在某处，这样才能将对象恢复到它们先前的状态。如何实现这个将状态信息保存在某处呢？使用原型模式？由于对象通常封装了其部分或所有的状态信息，使得其状态不能被其他对象访问，也就不可能在该对象之外保存其状态了。由于原型模式总是返回对象的全部状态信息，同时原型模式使其状态能被其它对象访问，这样就违反了封装的原则，还可能有损应用的可靠性和可扩展性。</p>
+<p>再拿上面的《仙剑奇侠传》进行分析，当我们在打大BOSS之前存档，此时就需要将对应的游戏场景，任务信息，人物信息等等状态存储起来；当赢得大BOSS之后，覆盖之前的存档时，就将之前的存档丢弃，新建立一个存档，保存当前的状态信息；如果打输了，恢复存档，就将之前的存档信息读取出来，还原到打大BOSS之前的游戏场景，重新开始打大BOSS。这里面就是使用的备忘录模式。</p>
+<p>一个备忘录是一个对象，它存储另一个对象在某个瞬间的内部状态，而后者称为备忘录的原发器。当需要设置原发器的检查点时，取消操作机制会向原发器请求一个备忘录。原发器用描述当前状态的信息初始化该备忘录。只有原发器可以向备忘录中存取信息，备忘录对其他的对象是“不可见”的。</p>
+<p><h4 >2 UML类图</h4 ></p>
+
+<img src="img/191.jpg" />
+
+<p>Memento：备忘录存储原发器对象的内部状态。原发器根据需要决定备忘录存储原发器的哪些内部状态；防止原发器以外的其他对象访问备忘录。备忘录实际上有两个接口，管理者只能看到备忘录的窄接口————它只能将备忘录传递给其他对象。相反，原发器能够看到一个宽接口，允许它访问返回到先前状态所需的所有数据。理想的情况是只允许生成备忘录的那个原发器访问本备忘录的内部状态；</p>
+<p>Originator：原发器创建一个备忘录，用以记录当前时刻它的内部状态；我们使用备忘录恢复内部状态；</p>
+<p>Caretaker：负责保存好备忘录；但是，不能对备忘录的内容进行操作或检查。</p>
+<p>备忘录模式是按照以下方式进行协作的：</p>
+<p>管理器向原发器请求一个备忘录，保留一段时间后，将其送回给原发器；而有的时候管理者不会将备忘录返回给原发器，因为原发器可能根本不需要退到先前的状态。备忘录是被动的，只有创建备忘录的原发器会对它的状态进行赋值和检索，如下面的时序图：</p>
+
+<img src="img/192.jpg" />
+<p><h4 >3 使用场合</h4 ></p>
+<p>在以下情况下使用备忘录模式：</p>
+<p>必须保存一个对象在某一个时刻的部分或完整状态，这样以后需要时它才能恢复到先前的状态；</p>
+<p>如果一个用接口来让其它对象直接得到这些状态，将会暴露对象的实现细节并破坏对象的封装性。</p>
+<p><h4 >4 代码实现</h4 ></p>
+<p>// wcscpy_s不能在线编译包含string.h、wchar.h也不行，VC也不行！</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onClick="copyCnblogsCode(this)" title="复制代码" target="_self"><img src="./js/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;">  1</span> #include &lt;iostream&gt;
+<span style="color: #008080;">  2</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;">  3</span> 
+<span style="color: #008080;">  4</span> <span style="color: #0000ff;">struct</span><span style="color: #000000;"> State
+</span><span style="color: #008080;">  5</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">  6</span>      wchar_t wcsState[<span style="color: #800080;">260</span><span style="color: #000000;">];
+</span><span style="color: #008080;">  7</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">  8</span> 
+<span style="color: #008080;">  9</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Memento
+</span><span style="color: #008080;"> 10</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 11</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 12</span>      Memento(State *<span style="color: #000000;">pState) : m_pState(pState){}
+</span><span style="color: #008080;"> 13</span> 
+<span style="color: #008080;"> 14</span>      State *GetState() { <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_pState; }
+</span><span style="color: #008080;"> 15</span> 
+<span style="color: #008080;"> 16</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 17</span>      friend <span style="color: #0000ff;">class</span><span style="color: #000000;"> Originator;
+</span><span style="color: #008080;"> 18</span> 
+<span style="color: #008080;"> 19</span>      State *<span style="color: #000000;">m_pState;
+</span><span style="color: #008080;"> 20</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 21</span> 
+<span style="color: #008080;"> 22</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Originator
+</span><span style="color: #008080;"> 23</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 24</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 25</span> <span style="color: #000000;">     Originator() : m_pState(NULL) {}
+</span><span style="color: #008080;"> 26</span>      ~<span style="color: #000000;">Originator()
+</span><span style="color: #008080;"> 27</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 28</span>           <span style="color: #008000;">//</span><span style="color: #008000;"> Delete the storage of the state</span>
+<span style="color: #008080;"> 29</span>           <span style="color: #0000ff;">if</span><span style="color: #000000;"> (m_pState)
+</span><span style="color: #008080;"> 30</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;"> 31</span>                <span style="color: #0000ff;">delete</span><span style="color: #000000;"> m_pState;
+</span><span style="color: #008080;"> 32</span>                m_pState =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 33</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;"> 34</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 35</span> 
+<span style="color: #008080;"> 36</span>      <span style="color: #0000ff;">void</span> SetMemento(Memento *<span style="color: #000000;">pMemento);
+</span><span style="color: #008080;"> 37</span>      Memento *<span style="color: #000000;">CreateMemento();
+</span><span style="color: #008080;"> 38</span> 
+<span style="color: #008080;"> 39</span>      <span style="color: #0000ff;">void</span> SetValue(wchar_t *<span style="color: #000000;">value)
+</span><span style="color: #008080;"> 40</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 41</span>           memset(wcsValue, <span style="color: #800080;">0</span>, <span style="color: #800080;">260</span> * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;"> 42</span>           wcscpy_s(wcsValue, <span style="color: #800080;">260</span><span style="color: #000000;">, value);
+</span><span style="color: #008080;"> 43</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 44</span> 
+<span style="color: #008080;"> 45</span>      <span style="color: #0000ff;">void</span> PrintState() { wcout&lt;&lt;wcsValue&lt;&lt;<span style="color: #000000;">endl; }
+</span><span style="color: #008080;"> 46</span> 
+<span style="color: #008080;"> 47</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 48</span>      State *m_pState; <span style="color: #008000;">//</span><span style="color: #008000;"> To store the object's state</span>
+<span style="color: #008080;"> 49</span> 
+<span style="color: #008080;"> 50</span>      wchar_t wcsValue[<span style="color: #800080;">260</span>]; <span style="color: #008000;">//</span><span style="color: #008000;"> This is the object's real data</span>
+<span style="color: #008080;"> 51</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 52</span> 
+<span style="color: #008080;"> 53</span> Memento *<span style="color: #000000;">Originator::CreateMemento()
+</span><span style="color: #008080;"> 54</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 55</span>      m_pState = <span style="color: #0000ff;">new</span><span style="color: #000000;"> State;
+</span><span style="color: #008080;"> 56</span>      <span style="color: #0000ff;">if</span> (m_pState ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;"> 57</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 58</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 59</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 60</span> 
+<span style="color: #008080;"> 61</span>      Memento *pMemento = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Memento(m_pState);
+</span><span style="color: #008080;"> 62</span> 
+<span style="color: #008080;"> 63</span>      wcscpy_s(m_pState-&gt;wcsState, <span style="color: #800080;">260</span>, wcsValue); <span style="color: #008000;">//</span><span style="color: #008000;"> Backup the value</span>
+<span style="color: #008080;"> 64</span>      <span style="color: #0000ff;">return</span><span style="color: #000000;"> pMemento;
+</span><span style="color: #008080;"> 65</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 66</span> 
+<span style="color: #008080;"> 67</span> <span style="color: #0000ff;">void</span> Originator::SetMemento(Memento *<span style="color: #000000;">pMemento)
+</span><span style="color: #008080;"> 68</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 69</span>      m_pState = pMemento-&gt;<span style="color: #000000;">GetState();
+</span><span style="color: #008080;"> 70</span> 
+<span style="color: #008080;"> 71</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Recovery the data</span>
+<span style="color: #008080;"> 72</span>      memset(wcsValue, <span style="color: #800080;">0</span>, <span style="color: #800080;">260</span> * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;"> 73</span>      wcscpy_s(wcsValue, <span style="color: #800080;">260</span>, m_pState-&gt;<span style="color: #000000;">wcsState);
+</span><span style="color: #008080;"> 74</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 75</span> 
+<span style="color: #008080;"> 76</span> <span style="color: #008000;">//</span><span style="color: #008000;"> Manager the Memento</span>
+<span style="color: #008080;"> 77</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Caretaker
+</span><span style="color: #008080;"> 78</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 79</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 80</span>      Memento *GetMemento() { <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_pMemento; }
+</span><span style="color: #008080;"> 81</span>      <span style="color: #0000ff;">void</span> SetMemnto(Memento *<span style="color: #000000;">pMemento)
+</span><span style="color: #008080;"> 82</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 83</span>           <span style="color: #008000;">//</span><span style="color: #008000;"> Free the previous Memento</span>
+<span style="color: #008080;"> 84</span>           <span style="color: #0000ff;">if</span><span style="color: #000000;"> (m_pMemento)
+</span><span style="color: #008080;"> 85</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;"> 86</span>                <span style="color: #0000ff;">delete</span><span style="color: #000000;"> m_pMemento;
+</span><span style="color: #008080;"> 87</span>                m_pMemento =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 88</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;"> 89</span> 
+<span style="color: #008080;"> 90</span>           <span style="color: #008000;">//</span><span style="color: #008000;"> Set the new Memento</span>
+<span style="color: #008080;"> 91</span>           m_pMemento =<span style="color: #000000;"> pMemento;
+</span><span style="color: #008080;"> 92</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 93</span> 
+<span style="color: #008080;"> 94</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 95</span>      Memento *<span style="color: #000000;">m_pMemento;
+</span><span style="color: #008080;"> 96</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 97</span> 
+<span style="color: #008080;"> 98</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;"> 99</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">100</span>      Originator *pOriginator = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Originator();
+</span><span style="color: #008080;">101</span>      pOriginator-&gt;SetValue(L<span style="color: #800000;">"</span><span style="color: #800000;">On</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">102</span>      pOriginator-&gt;<span style="color: #000000;">PrintState();
+</span><span style="color: #008080;">103</span> 
+<span style="color: #008080;">104</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Now I backup the state</span>
+<span style="color: #008080;">105</span>      Caretaker *pCaretaker = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Caretaker();
+</span><span style="color: #008080;">106</span>      pCaretaker-&gt;SetMemnto(pOriginator-&gt;<span style="color: #000000;">CreateMemento());
+</span><span style="color: #008080;">107</span> 
+<span style="color: #008080;">108</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Set the new state</span>
+<span style="color: #008080;">109</span>      pOriginator-&gt;SetValue(L<span style="color: #800000;">"</span><span style="color: #800000;">Off</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">110</span>      pOriginator-&gt;<span style="color: #000000;">PrintState();
+</span><span style="color: #008080;">111</span> 
+<span style="color: #008080;">112</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Recovery to the old state</span>
+<span style="color: #008080;">113</span>      pOriginator-&gt;SetMemento(pCaretaker-&gt;<span style="color: #000000;">GetMemento());
+</span><span style="color: #008080;">114</span>      pOriginator-&gt;<span style="color: #000000;">PrintState();
+</span><span style="color: #008080;">115</span> 
+<span style="color: #008080;">116</span>      <span style="color: #0000ff;">if</span><span style="color: #000000;"> (pCaretaker)
+</span><span style="color: #008080;">117</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">118</span>           <span style="color: #0000ff;">delete</span><span style="color: #000000;"> pCaretaker;
+</span><span style="color: #008080;">119</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">120</span> 
+<span style="color: #008080;">121</span>      <span style="color: #0000ff;">if</span><span style="color: #000000;"> (pOriginator)
+</span><span style="color: #008080;">122</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">123</span>           <span style="color: #0000ff;">delete</span><span style="color: #000000;"> pOriginator;
+</span><span style="color: #008080;">124</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">125</span> 
+<span style="color: #008080;">126</span>      <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">127</span> }</pre>
+</div>
+<p>我再根据上面的《仙剑奇侠传》来完成备忘录模式，代码如下：</p>
+
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onClick="copyCnblogsCode(this)" title="复制代码" target="_self"><img src="./js/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> #include &lt;iostream&gt;
+<span style="color: #008080;"> 2</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> RoleStateMemento
+</span><span style="color: #008080;"> 5</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 6</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 7</span> <span style="color: #000000;">     RoleStateMemento(unsigned iBlood, unsigned iAttack, unsigned iDefense) 
+                         : m_iBlood(iBlood), m_iAttack(iAttack), m_iDefense(iDefense){}
+</span><span style="color: #008080;"> 8</span> 
+<span style="color: #008080;"> 9</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">10</span>      friend <span style="color: #0000ff;">class</span><span style="color: #000000;"> GameRole;
+</span><span style="color: #008080;">11</span> 
+<span style="color: #008080;">12</span>      unsigned GetBloodValue() { <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_iBlood; }
+</span><span style="color: #008080;">13</span>      unsigned GetAttackValue() { <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_iAttack; }
+</span><span style="color: #008080;">14</span>      unsigned GetDefenseValue() { <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_iDefense; }
+</span><span style="color: #008080;">15</span> 
+<span style="color: #008080;">16</span>      unsigned m_iBlood;   <span style="color: #008000;">//</span><span style="color: #008000;"> 生命力</span>
+<span style="color: #008080;">17</span>      unsigned m_iAttack;  <span style="color: #008000;">//</span><span style="color: #008000;"> 攻击力</span>
+<span style="color: #008080;">18</span>      unsigned m_iDefense; <span style="color: #008000;">//</span><span style="color: #008000;"> 防御力</span>
+<span style="color: #008080;">19</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">20</span> 
+<span style="color: #008080;">21</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> GameRole
+</span><span style="color: #008080;">22</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">23</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;">24</span>      GameRole() : m_iBlood(<span style="color: #800080;">100</span>), m_iAttack(<span style="color: #800080;">100</span>), m_iDefense(<span style="color: #800080;">100</span><span style="color: #000000;">){}
+</span><span style="color: #008080;">25</span> 
+<span style="color: #008080;">26</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> 存档</span>
+<span style="color: #008080;">27</span>      RoleStateMemento *SaveState() { <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">new</span><span style="color: #000000;"> RoleStateMemento(m_iBlood, 
+                    m_iAttack, m_iDefense); }
+</span><span style="color: #008080;">28</span> 
+<span style="color: #008080;">29</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> 恢复存档</span>
+<span style="color: #008080;">30</span>      <span style="color: #0000ff;">void</span> RecoveryState(RoleStateMemento *<span style="color: #000000;">pRoleState)
+</span><span style="color: #008080;">31</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">32</span>           m_iBlood = pRoleState-&gt;<span style="color: #000000;">GetBloodValue();
+</span><span style="color: #008080;">33</span>           m_iAttack = pRoleState-&gt;<span style="color: #000000;">GetAttackValue();
+</span><span style="color: #008080;">34</span>           m_iDefense = pRoleState-&gt;<span style="color: #000000;">GetDefenseValue();
+</span><span style="color: #008080;">35</span>           cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">Recovery...</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">36</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">37</span> 
+<span style="color: #008080;">38</span>      <span style="color: #0000ff;">void</span><span style="color: #000000;"> ShowState()
+</span><span style="color: #008080;">39</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">40</span>           cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">Blood:</span><span style="color: #800000;">"</span>&lt;&lt;m_iBlood&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">41</span>           cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">Attack:</span><span style="color: #800000;">"</span>&lt;&lt;m_iAttack&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">42</span>           cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">Defense:</span><span style="color: #800000;">"</span>&lt;&lt;m_iDefense&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">43</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">44</span> 
+<span style="color: #008080;">45</span>      <span style="color: #0000ff;">void</span><span style="color: #000000;"> Fight()
+</span><span style="color: #008080;">46</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">47</span>           m_iBlood -= <span style="color: #800080;">100</span><span style="color: #000000;">;
+</span><span style="color: #008080;">48</span>           m_iAttack -= <span style="color: #800080;">10</span><span style="color: #000000;">;
+</span><span style="color: #008080;">49</span>           m_iDefense -= <span style="color: #800080;">20</span><span style="color: #000000;">;
+</span><span style="color: #008080;">50</span> 
+<span style="color: #008080;">51</span>           <span style="color: #0000ff;">if</span> (m_iBlood == <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;">52</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">53</span>                cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">Game Over</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">54</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">55</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">56</span> 
+<span style="color: #008080;">57</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">58</span>      unsigned m_iBlood;   <span style="color: #008000;">//</span><span style="color: #008000;"> 生命力</span>
+<span style="color: #008080;">59</span>      unsigned m_iAttack;  <span style="color: #008000;">//</span><span style="color: #008000;"> 攻击力</span>
+<span style="color: #008080;">60</span>      unsigned m_iDefense; <span style="color: #008000;">//</span><span style="color: #008000;"> 防御力</span>
+<span style="color: #008080;">61</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">62</span> 
+<span style="color: #008080;">63</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> RoleStateCaretaker
+</span><span style="color: #008080;">64</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">65</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;">66</span>      <span style="color: #0000ff;">void</span> SetRoleStateMemento(RoleStateMemento *pRoleStateMemento) { 
+                        m_pRoleStateMemento =<span style="color: #000000;"> pRoleStateMemento; }
+</span><span style="color: #008080;">67</span>      RoleStateMemento *GetRoleStateMemento() { <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_pRoleStateMemento; }
+</span><span style="color: #008080;">68</span> 
+<span style="color: #008080;">69</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">70</span>      RoleStateMemento *<span style="color: #000000;">m_pRoleStateMemento;
+</span><span style="color: #008080;">71</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">72</span> 
+<span style="color: #008080;">73</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;">74</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">75</span>      GameRole *pLiXY = <span style="color: #0000ff;">new</span> GameRole(); <span style="color: #008000;">//</span><span style="color: #008000;"> 创建李逍遥这个角色</span>
+<span style="color: #008080;">76</span>      pLiXY-&gt;ShowState(); <span style="color: #008000;">//</span><span style="color: #008000;"> 显示初始的状态
+</span><span style="color: #008080;">77</span> 
+<span style="color: #008080;">78</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> 存档</span>
+<span style="color: #008080;">79</span>      RoleStateCaretaker *pRoleStateCaretaker = <span style="color: #0000ff;">new</span><span style="color: #000000;"> RoleStateCaretaker();
+</span><span style="color: #008080;">80</span>      pRoleStateCaretaker-&gt;SetRoleStateMemento(pLiXY-&gt;<span style="color: #000000;">SaveState());
+</span><span style="color: #008080;">81</span> 
+<span style="color: #008080;">82</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> 开始打大BOSS</span>
+<span style="color: #008080;">83</span>      pLiXY-&gt;<span style="color: #000000;">Fight();
+</span><span style="color: #008080;">84</span>      pLiXY-&gt;<span style="color: #000000;">ShowState();
+</span><span style="color: #008080;">85</span> 
+<span style="color: #008080;">86</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> 读档，从新开始</span>
+<span style="color: #008080;">87</span>      pLiXY-&gt;RecoveryState(pRoleStateCaretaker-&gt;<span style="color: #000000;">GetRoleStateMemento());
+</span><span style="color: #008080;">88</span>      pLiXY-&gt;<span style="color: #000000;">ShowState();
+</span><span style="color: #008080;">89</span> 
+<span style="color: #008080;">90</span>      <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">91</span> }</pre>
+</div>
+
+<p>output:</p>
+<pre>
+Blood:100      
+Attack:100     
+Defense:100    
+Game Over      
+Blood:0        
+Attack:90      
+Defense:80     
+Recovery...    
+Blood:100      
+Attack:100     
+Defense:100 
+</pre>
+<p><h4 >5 总结</h4 ></p>
+<p>备忘录模式在实际应用中也不少；我们在进行文档编辑时，经常使用的撤销操作。使用C++实现备忘录模式的关键点在于Originator类是Memento的友元类，这样就使得管理备忘录的Caretaker对象，以及其它对象都不能读取、设置备忘录，只有Originator类才能进行备忘录的读取和设置。由于备忘录主要是用于对对象的状态进行备份，实现了撤销操作，如果对象的状态数据很大很多时，在进行备忘时，就会很占用资源，这个是我们在实际开发时需要考虑的东西。结合之前的设计模式，在总结命令模式时，说到命令模式支持事物的回退，而这个就是依靠的备忘录模式来实现的。好了，备忘录模式就总结至此。希望对大家有用</p>
+
+
+<p style='float:right;'>本页共20段，1722个字符，4570 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

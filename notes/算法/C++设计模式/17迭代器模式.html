@@ -1,0 +1,676 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script type="text/javascript" src="./js/encoder.js.下载"></script>
+<script src="./js/jquery-2.2.0.min.js.下载"></script>
+<script src="./js/blog-common.min.js.下载"></script>
+
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>迭代器模式</h3>
+
+<h4>1 前言</h4>
+<p>最近非常感伤，总是怀念大学的日子，做梦的时候也常常梦到。梦到大学在电脑前傻傻的敲着键盘，写着代码，对付着数据结构与算法的作业；建立一个链表，遍历链表，打印链表。现在把那个时候声明的链表的头文件拿出来看看:</p>
+
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onClick="copyCnblogsCode(this)" title="复制代码" target="_self"><img src="./js/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span> typedef <span style="color: #0000ff;">struct</span><span style="color: #000000;"> tagNode
+</span><span style="color: #008080;"> 2</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 3</span>      <span style="color: #0000ff;">int</span><span style="color: #000000;"> value;
+</span><span style="color: #008080;"> 4</span>      tagNode *<span style="color: #000000;">pPre;
+</span><span style="color: #008080;"> 5</span>      tagNode *<span style="color: #000000;">pNext;
+</span><span style="color: #008080;"> 6</span> <span style="color: #000000;">}Node;
+</span><span style="color: #008080;"> 7</span> 
+<span style="color: #008080;"> 8</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> CList
+</span><span style="color: #008080;"> 9</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">10</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;">11</span> <span style="color: #000000;">     CList();
+</span><span style="color: #008080;">12</span> <span style="color: #000000;">     CList(size_t n);
+</span><span style="color: #008080;">13</span>      ~<span style="color: #000000;">CList();
+</span><span style="color: #008080;">14</span> 
+<span style="color: #008080;">15</span>      <span style="color: #0000ff;">bool</span> PushBack(<span style="color: #0000ff;">int</span><span style="color: #000000;"> value);
+</span><span style="color: #008080;">16</span>      <span style="color: #0000ff;">bool</span> PopBack(<span style="color: #0000ff;">int</span> &amp;<span style="color: #000000;">value);
+</span><span style="color: #008080;">17</span>      <span style="color: #0000ff;">bool</span> Insert(<span style="color: #0000ff;">int</span> pos, <span style="color: #0000ff;">int</span><span style="color: #000000;"> value);
+</span><span style="color: #008080;">18</span>      <span style="color: #0000ff;">bool</span> Delete(<span style="color: #0000ff;">int</span><span style="color: #000000;"> pos);
+</span><span style="color: #008080;">19</span>      <span style="color: #0000ff;">bool</span><span style="color: #000000;"> IsEmpty();
+</span><span style="color: #008080;">20</span>      <span style="color: #0000ff;">int</span><span style="color: #000000;"> GetLength();
+</span><span style="color: #008080;">21</span> 
+<span style="color: #008080;">22</span>      <span style="color: #0000ff;">void</span><span style="color: #000000;"> Print();
+</span><span style="color: #008080;">23</span> 
+<span style="color: #008080;">24</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> To iterate the list</span>
+<span style="color: #008080;">25</span>      <span style="color: #0000ff;">bool</span><span style="color: #000000;"> HasNext();
+</span><span style="color: #008080;">26</span>      <span style="color: #0000ff;">int</span><span style="color: #000000;"> Next();
+</span><span style="color: #008080;">27</span> 
+<span style="color: #008080;">28</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">29</span>      <span style="color: #0000ff;">int</span><span style="color: #000000;"> m_iLength;
+</span><span style="color: #008080;">30</span>      Node *<span style="color: #000000;">m_pCurrent;
+</span><span style="color: #008080;">31</span>      Node *<span style="color: #000000;">m_pHead;
+</span><span style="color: #008080;">32</span>      Node *<span style="color: #000000;">m_pTail;
+</span><span style="color: #008080;">33</span> };</pre>
+
+<p>再回头看看，自己写的代码都有点不认识了。是的，那个时候，就是直接将链表的创建和遍历都放在一类中，就是为了方便，直到那天看了迭代器设计模式，让我有了一次回过头来重新审视自己写过的代码，认识自己的不足的机会。</p>
+<p> </p>
+<h4>2 迭代器模式</h4>
+<p>在GOF的《设计模式:可复用面向对象软件的基础》一书中对迭代器模式是这样说的：提供一种方法顺序访问一个聚合对象中各个元素，而又不需要暴露该对象的内部表示。</p>
+<p>一个聚合对象，就是所谓的对象容器了；作为一个容器，都应该提供一种方法来让别人可以访问它的元素；但是，有的时候，我是不希望遍历容器的人知道我的容器是如何实现的；那该怎么办？就像我在大学那样实现的链表，只提供了从头到尾的遍历，如果我需要从尾到头的遍历呢？是不是我又要添加对应的方法了呢！！！容器的遍历方式千变万化，我们不知道需求是如何的，如果需求变了，那么我们的代码就会发生很大的改动，所以，我们需要去改变；对于上面的代码，当我对同一个链表对象进行多次遍历时，是不是就出现了m_pCurrent对象混乱的局面呢？是的，这一切的一切，都说明，我们必须去将一个容器的内部结构与它的遍历进行解耦，要是出现上面的情况时，我们就无法面对。就好比STL中的容器，它将容器中对象的实现和遍历很好的解耦了，所以，我们就无法知道它的内部是如何组织对象数据的，同时，我们也可以按照我们自己的想法去遍历容器，而不会出现任何差错。在我们的项目中使用迭代器模式就能很好的将容器对象的内部表示与对它的遍历进行解耦。接下来，我们再来详细的总结迭代器模式。</p>
+<h4>3 UML类图</h4>
+<img src="img/17.jpg" />
+
+
+<p>Iterator：定义迭代器访问和遍历元素的接口；</p>
+<p>ConcreteIterator：实现具体的迭代器；</p>
+<p>Aggregate：定义的容器，创建相应迭代器对象的接口；</p>
+<p>ConcreteAggregate：具体的容器实现创建相应迭代器的接口，该操作返回ConcreteIterator的一个适当的实例。</p>
+<p> </p>
+<h4>使用场合</h4>
+<p>访问一个聚合对象的内容而无需暴露它的内部表示；</p>
+<p>支持对聚合对象的多种遍历（从前到后，从后到前）；</p>
+<p>为遍历不同的聚合结构提供一个统一的接口，即支持多态迭代。</p>
+<p> </p>
+<h4>作用</h4>
+<p>它支持以不同的方式遍历一个聚合，甚至都可以自己定义迭代器的子类以支持新的遍历；</p>
+<p>迭代器简化了聚合的接口，有了迭代器的遍历接口，聚合本身就不再需要类似的遍历接口了。这样就简化了聚合的接口；</p>
+<p>在同一个聚合上可以有多个遍历，每个迭代器保持它自己的遍历状态；因此，我们可以同时进行多个遍历。</p>
+<p> </p>
+<h4>4 代码实现</h4>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onClick="copyCnblogsCode(this)" title="复制代码" target="_self"><img src="./js/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;">  1</span> #include &lt;iostream&gt;
+<span style="color: #008080;">  2</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;">  3</span> 
+<span style="color: #008080;">  4</span> typedef <span style="color: #0000ff;">struct</span><span style="color: #000000;"> tagNode
+</span><span style="color: #008080;">  5</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">  6</span>      <span style="color: #0000ff;">int</span><span style="color: #000000;"> value;
+</span><span style="color: #008080;">  7</span>      tagNode *<span style="color: #000000;">pNext;
+</span><span style="color: #008080;">  8</span> <span style="color: #000000;">}Node;
+</span><span style="color: #008080;">  9</span> 
+<span style="color: #008080;"> 10</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> JTList
+</span><span style="color: #008080;"> 11</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 12</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 13</span> <span style="color: #000000;">     JTList() : m_pHead(NULL), m_pTail(NULL){};
+</span><span style="color: #008080;"> 14</span>      JTList(<span style="color: #0000ff;">const</span> JTList &amp;<span style="color: #000000;">);
+</span><span style="color: #008080;"> 15</span>      ~<span style="color: #000000;">JTList();
+</span><span style="color: #008080;"> 16</span>      JTList &amp;<span style="color: #0000ff;">operator</span>=(<span style="color: #0000ff;">const</span> JTList &amp;<span style="color: #000000;">);
+</span><span style="color: #008080;"> 17</span> 
+<span style="color: #008080;"> 18</span>      <span style="color: #0000ff;">long</span> GetCount() <span style="color: #0000ff;">const</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 19</span>      Node *Get(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">long</span> index) <span style="color: #0000ff;">const</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 20</span>      Node *First() <span style="color: #0000ff;">const</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 21</span>      Node *Last() <span style="color: #0000ff;">const</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 22</span>      <span style="color: #0000ff;">bool</span> Includes(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp;) <span style="color: #0000ff;">const</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 23</span> 
+<span style="color: #008080;"> 24</span>      <span style="color: #0000ff;">void</span> Append(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp;<span style="color: #000000;">);
+</span><span style="color: #008080;"> 25</span>      <span style="color: #0000ff;">void</span> Remove(Node *<span style="color: #000000;">pNode);
+</span><span style="color: #008080;"> 26</span>      <span style="color: #0000ff;">void</span><span style="color: #000000;"> RemoveAll();
+</span><span style="color: #008080;"> 27</span> 
+<span style="color: #008080;"> 28</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 29</span>      Node *<span style="color: #000000;">m_pHead;
+</span><span style="color: #008080;"> 30</span>      Node *<span style="color: #000000;">m_pTail;
+</span><span style="color: #008080;"> 31</span>      <span style="color: #0000ff;">long</span><span style="color: #000000;"> m_lCount;
+</span><span style="color: #008080;"> 32</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 33</span> 
+<span style="color: #008080;"> 34</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Iterator
+</span><span style="color: #008080;"> 35</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 36</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 37</span>      <span style="color: #0000ff;">virtual</span> <span style="color: #0000ff;">void</span> First() = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 38</span>      <span style="color: #0000ff;">virtual</span> <span style="color: #0000ff;">void</span> Next() = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 39</span>      <span style="color: #0000ff;">virtual</span> <span style="color: #0000ff;">bool</span> IsDone() <span style="color: #0000ff;">const</span> = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 40</span>      <span style="color: #0000ff;">virtual</span> Node *CurrentItem() <span style="color: #0000ff;">const</span>  = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 41</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 42</span> 
+<span style="color: #008080;"> 43</span> <span style="color: #0000ff;">class</span> JTListIterator : <span style="color: #0000ff;">public</span><span style="color: #000000;"> Iterator
+</span><span style="color: #008080;"> 44</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 45</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 46</span>      JTListIterator(JTList *<span style="color: #000000;">pList) : m_pJTList(pList), m_pCurrent(NULL){}
+</span><span style="color: #008080;"> 47</span> 
+<span style="color: #008080;"> 48</span>      <span style="color: #0000ff;">virtual</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> First();
+</span><span style="color: #008080;"> 49</span>      <span style="color: #0000ff;">virtual</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> Next();
+</span><span style="color: #008080;"> 50</span>      <span style="color: #0000ff;">virtual</span> <span style="color: #0000ff;">bool</span> IsDone() <span style="color: #0000ff;">const</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 51</span>      <span style="color: #0000ff;">virtual</span> Node *CurrentItem() <span style="color: #0000ff;">const</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 52</span> 
+<span style="color: #008080;"> 53</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 54</span>      JTList *<span style="color: #000000;">m_pJTList;
+</span><span style="color: #008080;"> 55</span>      Node *<span style="color: #000000;">m_pCurrent;
+</span><span style="color: #008080;"> 56</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 57</span> 
+<span style="color: #008080;"> 58</span> JTList::~<span style="color: #000000;">JTList()
+</span><span style="color: #008080;"> 59</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 60</span>      Node *pCurrent =<span style="color: #000000;"> m_pHead;
+</span><span style="color: #008080;"> 61</span>      Node *pNextNode =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 62</span>      <span style="color: #0000ff;">while</span><span style="color: #000000;"> (pCurrent)
+</span><span style="color: #008080;"> 63</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 64</span>           pNextNode = pCurrent-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;"> 65</span>           <span style="color: #0000ff;">delete</span><span style="color: #000000;"> pCurrent;
+</span><span style="color: #008080;"> 66</span>           pCurrent =<span style="color: #000000;"> pNextNode;
+</span><span style="color: #008080;"> 67</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 68</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 69</span> 
+<span style="color: #008080;"> 70</span> <span style="color: #0000ff;">long</span> JTList::GetCount()<span style="color: #0000ff;">const</span>
+<span style="color: #008080;"> 71</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 72</span>      <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_lCount;
+</span><span style="color: #008080;"> 73</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 74</span> 
+<span style="color: #008080;"> 75</span> Node *JTList::Get(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">long</span> index) <span style="color: #0000ff;">const</span>
+<span style="color: #008080;"> 76</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 77</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> The min index is 0, max index is count - 1</span>
+<span style="color: #008080;"> 78</span>      <span style="color: #0000ff;">if</span> (index &gt; m_lCount - <span style="color: #800080;">1</span> || index &lt; <span style="color: #800080;">0</span><span style="color: #000000;">)
+</span><span style="color: #008080;"> 79</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 80</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 81</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 82</span> 
+<span style="color: #008080;"> 83</span>      <span style="color: #0000ff;">int</span> iPosTemp = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 84</span>      Node *pNodeTemp =<span style="color: #000000;"> m_pHead;
+</span><span style="color: #008080;"> 85</span>      <span style="color: #0000ff;">while</span><span style="color: #000000;"> (pNodeTemp)
+</span><span style="color: #008080;"> 86</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 87</span>           <span style="color: #0000ff;">if</span> (index == iPosTemp++<span style="color: #000000;">)
+</span><span style="color: #008080;"> 88</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;"> 89</span>                <span style="color: #0000ff;">return</span><span style="color: #000000;"> pNodeTemp;
+</span><span style="color: #008080;"> 90</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;"> 91</span>           pNodeTemp = pNodeTemp-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;"> 92</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 93</span>      <span style="color: #0000ff;">return</span><span style="color: #000000;"> NULL;
+</span><span style="color: #008080;"> 94</span> <span style="color: #000000;">}
+</span><span style="color: #008080;"> 95</span> 
+<span style="color: #008080;"> 96</span> Node *JTList::First() <span style="color: #0000ff;">const</span>
+<span style="color: #008080;"> 97</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 98</span>      <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_pHead;
+</span><span style="color: #008080;"> 99</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">100</span> 
+<span style="color: #008080;">101</span> Node *JTList::Last() <span style="color: #0000ff;">const</span>
+<span style="color: #008080;">102</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">103</span>      <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_pTail;
+</span><span style="color: #008080;">104</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">105</span> 
+<span style="color: #008080;">106</span> <span style="color: #0000ff;">bool</span> JTList::Includes(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp;value) <span style="color: #0000ff;">const</span>
+<span style="color: #008080;">107</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">108</span>      Node *pNodeTemp =<span style="color: #000000;"> m_pHead;
+</span><span style="color: #008080;">109</span>      <span style="color: #0000ff;">while</span><span style="color: #000000;"> (pNodeTemp)
+</span><span style="color: #008080;">110</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">111</span>           <span style="color: #0000ff;">if</span> (value == pNodeTemp-&gt;<span style="color: #000000;">value)
+</span><span style="color: #008080;">112</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">113</span>                <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+</span><span style="color: #008080;">114</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">115</span>           pNodeTemp = pNodeTemp-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;">116</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">117</span>      <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">false</span><span style="color: #000000;">;
+</span><span style="color: #008080;">118</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">119</span> 
+<span style="color: #008080;">120</span> <span style="color: #0000ff;">void</span> JTList::Append(<span style="color: #0000ff;">const</span> <span style="color: #0000ff;">int</span> &amp;<span style="color: #000000;">value)
+</span><span style="color: #008080;">121</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">122</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Create the new node</span>
+<span style="color: #008080;">123</span>      Node *pInsertNode = <span style="color: #0000ff;">new</span><span style="color: #000000;"> Node;
+</span><span style="color: #008080;">124</span>      pInsertNode-&gt;value =<span style="color: #000000;"> value;
+</span><span style="color: #008080;">125</span>      pInsertNode-&gt;pNext =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">126</span> 
+<span style="color: #008080;">127</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> This list is empty</span>
+<span style="color: #008080;">128</span>      <span style="color: #0000ff;">if</span> (m_pHead ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;">129</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">130</span>           m_pHead = m_pTail =<span style="color: #000000;"> pInsertNode;
+</span><span style="color: #008080;">131</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">132</span>      <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">133</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">134</span>           m_pTail-&gt;pNext =<span style="color: #000000;"> pInsertNode;
+</span><span style="color: #008080;">135</span>           m_pTail =<span style="color: #000000;"> pInsertNode;
+</span><span style="color: #008080;">136</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">137</span>      ++<span style="color: #000000;">m_lCount;
+</span><span style="color: #008080;">138</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">139</span> 
+<span style="color: #008080;">140</span> <span style="color: #0000ff;">void</span> JTList::Remove(Node *<span style="color: #000000;">pNode)
+</span><span style="color: #008080;">141</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">142</span>      <span style="color: #0000ff;">if</span> (pNode == NULL || m_pHead == NULL || m_pTail ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;">143</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">144</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;">;
+</span><span style="color: #008080;">145</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">146</span> 
+<span style="color: #008080;">147</span>      <span style="color: #0000ff;">if</span> (pNode == m_pHead) <span style="color: #008000;">//</span><span style="color: #008000;"> If the deleting node is head node</span>
+<span style="color: #008080;">148</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">149</span>           Node *pNewHead = m_pHead-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;">150</span>           m_pHead =<span style="color: #000000;"> pNewHead;
+</span><span style="color: #008080;">151</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">152</span>      <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">153</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">154</span>           <span style="color: #008000;">//</span><span style="color: #008000;"> To get the deleting node's previous node</span>
+<span style="color: #008080;">155</span>           Node *pPreviousNode =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">156</span>           Node *pCurrentNode =<span style="color: #000000;"> m_pHead;
+</span><span style="color: #008080;">157</span>           <span style="color: #0000ff;">while</span><span style="color: #000000;"> (pCurrentNode)
+</span><span style="color: #008080;">158</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">159</span>                pPreviousNode =<span style="color: #000000;"> pCurrentNode;
+</span><span style="color: #008080;">160</span>                pCurrentNode = pCurrentNode-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;">161</span>                <span style="color: #0000ff;">if</span> (pCurrentNode ==<span style="color: #000000;"> pNode)
+</span><span style="color: #008080;">162</span> <span style="color: #000000;">               {
+</span><span style="color: #008080;">163</span>                     <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;">164</span> <span style="color: #000000;">               }
+</span><span style="color: #008080;">165</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">166</span> 
+<span style="color: #008080;">167</span>           <span style="color: #008000;">//</span><span style="color: #008000;"> To get the deleting node's next node</span>
+<span style="color: #008080;">168</span>           Node *pNextNode = pNode-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;">169</span> 
+<span style="color: #008080;">170</span>           
+              <span style="color: #008000;">//</span><span style="color: #008000;"> If pNextNode is NULL, it means the deleting node is the tail node, </span>
+              <span style="color: #008000;">//</span><span style="color: #008000;"> we should change the m_pTail pointer</span>
+
+<span style="color: #008080;">171</span>           <span style="color: #0000ff;">if</span> (pNextNode ==<span style="color: #000000;"> NULL)
+</span><span style="color: #008080;">172</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">173</span>                m_pTail =<span style="color: #000000;"> pPreviousNode;
+</span><span style="color: #008080;">174</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">175</span> 
+<span style="color: #008080;">176</span>           <span style="color: #008000;">//</span><span style="color: #008000;"> Relink the list</span>
+<span style="color: #008080;">177</span>           pPreviousNode-&gt;pNext =<span style="color: #000000;"> pNextNode;
+</span><span style="color: #008080;">178</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">179</span> 
+<span style="color: #008080;">180</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Delete the node</span>
+<span style="color: #008080;">181</span>      <span style="color: #0000ff;">delete</span><span style="color: #000000;"> pNode;
+</span><span style="color: #008080;">182</span>      pNode =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">183</span>      --<span style="color: #000000;">m_lCount;
+</span><span style="color: #008080;">184</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">185</span> 
+<span style="color: #008080;">186</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> JTList::RemoveAll()
+</span><span style="color: #008080;">187</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">188</span>      <span style="color: #0000ff;">delete</span> <span style="color: #0000ff;">this</span><span style="color: #000000;">;
+</span><span style="color: #008080;">189</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">190</span> 
+<span style="color: #008080;">191</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> JTListIterator::First()
+</span><span style="color: #008080;">192</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">193</span>      m_pCurrent = m_pJTList-&gt;<span style="color: #000000;">First();
+</span><span style="color: #008080;">194</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">195</span> 
+<span style="color: #008080;">196</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> JTListIterator::Next()
+</span><span style="color: #008080;">197</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">198</span>      m_pCurrent = m_pCurrent-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;">199</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">200</span> 
+<span style="color: #008080;">201</span> <span style="color: #0000ff;">bool</span> JTListIterator::IsDone() <span style="color: #0000ff;">const</span>
+<span style="color: #008080;">202</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">203</span>      <span style="color: #0000ff;">return</span> m_pCurrent == m_pJTList-&gt;Last()-&gt;<span style="color: #000000;">pNext;
+</span><span style="color: #008080;">204</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">205</span> 
+<span style="color: #008080;">206</span> Node *JTListIterator::CurrentItem() <span style="color: #0000ff;">const</span>
+<span style="color: #008080;">207</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">208</span>      <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_pCurrent;
+</span><span style="color: #008080;">209</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">210</span> 
+<span style="color: #008080;">211</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;">212</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">213</span>      JTList *pJTList = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JTList;
+</span><span style="color: #008080;">214</span>      pJTList-&gt;Append(<span style="color: #800080;">10</span><span style="color: #000000;">);
+</span><span style="color: #008080;">215</span>      pJTList-&gt;Append(<span style="color: #800080;">20</span><span style="color: #000000;">);
+</span><span style="color: #008080;">216</span>      pJTList-&gt;Append(<span style="color: #800080;">30</span><span style="color: #000000;">);
+</span><span style="color: #008080;">217</span>      pJTList-&gt;Append(<span style="color: #800080;">40</span><span style="color: #000000;">);
+</span><span style="color: #008080;">218</span>      pJTList-&gt;Append(<span style="color: #800080;">50</span><span style="color: #000000;">);
+</span><span style="color: #008080;">219</span>      pJTList-&gt;Append(<span style="color: #800080;">60</span><span style="color: #000000;">);
+</span><span style="color: #008080;">220</span>      pJTList-&gt;Append(<span style="color: #800080;">70</span><span style="color: #000000;">);
+</span><span style="color: #008080;">221</span>      pJTList-&gt;Append(<span style="color: #800080;">80</span><span style="color: #000000;">);
+</span><span style="color: #008080;">222</span>      pJTList-&gt;Append(<span style="color: #800080;">90</span><span style="color: #000000;">);
+</span><span style="color: #008080;">223</span>      pJTList-&gt;Append(<span style="color: #800080;">100</span><span style="color: #000000;">);
+</span><span style="color: #008080;">224</span> 
+<span style="color: #008080;">225</span>      Iterator *pIterator = <span style="color: #0000ff;">new</span><span style="color: #000000;"> JTListIterator(pJTList);
+</span><span style="color: #008080;">226</span> 
+<span style="color: #008080;">227</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Print the list by JTListIterator</span>
+<span style="color: #008080;">228</span>      <span style="color: #0000ff;">for</span> (pIterator-&gt;First(); !pIterator-&gt;IsDone(); pIterator-&gt;<span style="color: #000000;">Next())
+</span><span style="color: #008080;">229</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">230</span>           cout&lt;&lt;pIterator-&gt;CurrentItem()-&gt;value&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">-&gt;</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">231</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">232</span>      cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">NULL</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">233</span> 
+<span style="color: #008080;">234</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Test for removing</span>
+<span style="color: #008080;">235</span>      Node *pDeleteNode =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">236</span>      <span style="color: #0000ff;">for</span> (pIterator-&gt;First(); !pIterator-&gt;IsDone(); pIterator-&gt;<span style="color: #000000;">Next())
+</span><span style="color: #008080;">237</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">238</span>           pDeleteNode = pIterator-&gt;<span style="color: #000000;">CurrentItem();
+</span><span style="color: #008080;">239</span>           <span style="color: #0000ff;">if</span> (pDeleteNode-&gt;value == <span style="color: #800080;">100</span><span style="color: #000000;">)
+</span><span style="color: #008080;">240</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">241</span>                pJTList-&gt;<span style="color: #000000;">Remove(pDeleteNode);
+</span><span style="color: #008080;">242</span>                <span style="color: #0000ff;">break</span><span style="color: #000000;">;
+</span><span style="color: #008080;">243</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">244</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">245</span> 
+<span style="color: #008080;">246</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Print the list by JTListIterator</span>
+<span style="color: #008080;">247</span>      <span style="color: #0000ff;">for</span> (pIterator-&gt;First(); !pIterator-&gt;IsDone(); pIterator-&gt;<span style="color: #000000;">Next())
+</span><span style="color: #008080;">248</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">249</span>           cout&lt;&lt;pIterator-&gt;CurrentItem()-&gt;value&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">-&gt;</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">250</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">251</span>      cout&lt;&lt;<span style="color: #800000;">"</span><span style="color: #800000;">NULL</span><span style="color: #800000;">"</span>&lt;&lt;<span style="color: #000000;">endl;
+</span><span style="color: #008080;">252</span> 
+<span style="color: #008080;">253</span>      <span style="color: #0000ff;">delete</span><span style="color: #000000;"> pIterator;
+</span><span style="color: #008080;">254</span>      <span style="color: #0000ff;">delete</span><span style="color: #000000;"> pJTList;
+</span><span style="color: #008080;">255</span> 
+<span style="color: #008080;">256</span>      <span style="color: #0000ff;">return</span> <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">257</span> }</pre>
+</div>
+<p>output</p>
+<pre>10-&gt;20-&gt;30-&gt;40-&gt;50-&gt;60-&gt;70-&gt;80-&gt;90-&gt;100-&gt;NULL<br />10-&gt;20-&gt;30-&gt;40-&gt;50-&gt;60-&gt;70-&gt;80-&gt;90-&gt;NULL  </pre>
+<p>代码中实现了一个单向链表，将链表与迭代器解耦。对于多态迭代，添加抽象类AbstractJTList，声明如下：</p>
+<pre>
+class AbstractJTList
+{
+public:
+     virtual Iterator *GetIterator() const = 0;
+};
+</pre>
+<p>类JTList继承该抽象类，并实现GetIterator，如下：</p>
+<pre>
+Iterator *JTList::GetIterator() const
+{
+     return new JTListIterator(this);
+}
+</pre>
+<p>好了，这样的话，在客户端就不用去new JTListIterator了，只需要这样：</p>
+<p>Iterator *pIterator = pJTList->GetIterator();</p>
+<p>这就完全好了；但是，这样又出现另外一个问题，我在GetIterator中new了一个JTListIterator，对于客户端来说，我并不知道这个new操作的存在，就会出现客户端不会去释放这个new开辟的内存，那么如何实现这个内存的自动释放呢。好了，就结合迭代器模式，再将之前总结的RAII机制再实际运用一次。</p>
+<p>根据RAII机制，需要将这个迭代器进行封装，让它具有自动释放的功能，就得借助另一个类，如下：</p>
+
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onClick="copyCnblogsCode(this)" title="复制代码" target="_self"><img src="./js/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">class</span><span style="color: #000000;"> IteratorPtr
+{
+</span><span style="color: #0000ff;">public</span><span style="color: #000000;">:
+     IteratorPtr(Iterator </span>*<span style="color: #000000;">pIterator) : m_pIterator(pIterator){}
+     </span>~IteratorPtr() { <span style="color: #0000ff;">delete</span><span style="color: #000000;"> m_pIterator; }
+
+     Iterator </span>*<span style="color: #0000ff;">operator</span>-&gt;(){ <span style="color: #0000ff;">return</span><span style="color: #000000;"> m_pIterator; }
+     Iterator </span>&amp;<span style="color: #0000ff;">operator</span>*() { <span style="color: #0000ff;">return</span> *<span style="color: #000000;">m_pIterator; }
+
+</span><span style="color: #0000ff;">private</span><span style="color: #000000;">:
+     IteratorPtr(</span><span style="color: #0000ff;">const</span> IteratorPtr &amp;<span style="color: #000000;">);
+     IteratorPtr </span>&amp;<span style="color: #0000ff;">operator</span>=(<span style="color: #0000ff;">const</span> IteratorPtr &amp;<span style="color: #000000;">);
+     </span><span style="color: #0000ff;">void</span> *<span style="color: #0000ff;">operator</span> <span style="color: #0000ff;">new</span><span style="color: #000000;">(size_t size);
+     </span><span style="color: #0000ff;">void</span> <span style="color: #0000ff;">operator</span> <span style="color: #0000ff;">delete</span>(<span style="color: #0000ff;">void</span> *<span style="color: #000000;">);
+
+</span><span style="color: #0000ff;">private</span><span style="color: #000000;">:
+     Iterator </span>*<span style="color: #000000;">m_pIterator;
+};</span></pre>
+</div>
+
+<p>我们在使用的时候，就像下面这样：</p>
+<pre>IteratorPtr pIterator(pJTList->GetIterator());</pre>
+<p>这样就省去了释放迭代器的麻烦了。</p>
+<p> </p>
+<h4>5 总结</h4>
+<p>迭代器模式是一个很经典的模式。但是，就是因为它太经典了，如果每次都要程序员去重复造轮子，就有点说不过去了，所以，现在基本成型的类库，都非常好的实现了迭代器模式，在使用这些类库提供的容器时，并不需要我们亲自去实现对应的迭代器；就好比STL了。但是话又说回来了，如此经典的东西，你不去学习是不是很可惜啊；是吧，在当今社会，技多不压身。好了，永远记住，设计模式是一种思想，并不是一层不变的，一种思想，你懂的。</p>
+
+
+<p style='float:right;'>本页共36段，2094个字符，5122 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

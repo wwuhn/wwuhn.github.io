@@ -1,0 +1,649 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script type="text/javascript" src="./js/encoder.js.下载"></script>
+<script src="./js/jquery-2.2.0.min.js.下载"></script>
+<script src="./js/blog-common.min.js.下载"></script>
+
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>解释器模式</h3>
+
+<h4>1 解释器模式</h4>
+<p>在GOF的《设计模式:可复用面向对象软件的基础》一书中对解释器模式是这样说的：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子。如果一种特定类型的问题发生的频率足够高，那么可能就值得将该问题的各个实例表述为一个简单语言中的句子。这样就可以构建一个解释器，该解释器通过解释这些句子来解决该问题。</p>
+<p>就如上面说的那个游戏，我输入up walk 5，我必须按照：移动方向+移动方式+移动距离这种格式输入我的指令，而这种格式的指令就是一种文法，只有按照了我定义的这种文法去输入，才能控制屏幕上的小狗去移动。当然了，我输入up walk 5，屏幕上的小狗肯定是听不懂的，它不知道我输入的是什么，这个时候需要怎么办？我需要一个工具去将我输入的内容翻译成小狗能听懂的东西，而这个工具就是定义中提到的解释器，解释器对我输入的指令进行解释，然后将解释得到的指令发送给屏幕上的小狗，小狗听懂了，就进行实际的移动。</p>
+<p>我们在开发中经常用到的正则表达式也是这类问题的代表。我们有的时候需要去匹配电话号码、身份证号；我们不用为了每一种匹配都写一个特定的算法，我们可以为每一种匹配定义一种文法，然后去解释这种文法定义的句子就ok了。</p>
+<p> </p>
+<h4>2 文法规则和抽象语法树</h4>
+<p>上面对于解释器模式的定义中，提及到了一个词：文法。在使用代码实现解释器模式之前，是非常有必要去学习一下文法的概念，以及如何表示一个语言的文法规则。再拿上面的游戏这个例子进行说明，我可以定义以下五条文法：</p>
+<p>expression ::= direction action distance | composite //表达式</p>
+<p>composite ::= expression 'and' expression //复合表达式</p>
+<p>direction ::= 'up' | 'down' | 'left' | 'right' //移动方向</p>
+<p>action ::= 'move' | 'walk' //移动方式</p>
+<p>distance ::= an integer //移动距离</p>
+<p>上面的5条文法规则，对应5个语言单位，这些语言单位可以分为两大类：一类为终结符（也叫做终结符表达式），例如上面的direction、action和distance，它们是语言的最小组成单位，不能再进行拆分；另一类为非终结符（也叫做非终结符表达式），例如上面的expression和composite，它们都是一个完整的句子，包含一系列终结符或非终结符。</p>
+<p>我们就是根据上面定义的一些文法可以构成更多复杂的语句，计算机程序将根据这些语句进行某种操作；而我们这里列出的文法，计算机是无法直接看懂的，所以，我们需要对我们定义的文法进行解释；就好比，我们编写的C++代码，计算机是看不懂的，我们需要进行编译一样。解释器模式，就提供一种模式去给计算机解释我们定义的文法，让计算机根据我们的文法去进行工作。</p>
+<p>在文法规则定义中可以使用一些符号来表示不同的含义，如使用“|”表示或，使用“{”和“}”表示组合，使用“*”表示出现0次或多次等，其中使用频率最高的符号是表示“或”关系的“|”，如文法规则“bool Value ::= 0 | 1”表示终结符表达式bool Value的取值可以为0或者1。</p>
+<p>除了使用文法规则来定义一个语言，在解释器模式中还可以通过一种称之为抽象语法树的图形方式来直观地表示语言的构成，每一棵语法树对应一个语言实例，对于上面的游戏文法规则，可以通过以下的抽象语法树来进行表示：</p>
+
+<img src="img/161.png" />
+
+
+
+<p>在抽象语法树种，可以通过终结符表达式和非终结符表达式组成复杂的语句，每个文法规则的语言实例都可以表示为一个抽象语法树，就是说每一条具体的语句都可以用类似上图所示的抽象语法树来表示，在图中终结符表达式类的实例作为树的叶子节点，而非终结符表达式类的实例作为非叶子节点。抽象语法树描述了如何构成一个复杂的句子。</p>
+<p> </p>
+<h4>3 UML类图</h4>
+<img src="img/162.jpg" />
+<p>AbstractExpression：声明一个抽象的解释操作，这个接口被抽象语法树中所有的节点所共享；</p>
+<p>TernimalExpression：一个句子中的每个终结符需要该类的一个实例，它实现与文法中的终结符相关联的解释操作；</p>
+<p>NonternimalExpression：</p>
+<p>对于文法中的每一条规则都需要一个NonternimalExpression类；</p>
+<p>为文法中的的每个符号都维护一个AbstractExpression类型的实例变量；</p>
+<p>为文法中的非终结符实现解释操作，在实现时，一般要递归地调用表示文法符号的那些对象的解释操作；</p>
+<p>Context：包含解释器之外的一些全局信息；</p>
+<p>Client：构建一个需要进行解释操作的文法句子，然后调用解释操作进行解释。</p>
+<p>实际进行解释时，按照以下时序进行的：</p>
+<p>Client构建一个句子，它是NonterminalExpression和TerminalExpression的实例的一个抽象语法树，然后初始化上下文并调用解释操作；</p>
+<p>每一非终结符表达式节点定义相应子表达式的解释操作。而各终结符表达式的解释操作构成了递归的基础；</p>
+<p>每一节点的解释操作用作用上下文来存储和访问解释器的状态。</p>
+<p> </p>
+<h4>4 使用场合</h4>
+<p>在以下情况下可以考虑使用解释器模式：</p>
+<p>可以将一个需要解释执行的语言中的句子表示为一个抽象语法树；</p>
+<p>一些重复出现的问题可以用一种简单的语言来进行表达；</p>
+<p>一个语言的文法较为简单；</p>
+<p>执行效率不是关键问题。【注：高效的解释器通常不是通过直接解释抽象语法树来实现的，而是需要将它们转换成其他形式，使用解释器模式的执行效率并不高。】</p>
+<p> </p>
+<h4>5 代码实现</h4>
+<p>将对应的控制指令翻译成汉语进行表示：</p>
+<p>在线和vc6都运行不了，原因在于：wcscat_s、printf_s：: undeclared identifier</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onClick="copyCnblogsCode(this)" title="复制代码" target="_self"><img src="./js/copycode.gif" alt="复制代码"></a></span></div>
+
+<pre><span style="color: #008080;">  1</span> #include &lt;iostream&gt;
+<span style="color: #008080;">  2</span> #include &lt;vector&gt;
+<span style="color: #008080;">  3</span> <span style="color: #0000ff;">using</span> <span style="color: #0000ff;">namespace</span><span style="color: #000000;"> std;
+</span><span style="color: #008080;">  4</span> 
+<span style="color: #008080;">  5</span> <span style="color: #0000ff;">#define</span> MAX_SIZE 256
+<span style="color: #008080;">  6</span> <span style="color: #0000ff;">#define</span> SAFE_DELETE(p) if (p) { delete p; p = NULL; }
+<span style="color: #008080;">  7</span> 
+<span style="color: #008080;">  8</span> <span style="color: #0000ff;">const</span> wchar_t *<span style="color: #0000ff;">const</span> DOWN = L<span style="color: #800000;">"</span><span style="color: #800000;">down</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">  9</span> <span style="color: #0000ff;">const</span> wchar_t *<span style="color: #0000ff;">const</span> UP = L<span style="color: #800000;">"</span><span style="color: #800000;">up</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 10</span> <span style="color: #0000ff;">const</span> wchar_t *<span style="color: #0000ff;">const</span> LEFT = L<span style="color: #800000;">"</span><span style="color: #800000;">left</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 11</span> <span style="color: #0000ff;">const</span> wchar_t *<span style="color: #0000ff;">const</span> RIGHT = L<span style="color: #800000;">"</span><span style="color: #800000;">right</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 12</span> 
+<span style="color: #008080;"> 13</span> <span style="color: #0000ff;">const</span> wchar_t *<span style="color: #0000ff;">const</span> MOVE = L<span style="color: #800000;">"</span><span style="color: #800000;">move</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 14</span> <span style="color: #0000ff;">const</span> wchar_t *<span style="color: #0000ff;">const</span> WALK = L<span style="color: #800000;">"</span><span style="color: #800000;">walk</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 15</span> 
+<span style="color: #008080;"> 16</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> AbstractNode
+</span><span style="color: #008080;"> 17</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 18</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 19</span>      <span style="color: #0000ff;">virtual</span> wchar_t *Interpret() = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 20</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 21</span> 
+<span style="color: #008080;"> 22</span> <span style="color: #0000ff;">class</span> AndNode : <span style="color: #0000ff;">public</span><span style="color: #000000;"> AbstractNode
+</span><span style="color: #008080;"> 23</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 24</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 25</span>      AndNode(AbstractNode *left, AbstractNode *<span style="color: #000000;">right) : m_pLeft(left), m_pRight(right){}
+</span><span style="color: #008080;"> 26</span> 
+<span style="color: #008080;"> 27</span>      wchar_t *<span style="color: #000000;">Interpret()
+</span><span style="color: #008080;"> 28</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 29</span>           wchar_t *pResult = <span style="color: #0000ff;">new</span><span style="color: #000000;"> wchar_t[MAX_SIZE];
+</span><span style="color: #008080;"> 30</span>           memset(pResult, <span style="color: #800080;">0</span>, MAX_SIZE * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;"> 31</span> 
+<span style="color: #008080;"> 32</span>           wchar_t *pLeft = m_pLeft-&gt;<span style="color: #000000;">Interpret();
+</span><span style="color: #008080;"> 33</span>           wchar_t *pRight = m_pRight-&gt;<span style="color: #000000;">Interpret();
+</span><span style="color: #008080;"> 34</span> <span style="color: #000000;">          wcscat_s(pResult, MAX_SIZE, pLeft);
+</span><span style="color: #008080;"> 35</span> <span style="color: #000000;">          wcscat_s(pResult, MAX_SIZE, pRight);
+</span><span style="color: #008080;"> 36</span> 
+<span style="color: #008080;"> 37</span> <span style="color: #000000;">          SAFE_DELETE(pLeft);
+</span><span style="color: #008080;"> 38</span> <span style="color: #000000;">          SAFE_DELETE(m_pRight);
+</span><span style="color: #008080;"> 39</span> 
+<span style="color: #008080;"> 40</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;"> pResult;
+</span><span style="color: #008080;"> 41</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 42</span> 
+<span style="color: #008080;"> 43</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 44</span>      AbstractNode *<span style="color: #000000;">m_pLeft;
+</span><span style="color: #008080;"> 45</span>      AbstractNode *<span style="color: #000000;">m_pRight;
+</span><span style="color: #008080;"> 46</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 47</span> 
+<span style="color: #008080;"> 48</span> <span style="color: #0000ff;">class</span> SentenceNode : <span style="color: #0000ff;">public</span><span style="color: #000000;"> AbstractNode
+</span><span style="color: #008080;"> 49</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 50</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 51</span>      SentenceNode(AbstractNode *direction, AbstractNode *action, AbstractNode *<span style="color: #000000;">distance) :
+</span><span style="color: #008080;"> 52</span> <span style="color: #000000;">          m_pDirection(direction), m_pAction(action), m_pDistance(distance){}
+</span><span style="color: #008080;"> 53</span> 
+<span style="color: #008080;"> 54</span>      wchar_t *<span style="color: #000000;">Interpret()
+</span><span style="color: #008080;"> 55</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 56</span>           wchar_t *pResult = <span style="color: #0000ff;">new</span><span style="color: #000000;"> wchar_t[MAX_SIZE];
+</span><span style="color: #008080;"> 57</span>           memset(pResult, <span style="color: #800080;">0</span>, MAX_SIZE * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;"> 58</span> 
+<span style="color: #008080;"> 59</span>           wchar_t *pDirection = m_pDirection-&gt;<span style="color: #000000;">Interpret();
+</span><span style="color: #008080;"> 60</span>           wchar_t *pAction = m_pAction-&gt;<span style="color: #000000;">Interpret();
+</span><span style="color: #008080;"> 61</span>           wchar_t *pDistance = m_pDistance-&gt;<span style="color: #000000;">Interpret();
+</span><span style="color: #008080;"> 62</span> <span style="color: #000000;">          wcscat_s(pResult, MAX_SIZE, pDirection);
+</span><span style="color: #008080;"> 63</span> <span style="color: #000000;">          wcscat_s(pResult, MAX_SIZE, pAction);
+</span><span style="color: #008080;"> 64</span> <span style="color: #000000;">          wcscat_s(pResult, MAX_SIZE, pDistance);
+</span><span style="color: #008080;"> 65</span> 
+<span style="color: #008080;"> 66</span> <span style="color: #000000;">          SAFE_DELETE(pDirection);
+</span><span style="color: #008080;"> 67</span> <span style="color: #000000;">          SAFE_DELETE(pAction);
+</span><span style="color: #008080;"> 68</span> <span style="color: #000000;">          SAFE_DELETE(pDistance);
+</span><span style="color: #008080;"> 69</span> 
+<span style="color: #008080;"> 70</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;"> pResult;
+</span><span style="color: #008080;"> 71</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;"> 72</span> 
+<span style="color: #008080;"> 73</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 74</span>      AbstractNode *<span style="color: #000000;">m_pDirection;
+</span><span style="color: #008080;"> 75</span>      AbstractNode *<span style="color: #000000;">m_pAction;
+</span><span style="color: #008080;"> 76</span>      AbstractNode *<span style="color: #000000;">m_pDistance;
+</span><span style="color: #008080;"> 77</span> <span style="color: #000000;">};
+</span><span style="color: #008080;"> 78</span> 
+<span style="color: #008080;"> 79</span> <span style="color: #0000ff;">class</span> DirectionNode : <span style="color: #0000ff;">public</span><span style="color: #000000;"> AbstractNode
+</span><span style="color: #008080;"> 80</span> <span style="color: #000000;">{
+</span><span style="color: #008080;"> 81</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;"> 82</span>      DirectionNode(wchar_t *<span style="color: #000000;">direction) : m_pDirection(direction){}
+</span><span style="color: #008080;"> 83</span> 
+<span style="color: #008080;"> 84</span>      wchar_t *<span style="color: #000000;">Interpret()
+</span><span style="color: #008080;"> 85</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;"> 86</span>           wchar_t *pResult = <span style="color: #0000ff;">new</span><span style="color: #000000;"> wchar_t[MAX_SIZE];
+</span><span style="color: #008080;"> 87</span>           memset(pResult, <span style="color: #800080;">0</span>, MAX_SIZE * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;"> 88</span> 
+<span style="color: #008080;"> 89</span>           <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">_wcsicmp(m_pDirection, DOWN))
+</span><span style="color: #008080;"> 90</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;"> 91</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">向下</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;"> 92</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;"> 93</span>           <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">_wcsicmp(m_pDirection, UP))
+</span><span style="color: #008080;"> 94</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;"> 95</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">向上</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;"> 96</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;"> 97</span>           <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">_wcsicmp(m_pDirection, LEFT))
+</span><span style="color: #008080;"> 98</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;"> 99</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">向左</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">100</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">101</span>           <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">_wcsicmp(m_pDirection, RIGHT))
+</span><span style="color: #008080;">102</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">103</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">向右</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">104</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">105</span>           <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">106</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">107</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">无效指令</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">108</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">109</span> 
+<span style="color: #008080;">110</span> <span style="color: #000000;">          SAFE_DELETE(m_pDirection);
+</span><span style="color: #008080;">111</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;"> pResult;
+</span><span style="color: #008080;">112</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">113</span> 
+<span style="color: #008080;">114</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">115</span>      wchar_t *<span style="color: #000000;">m_pDirection;
+</span><span style="color: #008080;">116</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">117</span> 
+<span style="color: #008080;">118</span> <span style="color: #0000ff;">class</span> ActionNode : <span style="color: #0000ff;">public</span><span style="color: #000000;"> AbstractNode
+</span><span style="color: #008080;">119</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">120</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;">121</span>      ActionNode(wchar_t *<span style="color: #000000;">action) : m_pAction(action){}
+</span><span style="color: #008080;">122</span> 
+<span style="color: #008080;">123</span>      wchar_t *<span style="color: #000000;">Interpret()
+</span><span style="color: #008080;">124</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">125</span>           wchar_t *pResult = <span style="color: #0000ff;">new</span><span style="color: #000000;"> wchar_t[MAX_SIZE];
+</span><span style="color: #008080;">126</span>           memset(pResult, <span style="color: #800080;">0</span>, MAX_SIZE * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;">127</span> 
+<span style="color: #008080;">128</span>           <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">_wcsicmp(m_pAction, MOVE))
+</span><span style="color: #008080;">129</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">130</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">移动</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">131</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">132</span>           <span style="color: #0000ff;">else</span> <span style="color: #0000ff;">if</span> (!<span style="color: #000000;">_wcsicmp(m_pAction, WALK))
+</span><span style="color: #008080;">133</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">134</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">走动</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">135</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">136</span>           <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">137</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">138</span>                wcscat_s(pResult, MAX_SIZE, L<span style="color: #800000;">"</span><span style="color: #800000;">无效指令</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;">139</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">140</span> 
+<span style="color: #008080;">141</span> <span style="color: #000000;">          SAFE_DELETE(m_pAction);
+</span><span style="color: #008080;">142</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;"> pResult;
+</span><span style="color: #008080;">143</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">144</span> 
+<span style="color: #008080;">145</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">146</span>      wchar_t *<span style="color: #000000;">m_pAction;
+</span><span style="color: #008080;">147</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">148</span> 
+<span style="color: #008080;">149</span> <span style="color: #0000ff;">class</span> DistanceNode : <span style="color: #0000ff;">public</span><span style="color: #000000;"> AbstractNode
+</span><span style="color: #008080;">150</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">151</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;">152</span>      DistanceNode(wchar_t *<span style="color: #000000;">distance) : m_pDistance(distance){}
+</span><span style="color: #008080;">153</span> 
+<span style="color: #008080;">154</span>      wchar_t *<span style="color: #000000;">Interpret()
+</span><span style="color: #008080;">155</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">156</span>           wchar_t *pResult = <span style="color: #0000ff;">new</span><span style="color: #000000;"> wchar_t[MAX_SIZE];
+</span><span style="color: #008080;">157</span>           memset(pResult, <span style="color: #800080;">0</span>, MAX_SIZE * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;">158</span> 
+<span style="color: #008080;">159</span> <span style="color: #000000;">          wcscat_s(pResult, MAX_SIZE, m_pDistance);
+</span><span style="color: #008080;">160</span> 
+<span style="color: #008080;">161</span> <span style="color: #000000;">          SAFE_DELETE(m_pDistance);
+</span><span style="color: #008080;">162</span>           <span style="color: #0000ff;">return</span><span style="color: #000000;"> pResult;
+</span><span style="color: #008080;">163</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">164</span> 
+<span style="color: #008080;">165</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">166</span>      wchar_t *<span style="color: #000000;">m_pDistance;
+</span><span style="color: #008080;">167</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">168</span> 
+<span style="color: #008080;">169</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> InstructionHandler
+</span><span style="color: #008080;">170</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">171</span> <span style="color: #0000ff;">public</span><span style="color: #000000;">:
+</span><span style="color: #008080;">172</span>      InstructionHandler(wchar_t *<span style="color: #000000;">instruction) : m_pInstruction(instruction), m_pTree(NULL){}
+</span><span style="color: #008080;">173</span> 
+<span style="color: #008080;">174</span>      <span style="color: #0000ff;">void</span><span style="color: #000000;"> Handle();
+</span><span style="color: #008080;">175</span>      <span style="color: #0000ff;">void</span><span style="color: #000000;"> Output();
+</span><span style="color: #008080;">176</span> 
+<span style="color: #008080;">177</span> <span style="color: #0000ff;">private</span><span style="color: #000000;">:
+</span><span style="color: #008080;">178</span>      <span style="color: #0000ff;">void</span> SplitInstruction(wchar_t **&amp;instruction, <span style="color: #0000ff;">int</span> &amp;<span style="color: #000000;">size);
+</span><span style="color: #008080;">179</span> 
+<span style="color: #008080;">180</span>      wchar_t *<span style="color: #000000;">m_pInstruction;
+</span><span style="color: #008080;">181</span>      AbstractNode *<span style="color: #000000;">m_pTree;
+</span><span style="color: #008080;">182</span> <span style="color: #000000;">};
+</span><span style="color: #008080;">183</span> 
+<span style="color: #008080;">184</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> InstructionHandler::Handle()
+</span><span style="color: #008080;">185</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">186</span>      AbstractNode *pLeft =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">187</span>      AbstractNode *pRight =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">188</span>      AbstractNode *pDirection =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">189</span>      AbstractNode *pAction =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">190</span>      AbstractNode *pDistance =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">191</span> 
+<span style="color: #008080;">192</span>      vector&lt;AbstractNode *&gt; node; <span style="color: #008000;">//</span><span style="color: #008000;"> Store the instruction expression
+</span><span style="color: #008080;">193</span> 
+<span style="color: #008080;">194</span>      <span style="color: #008000;">//</span><span style="color: #008000;"> Split the instruction by " "</span>
+<span style="color: #008080;">195</span>      wchar_t **InstructionArray =<span style="color: #000000;"> NULL;
+</span><span style="color: #008080;">196</span>      <span style="color: #0000ff;">int</span><span style="color: #000000;"> size;
+</span><span style="color: #008080;">197</span> <span style="color: #000000;">     SplitInstruction(InstructionArray, size);
+</span><span style="color: #008080;">198</span>      <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; size; ++<span style="color: #000000;">i)
+</span><span style="color: #008080;">199</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">200</span>           <span style="color: #0000ff;">if</span> (!_wcsicmp(InstructionArray[i], L<span style="color: #800000;">"</span><span style="color: #800000;">and</span><span style="color: #800000;">"</span>)) 
+                   <span style="color: #008000;">//</span><span style="color: #008000;"> The instruction is composited by two expressions</span>
+<span style="color: #008080;">201</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">202</span>                wchar_t *pDirectionStr = InstructionArray[++<span style="color: #000000;">i];
+</span><span style="color: #008080;">203</span>                pDirection = <span style="color: #0000ff;">new</span><span style="color: #000000;"> DirectionNode(pDirectionStr);
+</span><span style="color: #008080;">204</span> 
+<span style="color: #008080;">205</span>                wchar_t *pActionStr = InstructionArray[++<span style="color: #000000;">i];
+</span><span style="color: #008080;">206</span>                pAction = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ActionNode(pActionStr);
+</span><span style="color: #008080;">207</span> 
+<span style="color: #008080;">208</span>                wchar_t *pDistanceStr = InstructionArray[++<span style="color: #000000;">i];
+</span><span style="color: #008080;">209</span>                pDistance = <span style="color: #0000ff;">new</span><span style="color: #000000;"> DistanceNode(pDistanceStr);
+</span><span style="color: #008080;">210</span> 
+<span style="color: #008080;">211</span>                pRight = <span style="color: #0000ff;">new</span><span style="color: #000000;"> SentenceNode(pDirection, pAction, pDistance);
+</span><span style="color: #008080;">212</span>                node.push_back(<span style="color: #0000ff;">new</span><span style="color: #000000;"> AndNode(pLeft, pRight));
+</span><span style="color: #008080;">213</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">214</span>           <span style="color: #0000ff;">else</span>
+<span style="color: #008080;">215</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">216</span>                wchar_t *pDirectionStr =<span style="color: #000000;"> InstructionArray[i];
+</span><span style="color: #008080;">217</span>                pDirection = <span style="color: #0000ff;">new</span><span style="color: #000000;"> DirectionNode(pDirectionStr);
+</span><span style="color: #008080;">218</span> 
+<span style="color: #008080;">219</span>                wchar_t *pActionStr = InstructionArray[++<span style="color: #000000;">i];
+</span><span style="color: #008080;">220</span>                pAction = <span style="color: #0000ff;">new</span><span style="color: #000000;"> ActionNode(pActionStr);
+</span><span style="color: #008080;">221</span> 
+<span style="color: #008080;">222</span>                wchar_t *pDistanceStr = InstructionArray[++<span style="color: #000000;">i];
+</span><span style="color: #008080;">223</span>                pDistance = <span style="color: #0000ff;">new</span><span style="color: #000000;"> DistanceNode(pDistanceStr);
+</span><span style="color: #008080;">224</span> 
+<span style="color: #008080;">225</span>                pLeft = <span style="color: #0000ff;">new</span><span style="color: #000000;"> SentenceNode(pDirection, pAction, pDistance);
+</span><span style="color: #008080;">226</span> <span style="color: #000000;">               node.push_back(pLeft);
+</span><span style="color: #008080;">227</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">228</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">229</span> 
+<span style="color: #008080;">230</span>      m_pTree = node[node.size() - <span style="color: #800080;">1</span><span style="color: #000000;">];
+</span><span style="color: #008080;">231</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">232</span> 
+<span style="color: #008080;">233</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> InstructionHandler::Output()
+</span><span style="color: #008080;">234</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">235</span>      wchar_t *pResult = m_pTree-&gt;<span style="color: #000000;">Interpret();
+</span><span style="color: #008080;">236</span> 
+<span style="color: #008080;">237</span>      setlocale(LC_ALL,<span style="color: #800000;">""</span><span style="color: #000000;">);
+</span><span style="color: #008080;">238</span>      wprintf_s(L<span style="color: #800000;">"</span><span style="color: #800000;">%s\n</span><span style="color: #800000;">"</span><span style="color: #000000;">, pResult);
+</span><span style="color: #008080;">239</span> 
+<span style="color: #008080;">240</span> <span style="color: #000000;">     SAFE_DELETE(pResult);
+</span><span style="color: #008080;">241</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">242</span> 
+<span style="color: #008080;">243</span> <span style="color: #0000ff;">void</span> InstructionHandler::SplitInstruction(wchar_t **&amp;instruction, <span style="color: #0000ff;">int</span> &amp;<span style="color: #000000;">size)
+</span><span style="color: #008080;">244</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">245</span>      instruction = <span style="color: #0000ff;">new</span> wchar_t*[<span style="color: #800080;">10</span><span style="color: #000000;">];
+</span><span style="color: #008080;">246</span>      memset(instruction, <span style="color: #800080;">0</span>, <span style="color: #800080;">10</span> * <span style="color: #0000ff;">sizeof</span>( wchar_t*<span style="color: #000000;">));
+</span><span style="color: #008080;">247</span> 
+<span style="color: #008080;">248</span>      <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = <span style="color: #800080;">0</span>; i &lt; <span style="color: #800080;">10</span>; ++<span style="color: #000000;">i)
+</span><span style="color: #008080;">249</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">250</span>           instruction[i] = <span style="color: #0000ff;">new</span> wchar_t[<span style="color: #800080;">10</span><span style="color: #000000;">];
+</span><span style="color: #008080;">251</span>           memset(instruction[i], <span style="color: #800080;">0</span>, <span style="color: #800080;">10</span> * <span style="color: #0000ff;">sizeof</span><span style="color: #000000;">(wchar_t));
+</span><span style="color: #008080;">252</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">253</span> 
+<span style="color: #008080;">254</span>      size = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">255</span>      <span style="color: #0000ff;">int</span> n = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">256</span>      <span style="color: #0000ff;">while</span> (*m_pInstruction != L<span style="color: #800000;">'</span><span style="color: #800000;">\0</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span><span style="color: #008080;">257</span> <span style="color: #000000;">     {
+</span><span style="color: #008080;">258</span>           <span style="color: #0000ff;">if</span> (*m_pInstruction == L<span style="color: #800000;">'</span> <span style="color: #800000;">'</span><span style="color: #000000;">)
+</span><span style="color: #008080;">259</span> <span style="color: #000000;">          {
+</span><span style="color: #008080;">260</span>                size++<span style="color: #000000;">;
+</span><span style="color: #008080;">261</span>                m_pInstruction++<span style="color: #000000;">;
+</span><span style="color: #008080;">262</span>                n = <span style="color: #800080;">0</span><span style="color: #000000;">;
+</span><span style="color: #008080;">263</span>                <span style="color: #0000ff;">continue</span><span style="color: #000000;">;
+</span><span style="color: #008080;">264</span> <span style="color: #000000;">          }
+</span><span style="color: #008080;">265</span> 
+<span style="color: #008080;">266</span>           instruction[size][n++] = *m_pInstruction++<span style="color: #000000;">;
+</span><span style="color: #008080;">267</span> <span style="color: #000000;">     }
+</span><span style="color: #008080;">268</span>      size++<span style="color: #000000;">;
+</span><span style="color: #008080;">269</span> <span style="color: #000000;">}
+</span><span style="color: #008080;">270</span> 
+<span style="color: #008080;">271</span> <span style="color: #0000ff;">int</span><span style="color: #000000;"> main()
+</span><span style="color: #008080;">272</span> <span style="color: #000000;">{
+</span><span style="color: #008080;">273</span>      wchar_t *pInstructionStr = L<span style="color: #800000;">"</span><span style="color: #800000;">up move 5 and down walk 10</span><span style="color: #800000;">"</span><span style="color: #000000;">;
+</span><span style="color: #008080;">274</span> 
+<span style="color: #008080;">275</span>      InstructionHandler *pInstructionHandler = <span style="color: #0000ff;">new</span><span style="color: #000000;"> InstructionHandler(pInstructionStr);
+</span><span style="color: #008080;">276</span>      pInstructionHandler-&gt;<span style="color: #000000;">Handle();
+</span><span style="color: #008080;">277</span>      pInstructionHandler-&gt;<span style="color: #000000;">Output();
+</span><span style="color: #008080;">278</span> 
+<span style="color: #008080;">279</span> <span style="color: #000000;">     SAFE_DELETE(pInstructionHandler);
+</span><span style="color: #008080;">280</span> }</pre>
+</div>
+<p>我们这里用代码来实现上面的游戏，只不过不是控制小狗在屏幕上移动了，而是将对应的控制指令翻译成汉语进行表示，这和翻译成控制小狗移动的指令的原理是一样的。比如现在有指令：down run 10；那么，经过解释器模式得到的结果为：向下跑动10。</p>
+<p>在上面的代码中，我没有用到Context类，一般Context类作为环境上下文类，用于存储解释器之外的一些全局信息，它通常作为参数被传递到所有表达式的解释方法interpret中，可以在Context对象中存储和访问表达式解释器的状态，向表达式解释器提供一些全局的、公共的数据，此外还可以在Context中增加一些所有表达式解释器都共有的功能，减轻解释器的职责。而我们在代码中定义的一些常量，完全可以放入到Context类中，作为上下文的全局数据。</p>
+<p> </p>
+<h4>6 主要优点</h4>
+<p>易于改变和扩展文法。由于在解释器模式中使用类来表示语言的文法规则，因此可以通过继承等机制来改变或扩展文法；</p>
+<p>每一条文法规则都可以表示为一个类，因此可以方便地实现一个简单的语言；</p>
+<p>实现文法较为容易；在抽象语法树中每一个表达式节点类的实现方式都是相似的，这些类的代码编写都不会特别复杂；</p>
+<p>增加新的解释表达式较为方便。如果用户需要增加新的解释表达式只需要对应增加一个新的终结符表达式类或非终结符表达式类，原有表达式类代码无须修改，符合“开闭原则”。</p>
+<p> </p>
+<h4>6 主要缺点</h4>
+<p>对于复杂文法难以维护；在解释器模式中，每一条规则至少需要定义一个类，因此如果一个语言包含太多文法规则，类的个数将会急剧增加，导致系统难以管理和维护，此时可以考虑使用语法分析程序等方式来取代解释器模式；</p>
+<p>执行效率低；由于在解释器模式中使用了大量的循环和递归调用，因此在解释较为复杂的句子时其速度很慢，而且代码的调试过程也很麻烦。</p>
+<p> </p>
+<h4>7 总结</h4>
+<p>解释器模式在实际的系统开发中使用的非常少，因为它会引起效率、性能以及维护方面的问题，并且难度较大，一般在一些大中型的框架型项目中能够找到它的身影。而现在又有很多的开源库提供了对实际需要的支持，所以，我们在实际开发中没有必要再去重复造轮子，能够理解了解释器模式就好了。</p>
+
+
+<p style='float:right;'>本页共56段，3676个字符，8952 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
