@@ -1,0 +1,657 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:100%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>﻿《查泰莱夫人的情人》的译本对比</h4>
+
+<p>最近看了《查泰莱夫人的情人》的译文<span style="color:red;">样章: </span>，顺便比较阅读了一些其他译本，在此记录一下。</p>
+
+<p>选了以下翻译版本进行对比：</p>
+
+<p><p><span style="color:red;">饶述一: </span>，湖南文艺出版社1991年，1986年</p>
+
+<p><p><span style="color:red;">杨恒达: </span>、杨婷，北京燕山出版社2009年</p>
+
+<p><span style="color:red;">黑马: </span>（毕冰宾），中央编译出版社2010年。</p>
+
+<p><span style="color:red;">张佳玮: </span>，江苏文艺出版社2017年</p>
+
+<p>其他译者有：</p>
+
+<p>赵苏苏，人民文学出版社2006年</p>
+
+<p>欧佩媛，英属维京群岛商高宝国际出版2007年</p>
+
+<p>冯铁，河南文艺出版社2008年</p>
+
+<p><p><span style="color:red;">杨恒达: </span>、杨婷，北京燕山出版社2009年</p>
+
+<p>雍穆贝勒，中国华侨出版社2009年</p>
+
+<p><span style="color:red;">黑马: </span>（毕冰宾），中央编译出版社2010年</p>
+
+<p>先子，山东文艺出版社2013年</p>
+
+<p>赵苏苏，新星出版社2014年</p>
+
+<p>一、简洁性</p>
+
+<p>英文	Or perhaps rebel is too strong aword; far too strong.</p>
+
+<p><span style="color:red;">样章: </span>也许，叛逆一词过重，太离谱。</p>
+
+<p><span style="color:red;">饶述一: </span>也许反叛这字用得过火了，太过火了。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>也许“叛逆”这个词用得过火了：太过火了。</p>
+
+<p><span style="color:red;">黑马: </span>可能说叛逆言重了，过于言重了。</p>
+
+<p><span style="color:red;">张佳玮: </span>或者，也许，叛逆这词过于言重了。</p>
+
+<p>相同的内容，<span style="color:red;">样章: </span>更简洁。far too strong出现两次，<span style="color:red;">黑马: </span>译为“言重”，比较好。</p>
+
+<p>英文	And in the morning it rained.</p>
+
+<p><span style="color:red;">样章: </span>早上，下起了雨。</p>
+
+<p><p><span style="color:red;">饶述一: </span>早晨的时候，天又下起雨来。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>早晨的时候，天又下起雨来。</p>
+
+<p><span style="color:red;">黑马: </span>到了早晨，天开始下起雨来。</p>
+
+<p><span style="color:red;">张佳玮: </span>到早晨，天又下起雨来。</p>
+
+<p>早上，下起了雨。</p>
+
+<p><span style="color:red;">样章: </span>的译文更简约。<p><span style="color:red;">饶述一: </span>的译文“天又下起雨来”，说明不止一天下雨。</p>
+
+<p>英文	The elder brother was dead in the war.</p>
+
+<p><span style="color:red;">样章: </span>哥哥战死。</p>
+
+<p><p><span style="color:red;">饶述一: </span>他的长兄在大战中阵亡了。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>他的兄长在战争中阵亡。</p>
+
+<p><span style="color:red;">黑马: </span>长兄已经战死，</p>
+
+<p><span style="color:red;">张佳玮: </span>他的长兄在一战中阵亡。</p>
+
+<p>这一句，<span style="color:red;">样章: </span>翻译为4个字，更简洁，要点也译来了。The elder brother，<span style="color:red;">样章: </span>译为“哥哥”，准确性不够，而且偏口语。其他译为“长兄、兄长”，更准确，有书面语感。</p>
+
+<p><span style="color:red;">样章: </span>的语言有一个特点，是“简”，有的简洁太过了，就会省略一些细节。下面是开篇处的长段，new little habitats和下文的new little hopes，是对称的。<span style="color:red;">样章: </span>译为3个字“小窝棚”，new的意思没体现出来；new little hopes译为“一点点抱希望”，new的意思仍然没体现出来，“怀抱希望”比“抱希望”更有书面感。</p>
+
+<p><p><span style="color:red;">饶述一: </span>翻译为“新的小小的栖息地”，“新的微小的希望”，意思更准确，也注意到了对称，“栖息地”比“窝棚”更有抽象的美感。</p>
+
+<p>we are among the ruins，<span style="color:red;">样章: </span>译为“四周一片废墟”，we的意思没体现。<span style="color:red;">黑马: </span>译为“我们身陷废墟”，既简洁，又准确，一个“陷”字表达出困境之感，读起来更好一点。</p>
+
+<p>第一二章 的字数估算：</p>
+
+<p><span style="color:red;">样章: </span>10627，有标点1146（估算的）</p>
+
+<p><p><span style="color:red;">饶述一: </span>10876，有标点992（估算的）</p>
+
+<p>英文	Ours is essentially a tragic age, so we refuse to take it tragically. The cataclysm has happened, we are among the ruins, we start to build up new little habitats, to have new little hopes. It is rather hard work: there is now no smooth road into the future: but we go round, or scramble over the obstacles. We've got to live, no matter how many skies have fallen.</p>
+
+<p><span style="color:red;">样章: </span>当今的时代是个十足的悲剧时代，所以我们就不以悲剧为悲。大难已经降临，四周一片废墟。我们动手搭建小窝棚，开始一点点抱希望。这并非易事，没有坦途通向未来，但我们会摸索，会爬过重重障碍。无论天塌了多少层，日子总得过下去。</p>
+
+<p><p><span style="color:red;">饶述一: </span>我们根本就生活在一个悲剧的时代，因此我们不愿惊惶自忧。大灾难已经来临，我们处于废墟之中，我们开始建立一些新的小小的栖息地，怀抱一些新的微小的希望。这是一种颇为艰难的工作。现在没有一条通向未来的康庄大道，但是我们却迂回前进，或攀援障碍而过。不管天翻地覆，我们都得生活。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>我们本来就处于一个悲剧时代，因此我们无须悲痛欲绝。大灾难既已发生，我们周围是一片废墟，我们着手建起小小的新住处，怀着小小的新希望。这是一项相当艰难的工作：现在是没有通向未来之坦途的，但是我们四处奔走，攀越障碍。无论多少重天塌下来，我们也得生活。</p>
+
+<p><span style="color:red;">黑马: </span>我们这个时代根本是场悲剧，所以我们也就不那它当悲剧了。大灾大难已经发生，我们身陷废墟，开始在瓦砾中重新搭建自己的小窝儿，给自己一点小小的期盼。这可是一项艰苦的工作：没有坦途通向未来，但我们还是摸索着蹒跚前行。不管天塌下几重，我们还得活下去才是。</p>
+
+<p><span style="color:red;">张佳玮: </span>我们的时代根本悲惨不堪，所以我们拒绝伤惨度日。大灾难席卷而过，我们处身废墟中，开始建起些微小的栖居地，培育些微小的新希望。这工作颇为艰难：当下并无通向未来的坦途；但是我们迂回前进，翻越障碍。我们得活下去，无论多少人的世界已经天塌地陷。</p>
+
+<p>二、准确性</p>
+
+<p>英文	And she had realized that one must live and learn.</p>
+
+<p><span style="color:red;">样章: </span>她深知，人人都得想法活命。</p>
+
+<p><p><span style="color:red;">饶述一: </span>因此她了解了一个人必要生活，必要求知。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>而她则明白人总得生活和求知。</p>
+
+<p><span style="color:red;">黑马: </span>也让她意识到，真要活到老学到老呢。</p>
+
+<p><span style="color:red;">张佳玮: </span>于是她意识到，人真得活到老学到老。</p>
+
+<p>live and learn，直译是“活和学”，<p><span style="color:red;">杨恒达: </span>译为“生活和求知”，是书面语，<span style="color:red;">黑马: </span>和<span style="color:red;">张佳玮: </span>译为“活到老学到老”，就更有口语感，读起来更亲切、贴近。<p><span style="color:red;">饶述一: </span>译为“必要生活，必要求知”，语言习惯和当代的不同，读起来不很顺畅。<span style="color:red;">样章: </span>没体现出“learn”的意思，“想法活命”也是口语感，读起来贴近。</p>
+
+<p>英文	Yet in his face one saw the watchful look, the slight vacancy of a cripple.</p>
+
+<p><span style="color:red;">样章: </span>可是，人们也能从他的脸上看出一个残疾人特有的警觉神情和失落感。</p>
+
+<p><p><span style="color:red;">饶述一: </span>可是他的脸上却仍然表示着一个残废者的呆视的状态和有点空虚的样子。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>然而，从他脸上仍然可以看到小心戒备的眼光，看到残疾人的一丝内心空虚。</p>
+
+<p><span style="color:red;">黑马: </span>可在他脸上还是能察觉出一个残疾人警觉提防的神情，眼神里还是透着一丝儿残疾人的空虚。</p>
+
+<p><span style="color:red;">张佳玮: </span>然而，从他的脸上，你依然看得见一点儿残疾者的呆滞与空虚。</p>
+
+<p>slight vacancy ，直译是“轻微的空缺”，<span style="color:red;">黑马: </span>译为“一丝儿”，译出了意思，也有中文韵味。<span style="color:red;">样章: </span>没体现出“slight vacancy” 的意思。</p>
+
+<p>英文	For two years he remained in the doctor's hands. Then he was pronounced a cure, and could return to life again, with the lower half of his body, from the hips down, paralysed for ever.</p>
+
+<p><span style="color:red;">样章: </span>连续治疗两年，终于宣告康复，获得新生，不过下半身终身瘫痪。</p>
+
+<p><p><span style="color:red;">饶述一: </span>医生把他医治了两年了，结果仅以身免。可是腰部以下的半身，从此永久成了疯瘫。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>他在医生收下度过了两年的时间。然后据称他已被治愈，他又活了过来，然而他的下半身，自臀部以下的部分，却永远瘫痪了。</p>
+
+<p><span style="color:red;">黑马: </span>一连两年他都在接受治疗，两年后医生宣布他痊愈，但腰部以下半截却是永久性地瘫了。</p>
+
+<p><span style="color:red;">张佳玮: </span>整整两年时间，他命悬医生之手，后来被宣布痊愈了，活过来了。只是腰部以下的半身，就此瘫痪。</p>
+
+<p>英文句式也有前置、后置，句首的For two years有强调时间长的意思，<span style="color:red;">张佳玮: </span>译为“整整两年时间”，也放在句首，体现出了强调。</p>
+
+<p><span style="color:red;">样章: </span>的语言有“平”之感，因为讲究简和短，所以一是改变了英语原有的句式，二是对英文的强调处，有些译文体现不足。<span style="color:red;">样章: </span>中的很多译文是摒弃英语句式的，好处是语言更符合中国人的阅读，短句更有散文体感，不好处是消减了英语原本的语感，读起来不像翻译外文的，而像自己创作的散文。</p>
+
+<p><span style="color:red;">样章: </span>翻译出了英文原句的要点，体现了翻译的“信”，可能因为译文句子太简短，而疏忽了一些细节，如英文was pronounced，直译“被宣告”，是被动的动作，<span style="color:red;">样章: </span>翻译为“宣告康复”，就没体现出原文中的被动。而这个细节，对于理解人物是很重要的，体现出男主人公下身瘫痪，医生却宣布他被治愈了，其实不论是肉体还是心理，创伤一直没有主动痊愈，这对主人公的心理性格有极大影响。</p>
+
+<p>英文	It was obvious in them too that love had gone through them: that is, the physical experience.</p>
+
+<p><span style="color:red;">样章: </span>爱情，就是身体的那事，他们显然也经历过。</p>
+
+<p><p><span style="color:red;">饶述一: </span>很明显；爱情——肉体的爱——已在他们身上经过了。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>在他们身上也可以看得很明显，他们都经历了爱情：也就是说，肉体上的体验。</p>
+
+<p><span style="color:red;">黑马: </span>他们身上也明显有经历过爱情的痕迹，也就是说有了身体上的经历。</p>
+
+<p><span style="color:red;">张佳玮: </span>这一句漏译</p>
+
+<p>physical experience，直译是“身体的经验”，<span style="color:red;">样章: </span>译为“那事”，有只可意会不可言传的感觉。这部小说有很多性爱描写，第一二章 中还没涉及到，所以无法看到性爱被译为什么，<span style="color:red;">样章: </span>目前只出现一个词“那勾当”。</p>
+
+<p>英文	And afterwards looked rather as if they had lost a shilling and found sixpence.</p>
+
+<p><span style="color:red;">样章: </span>然而事完之后，他们似乎又后悔因小失大。</p>
+
+<p><p><span style="color:red;">饶述一: </span>但是不久，他们又有点觉得得不尝失了。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>但后来他们的样子又好像是得不偿失。</p>
+
+<p><span style="color:red;">黑马: </span>过后他们看上去倒像是丢了西瓜捡了芝麻。</p>
+
+<p><span style="color:red;">张佳玮: </span>但是不久，他们似乎觉得得不偿失。</p>
+
+<p>Shilling，直译是“先令”，sixpence，直译是“六便士”，这是一句外国俗语，意思是得到六便士却丢了一先令。<span style="color:red;">黑马: </span>用中国的俗语“丢了西瓜捡了芝麻”，来解释外国俗语，意思和中文神韵都体现出来了，比较好。</p>
+
+<p>英文	When you don't have them they hate you because you won't;</p>
+
+<p><span style="color:red;">样章: </span>你不跟他们干，他们恨你不愿意；</p>
+
+<p><p><span style="color:red;">饶述一: </span>你不要他们的时候，他们憎恨你，因为你不要他们；</p>
+
+<p><p><span style="color:red;">杨恒达: </span>腻不占有他们的时候，他们恨你，因为你不愿意；</p>
+
+<p><span style="color:red;">黑马: </span>你不要他们吧，他们恨你不要。</p>
+
+<p><span style="color:red;">张佳玮: </span>你不要他们，他们憎恨你，因为你不要他们；</p>
+
+<p>Have，此处译为“要”，更准确、文雅一些。</p>
+
+<p><span style="color:red;">样章: </span>的语言还有一个特点，是“直”，英文的要点能译出来，而措辞有点不活润。<p><span style="color:red;">杨恒达: </span>译为“占有”，也不太准确。本书第十二章 ，有一场十分有名的性爱过程描写，翻译这一章比较考验译者，用来对比各个译本的差别，比较好。</p>
+
+<p>英文	The miners' wives were nearly all Methodists.The miners were nothing.</p>
+
+<p><span style="color:red;">样章: </span>矿工的老婆几乎全是卫理公会教徒②，而矿工什么都不信。</p>
+
+<p><p><span style="color:red;">饶述一: </span>矿工的妻子们几乎都是监理会教徒，而矿工们却是无所信仰的</p>
+
+<p><p><span style="color:red;">杨恒达: </span>旷工的妻子们几乎全都是卫理公会教徒，矿工们什么也不是</p>
+
+<p><span style="color:red;">黑马: </span>旷工的妻子们几乎全是卫理会的教徒，旷工们则什么教都不信。</p>
+
+<p><span style="color:red;">张佳玮: </span>旷工的妻子们几乎都是循道宗教徒，矿工们则没有信仰。</p>
+
+<p>Nothing，要和上文联系起来看，上文提到旷工的妻子们是教徒，而旷工自己不是教徒，所以“什么教都不信”更准确一些。<span style="color:red;">样章: </span>的“什么都不信”，是“相信”“信任”还是别的什么，指向有歧义。所以初读<span style="color:red;">样章: </span>，觉得简约干净，读着爽快，读久了，多读几遍，有一点“簿”之感，描绘有点简，不细致。</p>
+
+<p><p><span style="color:red;">饶述一: </span>和<span style="color:red;">张佳玮: </span>译为“没有信仰”，似乎也不很准确，因为此处是以信教派而言的。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>译为“矿工们什么也不是”，就割裂了上文。</p>
+
+<p>英文	Christmas roses</p>
+
+<p><span style="color:red;">样章: </span>黑儿波</p>
+
+<p><p><span style="color:red;">饶述一: </span>毛黄花</p>
+
+<p><p><span style="color:red;">杨恒达: </span>黑儿波花叶</p>
+
+<p><span style="color:red;">黑马: </span>冬玫瑰</p>
+
+<p><span style="color:red;">张佳玮: </span>圣诞蔷薇</p>
+
+<p>对动植物的名字，<span style="color:red;">样章: </span>目前的翻译是准确的。<span style="color:red;">样章: </span>在此处添加了注释。</p>
+
+<p>英文	However, came the war,Hilda and Connie were rushed home again after having been home already in May, to their mother's funeral.</p>
+
+<p><span style="color:red;">样章: </span>但是战争来了，希尔达和康妮又回国。那年五月，母亲去世时她们也回过一次，奔丧。</p>
+
+<p><p><span style="color:red;">饶述一: </span>大战爆发了。希尔达和康妮又匆匆回家——她们在五月已经回家一次，那时是为了母亲的丧事。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>然而，战争到来了，在五月回过一次家之后，康妮和希尔达又赶回家去参加母亲的葬礼。</p>
+
+<p><span style="color:red;">黑马: </span>但战争爆发了，希尔达和康妮再次赶回家来。在这之前，她们五月份曾回来过一次，是给母亲奔丧。</p>
+
+<p><span style="color:red;">张佳玮: </span>然而第一次世界大战来了。希尔达和康妮，继5月回家那次后，又匆匆返乡，奔赴母亲的葬礼。</p>
+
+<p>与英文对照，<span style="color:red;">张佳玮: </span>的译文是错了。to their mother's funeral，作为后置状语，是修饰“五月回家”这个意思的。英文的意思，五月回家是为了奔丧，这次回家是因为战争。<span style="color:red;">样章: </span>翻译正确，但是“奔丧”两字仍有没头没脑之感，有点过简了，造成上下文的衔接有点生硬、不流畅。另外，单看这一句，是中式散文的感觉。</p>
+
+<p>三、文学性</p>
+
+<p>在景物、环境描写时，几个译文的差别很大。下面是一段景物描写，比较之后，<span style="color:red;">样章: </span>把“满园老橡树”摘出来另成一句，可见是改变了英语的长句，换为中文散文的短句，这种情况不是个例，反映出译者坚持的翻译原则。<span style="color:red;">样章: </span>采用了意译加注释的方法，短句为主，也有长句。</p>
+
+<p><p><span style="color:red;">饶述一: </span>的译文，采用意译，讲究中文的神韵，在文学性上，更有诗性，描写细腻而流畅，不拘于一字一词对照翻译，更像自己写作的，是非口语化的。这一段描写，仿佛眼前真的有一幅画，译者与作者一同看到了，也感染了读者。对生殖器的翻译，偏向于直译，翻译成“阴经，蒂”“孔”。这个译本文前有译者序，还有郁达夫和林语堂各写的一个书评。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>的译文，细节很充分，略显得冗长，有描画过分之感。译文中的人称用中国方言“俺们，乃，侬”，这一点给读者的评价不好。</p>
+
+<p><span style="color:red;">黑马: </span>是选择用英语长句的，这在此段景物描写中也有体现。他在这一段中用破折号“——”来处理一处译文，手法比较好。<span style="color:red;">黑马: </span>的译文有打磨之感，采用了直译加注释的方法，而且注释比其他几个版本都多不少。译文少了点儿<p><span style="color:red;">饶述一: </span>的意会和神韵，兼顾了名物的准确、语言的细致和雅。对生殖器的翻译，<span style="color:red;">黑马: </span>翻译的委婉一些，翻译成“东西，物件，家伙”“雌儿”。这个译本文前有译者序，<span style="color:red;">黑马: </span>为翻译这部小说，亲自去考察和体验过英国。</p>
+
+<p><span style="color:red;">张佳玮: </span>的译文，目前看过的第一二章 ，翻译时借鉴了<span style="color:red;">黑马: </span>、<p><span style="color:red;">饶述一: </span>，他也以长句为主，措辞体现出时尚、活泼，修辞比较讲究，但有漏译、错译。</p>
+
+<p>这一段景物描写，若大体排名，暂为：<p><span style="color:red;">饶述一: </span>><span style="color:red;">黑马: </span>><span style="color:red;">张佳玮: </span>><p><span style="color:red;">杨恒达: </span></p>
+
+<p>英文	It stood on an eminence in a rather line old park of oak trees, but alas, one could see in the near distance the chimney of Tevershall pit, with its clouds of steam and smoke, and on the damp, hazy distance of the hill the raw straggle of Tevershall village, a village which began almost at the park gates, and trailed in utter hopeless ugliness for a long and gruesome mile: houses, rows of wretched, small,begrimed, brick houses, with black slate roofs for lids, sharp angles and wilful, blank dreariness.</p>
+
+<p><span style="color:red;">样章: </span>它坐落在一座小山的山顶，四周有个相当漂亮的园林，满园老橡树。从这里也可以看到附近特弗沙尔煤矿冒出滚滚蒸汽和烟的烟囱，还有雾蒙蒙潮气重的山上绵延到远处的乱糟糟特弗沙尔镇。特弗沙尔镇难看得要命，长达一英里，一头靠近园林大门。一排排房子又小又寒酸，都是砖砌的，青石板盖顶，多尖角，没有一丝半点生气。</p>
+
+<p><p><span style="color:red;">饶述一: </span>它坐落在一高丘上，在一个够优美的满是橡树的老林园中。可惜得很，从这儿看见附近煤矿场的烟雾成云的烟囱，和远处湿雾朦胧中的小山上的达娃斯哈村落，这村落差不多挨着园门开始，极其丑恶地蔓延一里之长，一行行的寒酸肌脏的砖墙小屋，黑石板的屋顶，尖锐的屋角，带着无限悲他的气概。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>它坐落在一座山丘上，周围是一个相当美丽而古老的橡树园，可是天哪，在不远处，你可以看见特沃希尔煤矿的烟囱，烟雾缭绕，在远处湿雾朦胧中，你可以看见小丘上的特沃希尔村，这村子几乎从橡树园的园门开始，极其丑陋地蔓延一英里之长，令人厌恶：一排排破旧污秽的小屋，用砖砌成，黑石板的屋顶像盖子一样盖在上面，尖锐的屋角，一片凝固的死气沉沉。</p>
+
+<p><span style="color:red;">黑马: </span>它坐落在一个布满了老橡树的高丘上，看上去挺像样。可惜从这里看到的近处是特瓦萧煤矿烟囱里喷出的煤烟，远处雾气昭昭的山上是特瓦萧村杂乱无章的破房子——这村子几乎就从园林的门口开始，拖拖拉拉足有一英里长，看上去丑陋无比：满村都是一排排寒酸肮脏的小砖房，青石板顶，棱角尖锐，模样既别扭又死气沉沉。</p>
+
+<p><span style="color:red;">张佳玮: </span>它伫立在高丘上一个橡木成林的优美老园中，可惜你只能从此看见近处特维绍尔煤矿的烟囱，看到烟囱的云雾，看到潮湿朦胧的山上，粗糙杂乱的特维绍尔村。这村差不多自猎园门开始，以无可救药的丑恶姿态绵延一英里长。成排的砖墙小屋肮脏破落，戴着黑石板的屋顶，棱角尖锐，别扭又凄凉。</p>
+
+<p>英文	they were intimate as two people who stand together on a sinking ship.</p>
+
+<p><span style="color:red;">样章: </span>但两人亲亲密密，像在同一条船上，眼见船要沉没，更紧紧依偎。</p>
+
+<p><p><span style="color:red;">饶述一: </span>夫妇俩亲切得恰如正在沉没的船上的两个难人。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>他们就像一条沉船上站在一起的两个人那样亲密无间。</p>
+
+<p><span style="color:red;">黑马: </span>他们两个亲密无间，就像站在同一条船上沉浮与共。</p>
+
+<p><span style="color:red;">张佳玮: </span>他俩亲密得仿佛将沉的船上并肩而立的受难者。</p>
+
+<p>英文是一个长句子，<span style="color:red;">样章: </span>译为四个分句，读起来有停顿，节奏感很好，有中国散文的美，这是<span style="color:red;">样章: </span>语言的优美处。</p>
+
+<p>英文	 extremely shy and self-conscious now he was lamed.</p>
+
+<p><span style="color:red;">样章: </span>克利夫德其实极其心虚，自知完了。</p>
+
+<p><p><span style="color:red;">饶述一: </span>克利福实在是很胆怯的。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>克里福德真的很羞怯和敏感。</p>
+
+<p><span style="color:red;">黑马: </span>他变得自惭形秽，且十分敏感。</p>
+
+<p><span style="color:red;">张佳玮: </span>克利福德实在极为腼腆，很是自卑。</p>
+
+<p>这一句的翻译，译文差别比较大。Shy直译为羞涩，self-conscious直译为有自我意识的、害羞的、不自然的、忸怩的。</p>
+
+<p>英文	And Sir Geoffrey died of chagrin.</p>
+
+<p><span style="color:red;">样章: </span>郁闷之下，杰弗里一命归天。</p>
+
+<p><p><span style="color:red;">饶述一: </span>佐佛来男爵也忧愤中死去了。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>乔弗利爵士也在懊恼中死去</p>
+
+<p><span style="color:red;">黑马: </span>杰弗里男爵为此抑郁而死。</p>
+
+<p><span style="color:red;">张佳玮: </span>乔弗里男爵于是死于忧郁。</p>
+
+<p>比如这个句子，<span style="color:red;">样章: </span>也改用中文句式，读起来流畅上口。“郁闷”改成“忧郁”之类的好一点，因为在现汉词典里，忧郁的意思是“忧伤愁闷”，程度更重一点，“郁闷”的意思是“烦闷，不舒畅”。</p>
+
+<p>英文	The oak-leaves were to her like oak-leaves seen ruffling in a mirror, she herself was a figure somebody had read about, picking primroses that were only shadows ormemories, or words.</p>
+
+<p><span style="color:red;">样章: </span>她看到的摇曳的橡树像镜中花水中月，她自己是书中的人物，采摘的报春花是投影、回忆、空谈。</p>
+
+<p><p><span style="color:red;">饶述一: </span>橡树的叶子，在她看来，仿佛是镜子里摇动着的叶子，她自己是书本里的人物，采着莲馨花，而这些花儿也不过是些影子，或是记忆，或是一些字。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>在她看来，橡树的叶子就像是镜子中看到的波浪般滚动的橡树叶，她自己则是某人读到过的一个人物，采摘着不过是些影子、记忆或文字的樱草花。</p>
+
+<p><span style="color:red;">黑马: </span>橡树叶子在她看来就像在镜子里摇曳一般，而她自己则像故事里的人，她摘的报春花不过是幻影，或者说是回忆或文字。</p>
+
+<p><span style="color:red;">张佳玮: </span>橡树叶，在她眼中仿佛于镜中摇摆；她自己是被他人读到的虚构人物，采摘着报春花——这些花叶不过是影子，或者记忆，或者文字词句。</p>
+
+<p>ruffling in a mirror，直译是“在镜子里摇摆”，<span style="color:red;">样章: </span>的“镜中花水中月”，不够准确。<p><span style="color:red;">杨恒达: </span>的译文有自己的添加。</p>
+
+<p>英文	a man with a fair amount of money,</p>
+
+<p><span style="color:red;">样章: </span>有一把钱</p>
+
+<p><p><span style="color:red;">饶述一: </span>家财富有</p>
+
+<p><p><span style="color:red;">杨恒达: </span>是一个相当有钱的人</p>
+
+<p><span style="color:red;">黑马: </span>手头宽裕</p>
+
+<p><span style="color:red;">张佳玮: </span>甚是殷富</p>
+
+<p><p><span style="color:red;">杨恒达: </span>的译文，将原意表达清楚了，直白有余。“手头宽裕”“甚是殷富”，翻译得都可以。“有一把钱”，通俗性更好，翻译的归化更强，缺一点的雅。</p>
+
+<p>英文	It had nothing to do with SirMalcolm,</p>
+
+<p><span style="color:red;">样章: </span>这与马尔科姆爵士拉扯不上。</p>
+
+<p><p><span style="color:red;">饶述一: </span>那和麦尔肯爵士是无关的。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>这不关麦尔肯爵士的事，</p>
+
+<p><span style="color:red;">黑马: </span>跟马尔科姆爵士无关。</p>
+
+<p><span style="color:red;">张佳玮: </span>那和马尔科姆爵士无关。</p>
+
+<p>“拉扯不上”偏口语，直白，不很雅的感觉。用“无关”就挺好。</p>
+
+<p>英文	Not the big sort, but still it.</p>
+
+<p><span style="color:red;">样章: </span>虽不算贵得大不了，但仍是贵族。</p>
+
+<p><p><span style="color:red;">饶述一: </span>虽不是大贵族，但总是贵族。</p>
+
+<p><p><span style="color:red;">杨恒达: </span>虽然不是大贵族，但好歹是贵族。</p>
+
+<p><span style="color:red;">黑马: </span>虽说不是大贵族，但终归算贵族。</p>
+
+<p><span style="color:red;">张佳玮: </span>虽非高门大户，但总算是贵族。</p>
+
+<p><span style="color:red;">张佳玮: </span>译为“高门大户”，与中国传统的认识比较接近。贵得大不了，读起来不通。</p>
+
+<p>个人认为，翻译外国文学名著的译文，如果改换为特别本土化的语言和句式，改换的地方太多，细节的翻译就容易疏漏，读者读着会感到不伦不类，比如外国人自称“俺们”，就会丧失了原著英文的美感。</p>
+
+
+
+本页共183段，9275个字符，22494 Byte(字节)﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
