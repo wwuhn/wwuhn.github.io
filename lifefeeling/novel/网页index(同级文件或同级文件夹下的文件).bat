@@ -1,8 +1,10 @@
+chcp 65001
+
 echo ^<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" >index.html
 echo  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"^> >>index.html
 echo ^<html xmlns="http://www.w3.org/1999/xhtml"^> >>index.html
 echo ^<base target="_blank" /^> >>index.html
-
+echo ^<meta content="text/html; charset=utf-8" /^> >>index.html
 echo ^<head^> >>index.html
 echo ^<title^>contents^</title^> >>index.html
 echo ^<link  href="index.css" rel="stylesheet" type="text/css" /^> >>index.html
