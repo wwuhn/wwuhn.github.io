@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="center">第二章 链表 </p>
+
+  <p align="left">链表通常由一连串节点组成，每个节点包含任意的实例数据（data fields）和一个用来指向下一个节点地址的指针(next指针)。 </p>
+  <p align="left">使用链表结构可以克服数组需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的优点，同时链表由于增加了结点的指针域，空间开销比较大 </p>
+  <p align="left">链表在插入的时候可以达到O⑴的复杂度，但是查找一个节点或者访问特定编号的节点则需要O(n）的时间。</p>
+
+<p><a name="21" id="21"></a>2.1单向链表</p>
+
+<p>单向链表是指存放链表的结点中只有一个指针，指向它的下一个结点，而链表中最后一个结点的next指针为NULL。链表中的第一个结点，我们把它叫做头结点。只要知道了链表的头结点，就可以通过next指针，遍历整个链表。因此，一般在函数中，我们使用头结点来代表整个链表，将头结点传参给函数。 </p>
+  <p align="left">单向链表的存储结构：</p>
+<p></p>
+
+<pre>
+
+typedef struct _node
+{
+    int val;           // 值域，可以增加更多的值域，这里仅以int类型为代表
+    struct _node *next;// 指针域，指向下一个结点，最后一个结点指向NULL
+}Node, *PNode;:
+&lt;/pre>
+
+</pre>
+
+  <p align="center"><img width="453" height="110" src="a_clip_image001.jpg" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image002.jpg" /></p>
+
+<p><a name="211" id="211"></a>2.1.1创建</p>
+
+<p>如下图所示，在创建链表过程中，将新分配的一个链表结点插入到已知的链表中，可以分为两种情况：从头部插入和从尾部插入。 </p>
+  <p align="left"><img width="552" height="314" src="2.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image003.gif" /></p>
+
+<p><img width="552" height="189" src="3.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image004.gif" /></p>
+<p></p>
+
+<pre>
+// 从头部插入创建链表算法
+node *create_linklist_head()
+{
+    node *h = NULL;
+    while(1)
+    {
+        node *p = (node*)malloc(sizeof(node));
+        if(p==NULL)
+        {
+            return h;
+        }
+        memset(p,0,sizeof(node));
+        printf("Please input a data\n");
+        scanf_s("%d",&p->value);
+        p->next = NULL;
+        if(h==NULL)     // 如果头结点指针为空，表明这是创建的第一个结点
+        {
+            h=p;
+        }
+        else
+        {
+            p->next = h;
+            h=p;
+        }
+        if(p->value==0)
+        {
+            break;
+        }
+    }
+    return h;
+}
+// 从尾部插入链表算法
+node *create_linklist_tail()
+{
+    node *h=NULL;
+    while(1)
+    {
+        node *p = (node *)malloc(sizeof(node));
+        if(p==NULL)
+        {
+            return h;
+        }
+        memset(p,0,sizeof(node));
+        printf("Please input a data\n");
+        scanf_s("%d",&p->value);
+        p->next = NULL;
+        if(h==NULL)     // 如果头结点指针为空，表明这是创建的第一个结点
+        {
+            h=p;
+        }
+        else
+        {
+            node *q=h;  // 需要从头部遍历到尾部
+            while(q->next)
+            {
+                q=q->next;
+            }
+            q->next =p; // q为尾部，q->next=p，将新建结点设置为尾部
+            p->next = NULL;
+        }
+        if(p->value==0) // 输入为零，则停止创建链表
+        {
+            break;
+        }
+    }
+    return h;
+}
+</pre>
+
+<p><a name="212" id="212"></a>2.1.2 插入</p>
+
+<p>创建链表的算法中已经演示了如何从链表的头部和尾部插入链表结点。那么如何将链表结点插入到某个指定的结点之后呢？其实很简单，如下图所示： </p>
+  <p align="left">让新建结点的next指针指向q的下一个结点，然后再让q的next指针指向p即可。</p>
+
+<p>p-&gt;next=q-&gt;next;</p>
+
+<p>q-&gt;next=p;</p>
+
+<p><img width="624" height="210" src="a_clip_image005.jpg" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image009.png" /></p>
+
+<p><a name="213" id="213"></a>2.1.3 删除</p>
+
+<p>如下图所示，在单向链表中要删除一个结点p，首先要通过遍历，找到它的上一个结点q，然后将q的next指针指向p-&gt;next，然后即可将p删掉。</p>
+
+<p><img width="552" height="322" src="7.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image010.gif" /></p>
+<p></p>
+
+<pre>
+void del_list_node(node **h,int value)
+{
+    if(h==NULL)
+    {
+        return;
+    }
+    node *p = *h;
+    node *q=NULL;
+    while(p)
+    {
+        if(p->value==value)
+        {
+            if(p==*h)
+            {
+                *h=(*h)->next;
+                free(p);
+                return;
+            }
+            else
+            {
+                q->next=p->next;
+                free(p);
+                return;
+            }
+        }
+        q = p;
+        p = p->next;
+    }
+}t
+</pre>
+
+
+<p><a name="214" id="214"></a>2.1.4 遍历</p>
+
+<p>所谓对一种数据结构的遍历，是指对其中每个元素访问一次且仅访问一次。由于在链表里，有next指针指向下一个结点，而最后一个结点的next指针为NULL，因此可以通过头结点利用next指针遍历整个链表：</p>
+<p></p>
+
+<pre>
+void traverse_list(node *h)
+{
+    node *p = h;
+    while(p)
+    {
+        printf("%d ",p->value);
+        p=p->next;
+    }
+    printf("\n");
+}
+</pre>
+
+<p><a name="215" id="215"></a>2.1.5 销毁</p>
+
+<p>销毁链表就是将链表中每个结点都删除掉。这个过程其实也是在遍历链表的时候可以完成的。参考下面的代码： </p>
+<p></p>
+
+<pre>
+void destroy_list(node *h)
+{
+    node *p =h;
+    while(p)
+    {
+        node *q=p;  // 先用q保存这个待删除的结点
+        p=p->next;  // p指向下一个结点
+        free(q);    // 现在可以删除q了
+    }
+}
+</pre>
+
+<p><a name="22" id="22"></a>2.2 单向循环链表</p>
+
+<p>循环链表的最后一个结点的指针是指向该循环链表的第一个结点或者表头结点，从而构成一个环形的链。单链表的最后一个结点的指针是置为NULL。 </p>
+  <p align="left">单向循环链表的遍历：判断该结点链域的值是否是表头结点，当链域值等于表头指针时，说明已到表尾。而非循环单链表判断链域值是否为NULL。 </p>
+  <p align="left">单向循环链表的4种不同的形式：</p>
+
+<p><img width="600" height="470" src="1.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image011.gif" /> </p>
+<p></p>
+
+<pre>
+//循环链表的创建：
+node *create_list_loop()
+{
+    node *h=NULL;
+    while(1)
+    {
+        node *p=(node *)malloc(sizeof(node));
+        if(p==NULL)
+        {
+            return h;
+        }
+        memset(p,0,sizeof(node));
+        printf("Please input a data\n");
+        scanf_s("%d",&p->value);
+        p->next=NULL;
+        if(h==NULL)         // 如果头结点指针为空，表明这是创建的第一个结点
+        {
+            h=p;
+            p->next=h;
+        }
+        else
+        {
+            node *q=h;
+            while(q->next!=h)// q->next如果等于h，那么q就是最后一个结点
+            {
+                q=q->next;
+            }
+            q->next = p;
+            p->next =h;     // 将p的next指针指向h，构成一个循环
+        }
+        if(p->value==0)
+        {
+            break;
+        }
+    }
+    return h;
+}
+
+// 循环链表的遍历方法，注意循环条件的判断：
+void traverse_loop_list(node *h)
+{
+    node *p=h;
+    do
+    {
+        printf("%d ",p->value);
+        p=p->next;
+    }while(p!=h);
+    printf("\n");
+}
+
+// 循环链表的销毁方法
+void destroy_loop_list(node *h)
+{
+    node *p=h;
+    do
+    {
+        node *q=p;
+        p=p->next;
+        free(q);
+    } while (p!=h);
+}
+// 步长法判断链表是否含有循环
+// 思路是：定义2个指针遍历该链表，1个指针跑一步，1个指针跑两步；
+// 那么如果两个指针相遇，则表示有循环，否则无循环。
+bool is_a_loop_list(node *h)
+{
+    node *p=h;
+    node *q=h->next;
+    while(p&&q&&q!=p&&q->next)
+    {
+        p=p->next;
+        q=q->next->next;
+    }
+    if(p==q)// 循环退出，p和q相等了，表示链表中存在循环
+    {
+        return true;
+    }
+    return false;
+}
+</pre>
+
+
+<p><a name="23" id="23"></a>2.3 双向链表</p>
+
+<p>在双向链表中，结点除含有数据域外，还有两个链域，一个存储直接后继结点地址，一般称之为右链域；一个存储直接前驱结点地址，一般称之为左链域。 </p>
+  <p align="left">双向链表的存储结构定义如下：</p>
+<p></p>
+
+<pre>
+typedef struct _dnode
+{
+    int data;
+    struct _dnode *pre;  // 前向指针，指向结点左边的结点
+    struct _dnode *next; // 后继指针，指向结点右边的结点
+}dnode, *pdnode; 
+</pre>
+
+<p>双向链表的结构如下图所示： </p>
+  <p align="left"><img width="554" height="158" src="a_clip_image002.jpg" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image013.jpg" /></p>
+
+<p><a name="231" id="231"></a>2.3.1创建</p>
+
+<p>在创建双向链表的时候，将一个新建的结点p，插入已知的双向链表中，有2种插入方法，如下图所示，一是直接插入头部，二是直接插入尾部。</p>
+
+<p><img width="648" height="460" src="4.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image016.gif" /> </p>
+<p></p>
+
+<pre>
+// 从头部插入方法创建双向链表：
+dnode *create_dobulelist_head()
+{
+    dnode *h = NULL;
+    while(1)
+    {
+        dnode *p=(dnode *)malloc(sizeof(dnode));
+        if(p==NULL)
+        {
+            return h;
+        }
+        memset(p,0,sizeof(p));
+        printf("Please input your data\n");
+        scanf_s("%d",&p->value);
+        p->next=p->pre=NULL;
+        if(h==NULL) // 如果头结点指针为空，表明这是创建的第一个结点
+        {
+            h=p;
+        }
+        else
+        {
+            p->next = h;
+            h->pre = p;
+            h=p;
+        }
+        if(p->value==0)
+        {
+            break;
+        }
+    }
+    return h;
+}
+// 从尾部插入创建双向链表：
+dnode *create_dobulelist_tail()
+{
+    dnode *h = NULL;
+    while(1)
+    {
+        dnode *p=(dnode *)malloc(sizeof(dnode));
+        if(p==NULL)
+        {
+            return h;
+        }
+        memset(p,0,sizeof(p));
+        printf("Please input your data\n");
+        scanf_s("%d",&p->value);
+        p->next=p->pre=NULL;
+        if(h==NULL)         // 如果头结点指针为空，表明这是创建的第一个结点
+        {
+            h=p;
+        }
+        else
+        {
+            dnode *q=h;
+            while(q->next)  // 需要先从头结点开始遍历到尾结点
+            {
+                q=q->next;
+            }
+            q->next = p;
+            p->pre=q;
+            p->next = NULL;
+        }
+        if(p->value==0)     // 创建循环退出
+        {
+            break;
+        }
+    }
+    return h;
+} 
+</pre>
+
+<p><a name="232" id="232"></a>2.3.2 插入</p>
+
+<p>如图所示，将一个结点p插入到双向链表q的后面（注意，照着图分析最有效，不要死记硬背插入代码）：</p>
+
+<p><img width="648" height="379" src="5.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image017.gif" /></p>
+
+<p><a name="233" id="233"></a>2.3.3 删除</p>
+
+<p>双向链表中，将一个结点p从双向链表中删除方法：</p>
+
+<p><img width="648" height="242" src="6.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image018.gif" /></p>
+
+<p><a name="234" id="234"></a>2.3.4遍历</p>
+
+<p>双向链表的遍历，和单向链表的遍历方法差不多：</p>
+<pre>
+void traverse_dlist_next(dnode *h)
+{
+    dnode *p=h;
+    while(p)
+    {
+        printf("%d ",p->value);
+        p=p->next;
+    }
+    printf("\n");
+} 
+</pre>
+<p><a name="235" id="235"></a>2.3.5 销毁</p>
+
+<p>双向链表的销毁，与单向链表的销毁算法类似：</p>
+
+<p><img width="648" height="231" src="8.png" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image019.gif" /></p>
+<p></p>
+
+<pre>
+void destroy_dlist(dnode *h)
+{
+    dnode *p = h;
+    while(p)
+    {
+        dnode *q = p;
+        p = p->next;
+        free(q);
+    }
+}
+</pre>
+
+<p><a name="24" id="24"></a>2.4 双向循环链表</p>
+
+<p>双向循环链表既是双向链表，又是循环链表。头结点的左链域指向最后一个结点，最后一个结点的右链域指向头结点。</p>
+
+<p><img width="584" height="145" src="a_clip_image007.jpg" alt="http://mallocfree.com/basic/ds/dspic/1/clip_image021.jpg" /></p>
+
+<p>我们可以通过pre或next指针遍历双向循环链表，如下面的代码，双向循环链表的遍历方法：</p>
+<p></p>
+
+<pre>
+p=h;
+do {
+    p = p->next;
+} while(p!=h) 
+</pre>
+
+  <p align="left">课后练习：</p>
+
+<p>实现双向循环链表的创建，遍历，删除，销毁，插入 </p>
+  <p>&nbsp;</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
