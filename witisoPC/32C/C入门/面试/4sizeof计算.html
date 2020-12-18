@@ -1,0 +1,678 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>4sizeof计算</h4>
+
+
+<p>在每年各个公司的笔试题中，有一种典型的问题就是计算sizeof()的大小问题。在这里，我们对这类问题做一个全面的归纳总结，包含如何 计算结构体，位域，数组，字符串，指针，C++中的class等所有内容。 大家在以后遇到这类问题，就应该信心十足了。当然，掌握这些计算，也不全是为了应付面试，更多的能加深对C的理解和掌握。能够进一步应用到平时的程序设计与调试中。</p>
+<p><h4>一、基本类型的长度计算</h4></p>
+<p>要做好sizeof相关的计算，首先得掌握C和C++里的一些基本类型的长度（注意，sizeof计算的值都是以字节（Byte）为单位）：</p>
+<pre>
+sizeof(char)  的长度为：1
+sizeof(short) 的长度为：2
+sizeof(int)   的长度为：4
+sizeof(long)  的长度为：4(Win X86和X64都为4，Linux X86为4,X64为8）
+sizeof(float) 的长度为：4
+sizeof(double)的长度为：8
+sizeof(bool)  的长度为:1(C++里)
+sizeof(BOOL)  的长度为:4（windows平台）
+</pre>
+<p>sizeof(p)的长度：x86为4，x64为8，其中p为指针类型变量，如char *p，也就是说，在X86平台，指针的长度是4，在X64平台，指针的长度是8。</p>
+<p><h4>二、结构体长度的计算</h4></p>
+<p>要正确计算sizeof（结构体）的大小，需要理解和掌握好数据对齐的概念。 数据对齐分为自然对齐和强制对齐两种方式。 </p>
+<p><strong>1．自然对齐</strong></p>
+<p>各个类型自然对齐，即其内存地址必须是其类型本身的整数倍。结构体对齐到其中成员最大长度类型的整数倍。计算机中内存空间按照字节划分，从理论上讲似乎对任何类型的变量的访问可以从任何地址开始，但实际情况是在访问特定类型变量的时候经常在特定的内存地址访问，这就需要各种类型数据按照一定的规则在空间上排列，而不是顺序的一个接一个的排放，这就是对齐。</p>
+<p>各个硬件平台对存储空间的处理上有很大的不同。一些平台对某些特定类型的数据只能从某些特定地址开始存取。比如有些架构的CPU在访问一个没有进行对齐的变量的时候会发生错误，那么在这种架构下编程必须保证字节对齐。其他平台可能没有这种情况，但是最常见的是如果不按照适合其平台要求对数据存放进行对齐，会在存取效率上带来损失。比如有些平台每次读都是从偶地址开始，如果一个int型（假设为32位系统）如果存放在偶地址开始的地方，那么一个读周期就可以读出，而如果存放在奇地址开始的地方，就需要2个读周期，并对两次读出的结果的高低字节进行拼凑才能得到该数据。</p>
+<p>无论如何，为了提高程序的性能，数据结构（尤其是栈）应该尽可能地在自然边界上对齐。原因在于，为了访问未对齐的内存，处理器需要作两次内存访问；然而，对齐的内存访问仅需要一次访问。</p>
+<p>一个字或双字操作数跨越了4字节边界，或者一个四字操作数跨越了8字节边界，被认为是未对齐的，从而需要两次总线周期来访问内存。一个字起始地址是奇数但却没有跨越字边界被认为是对齐的，能够在一个总线周期中被访问。</p>
+<p>某些操作双四字的指令需要内存操作数在自然边界上对齐。如果操作数没有对齐，这些指令将会产生一个通用保护异常（#GP）。双四字的自然边界是能够被16整除的地址。其他的操作双四字的指令允许未对齐的访问（不会产生通用保护异常），然而，需要额外的内存总线周期来访问内存中未对齐的数据。</p>
+<p>自然对齐应该遵守如下两条规则：</p>
+<p>1）数据成员对齐规则：</p>
+<p>在默认情况下，各成员变量存放的起始地址相对于结构的起始地址的偏移量:sizeof(它的基本类型)或其倍数。如果该成员为非基本成员，则为其子成员中最大的基本类型的整数倍。</p>
+<p>2）整体对齐规则：</p>
+<p>结构的总大小也有个约束条件：最大sizeof(基本类型)的整数倍</p>
+<p>问题：一个C语言程序如下：</p>
+<pre>
+typedef struct _a
+{
+   char c1;
+   long i;
+   char c2;
+   double f;
+}a;
+typedef struct _b
+{
+   char c1;
+   char c2;
+   long i;
+   double f;
+}b;
+void main(void)
+{
+    printf("Size of double, long, char = %d, %d, %d\n",
+        sizeof (double), sizeof (long), sizeof (char));
+    printf("Sizeof a, b = %d, %d\n", sizeof (a), sizeof (b));
+}
+</pre>
+<p>该程序在SPARC/Solaris工作站上的运行结果如下：</p>
+<pre>
+sizeof of double, long, char = 8, 4, 1
+sizeof of a, b = 24, 16
+</pre>
+<p>结构体类型a 和 b 的域都一样，仅次序不同，为什么它们需要的存储空间不一样？</p>
+<p>分析：此题为中国科学院研究生入学考试题。考查了结构体自然对齐的规则。下面画出结构的存储图1。</p>
+<img src="img/041.png" />
+<p>图1结构体a自然对齐存储结构</p>
+<p>如图1所示为结构体a在自然对齐后的存储结构，从图中可以看出：c1为char类型，占一个字节。之后为了让i自然对齐，因此必须填充3个字节。之后i为int类型，占4个字节。c2是char类型，占用1个字节。之后的f为double类型，为了让f对齐到8的整数倍地址必须填充7个字节。之后是f的存储大小占8个字节。所以，a的存储大小为：</p>
+<p>sizeof(a)=1+3+4+1+7+8=24。</p>
+<p>如图2所示为结构体b在自然对齐后的存储结构，从图中可以看出：c1占用1个字节，c2占用1个字节，为了让i自然对齐而填充2个字节，i占用了4个字节，f占用了8个字节。</p>
+<img src="img/042.png" />
+<p>图2结构体b自然对齐存储结构</p>
+<p>所以，b的存储大小为：</p>
+<p>sizeof(b)=1+1+2+4+8=16。</p>
+<p><strong>2．强制对齐</strong></p>
+<p>除了自然对齐外，还有另外一种对齐方式：</p>
+<p>#pragma pack(push) //保存对齐状态</p>
+<p>#pragma pack(n) //定义结构对齐到n</p>
+<p>定义结构</p>
+<p>#pagman pack(pop)//恢复对齐状态</p>
+<p>上面的预编译语句将定义的结构体强制对齐到n。#pragma pack(n)来设定变量以n字节对齐方式。强制对齐应该遵守如下两条对齐规则：</p>
+<p>1）数据成员对齐规则：</p>
+<p>n字节对齐就是说变量存放的起始地址的偏移量：min(sizeof(基本类型)，n)或其倍数。</p>
+<p>2）整体对齐规则：</p>
+<p>结构的总大小也有个约束条件：min(最大的sizeof(基本类型)，n)的倍数。</p>
+<p>也就是说：</p>
+<p>第一、如果 n 大于等于该变量所占用的字 节数，那么偏移量必须满足默认的对齐方式；如果 n 小于该变量的类型所占用 的字节数，那么偏移量为 n 的倍数，不用满足默认的对齐方式。</p>
+<p>第二：结构的总大小也有个 约束条件，分下面两种情况：如果 n 大于所有成员变量类型所占用的字节数，那么结构的总大小必须为占用空间最大的变量占用的空间数的倍数； 否则必须为 n 的倍数。</p>
+<pre>
+#pragma pack(8)
+struct s1
+{
+   short a;
+   long b;
+};
+struct s2
+{
+   char c;
+    s1 d;
+long long e;
+};
+struct s3
+{
+    char c;
+    short a;
+    long b;
+    long long e;
+};
+#pragma pack()
+</pre>
+<p></p>
+<p>1.sizeof(s1)=? sizeof(s2) = ? sizeof(s3) = ?</p>
+<p>2.s2的c后面空了几个字节接着是d?</p>
+<p>分析：此题为微软公司的一道笔试题，同样考查了关于结构对齐的规则。只不过这里不是自然对齐，而是用了#pragma pack()来规定了对齐的方式。</p>
+<p>首先看s1。由于#pragma pack(8)要求8字节对齐，但s1中所有成员都比8小，所以各个成员只需要按照自然对齐即可，所以a占2个字节，b占4个字节，a后面需要补齐2字节，才能使long类型的b自然对齐。然后b占4个字节，因此整个s1结构共占用：2+2(pad)+4=8字节。</p>
+<p>再看s2。c占1个字节，d为s1结构体成员，s1结构体成员根据对齐规则，按照其中最大成员long的4字节对齐，所以c之后需要补3字节才能让d达到4字节对齐。对于x86，long long数据类型为8字节，所以存完d后，需要在后面补4个字节，让e 8字节对齐。因此s2结构共占用：1+3(pad)+8+4(pad)+8=24。</p>
+<p>最后看s3。c占1个字节，由于a为short类型，所以c之后需要填充1个字节，才能让a对齐。此时，b已经对齐，占4个字节。而e大小为8个字节，已经对齐。所以s3结构共占用：1+1(pad)+2+4+8=16。</p>
+<p>答案：sizeof(s2) = 24，sizeof(s3) = 16。</p>
+<p>那么在编程中如何处理字节对齐情况呢？如果在编程的时候要考虑节约空间的话，那么只需要假定结构的首地址是0，然后各个变量按照上面的原则进行排列即可，基本的原则就是把结构中的变量按照类型大小从小到大声明，尽量减少中间的填补空间。还有一种就是为了以空间换取时间的效率，显示的进行填补空间进行对齐，比如有一种使用空间换时间做法是显式的插入pad成员：</p>
+<pre>
+struct Demo
+{
+   char a;
+   char pad[3]; // 使用空间换时间
+   int b;       // 对齐到4的整数倍
+}
+</pre>
+<p>pad成员对程序没有什么意义，它只是起到填补空间以达到字节对齐的目的，当然即使不加这个成员通常编译器也会自动填补对齐，自己加上它只是起到显式的提醒作用。</p>
+<p><strong>3．栈上对齐方式</strong></p>
+<p>与结构体的自然对齐不同，在X86平台，栈上对齐方式是整数相关类型按照4字节对齐，浮点数按照8字节对齐；在X64平台，栈上是按照 16字节对齐。</p>
+<h4>三、数组长度的计算</h4>
+<p>char s[] = "12345678";</p>
+<p>sizeof(s)=?</p>
+<p>sizeof(s)，是在计算s数组的长度。首先，s是一个字符数组，由字符串"12345678"初始化。所以，s的长度由"12345678"决定。而在C语言里，字符串是以'\0'结尾的。 所以"12345678"实际上由9个字符组成,每个字符占1个字节，所以：</p>
+<p>所以，sizeof(s)值为9。 但是，当数组作为一个函数的参数，在函数内部使用sizeof计算的时候，数组已经退化为指针，这个时候，用sizeof来计算，就是指针的长度了。</p>
+<p>例如：</p>
+<pre>
+void func(char s[])
+{
+    printf("%d\n", sizeof(s);// 此处，s作为参数传进来，在函数内部退化为一个指针，
+                             // 所以值为4(x86)或者8(x64)
+}
+char s[]="12345678";
+printf("%d\n", sizeof(s));     // 此处是计算数组的长度，所以值为9
+func(s);
+// 此处把s当做一个参数，传递给了函数func。
+</pre>
+<h4>四、union类型的计算</h4>
+<p>在使用sizeof计算union类型的时候，整个union结构的大小等于union中最大成员的大小，并且必须是最大类型的整数倍。</p>
+<p>例如：</p>
+<pre>
+typedef union
+{
+    long i;
+    int k[5];
+    char c;
+} DATE;
+struct data
+{
+    int cat;
+    DATE cow;
+    double dog;
+} too;
+</pre>
+<p>DATE max; sizeof(struct data) = ?sizeof(max))=?</p>
+<p>分析：</p>
+<p>由于max是union DATE类型，那么其中最大的成员为k，所以sizeof(MAX)=k成员的长度=5*sizeof(int)=20</p>
+<p>对于struct data结构体，按照自然对齐方法，计算出结果为：sizeof(struct data)=4+20+8=32</p>
+<p><h4>五、位域的计算</h4></p>
+<p>Ｃ语言提供了一种称为“位域”或“位段”的数据结构。因为有些信息在存储时，并不需要占用一个完整的字节，而只需占几个或一个二进制位。例如在存放一个BOOL值时，只有0和1 两种状态，用一位二进位即可。该结构可以节约存储空间。 所谓“位域”，就是把一个字节中的二进位划分为几个不同的区域，并说明每个区域的位数。每个域有一个域名，允许在程序中按域名进行操作。这样就可以把几个不同的对象用一个字节的二进制位域来表示。位域的定义形式为：</p>
+<pre>
+struct 位域结构名
+{
+    位域列表
+};
+例如：
+typedef struct _Demo
+{
+    int a:4;
+    int b:4;
+    int c:2;
+}Demo;
+</pre>
+<p>其中位域a占4位，位域b占4位，位域c占2位。那么定义位域需要注意些什么呢？定义位域需要注意以下几点：</p>
+<p>1．一个位域必须存储在同一个字节中，不能跨两个字节。如一个字节所剩空间不够存放另一位域时，应从下一单元起存放该位域。也可以有意使某位域从下一单元开始。例如：</p>
+<pre>
+struct demo
+{
+    unsigned a:4
+    unsigned :0   /*空域*/
+    unsigned b:8  /*从下一单元开始存放*/
+    unsigned c:4
+}
+</pre>
+<p>在这个位域定义中，a占第一字节的4位，后4位填0表示不使用，b从第二字节开始，占用8位，c占用4位。</p>
+<p>2．由于位域不允许跨两个字节，因此位域的长度不能大于一个字节的长度。</p>
+<p>3．位域可以无位域名，这时它只用来作填充或调整位置。无名的位域是不能使用的。 例如：</p>
+<pre>
+struct demo
+{
+    int a:1
+    int :2 /*该2位不能使用*/
+    int b:3
+    int c:2
+};
+</pre>
+<p>从以上分析可以看出，位域在本质上就是一种结构类型，不过其成员是按位（bit）分配的。</p>
+<p>下面来分析一下位域结构的大小与对齐问题。如果结构体中含有位域，那么其准则是：</p>
+<p>1．如果相邻位域字段的类型相同，且其位宽之和小于类型的sizeof(类型)大小，则后面的字段将紧邻前一个字段存储，直到不能容纳为止；</p>
+<p>2．如果相邻位域字段的类型相同，但其位宽之和大于类型的sizeof大小，则后面的字段将从新的存储单元开始，其偏移量为其类型大小的整数倍；</p>
+<p>3．如果相邻的位域字段的类型不同，则各编译器的具体实现有差异，VC6采取不压缩方式，即不同位域字段存放在不同的位域类型字节中；而GCC和DEV-C++都采取压缩方式。</p>
+<p>问题：试分析下面结构的大小：</p>
+<pre>
+struct demo1
+{
+    int i: 8;
+    int j: 4;
+    int a: 3;
+    double b;
+};
+struct demo2
+{
+    int i: 8;
+    int j: 4;
+    double b;
+    int a:3;
+};
+struct demo3
+{
+    char a:1;
+    char :2;
+    long b:3;
+    char c:2;
+};
+struct demo4
+{
+    char a:1;
+    char :2;
+    char b:3;
+    long c:2;
+};
+struct demo5
+{
+    char a:1;
+    char :2;
+    char b:3;
+    char c:2;
+};
+</pre>
+<p>对于结构demo1：i，j，a三个位域之和为15bit，小于sizeof(int)=4*8=32bit，所以根据规则1：i，j，a紧邻存储在一起，共占用4个字节。b为double类型，占用8个字节，根据对齐规则，b必须存储在8的整数倍地址处。于是，在存储了i，j，a之后，将填充4个字节，再存储b。于是：</p>
+<p>sizeof(demo1) = 4（i，j，a的长度之和）+4（填充的长度）+8（b的长度）=16</p>
+<p>对于结构demo2：位域i，j之和小于32bit，根据规则1，它们将紧邻存储在一起，共占用4个字节。紧接着由于b为double类型，长度为8个字节，于是在i，j之后先填充4个字节，再存储b的8个字节。再接着存储位域a，4个字节。整个结构体应该按照其中最大成员b对齐，即必须是8的整数倍。于是：</p>
+<p>sizeof(demo2) = 4（i，j的长度）+4（填充长度）+8（b的长度）+4（a的长度）+4（填充长度）=24</p>
+<p>同理对于结构demo3，demo4，demo5：</p>
+<p>sizeof(demo3) = 1（a和无名位域的长度）+3（填充长度）+4（b的长度）+1（c的长度）+3（填充长度）=12</p>
+<p>sizeof(demo4) = 1（a，无名位域，和b的长度）+3（填充长度）+4（c的长度）=8</p>
+<p>sizeof(demo5) = 1（位域a，b，c与无名位域之和，根据规则1，它们类型一致，且和小于8bit，所以紧邻存储）</p>
+<h4>六、类和对象的计算</h4>
+<pre>
+class A
+{
+public:
+    A()
+    {
+    }
+    void fn1();
+    void fn2();
+protected:
+    char a;
+    int b;
+    static int c;
+};
+A a;
+</pre>
+<p>sizeof(A)=? sizeof(a)=?</p>
+<p>计算类的大小，直接为其数据成员的大小（按照自然对齐方式对齐），但static变量并不包含在其中。</p>
+<p>所以sizeof(A)=sizeof(a)=变量a的长度+对齐pad3个字节+变量b的长度=1+3+4=8</p>
+<pre>
+class A
+{
+public:
+    A(){
+    }
+    void fn1();
+    void fn2();
+protected:
+    int a;
+private:
+    int b;
+};
+class B:public A
+{
+public:
+    B(){
+    }
+    void fn3();
+    void fn4();
+private:
+    int c;
+};
+B b;
+</pre>
+<p>sizeof(b)=?</p>
+<p>类B继承于类A。所以，B的大小包含了A的大小再加上自己数据的大小。所以：</p>
+<p>sizeof(b)=sizeof(A)+成员c的长度=8+4=12。</p>
+<pre>
+class A
+{
+public:
+    A(){
+    }
+    virtual void fn1(){
+    }
+    void fn2();
+protected:
+    int a;
+    int b;
+};
+class B:public A
+{
+public:
+    B(){
+    }
+    virtual void fn1(){
+    }
+    void fn3();
+    void fn4();
+private:
+    int c;
+};
+B b;
+</pre>
+<p>sizeof(b)=?</p>
+<p>在这种情况下，类B继承自类A，而且类B中还有一个虚函数，因此，类B数据中还包含了一个指向虚函数表的指针。</p>
+<p>因此sizeof(b)=sizeof(A)+成员c的长度+虚函数指针的长度=8+4+4=16</p>
+<p>空类和空结构体的长度：</p>
+<pre>
+class Null
+{
+}
+struct _Null
+{
+}
+</pre>
+<p>sizeof(Null)=? sizeof(struct _Null)=?</p>
+<p>解答：</p>
+<p>sizeof(Null)=1;</p>
+<p>sizeof(struct _Null)=1。</p>
+<h4>七、sizeof与strlen</h4>
+<p>题目：</p>
+<pre>
+char *p1 = "12345678";
+char p2[] = "12345678";
+char p3[1024]="12345678";
+char p4[] = {'1','2','3','4','5','6','7','8'};
+sizeof(p1)=?
+sizeof(p2)=?
+sizeof(p3)=?
+sizeof(p4)=?
+strlen(p1)=?
+strlen(p2)=?
+strlen(p3)=?
+strlen(p4)=?
+</pre>
+<p>分析：</p>
+<p>p1是一个字符指针，指向了静态常量区的一个常量字符串，"12345678"。所以，sizeof(p1)=指针的长度=4；strlen(p1)=字符串"12345678"的长度（不含'\0')，所以是8。</p>
+<p>p2是一个字符数组，由静态常量区的"12345678"进行初始化。所以sizeof(p2)是计算数组p2的长度，所以结果为"12345678"的所有字符的长度（含'\0')，所以是9。 strlen(p2)也是在计算"12345678"的长度（不含'\0')，所以是8。</p>
+<p>p3是一个字符数组，由静态常量区的"12345678"进行初始化，但长度为1024。 所以，sizeof(p3)=1024;strlen(p3)为字符串"12345678"的长度（不含'\0')，所以是8。</p>
+<p>p4是一个字符数组，由字符'1','2','3','4','5','6','7','8'进行初始化， 这样初始化与"12345678"进行初始化的区别是 前者不包含'\0'。因此，sizeof(p4)=8。由于p4作为一个字符数组，并不以'\0'结尾， 所以strlen(p4)在计算字符串长度的时候，找不到结束符'\0'，会发生字符串溢出。</p>
+<p>所以，最后答案为：</p>
+<pre>
+sizeof(p1)=4
+sizeof(p2)=9
+sizeof(p3)=1024
+sizeof(p4)=8
+strlen(p1)=8
+strlen(p2)=8
+strlen(p3)=8
+strlen(p4)=字符串溢出，值不确定，甚至会引起程序崩溃
+</pre>
+<h4>八、sizeof其它</h4>
+<p>sizeof是一个运算符，并不是一个函数，通过查看其反汇编代码即可看出，不存在什么函数调用。</p>
+<p>题目1：请设计一个宏，用来计算数组的长度。</p>
+<p>#define ARRAYLEN(a) sizeof(a)/sizeof(a[0])</p>
+<p>题目2：sizeof是函数吗？是在程序编译的时候计算的还是运行时？</p>
+<p>sizeof是操作符而不是函数。sizeof是在程序编译的时候就计算完成了，而不是在程序运行的时候计算。</p>
+
+
+<p style='float:right;'>本页共377段，10356个字符，20003 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
