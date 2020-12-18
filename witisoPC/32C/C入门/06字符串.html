@@ -842,6 +842,32 @@ int _tmain(int argc, _TCHAR* argv[])
 }
 </pre>
 
+<h4>6.11 字符串初始化</h4>
+<p>在代码里，经常会用字符串进行初始化操作。比如：</p>
+
+
+
+<pre>
+void func(void)
+{
+    char str1[] = "hello world";
+    char *str2="hello world";
+    ...
+}
+</pre>
+
+
+<p>对于上面2条初始化语句，它们的区别是什么呢？</p>
+<p>1 首先，"hello world"是一个字符串常量，存放在静态常量区。</p>
+<p>2 str1是一个字符数组，分配在栈上，存储空间由"hello world"的长度（含'\0')决定，存放的内容由"hello world"进行初始化。 也就是编译器会把静态常量区的"hello world"拷贝到栈上的str1数组区域，对数组进行初始化。</p>
+<p>3 str2是一个字符指针，指向了静态常量区"hello world"的首地址。</p>
+<p>4 计算长度的区别</p>
+<p>strlen(str1)=strlen(str2)</p>
+<p>sizeof(str1)=12;</p>
+<p>sizeof(str2)=4(x86)or 8(x64)</p>
+<p>5 读写区别</p>
+<p>str1内存中的值是可以修改的；</p>
+<p>str2指向的内存中的值是不可修改的（静态常量区）。</p>
 
 <p style='float:right;'>本页共594段，15507个字符，23881 Byte(字节)</p>﻿
 

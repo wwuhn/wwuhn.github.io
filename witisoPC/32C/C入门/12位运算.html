@@ -451,6 +451,8 @@ int main(void)
 <h4>12.12 位运算优先级</h4>
 <p>    位运算符的优先级如下图，位置靠前的优先级高于位置靠后的优先级。</p>
 <img src="img/1211.gif" />
+<p>而所有的C运算符的优先级与结合律如下图：（从图中可以看出，算术运算符的优先级高于《和》运算符）</p>
+<img src="img/1222.png" />
 <h4>12.13 常见位运算</h4>
 <p>1．任何一个数和0异或是它的本身：</p>
 <p>    a^0=a</p>
@@ -611,7 +613,184 @@ ulDisposition = (lpIrpStack->Parameters.Create.Options &gt;&gt; 24) & 0xFF;
 </pre>
 
 
-<p style='float:right;'>本页共313段，7282个字符，12739 Byte(字节)</p>﻿
+<p>在实际的编程过程中，往往会用一个整数的不同位表示不同的数据信息。在访问该整数时，就需要通过位运算来获得或者改变整数的某几位数值。比如在Windows中创建文件时使用的Create数据结构：</p>
+
+<pre>
+struct
+{
+    PIO_SECURITY_CONTEXT SecurityContext;
+    ULONG Options;
+    USHORT POINTER_ALIGNMENT FileAttributes;
+    USHORT ShareAccess;
+    ULONG POINTER_ALIGNMENT EaLength;
+    PVOID EaBuffer;
+    LARGE_INTEGER AllocationSize;
+ } Create;
+</pre>
+
+<p>通常会引用其中的Options如下：</p>
+<p>Data->Iopb->Parameters.Create.Options</p>
+<p>ULONG Options是一个Windows文件创建过程中的无符号长整数，指示在创建和打开文件时的不同选项。其中高8位指示了CreateDisposition参数（如FILE_OPEN，FILE_CREATE)，低24位指示了CreateOptions参数（如FILE_DELETE_ON_CLOSE)。 为了得到CreateDisposition的值，采取下面的位操作：</p>
+<p> (Data->Iopb->Parameters.Create.Options >> 24) & 0x000000ff;</p>
+<p>将该整数右移24位，再与0xff做与操作，即可获得CreateDisposition的值。</p>
+<p> </p>
+
+
+<p>1．任何一个数和0异或是它的本身，和自身异或为0：</p>
+
+
+
+<pre>
+a^0=a
+a^a=0
+</pre>
+
+<p>利用上述性质，可以用来计算2个数的交换。</p>
+<p>大家应该知道，在计算机里，两个数互相交换，需要定义一个中间的变量来参与交换。如：</p>
+
+<pre>
+int tmp;
+int a=10;
+int b=20;
+tmp=a;
+a=b;
+b=tmp;
+</pre>
+
+<p>上述代码计算之后，a和b的值完成交换，a的值为20，b的值为10。</p>
+<p>如果用异或运算来交换2个数，可以如下方法：</p>
+
+<pre>
+int a=10;
+int b=20;
+a=a^b;
+b=a^b;
+a=a^b;
+</pre>
+
+<p>上述运行之后，a和b依然完成了值的交换，但由于是异或位运算，所以效率比上面的代码要高。</p>
+<p>证明：</p>
+
+<pre>
+a=10^20
+b=a^b=(10^20)^20=10^20^20=10^0=10
+a=a^b=10^20^10=10^10^20=0^20=20
+</pre>
+
+<p>把上述代码，可以封装为一个交换2个数的函数如下：</p>
+
+<pre>
+void swap(int *a, int *b)
+{
+    *a = *a ^ *b;
+    *b = *a ^ *b;
+    *a = *a ^ *b;
+ }
+</pre>
+
+<p>或者用宏来定义：</p>
+
+<pre>
+#define SWAP(a,b) \
+do { \
+     a = a^b; \
+     b = a^b; \
+     a = a^b; \
+} while(0)
+</pre>
+
+<p>但按照下面的方法来写一个函数，试着将两个数进行交换，是错误的（想想为什么？）</p>
+
+<pre>
+void swap(int a, int b)
+{
+    a = a ^ b;
+    b = a ^ b;
+    a = a ^ b;
+ }
+</pre>
+
+<p>2.将整数的第n位置位或清零：</p>
+
+
+<p>#define BITN (1《n)</p>
+<p>置位：a |= BITN;</p>
+<p>清零：a &= ~BITN</p>
+
+
+<p>3.清除整数a最右边的1。</p>
+
+
+<p>方法：a & (a – 1)//该运算将会清除掉整数a二进制中最右边的1。</p>
+<p>问题：如何判断判断整数x的二进制中含有多少个1？</p>
+<p>分析：此题是微软公司的一道笔试题。下面用&运算来解决此题。 代码如下：</p>
+
+<pre>
+int func(int x )
+{
+    int countx = 0;
+    while ( x )
+    {
+        countx++;
+        x = x&(x-1);
+    }
+    return countx;
+}
+</pre>
+
+<p>4.用异或运算设计一个只有一个指针域的双向链表：</p>
+<p> </p>
+
+
+
+
+<p>提示：</p>
+<p>要实现该设计要求，需要记住链表的头结点和尾结点，并在链表结点的的next域存放前一个结点和后一个结点的异或值。即：</p>
+<p>p->next=pl^pr;//头结点的左边结点为NULL，尾结点的右边结点为NULL。</p>
+<p>在遍历的时候，从头结点往右遍历的方法：</p>
+
+<pre>
+pl=NULL;
+p=Head;
+while(p!=Tail)
+{
+    pr=pl^(p->next);
+    pl=p;
+    p=pr;
+ }
+</pre>
+
+<p>从尾结点往左遍历的方法：</p>
+
+<pre>
+pr=NULL;
+p=Tail;
+while(p!=Tail)
+{
+    pl=pr^(p->next);
+    pr=p;
+    p=pl;
+}
+</pre>
+
+
+
+<p>5.计算下面表达式的值</p>
+
+
+
+<pre>
+(char)(127&lt;&lt;1)+1
+(char)(-1&gt;&gt;1)+1
+1&lt;&lt;2+3
+</pre>
+
+
+
+<p>解答：</p>
+<p>(char)(127&lt;&lt;1)+1=(01111111&lt;&lt;1)+1=11111110+1=11111111=-1</p>
+<p>(char)(-1>>1)+1=(11111111>>1)+1=11111111+1=0</p>
+<p>1&lt;&lt;2+3=1&lt;&lt;(2+3)=1&lt;&lt;5=2^5=32(注意《和+的优先级）</p>
 
 
 
