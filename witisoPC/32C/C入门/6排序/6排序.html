@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>6 排序</h4>
+
+
+<p>归纳起来，常见的排序算法分为如下5类：</p>
+<p>1）插入排序：普通插入排序，shell排序等；</p>
+<p>2）选择排序：普通选择排序，堆排序；</p>
+<p>3）交换排序：冒泡法，快速排序；</p>
+<p>4）归并排序；</p>
+<p>5）基数排序。</p>
+<p>下面，就来实现各个排序算法。要掌握这些算法，大家首先要理解各个算法的具体执行原理和过程，然后应该把这些过程用C语言表达出来。</p>
+<p>其中归并排序与基数排序留给大家自学。</p>
+<h4>6.1 插入排序</h4>
+<p>基本插入排序的实现是这样的：每次将一个待排序的数据元素，插入到前面已经排好序的数列中的适当位置，使数列依然有序；直到待排序数据元素全部插入完为止。</p>
+<p>假如待排数据为：9,6,2,3,10，那么每趟插入排序之后（从小到大），数据的变化情况为：</p>
+<p>6,9,2,3,10</p>
+<p>2,6,9,3,10</p>
+<p>2,3,6,9,10</p>
+<p>2,3,6,9,10</p>
+<p>基本插入排序的时间复杂度为O(n^2)，是一种稳定排序算法。所谓的稳定排序是指待排序的记录序列中可能存在两个或两个以上关键字相等的记录。排序前的序列中Ri领先于Rj（即i<j）.若在排序后的序列中Ri仍然领先于Rj，则称所用的方法是稳定的。比如下面的数据：</p>
+<p>3,6,1a,2,1b,8,4,7</p>
+<p>其中1a和1b的值都是1，为了区别，1a在1b的前面。如果排序之后，1a依然在1b的前面，那么就是稳定排序，否则就是非稳定排序。</p>
+<p>简单插入排序的算法实现：</p>
+<pre>
+void insert_sort(int a[], int n)
+{
+    int i, j, tmp;
+    for (i = 1; i &lt; n; i++)
+    {
+        tmp = a[i];
+        j = i - 1;
+        while (tmp &lt; a[j])
+        {
+            a[j+1] = a[j];
+            j--;
+        }
+        a[j+1] = tmp;
+    }
+}
+</pre>
+<p><strong>6.1.1 希尔排序</strong></p>
+<p>希尔排序是一种经过改进的插入排序算法。基本思想是：先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的）分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。具体做法：首先确定一组增量d0，d1，d2，d3，...,dt-1()其中n>d0>d1>...>dt-1=1)，对于i =0,1,2,...,t-1,依次进行下面的各趟处理：根据当前增量di将n个元素分成di个组，每组中元素的下标相隔为di;再对各组中元素进行直接插入排序。</p>
+<p>下面是一个希尔排序的实现算法：</p>
+<pre>
+void shellsort(int a[], int n)
+{
+    int i, j, gap, tmp;
+    gap = n/2;
+    while (gap > 0) {
+        for (i = gap + 1; i &lt;= n; i++)
+        {
+            j = i - gap;
+            while (j > 0)
+            {
+                if (a[j] > a[j+gap])
+                {
+                    tmp = a[j];
+                    a[j] = a[j+gap];
+                    a[j+gap] = a[j];
+                }
+                else
+                {
+                    j = 0;
+                }
+            }
+        }
+        gap /= 2;
+    }
+</pre>
+<p>}</p>
+<p>希尔排序的复杂度为：O(n1.25)，它不是稳定排序。</p>
+<h4>6.2 选择排序</h4>
+<p>选择排序的思想是：每一趟从待排序的数据元素中选出最小（或最大）的一个元素，顺序放在已排好序的数列的最后，直到全部待排序的数据元素排完。</p>
+<p>假如待排数据为：9,6,2,3,10，那么每趟选择排序之后（从小到大），数据的变化情况为：</p>
+<p>2,6,9,3,10</p>
+<p>2,3,9,6,10</p>
+<p>2,3,6,9,10</p>
+<p>2,3,6,9,10</p>
+<p>简单选择排序的时间复杂度为O(n^2)，它是不稳定排序。</p>
+<pre>
+void selectsort(int a[], int n)
+{
+    int i, j, k, tmp;
+    for (i = 0; i &lt; n-1; i++)
+    {
+        k = i;
+        for (j = i + 1; j &lt; n; j++)
+        {
+            if (a[j] &lt; a[k])
+                k = j;
+        }
+        if (k != i)
+        {
+            tmp = a[i];
+            a[i] = a[k];
+            a[k] = tmp;
+        }
+    }
+}
+</pre>
+<p><strong>6.2.1 堆排序</strong></p>
+<p>堆排序是一树形选择排序，在排序过程中，将R[1..N]看成是一颗完全二叉树的顺序存储结构，利用完全二叉树中双亲结点和孩子结点之间的内在关系来选择最小的元素。</p>
+<pre>
+void sfilter(int a[], int l, int m)
+{
+    int i, j, x;
+    i = l;
+    j = 2 * i;
+    x = a[i];
+    while ( j &lt;= m)
+    {
+        if (j &lt; m && a[j] &lt; a[j+1])
+            j++;
+        if (x &lt; a[j])
+        {
+            a[i] = a[j];
+            i = j;
+            j = 2 * i;
+        }
+        else
+        {
+            j = m + 1;
+        }
+    }
+    a[i] = x;
+}
+void heapsort(int a[], int n)
+{
+    int i, w;
+    for (i = n/2; i >= 1; i--)
+        sfilter(a, i, n);
+    for (i = n; i >= 2; i--)
+    {
+        w = a[i];
+        a[i] = a[1];
+        a[1] = w;
+        sfilter(a, 1, i - 1);
+    }
+}
+</pre>
+<p>堆排序的时间复杂度为O(nlogn)，它是不稳定排序。</p>
+<h4>6.3 交换排序</h4>
+<p>交换排序的基本思想是：两两比较待排序记录的关键字，发现两个记录的次序相反时即进行交换，直到没有反序的记录为止。</p>
+<p><strong>6.3.1 冒泡排序</strong></p>
+<p>首先来看著名的交换排序算法：冒泡法。冒泡法的排序思想是：从第n个元素(a[n-1])开始，扫描数组，比较相邻两个元素，如果次序相反则交换。如此反复，直到没有任何两个违反相反原则的元素</p>
+<p>假如待排数据为：9,6,2,3,10，那么每趟冒泡排序之后（从小到大），数据的变化情况为：</p>
+<p>2,9,6,3,10</p>
+<p>2,3,9,6,10</p>
+<p>2,3,6,9,10</p>
+<p>2,3,6,9,10</p>
+<p>冒泡排序的算法如下：</p>
+<pre>
+void bubble_sort(int a[], int n)
+{
+    int i, j, tmp;
+    for (i = 0; i &lt; n-1; i++)
+    {
+        for (j = n-1; j >= i+1; j--)
+        {
+            if (a[j] &lt; a[j-1])
+            {
+                tmp = a[j];
+                a[j] = a[j-1];
+                a[j-1] = tmp;
+            }
+        }
+    }
+}
+</pre>
+<p>冒泡排序的时间复杂度为O(n^2)，它是稳定排序。</p>
+<p><strong>6.3.2 快速排序</strong></p>
+<p>快速排序的思想是：在当前无序区R[1..H]中任取一个数据元素作为比较的“基准”(不妨记为X，R[1])，用此基准将当前无序区划分为左右两个较小的无序区：R[1..I-1]和R[I+1..H]，且左边的无序子区中数据元素均小于等于基准元素，右边的无序子区中数据元素均大于等于基准元素，而基准X则位于最终排序的位置上，即R[1..I-1]≤X≤R[I+ 1..H](1≤I≤H)，当R[1..I-1]和R[I+1..H]均非空时，分别对它们进行上述的划分过程，直至所有无序子区中的数据元素均已排序为止。</p>
+<p>找一个数X（比如头一个元素）做基准，右边比X小的移动到左边，左边比X大的移动到右边，最后空出的位置就是X自己的位置</p>
+<p>快速排序的时间复杂度为O(nlogn)，最坏情况为O(n^2)。对于大的、乱数序列一般相信是最快的已知排序。待排记录序列按关键字顺序有序时，直接插入排序和起泡排序能达到O(n)的时间复杂度，而对于快速排序而言，这是最不好的情况。对于很小的数组（如N<=20），快速排序不如插入排序好。</p>
+<pre>
+void quickSort(int a[],int left,int right)
+{
+    int i,j,temp;
+    i=left;
+    j=right;
+    temp=a[left];
+    if(left>right)
+        return;
+    while(i&lt;j)              /*找到最终位置*/
+    {
+        while(a[j]>=temp && j>i)
+            j--;
+        if(j>i)
+            a[i++]=a[j];
+        while(a[i]&lt;=temp && j>i)
+            i++;
+        if(j>i)
+            a[j--]=a[i];
+    }
+    a[i]=temp;
+    quickSort(a,left,i-1);  /*递归左边*/
+    quickSort(a,i+1,right); /*递归右边*/
+}
+void qsort(int a[], int n)
+{
+    quickSort(a, 0, n-1);
+}
+</pre>
+<h4>6.4 排序复杂度比较</h4>
+<p>下标列出了各种排序算法的时间复杂度和空间复杂度：</p>
+<table border="1" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td valign="top" width="142"><p>排序方法</p></td>
+      <td valign="top" width="142"><p>平均时间</p></td>
+      <td valign="top" width="142"><p>最坏情况</p></td>
+      <td valign="top" width="142"><p>辅助存储</p></td>
+    </tr>
+    <tr>
+      <td valign="top" width="142"><p>简单排序</p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(n2)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(n2)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(1)</span></p></td>
+    </tr>
+    <tr>
+      <td valign="top" width="142"><p>快速排序</p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(nlogn)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(n2)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(logn)</span></p></td>
+    </tr>
+    <tr>
+      <td valign="top" width="142"><p>堆排序</p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(nlogn)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(nlogn)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(1)</span></p></td>
+    </tr>
+    <tr>
+      <td valign="top" width="142"><p>归并排序</p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(nlogn)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(nlogn)</span></p></td>
+      <td valign="top" width="142"><p><span lang="EN-US" xml:lang="EN-US">O(n)</span></p></td>
+    </tr>
+  </tbody>
+</table>
+<p>&nbsp;</p>
+<p style='float:right;'>本页共203段，5178个字符，8517 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

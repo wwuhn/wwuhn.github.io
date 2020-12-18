@@ -1,0 +1,513 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>4栈</h4>
+
+
+<p>4.1栈的定义：后进先出</p>
+<p>栈是允许在同一端进行插入和删除操作的数据结构。被允许进行插入和删除操作的一端称为栈顶(top)，另一端为栈底(bottom)；栈底固定，而栈顶浮动；栈中元素个数为零时称为空栈。插入一般称为进栈（PUSH），删除则称为出栈（POP）。</p>
+<p>由于栈规定只能在同一端进行插入和删除，因此栈的一个典型特点就是后进先出。</p>
+<img src="1.jpg" />
+<p>为了理解栈的后进先出特性，下面来看一道BAT的笔试题：</p>
+<p>一个栈的入栈序列为ABCDE，则不可能的出栈序列为？</p>
+<p>A.      ECDBA</p>
+<p>B.      DCEAB</p>
+<p>C.      DECBA</p>
+<p>D.      ABCDE</p>
+<p>E.      EDCBA</p>
+<p>答案：A,B</p>
+<p>分析：</p>
+<p>A：E最先出栈，所以ABCD已经先后入栈，所以，根据后进先出，C不可能比D先出栈</p>
+<p>B：D出，C出，E入E出，AB已经先后入栈，所以，A不可能比B先出</p>
+<p>C：D出E入E出C出B出A出</p>
+<p>D：A入A出B入B出C入C出D入D出E入E出</p>
+<p>E：E出D出C出B出A出</p>
+<p>4.2栈的结构</p>
+<p>栈的底层数据结构包含链表与数组。可以通过链表或者数组来构造栈，如下图所示：上边是基于链表的栈，下边是基于数组的栈。</p>
+<img src="2.jpg" />
+<img src="3.gif" />
+<p>4.3栈的基本操作</p>
+<p>1栈的创建</p>
+<p>int CreateStack();</p>
+<p>负责初始化栈的基本结构，比如栈顶指针的初始化。</p>
+<p>2入栈</p>
+<p>int Push(int data);</p>
+<p>将数据从栈顶插入</p>
+<p>3出栈</p>
+<p>int Pop(int *data);</p>
+<p>获取栈顶数据，并将数据从栈顶删除</p>
+<p>4栈空判断</p>
+<p>int IsStackEmpty();</p>
+<p>判断栈是否为空，栈为空，就不能再pop了。</p>
+<p>5栈满</p>
+<p>int IsStackFull();</p>
+<p>判断栈是否为满，栈满就不能再插入数据了。只有基于数组的栈，才需要判断栈是否已满。</p>
+<p>4.4基于链表的栈</p>
+<p>现在来实现基于链表的栈的常规操作。（注意，在多线程环境下，下面的代码没有提供加锁机制，需要另外处理）。</p>
+<img src="4.jpg" />
+<pre>
+// 定义栈的结点结构：
+typedef struct _node
+{
+    int value;
+    struct _node *next;
+}node,*pnode;
+// 栈顶指针初始化：
+node *top = NULL;
+// 创建栈：
+int CreateStack()
+{
+    top = NULL;
+    return 1;
+}
+// 判断栈是否为空：
+int IsStackEmpty()
+{
+    return top==NULL?1:0; // top为NULL的时候，栈为空
+}
+// 入栈：
+int Push(int value)
+{
+    node *p = (node *)malloc(sizeof(node));
+    if(p==NULL)
+        
+    {
+        
+        return -1;
+        
+    }
+    memset(p,0,sizeof(node));
+    p->value=value;
+    p->next=NULL;
+    // 栈为空的时候，插入的是第一个结点
+    if(IsStackEmpty())  
+    {
+        top=p;
+        return 1;
+    }
+    // 栈非空的时候，插入一个结点
+    p->next = top;
+    top=p;
+    return 1;
+}
+// 出栈
+int Pop(int *e)
+{
+    if(IsStackEmpty()) 
+    {
+        return -1;
+    }
+    if(e==NULL)
+    {
+        return -1;
+    }
+    //当栈只有一个结点的时候：
+    if(top->next==NULL)
+    {
+        *e = top->value;
+        free(top);
+        top=NULL;
+        return 1;
+    }
+    //当栈中存放不止一个元素的时候
+    *e = top->value;
+    node *p=top;
+    top=top->next;
+    free(p);
+    return 1;
+}
+// 栈的遍历：
+void TraverseStack()
+{
+    while(!IsStackEmpty()) 
+    {
+        int val;
+        Pop(&val);
+        printf("%d ", val);
+    }
+    printf("\n");
+}
+// 接口测试：
+int _tmain(int argc, _TCHAR* argv[])
+{
+    CreateStack();
+    for(int i=0;i&lt;100;i++)
+    {
+        Push(i+1);
+    }
+    int val;
+    Pop(&val);
+    printf("val:%d\n", val);
+    TraverseStack();
+    return 0;
+}
+</pre>
+<p>4.5 基于数组的栈</p>
+<p>下面来实现基于数组的栈的常规操作。（注意，在多线程环境下，下面的代码没有提供加锁机制，需要另外处理）。如下图所示，栈顶top指向数组中下一个空位：</p>
+<img src="5.gif" />
+<pre>
+#define MAXSIZE 1000    // 栈中数组容纳的元素个数
+int Stack[MAXSIZE]={0}; // 栈的底层数据结构：数组stack
+int top=0;  // 栈顶
+// 创建栈
+int CreateStack()
+{
+    top=0;  // 将top置零
+    return 1;
+}
+// 判断栈是否满
+int IsStackFull()
+{
+    return top==MAXSIZE?1:0;
+}
+// 判断栈是否空
+int IsStackEmpty()
+{
+    return top==0?1:0;
+}
+// 入栈：
+int push(int val)
+{
+    if(IsStackFull()) 
+    {
+        return -1;
+    }
+    Stack[top]=val;
+    top++;
+    return 1;
+}
+// 出栈：
+int pop(int *e)
+{
+    if(IsStackEmpty())
+    {
+        return -1;
+    }
+    if(e==NULL)
+    {
+        return -1;
+    }
+    top--;
+    *e = Stack[top];
+    return 1;
+}
+// 栈的遍历：
+void TraverseStack()
+{
+    while(!IsStackEmpty())
+    {
+        int val;
+        pop(&val);
+        printf("%d ",val);
+    }
+    printf("\n");
+}
+// 接口测试：
+int _tmain(int argc, _TCHAR* argv[])
+{
+    CreateStack();
+    for(int i=0;i&lt;500;i++) 
+    {
+        push(i+1);
+    }
+    int val;
+    pop(&val);
+    printf("val:%d\n", val);
+    TraverseStack();
+    return 0;
+}
+</pre>
+
+
+<p style='float:right;'>本页共210段，3533个字符，5257 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
