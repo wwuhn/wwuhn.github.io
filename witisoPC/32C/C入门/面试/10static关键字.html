@@ -282,7 +282,124 @@ int add_n ( int n )
     return i;
 }
 </pre>
+<h4>strtok()函数与static变量</h4>
 <p>实际上，C库中的strtok()函数就使用了static变量来计算。</p>
+<p>char *strtok( char *str1, const char *str2 );</p>
+<p>str1为需要分割的字符串，首次传入的是源字符串，后面就是NULL</p>
+<p>str2为分隔符字符串，此字符串中的每个字符都是分割符</p>
+<p>返回值：如果不存在分隔符，则返回NULL；存在则返回分割出的字符串的首地址，字符串首部不含分隔符，尾部是字符串结束符+余下的带分割的字符串。</p>
+<p>注意：此函数是在源字符串中进行分割操作，如不想修改源字符串，最好copy一份。</p>
+<img src="img/strtok.bmp" />
+<p>处理思想：</p>
+<p>1、在原字符串中进行分隔，找到第一个匹配的分隔符，将此字符替换为结束符0</p>
+<p>2、tok为首个不是分隔符的字符，last为找到的第一个匹配的分隔符字符下一位字符位置（也就是下次循环开始位置）</p>
+<p>3、下一次循环开始忽略所有分隔符的字符。找到首个不是分隔符的字符赋值给tokn</p>
+<p></p>
+
+<pre>
+/* Copyright (C) 1994 DJ Delorie, see COPYING.DJ for details */
+#include &lt;string.h>
+
+char* strtok(char *s, const char *delim)
+{
+  const char *spanp;
+  int c, sc;
+  char *tok;
+  static char *last;
+
+  if (s == NULL && (s = last) == NULL)
+    return (NULL);
+  /*
+   * Skip (span) leading delimiters (s += strspn(s, delim), sort of).
+   * 跳过字符串首部的分隔符
+   */
+ cont:
+  c = *s++;
+  for (spanp = delim; (sc = *spanp++) != 0;) {
+    if (c == sc)
+      goto cont;
+  }
+  
+  /*
+   *分割符后面没有字符串了
+   */
+  if (c == 0) {                 /* no non-delimiter characters */
+    last = NULL;
+    return (NULL);
+  }
+  tok = s - 1;    /*分割符后面还有字符串，将tok指向字符串首部（不包括分隔符）*/
+
+  /*
+   * Scan token (scan for delimiters: s += strcspn(s, delim), sort of).
+   * Note that delim must have one NUL; we stop if we see that, too.
+   * 循环字符串中的字符，直到找到分隔符或者结束符，并替换成结束符
+   */
+  for (;;) {
+    c = *s++;
+    spanp = delim;
+    /*
+     *判断字符串中的某字符是否是分割符中的字符
+     *如果是，将分隔符替换成结束符并返回tok；
+     *如果不是，继续判断下一个字符
+     */
+    do {
+      if ((sc = *spanp++) == c) {
+        if (c == 0)
+          s = NULL;
+        else
+          s[-1] = 0;
+        last = s;
+        return (tok);
+      }
+    } while (sc != 0);
+  }
+  /* NOTREACHED */
+}
+</pre>
+<p></p>
+
+<pre>
+// 哈希实现
+char*  strtok_r(char* string_org,const char* demial) {
+	static unsigned char* last; 
+	unsigned char* str;         
+	const unsigned char* ctrl = (const unsigned char*)demial;
+	unsigned char map[32]; 
+	int count;
+	
+	for (count =0; count &lt;32; count++){
+		map[count] = 0;
+	}   
+	do {
+		map[*ctrl &gt;&gt; 3] |= (1 &lt;&lt; (*ctrl & 7));
+	} while (*ctrl++);     
+	if (string_org){
+		str = (unsigned char*)string_org;
+	} else{
+		str = last;
+	}
+	while ((map[*str &gt;&gt; 3] & (1 &lt;&lt; (*str & 7)))  && *str){
+		str++;
+	} 
+	string_org = (char*)str; 
+	for (;*str; str++){
+		if ( map[*str &gt;&gt; 3] & (1 &lt;&lt; (*str & 7))){
+			*str++ = '\0';
+			break;         
+		}         
+	}    
+	last =str;    
+	if (string_org == (char*)str){
+		return NULL; 
+	}else{
+		return string_org;
+	}
+}
+</pre>
+
+
+
+
 <p>现在来看一道Intel的面试题：</p>
 <p>问题：A.c 和B.c两个c文件中使用了两个相同名字的static变量，编译的时候会不会有问题？这两个static变量会保存到哪里（栈还是堆或者其他的）? 答案：用关键字static的修饰的全局变量，表明这个变量仅在本文件（模块）中有意义，不会影响其他模块。这两个static变量保存在静态存储区。</p>
 <p>关于更多static修饰变量的介绍，您还可以参考：《变量类型，作用域，存储空间，生命周期 》</p>

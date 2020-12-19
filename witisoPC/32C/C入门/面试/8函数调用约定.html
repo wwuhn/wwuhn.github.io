@@ -266,7 +266,7 @@ thiscall
 naked call
 </pre>
 <p>不同的调用约定，在参数的入栈顺序，栈的恢复，函数名字的命名上就会不同。在编译后的代码量，程序执行效率上也会受到影响。</p>
-<p>stdcall调用约定</p>
+<p><h4>stdcall调用约定</h4></p>
 <p>stdcall调用约定声明的格式：</p>
 <p>int __stdcall func(int x,int y)</p>
 <p>stdcall的调用约定意味着：</p>
@@ -495,9 +495,9 @@ __declspec(naked) int sub(int a,int b)
    __asm mov eax,a
    __asm sub eax,b
    __asm ret
-}&lt;/p
+}
 </pre>
->
+
 <p> </p>
 <p>上面讲解了函数的各种调用约定。那么如果定义的约定和使用的约定不一致，会出现什么样的问题呢？结果就是：则将导致栈被破坏。最常见的调用规约错误是：</p>
 <p>1. 函数原型声明和函数体定义不一致</p>
@@ -508,19 +508,19 @@ __declspec(naked) int sub(int a,int b)
 <p>上图非常重要，建议读者朋友们一定要对该图做到胸有成竹。可以用上图来分析很多实际问题。比如，可以用ebp+8取得第一个参数，然后依次取得第二个，第三个，第N个参数。也可以通过ebp-N来获得栈中的局部变量。</p>
 <p>例题：分析下面程序运行情况，有什么问题呢？</p>
 <pre>
-1 #include
-2 void main(void)
-3 {
-4     char x,y,z;
-5     int i;
-6     int a[16];
-7     for(i=0;i&lt;=16;i++)
-8     {
-9         a[i]=0;
-10       printf("\n");
-11    }
-12    return 0;
-13 }
+#include &lt;stdio.h>
+void main(void)
+{
+    char x,y,z;
+    int i;
+    int a[16];
+    for(i=0;i&lt;=16;i++)
+    {
+        a[i]=0;
+        printf("\n");
+   }
+   return 0;
+}
 </pre>
 <p>在分析程序执行时，一个重要的方法就是首先画出它的活动记录。根据它的活动记录，去分析它的执行。对于本题的问题，画出了下图的活动记录。</p>
 <img src="img/083.png" />
