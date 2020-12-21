@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>TPS</h4>
+
+<p>TPS管理方式</p>
+<p>丰田式生产管理(Toyota Management)，或称丰田生产体系（Toyota Production System，TPS）由日本丰田汽车公司的副社长大野耐一创建，是丰田公司的一种独具特色的现代化生产方式。它顺应时代的发展和市场的变化，经历了20多年的探索和完善，逐渐形成和发展成为今天这样的包括经营理念、生产组织、物流控制、质量管理、成本控制、库存管理、现场管理和现场改善等在内的较为完整的生产管理技术与方法体系。</p>
+<p>特点：</p>
+<p>由丰田汽车公司开发的，通过消除浪费来获得最好质量，最低成本，和最短交货期的生产系统。TPS由准时化生产（Just-In-Time）和自动化（Jidoka）这两大支柱组成。TPS的维护和改进是通过遵循PDCA的科学方法，并且反复的进行标准化操作和改善而实现的。</p>
+<pre>
+                      
+                             TPS                                   
+                    低成本、高效率、高质量地生产  
+                    最大限度的使客户满意
+        
+         JIT 准时化               Automation 自动化
+             合适的时间                      人和机械的配合
+             合适的数量                      企业的信息
+             高质量的产品
+			 
+          标准作业                 改善
+</pre>
+<p>TPS的开发要归功于Taiichi Ohno——丰田公司在二战后期的生产主管，Ohno于20世纪50年代到60年代，把对TPS的开发，从机械加工推广到了整个丰田公司，并且于60年代到70年代，更推广到所有供应商。在日本以外， TPS的广泛传播最早始于1984年设在加利福尼亚的丰田—通用合资汽车公司——NUMMI。</p>
+<p>JIT和Jidoka的提出都源于战前时期。丰田集团的创始人Sakichi Toyota，于20世纪早期，通过在自动织布机上安装能够在任何纺线断掉的时候自动停机的装置，发明了Jidoka这个概念。这不仅改善了质量，并且使得工人能够解放出来，去多做一些增值的工作，而不只是为了避免守在机器旁。最终这个概念应用到了每台机器，每条生产线，和丰田公司的每个操作之中。</p>
+<p>Sakichi的儿子Kiichiro Toyota，丰田汽车公司的创始人，于20世纪30年代，开发了JIT这个概念。他宣布丰田公司将不再会有过量库存，并且将力求与丰田公司所有供应商，共同合作来均衡生产。在Uhno Ohno的领导下，JIT发展成为一个用来控制过量生产的方法。1990年《改变世界的机器》一书的出版使得TPS开始作为模范生产系统，在世界范围内得到迅速、广泛的认可，这本书是美国麻省理工学院对丰田生产系统五年的研究成果。MIT的研究人员发现TPS远远比传统的大批量制造有效，它所代表的是一个全新的典范，用“<strong>精益生产</strong>”这个术语，也更体现出它是一种完全不同的生产方法。</p>
+<p>四大规则：</p>
+<p>蕴涵在丰田式生产管理之中的隐性知识（Tacit Knowledge）可以用四条基本规则来概括。这些规则指导着每一产品和服务所涉及的每一项作业、每一处衔接和每一条流程路线的设计，实施和改进．这四条规则如下：</p>
+<p>规则一：所有工作的内容、次序、时间和结果都必须明确规定。</p>
+<p>规则二：每一种客户-供应商关系都必须是直接的，发送要求和得到回应的方式必须明确无误，非“是”即“否”。</p>
+<p>规则三：每一种产品和服务的流转路线都必须简单而直接。</p>
+<p>规则四：所有的改进都必须在老师的指导下，按照科学的方法，在尽可能低的组织层面上进行。</p>
+<p>这四条规则要求，<strong>企业的各种作业、衔接和流程路线必须能够进行自我检测，以自动发出问题警示。正是由于不断地对问题做出响应，看似僵化的体系才得以保持柔性，能够灵活适应不断变化的环境</strong>。</p>
+<h4>事务处理系统</h4>
+<p>Transaction processing systems (TPS)</p>
+<p>又称为电子数据处理系统(electronic data processing system，EDPS)，它是指面向企业最底层的管理系统，对企业日常运作所产生的事务信息进行处理。TPS的最初形式设计范围小，如订票系统、会计成本核算系统，其特点是处理问题的高度结构化，但功能单一，如库存物资统计系统、员工工资发放系统等。它所提供的信息是企业的实时信息，是对企业状况的直接反映。TPS的运行直接简化了人们的日常工作，提高了作业层管理者的工作效率。特定情况下，甚至可以完全取代作业层的手工操作。</p>
+<p>1、记录、保存精确的记录，这在财会部门是不可缺少的；</p>
+<p>2、分类；</p>
+<p>3、数据检索；</p>
+<p>4、计算；</p>
+<p>5、汇总；</p>
+<p>6、产生文件、管理报告、账单等，定期生成常规的报表供检查与监督，也可能生成特别报告。</p>
+<h4>TPS总结起来有以下四个方面：</h4>
+<p>1、 拉动式准时化生产    </p>
+<p>要求以最终用户的需求为生产起点，强调物流平衡，追求零库存，要求上一道工序加工完的零件立即进入下一道工序。生产线依靠看板传递信息。生产节拍由人工干预、控制，重在保证生产中的物流平衡(对于每一道工序来说，均要保证对后道工序供应的准时化)。由于采用拉动式生产，生产中的计划与调度实质上是由各个生产单元来完成，在形式上不采用集中计划，但操作过程中生产单元之间的协调则极为重要。</p>
+<p>  2、 全面质量管理    </p>
+<p>强调质量是生产出来而非检验出来的，由生产中的质量管理来保证产品的最终质量。在每道工序进行时均注意质量的检测与控制，保证及时发现质量问题，培养每位员工的质量意识。如果发现问题，立即停止生产，直至解决，从而保证不出现对不合格产品的失效加工。    </p>
+<p>  3、 团队工作方法(Team Work)    </p>
+<p>每位员工在工作中不仅仅是执行上级的命令，更重要的是积极地参与，起到决策与辅助决策的作用。组织团队的原则并不完全按行政组织来划分，而主要根据业务的关系来划分。团队成员强调一专多能，工作的氛围是信任，以一种长期的监督控制为主，而避免对每一步工作的稽核，提高工作效率。团队的组织是变动的，针对不同的事物，建立不同的团队，同一个人可能属于不同的团队。</p>
+<p>  4、 并行工程(Concurrent Engineering)    </p>
+<p>在产品设计开发期间，将概念设计、结构设计、工艺设计、最终需求等结合起来，保证以最快的速度按要求的质量完成。TPS的另一大理念－－<strong>零库存</strong>，就是随时反馈订货信息，实现生产与销售的并行化。</p>
+<p>   </p>
+<p>综上所述，基于内部的团队式工作方式，在外部企业密切合作的环境下，无限追求物流的平衡是精益生产的核心所在，即TPS的精髓之所在！</p>
+<p>TPS不仅仅是准时生产与看板管理。JIT是TPS核心问题之一。拉动式生产是JIT的主要手段，但不能脱离人员自主化和改善而独立存在的。TPS的开发必然是企业整体的长期的行为。它是一个系统管理，是一个全员参加的、思想统一的、不断改进的系统过程。</p>
+<p>推行丰田生产方式的条件</p>
+<p>改善是TPS理论的基础与条件，推行TPS首先应从连续改善入手。其次，TPS的实行需要有较高水平的管理基础。如：先进的操作方法，合理的物流系统，科学的定额标准，员工素质与设备完好率高等。所有这些条件必须具备才能实行TPS生产。</p>
+<p>质量管理不是独立存在的体系，它必须溶于生产过程。质量管理是不能脱离生产现场的加工操作、包装、运输的全部过程的，它们必须融为一体。</p>
+<h4>关于工业工程（IE）</h4>
+<p>丰田生产方式就是工业工程在丰田公司现代管理中的应用。工业工程是丰田生产方式实现的生产支撑体系，同时也是欧美各种现代管理模式（例如：CIMS、MPPⅡ）的技术支撑体系。因而，我国企业要推行TPS，特别是建立适合国情、厂情的TPS，就一定要从推行工业工程入手，否则很难成功。 </p>
+<h4>关于整体化问题 </h4>
+<p>我国许多企业在推行质量管理、工业工程、技术改造、市场研究、CIMS工程等，甚至成立专门的领导机构，各搞一套，这是不正确的。上述工作应集成一体，形成全厂行为，确立本企业的模式，以IE为支撑技术，经过连续不断的改善和努力，最终求得企业整体化效益。 </p>
+<p>应用推广TPS的方法措施</p>
+<p>通过案例分析可知，影响企业的发展问题之所在。要想推行TPS，应从以下途径入手：</p>
+<p>1加快体制改革的步伐</p>
+<p>TPS工程不是单纯的管理与技术问题，它是市场经济的产物，它的实现毫无疑问需要与体制改革相适合，同时需要体制改革的支持，这是国有大中型企业推行TPS的关键问题。 </p>
+<p>2 坚持以规划入手，试点与系统开发并行 </p>
+<p>我国企业开发TPS从一开始就应做到整体发展规划，搞清本企业推行TPS的条件，确定改善的对象与目标，以试点入手，充分考虑全系统的开发与推广。重点攻克物流系统设计与制造、信息系统控制（如看板管理）设计等问题，建立适合本企业的TPS模式。 </p>
+<p>3 培训既是推行TPS的突破口，又是TPS工程自始自终涵盖的内容 </p>
+<p>应在全企业范围内培训TPS理论和工业工程的理论与方法。同时要注意研究国内外推行TPS企业的成功经验与失败教训。 </p>
+<p>我国推行TPS，需要注意的问题较多。如果上述几点得到了较好解决，一定会使企业取得较大的收益。毕竟在“时间就是金钱，效率就是生命”的21世纪，掌握TPS的精髓，将会使企业具备更强的竞争力，从而使企业立于不败之地。 </p>
+<p>中国推行TPS仍处在初级阶段，还有许多需要学习和改进的地方。需要指出的是，如果企业在效仿TPS模式的同时，能够结合自身的特点，走出一条适合自己的路，那将是企业的福音和财富。所以，TPS在中国还有很长的一段路要走。不过，TPS及TPS这种理念，定会在中国有一个光明的未来！ </p>
+<p>  TPS最终目标是企业利润的最大化。管理中的具体目标是通过<strong>消灭一切生产中的浪费来实现成本的最低化</strong>。TPS通过准时化生产、全面质量管理、并行工程等一系列方法来消除一切浪费，实现利润最大化。TPS最具特色的方法是，在组织生产时对消灭物流浪费的无限追求，即对物流环境的需求和内部的分权决策。</p>
+<p>  综上所述，基于内部的团队式工作方式，在外部企业密切合作的环境下，无限追求物流的平衡是精益生产的核心所在，即TPS的精髓之所在！</p>
+<p>  TPS的几大要点如下：</p>
+<p>1. 精益生产是TPS的精髓；</p>
+<p>2. 持续改善是TPS的基础；</p>
+<p>3. 全员参与是TPS的保证；</p>
+<p>4 IE(工业工程)是TPS的根基。</p>
+<p>TPS体系：</p>
+<p>1. 及时与自动化；</p>
+<p>2. 减少库存使诸多的问题显现；</p>
+<p>3. 数量管理、品质保证、人性的尊重；</p>
+<p>4. 丰田的终极目的是通过降低成本获得收益。</p>
+<p>TPS(Toyota Production System) TPS即丰田生产方式，TPS推进即是推进丰田生产方式或精益生产方式。</p>
+<p>丰田式生产管理(Toyota Management)，或称丰田生产体系（Toyota Production System，TPS）由日本丰田汽车公司的副社长大野耐一创建，是丰田公司的一种独具特色的现代化生产方式。它顺应时代的发展和市场的变化，经历了20多年的探索和完善，逐渐形成和发展成为今天这样的包括经营理念、生产组织、物流控制、质量管理、成本控制、库存管理、现场管理和现场改善等在内的较为完整的生产管理技术与方法体系。</p>
+<p>TPS，即丰田生产方式，是日本丰田汽车公司所创造的一套进行生产管理的方式、方法，以消除浪费、降低成本为目的，以准时化和自动化为支柱，以改善活动为基础。丰田生产方式TPS，即<strong>中国认为的精益生产</strong>，始于丰田佐吉，经丰田喜一郎，到大野耐一成形。丰田生产系统房屋结构由大野耐一和EijiToyoda发展而成，用来向员工和供应商解释不断演进的丰田系统。</p>
+<p>该生产系统(TPS)的目的是消除运营中所有的muri,mura,muda(过载、不均衡、浪费)。这是一种让每位员工参与进来，通过采用PDCA（计划、执行、检查、纠正）的方法解决问题，改善质量、成本、交货期、安全和员工士气。</p>
+<p>TPS-丰田生产系统全称为Toyota Production System又称为TOYOTA Way，其被人广泛采用的叫法为JIT生产系统。经过美国国际汽车计划研究协会研究发展后，发展为Lean Production system（精益生产系统）。</p>
+<p>TPS强调8个零管理：零缺陷、零库存、零交货期、零故障、零（无）纸文件、零事故、零废料、零人力资源费</p>
+<p>丰田生产系统由下列要素组成:</p>
+<p>两大支柱准时化（JustInTime）自动化(Jidoka,自动化)</p>
+<p>地基平顺化（Heijunka）标准作业（Standard Work）改善（Kaizen）</p>
+<p>5S目视管理看板（Kanban)一分种换模法（SMED，快速换产）全员生产维护（TPM）生产准备流程（3P）建议系统（Suggestion System）。客所需的产品、所需的时间和正确的数量制造最少的库存机器作业从人工作业中分开，并充分利用两者在流程中内置品质，在源头防止缺陷发生降低交货期时间，使其能进行快速、灵活的生产排程有效地进行多品质、小批量地生产丰田生产系统屋显示了通过消除浪费持续改善达到世界级的生产系统。左边支柱准时化(JIT)节拍时间流动下游拉动消除生产中的7种浪费。使生产和信息平滑流动，最小化库存和空间。右面支柱品质内置Jidoka (自动化)在流程中内建品质，使用智能自动化分离人工和机器作业。实施低成本的自动化、防错法、设备更新和可靠性改进。地基平顺化Heijunka稳定生产排程中的变动。降低整个交货期时间，协调销售、生产安排和顾客需求。</p>
+
+
+<p style='float:right;'>本页共87段，6249个字符，15088 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
