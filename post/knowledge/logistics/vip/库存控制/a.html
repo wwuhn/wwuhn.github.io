@@ -1,0 +1,747 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:5px;
+	margin-left:2em;
+	background-color:RGB(240,240,240);
+    color:blue;
+	margin-left:2em;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+pre{
+    margin-left:2em;
+	}
+a:visited, a:link{
+    color:blue;
+}
+a:visited{
+    color:#CC0000;
+}a:hover{
+    color:green;
+	}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left"><strong><a href="https://www.toutiao.com/i6909237087090999811/">存货的定期、定量控制与最高、最低、安全库存</a> </strong></p>
+
+<p>小智雅汇2020-12-24 10:01:26</p>
+
+<p>对于企业管理来说，利润、成本始终是一个大问题。零库存始终是企业追求的目标，但因为企业之间的协作、企业内部的管理总有不够完善之处，零库存始终只是目标而已，这样，就涉及到一个库存的控制方式的问题。</p>
+
+<p><strong>1 </strong><strong>库存控制系统 </strong></p>
+
+<p>库存控制系统的结构由输出、输入、约束和运行机制四部分组成，与生产系统不同，在库存控制系统中没有资源形态的转化。</p>
+
+<p>输入是为了保证系统的输出（对用户的供给）。</p>
+
+<p>约束条件包括库存资金的约束、空间约束等。</p>
+
+<p>运行机制包括控制哪些参数以及如何控制。在一般情况下，在输出端，独立需求不可控；在输入端，库存系统向外发出订货的提前期也不可控，它们都是随机变量。可以控制的一般是何时发出订货（订货点）和一次订多少（订货量）两个参数。库存控制系统正是通过控制订货点和订货量来满足外界需求并使总库存费用最低。</p>
+
+<p>库存控制系统都必须解决三个问题：</p>
+
+<p>确定订货点，即解决什么时候订货的问题或者确定检查周期，解决隔多长时间检查一次库存量的问题？</p>
+
+<p>确定订货批量，即解决一次订货多少合适的问题。</p>
+
+<p>确定订货如何具体实施，以及库存系统的安全库存的问题。</p>
+
+<p>按照对以上三个问题的解决方式的不同，可以有多种可供选择库存控制方式。</p>
+
+<p>包括定量、定期控制方式，以及最大最小库存控制方式、MRP、JIT等。</p>
+
+<p>下面用一张表格来总览一下定量、定期控制方式：</p>
+
+<p><img width="100%" src="a_clip_image002.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>以下就上述表格的逐项说明。</p>
+
+<p><strong>2 </strong><strong>定量控制方式 </strong></p>
+
+<p>又称连续订货法、固定量系统，属于连续检查、独立处理。</p>
+
+<p>订货点和订货量都是固定的数量。当库存控制系统的现有库存量降到订货点（RL，Reorder Level）及以下时，库存控制系统就向供应厂家发出订货，每次订货量均为一个固定的量Q。经过一段时间，我们称之为提前期（LT，Lead Time），所发出的订货到达，库存量增加Q。订货提前期是从发出订货至到货的时间间隔，其中包括订货准备时间、发出订单、供方接受订货、供方生产、产品发运、提货、验收和入库等过程。显然，提前期一般为随机变量。</p>
+
+<p><img width="100%"  src="a_clip_image003.jpg" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>要发现现有库存量是否到达订货点RL，必须随时检查库存量。固定量系统需要随时检查库存量，并随时发出订货。这样，增加了管理工作量，但它使得库存量得到严密的控制。因此，固定量系统适用于重要物资的库存控制。</p>
+
+<p>为了减少管理工作量，可采用双仓系统。所谓双仓系统是将同一种物资分放两仓（或两个容器），其中一仓使用完之后，库存控制系统就发出订货。在发出订货后，就开始使用另一仓的物资，直到到货，再将物资按两仓存放。</p>
+
+<p>定量控制方式的优势：</p>
+
+<p>1 保持库存连续记录，成本较高；</p>
+
+<p>2 运输成本和采购成本较高；</p>
+
+<p>3 不能够获得数量折扣，不能够进行联合采购；</p>
+
+<p>4 适合A类物料和缺货成本较高的物料；</p>
+
+<p>5 订货数量为EOQ；</p>
+
+<p>EOQ=SQRT(2KD/C)（K：每次订购成本，fixed  cost per order ；D：每年需求数量；C：每单位存货持有成本；），在信息技术飞速发展的今天，每次订购成本K会变得越来越小，导致EOP会更小，所以其应用大打折扣，关于EOQ，后面会有较详细论述</p>
+
+<p><strong>3 </strong><strong>定期控制方式 </strong></p>
+
+<p>又称固定间隔期系统，属于不连续检查、相关处理。</p>
+
+<p>固定量系统需要随时监视库存变化，对于物资种类很多且订货费用较高的情况，是很不经济的。固定间隔期系统可以弥补固定量系统的不足。定期库存控制系统就是每经过一个相同的时间间隔，发出一次订货，订货量为将现有库存补充到一个最高水平S。</p>
+
+<p><img width="702" height="307" src="a_clip_image005.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>当经过固定间隔时间t之后，发出订货，这时库存量降到L1，订货量为S－L1；经过一段时间（LT）到货，库存量增加S－L1；再经过固定间隔期t之后，又发出订货，这时库存量降到L2，订货量为S－L2，经过一段时间（LT）到货，库存量增加S－L2。</p>
+
+<p><img width="100%"  src="a_clip_image006.jpg" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>固定间隔期系统不需要随时检查库存量，到了固定的间隔期，各种不同的物资可以同时订货。这样。简化了管理，也节省了订货费。不同物资的最高水平S可以不同。固定间隔期系统的缺点是不论库存水平L降得多还是少，都要按期发出订货，当L很高时，订货量是很少的。为了克服这个缺点，就出现了最大最小系统。</p>
+
+<p>定期控制方式的优势：</p>
+
+<p>1 可获得数量折扣，可实现联合采购；</p>
+
+<p>2 保险库存需要考虑检查周期与前置时间中需求数量的波动；</p>
+
+<p>3 订货数量＝最高库存 - 库存余额（包括在途库存）；</p>
+
+<p><strong>4 </strong><strong>最大最小系统 </strong></p>
+
+<p>又叫非强制补充进货，定期检查，将库存余额与最低库存比较决定是否申购？</p>
+
+<p>最大最小库存控制方式是针对定期控制方式的缺陷的改进，对于定期订货方式而言，当到期后对某一些物料采购时，发现需要采购的数量可能很少，为此，可以对全部物料再设置一个订货点s（或最低库存），只有当库存数量低于这个订货点时，才发出采购订单，如下图的第二个时间周期就可以考虑不发出采购订单。</p>
+
+<p>最大最小库存控制系统仍然是一种固定间隔期系统，只不过它需要确定一个订货点s。当经过时间间隔t时，如果库存量降到s及以下，则发出订货；否则，再经过时间t时再考虑是否发出订货。</p>
+
+<p><img width="100%"  src="a_clip_image007.jpg" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>当经过间隔时间t之后，库存量降到L1，L1小于s，发出订货，订货量为S－L1，经过一段时间LT到货，库存量增加S－L1。再经过时间t之后，库存量降到L2，L2大于s，不发出订货。再经过时间t，库存量降到L3，L3小于s，发出订货，订货量为S-L3，经过一段时间LT到货，库存量增加S-L3，如此循环。</p>
+
+<p>以上三种控制方式以外的一些其它方式：</p>
+
+<p>MRP：Material Requirement Planning，按订单需求进行分析与计划；</p>
+
+<p>JIT：Just In Time，快速准时实现零库存；</p>
+
+<p>VMI，Vendor Managed Inventory，信息共享、环节同步；让供应商建立库存；</p>
+
+<p>JMI，Joint Managed Inventory，与供应商、客户一起联合管理库存:</p>
+
+<p><strong>5 </strong><strong>库存物料的ABC分类 </strong></p>
+
+<p>面对纷繁杂乱的处理对象，如果分不清主次，鸡毛蒜皮一把抓，可想而知，其效率和效益是不可能高起来的。而分清主次，抓住主要的对象，却一定可以事半功倍。</p>
+
+<p>意大利经济学家帕累托( Pareto)在分析意大利社会财富分布状况时得到的“关键的少数和次要的多数”的结论。后来由约瑟夫·朱兰（Joseph M. Juran）根据上述结论总结出来80/20法则（The 80/20 Rule）又称为帕累托法则(Pareto Principle）、二八定律、帕累托定律、最省力法则、不平衡原则、犹太法则、马特莱法则等。</p>
+
+<p>80/20的法则认为：原因和结果、投入和产出、努力和报酬之间本来存在着无法解释的不平衡。一般来说，投入和努力可以分为两种不同的类型：</p>
+
+<p>多数，它们只能造成少许的影响；</p>
+
+<p>少数，它们造成主要的、重大的影响。</p>
+
+<p>二八定律应用到库存管理中，就是ABC分类法(Activity  Based Classification) ，全称应为ABC分类库存控制法。对于企业使用的全部物料规格，通常占用金额65%的只占全部规格数量的15%，其基本的分类思路如下：</p>
+
+<p>1 从表格上列出物料规格名称、年使用数量、单价，计算每一种物料料的金额。</p>
+
+<p>2 按照金额由大到小排序排列。</p>
+
+<p>3 计算每一种物料金额占库存总金额的比率。</p>
+
+<p>4 计算金额占用累计比率。</p>
+
+<p>5 分类。金额占用累计比率在0%～65%之间的，为最重要的A类材料；累计比率在65%～85%之间的，为次重要的B类材料；累计比率在85%～100%之间的，为不重要的C类材料。</p>
+
+<p>ABC分类法还可以应用到质量管理、成本管理和营销管理等管理的各个方面。</p>
+
+<p><strong>6 </strong><strong>安全库存（SS，Safety Stock） </strong></p>
+
+<p>安全库存（safety stock）是指当不确定因素（订货期间需求增长、到货延期等），也就是上述表格中的需求率 v 和采购提前期 t 的偏差导致的需求波动和到货不确定而需要的缓冲库存。这种偏差需要以数理统计理论进行分析。</p>
+
+<p>安全库存越大，出现缺货的可能性越小；但库存越大，会导致剩余库存的出现。应根据不同物品的用途以及客户的要求，将缺货保持在适当的水平上，允许一定程度的缺货现象存在。安全库存的量化计算可根据顾客需求量固定、需求量变化、提前期固定、提前期发生变化等情况，利用正态分布图、标准差、期望服务水平等来求得。</p>
+
+<p><img width="640" height="247" src="a_clip_image009.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>标准差是每一个数据相对于平均值偏移程度的一种描述，可用以下公式求得。</p>
+
+<p><img width="152" height="62" src="a_clip_image011.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>公式中数值x1,x2,x3,…Xn(皆为实数)，其平均值(算术平均值)为μ，标准差为σ。</p>
+
+<p>z是反映客户服务水平的标准正态累积分布函数的反函数的值。例如要达到95%的服务水平，也就是只有5%的缺货率，这个95%可以用标准正态累积分布函数来描述，其反函数的值就是z，在Excel中可以使用normsinv(probability%)来计算，如normsinv(95%)=1.65，客户服务水平越高，z值越大，相应的安全库存也就越大。</p>
+
+<p>标准正态分布表与常用值：</p>
+
+<p><img width="695" height="875" src="a_clip_image013.jpg" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>1 Z-score 是非标准正态分布标准化后的 x即  z = (x − μ) / σ</p>
+
+<p>2 表头的横向表示小数点后第二位，表头的纵向则为整数部分以及小数点后第一位；两者联合作为完整的 x。</p>
+
+<p>3 表中的值为图中红色区域的面积，也即 cdf （概率密度函数，Probability Density Function），连续分布的累积概率函数，记为 Φ ( x )。</p>
+
+<p>4 cdf 的逆，记为</p>
+
+<p><img width="276" height="114" src="a_clip_image015.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>表示 x 取何值时，阴影部分的面积为 0.75，查表可知，x 介于 0.67  和 0.68 之间。</p>
+
+<p>上面SS公式是经典的安全库存公式，看起来简单，可是在企业实践中的应用，却颇为复杂，原因是数据收集量难度很大，例如对于具有几千至几万种物料的制造业企业或大中型零售企业而言，收集关于物料或产品的日需求量d和提前期L的数据，其难度之大可以预期。而且，理论或方法越复杂，其在企业实践中的广泛应用越受到限制。</p>
+
+<p>签于此，在需求随机分布并服从正态分布的假设下，通常假设提前期不变，则σL为0，则上面SS公式的后一截就可略去：</p>
+
+<p><img width="278" height="54" src="a_clip_image017.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p><strong>6.1 </strong><strong>定期补货策略下安全库存量的确定</strong></p>
+
+<p>随着库存的减少，企业要采取措施来补充库存。其中一种补充库存的办法是规定补货时间。一般是确定两次补货之间的时间间隔，只要第一次补货时间明确，以后各次补货时间也就确定下来了，这种补货方式称为定期补货策略。</p>
+
+<p>在定期补货策略下，补货时间是确定的，每次补货的数量就成为主要应解决的问题。假设每次补货的数量为Q，补货时间间隔为T，补货提前期为t (补货提前期指从发出补货指令到货物入库所需时间) ，每次补货时库存量为q，需求率为v  (单位时间内的需求) 。每到补货时间，企业就要发出Q量的补货指令，  经过t时间， Q量的补货入库，要等到下次补货入库还要经过时间T。不难看出，在t + T时间内，用于满足需求的库存总量为Q + q，这个总量定为E ( E =Q + q) ，称之为最大库存量。因为在每次补货时都可以通过盘库获得q量，所以要明确补货量Q，只要知道E，就可以通过E - q来确定。在定期补货策略下的补货问题似乎就变为如何确定E的问题， E的问题一旦明确，定期补货策略就可以在企业的控制之下实现库存的管理问题。在E 的确定中就涉及安全库存量。</p>
+
+<p>E是用来满足( T + t)时间内的需求量，如果需求率v是确定的，即单位时间内的需求不变，则E =v ×( T + t) ，其全部为经常性库存，不包括安全库存，如果v是不确定的，则E的确定需要从经常性库存和安全库存两方面准备。经常性库存通常最简易的做法是用平均需求率E ( v) ×( T + t)取得， 而安全库存则要根据需求分布特征和企业愿意提供的需求满足率（客户服务水平）来确定。</p>
+
+<p><strong>6.2 </strong><strong>定量补货策略下安全库存量的确定</strong></p>
+
+<p>定量补货策略下，每次补货的数量都相同，而补货的时间则是根据盘点库存量来确定的。当盘点库存量降到企业所规定的一个限量———订货点时，就发出确定的补货量。这种补货策略中，从一次补货入库到下次补货指令发出之间一般不会出现缺货。因为，企业时刻在监测库存量的变化，直到订货点出现时发出新的补货，这期间库存量一直维持在订货点之上。但是从订货点发出新的补货指令到补货入库期间，如果需求率是不确定的，则有可能出现缺货，这时候就要考虑准备安全库存量。</p>
+
+<p>援引前段提到的假设，即在时间t段要准备安全库存量，由于t时间段只有订货点来满足需求，所以在确定订货点时要包括安全库存量，即订货点由经常性库存和安全库存两部分组成。安全库存量的确定，依据仍然取决于需求特性与需求满足率。</p>
+
+<p>定量补货策略相对于定期补货策略，因为后者需要考虑的周期是(T+t)，而后者只需考虑 t ，所以，需要的安全库存要低些。</p>
+
+<p><strong>6.3 </strong><strong>例1</strong></p>
+
+<p>某饭店啤酒补货提前期为5天，提前期内需求量服从期望为20加仑，标准差为2加仑的正态分布，在定量补货策略下如果维持95%的需求满足率，需要多少安全库存量？</p>
+
+<p>可以看出，提前期内需求是不确定的，但是有规律可循。在确定订货点时，除了考虑期望值为20加仑外，还要考虑安全库存，  以满足超出期望值的需求，使需求满足率达到95%，所以订货点= 20加仑+安全库存。查标准正态分布表得95%的累计概率下的偏差为1. 65个标准方差(Excel使用NORMSINV(95%)可求得)。</p>
+
+<p>SS = 1.65*2*sqrt(5) = 8</p>
+
+<p>也就是说，实际需求在0～28加仑之间出现的可能性为95%，要实现需求满足为95%，必须确定订货点为28。</p>
+
+<p><strong>6.4 </strong><strong>例2</strong></p>
+
+<p>一个产品的需求历史如下图所示，假定采用定量控制方式，一旦在途和在库库存之和低于再订货点，就触动订货机制。再假定供应商的补货周期为4个星期，如果要达到95%的有货率，再订货点要设多高？其中安全库存是多少？补货周期内的平均需求呢？</p>
+
+<p><img width="100%"  src="a_clip_image018.jpg" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>我们这里是用13周的需求历史，需求相对平稳，没有明显的趋势、季节性等，而且符合正态分布（这点从数理统计的角度，比如卡方检验可以验证）。那么，我们围绕这13个数据点，就可以求出每周平均需求为17个，每周需求的标准差为10个（取整）。在上图的右边，展示了有货率与有货率系数Z值的关系。有货率和Z值是一对一的关系，可以通过查表或者Excel表格中的函数Normsinv( )，计算出每个有货率对应的Z值。</p>
+
+<p>再订货点等于补货周期（4周）内的平均需求（4*17=68个），加上安全库存。安全库存等于Z值*补货周期内的需求标准差。95%的有货率对应的Z值为1.64。每周需求的标准差已经知道（10个），那补货周期4周内的需求标准差也可以算出：√4*10=20。安全库存就等于1.64*20=32.8，加上补货周期内的平均需求68个，就得到再订货点100.8。当然，你不能订0.8个货，那就四舍五入为101个。</p>
+
+<p>补货周期内的平均需求：17*4 = 68</p>
+
+<p>95%有货率对应的Z值：1.64</p>
+
+<p>安全库存： 1.64*√4*10 = 1.64*2*10 = 32.8</p>
+
+<p>再订货点： 68+32.8 = 101</p>
+
+<p>以上讨论所提及的需求满足率，通常指的是库存管理的服务水平。如何获得一个客观有效的服务水平作为企业确定安全库存量的参数至关重要。服务水平可以直接通过客户调查获得，也可以通过历史数据和企业改善管理的能力确定，确定的方法一般有两个：</p>
+
+<p>库存服务水平= (一定时期内满足的订单数/一定时期内订单总数) ×100%</p>
+
+<p>库存服务水平= (一定时期内满足的物料单位数/一定时期内物料需求总数) ×100%</p>
+
+<p>对于同一资料，采用不同计算方法，确定的服务水平有所不同。确定哪一个计算结果作为企业服务水平的衡量水平，企业既要坚持计算方法的连贯性，又要考虑同行业的可比性。因为，服务水平既是企业管理水平的衡量指标，也是企业确立竞争力的因素之一。</p>
+
+<p><strong>7 </strong><strong>经济订货批量EOQ的确定 </strong></p>
+
+<p>所谓订货批量就是每一次订货的数量。订货批量的高低，不仅直接影响库存量和库存成本的高 低，而且直接影响货物供应的满足程度。订货批量大小的主要影响因素有两个：</p>
+
+<p>需求速度，需求速率越高，订货批量就越大。</p>
+
+<p>经营费用，费用的高低，对订货批量有影响，经营费用低，订货批量可能就大，反之，订货量就小。</p>
+
+<p><strong>7.1 </strong><strong>经济订货批量的原理</strong></p>
+
+<p>经济订购批量（Economic Order Quantity, 简称EOQ）的原理是平衡订货成本、存储成 本，寻求使得包含采购成本、订货成本、持有成本在内的总库存成本最小的订货批量。</p>
+
+<p><strong>7.2 </strong><strong>经济订货批量模型的假设</strong></p>
+
+<p>经济订货批量模型最早由F.W.Harris于1915年提出的，该模型有如下假设:</p>
+
+<p>(1) 需求率已知，为常量。年需求量以D表示，单位时间需求率以d表示。</p>
+
+<p>(2) 一次订货量无最大最小限制。</p>
+
+<p>(3) 采购，运输均无价格折扣。</p>
+
+<p>(4) 订货提前期已知，为常量。</p>
+
+<p>(5) 订货费与订货批量无关。</p>
+
+<p>(6) 维持库存费是库存量的线性函数。</p>
+
+<p>(7) 补充率为无限大，全部订货一次交付。</p>
+
+<p>(8) 不允许缺货。</p>
+
+<p>(9) 采用固定量系统。</p>
+
+<p>由于该模型假设了产品的需求速率和订货提前期是固定的，而且所订产品瞬时到货，因此，不需要安全库存。</p>
+
+<p><strong>7.3 </strong><strong>经济订货批量的原理</strong></p>
+
+<p>基于以上假设，在简单EOQ模型中，我们只考虑购买成本、存货持有成本和订货成本。</p>
+
+<p>随库存量增加而增加的费用：资金成本、仓储空间和管理费用、税收和保险、物质陈旧和变质等。</p>
+
+<p>随库存量增加而减少的费用：购买费和加工费（折扣）、订货费、缺货费等。</p>
+
+<p>① 每单位年持有成本</p>
+
+<p><img width="100%"  src="a_clip_image020.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>单位年持有成本，annual holding cost per unit，也称为储存成本，包括资本成本、仓库空间、制冷、保险等，通常与单位生产成本无关。</p>
+
+<p>② 年订货成本</p>
+
+<p><img width="800" height="432" src="a_clip_image022.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>可以用采购部门的总管理费用和质检、仓储部分的部分费用去匹配年订货成本。可以根据订单金额大小等因素使用一种加权方法来计算某项订货单的费用。</p>
+
+<p>③ 总成本</p>
+
+<p>其中采购成本为R*P，其中R是年需求量、P为单价。</p>
+
+<p><img width="100%"  src="a_clip_image024.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>④ 年总成本曲线</p>
+
+<p><img width="100%"  src="a_clip_image026.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>⑤ 通过求导求经济订货批量EOQ</p>
+
+<p><img width="100%" src="a_clip_image027.jpg" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>Q = SQRT(2*RC/H)</p>
+
+<p>TC：总费用，Total Cost</p>
+
+<p>R：年需求量，annual Requirement quantity</p>
+
+<p>P：单价，Price</p>
+
+<p>Q：经济采购批量，optimal order quantity</p>
+
+<p>H：单位年持有成本，annual holding cost per unit</p>
+
+<p>F：单位年持有费用比率</p>
+
+<p>RP：年采购金额</p>
+
+<p>Q/2：指年平均持有量</p>
+
+<p>R/Q：年订购次数</p>
+
+<p>d：求导符号</p>
+
+<p>⑥ 具体案例</p>
+
+<p><img width="100%"  src="a_clip_image029.gif" alt="存货的定期、定量控制与最高、最低、安全库存" /></p>
+
+<p>虽然EOQ公式比较简单明了，但是在实际应用时，还必须考虑其它一些因素。最常见的就是那些与各种费用调整有关的问题，这是为了利用特殊的购买形式和单位化（unitization）特征而必须做出的调整。如在EOQ公式中，没有考虑运输成本、数量折扣对订货批量的影响。</p>
+
+<p>像经济订货量这样的经典的公式，主要是在过去一百多年内研究出来的，是典型的传统经济的产物，表现为节奏较慢，“从前的日色变得慢 / 车，马，邮件都慢  / 一生只够爱一个人”，人们思考的“单位时间”也就比较长，比如这里经济订货量的需求是按年来计算。在上世纪80年代以后，信息技术发展迅速，特别是这些年的电商经济，工业节奏就更快了。如果这些研究是在现在完成的话，围绕快消品的话，我想更可能会用周或月或季度来做计量单位了。</p>
+
+<p>信息技术也显著改变了订货成本。以前下订单，发送订单，跟踪订单，收货验收，付款等都是手动，成本相当高；现在大部分任务，包括付款都可以自动化，成本显著下降——ERP自动产生订单，自动通过电子商务发给供应商，仓库收货验收时扫码，相关信息自动录入ERP，付款周期一到，自动付款，人工参与很少，单次订购成本自然就下降。这也意味着经济订货量EOQ会更小。所以一些企业不再使用经济订货量。</p>
+
+<p><strong>8 </strong><strong>安全库存问题的应对措施 </strong></p>
+
+<p>8.1 改善需求预测。</p>
+
+<p>预测越准，意外需求发生的可能性就越小。还可以采取一些方法鼓励用户提前订货。</p>
+
+<p>8.2 运用统计的手法</p>
+
+<p>通过对前6个月甚至前1年产品需求量的分析，求出标准差后即得出上下浮动点后做出适量的库存。</p>
+
+<p>8.3 缩短订货周期与生产周期</p>
+
+<p>这一周期越短，在该期间内发生意外的可能性也越小。</p>
+
+<p>8.4 减少供应的不稳定性</p>
+
+<p>其中途径之一是让供应商知道你的生产计划，以便它们能够及早作出安排。</p>
+
+<p>另一种途径是改善现场管理，减少废品或返修品的数量，从而减少由于这种原因造成的不能按时按量供应。还有一种途径是加强设备的预防维修，以减少由于设备故障而引发的供应中断或延迟;</p>
+
+<p>一般地，厂商要处理两种流：物流和信息流。公司内部间的隔阂影响了信息的有效流通，信息的成批处理使得公司内“加速原理”生效，需求信息经常被扭曲或延迟，从而引起采购人员和生产计划制定者的典型反应——“前置时间或安全库存综合症”。该效应继续加强，直到增加过量，相应的成本同时随之上升。</p>
+
+<p>过剩的生产能力不断蔓延至整条供应链，扭曲的需求数据开始引起“存货削减综合症”，厂商不得不选择永久降低产品的销售价格，侵蚀企业的盈利。前一种效应引起过量的存货，公司为了求出路又导致后一种结果，不进行流程改变，这两种效应将持续存在并互相推动。</p>
+
+<p>在市场成长期，两种效应的结合所带来的后果常被增长的需求所掩盖，厂商可以生存甚至兴旺而不顾及震荡周期的存在——一段时间内，全力处理存货；另一段时间内却又不顾成本的加速生产。当市场进入平稳发展或下降期后，厂商开始一步步走向衰亡。在目前企业与企业存在隔阂甚至企业内部门之间也存在隔阂的情况下，信息传递滞后、反应缓慢、成批处理和不确定性是造成上述两种效应的深层原因，应对的根本也在于减少组织隔阂、加强信息疏导并能做到迅速反应。</p>
+
+<p>许多厂商已经意识到供应链中所蕴含的巨大商机，并希望借此获得新一轮竞争中的先发优势，但新的运作理念要求新的运作模式与之相匹配。从供应链管理的思想出发，根据前面的分析结果有针对性地给出了七条重要解决措施。</p>
+
+<p>措施1：实施柔性化组织管理</p>
+
+<p>实施柔性管理是现代企业提高其竞争力的重要手段，处于供应链上的企业特别是核心企业必须提高其所在供应链的柔性以提高其竞争能力。厂商的柔性化组织<strong>通过快速调整生产达到高效运作</strong>以支持其企业和分销网络，避免企业陷入困境并加速产品上市。当厂商面向高效的供应链运作时，又可同时获得内部和外部的效率。内部效率也是供应链运作效率的关键驱动力之一，指的是灵活，而不是经济规模大小，对工厂和分销网络进行投资有助于实现灵活性；而在厂商的外部，供应商的效率则是供应链的绩效的关键。</p>
+
+<p>措施2：建立联盟与合作</p>
+
+<p>成功的战略联盟和战略合作伙伴关系也是供应链成功的基础。厂商应该关注整个供应链并减少供应商数量，通过实施供应商评估计划限制其数量，找出高质量运作的供应商，更密切和高效合作，保证无论何时何地需要哪一种高质量的产品，都能及时运到。随着向单一供应商趋势的发展。厂商需要向合作伙伴全面披露诸如财务绩效、利益分配策略和联合设计的工作计划等信息，并与其建立相对一致的文化。根据一致的预测开展工作，使用一致的信息技术系统。供应商则须能联接到消费者系统以获得详细的运输数据、生产计划以及任何其它所需要的信息。联盟伙伴以整体的力量参与市场竞争，需要确保联盟的管理机制。一般在联盟中确立市场影响力最大的企业为核心企业，使联盟整体随市场因素的变化而调整战略。成功的战略联盟或伙伴关系必须建立在完全信任、忠诚、双赢、共同目标和协作的基础上，而促成联盟谈判应建立在公平的前提下。</p>
+
+<p>措施3：供应链间的协调尤为重要</p>
+
+<p>每个厂商可能涉及几条供应链，而每一条很可能有不同的商业需求，在给不同的供应链分配使用一些共同的资源时必要的协调就显得十分重要。把既定大小的蛋糕公平的分给每个成员，远不如将蛋糕做大后，再进行分配更令大家满意。因此，成功的协调应建立在供应链价值增值的基础上，其中最关键的因素是预测需求的能力，协调的目标受需求影响，与公司大小无关。</p>
+
+<p>措施4：提高信息沟通效率</p>
+
+<p>供应链一个重要的功能就是传递信息，将最终用户的信息传回到生产商那里尤其重要，这可以优化消费者对产品的需求信息，提高生产运作。另外，提高成员内部以及它们之间的信息(包括新产品开发、产品改进、成本、需求、供给以及原材料等)沟通可以降低供应链上的不确定性和存货水平。在此基础上的理想买卖关系则可理顺整条供应链。</p>
+
+<p>措施5：建立渠道竞争优势厂商</p>
+
+<p>想在行业中获得并保持竞争优势不是一件容易的事情，竞争压力迫使企业必须时刻保持效率。许多厂商把供应链管理看作实现竞争优势的一种手段，希望将生产成本推给供应商，以剔除部分劳动成本。这种削减成本的策略提高了整个供应链竞争效率。同时，厂商变的越来越重视市场渠道，它们在观察整个渠道的活动是如何影响企业运作的。近年来，渠道的力量正移向零售商。分销渠道中零售商力量的增强是由一些大的零售商带动起来的。</p>
+
+<p>措施6：外包非核心业务可以使企业获得成本效率</p>
+
+<p>这种策略使得供应链中物流或生产的责任位于最有能力获得成功的成员那里，每个厂商都把有限的资源投入到自己最具核心竞争力的业务上，充分利用专业化和分工带来的好处。许多厂商现在将配送外包。并能通过第三方跟踪每一项业务。</p>
+
+<p>措施7：加强存贷管理</p>
+
+<p>过去，为了避免断货风险，大量存货普遍存在于商业流通中。随着不断的发展，许多厂商发现存货是成本的重要组成部分，它们更愿意将存货放在生产商处，使卖方管理存货(VMI)成为存货管理的一个趋势。在这种体系下。存货被推回到供货商那里，降低了链上其它成员的存货投资和风险。另外，对存货的快速反应导致产品生命周期变短，这种快速反应系统在消费者需要时，总可以提供适当数量的产品，从而提高了消费者服务，同时也提高了生产商的存货周转。</p>
+
+<p>ref</p>
+
+<p>《会设安全库存，再订货点的计算就很容易》https://www.cnblogs.com/purple5252/p/13571846.html</p>
+
+<p>《库存管理》https://wenku.baidu.com/view/7a8a42d0ff0a79563c1ec5da50e2524de518d0e4.html</p>
+
+<p>《安全库存》https://wiki.mbalib.com/wiki/%E5%AE%89%E5%85%A8%E5%BA%93%E5%AD%98</p>
+
+<p>《解读订货点采购与库存控制》http://www.360doc.com/content/16/0123/22/18213013_530109216.shtml</p>
+
+<p>《需求确定简单EOQ模型》https://wenku.baidu.com/view/ff0d186d03d8ce2f006623f6.html</p>
+
+<p>《经济订货批量》https://wiki.mbalib.com/wiki/%E7%BB%8F%E6%B5%8E%E8%AE%A2%E8%B4%A7%E6%89%B9%E9%87%8F</p>
+
+<p>－End－ </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+

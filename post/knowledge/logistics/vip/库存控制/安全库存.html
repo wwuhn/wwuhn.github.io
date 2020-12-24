@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>安全库存</h3>
+
+<p><a href="https://wiki.mbalib.com/wiki/%E5%AE%89%E5%85%A8%E5%BA%93%E5%AD%98" title="">mbalib</a></p>
+<p><a href="http://www.360doc.com/content/16/0123/22/18213013_530109216.shtml" title="">360doc</a></p>
+<p><a href="https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E5%BA%93%E5%AD%98/2037986?fr=aladdin" title="">bd</a></p>
+<p>什么是安全库存</p>
+<p>安全库存（safety stock）是指当不确定因素（订货期间需求增长、到货延期等）已导致更高的预期需求或导致完成周期更长时的缓冲存货，安全库存用于满足提前期需求。在给定安全库存的条件下，平均存货可用订货批量的一半和安全库存来描述。</p>
+<p>安全库存的确定是建立在数理统计理论基础上的。首先，假设库存的变动是围绕着平均消费速度发生变化，大于平均需求量和小于平均需求量的可能性各占一半，缺货概率为50%。</p>
+<p>安全库存越大，出现缺货的可能性越小；但库存越大，会导致剩余库存的出现。应根据不同物品的用途以及客户的要求，将缺货保持在适当的水平上，允许一定程度的缺货现象存在。安全库存的量化计算可根据顾客需求量固定、需求量变化、提前期固定、提前期发生变化等情况，利用正态分布图、标准差、期望服务水平等来求得。</p>
+<p></p>
+<p>安全库存的原则</p>
+<p>1、不缺料导致停产（保证物流的畅通）；</p>
+<p>2、在保证生产的基础上做最少量的库存；</p>
+<p>3、不呆料。</p>
+<p></p>
+<p>怎么确定哪些物料需要定安全库存</p>
+<p>运用ABC分析法确定了物料的A、B、C等级后根据A、B、C等级来制订库存：</p>
+<p>A类料：一般属于成本较高，占整个物料成本的65%左右，可采用定期定购法，尽量没有库存或只做少量的安全库存.但需在数量上做严格的控制。</p>
+<p>B类料：属于成本中等，占整个物料成本的25%左右，可采用经济定量采购的方法，可以做一定的安全库存。</p>
+<p>C类料：其成本最少，占整个物料成本的10%左右，可采用经济定量采购的方式，不用做安全库存，根据采购费用和库存维持费用之和的最低点，订出一次的采购量。</p>
+<p></p>
+<p>怎么降低“安全”库存</p>
+<p>1、订货时间尽量接近需求时间.</p>
+<p>2、订货量尽量接近需求量</p>
+<p>3、库存适量</p>
+<p>但是与此同时，由于意外情况发生而导致供应中断、生产中断的危险也随之加大，从而影响到为顾客服务，除非有可能使需求的不确定性和供应的不确定性消除，或减到最小限度。这样，至少有4种具体措施可以考虑使用：</p>
+<p>1、改善需求预测。预测越准，意外需求发生的可能性就越小。还可以采取一些方法鼓励用户提前订货；</p>
+<p>2、缩短订货周期与生产周期，这一周期越短，在该期间内发生意外的可能性也越小；</p>
+<p>3、减少供应的不稳定性。其中途径之一是让供应商知道你的生产计划，以便它们能够及早作出安排。</p>
+<p>另一种途径是改善现场管理，减少废品或返修品的数量，从而减少由于这种原因造成的不能按时按量供应。还有一种途径是加强设备的预防维修，以减少由于设备故障而引发的供应中断或延迟；</p>
+<p>4、运用统计的手法通过对前6个月甚至前1年产品需求量的分析，求出标准差后即得出上下浮动点后做出适量的库存。</p>
+<p></p>
+<p><h4>安全库存计算方法</h4></p>
+<p>客户需求不确定、生产过程不稳定、配送周期多变、服务水平高低等是影响安全库存的重要因素。根据经典的安全库存公式，安全库存SS是日平均需求d、日需求量的标准差σ 、提前期L(补货提前期和采购提前期)、提前期L的标准差σL和服务水平CSL的函数，故有：</p>
+<img src="img/1.png" />
+<p>式中：SS—— 安全库存，\overline{L}—— 提前期的平均值， \overline{d}——日平均需求量， z—— 某服务水平下的标准差个数，σd ——日需求量d的标准差σL —— 提前期L的标准差。</p>
+<p>式(1)即经典的安全库存公式，看起来简单，可是在企业实践中的应用，却颇为复杂，原因是数据收集量难度很大，例如对于具有几千至几万种物料的制造业企业或大中型零售企业而言，收集关于物料或产品的日需求量d和提前期L的数据，其难度之大可以预期。而且，理论或方法越复杂，其在企业实践中的广泛应用越受到限制。我们曾调研了广东省十几家实施了ERP系统的企业，发现这些企业都是根据简单的经验法则来确定安全库存SS。签于此，在需求随机分布并服从正态分布的假设下。根据提前期不变和提前期可变这两种不同的情况，本文将分别提出两个简洁实用的SS公式。</p>
+<p>1.提前期L不变</p>
+<p>目前众多企业都重视供应链管理，强调快速响应和协同预测，实施ERP、SCM和电子商务来加强信息交流，并且大幅改善了运输条件和准时交货，强调对提前期变异的管理，因而提前期的变异可以视为很小。在需求随机分布并服从正态分布和提前期不变的假设下，式(1)的第二项为零，故式(1)可简化。</p>
+
+<p>2.提前期L可变</p>
+
+<p><h4>安全库存量的确定</h4></p>
+<p>(一)定期补货策略下安全库存量的确定</p>
+<p>随着库存的减少,企业要采取措施来补充库存。其中一种补充库存的办法是规定补货时间。一般是确定两次补货之间的时间间隔,只要第一次补货时间明确,以后各次补货时间也就确定下来了,这种补货方式称为定期补货策略。</p>
+<p>在定期补货策略下,补货时间是确定的,每次补货的数量就成为主要应解决的问题。假设每次补货的数量为Q,补货时间间隔为T,补货提前期为t (补货提前期指从发出补货指令到货物入库所需时间) ,每次补货时库存量为q,需求率为v (单位时间内的需求) 。每到补货时间,企业就要发出Q量的补货指令, 经过t时间, Q量的补货入库,要等到下次补货入库还要经过时间T。不难看出,在t + T时间内,用于满足需求的库存总量为Q + q,这个总量定为E ( E =Q + q) ,称之为最大库存量。因为在每次补货时都可以通过盘库获得q量,所以要明确补货量Q,只要知道E,就可以通过E - q来确定。在定期补货策略下的补货问题似乎就变为如何确定E的问题, E的问题一旦明确,定期补货策略就可以在企业的控制之下实现库存的管理问题。在E 的确定中就涉及安全库存量。</p>
+<p>E是用来满足( T + t)时间内的需求量,如果需求率v是确定的,即单位时间内的需求不变,则E =v ×( T + t) ,其全部为经常性库存,不包括安全库存,如果v是不确定的,则E的确定需要从经常性库存和安全库存两方面准备。经常性库存通常最简易的做法是用平均需求率E ( v) ×( T + t)取得, 而安全库存则要根据需求分布特征和企业愿意提供的需求满足率来确定。</p>
+<p>(二)定量补货策略下安全库存量的确定</p>
+<p>定量补货策略下,每次补货的数量都相同,而补货的时间则是根据盘点库存量来确定的。当盘点库存量降到企业所规定的一个限量———订货点时,就发出确定的补货量。这种补货策略中,从一次补货入库到下次补货指令发出之间一般不会出现缺货。因为,企业时刻在监测库存量的变化,直到订货点出现时发出新的补货,这期间库存量一直维持在订货点之上。但是从订货点发出新的补货指令到补货入库期间,如果需求率是不确定的,则有可能出现缺货,这时候就要考虑准备安全库存量。</p>
+<p>援引前段提到的假设,即在时间t段要准备安全库存量,由于t时间段只有订货点来满足需求,所以在确定订货点时要包括安全库存量,即订货点由经常性库存和安全库存两部分组成。安全库存量的确定,依据仍然取决于需求特性与需求满足率。举例说明如下：</p>
+<p>例1：某饭店啤酒补货提前期为5天,提前期内需求量服从期望为20加仑,方差为4加仑的正态分布,在定量补货策略下如果维持5%的需求满足率,需要多少安全库存量?</p>
+<p>可以看出,提前期内需求是不确定的,但是有规律可循。在确定订货点时,除了考虑期望值为20加仑外,还要考虑安全库存, 以满足超出期望值的需求,使需求满足率达到95%,所以订货点= 20加仑+安全库存。查标准正态分布表得95%的累计概率下的偏差为1. 65个标准方差。也就是说,实际需求在0～23. 3 ( 20 +1. 65 ×2)加仑之间出现的可能性为95%,要实现需求满足为95%,必须确定订货点为23. 3,其中3. 3 (1. 65 ×2)加仑为安全库存量。</p>
+<p>总结上例可知,当提前期需求满足正态分布时,安全库存量= z ×α,其中α为标准差, z为某一需求满足率下查标准正态分布表获得的安全系数。</p>
+<p>(三)安全库存量确定的一般分析</p>
+<p>以上不同补货策略下安全库存量的确定,就是分析需求分布特征。在一定需求满足率要求下,确定的库存应当准备的储存量中超出期望需求的部分库存量,即为安全库存量。如定期补货策略下所确定的最大库存量和定量补货策略下所确定的订货点中超出对应时间区段(定期补货策略对应区段为T+ t,定量补货策略对应区段为t)期望需求的部分库存量。</p>
+<p>如果所掌握需求分布所属时间段与T + t或者t不相符,就要把原始需求分布调整为对应时间段T+ t或者t内的需求分布,这样做才能准确地计算确定安全库存量。我们把例1中的资料稍加改动后作为例2以确定新的安全库存量。</p>
+<p>例2:某饭店啤酒补货提前期为5天,每天需求量服从期望为20加仑,方差为5加仑的正态分布,在定量补货策略下如果维持95%的需求满足率,需要多少安全库存量?</p>
+<p>资料显示每天的需求分布特征,但是定量补货策略下要知道补货提前期内,即5天内的需求特征才有助于直接确定安全库存量,这就需要根据原有需求分布确定新的需求分布。依据独立变量和的分布特征可知,独立变量和的期望等于各变量期望之和,独立变量和的方差等于各变量方差之和。又由于饭店啤酒每天的需求同分布,所以5日内的啤酒需求分布仍属于正态分布, 期望为5 ×20 = 100加仑,方差为5 ×5 = 25 加仑, 标准差为5 加仑, 则95%需求满足率下的安全库存为1. 65 ×5 = 8. 25加仑,订货点为100 + 8. 25 = 108. 25加仑。</p>
+<p>有时候掌握的需求分布资料是根据历史资料推算的,要完全转换为T + t或者t时间段的需求分布,则需要掌握一定的概率和数理统计知识。</p>
+<p>(四)关于需求满足率的说明</p>
+<p>以上讨论所提及的需求满足率,通常指的是库存管理的服务水平。如何获得一个客观有效的服务水平作为企业确定安全库存量的参数至关重要。服务水平可以直接通过客户调查获得,也可以通过历史数据和企业改善管理的能力确定,确定的方法一般有两个：</p>
+<p>库存服务水平= (一定时期内满足的订单数/一定时期内订单总数) ×100%</p>
+<p>库存服务水平= (一定时期内满足的物料单位数/一定时期内物料需求总数) ×100%</p>
+<p>对于同一资料,采用不同计算方法,确定的服务水平有所不同。确定哪一个计算结果作为企业服务水平的衡量水平,企业既要坚持计算方法的连贯性,又要考虑同行业的可比性。因为,服务水平既是企业管理水平的衡量指标,也是企业确立竞争力的因素之一。</p>
+<p></p>
+<p>安全库存问题的应对措施[4]</p>
+<p>一般地，厂商要处理两种流：物流和信息流。公司内部间的隔阂影响了信息的有效流通，信息的成批处理使得公司内“加速原理”生效，需求信息经常被扭曲或延迟，从而引起采购人员和生产计划制定者的典型反应——“前置时间或安全库存综合症”。该效应继续加强，直到增加过量，相应的成本同时随之上升。</p>
+<p>过剩的生产能力不断蔓延至整条供应链，扭曲的需求数据开始引起“存货削减综合症”，厂商不得不选择永久降低产品的销售价格，侵蚀企业的盈利。前一种效应引起过量的存货，公司为了求出路又导致后一种结果，不进行流程改变，这两种效应将持续存在并互相推动。</p>
+<p>在市场成长期，两种效应的结合所带来的后果常被增长的需求所掩盖，厂商可以生存甚至兴旺而不顾及震荡周期的存在——一段时间内，全力处理存货；另一段时间内却又不顾成本的加速生产。当市场进入平稳发展或下降期后，厂商开始一步步走向衰亡。在目前企业与企业存在隔阂甚至企业内部门之间也存在隔阂的情况下，信息传递滞后、反应缓慢、成批处理和不确定性是造成上述两种效应的深层原因，应对的根本也在于减少组织隔阂、加强信息疏导并能做到迅速反应。</p>
+<p>许多厂商已经意识到供应链中所蕴含的巨大商机，并希望借此获得新一轮竞争中的先发优势，但新的运作理念要求新的运作模式与之相匹配。从供应链管理的思想出发，根据前面的分析结果有针对性地给出了七条重要解决措施。</p>
+<p>措施1：实施柔性化组织管理</p>
+<p>实施柔性管理是现代企业提高其竞争力的重要手段，处于供应链上的企业特别是核心企业必须提高其所在供应链的柔性以提高其竞争能力。厂商的柔性化组织通过快速调整生产达到高效运作以支持其企业和分销网络，避免企业陷入困境并加速产品上市。当厂商面向高效的供应链运作时，又可同时获得内部和外部的效率。内部效率也是供应链运作效率的关键驱动力之一，指的是灵活，而不是经济规模大小，对工厂和分销网络进行投资有助于实现灵活性；而在厂商的外部，供应商的效率则是供应链的绩效的关键。</p>
+<p>措施2：建立联盟与合作</p>
+<p>成功的战略联盟和战略合作伙伴关系也是供应链成功的基础。厂商应该关注整个供应链并减少供应商数量，通过实施供应商评估计划限制其数量，找出高质量运作的供应商，更密切和高效合作，保证无论何时何地需要哪一种高质量的产品，都能及时运到。随着向单一供应商趋势的发展。厂商需要向合作伙伴全面披露诸如财务绩效、利益分配策略和联合设计的工作计划等信息，并与其建立相对一致的文化。根据一致的预测开展工作，使用一致的信息技术系统。供应商则须能联接到消费者系统以获得详细的运输数据、生产计划以及任何其它所需要的信息。联盟伙伴以整体的力量参与市场竞争，需要确保联盟的管理机制。一般在联盟中确立市场影响力最大的企业为核心企业，使联盟整体随市场因素的变化而调整战略。成功的战略联盟或伙伴关系必须建立在完全信任、忠诚、双赢、共同目标和协作的基础上，而促成联盟谈判应建立在公平的前提下。</p>
+<p>措施3：供应链问的协调尤为重要</p>
+<p>每个厂商可能涉及几条供应链，而每一条很可能有不同的商业需求，在给不同的供应链分配使用一些共同的资源时必要的协调就显得十分重要。把既定大小的蛋糕公平的分给每个成员，远不如将蛋糕做大后，再进行分配更令大家满意。因此，成功的协调应建立在供应链价值增值的基础上，其中最关键的因素是预测需求的能力，协调的目标受需求影响，与公司大小无关。</p>
+<p>措施4：提高信息沟通效率</p>
+<p>供应链一个重要的功能就是传递信息，将最终用户的信息传回到生产商那里尤其重要，这可以优化消费者对产品的需求信息，提高生产运作。另外，提高成员内部以及它们之间的信息(包括新产品开发、产品改进、成本、需求、供给以及原材料等)沟通可以降低供应链上的不确定性和存货水平。在此基础上的理想买卖关系则可理顺整条供应链。</p>
+<p>措施5：建立渠道竞争优势厂商</p>
+<p>想在行业中获得并保持竞争优势不是一件容易的事情，竞争压力迫使企业必须时刻保持效率。许多厂商把供应链管理看作实现竞争优势的一种手段，希望将生产成本推给供应商，以剔除部分劳动成本。这种削减成本的策略提高了整个供应链竞争效率。同时，厂商变的越来越重视市场渠道，它们在观察整个渠道的活动是如何影响企业运作的。近年来，渠道的力量正移向零售商。分销渠道中零售商力量的增强是由一些大的零售商带动起来的。</p>
+<p>措施6：外包非核心业务可以使企业获得成本效率</p>
+<p>这种策略使得供应链中物流或生产的责任位于最有能力获得成功的成员那里，每个厂商都把有限的资源投入到自己最具核心竞争力的业务上，充分利用专业化和分工带来的好处。许多厂商现在将配送外包。并能通过第三方跟踪每一项业务。</p>
+<p>措施7：加强存贷管理</p>
+<p>过去，为了避免断货风险，大量存货普遍存在于商业流通中。随着不断的发展，许多厂商发现存货是成本的重要组成部分，它们更愿意将存货放在生产商处，使卖方管理存货(VMI)成为存货管理的一个趋势。在这种体系下。存货被推回到供货商那里，降低了链上其它成员的存货投资和风险。另外，对存货的快速反应导致产品生命周期变短，这种快速反应系统在消费者需要时，总可以提供适当数量的产品，从而提高了消费者服务，同时也提高了生产商的存货周转。</p>
+<p></p>
+<p>安全库存策略问题案例 [5]</p>
+<p>某企业每年耗用某种材料3650件，每日平均耗用10件，材料单价10元，一次订购费25元，每件年储存费2元，每件缺货一次费用4元，平均交货期10天，交货期内不同耗用量X的概率分布为：Image:安全库存策略问题案例 .jpg</p>
+<p>(1)不考虑缺货，日平均需求量为已知常数，周期初始储存为订货量，当储存量耗尽时，所订货物即可到达。试求此时的最佳订货量及订货次数，使单位时间的平均费用最少。</p>
+<p>(2)考虑订货期内因需求量增加而引起缺货，但订货期内缺货，采取缺货不处理方式。试求此时的最佳订货点和保险储备量，使年度总费用最少。</p>
+<p>一、符号说明</p>
+<p>C1——订购费(元／次)</p>
+<p>C3——缺货费(元／次·件)</p>
+<p>D——年需求量</p>
+<p>T——订货周期</p>
+<p>N——订货次数</p>
+<p>L——平均送货期</p>
+<p>C2——储存费(元／件·天)</p>
+<p>U——单价(元／件)</p>
+<p>R——日平均需求量</p>
+<p>Q——订货量</p>
+<p>S——订货点</p>
+<p>B——保险储备量</p>
+<p>Xi——耗用量</p>
+<p>Yi——缺货量</p>
+<p>N * ——最佳订货次数</p>
+<p>Q * ——最佳订货量</p>
+<p>S * ——最佳订货点</p>
+<p>B * ——最佳保险储备量</p>
+<p>二、问题分析与模型的建立</p>
+<p>1．求最佳订货量及订货周期</p>
+<p>由于R为已知常数，所以可假定为确定性不允许缺货模型，货物订货量</p>
+<p>Q = RT(1)</p>
+<p>均匀下降，当降到0时订货即可到达</p>
+<p>记任意时刻t的库存量为g(t)，因为在0≤t<T间无定货，所以对于足够小的t有：q(t+ \triangle t)=q(t)-R \triangle t，0≤t<T</p>
+<p>即q'(t) = ? R,又q(0)=Q，故q(t)=Q-Rt=RT-Rt</math>,0≤t<T</p>
+<p>由(1)式可得一周期内的储存量为:</p>
+<p>\int_0^T q(t)dt=RT^2- \frac{1}{2}RT^2=\frac{1}{2}RT^2</p>
+<p>于是有每天的储存费为</p>
+<p>C_2 \frac{\frac{1}{2}RT^2}{t}=\frac{1}{2}C_2 RT^2</p>
+<p>每天的订货费为：</p>
+<p>\frac{C_1+URT}{T}=\frac{C_1}{T}+UR</p>
+<p>每天的平均费用为：</p>
+<p>C(T)=\frac{C_1}{T}+UR+\frac{1}{2}C_2RT</p>
+<p>所以欲求最佳订货量Q * 及订货次数N * ，就归结为求订货周期T使C（T）最小。</p>
+<p>令\frac{dC}{dT}=0，求得T^*=\sqrt{\frac{2C_1}{RC_2}}，再由（1）式即得Q^*=\sqrt{\frac{2C_1R}{C_2}}，N^*=\frac{D}{Q^*}；</p>
+<p>2.求最佳订货点和保险储备量</p>
+<p>考虑送货期需求量的随机性，订货点S除满足送货期L的平均需求外，还需要维持保险储备量B，所以：</p>
+<p>S = LR + B</p>
+<p>当库存量降到S时应订货，又订货期内发生缺货则采取缺货不处理方式，所以：</p>
+<p>Y_i = \begin{cases} X_i-S & X_i>S \\ 0 & X_i \le S \end{cases}</p>
+<p>则送货期内因需求量增加而引起的平均缺货量为:</p>
+<p>E(Y)=\sum_{i=1}^n Y_i P_i</p>
+<p>因此得年度缺货费为N * C3E(Y)，保险储备费为C2B,与保险储备有关的总费用为：</p>
+<p>C = N * C3E(Y) + C2(S ? LR)</p>
+<p>用枚举法可求S * ，使得：</p>
+<p>min{N * C3(Y) + C2(S ? LR)}</p>
+<p>再由B * = S * ? LR确定B * 即可。</p>
+<p></p>
+<p>参考文献</p>
+
+
+<p style='float:right;'>本页共148段，9710个字符，23070 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
