@@ -1,0 +1,634 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+table{
+border-collapse:collapse;
+margin-left:-4em;
+}
+td{
+border:1px solid #ccc;
+padding-left:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>声明VBA变量类型可以提高效率</h4>
+
+
+<p><a href="https://www.toutiao.com/i6808577371080229388/" title="">ref</a></p>
+<p>目录如下：</p>
+<pre>
+一、变量的概念
+二、变量的命名
+三、变量的声明
+四、变量的类型
+五、变量的作用域
+六、变量的赋值
+七、变量的存活期
+八、正确声明变量类型对运行时间的影响
+九、给初学者的建议
+</pre>
+<h4>一、变量的概念</h4>
+<p>变量是用于保存程序运行过程中的临时值。和常量不同的是，变量是一个指定的内存位置，用于保存代码执行过程中可以更改的值。</p>
+<p>变量有两种：动态变量和静态变量</p>
+<p>静态变量和动态变量的区别：</p>
+<p>动态变量：过程每运行一遍，动态变量的值会重置；</p>
+<p>静态变量：过程每运行一遍，静态变量的值还是上一次过程运行的结果。</p>
+<pre>
+Sub 静态和动态变量()
+    Dim a As Integer    '动态变量
+    Static b As Integer '静态变量
+    a = a + 1
+    b = b + 1
+    
+    Debug.Print a; b
+End Sub
+</pre>
+
+<h4>二、变量的命名</h4>
+<p>在VBA中，可以使用名称来表示内存的位置，这个名称就是标识符，可以理解为变量的名字。</p>
+<p>变量命名的注意事项：</p>
+<p>1、第一个字符必须使用英文字母或中文字符（中文版EXCEL支持中文字符）；</p>
+<p>2、名称长度不超过255个字符；</p>
+<p>3、名称不能与VBA本身的Function过程、语句、即方法的名称相同，避免冲突；</p>
+<p>4、不能在同一范围的相同层级中使用重复的名称。</p>
+<h4>三、变量的声明</h4>
+<p>在使用变量时，需要告诉VBA程序，变量的名称和数据类型，即声明变量。</p>
+<p>通常用Dim语句来声明动态变量，用Static语句来声明静态变量。</p>
+<p>声明数据类型后，可以在计算机内建立一个指定的存储位置，这样在运行代码时程序就会很快，内存利用效率很高，否则，计算机还要耗用很大的内存来判断其数值类型，运行会比较慢。</p>
+<p>1、声明变量的写法</p>
+<p>声明变量通常都是在程序开始处，可以在同一行声明多个变量，用英文逗号间隔即可。写法如下：</p>
+<pre>
+Dim    变量1 As 变量类型，变量2 As 变量类型，……
+Static 变量1 As 变量类型，变量2 As 变量类型，……
+</pre>
+<p>2、强制声明变量</p>
+<p>要强制声明变量，直接在输入代码时最顶头输入【Option Explicit】，就可以，我们看下图的效果：</p>
+<pre>
+Option Explicit   '强制声明变量设定
+Sub test()
+    Dim ss As Integer   '如果最前面有Option Explicit，此处没有声明，会报错
+    Debug.Print ss + 1
+End Sub
+</pre>
+<p>① 未设置强制声明变量，在未声明变量的状态下，代码可以正常执行；</p>
+<p>② 设置了强制声明变量，在未声明变量的状态下，无法执行代码，提醒变量未定义；</p>
+<p>③ 设置了强制声明变量，在声明了变量的状态下，代码执行通过。</p>
+<p>扩展：如果不会写【Option Explicit】，是否有快捷方法实现强制声明变量呢？当然有</p>
+<p>VBE编辑器菜单的工具→选项→编辑器→勾选要求变量声明。确定后，每次插入模块，都会在模块前面增加【Option Explicit】</p>
+<h4>四、变量的类型</h4>
+
+<table style="width:120%;">
+<col width="7%" />
+<col width="10%" />
+<col width="10%" />
+
+<col width="6%" />
+<col width="10%" />
+<col width="13%" />
+<col width="44%" />
+  <tr>
+    <td>类型</td>
+    <td>小类</td>
+    <td>关键字</td>
+    <td style="font-size:80%;">类型<br />
+声明符</td>
+    <td>储存空间</td>
+    <td>值范围</td>
+    <td>detail</td>
+  </tr>
+  <tr>
+    <td>数值型</td>
+    <td>整型</td>
+    <td>Integer</td>
+    <td>%</td>
+    <td>2个字节</td>
+    <td>-32768〜32767</td>
+    <td>不带小数的数，包括正整数、负整数和零</td>
+  </tr>
+  <tr>
+    <td>数值型</td>
+    <td>长整型</td>
+    <td>Long</td>
+    <td>&amp;</td>
+    <td>4个字节</td>
+    <td>-21亿〜21亿</td>
+    <td>不带小数的数，包括正整数、负整数和零</td>
+  </tr>
+  <tr>
+    <td>数值型</td>
+    <td>单精度型</td>
+    <td>Single</td>
+    <td>!</td>
+    <td>4个字节</td>
+    <td></td>
+    <td>带有小数的数值，可以表示7位有效数字</td>
+  </tr>
+  <tr>
+    <td>数值型</td>
+    <td>双精度型</td>
+    <td>Double</td>
+    <td>#</td>
+    <td>8个字节</td>
+    <td></td>
+    <td>带有小数的数值，可以表示15位有效数字</td>
+  </tr>
+  <tr>
+    <td>数值型</td>
+    <td>字节型</td>
+    <td>Byte</td>
+    <td></td>
+    <td>1个字节</td>
+    <td>0〜255</td>
+    <td>表示无符号的整数</td>
+  </tr>
+  <tr>
+    <td>布尔型</td>
+    <td></td>
+    <td>Boolean</td>
+    <td></td>
+    <td>2个字节</td>
+    <td>True 或 False</td>
+    <td></td>
+  </tr>
+  <tr height="38">
+    <td height="38">日期型</td>
+    <td></td>
+    <td>Date</td>
+    <td></td>
+    <td>8个字节</td>
+    <td>1/1/100 〜12/21/9999</td>
+    <td>前后各用一个#号把日期和时间括起来 如：【#2020/3/27    23:09:29#】</td>
+  </tr>
+  <tr height="38">
+    <td height="38">字符串</td>
+    <td></td>
+    <td>String</td>
+    <td>$</td>
+    <td>字符串长</td>
+    <td></td>
+    <td>用双引号引起来的一串字符串，在VBA中，一个汉字为1个字符</td>
+  </tr>
+  <tr>
+    <td>小数型</td>
+    <td></td>
+    <td>Decimal</td>
+    <td></td>
+    <td>14个字节</td>
+    <td></td>
+    <td>用于储存由10次冪换算的有符号整数</td>
+  </tr>
+  <tr>
+    <td>货币型</td>
+    <td></td>
+    <td>Currency</td>
+    <td>@</td>
+    <td>8个字节</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>对象型</td>
+    <td></td>
+    <td>Object</td>
+    <td></td>
+    <td>4个字节</td>
+    <td></td>
+    <td>表示应用程序中的对象，如单元格、工作表</td>
+  </tr>
+  <tr>
+    <td>变体型</td>
+    <td></td>
+    <td>Variant</td>
+    <td></td>
+    <td>按需分配</td>
+    <td></td>
+    <td>可变的数据类型，可以存放任何类型的数据，当指定为变体型时，不必在数抿类型间转換，VBA会自动转换。注：在程序中不特别说明，默认为变体型，由于变体型存放空间大，因此不在特殊情况下不适用。</td>
+  </tr>
+</table>
+
+
+<p>VBA中的变量类型及相关参数，详见上表，我们在声明变量时，要选择合适的变量类型。</p>
+<p>比如变量的值为整数，就把变量声明为Integer型；</p>
+<p>如果变量的值是大于32767的整数，就要把变量声明为Long型；</p>
+<p>如果变量是时间，就要把变量声明为Date型（在工作表中，时间是数值的一种；但是在VBA中，要根据情况明确；声明数值时，还要根据数值的形式、范围选择合适的数值类型）</p>
+<p>注意：</p>
+<p>1、Variant型（变体型）可以存放任何类型的数据，当指定为变体型时，不必在数据类型间转换，VBA会自动转换；</p>
+<p>2、在程序中不特别说明时，均默认为变体型；</p>
+<p>3、由于变体型存放空间大，因此不在特殊情况下不适用该类型。</p>
+<h4>五、变量的作用域</h4>
+<p>作用域就是变量使用范围，VBA中有三种级别的作用域：过程级变量、模块级变量和全局级级变量。</p>
+<p>1、<strong>过程级变量</strong>：过程级变量只在变量所在的过程中有效。</p>
+<pre>
+Sub Test()
+    Dim a As Integer
+    Debug.Print a + 1
+End Sub
+</pre>
+<p>如上面这个Test过程，这里声明的变量a，就只能用于此过程中。</p>
+<p>2、<strong>模块级变量</strong>：在同一个模块内通用的变量。</p>
+<p>与过程级变量声明的不同方式在于，写过程前先声明变量，模块级代码的声明方式如下：</p>
+<p>方法①：Dim 变量 As变量类型</p>
+<p>方法②：Private 变量 As 变量类型</p>
+<pre>
+'Option Explicit
+Dim a As Integer      '定义到最前面
+Private b As Integer
+Sub test2()
+    a = 3
+    b = 4
+    Debug.Print a + b
+End Sub
+</pre>
+<p>演示过程解析（强制声明变量状态下演示）：</p>
+<p>① 在模块1中声明了变量a，在模块1中运行通过；</p>
+<p>② 切换到模块2，Test2过程中有一个未声明的变量a，直接运行，提示变量未申请；</p>
+<p>③ 用Private声明了变量b，然后将模块1和模块2过程中的变量都修改为b，在模块2中运行通过，在模块1中运行错误。</p>
+<p>④通过演示得出结论，这两种声明变量的方式生成的都是模块级变量，只能在当前模块中使用，跨模块使用无效。</p>
+<p>3、全局级变量：在该工程内通用的变量。</p>
+<p>全局变量与过程级变量声明的方式相同，都是写过程前先声明变量，全局变量的声明方式如下：</p>
+<p>Public 变量 As 变量类型</p>
+<pre>
+Public a As Integer
+Sub test2()
+    Debug.Print a + 1
+End Sub
+</pre>
+<p>演示过程解析（强制声明变量状态下演示）：</p>
+<p>① 在模块1中声明了全局变量a，在模块2中声明了全局变量b；</p>
+<p>② 模块1种Test过程中有变量a和b，运行通过；</p>
+<p>③ 模块2种Test2过程中有变量a和b，运行通过；</p>
+<p>注意：</p>
+<p>① 对于不同级的变量使用的原则，尽量使用过程级变量；</p>
+<p>② 如果不同过程之间有共享值时，才使用全局级变量；</p>
+<p>③ 要控制全局级变量的使用数量。</p>
+<h4>六、变量的赋值</h4>
+<p>1、给文本、数值、日期等数据类型变量赋值</p>
+<p>语句为： Let 变量名称 = 变量值（这里的Let可以省略，即：变量名称＝变量值）</p>
+<p>例如：</p>
+<pre>
+Sub 变量赋值()
+    Dim str As String
+    Let str = "我是上班下班"
+End sub
+</pre>
+<p>2、给对象变量（Object型，例如单元格）赋值</p>
+<p>语句为：Set 变量名称=对象（这里Set千万不能少。）</p>
+<p>例如：</p>
+<pre>
+Sub 变量赋值()
+Dim rng = Range
+Set rng = Worksheets("sheet1").Range("A1")
+rng.Value= "我是上班下班"
+End sub
+</pre>
+<h4>七、变量的存活期</h4>
+<p>变量的存活期就是指变量在内存中保留的时间，这个与变量的作用域有很大的关系。</p>
+<p>1、过程级变量：</p>
+<p>出现：当SUB过程开始执行时，过程级代码才储存到内存中；</p>
+<p>结束：SUB过程执行完成时，变量占用的内存就会立即释放。</p>
+<p>2、模块级变量：</p>
+<p>出现：当程序开始运行时，模块级代码就储存到内存中；</p>
+<p>结束：当关闭工作薄时，变量占用的内存才会释放。</p>
+<p>3、全局级变量：</p>
+<p>出现：当程序开始运行时，全局级代码就储存到内存中；</p>
+<p>结束：当关闭工作薄时，变量占用的内存才会释放。</p>
+<p>4、静态变量：</p>
+<p>出现：当程序开始运行时，全局级代码就储存到内存中；</p>
+<p>结束：当关闭工作薄时，变量占用的内存才会释放。</p>
+<h4>八、正确声明变量类型对运行时间的影响</h4>
+<pre>
+Sub 声明变量类型对运行时间的影响()
+    '测试时可以注销或不注销下面的变量声明
+    Dim t As Long, a As Integer, b As Integer, c As Integer
+    t = Timer
+    For a = 1 To 20000
+        For b = 1 To 20000
+            c = a - b
+        Next b
+    Next a
+    Debug.Print "共耗时：" & VBA.Format(Timer - t, "0.00")
+End Sub
+'共耗时：13.81
+'共耗时：8.13
+</pre>
+<p>解析：</p>
+<p>1、当不声明变量类型时，运行完成需要9.17秒；</p>
+<p>2、当正确声明变量类型时，运行完成需要5..61秒；</p>
+<p>3、如果换成更大量的数据、更复杂的运算，运行时间上的差距还会更大；</p>
+<p>4、所以大家可以看到正确声明变量的总要性。</p>
+<p>1、学习VBA是否一定要先学习变量？</p>
+<p>① 初学者不必马上去学习定义变量的各种知识，直接写代码照样可以入门；</p>
+<p>② 入门以后再学习定义变量的方法，并根据自己的认识取舍即可；</p>
+<p>2、是否必须在程序开头加上Option Explicit？</p>
+<p>在电脑286、386时代，在DOS程序代码时代，在内存仅16M，32M时代，你必须定义好每一个变量的数据类型，以便最高效地进行内存使用。即，一个口袋里只有10元钱的人，要生活一周，于是你必须精打细算好每一分钱，否则就会饿死。</p>
+<p>Option Explicit 的作用，就在于：如果你的程序没有做到精确定义每一个变量的数据类型，编译程序就会拒绝执行，它认为你太奢侈了，不懂得节约使用每一分钱。</p>
+<p>而现在的电脑硬件环境，已经是过去的几千倍了。每一个人口袋里都有几百万的钱，还有必要去考虑一分钱、一元钱的用法么？</p>
+<p>3、是否需要dim 所有变量？</p>
+<p>好处：不同的数据类型，占用大小不同的字节，因此计算时对内存的占用和运算效率有所不同。因此，定义变量数据类型以后，可能的好处是少占用一些内存以及大量重复运算是提高计算速度。</p>
+<p>坏处：由于各种类型占用字节的限制，它所能代表的数值范围受到了限制！如果初学者试图去使用定义变量类型的方法时，往往尚未得到实际好处，即【运算速度提高】的好处（但实际运算量小时速度的差别很小、很小可以完全忽略不计）却首先受到了因为不能恰如其份地定义好变量类型，而造成了变量溢出或冲突导致代码无法运行的严重后果。</p>
+<p>比如：如果你不了解Integer的范围，在超出变量范围的情况下使用就会提示出错。比如“溢出“</p>
+<pre>
+Sub demo()
+    Dim i As Integer
+    i = Cells(Rows.Count, 1).End(3).Row
+    Debug.Print i
+    i = Rows.Count  '会溢出
+End Sub
+</pre>
+<p>4、动态数组是否必须定义？</p>
+<p>Dim arr、Dim txt、Dim Num全部无意义，因为：</p>
+<p>Dim arr 等价于 Dim arr As Variant</p>
+<p>Dim txt 等价于 Dim txt As Variant</p>
+<p>Dim Num 等价于 Dim Num As Variant</p>
+<p>5、学习VBA，完全可以先实战后深入，不必花费太多时间再如何声明好变量类型上，能事半功倍。抛开一些没必要的东西先让程序跑起来的确更重要。</p>
+
+<p style='float:right;'>本页共198段，5535个字符，11602 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
