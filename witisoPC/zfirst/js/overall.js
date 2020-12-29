@@ -150,7 +150,7 @@ function MM_findObj(n, d) { //v4.01
 
 
 <!--按星期显示TV table-->
-	function tvset(){
+	function tvset111(){
 	var today2=new Date();
 	var isnDay = new
 				Array("Sun.","Mon.","Tue.","Wed.","Thu.","Fri.","Sat.","Sun.");
