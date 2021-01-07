@@ -158,21 +158,17 @@ function monthDays(y,m) {
 }
 
 //====================================== 算出农历, 传入Date对象, 传回农历日期对象
-// 该Date对象属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
-// JavaScript 对象构造器，是创建一种“对象类型”的方法
-// 通过 new 关键词调用构造器函数可以创建相同类型的对象
-// 用大写首字母对构造器函数命名是个好习惯。
+//              该Date对象属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
 function Lunar(objDate) {
 
    var i, leap=0, temp=0
    var baseDate = new Date(1900,0,31) 				// js的月份从0开始，0-11
    var offset   = (objDate - baseDate)/86400000   	// 86400000：一天的毫秒数
-	// 除了字面值（原始值），JS中一切都是对象，函数也是，对象就有this指向自己
-	// 该函数的使用lDObj = new Lunar(sDObj)     // 农历
-	// 函数的参数是一个日期，所以其就是按一个日期来定义的，自然包含一些日期的元素（属性）
-   this.dayCyl = offset + 40  	// // 在函数构造器中，构造一个对象，this表示对象自身。
 
-   this.monCyl = 14				// China year lunar
+   this.dayCyl = offset + 40  			// 函数也是对象，this表示函数对象，可以定义数据成员。
+   										// 函数的所属者默认绑定到 this 上。
+   										// https://www.runoob.com/js/js-this.html
+   this.monCyl = 14						// China year lunar
 
    for(i=1900; i<2050 && offset>0; i++) {
       temp = lYearDays(i)
@@ -240,7 +236,7 @@ function cyclical(num) {  //周期的；循环的
    return(Gan[num%10]+Zhi[num%12])
 }
 
-//============================== 月历属性，通过函数构建的对象
+//============================== 月历属性
 function calElement(sYear,sMonth,sDay,week,lYear,lMonth,lDay,isLeap,cYear,cMonth,cDay) {
       this.isToday    = false;
       // 公历
@@ -287,8 +283,8 @@ function calendar(y,m) {
    this.length    = solarDays(y,m)    // 公历当月天数
    this.firstWeek = sDObj.getDay()    // 公历当月1日星期几
 
-   for(var i=0;i<this.length;i++) {  // 一个公历月的日期数据
-      if(lD>lX) {					  // lX农历当月最後一天
+   for(var i=0;i<this.length;i++) {
+      if(lD>lX) {
          sDObj = new Date(y,m,i+1)    // 当月一日日期
          lDObj = new Lunar(sDObj)     // 农历
          lY    = lDObj.year           // 农历年
@@ -299,15 +295,15 @@ function calendar(y,m) {
 
          if(n==0) 
 		 		firstLM = lM
-         lDPOS[n++] = i-lD+1 // 某月公历日与农历日之差
+         lDPOS[n++] = i-lD+1
       }
 
       //sYear,sMonth,sDay,week,
       //lYear,lMonth,lDay,isLeap,
       //cYear,cMonth,cDay
-      this[i] = new calElement(y, m+1, i+1, nStr1[Math.floor((i+this.firstWeek)%7)],//公历
-                               lY, lM, lD++, lL,//农历
-                               cyclical(lDObj.yearCyl) ,cyclical(lDObj.monCyl),  // 干支
+      this[i] = new calElement(y, m+1, i+1, nStr1[Math.floor((i+this.firstWeek)%7)],
+                               lY, lM, lD++, lL,
+                               cyclical(lDObj.yearCyl) ,cyclical(lDObj.monCyl), 
 							   cyclical(lDObj.dayCyl++) )
 
 
@@ -340,49 +336,21 @@ function calendar(y,m) {
             this[((this.firstWeek>tmp2)? 7 :0 ) + 7*(tmp1-1) + tmp2 
 					- this.firstWeek].solarFestival += RegExp.$5 + ' '
          }
-			//var lFtv = new Array(
-			//"0101 *春节",
-			//"0115 元宵节",
-			//"0408 佛诞",
-			//"0505 端午节",
-			//"0707 七夕节",
-			//"0715 盂兰盆节",
-			//"0815 中秋节",
-			//"0909 重阳节",
-			//"0100 *除夕")
-   // 农历节日  //当闰年时，以下有问题，还有如2019.7等，某些月显示不出来
-   //以下IE OK chrome需要做修改
- /*  for(i in lFtv)
-      if(lFtv[i].match(/^(\d{2})(.{2})([\s\*])(.+)$/)) { // 通过正则分解以上字符串
-		  	// match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。
-		  	// ^c	匹配任何开头为 c 的字符串。
-			// c$	匹配任何结尾为 c 的字符串。
-		  	// ()分组、\d	查找数字。\s 查找空白字符。
-			// c{n}	匹配包含 n 个 c 的序列的字符串。
-			// .	查找单个字符，除了换行和行结束符。
-		  	// n+	匹配任何包含至少一个 n 的字符串。
-			// n*	匹配任何包含零个或多个 n 的字符串。
-			
-		 // Number()变量转换为数字
-		 // alert(lDPOS[tmp1])
-         tmp1 = Number(RegExp.$1)-firstLM // firstLM = lM(农历月，0-11)
-         //if(tmp1==-11 && !lL) tmp1=1 // IE
-		 //if(tmp1==-12 && lL) tmp1=1 // chrome
-		 if(tmp1==-12) tmp1=1 // 农历平年11，闰年12
-		 
+
+   // 农历节日
+   for(i in lFtv)
+      if(lFtv[i].match(/^(\d{2})(.{2})([\s\*])(.+)$/)) {
+         tmp1=Number(RegExp.$1)-firstLM
+         if(tmp1==-11) tmp1=1
          if(tmp1 >=0 && tmp1<n) {
-			 
-            tmp2 = lDPOS[tmp1] + Number(RegExp.$2) -1  //lDPOS[n++] = i-lD+1 //IE
-			//tmp2 = Math.round(lDPOS[tmp1+1]) + Number(RegExp.$2) -1   //chrome
-			//alert(tmp2)
+            tmp2 = lDPOS[tmp1] + Number(RegExp.$2) -1
             if( tmp2 >= 0 && tmp2<this.length) {
                this[tmp2].lunarFestival += RegExp.$4 + ' '
                if(RegExp.$3=='*') this[tmp2].color = 'red'
             }
          }
-      }*/
-	
-	//console.log(firstLM)
+      }
+
    // 今日
    if(y==tY && m==tM) this[tD-1].isToday = true;
 
@@ -413,23 +381,22 @@ function cDay(d){
 	var tY = Today.getFullYear();
 	var tM = Today.getMonth();
 	var tD = Today.getDate();
-
+	
 	var cld;						// 日期对象
 	function drawCld(SY,SM,SD) { 	// 参数是选择列表的年、月
 		cld = new calendar(SY,SM)
-		str = '  '+ SY + '-' + eval(SM+1) + '-' + SD + ' '
+		str = SY + '-' + eval(SM+1) + '-' + SD + ' '
 		str = str + '周' + nStr1[eval(cld.firstWeek + SD-1)%7] + ' ' 
+		str += cyclical(SY-1900+36)
+		str += Animals[(SY-4)%12]+'年 '
+		
 		sD = SD-1
-		str += cyclical(cld[sD].lYear-1900+36)
-		str += Animals[(cld[sD].lYear-4)%12]+'年 '
-		var cnm = nStr1[cld[sD].lMonth] // 农历月
 		if(monthDays(cld[sD].lYear,cld[sD].lMonth)==30)		// 显示农历月
-			str += '<b>'+(cld[sD].isLeap?'闰':'') + cnm + '月</b>'
+			str += '<b>'+(cld[sD].isLeap?'闰':'') + nStr1[cld[sD].lMonth] + '月</b>'
 		else
-			str += (cld[sD].isLeap?'闰':'') + cnm + '月'
+			str += (cld[sD].isLeap?'闰':'') + nStr1[cld[sD].lMonth] + '月'
 								
 		str += cDay(cld[sD].lDay)// 显示农历日
-		cnm = cnm+'月' + cDay(cld[sD].lDay)
 		str += ' '
 		cndayed = -1
 		haveday = -1
@@ -441,33 +408,15 @@ function cDay(d){
 		for(i=1;i<=12;i++)
 			haveday += monthDays(SY,i)
 		haveday -= cndayed
-		haveday += leapDays(SY)
 		str = str + '已逝:' + cndayed + '天' + '<sup>'+'+'+'</sup>'+'&nbsp;'
-		str = str + "可期:"+"<font face='Arial' size='2px' color=#FF8040>"+"<strong>"+haveday+"</strong>"+"</font>"+"天"+"<sup>"+"+"+"</sup>"+"&nbsp;"+"&nbsp;"	
-			
-		if(cnm == "一月初一") str += " *春节"
-		if(cnm == "一月十一") str += " BrotherDay"
-		if(cnm == "一月十五") str += " 元宵节"
-		if(cnm == "四月初六") str += " GrandmaDay"
-		if(cnm == "四月初八") str += " FatherDay 佛诞"
-		if(cnm == "五月初五") str += " 端午节"
-		if(cnm == "七月初七") str += " 七夕节"
-		if(cnm == "七月十五") str += " 盂兰盆节"
-		if(cnm == "八月十五") str += " 中秋节"
-		if(cnm == "八月十六") str += " GrandpaDay"
-		if(cnm == "九月初九") str += " 重阳节"
-		if(cnm == "九月廿一") str += " MotherDay"
-/*		if(monthDays(cld[sD].lYear,12)== 29)
-			{if(cnm == "十二月二九") str += " *除夕"}
-		else
-			{if(cnm == "十二月卅日") str += " *除夕"}*/
-		if(haveday==0) str += " *除夕"
-		//alert(cnm)
+		str = str + "可期:"+"<font face='Arial' size='2px' color=#FF8040>"+"<strong>"+haveday+"</strong>"+"</font>"+"天"+"<sup>"+"+"+"</sup>"+"&nbsp;"+"&nbsp;"
+		str += cld[sD].lunarFestival;
 		str += cld[sD].solarFestival;
 		str += cld[sD].solarTerms;
+	
 	   topup2.innerHTML =  str
 
-}
+	}
 
 function initial() {
 	

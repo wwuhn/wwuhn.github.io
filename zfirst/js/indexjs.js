@@ -1,3 +1,17 @@
+
+<!--clock func-->
+function init() { <!--初始化 -->
+    /*tim2.style.left=tim1.style.posLeft;*/
+    <!--将第二个时间得左侧与第一个时间的左侧对齐 -->
+    /*tim2.style.top=tim1.style.posTop+tim1.offsetHeight-6;*/
+    <!--第二个时间在第一个时间的下方 -->
+    settimes(); <!--调用settimes()函数 -->
+	
+
+}
+
+
+
 <!--tab control：tab1-5,8--> 
 function tabSwitch(tab,ao) {
 	var h = document.getElementById(tab).getElementsByTagName("h3");
@@ -280,14 +294,6 @@ function tvset() {
 <!--按星期显示TV table-->
 
 
-<!--clock func-->
-function init() { <!--初始化 -->
-    /*tim2.style.left=tim1.style.posLeft;*/
-    <!--将第二个时间得左侧与第一个时间的左侧对齐 -->
-    /*tim2.style.top=tim1.style.posTop+tim1.offsetHeight-6;*/
-    <!--第二个时间在第一个时间的下方 -->
-    settimes(); <!--调用settimes()函数 -->
-}
 
 function settimes() {
     var stime = new Date(); <!--获取当前日期 -->
@@ -303,7 +309,7 @@ function settimes() {
 
     var today2 = new Date();
     var event1 = "New Day"
-    var cdtime = "10/19/2019";
+    var cdtime = "1/1/2021";
     var festive = new Date(cdtime);
     festive1 = parseInt((festive - today2) / spd);
     festive2 = parseInt((festive - today2) / spd * 24) - parseInt(festive1 * 24);
