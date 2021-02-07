@@ -1,0 +1,903 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.4em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	margin-left:2em;
+	color:blue;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+pre{
+    margin-left:2em;
+	}
+a:visited, a:link{
+    color:blue;
+}
+a:visited{
+    color:#CC0000;
+}a:hover{
+    color:green;
+	}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:5px;
+	margin-left:2em;
+	background-color:RGB(240,240,240);
+    color:blue;
+	margin-left:2em;
+	}
+</style>
+<style type="text/css">
+<!--
+.excel1 {
+padding-top:1px;
+padding-right:1px;
+padding-left:1px;
+color:black;
+font-size:16.0pt;
+font-weight:400;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+text-align:general;
+vertical-align:middle;
+border:none;
+white-space:nowrap;
+}
+.excel4 {
+padding-top:1px;
+padding-right:1px;
+padding-left:1px;
+
+font-size:18pt;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+text-align:general;
+vertical-align:middle;
+border:none;
+white-space:normal;
+color:blue;
+
+}
+.font6 {
+color:black;
+font-size:16.0pt;
+font-weight:400;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+.font12 {
+color:windowtext;
+font-size:16.0pt;
+font-weight:700;
+font-style:normal;
+text-decoration:underline;
+text-underline-style:single;
+font-family:宋体;
+}
+.font15 {
+color:#D99795;
+font-size:16.0pt;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+.font9 {
+color:windowtext;
+font-size:16.0pt;
+font-weight:400;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+.font10 {
+color:windowtext;
+font-size:16.0pt;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+.font13 {
+color:black;
+font-size:16.0pt;
+font-weight:400;
+font-style:normal;
+text-decoration:underline;
+text-underline-style:single;
+font-family:宋体;
+}
+.excel3 {
+padding-top:1px;
+padding-right:1px;
+padding-left:1px;
+color:blue;
+font-size:12.1pt;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+text-align:general;
+vertical-align:middle;
+border:none;
+white-space:nowrap;
+}
+.font11 {
+color:red;
+font-size:16.0pt;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+.font7 {
+color:red;
+font-size:16.0pt;
+font-weight:400;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+.font8 {
+color:#00B050;
+font-size:16.0pt;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+.font14 {
+color:black;
+font-size:11pt;
+font-weight:700;
+font-style:normal;
+text-decoration:none;
+font-family:宋体;
+}
+-->
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>CPPGlossary</h3>
+
+<p><a href="https://www.stroustrup.com/glossary.html" title="">ref</a></p>
+
+<table id="tbrowser">
+  <col width="849" style="width:637pt;" />
+  <tr height="22" ">
+    <td height="22" class="excel4" width="849" width:637pt;">bit<font class="font6">&nbsp; the basic </font><font class="font12">unit of    information</font><font class="font6"> in a computer. A bit can have the </font><font class="font15">value</font><font class="font6"> 0 or the </font><font class="font15">value</font><font class="font6"> 1.</font></td>
+  </tr>
+  <tr height="22" ">
+    <td height="22" class="excel4" width="849" width:637pt;">byte<font class="font6">&nbsp;the basic </font><font class="font12">unit of addressing</font><font class="font6"> in most computers. Typically, a byte holds 8 bits.</font></td>
+  </tr>
+  <tr height="67" style="height:50.4pt;">
+    <td height="67" class="excel4" width="849" style="height:50.4pt;width:637pt;">word<font class="font6">&nbsp;a </font><font class="font9">basic </font><font class="font12">unit of memory</font><font class="font6"> in computer, usually    the unit used to hold </font><font class="font10">an integer or a pointer</font><font class="font6">. On many machines, an object must be aligned on a word    boundary for acceptable performance. </font></td>
+  </tr>
+  <tr height="45" style="height:33.6pt;">
+    <td class="excel4">function<font class="font6">&nbsp;a named </font><font class="font12">unit of code</font><font class="font6"> that can be invoked (called) from different parts of a    program; a logical </font><font class="font13">unit of computation</font><font class="font6">.</font></td>
+  </tr>
+
+  
+
+  
+  <tr height="22" ">
+    <td height="22" class="excel3" ">value<font class="font6">&nbsp;a </font><font class="font10">set of bits</font><font class="font6"> in memory    interpreted according to a </font><font class="font11">type</font><font class="font6">.</font></td>
+  </tr>
+  <tr height="21" style="height:15.6pt;">
+    <td height="21" class="excel3" style="height:15.6pt;"></td>
+  </tr>
+  <tr height="22" ">
+    <td height="22" class="excel3" ">declaration<font class="font6">&nbsp;the    specification of a name with its </font><font class="font11">type</font><font class="font6"> in a program.</font></td>
+  </tr>
+  <tr height="45" style="height:33.6pt;">
+    <td height="45" class="excel4" width="849" style="height:33.6pt;width:637pt;">definition<font class="font6">&nbsp;a declaration of an entity that supplies all information    necessary to complete a program using the entity. Simplified definition: </font><font class="font10">a</font><font class="font7"> </font><font class="font8">declaration</font><font class="font7"> </font><font class="font10">that allocates memory</font><font class="font6">.</font></td>
+  </tr>
+  <tr height="22" ">
+    <td height="22" class="excel4" width="849" width:637pt;">type<font class="font6">&nbsp;something that defines a set of possible </font><font class="font15">values</font><font class="font6"> and a set of </font><font class="font14">operations</font><font class="font6"> for an </font><font class="font14">object</font><font class="font6">.</font></td>
+  </tr>
+  
+  <tr height="45" style="height:33.6pt;">
+    <td class="excel4">name<font class="font6">&nbsp;<font class="font6">equence of letters and digits started by a letter, used to <strong>identify</strong> ("name") user-defined entities in program text. An underscore is considered a letter. Names are case sensitive. The standard imposes no upper limit on the length of names.</font></td>
+  </tr>  
+  
+  <tr height="45" style="height:33.6pt;">
+    <td height="45" class="excel4" width="849" style="height:33.6pt;width:637pt;">object<font class="font6">&nbsp;(1) an initialized </font><font class="font12">region of    memory</font><font class="font6"> of a known type which holds a </font><font class="font15">value</font><font class="font6"> of that </font><font class="font11">type</font><font class="font6">; (2) a region of memory.</font></td>
+  </tr>
+  <tr height="22" ">
+    <td height="22" class="excel3" ">operation<font class="font6">&nbsp;something    that can perform some action, such as a </font><font class="font14">function    and an operator</font><font class="font6">.</font></td>
+  </tr>
+  <tr height="45" style="height:33.6pt;">
+    <td height="45" class="excel4" width="849" style="height:33.6pt;width:637pt;">parameter<font class="font6">&nbsp;a </font><font class="font8">declaration</font><font class="font6"> of an explicit input to a function or a template. When called,    a function can access the arguments passed through the names of its    parameters.</font></td>
+  </tr>
+  <tr height="22" ">
+    <td height="22" class="excel3" ">argument<font class="font6">&nbsp;a </font><font class="font15">value</font><font class="font6"> passed to a    function or a template, in which it is accessed <br />
+through a parameter.</font></td>
+  </tr>
+  
+   <tr height="22" ">
+    <td height="22" class="excel3" ">expression<font class="font6">&nbsp;combination of operators and names producing a  </font><font class="font15">value</font><font class="font6"> .</font></td>
+  </tr> 
+
+  
+   <tr height="22" ">
+    <td height="22" class="excel3" ">const<font class="font6">&nbsp;a attribute of a <font class="font8">declarations</font> that makes the entity to which it refers readonly.</font></td>
+  </tr> 
+  
+  <tr height="22" ">
+    <td height="22" class="excel3" ">header<font class="font6">&nbsp;a    file containing </font><font class="font8">declarations</font><font class="font6"> used to share interfaces between <br />
+parts of a program.</font></td>
+  </tr>
+  <tr height="45" style="height:33.6pt;">
+    <td height="45" class="excel4" width="849" style="height:33.6pt;width:637pt;">interface<font class="font6">&nbsp;a </font><font class="font8">declaration</font><font class="font6"> or a set of declarations specifying how a piece of code (such    as a function or a class) can be called.</font></td>
+  </tr>
+</table>
+<p><strong>abstract class</strong> a class that cannot be directly used to create objects; often used to define an interface to derived classes. A class is made abstract by having a pure virtual function or a protected constructor.</p>
+<p><strong>abstraction</strong> a description of something that selectively and deliberately ignores (hides) details (e.g., implementation details); selective ignorance.</p>
+<p><strong>address</strong> a value that allows us to find an object in a computer’s memory.</p>
+<p><strong>algorithm</strong> a procedure or formula for solving a problem; a finite series of computational steps to produce a result.</p>
+<p><strong>alias</strong> an alternative way of referring to an object; often a name, pointer, or reference.</p>
+<p><strong>application</strong> a program or a collection of programs that is considered an entity by its users.</p>
+<p><strong>approximation</strong> something (e.g., a value or a design) that is close to the perfect or ideal (value or design). Often an approximation is a result of trade-offs among ideals.</p>
+<p><strong>argument</strong> a value passed to a function or a template, in which it is accessed through a parameter.</p>
+<p><strong>array</strong> a homogeneous sequence of elements, usually numbered, e.g., [0:max).</p>
+<p><strong>assertion</strong> a statement inserted into a program to state (assert) that something must always be true at this point in the program.</p>
+<p><strong>base class</strong> a class used as the base of a class hierarchy. Typically a base class has one or more virtual functions.</p>
+<p><strong>bit</strong> a unit of memory that can hold 0 or 1. An individual bit cannot be directly accessed in C++ (the unit of addressing is a byte), but a bit can be accessed through a bitfield or by using the bitwise logical operators & and |. </p>
+<p><strong>bug</strong> an error in a program.</p>
+
+<p><strong>built-in type</strong> - A type provided directly by C++, such as int, double, and char*. See also: integral types, floating-point type, pointer, reference.</p>
+
+<p><strong>byte</strong> the basic unit of addressing in most computers. Typically, a byte holds 8 bits  that can hold a character of the C++ representation character set. .</p>
+
+<p><strong>C-style cast</strong> dangerous form of explicit type conversion; prefer new-style cast if you must use explicit type conversion. </p>
+<p><strong>C-style string</strong> zero-terminated array of characters, supported by C standard library functions. A low-level and error-prone mechanism; where possible prefer strings.</p>
+<p><strong>call-by-reference</strong> declaring a function argument type to be a reference, thus passing a reference rather than a value to the called function. </p>
+
+<p><strong>call-by-value</strong> passing a copy of an argument to the called function. The semantics of function call is to pass a copy of an argument. The copy operation is defined by the argument type's copy constructor. </p>
+<p><strong>cerr</strong> standard unbuffered ostream for error or diagnostic output. </p>
+
+<p><strong>character set</strong> a set of integer values with a mapping to character representations; for example, ASCII (ANSI13.4-1968) gives meaning to the values 0-127. ASCII is C++'s representation character set, the character set used to represent program source text. </p>
+<p><strong>class</strong> a user-defined type. A class can have member functions, member data, member constants, and member types. A class is thee primary mechanism for representing concepts in C++.</p>
+<p><strong>code</strong> a program or a part of a program; ambiguously used for both source code and object code.</p>
+<p><strong>compiler</strong> a program that turns source code into object code.</p>
+<p><strong>complexity</strong> a hard-to-precisely-define notion or measure of the difficulty of constructing a solution to a problem or of the solution itself. Sometimes complexity is used to (simply) mean an estimate of the number of operations needed to execute an algorithm.</p>
+<p><strong>const</strong> attribute of a declaration that makes the entity to which it refers readonly. </p>
+
+<p><strong>computation</strong> the execution of some code, usually taking some input and producing some output.</p>
+<p><strong>concept</strong> (1) a notion, an idea; (2) a set of requirements, usually for a template argument.</p>
+<p><strong>concrete class</strong> a class for which objects can be created.</p>
+<p><strong>constant</strong> a value that cannot be changed (in a given scope); not mutable.</p>
+<p><strong>constructor</strong> an operation that initializes (“constructs”) an object. Typically a constructor establishes an invariant and often acquires resources needed for an object to be used (which are then typically released by a destructor).</p>
+<p><strong>container</strong> an object that holds elements (other objects).</p>
+<p><strong>copy</strong> an operation that makes two objects have values that compare equal. See also move.</p>
+<p><strong>correctness</strong> a program or a piece of a program is correct if it meets its specification. Unfortunately, a specification can be incomplete or inconsistent, or can fail to meet users’ reasonable expectations. Thus, to produce acceptable code, we sometimes have to do more than just follow the formal specification.</p>
+<p><strong>cost</strong> the expense (e.g., in programmer time, run time, or space) of producing a program or of executing it. Ideally, cost should be a function of complexity.</p>
+<p><strong>data</strong> values used in a computation.</p>
+<p><strong>debugging</strong> the act of searching for and removing errors from a program; usually far less systematic than testing.</p>
+<p><strong>declaration</strong> the specification of a name with its type in a program.</p>
+<p><strong>definition</strong> a declaration of an entity that supplies all information necessary to complete a program using the entity. Simplified definition: a declaration that allocates memory.</p>
+<p><strong>derived class</strong> a class derived from one or more base classes.</p>
+<p><strong>design</strong> an overall description of how a piece of software should operate to meet its specification.</p>
+<p><strong>destructor</strong> an operation that is implicitly invoked (called) when an object is destroyed (e.g., at the end of a scope). Often, it releases resources.</p>
+<p><strong>encapsulation</strong> protecting something meant to be private (e.g., implementation details) from unauthorized access.</p>
+<p><strong>error</strong> a mismatch between reasonable expectations of program behavior (often expressed as a requirement or a users’ guide) and what a program actually does.</p>
+
+<p><strong>escape character</strong> the character \, also called backslash, set an initial character in representations of characters that cannot be represented by a single ASCII character, such as newline ('\n') and horizontal tab ('\t').</p>
+
+<p><strong>executable</strong> a program ready to be run (executed) on a computer.</p>
+
+<p><strong>expression</strong> combination of operators and names producing a value.</p>
+<p><strong>extern</strong> a keyword used to indicate that the definition of an entity being declared is defined elsewhere. Because "extern: is only necessary for global variables it is largely redundant.</p>
+
+<p><strong>false</strong> bool value; converts to 0. </p>
+
+<p><strong>feature creep</strong> a tendency to add excess functionality to a program “just in case.”</p>
+<p><strong>file</strong> a container of permanent information in a computer.</p>
+
+
+<p><strong>floating-point number</strong> a computer’s approximation of a real number, such as 7.93 and 10.78e–3.</p>
+
+<p><strong>function</strong> a named unit of code that can be invoked (called) from different parts of a program; a logical unit of computation.</p>
+
+<p><strong>function object</strong> object with the application operator, operator()(), defined so that it can be called like a function. A function object is more general than a function because it can hold data and provide additional operations. Sometimes called a functor. Given current compiler technology, simple function objects inline better than pointers to functions, so that parameterization with function objects can be far more efficient than use of pointers to functions or virtual functions. </p>
+
+
+<p><strong>garbage collection</strong> techniques for reclaiming unused memory without relying on user-supplied delete or free() commands. A permitted but not required technique for C++. Commercial and free garbage collectors exist for C++. Use of classes that control their own storage, such as the standard library vector, string, and map, reduces the need for garbage collection. See also: resource acquisition is initialization, destructor.</p>
+
+<p><strong>general-purpose programming language</strong> (1) a programming language intended for use in a wide range of application areas without restrictions that make it totally unsuitable for traditional major uses of computers, such as mathematical computations, data processing, text processing, graphics, and communications. (2) a language that can do what at least as much as other languages called "general purpose" can do. See also: C++.</p>
+
+<p><strong>generic programming</strong> programming using templates to express algorithms and data structures parameterized by data types, operations, and polices. a style of programming focused on the design and efficient implementation of algorithms. A generic algorithm will work for all argument types that meet its requirements. In C++, generic programming typically uses templates.</p>
+
+<p><strong>global scope</strong> the scope containing all names defined outside any function, class, or namespace. Names in the global scope can be prefixed by ::. For example, ::main(). </p>
+
+
+<p><strong>GUI</strong> Graphical User Interface. There are many C++ libraries and tools for building GUI-based applications, but no standard C++ GUI.</p>
+
+<p><strong>handle</strong> an object that controls access to another. Often, a handle also controls the acquisition and release of resources. A common use is for a handle to control access to a variably-sized data structure. a class that allows access to another through a member pointer or reference. See also copy, move, resource.</p>
+<p><strong>header</strong> a file containing declarations used to share interfaces between parts of a program. file holding declarations used in more than one translation unit. Thus, a header file acts as an interface between separately compiled parts of a program. A header file often contains inline function definitions, const definitions, enumerations, and template definitions, but it cannot be #included from for than one source file if it contain non-inline function definitions or variable definitions.</p>
+<p><strong>hiding</strong> the act of preventing a piece of information from being directly seen or accessed. For example, a name from a nested (inner) scope can prevent that same name from an outer (enclosing) scope from being directly used.</p>
+<p><strong>ideal</strong> the perfect version of something we are striving for. Usually we have to make trade-offs and settle for an approximation.</p>
+
+<p><strong>if-statement</strong> statement selecting between two alternatives based on a condition.</p>
+
+<p><strong>implementation</strong> (1) the act of writing and testing code; (2) the code that implements a program.</p>
+
+<p><strong>implementation defined</strong> an aspect of C++'s semantics that is defined for each implementation rather than specified in the standard for every implementation. An example is the size of an int (which must be at least 16 bits but can be longer). Avoid implementation defined behavior whenever possible.</p>
+
+<p><strong>infinite loop</strong> a loop where the termination condition never becomes true. See iteration.</p>
+<p><strong>infinite recursion</strong> a recursion that doesn’t end until the machine runs out of memory to hold the calls. In reality, such recursion is never infinite but is terminated by some hardware error.</p>
+<p><strong>information hiding</strong> the act of separating interface and implementation, thus hiding implementation details not meant for the user’s attention and providing an abstraction.</p>
+<p><strong>initialize</strong> giving an object its first (initial) value.</p>
+<p><strong>input</strong> values used by a computation (e.g., function arguments and characters typed on a keyboard).</p>
+<p><strong>integer</strong> a whole number, such as 42 and –99.</p>
+
+<p><strong>integer type</strong> a short, int, or long. Standard C++ doesn't support long long.</p>
+
+<p><strong>integral type</strong> a bool, character type, or integer type. Supports arithmetic and logical operations.</p>
+
+
+<p><strong>interface</strong> a declaration or a set of declarations specifying how a piece of code (such as a function or a class) can be called.</p>
+<p><strong>invariant</strong> something that must be always true at a given point (or points) of a program; typically used to describe the state (set of values) of an object or the state of a loop before entry into the repeated statement.</p>
+<p><strong>iteration</strong> the act of repeatedly executing a piece of code; see recursion.</p>
+<p><strong>iterator</strong> an object that identifies an element of a sequence.</p>
+<p><strong>library</strong> a collection of types, functions, classes, etc. implementing a set of facilities (abstractions) meant to be potentially used as part of more than one program.</p>
+<p><strong>lifetime</strong> the time from the initialization of an object until it becomes unusable (goes out of scope, is deleted, or the program terminates).</p>
+
+<p><strong>linker</strong> a program that combines object code files and libraries into an executable program. the part of a C++ implementation that merge the code generated from separately compiled translation units into a program or part of a program.</p>
+
+<p><strong>literal</strong> a notation that directly specifies a value, such as 12 specifying the integer value “twelve.”</p>
+<p><strong>loop</strong> a piece of code executed repeatedly; in C++, typically a for-statement or a while-statement.</p>
+
+<p><strong>macro</strong> facility for character substitution; doesn't obey C++ scope or type rules. C++ provides alternatives to most uses of macros; see template, inline, const, and namespace. Don't use macros unless you absolutely have to. </p>
+<p><strong>main()</strong> the function called by the system to start a C++ program.</p>
+<p><strong>move</strong> an operation that transfers a value from one object to another, leaving behind a value representing “empty.” See also copy.</p>
+
+<p><strong>maintenance</strong> work on a program after its initial release. Typical maintenance activities include bug fixing, minor feature enhancements, porting to new systems, improvements of error handling, modification to use different natural languages, improvements to documentation, and performance tuning. Maintenance typically consumes more than 80% of the total effort and cost expended on a program.</p>
+
+
+<p><strong>memory management</strong> a way of allocating and freeing memory. In C++ memory is either static, allocated on the stack, or allocated on the free store. When people talk about memory management, they usually think of free store or even specifically about garbage collection. Memory can often be effectively managed through standard library containers, such as vector or string, or through general resource management techniques. See also: auto_ptr, constructor, destructor, resource acquisition is initialization. </p>
+
+<p><strong>mutable</strong> changeable; the opposite of immutable, constant, and variable. an attribute of a member that makes it possible to change its value even if its object is declared to be const</p>
+
+<p><strong>name</strong> equence of letters and digits started by a letter, used to identify ("name") user-defined entities in program text. An underscore is considered a letter. Names are case sensitive. The standard imposes no upper limit on the length of names. </p>
+
+<p><strong>object</strong> (1) an initialized region of memory of a known type which holds a value of that type; (2) a region of memory.</p>
+<p><strong>object code</strong> output from a compiler intended as input for a linker (for the linker to produce executable code).</p>
+<p><strong>object file</strong> a file containing object code.</p>
+<p><strong>object-oriented programming</strong> a style of programming focused on the design and use of classes and class hierarchies.</p>
+
+<p><strong>one definition rule</strong> there must be exactly one definition of each entity in a program. If more than one definition appears, say because of replication through header files, the meaning of all such duplicates must be identical.</p>
+
+<p><strong>operation</strong> something that can perform some action, such as a function and an operator.</p>
+
+<p><strong>operator</strong> conventional notation for built-in operation, such as +, *, and &. A programmer can define meanings for operators for user-defined types. </p>
+
+<p><strong>output</strong> values produced by a computation (e.g., a function result or lines of characters written on a screen).</p>
+
+<p><strong>optimizer</strong> a part of a compiler that eliminates redundant operations from code and adjusts code to perform better on a given computer. </p>
+
+<p><strong>overflow</strong> producing a value that cannot be stored in its intended target.</p>
+<p><strong>overload</strong> defining two functions or operators with the same name but different argument (operand) types.</p>
+<p><strong>override</strong> defining a function in a derived class with the same name and argument types as a virtual function in the base class, thus making the function callable through the interface defined by the base class.</p>
+<p><strong>owner</strong> an object responsible for releasing a resource.</p>
+<p><strong>paradigm</strong> a somewhat pretentious term for design or programming style; often used with the (erroneous) implication that there exists a paradigm that is superior to all others.</p>
+<p><strong>parameter</strong> a declaration of an explicit input to a function or a template. When called, a function can access the arguments passed through the names of its parameters.</p>
+<p><strong>pointer</strong> (1) a value used to identify a typed object in memory; (2) a variable holding such a value. pointer - an object holding an address or 0.</p>
+
+<p><strong>preprocessor</strong> the part of a C++ implementation that removes comments, performs macro substitution and #includes. Avoid using the preprocessor whenever possible.</p>
+
+<p><strong>priority_queue</strong> standard library queue where a priority determines the order in which an element reaches the head of the queue. </p>
+
+
+<p><strong>procedural programming</strong> programming using procedures (functions) and data structures (structs).</p>
+
+<p><strong>post-condition</strong> a condition that must hold upon exit from a piece of code, such as a function or a loop.</p>
+<p><strong>pre-condition</strong> a condition that must hold upon entry into a piece of code, such as a function or a loop.</p>
+<p><strong>program</strong> code (possibly with associated data) that is sufficiently complete to be executed by a computer.</p>
+<p><strong>programming</strong> the art of expressing solutions to problems as code.</p>
+<p><strong>programming language</strong> a language for expressing programs.</p>
+<p><strong>pseudo code</strong> a description of a computation written in an informal notation rather than a programming language.</p>
+<p><strong>pure virtual function</strong> a virtual function that must be overridden in a derived class.</p>
+<p><strong>RAII</strong> (“Resource Acquisition Is Initialization”) a basic technique for resource management based on scopes.</p>
+<p><strong>range</strong> a sequence of values that can be described by a start point and an end point. For example, [0:5) means the values 0, 1, 2, 3, and 4.</p>
+<p><strong>recursion</strong> the act of a function calling itself; see also iteration.</p>
+<p><strong>reference</strong> (1) a value describing the location of a typed value in memory; (2) a variable holding such a value.</p>
+
+<p><strong>reinterpret_cast</strong> a type conversion operation that reinterprets the raw memory of an object as a value of another type. The result of a reinterpret_cast can only be portably used after being converted back into its original type. Use only as a last resort.</p>
+
+<p><strong>regular expression</strong> a notation for patterns in character strings.</p>
+<p><strong>requirement</strong> (1) a description of the desired behavior of a program or part of a program; (2) a description of the assumptions a function or template makes of its arguments.</p>
+<p><strong>resource</strong> something that is acquired and must later be released, such as a file handle, thread, a lock, or memory. See a lso handle, owner.</p>
+<p><strong>rounding</strong> conversion of a value to the mathematically nearest value of a less precise type.</p>
+<p><strong>scope</strong> the region of program text (source code) in which a name can be referred to.</p>
+
+<p><strong>separate compilation</strong> the practice of compiling parts of a program, called translation units, separately and then later linking the results together using a linker. This is essential for larger programs.</p>
+
+
+<p><strong>sequence</strong> elements that can be visited in a linear order.</p>
+
+<p><strong>smart pointer</strong> user-defined type providing operators like a function, such as * and ++, and with a semantics similar to pointers. See also: iterator. Sometimes smart a pointer is called a handle.</p>
+
+<p><strong>software</strong> a collection of pieces of code and associated data; often used interchangeably with program.</p>
+<p><strong>source code</strong> code as produced by a programmer and (in principle) readable by other programmers.</p>
+<p><strong>source file</strong> a file containing source code.</p>
+
+
+<p><strong>specification</strong> a description of what a piece of code should do.</p>
+
+<p><strong>stack</strong> (1) memory used to hold local variables for a function. (2) standard library first-in-last-out sequence.</p>
+
+<p><strong>standard</strong> an officially agreed-upon definition of something, such as a programming language.</p>
+<p><strong>state</strong> a set of values.</p>
+
+<p><strong>statement</strong> the basic unit controlling the execution flow in a function, such as if-statement, while-statement, do-statement, switch-statement, expression statement, and declaration.</p>
+
+
+<p><strong>static</strong> (1) keyword used to declare a class member static; meaning allocated in static memory. For a member function, this implies that there is no this pointer. (2) keyword used to specify that a local variable should be allocated in static memory. (3) deprecated: keyword used to specify that a global name should not be visible from other translation units. </p>
+
+<p><strong>static memory</strong> memory allocated by the linker. </p>
+
+<p><strong>static_cast</strong> a type conversion operation that converts between related types, such as pointer types within a class hierarchy and between enumerations and integral types.</p>
+
+<p><strong>string</strong> a sequence of characters.</p>
+
+<p><strong>struct</strong> class with members public by default. Most often used for data structures without member functions or class invariants, as in C-style programming.</p>
+
+<p><strong>style</strong> a set of techniques for programming leading to a consistent use of language features; sometimes used in a very restricted sense to refer just to low-level rules for naming and appearance of code.</p>
+<p><strong>subtype</strong> derived type; a type that has all the properties of a type and possibly more.</p>
+<p><strong>supertype</strong> base type; a type that has a subset of the properties of a type.</p>
+
+<p><strong>switch-statement</strong> statement selecting among many alternatives based on an integer value.</p>
+
+<p><strong>system</strong> (1) a program or a set of programs for performing a task on a computer; (2) a shorthand for “operating system,” that is, the fundamental execution environment and tools for a computer.</p>
+<p><strong>template</strong> a class or a function parameterized by one or more types or (compile-time) values; the basic C++ language construct supporting generic programming.</p>
+<p><strong>testing</strong> a systematic search for errors in a program.</p>
+<p><strong>trade-off</strong> the result of balancing several design and implementation criteria.</p>
+<p><strong>truncation</strong> loss of information in a conversion from a type into another that cannot exactly represent the value to be converted.</p>
+<p><strong>type</strong> something that defines a set of possible values and a set of operations for an object.</p>
+
+<p><strong>type checking</strong> the process of checking that every expression is used according to its type. the compiler checks every expression based on the declared types of the names involved. </p>
+
+<p><strong>type conversion</strong> producing a value of one type from a value of another type. A type conversion can be an implicit conversion or an explicit conversion. See also: user-defined type conversion, cast.</p>
+
+
+<p><strong>type safety</strong> the property that an object can be accessed only according to its definition. C++ approximates this ideal. A programmer can violate type safety by explicitly using a cast, by using an uninitialized variable, by using a pointer that doesn't point to an object, by accessing beyond the end of an array, and by misusing a union. For low-level systems code, it can be necessary to violate type safety (e.g. to write out the byte representation of some objects), but generally type safety must be preserved for a program to be correct and maintainable.</p>
+
+
+
+<p><strong>uninitialized</strong> the (undefined) state of an object before it is initialized.</p>
+<p><strong>unit</strong> (1) a standard measure that gives meaning to a value (e.g., km for a distance); (2) a distinguished (e.g., named) part of a larger whole.</p>
+
+<p><strong>use case</strong> a specific (typically simple) use of a program meant to test its functionality and demonstrate its purpose.</p>
+
+
+<p><strong>value</strong> a set of bits in memory interpreted according to a type.</p>
+
+
+<p><strong>variable</strong> a named object of a given type; contains a value unless uninitialized. named object in a scope. </p>
+
+<p><strong>variable definition</strong> declaration of a named object of a data type without an extern specifier.</p>
+<p><strong>virtual function</strong> a member function that can be overridden in a derived class.</p>
+
+<p><strong>void*</strong> pointer to void; that is, a pointer to an object of unknown type; also called pointer to raw memory. A void* cannot be used or assigned without a cast.</p>
+
+
+<p><strong>volatile</strong> attribute of a declaration telling the compiler that an entity can have its value changed by extralinguistic means; </p>
+
+<p><strong>wchar_t</strong> wide character type. Used to hold characters of character sets that require more than a byte to represent, such as unicode.</p>
+
+<p><strong>whitespace</strong> characters that a represented only by the space they take up on a page or screen. The most common examples are space (' '), newline ('\n'), and tab ('\t').</p>
+
+<p><strong>word</strong> a basic unit of memory in computer, usually the unit used to hold an integer. On many machines, an object must be aligned on a word boundary for acceptable performance. </p>
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
