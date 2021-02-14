@@ -1,0 +1,938 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>VBA操作文件四大方法</h4>
+
+
+<p>原创Excel插件SaveTime2021-02-10 14:19:32</p>
+<p>在我们日常使用Excel的时候，不仅会用到当前Excel文件的数据，还经常需要访问其他的数据文件。这些数据文件可能是Excel文件、文本文件或数据库文件等。经常有朋友会问如何在vba代码里操作这些数据文件？本文就系统地介绍一下在Excel中应用VBA操作数据文件的方法。</p>
+<p>本文主要介绍四种常用的方法：</p>
+<pre>
+1、利用Excel对象来处理文件；
+2、利用VBA文件处理语句来处理文件；
+3、利用FileSystemObject对象来处理文件；
+4、利用API函数来处理文件。
+</pre>
+<p>当然对于数据库文件，还可以利用ADO＋SQL的方法操作，不过论坛已经有前辈详细介绍过此类方法，本文就不再重复了。</p>
+<p><h3>一、利用Excel对象来处理文件</h3></p>
+<p>利用Excel对象自带的方法来操作文件是最方便，也是最简单的。</p>
+<p>我们主要利用Workbooks集合和Workbook对象的方法来操作文件。</p>
+<h4>1、打开Excel文件</h4>
+<p>我们可以用Workbooks.Open方法打开一个Excel工作簿。</p>
+<pre>
+Workbooks.Open(FileName, UpdateLinks, ReadOnly, Format, 
+               Password, WriteResPassword, IgnoreReadOnlyRecommended, 
+               Origin, Delimiter, Editable, Notify, Converter, 
+               AddToMru, Local, CorruptLoad)
+</pre>
+<p>其中FileName是必选的参数，表示要打开的工作簿名，如果没有指定路径，则代表当前路径。另外14个是可选参数，除了密码参数，其他的一般很少用。具体的含义可以参看VBA的帮助。</p>
+<p>例：</p>
+<pre>
+Workbooks.Open "F:\test.xls"
+</pre>
+<p>可以打开F盘的test.xls文件。</p>
+<h4>2、打开文本文件</h4>
+<p>使用Open方法也可以打开文本文件，但建议使用OpenText方法。此方法是载入一个文本文件，并将其作为包含单个工作表的工作簿进行分列处理，然后在此工作表中放入经过分列处理的文本文件数据。完整语法如下：</p>
+<pre>
+Workbooks.OpenText(FileName, Origin, StartRow, DataType, TextQualifier,
+                    ConsecutiveDelimiter, Tab, Semicolon, Comma, Space, Other, 
+                    OtherChar, FieldInfo, TextVisualLayout, DecimalSeparator, 
+                    ThousandsSeparator, TrailingMinusNumbers, Local)
+</pre>
+<p>关于以上参数的具体含义可以参看VBA的帮助，这里就不重复了。在实际的编程中，一般无需对这些复杂的参数进行处理。可以通过录制宏来得到打开一个文本文件的VBA代码。具体方法就是选择“文件——打开”，然后选择打开文本文件，就会出现文本导入向导，一步一步执行完，直到文本打开后，停止录制。</p>
+<p>以下是录制宏得到的代码:</p>
+<pre>
+Sub Macro1()
+    Workbooks.OpenText Filename:="F:\CallWindowProc.txt", Origin:=xlWindows, _
+        StartRow:=1, DataType:=xlDelimited, TextQualifier:=xlDoubleQuote, _
+        ConsecutiveDelimiter:=False, Tab:=True, Semicolon:=False, Comma:=False _
+        , Space:=False, Other:=False, FieldInfo:=Array(1, 1), _
+        TrailingMinusNumbers:=True
+End Sub
+</pre>
+<p>在实际编程中只要做相应的修改就可以使用了。</p>
+<h4>3、打开其他文件</h4>
+<p>利用Excel对象还可以打开XML文件和一些数据库（如Access）文件，对应XML文件，需要Excel2003以上的版本。</p>
+<p>OpenXML方法的语法如下：</p>
+<pre>
+Workbooks.OpenXML(Filename, Stylesheets, LoadOption)
+</pre>
+<p>FileName String 类型，必需。要打开的文件名。</p>
+<p>Stylesheets Variant 类型，可选。单个值或值的数组，用于指定要应用哪些 XSL 转换 (XSLT) 样式表处理指令。</p>
+<p>LoadOption Variant 类型，转换。指定 Excel 打开 XML 数据文件的方式。可为 XlXmlLoadOption 常量之一。</p>
+<p>XlXmlLoadOption 可为以下 XlXmlLoadOption 常量之一：</p>
+<pre>
+xlXmlLoadImportToList 将 XML 数据文件的内容置于 XML 列表中。
+xlXmlLoadMapXml 在“XML 结构”任务窗格中显示 XML 数据文件的架构。
+xlXmlLoadOpenXml 打开 XML 数据文件。文件的内容将展开。
+xlXmlLoadPromptUser 提示用户选择打开文件的方式。
+</pre>
+<p>示例</p>
+<p>下面的代码打开了 XML 数据文件“customers.xml”并在 XML 列表中显示了此文件的内容。</p>
+<pre>
+Sub UseOpenXML()
+    Application.Workbooks.OpenXML _
+        Filename:="customers.xml", _
+        LoadOption:=xlXmlLoadImportToList
+End Sub
+</pre>
+<p>OpenDatabase 方法语法如下：</p>
+<pre>
+Workbooks.OpenDatabase(FileName, CommandText, CommandType, 
+                       BackgroundQuery, ImportDataAs)
+</pre>
+<p>FileName String 类型，必需。连接字符串。</p>
+<p>CommandText Variant 类型，可选。查询的命令文本。</p>
+<p>CommandType Variant 类型，可选。查询的命令类型。以下是可用的命令类型：Default、SQL 和 Table。</p>
+<p>BackgroundQuery Variant 类型，可选。查询的背景。</p>
+<p>ImportDataAs Variant 类型，可选。确定查询的格式。</p>
+<p>示例</p>
+<p>本示例中，Excel 打开了“northwind.mdb”文件。</p>
+<pre>
+Sub OpenDatabase()
+    Workbooks.OpenDatabase FileName:="C:\northwind.mdb"
+End Sub
+</pre>
+<h4>4、保存文件</h4>
+<p>文件的保存使用Workbook对象的Save或SaveAs方法。</p>
+<p>Save方法使用简单，语法为</p>
+<pre>
+expression.Save，expression是某个Workbook对象。
+</pre>
+<p>如：ActiveWorkbook.Save</p>
+<p>即保存当前活动工作簿。</p>
+<p>如果是第一次保存工作簿或要另存为，请使用 SaveAs 方法为该文件指定文件名。</p>
+<p>其语法为：</p>
+<pre>
+expression.SaveAs(FileName, FileFormat, Password, WriteResPassword, 
+                  ReadOnlyRecommended, CreateBackup, AccessMode, ConflictResolution,
+                  AddToMru, TextCodepage, TextVisualLayout, Local)
+</pre>
+<p>具体参数含义可参看VBA帮助，使用都比较简单。</p>
+<p>示例</p>
+<p>本示例新建一个工作簿，提示用户输入文件名，然后保存该工作簿。</p>
+<pre>
+Set NewBook = Workbooks.Add
+Do
+    fName = Application.GetSaveAsFilename
+Loop Until fName &lt;> False
+NewBook.SaveAs Filename:=fName
+</pre>
+<p>Application.GetSaveAsFilename为调出标准的“另存为”对话框，获取用户文件名，但并不真正保存任何文件，然后使用代码保存文件。还有Application.GetOpenFileName可以调出标准的“打开”对话框。</p>
+<h4>5、关闭文件</h4>
+<p>关闭文件可以使用Workbooks集合或Workbook对象的 Close 方法。前者是关闭所有打开的工作簿，后者关闭特定的工作簿。</p>
+<p>Workbook对象的 Close 方法语法为：</p>
+<pre>
+expression.Close(SaveChanges, Filename, RouteWorkbook)
+</pre>
+<p>SaveChanges参数表示是否保存更改，对许多不需要更改的操作，可设置为False以免弹出保存更改提示的对话框。</p>
+<p>FileName 可选。以此文件名保存所做的更改。</p>
+<p>RouteWorkbook 可选。如果指定工作簿不需要传送给下一个收件人（没有传送名单或已经传送），则忽略该参数。</p>
+<p>示例</p>
+<p>本示例关闭 Book1.xls，并放弃所有对此工作簿的更改。</p>
+<pre>
+Workbooks("BOOK1.XLS").Close SaveChanges:=False
+</pre>
+<p>本示例关闭所有打开的工作簿。如果某个打开的工作簿有改变，Microsoft Excel 将显示询问是否保存更改的对话框和相应提示。</p>
+<p>Workbooks.Close</p>
+<h4>6、综合实例</h4>
+<p>假如F盘有一个Excel文件test.xls，现在有另一个Excel文件要访问test.xls的数据，我们来看用VBA代码如何操作。代码如下：</p>
+<pre>
+Public Sub test()
+    Application.ScreenUpdating = False
+    Workbooks.Open "f:\test.xls"
+    ThisWorkbook.Sheets(1).Range("b1") = ActiveWorkbook.Sheets(1).Range("a2")
+    ActiveWorkbook.Close
+    Application.ScreenUpdating = True
+End Sub
+</pre>
+<p>首先关闭屏幕刷新，是为了防止test.xls在打开时被看见(有时候还是看的见）。打开后，见test.xls的Sheet1的单元格A2中的值赋给当前工作簿的Sheet1的单元格B2，然后关闭test.xls。</p>
+<p>当要打开的工作簿不确定的时候，可以通过调用打开对话框来让用户自己选择。</p>
+<p>可改为如下：</p>
+<pre>
+Public Sub test()
+    Application.ScreenUpdating = False
+    Dim Filename as String
+    Filename = Application.GetOpenFileName
+    Workbooks.Open Filename
+    ThisWorkbook.Sheets(1).Range("b1") = ActiveWorkbook.Sheets(1).Range("a2")
+    ActiveWorkbook.Close
+    Application.ScreenUpdating = True
+End Sub
+</pre>
+<h4>7、总结</h4>
+<p>利用Excel对象的方法进行文件操作是最简单，也是最方便的，适合初学者。对于Excel文件格式，如果我们仅仅是读取其表格中的内容，这种方法也是首选。对于文本文件的操作，使用第二种方法比较方便，若要将文本转换成表格，那么使用此方法也是合适的。</p>
+<p><h3>二、利用VBA文件处理语句来处理文件</h3></p>
+<p>VBA包含了许多用于文件操作的语句和函数，可以满足绝大多数情况下的文件操作要求。下面我们按照操作目的进行一一介绍。</p>
+<h4>（一）文件处理</h4>
+<p>1.Name 语句</p>
+<p>语法：Name oldpathname As newpathname</p>
+<p>功能：重命名一个文件、目录、或文件夹，移动一个文件。</p>
+<p>说明：在一个已打开的文件上使用 Name，将会产生错误。进行文件操作时，一定要注意错误处理。</p>
+<p>示例：</p>
+<pre>
+On Error Resume Next '错误处理
+Name "f:\TEST.xls" As "f:\TEST123.xls" '重命名
+Name "f:\TEST.xls" As "f:\dll\TEST.xls" '移动文件
+Name "f:\TEST.xls" As "d:\TEST123.xls" '跨驱动器移动并重命名文件
+</pre>
+<p>注意：Name不能移动一个目录或文件夹。</p>
+<h4>2、FileCopy 语句</h4>
+<p>语法：FileCopy source, destination</p>
+<p>功能：复制一个文件。</p>
+<p>说明：如果对一个已打开的文件使用 FileCopy 语句，则会产生错误。</p>
+<p>示例：</p>
+<pre>
+FileCopy "f:\TEST.xls", "e:\TEST.xls" '从F盘复制TEST.xls到E盘
+</pre>
+<h4>3、Kill 语句</h4>
+<p>语法：Kill pathname</p>
+<p>功能：从磁盘中删除文件。</p>
+<p>说明：Kill 支持多字符 (*) 和单字符 (?) 的统配符来指定多重文件。如果使用 Kill 来删除一个已打开的文件，则会产生错误。</p>
+<p>示例：</p>
+<pre>
+Kill "f:\TEST.xls" ’删除F盘的TEST.xls文件
+Kill "f:\*.xls"    ' 删除F盘所有xls文件
+</pre>
+<h4>4、GetAttr 函数</h4>
+<p>语法：GetAttr(pathname)</p>
+<p>功能：获取一个文件、目录、或文件夹的属性。返回一个 Integer值。</p>
+<p>返回值</p>
+<p>由 GetAttr 返回的值，是下面这些属性值的总和：</p>
+<pre>
+常数         值 描述
+vbNormal     0 常规
+vbReadOnly   1 只读
+vbHidden     2 隐藏
+vbSystem     4 系统文件
+vbDirectory 16 目录或文件夹
+vbArchive   32 存档文件
+vbalias     64 指定的文件名是别名。只在Macintosh中可用。
+</pre>
+<p>说明：若要判断是否设置了某个属性，在 GetAttr 函数与想要得知的属性值之间使用 And 运算符与逐位比较。如果所得的结果不为零，则表示设置了这个属性值。</p>
+<p>示例：</p>
+<pre>
+Debug.Print GetAttr("F:\test.txt") '若为存档文件，在立即窗口可看到值为32
+Debug.Print GetAttr("F:\test.txt") '将属性—高级—可存档文件的勾去掉后，值为0
+</pre>
+<p>为判断一个文件是否只读，可用下法:</p>
+<pre>
+Debug.Print GetAttr("F:\test.txt") And vbReadOnly
+</pre>
+<p>若值非零，说明时只读的。</p>
+<h4>5、SetAttr 语句</h4>
+<p>语法：SetAttr pathname, attributes</p>
+<p>功能：为一个文件设置属性。</p>
+<p>说明：如果想要给一个已打开的文件设置属性，则会产生运行时错误。</p>
+<p>示例：</p>
+<pre>
+SetAttr"F:\test.txt", vbHidden               ' 设置隐藏属性。
+SetAttr"F:\test.txt", vbHidden + vbReadOnly  ' 设置隐藏并只读。
+</pre>
+<h4>6、FileLen 函数</h4>
+<p>语法：FileLen(pathname)</p>
+<p>功能：获取一个文件的长度，单位是字节。</p>
+<p>说明：当调用 FileLen 函数时，不需要打开文件，如果所指定的文件已经打开，则返回的值是这个文件在打开前的大小。</p>
+<h4>7、FileDateTime 函数</h4>
+<p>语法：FileDateTime(pathname)</p>
+<p>功能：获取一个文件被创建或最后修改后的日期和时间。</p>
+<p>示例：</p>
+<pre>
+Debug.Print FileDateTime("F:\TEST.xls") '在立即窗口可看到2007-3-29 19:28:27
+</pre>
+<p><h3>（二）目录处理</h3></p>
+<h4>1、CurDir 函数</h4>
+<p>语法：CurDir[(drive)]</p>
+<p>功能：返回当前的路径。</p>
+<p>说明：drive 参数是可选的，它指定一个存在的驱动器。如果没有指定驱动器，或 drive 是零长度字符串 ("")，则 CurDir 会返回当前驱动器的路径。</p>
+<p>示例：</p>
+<pre>
+Debug.Print CurDir      ' 返回“C:\Documents and Settings\yc\My Documents”。
+Debug.Print CurDir("C") ' 返回“C:\Documents and Settings\yc\My Documents”。
+Debug.Print CurDir("D") ' 返回“D:\”。
+</pre>
+<h4>2、ChDir 语句</h4>
+<p>语法：ChDir path</p>
+<p>功能：改变当前的目录或文件夹。</p>
+<p>说明：ChDir 语句改变缺省目录位置，但不会改变缺省驱动器位置。缺省驱动器一般是C。</p>
+<p>示例：</p>
+<pre>
+ChDir "D:\temp"
+Debug.Print CurDir      ' 返回“C:\Documents and Settings\yc\My Documents”。
+Debug.Print CurDir("D") ' 返回“D:\temp”。
+</pre>
+<p>与上例比较，此时D盘的当前目录已经变为“D:\temp”，但是缺省驱动器还是C。</p>
+<h4>3、ChDrive 语句</h4>
+<p>语法：ChDrive drive</p>
+<p>功能：改变当前的驱动器。</p>
+<p>说明：如果使用零长度的字符串 ("")，则当前的驱动器将不会改变。如果 drive 参数中有多个字符，则 ChDrive 只会使用首字母。</p>
+<p>示例：</p>
+<pre>
+ChDrive "D"
+ChDir "D:\temp"
+Debug.Print CurDir      ' 返回“D:\temp”。
+Debug.Print CurDir("D") ' 返回“D:\temp”。
+</pre>
+<p>与上例比较，用CurDir返回的是“D:\temp”，当前驱动器已经变为D了。</p>
+<h4>4、Dir 函数</h4>
+<p>语法：Dir[(pathname[, attributes])]</p>
+<p>两个参数都是可选的，attributes表示文件属性。</p>
+<p>功能：返回一个文件名、目录名或文件夹名称，它必须与指定的模式或文件属性、或磁盘卷标相匹配。</p>
+<p>说明：在第一次调用 Dir 函数时，必须指定 pathname，否则会产生错误。如果也指定了文件属性，那么就必须包括 pathname。</p>
+<p>Dir 会返回匹配 pathname 的第一个文件名。若想得到其它匹配 pathname 的文件名，再一次调用 Dir，且不要使用参数。如果已没有合乎条件的文件，则 Dir 会返回一个零长度字符串 ("")。一旦返回值为零长度字符串，并要再次调用 Dir 时，就必须指定 pathname，否则会产生错误。不必访问到所有匹配当前 pathname 的文件名，就可以改变到一个新的 pathname 上。但是，不能以递归方式来调用 Dir 函数。以 vbDirectory 属性来调用 Dir 不能连续地返回子目录。</p>
+<p>示例：</p>
+<pre>
+Debug.Print Dir("F:\TEST.xls")         ’返回"TEST.xls"
+Debug.Print Dir("F:\*.xls")            ’返回按条件第一个找到的文件名。
+Debug.Print Dir("F:\*.txt",vbReadOnly) ’返回第一个只读的txt文件
+</pre>
+<p>以下过程可显示C盘根目录下的所有目录.</p>
+<pre>
+Sub DirC()
+    MyPath = "c:\"
+    MyName = dir(MyPath, vbDirectory) ' 找寻第一项。
+    Do While MyName &lt;> ""          ' 开始循环。
+        ' 跳过当前的目录及上层目录。
+        If MyName &lt;> "." And MyName &lt;> ".." Then
+            ' 使用位比较来确定 MyName 代表一目录。
+            If (GetAttr(MyPath & MyName) And vbDirectory) = vbDirectory Then
+                Debug.Print MyName ' 如果它是一个目录，将其名称显示出来。
+            End If
+        End If
+        MyName = dir ' 查找下一个目录。
+    Loop
+End Sub
+</pre>
+<p>以下过程利用递归可以查找目录和子目录下的所有文件。</p>
+<pre>
+Public Sub FindFile(mPath As String, Optional sFile As String = "")
+    On Error Resume Next
+    Dim s As String, sDir() As String
+    Dim i As Long, d As Long
+    If Right(mPath, 1) &lt;> "\" Then
+        mPath = mPath & "\"
+    End If
+    '查找目录下的文件
+    s = dir(mPath & sFile, vbArchive + vbDirectory + vbHidden + vbNormal + vbReadOnly + vbSystem)
+    Do While s &lt;> ""
+        Debug.Print mPath & s
+        s = dir
+    Loop
+    '查找目录下的子目录
+    s = dir(mPath, vbArchive + vbDirectory + vbHidden + vbNormal + vbReadOnly + vbSystem)
+    Do While s &lt;> ""
+        If s &lt;> "." And s &lt;> ".." Then
+            If (GetAttr(mPath & s) And vbDirectory) = vbDirectory Then
+                d = d + 1
+                ReDim Preserve sDir(d)
+                sDir(d) = mPath & s
+            End If
+        End If
+        s = dir
+    Loop
+    '开始递归
+    For i = 1 To d
+        FindFile sDir(d) & "\"
+    Next
+End Sub
+</pre>
+<h4>5、MkDir 语句</h4>
+<p>语法：MkDir path</p>
+<p>功能：创建一个新的目录或文件夹。</p>
+<p>说明：path 可以包含驱动器。如果没有指定驱动器，则 MkDir 会在当前驱动器上创建新的目录或文件夹。</p>
+<p>示例：</p>
+<p>MkDir "MYDIR" '在当前目录建立新的目录或文件夹。</p>
+<h4>6、RmDir 语句</h4>
+<p>语法：RmDir path</p>
+<p>功能：删除一个存在的目录或文件夹。</p>
+<p>说明：如果想要使用 RmDir 来删除一个含有文件的目录或文件夹，则会发生错误。在试图删除目录或文件夹之前，先使用 Kill 语句来删除所有文件。</p>
+<p>示例：</p>
+<pre>
+RmDir "MYDIR" ' 将 MYDIR 删除。
+</pre>
+<p><h3>（三）处理文本文件</h3></p>
+<h4>1、Open 语句</h4>
+<p>语法：Open pathname For mode [Access access] [lock] As [#]filenumber [Len=reclength]</p>
+<p>其中access、lock、reclength为可选参数，一般不用。</p>
+<p>mode 指定打开文件的方式。有5种：</p>
+<pre>
+Input：以输入方式打开，即读取方式。
+Output：以输出方式打开，即写入方式。
+Append：以追加方式打开，即添加内容到文件末尾。
+Binary：以二进制方式打开。
+Random：以随机方式打开，如果未指定方式，则以 Random 方式打开文件。
+</pre>
+<p>filenumber 是一个有效的文件号，范围在 1 到 511 之间。可以指定，也可使用 FreeFile 函数可得到下一个可用的文件号。</p>
+<p>说明：如果 pathname 指定的文件不存在，那么，在用 Append、Binary、Output、或 Random 方式打开文件时，可以建立这一文件。</p>
+<p>示例：</p>
+<pre>
+Open "F:\TEST.txt" For Input As #1  '以输入方式打开
+Open "F:\TEST.xls" For Binary As #1 '以二进制方式打开
+</pre>
+<h4>2、Close 语句</h4>
+<p>语法：Close [filenumberlist]</p>
+<p>filenumberlist 参数为一个或多个文件号，若省略 filenumberlist，则将关闭 Open 语句打开的所有活动文件。</p>
+<p>说明：打开文件后，必须在使用完后关闭文件。</p>
+<p>示例：</p>
+<pre>
+Dim I, FileName
+For I = 1 To 3
+    FileName = "TEST" & I          ' 创建文件名。
+    Open FileName For Output As #I ' 打开文件。
+    Print #I, "This is a test."    ' 将字符串写入文件。
+Next I
+Close ' 将三个已打开的文件全部关闭。
+</pre>
+<h4>3、Reset 语句</h4>
+<p>语法：Reset</p>
+<p>功能：关闭所有用 Open 语句打开的磁盘文件。</p>
+<p>说明：Reset 语句关闭 Open 语句打开的所有活动文件，并将文件缓冲区的所有内容写入磁盘。</p>
+<p>示例：</p>
+<pre>
+Dim FileNumber
+For FileNumber = 1 To 5
+    Open "TEST" & FileNumber For Output As #FileNumber
+    Write #FileNumber, "Hello World" ' 将数据写入文件。
+Next FileNumber
+Reset ' 关闭文件并将缓冲区内的数据写到磁盘中。
+</pre>
+<h4>4、FreeFile 函数</h4>
+<p>语法：FreeFile[(rangenumber)]</p>
+<p>参数 rangenumber指定一个范围，以便返回该范围之内的下一个可用文件号。指定 0（缺省值）则返回一个介于 1 – 255 之间的文件号。指定 1 则返回一个介于 256 – 511 之间的文件号。</p>
+<p>功能：提供一个尚未使用的文件号。</p>
+<p>示例：</p>
+<pre>
+Dim fnum As Integer
+fnum = FreeFile
+Open "F:\TEST.txt" For Input As #fnum
+Close #fnum
+</pre>
+<h4>5、EOF 函数</h4>
+<p>语法：EOF(filenumber)</p>
+<p>功能：返回一个 Integer，它包含 Boolean 值 True，表明已经到达为 Random 或顺序 Input 打开的文件的结尾。</p>
+<h4>6、LOF 函数</h4>
+<p>语法：LOF(filenumber)</p>
+<p>功能：返回一个 Long，表示用 Open 语句打开的文件的大小，该大小以字节为单位。</p>
+<h4>7、Loc 函数</h4>
+<p>语法：LOc(filenumber)</p>
+<p>功能：返回一个 Long，在已打开的文件中指定当前读/写位置。</p>
+<h4>8、Input # 语句</h4>
+<p>语法：Input #filenumber, varlist</p>
+<p>功能：从已打开的顺序文件中读出数据并将数据指定给变量。</p>
+<p>说明：通常用 Write # 将 Input # 语句读出的数据写入文件。为了能够用 Input # 语句将文件的数据正确读入到变量中，在将数据写入文件时，要使用 Write # 语句而不使用 Print # 语句。使用 Write # 语句可以确保将各个单独的数据域正确分隔开。</p>
+<p>示例：</p>
+<p>本示例使用 Input # 语句将文件内的数据读入两个变量中。本示例假设 TESTFILE文件内含数行以 Write # 语句写入的数据；也就是说，每一行数据中的字符串部分都是用双引号括起来，而与数字用逗号隔开，例如，（"Hello", 234）。</p>
+<pre>
+Dim MyString, MyNumber
+Open "TESTFILE" For Input As #1    ' 打开输入文件。
+Do While Not EOF(1)                ' 循环至文件尾。
+    Input #1, MyString, MyNumber   ' 将数据读入两个变量。
+    Debug.Print MyString, MyNumber ' 在立即窗口中显示数据。
+Loop
+Close #1 ' 关闭文件。
+</pre>
+<h4>9、Write # 语句</h4>
+<p>语法：Write #filenumber, [outputlist]</p>
+<p>功能：将数据写入顺序文件。</p>
+<p>说明：通常用 Input # 从文件读出 Write # 写入的数据。</p>
+<p>如果省略 outputlist，并在 filenumber 之后加上一个逗号，则会将一个空白行打印到文件中。多个表达式之间可用空白、分号或逗号隔开。空白和分号等效。</p>
+<p>用 Write # 将数据写入文件时将遵循几个通用的约定，使得无论什么区域都可用 Input # 读出并正确解释数据：</p>
+<p>在写入数值数据时总使用句号作为十进制分隔符。</p>
+<p>对于 Boolean 类型的数据，或者打印 #TRUE# 或者打印 #FALSE#。无论在什么地区，都不将 True 和 False 这两个关键字翻译出来。</p>
+<p>使用通用的日期格式将 Date 类型的数据写入文件中。当日期或时间的部件丢失或为零时，只将现有部分写入文件中。</p>
+<p>如果 outputlist 的数据为 Empty，则不将任何数据写入文件。但对 Null 数据，则要写入 #NULL#。</p>
+<p>如果 outputlist 数据为 Null 数据，则将 #NULL# 写入文件中。</p>
+<p>对于 Error 类型的数据，输出看起来与 #ERROR errorcode# 一样。无论在什么地区，都不将关键字 Error 翻译出来。</p>
+<p>与 Print # 语句不同，当要将数据写入文件时，Write # 语句会在项目和用来标记字符串的引号之间插入逗号。没有必要在列表中键入明确的分界符。Write # 语句在将 outputlist 中的最后一个字符写入文件后会插入一个新行字符，即回车换行符，(Chr(13) + Chr(10))。</p>
+<p>示例：</p>
+<pre>
+Open "F:\test.txt" For Output As #1 ' 打开输出文件。
+Write #1, "Hello World", 1234       ' 写入以逗号隔开的数据。
+Write #1, ' 写入空白行。
+Dim MyBool, MyDate, MyNull, MyError
+' 赋值 Boolean、Date、Null 及 Error 等。
+MyBool = False : MyDate = #February 12, 1969# : MyNull = Null
+MyError = CVErr(32767)
+' Boolean 数据以 #TRUE# 或 #FALSE# 的格式写入。
+' 日期以通用日期格式写入，例如：#1994-07-13# 代表
+' 1994 年 1 月 13 日。Null 数据以 #NULL# 格式写入。
+' Error 数据以 #ERROR 错误代号# 的格式写入。
+Write #1, MyBool; " is a Boolean value"
+Write #1, MyDate; " is a date"
+Write #1, MyNull; " is a null value"
+Write #1, MyError; " is an error value"
+Close #1 ' 关闭文件。
+</pre>
+<p>我们可以看到写入的内容为：</p>
+<pre>
+"Hello World",1234
+#FALSE#," is a Boolean value"
+#1969-02-12#," is a date"
+#NULL#," is a null value"
+#ERROR 32767#," is an error value"
+</pre>
+<h4>10、Line Input # 语句</h4>
+<p>语法：Line Input #filenumber, varname</p>
+<p>功能：从已打开的顺序文件中读出一行并将它分配给 String 变量。</p>
+<p>说明：通常用 Print # 与 Line Input # 语句配合使用。</p>
+<p>Line Input # 语句一次只从文件中读出一个字符，直到遇到回车符 (Chr(13)) 或回车–换行符 (Chr(13) + Chr(10)) 为止。回车–换行符将被跳过，而不会被附加到字符串上。</p>
+<p>示例：</p>
+<pre>
+Dim TextLine
+Open "TESTFILE" For Input As #1 ' 打开文件。
+Do While Not EOF(1)             ' 循环至文件尾。
+    Line Input #1, TextLine     ' 读入一行数据并将其赋予某变量。
+    Debug.Print TextLine        ' 在立即窗口中显示数据。
+Loop
+Close #1 ' 关闭文件。
+</pre>
+<h4>11、Input 函数</h4>
+<p>语法：Input(number, [#]filenumber)</p>
+<p>其中number 指定要返回的字符个数。</p>
+<p>功能:返回 String，它包含以 Input 或 Binary 方式打开的文件中的字符。</p>
+<p>说明：通常用 Print # 或 Put 将 Input 函数读出的数据写入文件。Input 函数只用于以 Input 或 Binary 方式打开的文件。</p>
+<p>与 Input # 语句不同，Input 函数返回它所读出的所有字符，包括逗号、回车符、空白列、换行符、引号和前导空格等。</p>
+<p>示例：</p>
+<pre>
+Dim MyChar
+Open "f:\test.txt" For Input As #1
+Do While Not EOF(1)       ' 循环至文件尾。
+    MyChar = Input(1, #1) ' 读入一个字符。
+    Debug.Print MyChar    ' 显示到立即窗口。
+Loop
+Close #1
+</pre>
+<p>下面这个函数可以将文本文件的数据一次读入到一个字符串（但是若包含中文时会出错，因为一个中文字占2个字节）。</p>
+<pre>
+Public Function ReadText(FileName As String)
+    Dim fnum%, isopen As Boolean
+    On Error GoTo erro
+    fnum = FreeFile()
+    Open FileName For Input As #fnum
+    isopen = True
+    ReadText = Input(LOF(fnum), fnum)
+    erro:
+    If isopen Then Close #fnum
+    If err Then Debug.Print err.Number, err.Description
+End Function
+</pre>
+<h4>12、Print # 语句</h4>
+<p>语法：Print #filenumber, [outputlist]</p>
+<p>outputlist 参数的设置如下：</p>
+<p>[{Spc(n) | Tab[(n)]}] [expression] [charpos]</p>
+<p>Spc(n) 用来在输出数据中插入空白字符，而 n 指的是要插入的空白字符数。</p>
+<p>Tab(n) 用来将插入点定位在某一绝对列号上，这里，n 是列号。使用无参数的 Tab 将插入点定位在下一个打印区的起始位置。</p>
+<p>expression 要打印的数值表达式或字符串表达式。</p>
+<p>charpos 指定下一个字符的插入点。使用分号将插入点定位在上一个显示字符之后。用 Tab(n) 将插入点定位在某一绝对的列号上，用无参数的 Tab 将插入点定位在下一个打印区的起始处。如果省略 charpos，则在下一行打印下一个字符。</p>
+<p>功能：将格式化显示的数据写入顺序文件中。</p>
+<p>说明:通常用 Line Input # 或 Input 读出 Print # 在文件中写入的数据。</p>
+<p>示例：</p>
+<pre>
+Open "F:\test.txt" For Output As #1 ' 打开输出文件。
+Print #1, "This is a test"          ' 将文本数据写入文件。
+Print #1,                           ' 将空白行写入文件。
+Print #1, "Zone 1"; Tab; "Zone 2"   ' 数据写入两个区（print zones）。
+Print #1, "Hello"; " "; "World"     ' 以空格隔开两个字符串。
+Print #1, Spc(5); "5 leading spaces " ' 在字符串之前写入五个空格。
+Print #1, Tab(10); "Hello"            ' 将数据写在第十列。
+' 赋值 Boolean、Date、Null 及 Error 等。
+Dim MyBool, MyDate, MyNull, MyError
+MyBool = False: MyDate = #2/12/1969#: MyNull = Null
+MyError = CVErr(32767)
+' True、False、Null 及 Error 会根据系统的地区设置自动转换格式。
+' 日期将以标准的短式日期的格式显示。
+Print #1, MyBool; " is a Boolean value"
+Print #1, MyDate; " is a date"
+Print #1, MyNull; " is a null value"
+Print #1, MyError; " is an error value"
+Close #1
+</pre>
+<p>以上代码写入的内容如下：</p>
+<pre>
+This is a test
+Zone 1 Zone 2
+Hello World
+5 leading spaces
+Hello
+False is a Boolean value
+1969-2-12 is a date
+Null is a null value
+Error 32767 is an error value
+</pre>
+<h4>13、Width # 语句</h4>
+<p>语法：Width #filenumber, width</p>
+<p>width 必要。范围在 0–255 之间的数值表达式，在新的一行开始之前，指出在该行上可出现多少字符。如果 width 等于 0，则行的长度不受限制。width 的缺省值为 0。</p>
+<p>功能：将一个输出行的宽度指定给用 Open 语句打开的文件。</p>
+<p>示例：</p>
+<pre>
+Dim I
+Open "f:\TESTFILE.txt" For Output As #1
+Width #1, 5                ' 设置输出行宽为 5。
+For I = 0 To 9             ' 循环 10 次。
+    Print #1, Chr(48 + I); ' 每行输出五个字符。
+Next I
+Close #1
+</pre>
+<p>以上代码写入的内容如下：</p>
+<pre>
+01234
+56789
+</pre>
+<p><h3>（四）处理二进制文件</h3></p>
+<p>打开二进制文件可以使用Open语句的Random和Binary方式打开。二进制文件读写使用Get和Put语句。</p>
+<h4>1、Put 语句</h4>
+<p>语法：Put [#]filenumber, [recnumber], varname</p>
+<p>recnumber 可选。Variant (Long)。记录号（Random 方式的文件）或字节数（Binary 方式的文件），指明在此处开始写入。</p>
+<p>说明：通常用 Get 将 Put 写入的文件数据读出来。</p>
+<p>示例：</p>
+<pre>
+Dim num As Long, text As String
+num = 12345
+text = "a string"
+Open "f:\data.bin" For Binary As #1  '打开或创建一个二进制文件
+Put #1, , num                        '写入4个字节
+Put #1, , text                       '写入8个字节（字符串长为8）
+Close #1
+</pre>
+<h4>2、Get 语句</h4>
+<p>语法：Get [#]filenumber, [recnumber], varname</p>
+<p>recnumber 可选。Variant (Long)。记录号（Random 方式的文件）或字节数（Binary 方式的文件），以表示在此处开始读出数据。</p>
+<p>功能：将一个已打开的磁盘文件读入一个变量之中。</p>
+<p>说明：通常用 Put 将 Get 读出的数据写入一个文件。</p>
+<p>示例：读取以上代码写入的内容</p>
+<pre>
+Dim num As Long, text As String
+Open "f:\data.bin" For Binary As #1
+Get #1, , num
+text = Space$(8)  '准备8个字节的字符串
+Get #1, , text    '读入
+Debug.Print num, text
+Close #1
+</pre>
+<p>在立即窗口可以看到如下内容：</p>
+<p>12345 a string</p>
+<h4>3、Seek 语句</h4>
+<p>语法：Seek [#]filenumber, position</p>
+<p>其中position 为介于 1～ 2,147,483,647（相当于 2^31 – 1）之间的数字，指出下一个读写操作将要发生的位置。</p>
+<p>功能：在 Open 语句打开的文件中，设置下一个读/写操作的位置。</p>
+<p>说明：可以用Seek语句指定Get语句的读取位置，但在 Get 及 Put 语句中指定的记录号将覆盖由 Seek 语句指定的文件位置。</p>
+<p>示例：</p>
+<pre>
+Dim MaxSize, NextChar, MyChar
+Open "TESTFILE" For Input As #1
+MaxSize = LOF(1)       ' 取得文件的总字符数。
+' 用循环读入所有记录，但是从最后的记录开始往前读。
+For NextChar = MaxSize To 1 Step -1
+Seek #1, NextChar      ' 设置读写位置。
+MyChar = Input(1, #1)  ' 读入一字符。
+Next NextChar
+Close #1
+</pre>
+<h4>4、Seek 函数</h4>
+<p>语法：Seek(filenumber)</p>
+<p>功能：返回一个 Long，在 Open 语句打开的文件中指定当前的读/写位置。</p>
+<p>说明：在使用Get语句读取文件时，必须用LOF函数来判断是否到达文件末尾，而不是用EOF函数。可以使用Seek函数判断当前位置，然后与LOF的值比较。</p>
+<p>示例：</p>
+<pre>
+Do While Seek(1) &lt; LOF(1)
+    '继续读取
+    ......
+Loop
+</pre>
+<p><h3>（五）总结</h3></p>
+<p>VBA语句的文件操作涵盖了文件操作的绝大部分内容，很多函数的使用也很简单，一般的文件读写也非常方便，特别是对文本文件。但对于复杂的文件读写，代码的结构和维护性都不好。因此在VB6之后，微软引入了FileSystemObject对象模型，提供了面向对象的类库，来操作驱动器、文件夹和文件。但对于二进制文件的操作，目前还只能用VBA语句。</p>
+<p>Excel文件本身就是二进制文件，它使用的文件格式叫做BIFF(Binary Interchange File Format)，即二进制可交换文件格式（但2007开始使用OOXML格式）。关于其内部的结构，本人也在研究中。以二进制结构打开Excel文件，不但可以读取其表格中的数据，还可以读取其所有的信息（包括密码）。注意，以Open语句打开文件，并不是我们通常的双击一个文件打开显示到屏幕上，而是将其存放在磁盘上的数据读入到缓冲区，不是可视化的打开。这种打开是不需要密码的，即使你的Excel文件设置了打开密码，还是照打开不误，这也正是Excel文件不安全的根源所在。我以前发过一篇关于破解的文章，里面破解VBA工程密码的方法就是用二进制替换。由于论坛不让讨论破解的话题，这里就不再详细分析代码了，感兴趣的请自行研究。当然，Excel的其他密码也是可类似破解的，前提是你必须十分了解Excel的内部结构，知道密码放在哪里，才能替换。知道的解密的方法，自然可以针对性的改进加密的方法。好了，这里就不再罗嗦了，如果对Excel的内部结构感兴趣，可以先看这篇文章，看懂再说。</p>
+
+
+<p style='float:right;'>本页共640段，21537个字符，35403 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

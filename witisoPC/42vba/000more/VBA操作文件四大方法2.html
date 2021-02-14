@@ -1,0 +1,770 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>VBA操作文件四大方法2</h4>
+
+
+<p>原创Excel插件SaveTime2021-02-13 18:26:33</p>
+<p><h3>三、利用FileSystemObject对象来处理文件</h3></p>
+<p>FileSystemObject对象模型，是微软提供的专门用来访问计算机文件系统的，具有大量的属性、方法和事件。其使用面向对象的“object.method”语法来处理文件夹和文件，使用起来十分方便（需Office 2000以后版本）。FileSystemObject并不是VBA的一部分，它是以一个COM组件的形式提供的。因此，要使用先要创建FileSystemObject对象。</p>
+<p>FileSystemObject对象模型包含了下面的对象和集合：</p>
+<p>FileSystemObject 主对象，包含用来创建、删除和获得有关信息，以及用来操作驱动器、文件夹和文件的方法和属性。</p>
+<p>Drive 对象，包含用来获得信息的方法和属性，这些信息是关于连接在系统上的驱动器的，如有多少可用空间等。驱动器不一定是硬盘，也可以是CD－ROM、U盘甚至是通过网络在逻辑上连接的硬盘（如公司里部门共享的服务器网络硬盘）。</p>
+<p>Drives 集合，提供驱动器的列表，这些驱动器以实物或在逻辑上与系统相连接。Drives集合包括所有驱动器，与类型无关。</p>
+<p>File 对象，包含用来创建、删除或移动文件的方法和属性。</p>
+<p>Files 集合，提供包含在文件夹内的所有文件的列表。</p>
+<p>Folder 对象，包含用来创建、删除或移动文件夹的方法和属性。</p>
+<p>Folders 集合，提供包含在文件夹内的所有文件夹的列表。</p>
+<p>TextStream 对象，用来读写文本文件。</p>
+<p><h3>（一）准备工作</h3></p>
+<p>要使用FileSystemObject对象，先要创建它。创建FileSystemObject对象要使用CreatObject函数。CreateObject 函数用来创建并返回一个对 ActiveX 对象的引用。</p>
+<p>语法：CreateObject(class,[servername])</p>
+<p>class 是要创建的应用程序名称和类。</p>
+<p>servername 要在其上创建对象的网络服务器名称。（如果要在远程计算机上创建对象才用）</p>
+<p>class 参数使用 appname.objecttype 这种语法，包括以下部分：</p>
+<p>appname 必需的；提供该对象的应用程序名。</p>
+<p>objecttype 必需的；待创建对象的类型或类。</p>
+<p>因此，我们用下面的代码创建FileSystemObject对象:</p>
+<pre>
+Dim fso As Object
+Set fso = CreateObject("Scripting.FileSystemObject")
+</pre>
+<p>Scripting是类型库的名称，FileSystemObject就是要创建的对象的名字。</p>
+<p>同样我们可以创建Dictionary 对象如下：</p>
+<pre>
+Dim d
+Set d = CreateObject("Scripting.Dictionary")
+</pre>
+<p><h3>（二）FileSystemObject对象的方法</h3></p>
+<p>FileSystemObject对象模型中有些功能是重复的，如可用FileSystemObject对象的CpoyFile方法，也可用File对象的Copy方法来复制文件。下面先介绍FileSystemObject对象的方法。</p>
+<h4>1、GetDrive 方法</h4>
+<p>语法：object.GetDrive drivespec</p>
+<p>drivespec参数可以是一个驱动器字符（c）、一个驱动器字符加一个冒号（c:）、一个驱动器字符加冒号和路径分隔符（c:\）或任何网络共享的说明（\\computer2\share1）。</p>
+<p>作用：返回一个与指定路径中的驱动器相对应的 Drive 对象。</p>
+<p>示例：</p>
+<pre>
+Dim d
+Set d = fso.GetDrive("D:") '变量d就代表了驱动器D对象
+</pre>
+<p>如果 drivespec 不符合任何一种可以接受的形式或者不存在，则发生一个错误。</p>
+<p>注意：为简洁，示例中都假定fso是已经创建的FileSystemObject对象</p>
+<h4>2、GetDriveName 方法</h4>
+<p>语法：object.GetDriveName(path)</p>
+<p>作用：返回一个包含指定路径的驱动器名字的字符串。</p>
+<p>示例：</p>
+<pre>
+Debug.Print fso.GetDriveName("c:\test.txt") '立即窗口显示"c:"
+</pre>
+<h4>3、GetExtensionName 方法</h4>
+<p>语法：object.GetExtensionName(path)</p>
+<p>作用：返回一个包含路径中最后部件扩展名的字符串。</p>
+<p>示例：</p>
+<pre>
+Debug.Print fso.GetExtensionName("c:\test.txt") '立即窗口显示"txt"
+</pre>
+<h4>4、GetBaseName 方法</h4>
+<p>语法：object.GetBaseName(path)</p>
+<p>作用：返回一个包含路径中最后部件的基本名字（去掉任何文件扩展名）的字符串。</p>
+<p>示例：</p>
+<pre>
+Debug.Print fso.GetBaseName("c:\abc\test.txt") '立即窗口显示"test"
+</pre>
+<h4>5、GetAbsolutePathName 方法</h4>
+<p>语法：object.GetAbsolutePathName(pathspec)</p>
+<p>作用：从提供的路径说明中返回一个完整、明确的路径。</p>
+<p>示例：</p>
+<p>如果pathspec为空字符串""，则返回当前路径。假设当前路径为C:\Documents and Settings\yc\My Documents</p>
+<pre>
+Debug.Print fs.GetAbsolutePathName("")     '显示C:\Documents and Settings\yc\My Documents
+Debug.Print fs.GetAbsolutePathName("c:..") '显示C:\Documents and Settings\yc，即上层目录
+Debug.Print fs.GetAbsolutePathName("abc")  '显示C:\Documents and Settings\yc\My Documents\abc
+Debug.Print fs.GetAbsolutePathName("c:\test.txt")  '显示C:\test.txt
+</pre>
+<h4>6、GetFile 方法</h4>
+<p>语法：object.GetFile(filespec)</p>
+<p>作用：返回一个和指定路径中文件相对应的 File 对象。</p>
+<p>示例：</p>
+<pre>
+Dim f
+Set f = fso.GetFile("c:\test.txt") '变量f就代表了文件test.txt对象
+</pre>
+<p>注意：如果指定的文件不存在，则发生一个错误。</p>
+<h4>7、GetFileName 方法</h4>
+<p>语法：object.GetFileName(pathspec)</p>
+<p>作用：返回指定路径中的最后部件，该路径不是驱动器说明的一部分。</p>
+<p>示例：</p>
+<pre>
+Debug.Print fso.GetFileName("c:\abc\test.txt") '立即窗口显示"test.txt"
+</pre>
+<h4>8、GetFolder 方法</h4>
+<p>语法：object.GetFolder(folderspec)</p>
+<p>作用：返回一个和指定路径中文件夹相对应的 Folder 对象。</p>
+<p>示例：</p>
+<pre>
+Dim fd
+Set fd = fso.GetFolder("c:\windows") '变量f就代表了文件夹windows对象
+</pre>
+<p>注意：如果指定的文件夹不存在，则发生一个错误。</p>
+<h4>9、GetSpecialFolder 方法</h4>
+<p>语法：object.GetSpecialFolder(folderspec)</p>
+<p>作用：返回指定的特殊文件夹。</p>
+<p>说明：</p>
+<p>folderspec 参数可为任何的下列值：</p>
+<p>WindowsFolder 0 Windows 文件夹，包含由 Windows 操作系统安装的文件。</p>
+<p>SystemFolder 1 系统文件夹，包含库、字体、设备驱动程序。</p>
+<p>TemporaryFolder 2 Temp 文件夹，用于存储临时文件。它的路径在 TMP 环境变量中。</p>
+<h4>10、GetParentFolderName 方法</h4>
+<p>语法：object.GetParentFolderName(path)</p>
+<p>作用：返回一个包含指定路径最后部件父文件夹名字的字符串。</p>
+<p>示例：</p>
+<pre>
+Debug.Print fso.GetParentFolderName("c:\tmp\test.txt") '显示"c:\tmp"
+</pre>
+<h4>11、GetTempName 方法</h4>
+<p>语法：object.GetTempName</p>
+<p>作用：返回一个随机产生的临时文件或文件夹的名字，该名字在执行需要临时文件或文件夹的操作时有用。</p>
+<p>说明：GetTempName 方法不产生一个文件，它仅提供一个临时文件名字，该名字可被 CreateTextFile 用于创建一个文件。</p>
+<p>示例：</p>
+<pre>
+Debug.Print fso.GetTempName '显示"radB0208.tmp",每次都会变。
+</pre>
+<h4>12、BuildPath 方法</h4>
+<p>语法：object.BuildPath(path, name)</p>
+<p>作用：追加一个名字到一个已经存在的路径。</p>
+<p>示例：</p>
+<pre>
+Debug.Print fso.BuildPath("c:\tmp", "abc") '显示"c:\tmp\abc"
+</pre>
+<h4>13、CreateFolder 方法</h4>
+<p>语法：object.CreateFolder(foldername)</p>
+<p>作用：创建一个文件夹。</p>
+<p>注意：如果指定的文件夹已经存在，则发生一个错误。</p>
+<p>示例：</p>
+<pre>
+fso.CreateFolder("c:\myfolder") '在C盘创建一个myfolder文件夹
+</pre>
+<h4>14、CopyFolder 方法</h4>
+<p>语法：object.CopyFolder source, destination[, overwrite]</p>
+<p>source 必需的。指明一个或多个被复制文件夹的字符串文件夹说明，可以包括通配符。</p>
+<p>destination 必需的。指明 source 中被复制文件夹和子文件夹的接受端的字符串，不允许有通配符。</p>
+<p>overwrite 可选的。Boolean 值，它表示已存在的文件夹是否被覆盖。如果为 True，文件被覆盖。如果为 False，文件不被覆盖。缺省值为 True。</p>
+<p>作用：复制一个文件夹到另一个地方。</p>
+<p>说明：</p>
+<p>① 通配符仅可用于 source 参数的最后一个路径部件。</p>
+<p>例如：fso.CopyFolder "c:\mydocuments\letters\*", "c:\tempfolder\" 这是可以的。</p>
+<p>但不能这样：fso.CopyFolder "c:\mydocuments\*\*", "c:\tempfolder\"</p>
+<p>② 如果 source 包含通配符或 destination 以路径分隔符（\）为结尾，则认为 destination 是一个已存在的文件夹，在其中复制相匹配的文件夹和子文件夹。否则认为 destination 是一个要创建的文件夹的名字。</p>
+<p>例如：fso.copyfolder "c:\tmp", "f:\abc\"</p>
+<p>如果F盘没有abc文件夹，将发生错误。如果存在，可看到abc文件夹里有tmp文件夹。</p>
+<p>假如写成这样：fso.copyfolder "c:\tmp", "f:\abc"</p>
+<p>此时若abc不存在，将创建abc文件夹，且将tmp文件夹里的内容复制到abc文件夹里，而不是tmp文件夹，只有abc是一个已经存在的文件夹时，才复制整个tmp文件夹到abc文件夹里。</p>
+<p>③如果 destination 是一个已存在的文件，则发生一个错误。</p>
+<p>④如果 destination 是一个目录，它将尝试复制文件夹和它所有的内容。如果一个包含在 source 的文件已在 destination 中存在，当 overwrite 为 False 时发生一个错误，否则它将尝试覆盖这个文件。</p>
+<p>⑤如果 destination 是一个只读目录，当尝试去复制一个已存在的只读文件到此目录并且 overwrite为 False 时，则发生一个错误。</p>
+<p>⑥如果 source 不存在或使用的通配符不能和任何文件夹匹配，也发生一个错误。</p>
+<p>⑦CopyFolder 方法停止在它遇到的第一个错误上，之前所做的操作是不会消失的，所以要注意。</p>
+<h4>15、MoveFolder 方法</h4>
+<p>语法：object.MoveFolder source, destination</p>
+<p>参数与CopyFolder的前两个一样。</p>
+<p>作用：将一个或多个文件夹从一个地方移动到另一个地方。</p>
+<p>说明：</p>
+<p>①只有在操作系统支持的情况下，这个方法才允许文件夹在卷之间移动。Windows是不允许的，将C盘的文件夹移到D盘是不行的。</p>
+<p>②如果 source 包含通配符或 destination 以路径分隔符 （\） 为结尾，则认为 destination 指定了一个已存在的文件夹，在此文件夹中移动相匹配的文件。否则，认为 destination 是一个要创建的目标文件夹名字。这点与CopyFolder是一样的。</p>
+<p>③如果 destination 是一个已存在的文件，则发生一个错误。</p>
+<p>④如果 destination 是一个目录，则发生一个错误。</p>
+<p>例如：</p>
+<p>fso.movefolder "c:\tmp", "c:" '发生错误。</p>
+<p>⑤如果 source 不存在或使用的通配符不能和任何文件夹匹配，也发生一个错误。</p>
+<p>⑥MoveFolder 方法停止在它遇到的第一个错误上。不要尝试回卷在错误发生前所做的任何改变。</p>
+<h4>16、DeleteFolder 方法</h4>
+<p>语法：object.DeleteFolder folderspec[, force]</p>
+<p>folderspec 必需的。要删除的文件夹的名字。 Folderspec 可以在最后的路径部件中包含通配符。</p>
+<p>force 可选的。Boolean 值，如果要删除具有只读属性设置的文件夹，其值为 True，如果值为 False （缺省），则不能删除具有只读属性设置的文件夹。</p>
+<p>作用：删除一个指定的文件夹和它的内容。</p>
+<p>说明：如果没有发现相匹配的文件夹，则发生一个错误。DeleteFolder 方法停止在它遇到的第一个错误上，不要尝试回卷或撤消错误发生前所做的任何改变。</p>
+<p>示例：</p>
+<pre>
+fso.DeleteFolder("c:\tmp")
+</pre>
+<h4>17、FolderExists 方法</h4>
+<p>语法：object.FolderExists(folderspec)</p>
+<p>作用：如果指定的文件夹存在返回 True，不存在返回 False。</p>
+<h4>18、DriveExists 方法</h4>
+<p>语法：object.DriveExists(drivespec)</p>
+<p>作用：如果指定的驱动器存在，返回 True，如果不存在返回 False。</p>
+<h4>19、FileExists 方法</h4>
+<p>语法：object.FileExists(filespec)</p>
+<p>作用：如果指定的文件存在，返回 True，若不存在，则返回 False。</p>
+<h4>20、CreateTextFile 方法</h4>
+<p>语法：object.CreateTextFile(filename[, overwrite[, unicode]])</p>
+<p>overwrite 可选的。Boolean 值，表示一个已存在文件是否可被覆盖。如果可被覆盖其值为 True，其值为 False 时不能覆盖。如果它被省略，则已存在文件不能覆盖。</p>
+<p>unicode 可选的。Boolean 值，表示文件是作为一个 Unicode 文件创建的还是作为一个ASCII 文件创建的。如果作为一个 Unicode 文件创建，其值为 True，作为一个 ASCII 文件创建，其值为 False。如果省略的话，则认为是一个 ASCII 文件。</p>
+<p>作用：创建一个指定的文件名并且返回一个用于该文件读写的 TextStream 对象。</p>
+<p>示例：</p>
+<pre>
+Dim f
+Set f = fso.CreateTextFile("c:\testfile.txt", True)
+</pre>
+<h4>21、OpenTextFile 方法</h4>
+<p>语法：object.OpenTextFile(filename[, iomode[, create[, format]]])</p>
+<p>作用：打开一个指定的文件并返回一个 TextStream 对象，该对象可用于对文件进行读、写、追加操作。</p>
+<p>说明：</p>
+<p>iomode 参数可为下面设置值中的任何值：</p>
+<p>ForReading 1 打开一个只读文件，不能对此文件进行写操作。</p>
+<p>ForWriting 2 打开一个用于写操作的文件。如果和此文件同名的文件已存在，则覆盖以前内容。</p>
+<p>ForAppending 8 打开一个文件并写到文件的尾部。</p>
+<p>注意：在VBA帮助里是没有ForWriting的，其实是有的，VBA帮助也是有错误的。另外，这些常数在使用前要先声明，或者直接用数值。</p>
+<p>create 可选的，它表示如果指定的 filename 不存在是否可以创建一个新文件。如果创建新文件，其值为 True。若不创建文件其值为 False。缺省值为 False。</p>
+<p>Format 参数可为下面设置值中的任何值：</p>
+<pre>
+TristateUseDefault –2 使用系统缺省打开文件。
+TristateTrue       –1 以 Unicode 格式打开文件。
+TristateFalse        0 以 ASCII 格式打开文件。
+</pre>
+<p>示例：</p>
+<pre>
+Dim f
+Set f = fso.OpenTextFile("c:\testfile.txt", 2, True)
+</pre>
+<p>或者：</p>
+<pre>
+Const ForWriting = 2
+Set f = fso.OpenTextFile("c:\testfile.txt", ForWriting, True)
+</pre>
+<p>这两者功能是一样的，一个声明了常量，一个直接用数值。都是在C盘创建文件testfile.txt（如不存在），或以写的方式打开（如存在）。</p>
+<h4>22、CopyFile 方法</h4>
+<p>语法：object.CopyFile source, destination[, overwrite]</p>
+<p>作用：把一个或多个文件从一个地方复制到另一个地方。</p>
+<p>说明：需要注意的地方与CopyFolder是完全类似的。</p>
+<p>示例：</p>
+<pre>
+fso.copyfile "c:\testfile.txt", "f:\abc\" '若abc不存在则出错。
+fso.copyfile "c:\testfile.txt", "f:\abc"  '若abc不存在则复制testfile.txt到F盘文件名变为abc，
+                                          '若abc存在，出错，因为是一个目录。
+</pre>
+<h4>23、MoveFile 方法</h4>
+<p>语法：object.MoveFile source, destination</p>
+<p>作用：将一个或多个文件从一个地方移动到另一个地方。</p>
+<p>说明：需要注意的地方与MoveFolder是完全类似的。</p>
+<h4>24、DeleteFile 方法</h4>
+<p>语法：object.DeleteFile filespec[, force]</p>
+<p>作用：删除一个指定的文件。</p>
+<p>说明：force 可选的。如果要删除具有只读属性设置的文件，其值为 True。如果其值为 False （缺省），则不能删除具有只读属性设置的文件。</p>
+<p><h3>（三）处理驱动器</h3></p>
+<p>可以利用Drive对象来获取有关各种驱动器的信息，Drive对象的属性有：</p>
+<pre>
+TotalSize 属性      驱动器的总容量，以字节为单位。
+AvailableSpace 属性 驱动器的可用空间容量，以字节为单位。
+FreeSpace 属性      驱动器的剩余空间容量，和 AvailableSpace 属性是相同的。
+</pre>
+<p>对于支持限额的计算机系统来说，二者之间可能有所不同。</p>
+<pre>
+DriveLetter 属性  驱动器字母，即盘符。
+DriveType 属性    驱动器的类型。如"Removable"、"Fixed"、"Network"、"CD-ROM"、"RAM Disk"
+SerialNumber 属性 驱动器的序列号。
+FileSystem 属性   驱动器所使用的文件系统类型。如FAT、FAT32、NTFS、以及 CDFS。
+IsReady 属性      驱动器是否可用。
+ShareName 属性    驱动器的网络共享名。
+VolumeName 属性   驱动器的卷标名。
+Path 属性         驱动器的路径。C 驱动器的路径是 C:，而不是 C:\。
+RootFolder 属性   驱动器的根文件夹。C 驱动器的根文件夹是 C:\。
+</pre>
+<p>这些属性的使用都十分简单，直接用“对象.属性”就可以了。在使用前要先用GetDrive获得一个Drive对象，注意不能创建一个驱动器对象。下面举个例子：</p>
+<pre>
+Sub ShowFreeSpace(drvPath)
+    Dim fs, d, s
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set d = fs.Getdrive(fs.GetDriveName(drvPath))
+    s = "Drive " & UCase(drvPath) & "-"
+    s = s & d.VolumeName & vbCrLf
+    s = s & "Free Space: " & FormatNumber(d.FreeSpace / 1024, 0)
+    s = s & " Kbytes"
+    MsgBox s
+End Sub
+</pre>
+<p>利用Call ShowFreeSpace("c:")，即可获得C盘的卷标名和可用空间。</p>
+<p><h3>（四）处理文件夹</h3></p>
+<h4>1、获取文件夹的信息</h4>
+<p>可以利用Folder对象来获取有关文件夹的信息，Folder对象的属性有：</p>
+<p>Attributes 属性 文件夹的属性。可为下列值中的任意一个或任意的逻辑组合：</p>
+<pre>
+Normal       0 一般文件。未设置属性。
+ReadOnly     1 只读文件。属性为读/写。
+Hidden       2 隐藏文件。属性为读/写。
+System       4 系统文件。属性为读/写。
+Volume       8 磁盘驱动器卷标。属性为只读。
+Directory   16 文件夹或目录。属性为只读。
+Archive     32 自上次备份后已经改变的文件。属性为读/写。
+Alias       64 链接或快捷方式。属性为只读。
+Compressed 128 压缩文件。属性为只读。
+</pre>
+<pre>
+Name 属性      文件夹名字。
+ShortName 属性 较早的 8.3 命名约定的程序所使用的短名字。
+Type 属性      文件夹类型。
+Files 属性     所有 File 对象组成的 Files 集合，这些 File 对象包含在指定的文件夹中
+──包括设置了隐藏和系统文件属性的那些文件。
+Drive 属性        文件夹所在的驱动器符号。
+IsRootFolder 属性 文件夹是否是根文件夹。
+ParentFolder 属性 文件夹的父文件夹对象。
+SubFolders 属性   文件夹的子文件夹集合。
+Path 属性         文件夹的路径。
+ShortPath 属性    较早的 8.3 文件命名约定的程序所使用的短路径。
+Size 属性         文件夹的大小，以字节为单位。
+DateCreated 属性      文件夹的创建日期和时间。
+DateLastModified 属性 最后一次修改文件夹的日期和时间。
+DateLastAccessed 属性 最后一次访问文件夹的日期和时间。
+</pre>
+<p>属性的使用和Drive对象是一样的，可以用GetFolder获取一个Folder对象，也可以用FileSystemObject对象的CreateFolder 方法创建一个Folder对象。</p>
+<h4>2、Folder对象的方法</h4>
+<p><strong>⑴ Copy 方法</strong></p>
+<p>语法：object.Copy destination[, overwrite]</p>
+<p>作用：把一个指定的文件夹从一个地方复制到另一个地方。</p>
+<p>说明：Copy 方法的作用与FileSystemObject对象的CopyFolder 方法是一样的，不同在于后者可一次复制多个文件夹。</p>
+<p><strong>⑵ Move 方法</strong></p>
+<p>语法：object.Move destination</p>
+<p>作用：将一个指定的文件夹从一个地方移动到另一个地方。</p>
+<p>说明：Move 方法的作用与FileSystemObject.MoveFolder 是一样的。不同在于后者可一次移动多个文件夹。</p>
+<p><strong>⑶ Delete 方法</strong></p>
+<p>语法：object.Delete force</p>
+<p>作用：删除一个指定的文件夹。</p>
+<p>说明：Delete 方法的作用与FileSystemObject.DeleteFolder 是一样的。</p>
+<p><strong>⑷ CreateTextFile 方法</strong></p>
+<p>语法：object.CreateTextFile(filename[, overwrite[, unicode]])</p>
+<p>作用：与FileSystemObject对象的CreateTextFile 方法是一样的。</p>
+<p>示例：</p>
+<pre>
+Set fd = fs.getfolder("c:\tmp")
+Set f  = fd.CreateTextFile("testfile.txt", True)
+</pre>
+<p>可在C盘tmp文件夹下创建testfile.txt文件。</p>
+<p>（<h3>五）处理文件</h3></p>
+<h4>1、获取文件的信息</h4>
+<p>可以利用File对象来获取有关文件的信息，File对象的属性和Folder的属性是完全一样的，只是少了Files 属性、IsRootFolder 属性、SubFolders 属性这3个属性。这里就不列了。</p>
+<h4>2、File对象的方法</h4>
+<pre>
+⑴ Copy 方法
+⑵ Move 方法
+⑶ Delete 方法
+</pre>
+<p>以上三种方法与Folder的是完全类似的，语法也一样，同样也可用FileSystemObject对象相应的方法代替。</p>
+<p><strong>⑷ OpenAsTextStream 方法</strong></p>
+<p>语法：object.OpenAsTextStream([iomode, [format]])</p>
+<p>作用：打开一个指定的文件并返回一个 TextStream 对象，该对象可用来对文件进行读、写、追加操作。</p>
+<p>说明：此方法与FileSystemObject对象的 OpenTextFile 方法相同的功能。参数也是一致的。</p>
+<p><h3>（六）处理文本文件</h3></p>
+<h4>1、打开或创建文本文件</h4>
+<p>打开现有的文本文件，可以使用FileSystemObject对象的 OpenTextFile 方法或File对象的OpenAsTextStream 方法。</p>
+<p>创建文件可以使用FileSystemObject对象的 CreatTextFile 方法或在OpenTextFile 方法中将iomode参数设为ForWriting＝2，create参数设为True。</p>
+<p>例如：</p>
+<pre>
+Set f = fso.OpenTextFile("c:\test1.xls", 2, True) '如果不存在test1.xls将自动创建。
+</pre>
+<h4>2、读取文件</h4>
+<p>打开文件后，将返回一个TextStream 对象，我们可以利用TextStream 对象的属性及方法来对文件进行读写操作。</p>
+<p>先看TextStream 对象的几个属性。</p>
+<pre>
+AtEndOfLine 属性   文件指针是否正好在行尾标记的前面
+AtEndOfStream 属性 文件指针是否在 TextStream 文件末尾
+Column 属性        TextStream 文件中当前字符位置的列号
+Line 属性          TextStream 文件中的当前行号
+</pre>
+<p>利用TextStream 对象读取文件有三种方法。</p>
+<p><strong>Read 方法</strong></p>
+<p>语法：object.Read(characters)</p>
+<p>功能：从一个 TextStream 文件中读取指定数量的字符并返回得到的字符串。</p>
+<p>示例：</p>
+<pre>
+Sub du()
+    Dim fso, a, retstring
+    Const ForReading = 1
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set a = fso.OpenTextFile("c:\testfile.txt", ForReading, False)
+    Do While a.AtEndOfLine &lt;> True      '是否到行末
+        retstring = retstring & a.Read(1)  '读取一个字符
+    Loop
+    a.Close
+    Debug.Print retstring                  '可看到读取了第一行的字符
+End Sub
+</pre>
+<p><strong>ReadLine 方法</strong></p>
+<p>语法：object.ReadLine</p>
+<p>功能：从一个 TextStream 文件读取一整行（到换行符但不包括换行符）并返回得到的字符串。</p>
+<p>示例：</p>
+<pre>
+Sub du_line()
+    Dim fso, a, retstring
+    Const ForReading = 1
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set a = fso.OpenTextFile("c:\testfile.txt", ForReading, False)
+    Do While a.AtEndOfStream &lt;> True  '是否在 TextStream 文件末尾
+        retstring = a.ReadLine           '读取一行
+        Debug.Print retstring            '显示在立即窗口
+    Loop
+    a.Close
+End Sub
+</pre>
+<p><strong>ReadAll 方法</strong></p>
+<p>语法：object.ReadAll</p>
+<p>功能：读取整个的 TextStream 文件并返回得到的字符串。</p>
+<p>说明：对于大的文件，使用ReadAll方法浪费内存资源。应使用其它的技术去输入一个文件，比如按行读取文件。</p>
+<p>示例：</p>
+<pre>
+Sub du_all()
+    Dim fso, a, retstring
+    Const ForReading = 1
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set a = fso.OpenTextFile("c:\testfile.txt", ForReading, False)
+    retstring = a.Readall '全部读取
+    Debug.Print retstring
+    a.Close
+End Sub
+</pre>
+<p>还有两个辅助读取的方法：</p>
+<p><strong>Skip 方法</strong></p>
+<p>语法：object.Skip(characters)</p>
+<p>功能：当读一个 TextStream 文件时跳过指定数量的字符。</p>
+<p>示例：</p>
+<pre>
+Sub duskip()
+    Dim fso, a, retstring
+    Const ForReading = 1
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set a = fso.OpenTextFile("c:\testfile.txt", ForReading, False)
+    Do While a.AtEndOfLine &lt;> True     '是否到行末
+        retstring = retstring & a.Read(1) '读取一个字符
+        a.Skip (1)                        '跳过一个字符
+    Loop
+    a.Close
+    Debug.Print retstring                 '可看到读取了第一行的奇数位的字符
+End Sub
+</pre>
+<p><strong>SkipLine 方法</strong></p>
+<p>语法：object.SkipLine</p>
+<p>功能：当读一个 TextStream 文件时跳过下一行。</p>
+<h4>3、写入数据到文件</h4>
+<p>写入数据到文件也有三种方法。</p>
+<p><strong>Write 方法</strong></p>
+<p>语法：object.Write(string)</p>
+<p>功能：写一个指定的字符串到一个 TextStream 文件。</p>
+<p>示例：</p>
+<pre>
+Sub xie()
+    Const ForWriting = 2, ForAppending = 8
+    Dim fs, f
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set f = fs.OpenTextFile("c:\testfile.txt", ForAppending,TristateFalse)
+    f.Write "Hello world!" '写入字符串
+    f.Close
+End Sub
+</pre>
+<p><strong>WriteLine 方法</strong></p>
+<p>语法：object.WriteLine([string])</p>
+<p>功能：写入一个指定的字符串和换行符到一个 TextStream 文件中。</p>
+<p>示例：</p>
+<pre>
+f.WriteLine("Hello world!") '写入字符串，加一个换行符。
+</pre>
+<p><strong>WriteBlankLines 方法</strong></p>
+<p>语法：object.WriteBlankLines(lines)</p>
+<p>功能：写入指定数量的换行符到一个 TextStream 文件中。</p>
+<p>示例：</p>
+<pre>
+f.WriteBlankLines(3) '相当于按3次回车。
+</pre>
+<h4>4、关闭文件</h4>
+<p>利用TextStream 对象的Close方法，上面的示例中已经有了，很简单。</p>
+
+
+<p style='float:right;'>本页共472段，16775个字符，27771 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
