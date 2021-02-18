@@ -480,6 +480,7 @@ const typeinfo ty = typeid(*f2);
 <p>这typeinfo对象就含有RTTI了。经由f1及f2两指针皆可取得typeinfo对象﹐所以 typeid(*f2) == typeid(*f1)。</p>
 
 <p></p>
+<p></p>
 
 <pre>
 #include &lt;iostream>
@@ -526,10 +527,27 @@ public:
 };
  
 
+void vt2RTTI(Movable *obj)
+{
+ 
+    if(typeid(*obj) == typeid(Bus))  // 如果去掉move()的虚函数声明也无法RTTI
+    {
+        Bus *bus = dynamic_cast&lt;Bus*>(obj);//注意这两个语句
+        bus->move();
+    }
+ 
+    if(typeid(*obj) == typeid(Tank))
+    {
+        Tank *tank=dynamic_cast&lt;Tank*>(obj);//注意这两个语句
+        tank->move();
+    }
+}
+void vt(Movable *obj)
+{
+    obj->move(); 
+}
 void doSomething(Movable *obj)
 {
-    obj->move();
- 
     if(typeid(*obj) == typeid(Bus))  // 如果去掉move()的虚函数声明也无法RTTI
     {
         Bus *bus = dynamic_cast&lt;Bus*>(obj);//注意这两个语句
@@ -542,27 +560,32 @@ void doSomething(Movable *obj)
         tank->fire();
     }
 }
- 
 int main(void)
 {
     Bus b;
     Tank t;
+    cout&lt;&lt;typeid(b).name()&lt;&lt;endl;
+    cout&lt;&lt;typeid(t).name()&lt;&lt;endl;
+    vt2RTTI(&b);
+    vt2RTTI(&t);
+    vt(&b);
+    vt(&t);
     doSomething(&b);
-    doSomething(&t);
-    cout&lt;&lt;typeid(b).name()&lt;&lt;endl;//
-    cout&lt;&lt;typeid(t).name()&lt;&lt;endl;//
- 
+    doSomething(&b);
     return 0;
 }
 /*
-Bus -- move
-Bus -- carry
-Tank -- move
-Tank -- fire
 3Bus
 4Tank
+Bus -- move
+Tank -- move
+Bus -- move
+Tank -- move
+Bus -- carry
+Tank -- fire
 */
 </pre>
+
 
 <h3>6 总结</h3>
 <p>RTTI是C++ 的新功能。过去﹐C++ 语言来提供RTTI时﹐大多依赖类库来支持﹐但各类库使用的方法有所不同﹐使得程序的可移植性(portability) 大受影响。然而﹐目前C++ 也只提供最简单的RTTI而已﹐可预见的未来﹐当大家对RTTI的意见渐趋一致时﹐C++ 将会提供更完整的RTTI﹐包括数据项和成员函数的类型、位置(offset)等资料﹐使得C++ 程序更井然有序﹐易于维护。</p>
