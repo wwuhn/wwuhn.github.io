@@ -1,0 +1,691 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+p{
+height:16px;
+
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>编程语言及相关书籍百度网盘下载</h4>
+
+<p><a href='#p1' target = '_self'>1 C语言</a></p>
+<p><a href='#p2' target = '_self'>2 C++</a></p>
+<p><a href='#p3' target = '_self'>3 Java</a></p>
+<p><a href='#p4' target = '_self'>4 Python</a></p>
+<p><a href='#p5' target = '_self'>5 Go</a></p>
+<p><a href='#p6' target = '_self'>6 数据结构与算法</a></p>
+<p><a href='#p7' target = '_self'>7 计算机系统知识</a></p>
+<p><a href='#p8' target = '_self'>8 计算机网路</a></p>
+<p><a href='#p9' target = '_self'>9 操作系统</a></p>
+<p><a href='#p10' target = '_self'>10 Linux</a></p>
+<p><a href='#p11' target = '_self'>11 汇编语言</a></p>
+<p><a href='#p12' target = '_self'>12 数据库</a></p>
+<p><a href='#p13' target = '_self'>13 设计模式</a></p>
+<p><a href='#p14' target = '_self'>14 前端</a></p>
+
+<a name="p1"></a>
+<h4>1 C语言</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1e0zPOp_fhGKKKiILGHx_Ew' title='wwcd'>征服C指针</a></li>	
+<li><a href='https://pan.baidu.com/s/10HoWoPO_Iz0FVqMhpfP2rQ' title='t8oe'>经典C程序100例</a></li>	
+<li><a href='https://pan.baidu.com/s/1Zqt4x3_mCYvGA1m9Hc70pg' title='uso7'>C专家编程</a></li>	
+<li><a href='https://pan.baidu.com/s/1v6rRsBZHFMQxmVDPpItJMw' title='ibjw'>C语言指针经验总结</a></li>	
+<li><a href='https://pan.baidu.com/s/18KcTHqx3sYnyBPd9wr4UsQ' title='6qho'>C语言深度解剖</a></li>	
+<li><a href='https://pan.baidu.com/s/1tiZPiojVO2XYpsj6iZdcng' title='ffh1'>C语言深度解剖 解开程序员面试笔试的秘密</a></li>	
+<li><a href='https://pan.baidu.com/s/11cWRyRkw0bruMCx1o2Xabw' title='lzro'>c语言入门经典_第5版</a></li>	
+<li><a href='https://pan.baidu.com/s/162zKIVChLj5NO_hk16kjKw' title='mfgv'>C语言解析教程</a></li>	
+<li><a href='https://pan.baidu.com/s/1J_6Sox35PTV8Ubb_DSnRSA' title='ir2d'>C语言函数大全</a></li>	
+<li><a href='https://pan.baidu.com/s/198IWQcTQzbkYt_iVPK8CQA' title='zm88'>C语言的科学和艺术</a></li>	
+<li><a href='https://pan.baidu.com/s/158HXBJpwXzyK5woz1NA5dQ' title='8cw5'>C语言答疑解惑与典型题解</a></li>	
+<li><a href='https://pan.baidu.com/s/1t4dcufnZVMEb8xNY0MyrZQ' title='4s8h'>C语言从入门到精通_第2版_明日科技</a></li>	
+<li><a href='https://pan.baidu.com/s/1Y3CpiqSYjS4LZxo3t43qqA' title='t4vn'>C语言程序设计_现代方法</a></li>	
+<li><a href='https://pan.baidu.com/s/1kAuQzyTsmAihKa8UZHrXCg' title='xto5'>C语言常见问题集_问题提高版</a></li>	
+<li><a href='https://pan.baidu.com/s/1Gxh6hgUL7L3rFQ4FkoDwng' title='5h1t'>C语言参悟之旅</a></li>	
+<li><a href='https://pan.baidu.com/s/1dXxjpmbiA36TV5sOhlfhjA' title='t3g1'>C语言参考手册第五版</a></li>	
+<li><a href='https://pan.baidu.com/s/1f3jELV0xaRchBv6wVDYIZQ' title='5oai'>C语言编程精粹</a></li>	
+<li><a href='https://pan.baidu.com/s/19tUkgpfpjU3N_3aKX7Y6xg' title='nejz'>C陷阱与缺陷</a></li>	
+<li><a href='https://pan.baidu.com/s/1CjnR6FbGHJvkEG1AThQQZA' title='1gvd'>C和指针_中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1HllCwheCvwivaEEMi85izA' title='wzky'>C程序设计语言_英文第2版)及课后题答案</a></li>	
+<li><a href='https://pan.baidu.com/s/1SXAXi_AtdcVS33k3EZCatQ' title='rowl'>C程序设计语言_第2版及课后答案</a></li>	
+<li><a href='https://pan.baidu.com/s/1n1Nr42g06FvTt5PiqLyWDQ' title='4s98'>C 程序设计语言_第2版</a></li>	
+<li><a href='https://pan.baidu.com/s/1PLKZZA0E9_T8iPKx3M2giw' title='um90'>C Primer Plus_中英版</a></li>	
+<li><a href='https://pan.baidu.com/s/1DXVKEAhd2Agfz0dxi7F9UQ' title='n30r'>C Primer Plus 第6版 中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/129wk9RragTHjgf86sHoPQg' title='8fuj'>21天学通C语言 第7版</a></li>	
+<li><a href='https://pan.baidu.com/s/1_i_7N12pDkq4O8zske3gRg' title='f44n'>学通C语言的24堂课_刘彬彬&孙秀梅</a></li>	
+<li><a href='https://pan.baidu.com/s/1NgAyb0DoAq3zQvAQI53GXA' title='bn80'>C语言必须知道的300个问题_明日科技_扫描版</a></li>	</ol>
+<a name="p2"></a>
+<h4>2 C++</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1rNfHasapQuwFf_X0nxfJOQ' title='rb16'>侯捷老师全系列八部曲_第二套_手把手教你进阶系列</a></li>	
+<li><a href='https://pan.baidu.com/s/1tg57seNQmTQGPFxFbFOTdQ' title='blou'>C++实践工程学_陈硕</a></li>	
+<li><a href='https://pan.baidu.com/s/1hPL7zN0XyVqfQgVTtlyK6g' title='yiwo'>易学C++</a></li>	
+<li><a href='https://pan.baidu.com/s/1wfBHSsOPuG4hIAI4KC_C_Q' title='anft'>提高C++性能的编程技术_左飞</a></li>	
+<li><a href='https://pan.baidu.com/s/1GV2HvK41eTjDMs2huX_DYw' title='py26'>深入理解C++11</a></li>	
+<li><a href='https://pan.baidu.com/s/1UeCtZpL_I33IahDlWNzvFQ' title='0v2p'>深度探索C++对象模型</a></li>	
+<li><a href='https://pan.baidu.com/s/1nbL2yzl6aPi3kR5w_CjVjA' title='fuuh'>侯捷STL课件</a></li>	
+<li><a href='https://pan.baidu.com/s/1M0NmPBPZxrZq0o0m7_7gPA' title='k090'>跟我一起写makefile</a></li>	
+<li><a href='https://pan.baidu.com/s/1r_twlwt7NmYSM09LVAS8ag' title='r1wi'>大话设计模式C++</a></li>	
+<li><a href='https://pan.baidu.com/s/1YmxlyHXTXOnXA_XvhweqUA' title='dgy4'>陈硕_C++实践工程学</a></li>	
+<li><a href='https://pan.baidu.com/s/1cip_DvjiaomxMOxTofqAtA' title='nkcl'>STL源码剖析+源码</a></li>	
+<li><a href='https://pan.baidu.com/s/1kJmaP8NF0gxkJr7NgdZ8Mg' title='t1kk'>Modern C++ Design</a></li>	
+<li><a href='https://pan.baidu.com/s/1zjy1JRGZXn_rwfIkUlunDQ' title='vy1b'>Effective_C++_第二版</a></li>	
+<li><a href='https://pan.baidu.com/s/1_0dRltY1HAYRine3MaRDJA' title='t3gy'>Effective STL_中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1QcOXHAJT7IpA6_UXOvTvag' title='bd36'>Effective C++ 第三版 高清PDF</a></li>	
+<li><a href='https://pan.baidu.com/s/1zl_OWNTSn4infueomtQhdQ' title='7gew'>C++设计新思维_泛型编程与设计之应用</a></li>	
+<li><a href='https://pan.baidu.com/s/1sOpVEU9m7RwcRzTzvHugNg' title='o5v4'>C++工程实践经验课</a></li>	
+<li><a href='https://pan.baidu.com/s/1nrhoEgVIiFJCebvciD6uiw' title='azv9'>C++对象模型</a></li>	
+<li><a href='https://pan.baidu.com/s/14g4vGDiTrcWeY0f_LPRpqA' title='012g'>C++大学教程</a></li>	
+<li><a href='https://pan.baidu.com/s/1qKkfideylmnSeKBt8yjdnQ' title='abu1'>C++程序设计语言</a></li>	
+<li><a href='https://pan.baidu.com/s/1_1upGAMJmjEtCVex593XIA' title='o88v'>C++沉思录中文_第2版</a></li>	
+<li><a href='https://pan.baidu.com/s/1HX3vAzkp6q0oPqlwU3K_Mg' title='fuj8'>C++并发编程实战</a></li>	
+<li><a href='https://pan.baidu.com/s/13LcniMz8UPxAJPxsZqeP7A' title='318m'>C++标准程序库</a></li>	
+<li><a href='https://pan.baidu.com/s/1Wuac8u3x8kwcfJuGjz6pDw' title='8ool'>C++编程调试秘笈</a></li>	
+<li><a href='https://pan.baidu.com/s/1XpBB_AMrNpZR_2wYpXY_Vw' title='ekkz'>C++编程思想_两卷合订本</a></li>	
+<li><a href='https://pan.baidu.com/s/1_qMz_AWH6LBxJsOp8S2lRw' title='0o6k'>C++编程规范_101条规则准则与最佳实践</a></li>	
+<li><a href='https://pan.baidu.com/s/1LAdu9NA8zFCQu6mUhJv1gQ' title='cxmu'>C++Primer 5th 英文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1J2ASpvZiJLKSonyDVyR5pg' title='lvmx'>C++ Primer习题集</a></li>	
+<li><a href='https://pan.baidu.com/s/1Mxqah7DdcDn4idTfCZT5sA' title='8gyu'>C++ Primer_第4版</a></li>	
+<li><a href='https://pan.baidu.com/s/1rlvQYjV7xWQhd7vYhR4yww' title='x6rl'>C++ Primer_第5版_带书签_高清完整版</a></li>	
+<li><a href='https://pan.baidu.com/s/1X_p7BY5n2SR9_QF5YDyULg' title='i0p7'>C++ Primer Plus</a></li>	
+</ol>
+<a name="p3"></a>
+<h4>3 Java</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1IunVEAC57UOFqQISJb1MRw' title='59wb'>深入剖析Tomcat</a></li>	
+<li><a href='https://pan.baidu.com/s/14GBUxLt5owx3szh_JvKPAg' title='cij9'>深入理解Spark：核心思想与源码分析</a></li>	
+<li><a href='https://pan.baidu.com/s/1jKvrSCTyTnLKC_vLxSIo1Q' title='q4ca'>深入理解Java虚拟机：JVM高级特性与最佳实践（最新第二版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1uuRzc3E37SMn1IZ7NmLxWQ' title='befv'>深入分析JavaWeb技术内幕</a></li>	
+<li><a href='https://pan.baidu.com/s/1iTXXX4e6cBCnAYOgUI_Aw)' title='2vd3'>深入JAVA虚拟机第二版</a></li>	
+<li><a href='https://pan.baidu.com/s/1jvFfpRSlqy6iAv0wzqxFlw' title='sh19'>深入JAVA虚拟机</a></li>	
+<li><a href='https://pan.baidu.com/s/1QAS0KjbGjUxvw41SikCjXw' title='4f3u'>轻量级JavaEE企业应用实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1Xwcrh8Qh_jYxM5J1PbtI6w' title='mamt'>精通Struts基于MVC的Java Web设计与开发</a></li>	
+<li><a href='https://pan.baidu.com/s/1WsXj2OSia7NJByo4RahEGA' title='s36n'>精通spring_Mastering Spring</a></li>	
+<li><a href='https://pan.baidu.com/s/1kHrjy7XjVvj_xktTZAne_A' title='6pzp'>大数据之路：阿里巴巴大数据实践</a></li>	
+<li><a href='https://pan.baidu.com/s/1pjc7WXvkcXJk9V8HVe4OIA' title='03lo'>大数据架构师指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1fmcZzuIhMAiXIoj1qgaSng' title='t19e'>阿里巴巴Java开发手册_泰山版</a></li>	
+<li><a href='https://pan.baidu.com/s/1Swd_z6hbeSlVNh_w9su0VA' title='1xf1'>阿里巴巴Java开发手册_嵩山版</a></li>	
+<li><a href='https://pan.baidu.com/s/1WS6y8pJQkltL0n0KbObS2A' title='90y1'>阿里巴巴Java开发手册_华山版</a></li>	
+<li><a href='https://pan.baidu.com/s/1r5Gei0GWcttVaRHJveDi5A' title='9006'>阿里巴巴Java开发手册v1.2.0</a></li>	
+<li><a href='https://pan.baidu.com/s/1EtiwI3EsfS8_hQn6rpg6eQ' title='c9sc'>阿里巴巴Java开发手册_1.4.0详尽版</a></li>	
+<li><a href='https://pan.baidu.com/s/1fRpOg1S_qfkPt2qZago6Tg' title='a1qf'>阿里巴巴Java开发手册_1.3.0终极版</a></li>	
+<li><a href='https://pan.baidu.com/s/1TP4ajcMRKLCVtKRk6_Y0SQ' title='jezb'>阿里巴巴Java开发手册_1.2.0升级版</a></li>	
+<li><a href='https://pan.baidu.com/s/12Drps3bAXQ8aAvA_6yTmhw' title='dq9e'>阿里巴巴Java开发手册_1.1.0正式版</a></li>	
+<li><a href='https://pan.baidu.com/s/1gLmF91VVKWJdz0YmKTk0pg' title='p3sa'>阿里巴巴Java开发手册_1.0.0公开版</a></li>	
+<li><a href='https://pan.baidu.com/s/18eMWu9CxQbyvCkM_uwrTWg' title='rdqa'>spring框架，技术详解及使用指导</a></li>	
+<li><a href='https://pan.baidu.com/s/1KWT_OGGivWDtljwet_GEMQ' title='12bu'>Spring in action 中文版（第4版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1STAmcieYNAwmHblqOtLs6g' title='n603'>Spring 5 Recipes, 4th Edition</a></li>	
+<li><a href='https://pan.baidu.com/s/1KRiBs131kn_mOeeQCW686Q' title='v0vo'>Spark最佳实践</a></li>	
+<li><a href='https://pan.baidu.com/s/1ylIy_MUlFaK9vM19igUw9g' title='dr8y'>Spark快速大数据分析</a></li>	
+<li><a href='https://pan.baidu.com/s/1jBMIeY722Vd8uyfO0wpLMA' title='rueq'>Spark机器学习</a></li>	
+<li><a href='https://pan.baidu.com/s/15qSHlTXwP2_H9CcRFZJAqA' title='fcve'>Spark大数据处理：技术、应用与性能优化(全)</a></li>	
+<li><a href='https://pan.baidu.com/s/1spPIooMCifIJbHnJAwy7gg' title='mdr1'>Scala编程中文版(33章全)</a></li>	
+<li><a href='https://pan.baidu.com/s/16j9n7XXBdWiiwcuGTLzt5g' title='ytpm'>Maven实战（高清完整带书签）</a></li>	
+<li><a href='https://pan.baidu.com/s/1RLj16gEUP_wLOf2wivDqVA' title='lbz2'>Kafka & Mafka技术分享及讨论</a></li>	
+<li><a href='https://pan.baidu.com/s/13h7KLMwJpFjGc8pGFi27zw' title='zxxa'>Java语言编码规范</a></li>	
+<li><a href='https://pan.baidu.com/s/1FccBsRmFOq_P0lG0xRYkqA' title='5095'>JAVA优化编程</a></li>	
+<li><a href='https://pan.baidu.com/s/1gVdcFiaTglI3rAGqhyjblg' title='39jj'>Java夜未眠_程序员的心声</a></li>	
+<li><a href='https://pan.baidu.com/s/1GM9eo_ODDlmuKaprRaYJ6w' title='eoa8'>Java性能优化权威指南</a></li>	
+<li><a href='https://pan.baidu.com/s/14GqTuXs0YJKiKkUzWJjHsg' title='x832'>Java线程</a></li>	
+<li><a href='https://pan.baidu.com/s/1Rmo_iBOvc5mdgrbmoj_3OA' title='ounm'>Java数据结构和算法_中文第二版</a></li>	
+<li><a href='https://pan.baidu.com/s/1olXB0pquBJ_Rpze_y8VA5A' title='8snj'>Java使用工具</a></li>	
+<li><a href='https://pan.baidu.com/s/1__DdB2TKKESWbfOpm00GHw' title='ap6l'>Java设计模式之抽象工厂模式</a></li>	
+<li><a href='https://pan.baidu.com/s/1qIgzkmbVJ6wMmP5cDhLOWA' title='3rgt'>Java解惑(中文)</a></li>	
+<li><a href='https://pan.baidu.com/s/1F2DrWQ_vKXRdBbBTQE_vEQ' title='2ww8'>Java核心技术卷2_高级特性_原书第10版</a></li>	
+<li><a href='https://pan.baidu.com/s/1M896FCLK4Ed29vPgUR4JXg' title='igsy'>Java核心技术卷1_基础知识_原书第10版</a></li>	
+<li><a href='https://pan.baidu.com/s/1WC9_HScjs9bQdHGQ0T0jcQ' title='cewn'>Java核心技术（卷2）第8版</a></li>	
+<li><a href='https://pan.baidu.com/s/1dwO2mjbAisJhhV_y40xmFQ' title='fj07'>Java核心技术（卷1）第8版</a></li>	
+<li><a href='https://pan.baidu.com/s/1AFrp0nJHTji8ysDmsLZgdQ' title='7f3y'>Java从小白到大牛精简版</a></li>	
+<li><a href='https://pan.baidu.com/s/1Pa4n1Tg1wNiYxzPJSPp0kQ' title='6sga'>Java并发程序设计教程</a></li>	
+<li><a href='https://pan.baidu.com/s/1d9o5lY1d2Xw8ltonpjr5Aw' title='x58o'>JAVA并发编程实践</a></li>	
+<li><a href='https://pan.baidu.com/s/1cOnNMGiSDR5dJhc0f6nQZQ' title='1eb5'>Java并发编程的艺术</a></li>	
+<li><a href='https://pan.baidu.com/s/1yrZwSoXIPnCxN07c_P_4AA' title='nzh0'>Java编辑思想（第四版）</a></li>	
+<li><a href='https://pan.baidu.com/s/183v0Yu4PITjgo8ZBo1RMPA' title='e16l'>Java案例开发</a></li>	
+<li><a href='https://pan.baidu.com/s/1pFLd42BTc18gIb8u1ke7qg' title='5x25'>Java2网络协议技术内幕</a></li>	
+<li><a href='https://pan.baidu.com/s/1PKP3hsIIU_VxzLcEsnnNrA' title='noyj'>Java 8实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1zVcv5jhxI0E6HngRe7kCYQ' title='ix3i'>Head First Servlet and JSP(高清中文版)</a></li>	
+<li><a href='https://pan.baidu.com/s/1d11foMKuAQKjUuRbPuDa5w' title='3qut'>Head First Java_第二版涵盖java5.0</a></li>	
+<li><a href='https://pan.baidu.com/s/1rPFEfQxDvsXSnkJcqBESMw' title='f7ye'>Hadoop The Definitive Guide</a></li>	
+<li><a href='https://pan.baidu.com/s/1yN_9UoVsSGy6OqZ574SwAQ' title='mut3'>Effective Java 中文第二版</a></li>	
+<li><a href='https://pan.baidu.com/s/1VzADjXM_gTx2LozKNZJtCw' title='3d1e'>Effective Java 2nd Edition 英文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1FV3jmIkrHb3fOGcd8njq5Q' title='ulzo'>Camel in Action</a></li>	
+<li><a href='https://pan.baidu.com/s/1fcT_j2ycMJdZffWNk7JeQQ' title='w2zj'>Apache+Kylin权威指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1Nv5kD8MuvrIh3Z984vD2zA' title='i7ys'>码出高效：Java开发手册</a></li>	
+<li><a href='https://pan.baidu.com/s/1O_IYvrnhxnor6uBhrRT9ig' title='yo6t'>Java2核心技术第I卷_基础知识</a></li>	
+<li><a href='https://pan.baidu.com/s/1O4yWFz4gLXb9OLrzNwudMA' title='dpku'>Java2核心技术II卷_高级特性7th</a></li>	
+<li><a href='https://pan.baidu.com/s/16KFFPIUGCw6rRLU59dfkLg' title='jdnt'>Flex 3实战（美）艾哈迈德（美）赫希（美）阿比德_扫描版</a></li>	
+
+</ol>
+<a name="p4"></a>
+<h4>4 Python</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1jld_YSqFRlDSl07B45PQ5A' title='24w5'>Python数据分析14天入门训练营 课程资料</a></li>	
+<li><a href='https://pan.baidu.com/s/1trQBHZynq6iYgQLZn0glfg' title='1mil'>增长黑客_创业公司的用户与收入增长秘籍_范冰</a></li>	
+<li><a href='https://pan.baidu.com/s/1hzcjxkhU1bhvp9_Qmpd4eQ' title='qnd3'>用Python写网络爬虫</a></li>	
+<li><a href='https://pan.baidu.com/s/1oK2kFJO_YgBBpeNSeClx_Q' title='tsfe'>数据挖掘原理与算法</a></li>	
+<li><a href='https://pan.baidu.com/s/1F5micLOTAjzjbwjbuj4dMA' title='b56u'>数据挖掘导论_完整版</a></li>	
+<li><a href='https://pan.baidu.com/s/1tXuGcFZgPYq54tYAmY6CNA' title='d4vb'>数据可视化之美</a></li>	
+<li><a href='https://pan.baidu.com/s/1w_7ZmOX7kNKVLyD1I0pLRw' title='0vdx'>数据分析学习顺序</a></li>	
+<li><a href='https://pan.baidu.com/s/1koW6wrG8M7cZxImhge_VzA' title='aegg'>数据分析修炼手册</a></li>	
+<li><a href='https://pan.baidu.com/s/1EGGb1717GVbHy3_o8u80NQ' title='2sa2'>数据分析实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1D4raRprO3SviKnwlcpbyIA' title='0i7r'>人人都是数据分析师：Tableau应用实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1p3NIfp0RVQ54Rts067QE8w' title='w9ni'>利用python进行数据分析_第二版</a></li>	
+<li><a href='https://pan.baidu.com/s/1fyz699VP2QHLcdWvrwfs3Q' title='kssp'>利用python进行数据分析</a></li>	
+<li><a href='https://pan.baidu.com/s/1S596XnL_wFdbWBe5JjR80Q' title='bcoy'>可爱的Python插图版_文字版</a></li>	
+<li><a href='https://pan.baidu.com/s/1yQegnHhmC5OoMHU1fgfWHg' title='d5u9'>精通Scrapy网络爬虫_刘硕</a></li>	
+<li><a href='https://pan.baidu.com/s/1z7pwZ0oi_ytF9YPOJraTPw' title='yvtt'>带书签目录Python3.5.1入门指南中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/19S7DyCqNDpANerLtiWlcQA' title='h6hd'>大数据分析精品资料</a></li>	
+<li><a href='https://pan.baidu.com/s/1DLqy3i9bL2En912sJtAg_A' title='7xl7'>触手可及的大数据分析工具 Tableau案例集</a></li>	
+<li><a href='https://pan.baidu.com/s/1HjSJPNsR4v2ytEv37o9dFA' title='akwd'>编程小白的第一本python入门书</a></li>	
+<li><a href='https://pan.baidu.com/s/1SogzhE7T8IlQskIWYSEXZQ' title='akk7'>笨办法学Python（第四版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1K7eTYS_fQ3RzzIgUv0oGGQ' title='tqe8'>笨办法学Python（第三版）</a></li>	
+<li><a href='https://pan.baidu.com/s/14wsvl0J5qWlxoiMGifXN4w' title='1ydi'>Tableau商业智能与可视化应用实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1gZVUwRi63SNaCGhsf8iddg' title='dy06'>Tableau：数据可视化之极速BI数据源</a></li>	
+<li><a href='https://pan.baidu.com/s/1pMD6e9g56c1RUqeUZv6cxA' title='yjgu'>Tableau：数据可视化之极速BI</a></li>	
+<li><a href='https://pan.baidu.com/s/1_cY28ce9QuqKhF1tjGU62A' title='hnwj'>Python知识手册_V2.0.1</a></li>	
+<li><a href='https://pan.baidu.com/s/1WHkLjbAb3UhE0RA8UHpB9g' title='cgwz'>Python正则表达式_深入浅出</a></li>	
+<li><a href='https://pan.baidu.com/s/1mmZWlzH9UvQS9t0_OspExw' title='avu8'>Python学习手册(第4版)</a></li>	
+<li><a href='https://pan.baidu.com/s/1hpoZIgoRo_e_LHRoVnCQKA' title='ii89'>Python网络编程基础</a></li>	
+<li><a href='https://pan.baidu.com/s/1ibnQp43Kl9jX1dmxkGYdOw' title='gwqu'>Python数据挖掘入门与实践</a></li>	
+<li><a href='https://pan.baidu.com/s/1Jf8sHzVPeWXu1euf_eEaVw' title='qxad'>Python数据可视化编程实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1bUowx1pPT6kSQNXZXfACYw' title='z8d2'>Python数据分析与挖掘实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1p0DmVGbCmT55AFQuS0DKHw' title='23lg'>Python数据分析实战_2016版</a></li>	
+<li><a href='https://pan.baidu.com/s/1KYfetJgTQ_73_eUGD9Iygg' title='lq13'>Python数据分析基础教程：NumPy学习指南（第2版）</a></li>	
+<li><a href='https://pan.baidu.com/s/17bkcLap_tjvMVrsXTof7Nw' title='nw6a'>Python数据分析基础</a></li>	
+<li><a href='https://pan.baidu.com/s/1stu8W_wSg_QgSgmNtdmTFA' title='zv2s'>Python数据处理</a></li>	
+<li><a href='https://pan.baidu.com/s/1wfjTaBPOv_NCSPktKA8Ag' title='75fr'>Python入门教材(中文)</a></li>	
+<li><a href='https://pan.baidu.com/s/1qW_pimex5qslxTayr5yqzw' title='5pme'>Python科学计算与数据分析</a></li>	
+<li><a href='https://pan.baidu.com/s/1uZhxGROvdayT1ehCqPszmw' title='nlmn'>Python开发实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1KL7Pg_TrPJDa2bSUExESUA' title='eard'>Python开发技术详解</a></li>	
+<li><a href='https://pan.baidu.com/s/16g2O_PDG6c1YnYMP1Fg9Cw' title='sbre'>Python金融大数据分析</a></li>	
+<li><a href='https://pan.baidu.com/s/1VufcfKdqg_Q0Sb9P12d3DQ' title='tzcv'>python基础教程（第二版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1vPOdJ6nezjiyr7lLIgEjog' title='fn47'>Python灰帽子 黑客与逆向工程师的Python编程之道</a></li>	
+<li><a href='https://pan.baidu.com/s/1Smojxqv70DmA41vRePs15A' title='lxej'>Python核心编程 第3版 中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/14Y3P6OE6NSMGxSNmObJUjw' title='bz53'>Python高级编程第2版_张亮 阿信（译）_人民邮电出版社_2017_10_v2_完整版</a></li>	
+<li><a href='https://pan.baidu.com/s/1p4KYE98Uxw4mvWlLnJgBgg' title='wdkz'>python操作word,excel,pdf</a></li>	
+<li><a href='https://pan.baidu.com/s/1Gjxc8Fz8t3ehxcm5biUdog' title='jmoo'>Python编程_数据挖掘入门与实践(中文完整版)_图灵程序</a></li>	
+<li><a href='https://pan.baidu.com/s/15iITs_WpukTQy_2Z8Pp1Uw' title='7uzb'>Python编程入门经典</a></li>	
+<li><a href='https://pan.baidu.com/s/1PommQ_Ud6pVrvO5Xvnov5A' title='4q4o'>Python编程快速上手 让繁琐工作自动化</a></li>	
+<li><a href='https://pan.baidu.com/s/1jVob2p5YbTbPNjC62uJj1A' title='thk0'>Python编程初学者指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1_JUssR69F721DucTlchNXA' title='gaf0'>Python编程：从入门到实践</a></li>	
+<li><a href='https://pan.baidu.com/s/11xsh6Wt5wH8UNvmZJT5JPg' title='k8e2'>Python3网络爬虫数据采集</a></li>	
+<li><a href='https://pan.baidu.com/s/1JLA3e_4GcdaD6hJHQRY76Q' title='nbrw'>Python3简明教程</a></li>	
+<li><a href='https://pan.baidu.com/s/1YOGNBdx9T64wTiNOpWTcUQ' title='suck'>Python3.5.2入门指南 高清</a></li>	
+<li><a href='https://pan.baidu.com/s/1Bk1P2zxNHPQmkO3_c99LVw' title='7y7w'>Python for Data Analysis</a></li>	
+<li><a href='https://pan.baidu.com/s/1LISCtWE_v6BTsHHUmUTtvA' title='360r'>Python Cookbook（第3版）中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1SnLDPvtYk6Bh1ZjRAM2vmg' title='noqk'>Pandas Basics</a></li>	
+<li><a href='https://pan.baidu.com/s/1og9UMfdqmnw3W4X92Yyvzg' title='iy54'>NumPy Basics</a></li>	
+<li><a href='https://pan.baidu.com/s/1EeGnHAnTLo74OnfOaN3JyQ' title='ahw3'>Deep_Learning_With_Python</a></li>	
+<li><a href='https://pan.baidu.com/s/11FQ5T2xvB9rCjljKOUQxjA' title='kzzd'>B站_python3数据分析与挖掘建模实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1BXUcFdfemeQSDdcFGnIAWw' title='ac39'>B站_用Tableau做数据分析</a></li>	
+<li><a href='https://pan.baidu.com/s/1lHYVBbYyGGa6W5tgmgHvTg' title='wpuo'>B站_七周成为数据分析师_课件</a></li>	
+<li><a href='https://pan.baidu.com/s/1daqXTHLW1Yuho6YGuyW3Kg' title='m5jk'>A Byte of Python3(中文版)</a></li>	
+<li><a href='https://pan.baidu.com/s/1jsS_TO6opRDOTXHF_0nQ9Q' title='ui1b'>触手可及的大数据分析工具：Tableau案例集 数据源</a></li>	
+</ol>
+<a name="p5"></a>
+<h4>5 Go</h4><ol>	
+<li><a href='https://pan.baidu.com/s/18YOmYXd65ZM1w6nKMhyTpw' title='59m6'>Go并发编程实战</a></li>	
+<li><a href='https://pan.baidu.com/s/10SsqtZIZnj8n0EiYr8qHQA' title='dw0z'>Go语言实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1ct5IqRjvGSSxDIgLybWZEw' title='86nv'>学习Go语言(Golang)</a></li>	
+<li><a href='https://pan.baidu.com/s/1jRmcwZUgIadxW9mo69SfYQ' title='i4c5'>Go语言圣经</a></li>	
+<li><a href='https://pan.baidu.com/s/1KpP2xECPBn6iPVKGdZBEAg' title='kzhd'>Go语言程序设计</a></li>	
+<li><a href='https://pan.baidu.com/s/1bJopf9JJNUDB2bc08BgrXw' title='s4j4'>Go语言标准库参考</a></li>	
+<li><a href='https://pan.baidu.com/s/12Z0v_vjG6Fu9atGMigMknA' title='jzpt'>Go语言编程</a></li>	
+<li><a href='https://pan.baidu.com/s/1kzfW8B6D5jzP4pa3IB1YeA' title='3t88'>Go_web_编程</a></li>	
+</ol>
+
+<a name="p6"></a>
+<h4>6 数据结构与算法</h4><ol>	
+<li><a href='https://pan.baidu.com/s/12ACOBkG1hDfZLPpDRqDQfw' title='sr0k'>严蔚敏：数据结构题集(C语言版)</a></li>	
+<li><a href='https://pan.baidu.com/s/1v_Y7aJnaHPTiirMNyNxxzg' title='5nyy'>挑战程序设计竞赛(第2版)</a></li>	
+<li><a href='https://pan.baidu.com/s/1zXxOS_640lRRAy9k2PTf6Q' title='b5qt'>挑战程序设计竞赛(第1版)</a></li>	
+<li><a href='https://pan.baidu.com/s/1vm9QQE0bh_Jvc8ssTO7Ipg' title='s7bs'>算法图解</a></li>	
+<li><a href='https://pan.baidu.com/s/1X9Dt9vVTKsqGjCNRGg6rEg' title='kq3c'>算法谜题</a></li>	
+<li><a href='https://pan.baidu.com/s/1FbYYJveY_3FL6QQUoo_5ig' title='arp2'>算法分析与设计</a></li>	
+<li><a href='https://pan.baidu.com/s/1cYP0cHLt2K1ESr7viKI_xg' title='bfni'>算法导论中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1J2FLxxRCoEyuhoaKpjjF_g' title='1lg2'>算法导论_原书第3版_CHS</a></li>	
+<li><a href='https://pan.baidu.com/s/1DVnsbZyYU4Dt_pZD0mTNoA' title='zidu'>算法（第4版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1PkIRCNQ3xWlmqiKjF61qQg' title='0wv6'>数据结构与算法分析_Java语言描述</a></li>	
+<li><a href='https://pan.baidu.com/s/14gjB8vzejJFrRgivuHOoRw' title='jsei'>数据结构与算法分析C++描述</a></li>	
+<li><a href='https://pan.baidu.com/s/1Bf2n2fDS8h2jA7dVEK1yfQ' title='ldis'>数据结构与算法分析：C语言描述_原书第2版_高清版</a></li>	
+<li><a href='https://pan.baidu.com/s/1z69IbpDEeKE6ZGkb65knIQ' title='4ot7'>数据结构与算法 Python语言描述_裘宗燕</a></li>	
+<li><a href='https://pan.baidu.com/s/1xhOo47cbDzMNjw6IGpItgQ' title='eb59'>数据结构C语言_严蔚敏 pdf</a></li>	
+<li><a href='https://pan.baidu.com/s/1_TuZcn1X9eBTo6ajNKy8Gg' title='xa9g'>妙趣横生的算法（C语言实现 第2版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1HXAbUS7Im98y94Z1D0lXAw' title='1gop'>漫画算法：小灰的算法之旅</a></li>	
+<li><a href='https://pan.baidu.com/s/1L7x7xr555ZtdKEglcn_TrQ' title='tc54'>剑指offer</a></li>	
+<li><a href='https://pan.baidu.com/s/1pQlaoYa93OvdN96Rg_NTPg' title='red5'>计算机程序设计艺术卷一：基本算法</a></li>	
+<li><a href='https://pan.baidu.com/s/1WtJrWZxBjqMIiBPX763p3w' title='lzrv'>计算机程序设计艺术卷三：排序与查找</a></li>	
+<li><a href='https://pan.baidu.com/s/146ZONlbvHPxxcM1pcn7cjA' title='xmtx'>计算机程序设计艺术卷二：半数值算法</a></li>	
+<li><a href='https://pan.baidu.com/s/1t95HTFBMzKnbqDtJxgStDw' title='qlsa'>大话数据结构</a></li>	
+<li><a href='(ttps://pan.baidu.com/s/1gHS_2D8ei9XP6lKMyi0STw' title='5ekq'>程序员面试金典</a></li>	
+<li><a href='https://pan.baidu.com/s/15ZafnNl_SIshoNa5HzGFJw' title='h7px'>程序员代码面试指南 IT名企算法与数据结构题目最优解（左程云著）</a></li>	
+<li><a href='https://pan.baidu.com/s/1KmK2RfXF1DDBAIiIsQIxCA' title='xxk1'>编程珠玑 英文第二版_Programming.Pearls</a></li>	
+<li><a href='https://pan.baidu.com/s/1I5V1PA_HGvhOE5vrkjFICQ' title='u5o4'>编程珠玑 第二版 人民邮电出版社</a></li>	
+<li><a href='https://pan.baidu.com/s/1JueKxuoY0vDvempFmJbCVw' title='tbip'>编程之美_完整版</a></li>	
+<li><a href='https://pan.baidu.com/s/1I83eiuNmMcmgyZO_ehfATA' title='r875'>背包九讲</a></li>	
+<li><a href='https://pan.baidu.com/s/16qg3chGyLy5ZXyedWsfzOg' title='ixdm'>啊哈！算法 哈磊</a></li>	
+<li><a href='https://pan.baidu.com/s/1LLwNSXF6Fr12QVzdwAOzaQ' title='o671'>Sedgewick_Algorithms</a></li>	
+<li><a href='https://pan.baidu.com/s/15PYAOtccMkkrAmnKZMZ_Kg' title='yhtu'>labuladong的算法小抄官方完整版</a></li>	
+<li><a href='https://pan.baidu.com/s/1_cYVZZ4YPi45nl4Z78EsSg' title='euof'>Java数据结构和算法.（第二版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1hyOGetACjWqruNfpmRkMdQ' title='9mpx'>JavaScrit数据结构与算法（第2版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1GGLrBkodMa_aw7qlSgimLA' title='kwde'>Cormen_Introduction to Algorithms</a></li>	
+<li><a href='https://pan.baidu.com/s/12IDLcj5xDAfp66MdIjr69w' title='mbjx'>cookbook_LeetCode</a></li>	
+</ol>
+<a name="p7"></a><h4>7 计算机系统知识</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1YJISmqHpnGdO2tz27FfWMw' title='y35y'>计算机组成与设计：硬件_软件接口</a></li>	
+<li><a href='https://pan.baidu.com/s/1l12egVH4bRPZCuesQhPpNw' title='aqhp'>计算机是怎样跑起来的</a></li>	
+<li><a href='https://pan.baidu.com/s/1jc5ayuGJpcf5A_nn4n3G8Q' title='2gnt'>程序员的自我修养—链接、装载与库_书签目录</a></li>	
+<li><a href='https://pan.baidu.com/s/1zc_4Hn2NEi4KXkpRL3cGyA' title='qt9j'>Patterson_Computer Organization and Design_The Hardware_Software Interface</a></li>	
+<li><a href='https://pan.baidu.com/s/1Mdi5SLq_MdxfqNFvrhv0FQ' title='gle6'>程序是怎样跑起来的</a></li>	
+<li><a href='https://pan.baidu.com/s/1y4hMFuc55ZaBhMuswMS6GQ' title='iyeh'>大话计算机</a></li>	
+<li><a href='https://pan.baidu.com/s/1Rrjv7hGNmuLtD6gYBNkuyw' title='g6in'>编码：隐匿在计算机软硬件背后的语言英文版</a></li>	</ol>
+<a name="p8"></a>
+<h4>8 计算机网路</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1T5lTH7T_LNLsh9X0yQKqLQ' title='pmhy'>网络是怎样连接的 (图灵程序设计丛书)</a></li>	
+<li><a href='https://pan.baidu.com/s/1jsiabyTcvMpaUpJWOf7kDA' title='j09w'>图解TCPIP(第5版)</a></li>	
+<li><a href='https://pan.baidu.com/s/128Nu3tuy6SolVnx546b83A' title='zssm'>图解HTTP</a></li>	
+<li><a href='https://pan.baidu.com/s/1X9n8dqtpdW5gsKLL2IdCVA' title='14lj'>计算机网络_自顶向下方法_第6版</a></li>	
+<li><a href='https://pan.baidu.com/s/1aEA_k5f43tL55LPxMbSw1w' title='8kxx'>计算机网络：自顶向下方法课后习题参考答案</a></li>	
+<li><a href='https://pan.baidu.com/s/1DIAMPFeMs6npr8WFaHFSWA' title='jvdp'>计算机网络：系统方法</a></li>	
+<li><a href='https://pan.baidu.com/s/14oWnxFKo5RifubnbOAK9lw' title='sj22'>计算机网络 第七版</a></li>	
+<li><a href='https://pan.baidu.com/s/1suXopOy54bYWkJP_VSuCCg' title='39nu'>Wireshark网络分析就这么简单</a></li>	
+<li><a href='https://pan.baidu.com/s/1IzKOUEN4PiLR8WY_noSsw' title='rds8'>Wireshark网络分析的艺术</a></li>	
+<li><a href='https://pan.baidu.com/s/1qRnZEvmDCrgmTc1T8zHg9A' title='9khg'>Wireshark 数据包分析实战（第二版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1VbdOGtHNaVADrFTzvm9J7w' title='amtv'>TCP源码分析</a></li>	
+<li><a href='https://pan.baidu.com/s/1_phwDLj4LRxnshVu4nnLig' title='8bi3'>TCP_IP详解卷三</a></li>	
+<li><a href='https://pan.baidu.com/s/18vCrvkVz7Vbh1DeAwHHtjg' title='13pc'>TCP_IP详解卷二：实现</a></li>	
+<li><a href='https://pan.baidu.com/s/1D5tatJHhgD3CYvZBR15fGA' title='cntl'>TCP_IP详解卷1：协议</a></li>	
+<li><a href='https://pan.baidu.com/s/1pgLjpm4w8pkOfsDA3fMUDg' title='9ci0'>HTTP权威指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1Y1zFNNGP11_tKhsgM6U0YA' title='euwy'>Http核心总结</a></li>	
+<li><a href='https://pan.baidu.com/s/1bvXn_RoJ5bWre_pej3FR1Q' title='vm4o'>Computer Networks, A Systems Approach</a></li>	
+<li><a href='https://pan.baidu.com/s/17oZK_jLBqq9aE4CIHA0UVw' title='3i1q'>Computer Networking_ A Top_down Approach</a></li>	</ol>
+<a name="p9"></a>
+<h4>9 操作系统</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1mhfGB1W79ANWMBH4_L3H9g' title='0vyr'>深入理解计算机系统 第3版</a></li>	
+<li><a href='https://pan.baidu.com/s/15sE9QPhlmdPovo0sSsTQ2g' title='wzwl'>操作系统真象还原</a></li>	
+<li><a href='https://pan.baidu.com/s/1hBunMA9vl71YcTLT1QWSJg' title='0hxr'>现代操作系统（第三版）中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1OTUmIXcyen8gZzuXRuGzQg' title='02pa'>自己动手写操作系统</a></li>	
+<li><a href='https://pan.baidu.com/s/1JWFdQ4SM3lCrIUQyEX_vGw' title='22ok'>分布式系统概念与设计 原书第5版</a></li>	
+<li><a href='https://pan.baidu.com/s/1J4WbxixRpXJqo8el_D0ZdA' title='gis3'>计算机系统要素_从零开始构建现代计算机</a></li>	
+<li><a href='https://pan.baidu.com/s/1OPsbGeLY_436FYhmxWpbeQ' title='jcdy'>操作系统之哲学原理 第2版</a></li>	
+<li><a href='https://pan.baidu.com/s/1_5IB307X6s9__wptejV0Yw' title='j06x'>现代操作系统_英文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1TG2VEwvMT_8hH58G2ir58A' title='4c8n'>编译原理</a></li>	
+<li><a href='https://pan.baidu.com/s/1AZPgXq4MF4cilnjytniU5g' title='9ejn'>操作系统概念</a></li>	
+<li><a href='https://pan.baidu.com/s/1lGeTl7FGJoLdsMszLJilyw' title='fw2i'>Orange's一个操作系统的实现</a></li>	
+<li><a href='https://pan.baidu.com/s/1HRran0kTUEvE4K3eMA2tqQ' title='hu5w'>操作系统精髓与设计原理 第8版</a></li>	
+<li><a href='https://pan.baidu.com/s/1YzQg_MyYnCm8fhMgdIubTQ' title='ahha'>CMU2017_Lab</a></li>	
+<li><a href='https://pan.baidu.com/s/10qdj612xnt3G6cPgG9hkig' title='fw2i'>操作系统精髓与设计原理 第9版</a></li>	
+<li><a href='https://pan.baidu.com/s/1zdquDVffnvOcVn_XqufFTQ' title='ntrl'>Compilers_ Principles, Techniques, and Tools</a></li>	
+<li><a href='https://pan.baidu.com/s/1F7_aRjuDEqPsqdc0onxfBA' title='ht4l'>30天自制操作系统 (图灵程序设计丛书)</a></li>	
+<li><a href='https://pan.baidu.com/s/1s9jnHvquefDZ6umoo9DOLg' title='4qc4'>Computer Systems_ A Programmer's Perspective</a></li>	
+</ol>
+<a name="p10"></a>
+<h4>10 Linux</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1NHOhAsqWZKc_T_fgAUdasA' title='1h66'>深入Linux内核架构 (图灵程序设计丛书·LinuxUNIX系列)</a></li>	
+<li><a href='https://pan.baidu.com/s/14zOVy3cffprJRKYn3GJdiQ' title='rszx'>鸟哥的Linux私房菜基础篇和服务器篇</a></li>	
+<li><a href='https://pan.baidu.com/s/1xefUULAlVaZM8o3bHlU7dg' title='m9op'>汇编语言基于linux环境第3版</a></li>	
+<li><a href='https://pan.baidu.com/s/1qNFDjWHNLpiJi1O60zkpbA' title='29gn'>UNIX网络编程卷2：进程间通信</a></li>	
+<li><a href='https://pan.baidu.com/s/1jQSnM2YPxwIiI9C03_hiQQ' title='bful'>UNIX网络编程卷1 API</a></li>	
+<li><a href='https://pan.baidu.com/s/1JssCdx2yrj_jgRSBxb2wBw' title='3dwv'>UNIX 环境高级编程 第3版</a></li>	
+<li><a href='https://pan.baidu.com/s/197bOSTAX8HvPgcLfa9g8HQ' title='n5xm'>Unix & Linux 大学教程</a></li>	
+<li><a href='https://pan.baidu.com/s/1XJTNNDGpkWO8eFwVkJgy3Q' title='mhca'>Linux系统命令及shell脚本实践指南linuxunix技术丛书</a></li>	
+<li><a href='https://pan.baidu.com/s/1ymU8j9jD5hC64qbqgCZWQg' title='xirl'>linux内核完全注释</a></li>	
+<li><a href='https://pan.baidu.com/s/1Wv5C956vEYZqPB5RuwqF2g' title='do5m'>Linux内核设计与实现 第3版_优先看</a></li>	
+<li><a href='https://pan.baidu.com/s/1ga9GEIXwMP1lG7yxMcwedg' title='7w4x'>Linux环境编程：从应用到内核</a></li>	
+<li><a href='https://pan.baidu.com/s/19tbW1jlQRY3vxBoRPo7EBA' title='80bx'>Linux高级程序设计_中文第三版杨宗德_人电出版社</a></li>	
+<li><a href='https://pan.baidu.com/s/1997I5p6pC_iFDjMaPSUr8w' title='n8p1'>LINUX防火墙（原书第3版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1zGL1MNe2DFv6CGbfw4GqWw' title='4hbs'>linux常用命令大全</a></li>	
+<li><a href='https://pan.baidu.com/s/10tvyBCSASP3efSmjv_csGQ' title='1t0f'>Linux_UNIX系统编程手册（下）</a></li>	
+<li><a href='https://pan.baidu.com/s/1i_ZyqSzGsRPXgUflDwoa9g' title='w21x'>Linux_UNIX系统编程手册（上）</a></li>	
+<li><a href='https://pan.baidu.com/s/1wybzOka0ihNuRl1keim_lA' title='epgt'>Linux 内核设计与实现</a></li>	
+<li><a href='https://pan.baidu.com/s/1YOaK_LWV805Qidgf5zSV3w' title='hd05'>Linux Kernel Development</a></li>	
+<li><a href='https://pan.baidu.com/s/1r05OlnyjxFkzDXFLPCkV3w' title='leyy'>Harley Hahn's Guide to UNIX and Linux</a></li>	
+<li><a href='https://pan.baidu.com/s/1G0PwwdpC_ph7je03S3DeMw' title='ahwd'>Advanced Programming in the UNIX Environment</a></li>	
+<li><a href='https://pan.baidu.com/s/1LEO4Oqw6ka0g_99QarF2hA' title='9wb9'>UNIX系统编程手册 下((德)Michael Kerrisk )PDF</a></li>	
+<li><a href='https://pan.baidu.com/s/1dKboHkt7DZrpLC9LEut9_w' title='iewr'>UNIX系统编程手册 上((德)Michael Kerrisk )PDF</a></li>	
+<li><a href='https://pan.baidu.com/s/1uER5GOHVweGZaKkRQyH3hQ' title='4fko'>[Linux命令详解词典.施威铭研究室.扫描版</a></li>	
+</ol>
+<a name="p11"></a>
+<h4>11 汇编语言</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1PaTbBKpgSUp1jMx2dUijHw' title='dggc'>老“码”识途 从机器码到框架的系统观逆向修炼之路</a></li>	
+<li><a href='https://pan.baidu.com/s/1QzIdEh_VHaPP6XpGfaQ1Eg' title='cocu'>汇编语言_王爽及相关资料</a></li>	
+<li><a href='https://pan.baidu.com/s/1SM5nwv4CuLk6_GqtZKtxhw' title='pq7k'>x86汇编语言：从实模式到保护模式_书籍及配套资料</a></li>	
+<li><a href='https://pan.baidu.com/s/1LsdD8mgaFUJQDco_OxTPkQ' title='4hpy'>80x86汇编语言程序设计教程</a></li>	
+</ol>
+
+<a name="p12"></a>
+<h4>12 数据库</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1Ez9ke2T7V4qW35FUAmN7Jg' title='6oi6'>数据库系统实现（第二版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1SUNmqAEzkf1MkmCP_kCLaQ' title='7bt0'>数据库系统概念</a></li>	
+<li><a href='https://pan.baidu.com/s/1pW8zB8wdes61jbIopBTJGg' title='kqe0'>数据库系统概念 中文第6版</a></li>	
+<li><a href='https://pan.baidu.com/s/1wLav_DtV3BZJypLpjttBVQ' title='70uf'>深入浅出MySQL++数据库开发、优化与管理维护+第2版+唐汉明</a></li>	
+<li><a href='https://pan.baidu.com/s/1LfZ8uVppAJEFyGcuk4UiRg' title='pofh'>高性能MySQL（第3版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1u2lq6T5ryyr4CoJbYsmihA' title='arpa'>分布式数据库系统原理.第3版</a></li>	
+<li><a href='https://pan.baidu.com/s/1T3vKI_LQM3eiMavkLMv88w' title='11nz'>分布式数据库系统 大数据时代新型数据库技术__于戈等编著_北京：机械工业出版社</a></li>	
+<li><a href='https://pan.baidu.com/s/1u72WTSU6Qdi4hG4D9BqUNw' title='lwrz'>SQL查询的艺术</a></li>	
+<li><a href='https://pan.baidu.com/s/1yN31qm6uv9jKt0YY71i2tA' title='2d4q'>SQLite 权威指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1k1hQuJaeBAJEULFxLPezwA' title='8mub'>Redis实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1yZJNVkPZBKk_AQOGKVo94A' title='pzt5'>Redis设计与实现</a></li>	
+<li><a href='https://pan.baidu.com/s/1R9SIiPksq3dXVySOH2RLzg' title='wvmm'>Redis开发与运维</a></li>	
+<li><a href='https://pan.baidu.com/s/1QagXepJ3d6kk1J1tP5R_CA' title='5lnc'>MySQL技术内幕 InnoDB存储引擎 第2版</a></li>	
+<li><a href='https://pan.baidu.com/s/1GAti_ZZlf2vjSD_6bIfdvg' title='dymm'>MongoDB权威指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1r9T5PITL8i6_UlxKtbx_OA' title='zfnb'>Database System Concepts</a></li>	
+<li><a href='https://pan.baidu.com/s/1rfa4c9BGQVU_Z9BXoyxXaw' title='l09b'>MySQL必知必会 PDF + 源码</a></li>	
+</ol>
+
+<a name="p13"></a>
+<h4>13 设计模式</h4><ol>	
+<li><a href='https://pan.baidu.com/s/1RXCPFpxM37YwX_7PRjCz3Q' title='zwdg'>研磨设计模式</a></li>	
+<li><a href='https://pan.baidu.com/s/13PyfbZHnkRHxnaCU_3rkwQ' title='0br5'>图解设计模式</a></li>	
+<li><a href='https://pan.baidu.com/s/1rM7wi9MfNVEIG1lSV3w5qQ' title='qz68'>敏捷开发_设计模式</a></li>	
+<li><a href='https://pan.baidu.com/s/1l74SrqIVV73nUHS_7ePKdQ' title='gl1g'>大话设计模式</a></li>	
+<li><a href='https://pan.baidu.com/s/19G30roT_Gnj7VnUBIwR6bw' title='b2zi'>HeadFirst设计模式（中文版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1tF9mOnn1vFcFfaBLGTVuwQ' title='oexz'>head first design patterns</a></li>	
+<li><a href='https://pan.baidu.com/s/1FqQppZl7PvJMyfyriHARRA' title='ikay'>C++版常见设计模式解析与实现</a></li>	
+</ol>
+<a name="p14"></a>
+<h4>14 前端</h4><ol>	
+<li><a href='https://pan.baidu.com/s/15IWDxYdXP4OcyluBIKLCWw' title='nydl'>深入浅出Node.js</a></li>	
+<li><a href='https://pan.baidu.com/s/1K2UQyUbMe_oegGg_VHTM1w' title='10do'>疯狂ajax讲义</a></li>	
+<li><a href='https://pan.baidu.com/s/1yxVKGe5lwywNnvU_M5G8cQ' title='eo8x'>nodebook</a></li>	
+<li><a href='https://pan.baidu.com/s/1V3DQAbzLbsHTwBphjUwsEQ' title='2al6'>Node.js开发指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1bUNWoXHRjPBxc9Wyf1lvGA' title='zd79'>jQuery权威指南</a></li>	
+<li><a href='https://pan.baidu.com/s/1e8RkLrhGauMZ17lPCvQiuQ' title='5nmk'>jQuery技术内幕 深入解析jQuery架构设计与实现原理</a></li>	
+<li><a href='https://pan.baidu.com/s/1iFPuyngbCf7kUhhDnZKSXg' title='92eh'>jQuery高级编程，中文完整扫描版</a></li>	
+<li><a href='https://pan.baidu.com/s/15llgSGXVBF_S9aiIcNe46Q' title='85r1'>javascript高级程序设计</a></li>	
+<li><a href='https://pan.baidu.com/s/1_vm_gzlWF4y4pMhgS_hzww' title='gur3'>Javascript 高效图形编程_中文版</a></li>	
+<li><a href='https://pan.baidu.com/s/1ePWPXYeNI_RgCULXgVhJaQ' title='qqr8'>HTML5与CSS3基础教程（第8版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1ni_7s0lrnzAyMdxnN4GWpg' title='stzj'>HTML5揭秘</a></li>	
+<li><a href='https://pan.baidu.com/s/1LXkMA1YOhB_92DDDSpj8vw' title='85ex'>Bootstrap实战</a></li>	
+<li><a href='https://pan.baidu.com/s/1hBpY37JTAI8i_UOJ_mdVcw' title='hfkq'>JavaScript高级程序设计（第3版）中文 高清</a></li>	
+<li><a href='https://pan.baidu.com/s/10Vgo1xnN4CdipsFKRyxixg' title='5hjh'>JavaScript.DOM编程艺术（第2版）</a></li>	
+<li><a href='https://pan.baidu.com/s/1L7Fr5vanqXPtqaobMruTXg' title='dcx2'>HTML与CSS入门经典(第7版)（美）奥利弗（美）莫里森.扫描版</a></li>	
+</ol>	
+
+
+<p style='float:right;'>本页共348段，34147个字符，40188 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
