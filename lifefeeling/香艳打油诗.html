@@ -1,0 +1,899 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>香艳打油诗</h4>
+
+
+<p><a href="https://www.zhihu.com/question/302826719" title="">有哪些比较骚气的古诗？</a></p>
+<p>一</p>
+<p>造化玄黄寓神机，娇娘胯间藏名器。</p>
+<p>菡萏两瓣凝花露，桃源一径入瑶池。</p>
+<p>丹青怎写酥软处，赋彩难染艳红时。</p>
+<p>偏是仓颉无赖子，妙物象形画作逼。</p>
+<p>二</p>
+<p>软香雕成玉门关，东风一度花已残。</p>
+<p>春情到时露方浸，雨意过处涧如澜。</p>
+<p>开阖但凭蛟龙入，盘旋只把玉杵缠。</p>
+<p>狂潮掩来花心动，烂漫娇蕊实堪怜。</p>
+<p>三</p>
+<p>柔脂交叠覆几重，萋萋仙草衬玉缝。</p>
+<p>花唇微绽羞难掩，艳蒂娇耸情已动。</p>
+<p>一腔绵滑沁春水，百重褶皱拂秋风。</p>
+<p>莫道风流穴池浅，偏能拨浪缚虬龙</p>
+<p>四</p>
+<p>无赖虬首探玉沟，潜入春池肆意游。</p>
+<p>伶俐龙茎通潭底，缠绵花蕊绕枪头。</p>
+<p>玉蚌翕合翻红肉，狂蟒起落卷白流。</p>
+<p>怜惜风雨摧折地，龙涎遍施作情酬。</p>
+<p>五</p>
+<p>蝴蝶展翅双飞翼，深不可测难见底。</p>
+<p>笔墨难表弹丸地，唯求长枪探幽秘。</p>
+<p>轻浮佻达赛泼皮，精华皆称它为逼</p>
+<p>六</p>
+<p>天生妙物腿间居，雅称玉户俗称逼。</p>
+<p>茸茸美髯红唇隐，幽幽秘洞甘露滴。</p>
+<p>无牙偏爱吃硬肉，嘴小却喜吞大鸡。</p>
+<p>最是令人销魂处，亦收亦缩亦吮吸！</p>
+<p>离地三尺一道沟,一年四季水长流。</p>
+<p>不见老牛来吃草,只见和尚去洗头。</p>
+<br>
+<p>女人有两个优点，但有一个漏洞；男人虽没有优点，却有一个长处；男人经常抓住女人两个优点，用自己长处弥补女人漏洞，这叫天衣无缝。</p><br>
+<p>男女为何结婚？男人想通了，女人想开了。又为何离婚？男人知道深浅了，女人知道长短了。</p><br>
+<p>一片春光景，双峰夹小溪，</p>
+<p>洞中花艳艳，户外草稀稀，</p>
+<p>有水鱼难养，无林鸟自栖，</p>
+<p>可叹方寸地，千古世人迷！</p><br>
+<p>洞中泉滴滴，野外草凄凄。 </p>
+<p>寻觅方寸地，多少世人迷。</p><br>
+<p>曲径通幽处，双峰夹小溪。</p>
+<p>洞内泉滴滴，洞外草萋萋。</p>
+<p>有水鱼难养，无林鸟亦栖。</p>
+<p>可怜芳草地，多少世人迷。</p><br>
+<p>嘿～嘿～嘿，刚翻过了两座山！又摸到了一条河，老刘的女女波大水又多！嘿嘿！吃俺老王一棒！杀她个罩也丢来裤也落！腿也发抖菊也哆嗦！捅出一条通天大道！宽又阔！</p><br>
+<p>乱草丛中一老贼，单枪匹马提两锤。不吃不渴还真肥，不晒太阳也好黑。 </p>
+<p>对面半山有个鬼，披头散发咧着嘴。 一口吞下这老贼，口外就剩两个锤。 </p>
+<p>老贼挣扎几分钟，不退反倒往前冲。 进进出出几百回，毛兵毛将来解围。 </p>
+<p>为首两颗黑地雷，猛似张飞和李逵。 恶鬼还是不撒嘴，一个劲地流口水。 </p>
+<p>后悔当初没长牙，要不肯定把你拿。 老贼越来个越大，两颗地雷要爆炸。 </p>
+<p>恶鬼心里有点怕，难道这厮开了挂。 老贼这时有点烦，知道自己非猛男。 </p>
+<p>高喊这事还没完，临走不忘吐口痰！</p><br>
+<h4>民国年间王骥叟所作《男女媾精赋》
+</h4>
+<p>露白风清，鸟啼花放。睹晨光而早起，比翼寻芳；带夕阳而晚归，得鱼谋醉。安步笋芽常握，背人樱颗尽尝。春满洞房，浅笑华灯之下；夜怜迟暮，低坐宝帐之时。互解罗襦，冰肌半露；共倚山枕，粉颊双偎。动幕熏风，逗起娇波连盼；透窗明月，偷看丽质横陈。听婉转之柔声，播来琴瑟；吐缠绵之情话，沁人心脾。秀色可餐，有时涎欲滴；热诚所感，不断肤相亲。拥柳腰妥帖酥胸，满怀玉暖；破檀口轻吐巧舌，喷鼻兰香。兴至神弛，妙手从而摸索；弩张剑拔，盲目起而周旋。</p>
+<p>时则玉杵动而肥，高耸威积，弃左右芳邻于居外；甘泉香而腻，缓流春水，膏一丛瑶草于溪边。笼烟峻岭回环，带雨天桃烂漫。一个酒窝清浅，半只瓶梨倒悬。双干外联，独仁中露；长缝上夹，细孔下通。薄薄猩唇掩，重重鸟道幽。软温离罩乳，圆润放歌喉。蚌珠潜伏兮待时，花蕊集聚兮当道。卷既无隙兮舒亦能保，滑可直前兮涩宜渐进。</p>
+<p>于是会师赤壁，问鼎中原，非寻歃血之盟，务穷不毛之地。昴起撞针顶点，俯对原子核心。谈笑指挥，宜深入不宜浅出；从容进展，许酣战不许投降。</p>
+<p>始而依草傍花，任蜂须细寻嫩蕊；继则穿帘绕屋，媵燕尾微露香巢。异味初尝，美若荔枝入口；霜锋小试，巧如石匠运斤。动态轻微，行迹迤俪；中流客与，曲径徘徊。兔藏兮窟满，龙现兮渊虚。含乳兮忘餐，浴波兮灭顶。洪纤合度，进退兮紧张；吞吐有方，迎送兮灵活。攘皓腕兮抑抱，举玉趾兮斜勾。细腰摆兮生姿，屈膝劳兮茹苦，臀相凑兮贴切，毛互融兮纠缠。心专于受用兮默默尔，肉感乎摩擦兮痒痒然。值辘轳之暂停兮内犹蠕动；当洞口之骤硷兮外若丝牵。秘戏声传，鼠抱头而曳尾；流芳浪毡，猫缩爪而凝眸。户外疑有足音，深虞窃听；窗外似闻人语，大惧潜窥。乍深乍浅，唯意所适；旋开旋合，应物而施；有急有徐，往还飞隼；如饥如渴，接喋游鱼。凤倒鸾颠，花样时翻饶有趣；面红耳热，呻吟叠起幸无伤。蹂躏枕席之秋，堪称健者；飘荡神魂之境，不亦仙子。</p>
+<p>及夫春兴正酣，芳心愈乱。悬旌之摇动无已；唧筒之纵送非常。穿梭织柳之莺，未足仿斯匆遽；久渴奔泉之骥，善可比其猖狂。于时，论灵感则契求声应；较实行则并驾齐驱。初辗转以纷揉，宁由自主；复狗孪之乍起，绝惹人怜。香汗淫淫，热浑难耐；娇喘细细，弱不禁支。蓦然一阵麻上来，堤崩蚁穴，思阻竭而忍穷；快哉霎时注下去，水涨琼池，势汪洋而满溢。</p>
+<p>尔乃风雨饱经，柳枝垂，莲瓣合；疆场暂清，战云散，兵气消。感佳酿之方酣，帐盛宴之遽砌。谢太傅东山再起，何可学耶；函谷关老子时来，斯为美耳。是时，亵衣久褪，着再无心；欢被已凉，重温有意。两情奔放，甫如愿而安闻；百体疏庸，姑随遇而修养。无语兮相向，不颤兮还偎。眉微敛兮非愁，齿微启兮非哭。臂弯弯兮绕颈，发扰扰兮披肩。股交叉而慰贴兮，气息渐臻于缓和；眼朦胧而倦开兮，神志顿趋于淡泊。</p>
+<p>俄而幻梦迷离，悲欢靡定，爱河游泳，甘苦迥殊。或同舞蝶双双，临风荡漾；或效飞蛾，扑火伤亡。生不可戕，欲何能纵，劝世间浪荡子，永绝狎邪之游；愿天下有情人，尽享唱随之乐。</p>
+<br>
+<p>浅酒人前共，软玉灯边拥，回眸入抱总合情，痛痛痛。轻把郎推，渐闻声颤，微惊红涌。试与更番纵，全没些儿缝，这回风味成颠狂，动动动，臂儿相兜，唇儿相凑，舌儿相弄</p>
+<p>——宋徽宗</p>
+<h4>白朴《墙头马上》</h4>
+<p>红绫被，象牙床，怀中搂抱可意郎。情人睡，脱衣裳，口吐舌尖赛沙糖。叫声哥哥慢慢耍，休要惊醒我的娘。可意郎，俊俏郎，妹子留情你身上。床儿侧，枕儿偏，轻轻挑起小金莲。身子动，屁股颠，一阵昏迷一阵酸。叫声哥哥慢慢耍，等待妹子同过关。一时间，半时间，惹得魂魄飞上天。</p>
+<h4>芳闺十胜</h4>	</p>
+<p>云鬟	</p>
+<p>梳罢香丝扰扰蟠，笑将金凤带斜安。	</p>
+<p>玉容得汝多妆点，秀媚如云若可餐。	</p>
+<p>鸦色腻，雀光寒，风流偏胜枕边看。	</p>
+<p>雪股	</p>
+<p>娟娟白雪绛裙笼，无限风情屈曲中。	</p>
+<p>小睡起来娇怯力，和身款款倚帘栊。	</p>
+<p>水骨嫩，玉山隆，鸳鸯衾里挽春风。	</p>
+<p>凤眼	</p>
+<p>波水溶溶一点清，看花玩月特分明。	</p>
+<p>嫣然一段撩人处，酒后朦胧梦思盈。	</p>
+<p>梢带媚，角传情，相思几处泪痕生。	</p>
+<p>蛾眉	</p>
+<p>淡月弯弯浅效颦，含情不尽亦精神。	</p>
+<p>低头想是思张敞，一抹罗纹巧簇春。	</p>
+<p>山样翠，柳般新，菱花镜里净无尘。	</p>
+<p>金莲	</p>
+<p>龙金点翠凤为头，衬出莲花双玉钩。	</p>
+<p>尖小自怜行步怯，秋千裙里任风流。	</p>
+<p>穿花径，上小楼，浅尘窄印任人愁。	</p>
+<p>玉笋	</p>
+<p>春葱玉削美森森，袖拥香罗粉护深。	</p>
+<p>笑燃花枝能索巧，更怜留别解牵襟。	</p>
+<p>机中字，弦上音，纤纤红用漫传心。	</p>
+<p>柳腰	</p>
+<p>娇柔一捻出尘寰，端的丰标胜小蛮。	</p>
+<p>学得时妆官洋细，不禁袅娜带围宽。	</p>
+<p>低舞月，紧垂环，几会云雨梦中攀。	</p>
+<p>酥乳	</p>
+<p>脉脉双含绛小桃，一团莹软酿琼缪。	</p>
+<p>等闲不许春风见，玉扣红绡束自牢。	</p>
+<p>温比玉，腻如膏，醉来入手兴偏豪。	</p>
+<p>粉颈	</p>
+<p>霜肌不染色融圆，雅媚多生蟾鬓边，	</p>
+<p>钩挽不妨香粉褪，倦来常得枕相怜。	</p>
+<p>娇滴滴，嫩娟娟，每劳引望怅佳缘。	</p>
+<p>朱唇	</p>
+<p>胭脂染就丽红妆，半启犹含茉莉芳。	</p>
+<p>一种香甜谁识得，殷勤帐里付情郎。	</p>
+<p>桃含颗，榴破房，衔影霞杯入瑶觞。	</p>
+<h4>春宵十咏</h4>	</p>
+<p>其一</p>
+<p>少年红粉共风流，锦帐春宵恋不休。	</p>
+<p>兴魄罔知来宾馆，狂魂疑似入仙舟。	</p>
+<p>脸红暗染胭脂汗，面白误污粉黛油。	</p>
+<p>一倒一颠眠不得，鸡声唱破五更秋。	</p>
+<p>其二</p>
+<p>对垒牙床起战戈，两身合一暗推磨。	</p>
+<p>菜花戏蝶吮花髓，恋蜜狂蜂隐蜜窠。	</p>
+<p>粉汗身中干又湿，去鬟枕上起犹作。	</p>
+<p>此缘此乐真无比，独步风流第一科。	</p>
+<p>其三</p>
+<p>梅花帐里笑相从，兴逸难当屡折冲。	</p>
+<p>百媚生春魂自乱，三峰前采骨都融。	</p>
+<p>情超楚王朝云梦，乐过冰琼晓露踪。	</p>
+<p>当恋不甘纤刻断，鸡声漫唱五更钟。	</p>
+<p>其四</p>
+<p>二八娇娆冰月精，道旁不吝好风情。	</p>
+<p>花心柔软春含露，柳骨藏蕤夜宿莺。	</p>
+<p>枕上云收又困倦，梦中蝶锁几纵横。	</p>
+<p>倚缘天借人方便，玉露为凉六七更。	</p>
+<p>其五</p>
+<p>如此风流兴莫支，好花含笑雨淋漓。	</p>
+<p>心慌枕上颦西子，体倦床中洗禄儿。	</p>
+<p>妙外不容言语状，娇时偏向眼眉知。	</p>
+<p>何须再道中间事，连理枝头连理枝。	</p>
+<p>其六</p>
+<p>邸深人静快春宵，心絮纷纷骨尽消。	</p>
+<p>花叶曾将花蕊破，柳垂复把柳枝摇。	</p>
+<p>金枪鏖战三千阵，银烛光临七八娇。	</p>
+<p>不碍两身肌骨阻，更祛一卷去云桥。	</p>
+<p>其七</p>
+<p>仙子娇娆骨肉均，芳心共醉碧罗茵。	</p>
+<p>情深既肇桃源会，妙蹙西施柳叶颦。	</p>
+<p>洞里泉生方寸地，花间蝶恋一团春。	</p>
+<p>分明汝我难分辨，天赐人间吻合人。	</p>
+<p>其八</p>
+<p>花兵月阵暗交攻，久惯营城一路通。	</p>
+<p>白雪消时还有白，红花落尽更无红。	</p>
+<p>寸心独晓泉流下，万乐谁知火热中。	</p>
+<p>信是将军多便益，起来却是五更钟。	</p>
+<p>两身香汗暗沾濡，阵阵春风透玉壶。	</p>
+<p>乐处疏通迎刃剑，浙机流转走盘珠。	</p>
+<p>褥中推枕真如醉，酒后添杯争似无。	</p>
+<p>一点花心消灭尽，文君谩吁瘦相如。	</p>
+<p>其十</p>
+<p>暗芳驱迫兴难禁，洞口阳春浅复深。	</p>
+<p>绿树带风翻翠浪，红花冒雨透芳心。	</p>
+<p>几番枕上联双玉，寸刻闱中当万金。	</p>
+<p>尔我谩言贪此乐，神仙到此也生淫。	</p>
+<h4>风月十绝</h4>	</p>
+<p>1</p>
+<p>昨夜东风透玉壶，零零湛露滴真珠。	</p>
+<p>寄言未问飞琼道，曾识人间此乐无？	</p>
+<p>2</p>
+<p>一线春风透海棠，满身香汗湿罗裳。	</p>
+<p>个中好趣惟心觉，体态惺忪意味长。	</p>
+<p>3</p>
+<p>脸脂腮粉暗交加，浓露于今识翠华。	</p>
+<p>春透锦衾红浪涌，流莺飞上小桃花。	</p>
+<p>4</p>
+<p>宝鸭香消烛影低，波翻细浪枕边欹。	</p>
+<p>一团春色融怀抱，口不能言心自知。	</p>
+<p>5</p>
+<p>葡萄软软蛰酥胸，但觉形销骨节熔。	</p>
+<p>此乐不知何处是，起来携手问东风。	</p>
+<p>6</p>
+<p>淡淡溶溶总是春，不知何物是吾身。	</p>
+<p>自惊天上神仙降，却笑阳台梦不真。	</p>
+<p>7</p>
+<p>形体虽殊气味通，天然好合自然同。	</p>
+<p>相怜相爱相亲处，尽在津津一点中。	</p>
+<p>8</p>
+<p>半夜牙床戛玉鸣，小桃枝上宿流莺。	</p>
+<p>露华湿破胭脂体，一段春娇画不成。	</p>
+<p>9</p>
+<p>烛尽香消夜悄然，洞房别是一番天。	</p>
+<p>若教当日襄王识，肯向阳台梦倒颠？	</p>
+<p>10</p>
+<p>鱼水相投气味真，不胶不漆自相亲。	</p>
+<p>两身忘却谁为我，恐是天生连理人。</p>
+<h4>《子夜歌》其三 （唐）晁采</h4>	</p>
+<p>何时得成匹，离恨不复牵。	</p>
+<p>金针刺菡萏，夜夜得见莲。	</p>
+<h4>情诗五首（西晋）张华</h4>	</p>
+<p>【其一】	</p>
+<p>北方有佳人，端坐鼓鸣琴。	</p>
+<p>终晨抚管弦，日夕不成音。	</p>
+<p>忧来结不解，我思存所钦。	</p>
+<p>君子寻时役，幽妾怀苦心。	</p>
+<p>初为三载别，于今久滞淫。	</p>
+<p>昔耶生户牖，庭内自成阴。	</p>
+<p>翔鸟鸣翠偶，草虫相和吟。	</p>
+<p>心悲易感激，俛仰泪流衿。	</p>
+<p>愿托晨风翼，束带侍衣衾。	</p>
+<p>【其二】	</p>
+<p>明月曜清景，昽光照玄墀。	</p>
+<p>幽人守静夜，回身入空帷。	</p>
+<p>束带俟将朝，廓落晨星稀。	</p>
+<p>寐假交精爽，觌我佳人姿。	</p>
+<p>巧笑媚欢靥，联娟眸与眉。	</p>
+<p>寤言增长叹，凄然心独悲。	</p>
+<p>【其三】	</p>
+<p>清风动帷帘，晨月照幽房。	</p>
+<p>佳人处遐远，兰室无容光。	</p>
+<p>襟怀拥虚景，轻衾覆空床。	</p>
+<p>居欢惜夜促，在戚怨宵长。	</p>
+<p>拊枕独啸叹，感慨心内伤。	</p>
+<p>【其四】	</p>
+<p>君居北海阳，妾在江南阴。	</p>
+<p>悬邈修涂远，山川阻且深。	</p>
+<p>承欢注隆爱，结分投所钦。	</p>
+<p>衔恩笃守义，万里托微心。	</p>
+<p>【其五】	</p>
+<p>游目四野外，逍遥独延伫。	</p>
+<p>兰蕙缘清渠，繁华荫绿渚。	</p>
+<p>佳人不在兹，取此欲谁与。	</p>
+<p>巢居知风寒，穴处识阴雨。	</p>
+<p>不曾远别离，安知慕俦侣。	</p>
+<h4>六 忆 诗 沈 约</h4>	</p>
+<p>忆来时，灼灼上阶墀。	</p>
+<p>勤勤叙别离，慊慊道相思。	</p>
+<p>相看常不足，相见乃忘饥。	</p>
+<p>忆坐时，点点罗帐前。	</p>
+<p>或歌四五曲，或弄两三弦。	</p>
+<p>笑时应无比，嗔时更可怜。	</p>
+<p>忆食时，临盘动容色，	</p>
+<p>欲坐复羞坐，欲食复羞食。	</p>
+<p>含哺如不饥，擎瓯似无力。	</p>
+<p>忆眠时，人眠强未眠。	</p>
+<p>解罗不待劝，就枕更须牵。	</p>
+<p>复恐傍人见，娇羞在烛前。	</p>
+<h4>六 忆 诗 明·柳如是</h4>	</p>
+<p>忆眠时，锦帐下头边。	</p>
+<p>凤钗佯憨夺，桃衫倚醉牵。	</p>
+<p>为怜婉转意，红烛不移前。	</p>
+<p>忆起时，婉转月阶上。	</p>
+<p>零妆斟意审，欢气自随向。	</p>
+<p>神绪难久藏，因风托思想。	</p>
+<p>忆坐时，溶漾自然生。	</p>
+<p>习适久华会，方意徘徊成。	</p>
+<p>形影春风里，窈窕共一情。	</p>
+<p>忆来时，金剪阁妆台。	</p>
+<p>渐听玉摇近，遥知绣帘开。	</p>
+<p>步难花砌稳，香隔翠屏猜。	</p>
+<h4>《娈童》萧纲</h4>	</p>
+<p>娈童娇艳质，践董复超瑕。	</p>
+<p>羽帐晨香满，珠帘夕漏赊。	</p>
+<p>翠被含鸳色，雕床镂象牙。	</p>
+<p>妙年同小吏，姝貌比朝霞。	</p>
+<p>袖裁连璧锦，笺织细穜花。	</p>
+<p>揽袴轻红出，回头双髩斜。	</p>
+<p>懒眼时含笑，玉手乍攀花。	</p>
+<p>怀猜非后钓，密爱似前车。	</p>
+<p>足使燕姬妬，弥令郑女嗟。	</p>
+<h4>夜听妓诗（南北朝·萧纲）</h4>	</p>
+<p>合欢蠲忿叶，萱草忘忧条。</p>
+<p>何如明月夜，流风拂舞腰。	</p>
+<p>朱唇随吹尽，玉钏逐弦摇。</p>
+<p>留宾惜残弄，负态动余娇。	</p>
+<h4>《咏内人昼眠》萧纲</h4>	</p>
+<p>北窗聊就枕，南檐日未斜。	</p>
+<p>攀钩落绮帐，插捩举琵琶。	</p>
+<p>梦笑开娇靥，眠鬓压落花。	</p>
+<p>簟文生玉腕，香汗浸红纱。	</p>
+<p>夫婿恒相伴，莫误是倡家。	</p>
+<h4>美 女 篇 萧纲</h4>	</p>
+<p>佳丽尽关情，风流最有名。	</p>
+<p>约黄能效月，裁金巧作星。	</p>
+<p>粉光胜玉靓，衫薄拟蝉轻。	</p>
+<p>密态随流脸，娇歌逐软声。	</p>
+<p>朱颜半已醉，微笑隐香屏。	</p>
+<h4>浣溪沙 欧阳炯</h4>	</p>
+<p>相见休言有泪珠，酒阑重得叙欢娱，凤屏鸳枕宿金铺。	</p>
+<p>兰麝细香闻喘息，绮罗纤缕见肌肤，此时还恨薄情无。	</p>
+<h4>《沁园春》词</h4>
+<p>清人陈玉璂有一阙《沁园春》词，更是把女人的乳房的美推向了极致</p>
+<p>拥雪成峰，挼香作露，宛象双珠，想初逗芳髻，徐隆渐起，频拴红袜，似有仍无，菽发难描，鸡头莫比，秋水为神白玉肤，还知否？问此中滋味，可以醍醐。	</p>
+<p>罗衣解处堪图看，两点风姿信最都，似花蕊边傍微匀玳瑁，玉山高处，小缀珊瑚。浴罢先遮，裙松怕褪，背立银红喘未苏。谁消受，记阿候眠着，曾把郎呼。	</p>
+<h4>春情词 关汉卿</h4>	</p>
+<p>云类雾鬓胜堆鸦，浅露金莲湿绛纱；不比等闲墙外花。骂你俏冤家，一半儿难当一半儿耍。碧纱窗外静无人，跪在床前忙要亲；骂了个负心回转身。虽是话儿滇，一半儿推辞一半儿肯。	</p>
+<p>人间嫁娶苦奔忙，无非只为有阴阳。天勿与我人身相，则当人生梦一场。贫道紫阳宫石道姑便是。俗家原不姓石，则因生下来是石女，所以为人所弃，故号“石姑”。《千字文》中有我几句。我养下来“形端表正”，“性静情逸”。只可惜那“钜野洞庭”，偏和你灭了缝，“昆池碣石”，本待守娘家“孝当竭力”。母亲说你 “毛施淑姿”，和人家要有个“上和下睦”， “夫唱妇随”。便请了个会说话的媒人，许了个大鼻子女婿。洞房那一夜，他则待阳台上“龙腾致雨”，怎生巫峡内“露结为霜”。他一时摸不出路道，累的他凿不窍皮混沌的“天地玄黄”。 〔牡丹亭〕	</p>
+<p>绿窗倦倚鬓云斜；粉汗凝香湿绛纱。	</p>
+<p>遥想日长人不到；闲将金剪剪榴花。	</p>
+<p>春风徐来绽牡丹；洞庭香雾嗡椒兰。	</p>
+<p>含情惯作云雨客；鸳枕多情恐夜长。	</p>
+<p>路入桃源小洞天；乱红飞处遇婵娟。	</p>
+<p>玉貌花容难自弃；愿作阳台云雨仙。	</p>
+<h4>龙安寺佳人阿最歌八首</h4> 
+<p>其一（唐·李群玉）	</p>
+<p>团团明月面，冉冉柳枝腰。	</p>
+<p>未入鸳鸯被，心长似火烧。	</p>
+<p>其二（唐·李群玉）	</p>
+<p>见面知何益，闻名忆转深。	</p>
+<p>拳挛荷叶子，未得展莲心。	</p>
+<p>其三（唐·李群玉）	</p>
+<p>欲摘不得摘，如看波上花。	</p>
+<p>若教亲玉树，情愿作蒹葭。	</p>
+<h4>古代情诗艳词</h4>	</p>
+<p>世间万物真稀奇；两岸绿荫夹一溪。	</p>
+<p>洞口有泉浪滚滚；门外无路草凄凄。	</p>
+<p>花在深山蜂难采；巢处山腰鸟不栖。	</p>
+<p>唯有老僧常来此；每次归去醉如泥。	</p>
+<br>
+<p>白胜梨花红胜桃；黄金弱柳逊细腰。	</p>
+<p>若非国色天仙种；安得姿容绝世娇。	</p>
+<br>
+<p>月白风清凉夜何；静中思动意差讹。	</p>
+<p>雪山巢穴芦穿膝；铁杵成针石上磨。	</p>
+<br>
+<p>帘幕低垂掩洞房；绿窗寂寞锁流光。	</p>
+<p>近来情绪浑萧瑟；春色依依上海棠。	</p>
+<br>
+<p>塞下霜归满地黄；相思尽处已断肠。	</p>
+<p>好知一夜秦关梦；软语商量到故乡。	</p>
+<br>
+<p>脸似桃花眉似柳；天生一点樱桃口。	</p>
+<p>未语娇羞两颊红；小巧身材嫩如藕。	</p>
+<p>古来薄命是红颜；飘泊东西难见怜。	</p>
+<p>掩泪每时闻杜鸟；断肠尽日听啼猿。	</p>
+<p>村酒山醪偏惹醉；墙花路草愈争艳。	</p>
+<p>漫言老蚌生珠易；先道蓝田种玉闲。	</p>
+<br>
+<p>洞房终日醉流霞；闲却东风一枝花。	</p>
+<p>问得细君心内允；双双携手过邻家。	</p>
+<p>高髻盘云压翠翘；春风并立海棠娇。	</p>
+<p>银筝象板花前醉；胜似东吴大小乔。	</p>
+<p>销尽炉香独倚门；琵琶声断月黄昏。	</p>
+<p>愁心正恐花相笑；不敢花前拭泪痕。	</p>
+<p>睡起无言倚绣床；不薰麝兰不施妆。	</p>
+<p>数声长叹流清泪；万种离愁恼寸肠。	</p>
+<p>脉脉有怀传侍女；恹恹无病惹心香。	</p>
+<p>最怜憔悴黄昏后；月转花梢玉漏长。	</p>
+<p>绿暗红藏起暝烟；独将幽情小庭前。	</p>
+<p>重重良夜与谁语；星隔银河月半天。	</p>
+<p>芙蓉作帐锦重重；比翼和鸣玉漏中。	</p>
+<p>共道瑶池春似海；月明飞下一双鸿。	</p>
+<br>
+<p>一双明月挂胸前；紫晶葡萄碧玉圆。	</p>
+<p>夫妻调情倚怅下；金茎几点露珠悬。	</p>
+<br>
+<p>香缳三尺绾芙蓉；翠耸巫山雨后峰。	</p>
+<p>斜依玉床春色美；鸦翎蝉翼半蓬松。	</p>
+<p>象牙筠箪碧纱笼；绰约佳人睡正浓。	</p>
+<p>半抹晓烟笼芍药；一泓秋水浸芙蓉。	</p>
+<p>神游蓬岛三千界；梦绕巫山十二峰。	</p>
+<p>谁把棋声惊觉后；起来香汗湿酥胸。	</p>
+<p>桂殿焚香酒半醒；露华如水点银屏。	</p>
+<br>
+<p>含情欲诉心中事；羞见牵牛织女星。	</p>
+<p>溶溶春水漾琼瑶；两岸菰蒲长绿苗。	</p>
+<p>只恐凤楼人待久；玉鞭催马上鹊桥。	</p>
+<p>半帘明月影瞳瞳；照见鸳鸯锦帐中。	</p>
+<br>
+<p>梦里玉人方下马；满阶秋雨湿梧桐。	</p>
+<p>素馨花发暗香飘；一支斜簪插软鞘。	</p>
+<p>宝马未归新月上；红罗帐里闹春宵。	</p>
+<p>桂轮斜落粉楼中；漏水叮咚烛影红。	</p>
+<p>露湿暗香珠翠冷；鸳鸯交颈情正浓。	</p>
+<p>春衫初试入红绡；柔情似水玉步摇。	</p>
+<p>日午卷帘风力软；落花飞絮满鹊桥。	</p>
+<p>红摇花烛二更过；妆就风流体态多。	</p>
+<p>织女莫教郎待久；速驾鹊桥渡银河。	</p>
+<p>鸾凤相交颠到颠；武陵春色会神仙。	</p>
+<p>红回杏脸金钗坠；浅蹙娥眉云鬓偏。	</p>
+<p>衣惹粉花香雪散；帕沾桃浪嫩红鲜。	</p>
+<p>迎晖轩下情无限；绝是人间一洞天。	</p>
+<p>枕绘鸳鸯久与栖；新栽雾觳斗神鸡。	</p>
+<p>与郎酣梦浑忘晓；鸡亦留连不肯啼。	</p>
+<br>
+<p>十五六岁窈窕娘；背人灯下卸红妆。	</p>
+<p>春风吹入芙蓉帐；一枝梨花压海棠。	</p>
+<br>
+<p>无意寻春恰遇春；一回见面一回新。	</p>
+<p>枕边细说相别后；夜夜相思入梦频。	</p>
+<p>碧窗无主自纤纤；桂影扶疏玉漏严。	</p>
+<p>秋浦芙蓉偏献笑；半窗斜月水晶帘。	</p>
+<br>
+<p>（新婚闹洞房新郎新娘谢客诗）男	</p>
+<p>诸君不必苦相邀；百年夫妻会今宵。	</p>
+<p>天上织女银河等；好待牛郎渡鹊桥。	</p>
+<p>（女）	</p>
+<p>谢天谢地谢诸君；我乃裙钗怎会吟。	</p>
+<p>记得古诗有一首；春宵一刻值千金。	</p>
+<br>
+<p>月夜青楼倒玉壶；美人乘醉洁氍毹。	</p>
+<p>冰肌蟾魄争明艳；雪态花阴半有无。	</p>
+<p>初起带羞呼伴拭；乍行含笑倩人扶。	</p>
+<p>淋漓快入芙蓉帐；枕上低声唱鹧鸪。	</p>
+<p>情郎欲待整归鞭；清泪临风可续缘。	</p>
+<p>任是铜肝铁汉子；也教心软再留连。	</p>
+<br>
+<p>诗掩蝉纱怯晚风；碧梧垂影路西东。	</p>
+<p>自从金谷无春到；谁信蓝桥有路通。	</p>
+<p>良玉杯惊鹦鹉绿；精金带束荔枝红。	</p>
+<p>鸳鸯帐里欣翻起；羞对红颜两鬓蓬。	</p>
+<p>梦断行云会晤难；翠壶银剑漏初长。	</p>
+<p>鸳鸯枕上香犹在；雀扇题诗墨未干。	</p>
+<p>满院落花春事晚；绕庭芳草雨声寒。	</p>
+<p>纤指柔抱娇喘轻；博得郎君一笑看。	</p>
+<p>罗袖动香香不已；红叶袅袅秋烟里。	</p>
+<p>轻云岭上舞摇风；嫩柳池边鸳鸯戏。	</p>
+<p>误入宫墙漏催人；月华清洗玉阶尘。	</p>
+<p>自疑飞到蓬莱顶；身压琼芳半夜春。	</p>
+<p>西湖著眼事应非；倚槛临流吊落晖。	</p>
+<p>昔日燕莺曾共舞；今宵鸾凤又双飞。	</p>
+<br>
+<p>采采珍禽世罕俦；天生佳偶对风流。	</p>
+<p>丹心不改同心愿；翠羽相辉每共游。	</p>
+<p>齐瓦对眼金殿晚；点沙双蹲玉田秋。	</p>
+<p>此身莫遣轻别离；交颈成双到白头。	</p>
+<p>倚翠偎红情最奇；巫山黯黯雨云迷。	</p>
+<p>风流好似偷香蝶；才过东来又向西。	</p>
+<p>俄然云雨弄春阴；玉山齐倒绛帷深。	</p>
+<p>须知此乐更何寻；鸳鸯枕上情难禁。	</p>
+<p>越罗衫袂迎春风；玉刻麒麟腰带红。	</p>
+<p>楼头曲宴仙人语；帐底吹笙香雾浓。	</p>
+<br>
+<p>情同牛女隔天河；又喜秋来得一过。	</p>
+<p>岁岁寄郎身上服；丝丝是妾手中梭。	</p>
+<p>剪声自觉和肠断；线脚哪能抵泪多。	</p>
+<p>长短只依先前样；不知肥瘦近如何。	</p>
+<p>神女初离碧玉阶；彤云犹拥牡丹开。	</p>
+<p>知道相公怜玉腕；故将纤手整金钗。	</p>
+<p>落尽棠梨水拍堤；凄凉芳草梦中迷。	</p>
+<p>无情最是枝头鸟；不管人愁只管啼。	</p>
+<p>上苑笙歌锦绣乡；仙郎得意正疏狂。	</p>
+<p>谁知憔悴幽闺质；日觉春衣丝带长。	</p>
+<p>风透纱窗月影寒；鬓云撩乱晚妆残。	</p>
+<p>胸前罗带无颜色；尽是相思泪染斑。	</p>
+<p>目似秋波鬓似云；绣帘深处见红裙。	</p>
+<p>东风袅袅吹香气；美人夜夜入梦频。	</p>
+<p>海天漠漠彩鸾飘；争奈文箫有意邀。	</p>
+<p>自分不殊花夜合；含香和露乐逍遥。	</p>
+<br>
+<p>百草斜连一道开；为情翻作云雨台。	</p>
+<p>春风尚恋人间乐；梨花海棠一处栽。	</p>
+<p>红兰吐艳舞夭桃；自喜行芳到重宵。	</p>
+<p>珠帘鹊桥从此夜；翻云覆雨任逍遥。	</p>
+<p>冷落珠帘二十秋；今宵始脱翠云裘。	</p>
+<p>仙郎慢著鸾凤舞；请放桃红汨汨流。	</p>
+<p>风动荷花水殿香；姑苏台上宴吴王。	</p>
+<p>西施醉舞娇无力；笑倚东窗白玉床。	</p>
+<p>旧苑芳台杨柳新；菱歌清唱不胜春。	</p>
+<p>夜深不识桃源路；和露带霜暗消魂。	</p>
+<p>绿窗倦倚鬓云斜；粉汗凝香湿绛纱。	</p>
+<p>遥想日长人不到；闲将金剪剪榴花。	</p>
+<p>春风徐来绽牡丹；洞庭香雾嗡椒兰。	</p>
+<p>含情惯作云雨客；鸳枕多情恐夜长。	</p>
+<p>路入桃源小洞天；乱红飞处遇婵娟。	</p>
+<p>玉貌花容难自弃；愿作阳台云雨仙。	</p>
+<p>芳树吐花红浸雨；入帘飞絮不经风。	</p>
+<p>绿添杏色莺舒柳；粉落脂香雪覆松。	</p>
+<p>瓜入瓮瓶难相弃；藕茎莲丝嚼嫩鲜。	</p>
+<p>斜笋近阶穿石透；小莲抽梢出荷尖。	</p>
+<p>楼上残灯伴晓霜；独眠人起合欢床。	</p>
+<p>相思一夜情多少；天涯海角不算长。	</p>
+<br>
+<p>满窗明月满窗霜；被冷香消拂卧床。	</p>
+<p>燕子楼中更漏永；秋宵只为一人长。	</p>
+<p>晓来扶病镜台前；无力梳头任鬓偏。	</p>
+<p>消瘦浑如江上柳；东风日月起还眠。	</p>
+<p>宝篆香销烛影低；枕屏摇动雏凤啼。	</p>
+<p>风流好似鱼游水；才过东来又向西。	</p>
+<p>误入蓬莱顶上来；芙蓉芍药两边开。	</p>
+<p>此身得似偷香蝶；游戏花丛不肯回。	</p>
+<br>
+<p>庾岭清香一树梅；凌寒不许蝶蜂来。	</p>
+<p>料应一点春消息；留向孤山处士开。	</p>
+<p>栏杆闲倚日偏长；短笛无情诉衷肠。	</p>
+<p>安得身轻如燕子；展翅容易到君旁。	</p>
+<p>谁教窄路恰相逢；脉脉灵犀一点通。	</p>
+<p>最恨无情芳草路；匿兰含蕙各西东。	</p>
+<p>夜色沉沉月满庭；是谁吹彻绕云声。	</p>
+<p>匆匆只管翻新调；哪管催花风雨频。	</p>
+<p>行云一梦绕巫山；懒向台前理旧装。	</p>
+<p>憔悴不胜羞对镜；为谁梳洗整容光。	</p>
+<p>雪面澹娥天上女；凤箫鸾翅欲飞去。	</p>
+<p>玉钗碧翠步无尘；楚腰如柳不胜春。	</p>
+<p>洞口飞琼佩羽霓；香风飘拂使人迷。	</p>
+<p>自从邂后芙蓉帐；不数桃花流水溪。	</p>
+<br>
+<p>兰径香销玉辇踪；梨花不忍负春风。	</p>
+<p>绿窗深锁怕人见；同碾桃花步蟾宫。	</p>
+<p>牙床锦被绣芙蓉；金鸭香消宝帐重。	</p>
+<p>竹叶羊羔来别院；何时偷敲景阳钟。	</p>
+<p>淡月轻寒透碧纱；窗屏睡梦听啼鸦。	</p>
+<p>春风不管愁深浅；夜夜锦帐扫落花。	</p>
+<br>
+<p>行云行雨待楚王；从前错怪野鸳鸯。	</p>
+<p>守宫落尽鲜红色；明日低头出洞房。	</p>
+<p>雁杳鱼沉各一天；为君终日泪潸然。	</p>
+<p>孤蓬今夜烟波外；重调琵琶了宿缘。	</p>
+<p>往事凄凉似梦中；香奁人去玉台空。	</p>
+<p>伤心最是秦淮月；还对深闺烛影红。	</p>
+<p>雕梁画栋栖双燕；展叶荷钱吐梢频。	</p>
+<p>腰细褪裙罗带缓；销魂暗湿翠围屏。	</p>
+<p>海棠开处燕来时；折得东风笫一枝。	</p>
+<p>鸳枕且酬交颈愿；鱼笺莫赋断肠诗。	</p>
+<p>桃花染帕春先透；柳叶蛾黄画末迟。	</p>
+<p>不用同心双结带；新人原是旧相知。	</p>
+<p>深榭韶光染色浓；雀屏催开倩东风。	</p>
+<p>只愁夕露凝珠冷；最怕春寒损玉容。	</p>
+<p>嫩蕊折时飘蝶粉；芳心破处点腥红。	</p>
+<p>层楼窈窕梦寐中；绣幄无情十二重。	</p>
+<p>移壁回窗费几朝；指环偷解薄兰椒。	</p>
+<p>无端斗草输邻女；更被拈将玉步摇。	</p>
+<br>
+<p>风急云惊雨不成；觉来仙梦甚分明。	</p>
+<p>当时苦恨银屏影；隔帘佳人娇喘频。	</p>
+<p>残灯暗影共魂消；红湿玉人体态娇。	</p>
+<p>记得巫山相送处；淡烟斜月过鹊桥。	</p>
+<p>春衫初脱嫩红鲜；宝钗搔头玉步摇。	</p>
+<p>连襟拥怀春事晚；露湿杨柳不胜娇。	</p>
+<p>倚窗别后玉人遥；浓睡才醒酒未消。	</p>
+<p>日午卷帘风力软；落花飞絮满鹊巢。	</p>
+<p>久别归来兴欲飘；小窗相对话寂寥。	</p>
+<p>唯恐凤楼人待久；玉鞭催马上鹊桥。	</p>
+<p>床上娇态眠弱柳；枕伴流水戏落花。	</p>
+<p>不信梦中人似玉；秋波频转鬓云斜。	</p>
+<p>日影萦阶睡正醒；篆烟如缕午风平。	</p>
+<p>玉箫吹尽霓裳调；谁知莺声与凤声。	</p>
+<p>簟展湘纹浪欲生；幽人自感梦难成。	</p>
+<p>倚床剩觉添风味；开户何妨待月明。	</p>
+<p>拟倩青蛙传密意；难将萤火照离情。	</p>
+<p>遥怜织女佳期近；时看银河倒泻影。	</p>
+<br>
+<p>解带色已颤 ；触手心愈慌 。	</p>
+<p>哪识罗裙内 ；消魂别有香 。	</p>
+<p>谁知美人意 ；不动君子怀 。	</p>
+<p>玉扣含羞解 ；银灯带笑吹 。	</p>
+<p>茜色霞笺照面频；玉郎何事太多情。	</p>
+<p>风流不是无佳句；两字相思写不成。	</p>
+<p>本自天然白雪香；谁知今日却浓妆。	</p>
+<p>秋千院落溶溶月；羞睹红脂睡海棠。	</p>
+<p>银笺写恨奈情何；料得情深敛翠娥。	</p>
+<p>只怨杏花开较晚；却贪梅花结子多。	</p>
+<p>翠袖笼香倚画楼；柔情似水荡春波。	</p>
+<p>何时栖得鸳鸯侣；红丝双系合欢歌。	</p>
+<p>一男一女便成俦；哪得人间有好逑。	</p>
+<p>虞舜英皇方燕婉；香山蛮素始风流。	</p>
+<p>莫夸夜月芙蓉帐；羞煞春风燕子楼。	</p>
+<p>美不愧才才敌美；一番佳话自千秋。	</p>
+<h4>菩 萨 蛮</h4>	</p>
+<p>红绳画板柔荑指，东风燕子双双起，夸俊要争高，更将裙系牢，	</p>
+<p>牙床和困睡，一任金钗坠。推枕起来迟，纱窗日上时。	</p>
+<h4>菩 萨 蛮</h4>	</p>
+<p>绿窗深伫倾城色，灯花送喜秋波溢，一笑入罗帏，春心不自恃，	</p>
+<p>雨云情散乱，弱体还羞颜。花嫩不禁抽，春风卒未休。	</p>
+<h4>玉 楼 春</h4>	</p>
+<p>晓窗寂寂春情稠，尽把芳心深意诉，	</p>
+<p>低眉敛翠不胜春，娇啭樱 唇红半吐。	</p>
+<p>匆匆已到欢娱处，轻嗔汨汨连夜雨。	</p>
+<p>枕汗衾热不成眠， 更尽灯残天未曙。	</p>
+<h4>满 庭 芳</h4>	</p>
+<p>帘影筛金，簟纹织水，绿荫庭院清幽。夜长人静，消得许多愁。	</p>
+<p>记得当年月色，小窗外情话绸缪。正欢娱，碧梧初出，桂花方吐蕊，	</p>
+<p>殷勤红叶传来蜜意。佳妇新逑，帘内锦衣解，恩爱无穷，一任明月下西楼，良宵伴俊雅风流。须相念，两情长久，年年醉今宵。	</p>
+<h4>望 江 南</h4>	</p>
+<p>江南月，如镜亦如弓，冷落巫山十二峰，朝云暮雨竟无踪，如临 广寒宫。	</p>
+<p>花月地，天意巧为容，不比寻常三五夜，清辉香影隔帘栊， 春在画堂中。	</p>
+<h4>临 江 仙</h4>	</p>
+<p>曾在书窗同笔砚，旧友今作新人，洞房花烛十分春。汗沾蝴蝶粉，	</p>
+<p>身惹席香尘，滞雨尤云浑未惯，枕边眉黛羞颦。轻怜痛惜莫辞频，愿	</p>
+<p>郎从此夜，日近日相亲。	</p>
+<h4>卜 算 子</h4>	</p>
+<p>醉柳迷莺，懒风熨草，约郎暂会闲门道。	</p>
+<p>粉墙阴下待郎来，藓痕 印得鞋痕小，玉漏方催，月光渐小，望郎不来心如捣。	</p>
+<p>避人归倚小围 屏，梦魂还在墙外绕。	</p>
+<h4>满 江 红</h4>	</p>
+<p>嫩日舒晴，韶光艳，碧天新霁，正桃腮半吐，莺声初啭。	</p>
+<p>孤枕乍 闻箫管悄，曲屏时听笙簧细。	</p>
+<p>爱锦蛮柔舌，韵东风，愈娇媚，幽梦醒，	</p>
+<p>闲愁泥，残香褪，重门闭，巧音芳韵，十分流丽，入柳穿花来又去，	</p>
+<p>欲求好友真无计。望上林，何日得双栖，心迢递。	</p>
+<h4>减木兰花慢</h4>	</p>
+<p>春宵陪宴，歌罢酒澜人正倦，危坐堂中，倏见仙娥出洞房。	</p>
+<p>博山香尽，素手重添银漏永，织女斜河，月白风清良夜乐。	</p>
+<h4>无 </h4>题	</p>
+<p>眼横秋水，眉扫春山，宝髻儿高绾绿云，绣裙儿低飘翠带。	</p>
+<p>可怜杨柳腰，堪爱桃花面。	</p>
+<p>仪容明艳，果然金屋婵娟，举止端庄，洵是香闺处女。	</p>
+<p>身无彩凤双飞翼，心有灵犀一点通。	</p>
+<p>态若行云，轻似能飞之燕，姿同玉立，娇如解语之花。	</p>
+<p>眉非怨而 常颦，腰非瘦而本细。	</p>
+<p>未放寒梅不漏枝头春色；含香豆蔻半舒叶底奇芳。</p>
+<h4>七仙女洗澡</h4>
+<p>褪放纽扣儿，解开罗带结。酥胸白似银，玉体浑如雪。肘膊赛凝胭，香肩疑粉捏。肚皮软又绵，脊背光还洁。膝腕半围团，金莲三寸窄。中间一段情，露出风流穴。</p>
+<h4>《乳赋》陈独秀
+</h4><p>“乳者，奶也。妇人胸前之物，其数为二，左右称之。发于豆蔻，成于二八。白昼伏蛰，夜展光华。曰咪咪，曰波波，曰双峰，曰花房。从来美人必争地，自古英雄温柔乡。其色若何？深冬冰雪。其质若何？初夏新棉。其味若何？三春桃李。其态若何？秋波滟滟。动时如兢兢玉兔，静时如慵慵白鸽。高颠颠，肉颤颤，粉嫩嫩，水灵灵。夺男人魂魄，发女子骚情。俯我憔悴首，探你双玉峰，一如船入港，又如老还乡。除却一身寒风雨，投入万丈温暖海洋。深含，浅荡，沉醉，飞翔……”</p>
+<p>金针刺破杏花蕊 不敢高声暗皱眉？？？</p>
+
+
+<p style='float:right;'>本页共601段，15854个字符，36966 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
