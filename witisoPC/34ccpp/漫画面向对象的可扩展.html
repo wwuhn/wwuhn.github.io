@@ -1,0 +1,646 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>漫画解释面向对象思想</h4>
+
+
+<a href="https://www.toutiao.com/a6717480889942540813/?channel=&source=search_tab" title="">ref</a>
+<h4>1 面向对象是什么</h4>
+<p>面向对象 (Object Oriented,OO) 的思想对软件开发相当重要，它的概念和应用甚至已超越了程序设计和软件开发，扩展到如数据库系统、交互式界面、应用结构、应用平台、分布式系统、网络管理结构、CAD 技术、人工智能等领域。面向对象是一种对现实世界理解和抽象的方法，是计算机编程技术发展到一定阶段后的产物。一种比较先进的代码组织和重用方法。</p>
+<p>面向过程 (Procedure Oriented) 是一种 以过程为中心 的编程思想。这些都是以什么正在发生为主要目标进行编程，不同于面向对象的是谁在受影响。与面向对象明显的不同就是 封装、继承、类。</p>
+<p>无论是在软件开发还是在实际工作中，深入地理解软件开发的思想都非常有必要。</p>
+<h4>2 从一场比赛说起</h4>
+<p>在一个软件村里。</p>
+<p>有一名资深「面向过程」程序员——老过。</p>
+<p>和一名「面向对象」信徒——阿对。</p>
+<p>同时受雇于一家挨踢店。</p>
+<p>有一天老板突发奇想。</p>
+<p>决定让这两名程序员进行一次比赛。</p>
+<p>获胜者将获得一个限量的360 度全自动按摩椅。</p>
+<p>编程比赛开始了。</p>
+<p>老板：“写一个店里的收银程序，根据客人购买的商品单价和数量，生成所购商品的金额”。</p>
+<p>不一会，他俩都写出了几乎相同的代码。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> Bill{
+    <span style="color:#ccc; ">// 获取总价</span>
+    fun getPrice(): Double { 
+        val unit = getUnit() ;
+        val number = getNumber() ;
+        val price = unit * number ;
+        <span style="color:#0000FF;">return </span>price;
+    }
+    <span style="color:#ccc; ">// 获取单价</span>
+    fun getUnit(): Double {
+        <span style="color:#ccc; ">//……</span>
+    }
+    <span style="color:#ccc; ">// 获取数量 </span>
+    fun getNumber(): Int{
+        <span style="color:#ccc; ">//……</span>
+    }
+}
+</pre>
+<p>老板：“效率很高嘛！不过先别得意， 这只是第一关而已。快七夕了，我们店要在七夕节对商品搞活动 所有的商品打77折。 ”</p>
+<p>老过：“小case ,只要加一个分支 语句就可以了。”</p>
+<p>老过看到新需求，微微一笑。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> Bill{
+    
+    <span style="color:#ccc; ">// 获取总价</span>
+    fun getPrice(): Double { 
+        val unit = getUnit() ;
+        val number = getNumber() ;
+        val price = unit * number ;
+        <span style="color:#0000FF;">if </span>(todayIsLoversDay()) { 
+            <span style="color:#0000FF;">return </span>price * 0.77;
+        }
+        <span style="color:#0000FF;">return </span>price;
+    }
+    
+    <span style="color:#ccc; ">// 获取单价</span>
+    fun getUnit(): Double {
+        <span style="color:#ccc; ">//……</span>
+    }
+    
+    <span style="color:#ccc; ">// 获取数量 </span>
+    fun getNumber(): Int{
+        <span style="color:#ccc; ">//……</span>
+    }
+    fun todaylsLoversDay(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+}
+</pre>
+<p>阿对：“咱又没有女朋友，  过什么七夕节？  新的收银方式应该属于新的对象，它和普通收费方式有共同点：先获取单价和数量，再计算总价。”</p>
+阿对决定让新的收银方式继承 Bill 类。
+先在 Bill 类中新增 discount 方法。
+并将其开放。
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> Bill{
+    
+    <span style="color:#ccc; ">// 获取总价</span>
+    fun getPrice(): Double { 
+        val unit = getUnit() ;
+        val number = getNumber() ;
+        val price = unit * number ;
+        <span style="color:#0000FF;">return </span>discount(price) ;
+    }
+    <span style="color:#ccc; ">//处理打折优惠</span>
+    open fun discount(price: Double): Double{ 
+        <span style="color:#0000FF;">return </span>price;
+    }
+    
+    <span style="color:#ccc; ">// 获取单价</span>
+    fun getUnit(): Double {
+        <span style="color:#ccc; ">//……</span>
+    }
+    
+    <span style="color:#ccc; ">// 获取数量 </span>
+    fun getNumber(): Int{
+        <span style="color:#ccc; ">//……</span>
+    }
+}
+</pre>
+<p>普通的收费方式在 discount函数中直接返回价格，七夕节的收费方式则继承此类，在 discount 函数中实现打 77折。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> LoversDayBi11 : Bill(){
+    <span style="color:#0000FF;">override </span>fun discount(price: Double): Double{
+        <span style="color:#0000FF;">return </span>price * 0.77 ;
+    }
+}
+</pre>
+<p>当老过和阿对同时将程序交给老板时。</p>
+<p>老过：“我只改了一处就实现了新需求，阿对竟然改了两处，孰优孰劣还不清楚吗？”</p>
+<p>老过已经开始幻想自己将来。</p>
+<p>坐在按摩椅上的舒服日子。</p>
+<p>老板：“第二关老过的程序看起来更 简洁明了，暂时领先。现在我需要增加需求：”</p>
+<pre>
+1 .中秋节：购物满399减100；
+2 .国庆节：购物总价100元以内1/10概率免单；
+</pre>
+<p>听到新需求</p>
+<p>老过一阵头大</p>
+<p>不由在「面向过程天下第一群」中吐槽道</p>
+<p>阿过：“不知道老板怎么想的，非要搞这么多不一样的活动，搞活动的时候继续打77折多好，这样我就只需要在todaylsLoversDay中添加中秋节和国庆节的判断，将它修改为 todaylsDiscountDay就好了”。</p>
+<p>群友也附和说。</p>
+<p>可不是嘛，</p>
+<p>就是因为老板这么多需求，</p>
+<p>才会搞得面向过程的程序一团糟？</p>
+<p>吐槽归吐槽，</p>
+<p>老过在 getPrice 函数中再次增加了条件判断，</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> Bill{
+    
+    <span style="color:#ccc; ">// 获取总价</span>
+    fun getPrice(): Double { 
+        val unit = getUnit() ;
+        val number = getNumber() ;
+        val price = unit * number ;
+        <span style="color:#0000FF;">if </span>(todayIsLoversDay()) { 
+            <span style="color:#0000FF;">return </span>price * 0.77;
+        }
+        <span style="color:#0000FF;">if </span>(todayIsMiddleAutunin() && price > 399) { 
+            <span style="color:#0000FF;">return </span>price - 200 ;
+        } 
+        <span style="color:#0000FF;">if </span>(todaylsNationalDay() && price &lt; 100) {
+            <span style="color:#ccc; ">//生成0 - 9随机数字，如果为0则免单。即：十分之一概率免单 </span>
+            val free = Random().nextlnt(10) 
+                <span style="color:#0000FF;">if </span>(free == 0) { 
+                    <span style="color:#0000FF;">return </span>0.0 ;
+                } 
+        }
+        <span style="color:#0000FF;">return </span>price;
+    }
+    
+    <span style="color:#ccc; ">// 获取单价</span>
+    fun getUnit(): Double {
+        <span style="color:#ccc; ">//……</span>
+    }
+    
+    <span style="color:#ccc; ">// 获取数量 </span>
+    fun getNumber(): Int{
+        <span style="color:#ccc; ">//……</span>
+    }
+    fun todaylsLoversDay(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+    fun todayIsMiddleAutumn(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+    fun todaylsNationalDay(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+}
+</pre>
+<p>看着越来越复杂的。</p>
+<p>老过眉头紧锁，</p>
+<p>他深知事情远没有结束。</p>
+<p>中秋和国庆一过，</p>
+<p>他还需要到这个复杂的类中，</p>
+<p>删掉打折的方法。</p>
+<p>天知道老板还会再提什么天马行空的需求。</p>
+<p>无论是新增或删除代码，在这个过长的类里做修改都是件不太愉快的事。为了在一个很长的函数中找到需要修改的位置，「面向过程」使得老过不得不浏览大量与修改无关的代码，小心翼翼地修改后，又要反复确认不会影响到类的其他部分。</p>
+<p>老过在心底里默默地祈祷。</p>
+<p>这个类不再需要修改，</p>
+<p>提交了自己的程序。</p>
+<p>阿对收到新需求时，</p>
+<p>先是新增了中秋节支付类。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> MiddleAutumePrice : Bill() {
+    <span style="color:#0000FF;">override </span>fun discount(price: Double): Double {
+        <span style="color:#0000FF;">if </span>(price > 399) {
+            <span style="color:#0000FF;">return </span>price - 200
+        }
+        <span style="color:#0000FF;">return </span>super.discount(price)
+    }
+}
+</pre>
+再增加了国庆节支付类。
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> NationalDayBill : Bill() {
+    <span style="color:#0000FF;">override </span>fun discount(price: Double): Double {
+        <span style="color:#0000FF;">if </span>(price &lt; 100) {
+            <span style="color:#ccc; ">//生成0 ~ 9随机数字，如果为0则免单。即：十分之一概率免单 </span>
+            val free = Random().nextlnt(10)
+            <span style="color:#0000FF;">if </span>(free == 0) {
+                <span style="color:#0000FF;">return </span>0.0
+            }
+        }
+        <span style="color:#0000FF;">return </span>super.discount(price)
+    }
+}
+</pre>
+<p>「面向对象」让阿对最喜欢的一点是：</p>
+<p>应对新需求时，无需更改已经测试通过的既有的类。它良好的灵活性和扩展性仿佛天生就是用来适应变化的。</p>
+<p>每个支付方式互相独立，若某天不再需要时，将对应的类删除即可。</p>
+<p>“有一个好消息要告诉大家！"</p>
+<p>当老板兴高采烈地说出这句话时，</p>
+<p>老过和阿对都露出了心惊胆战的表情，</p>
+<p>这句话往往意味着要更改需求。</p>
+<p>老板说：</p>
+<p>“咱们的七夕活动宣传海报挂出去以后，反响非常好！我决定加大优惠力度。</p>
+<p>在七夕节当天，凡是到本店来购物的情侣，</p>
+<p>满99元及以上的订单，随机附赠精美礼品一份「鲜花、巧克力、9.9元抵扣券」，</p>
+<p>之前打77折的活动，也修改为仅限情侣参加。”</p>
+<p>“这样对单身狗的伤害太大了吧！不仅没有优惠，也无法获得礼品。我还是觉得一视 同仁比较好。”</p>
+<p>老过反抗道。</p>
+<p>但他并没有说出心里另一个小九九，</p>
+<p>实在不想再去给 Bill 类添加代码了。</p>
+<p>“不，我们就是要鼓励情侣结 伴前来。况且，这对单身人 士来说，也是和异性搭讪的 好机会。”老过说。</p>
+<p>老过无奈再次修改了自己的程序。</p>
+<p>我可以在判断七夕节的代码中加上随机获取礼物的代码，这样应该也还可以运行。太naive 了，天知道老板下次又会再有什么奇怪的修改。难道每次修改都要这么难受吗？</p>
+<p>这次修改老过花了较长的时间才完成。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> Bill{
+    val gifts = listOf("flower", "chocolate", "9.9 discount")
+        
+    <span style="color:#ccc; ">// 获取总价</span>
+    fun getPrice(): Double { 
+        val unit = getUnit() ;
+        val number = getNumber() ;
+        val price = unit * number ;
+        <span style="color:#0000FF;">if </span>(todayIsLoversDay()&& isCouple()) { 
+            <span style="color:#0000FF;">if </span>(price > 99) {
+                val lucky = Random().nextlnt(gifts.size)
+                    println("Congratulations on getting ${gifts[lucky]}!") 
+            }
+            <span style="color:#0000FF;">return </span>price * 0.77
+        }
+        <span style="color:#0000FF;">if </span>(todayIsMiddleAutunin() && price > 399) { 
+            <span style="color:#0000FF;">return </span>price - 200 ;
+        } 
+        <span style="color:#0000FF;">if </span>(todaylsNationalDay() && price &lt; 100) {
+            <span style="color:#ccc; ">//生成0 - 9随机数字，如果为0则免单。即：十分之一概率免单 </span>
+            val free = Random().nextlnt(10) 
+            <span style="color:#0000FF;">if </span>(free == 0) { 
+                <span style="color:#0000FF;">return </span>0.0 ;
+            } 
+        }
+        <span style="color:#0000FF;">return </span>price;
+    }
+    
+    <span style="color:#ccc; ">// 获取单价</span>
+    fun getUnit(): Double {
+        <span style="color:#ccc; ">//……</span>
+    }
+    
+    <span style="color:#ccc; ">// 获取数量 </span>
+    fun getNumber(): Int{
+        <span style="color:#ccc; ">//……</span>
+    }
+    fun todaylsLoversDay(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+    <span style="color:#0000FF;">private </span>fun isCouple(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+    fun todayIsMiddleAutumn(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+    fun todaylsNationalDay(): Boolean {
+        <span style="color:#ccc; ">//……</span>
+    }
+}
+</pre>
+<p>看着那个只属于七夕节的 gifts 变量，</p>
+<p>老过像看着自己白衬衫上的油渍一样难受。</p>
+<p>以后每次收费时都会生成一个只有七夕节才会用到的变量，</p>
+<p>都是因为老板的需求太奇葩，</p>
+<p>才让这个程序看起来乱糟糟的。</p>
+<p>由于这个类做了修改，</p>
+<p>本来已经测试通过的代码又得重测一遍。</p>
+<p>阿对打开了 LoversDayBill 类，</p>
+<p>将其修改如下：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<span style="color:#0000FF;">class</span> LoversDayBill : Bill() {
+    val gifts = listOf("flower", "chocolate", "9.9 discount")
+        <span style="color:#0000FF;">override </span>fun discount(price: Double): Double { 
+        <span style="color:#0000FF;">if </span>(!isCouple()) <span style="color:#0000FF;">return </span>price 
+        <span style="color:#0000FF;">if </span>(price > 99) {
+            val lucky = Random().nextlnt(gifts.size)
+                printlnf"Congratulations on getting ${gifts[lucky]}!") 
+        }
+        <span style="color:#0000FF;">return </span>price * 0.77
+    }
+    fun isCouple(): Boolean {
+        <span style="color:#ccc; ">//…</span>
+    }
+}
+</pre>
+<p>阿对：“程序的其他部分则完全不需要修改，测试时也仅需要重测这一个类而已。面向对象真是太酷了 ！”</p>
+<p>“中秋节只有满减太缺少气氛了，咱们再加上送月饼活动吧！”</p>
+<p>当老板看完老过和阿对的代码后，</p>
+<p>再次兴奋地提出新需求时，</p>
+<p>老过顿时晕了过去......</p>
+<p>比赛真是太焦灼了，</p>
+<p>最后赢得奖励的是？</p>
+<p>第三个参赛者，</p>
+<p>老板的傻儿子。</p>
+<p>他完全不会写程序，</p>
+<p>但他使用 Ctrl+C，Ctrl+V</p>
+<p>拷贝了阿对的代码。</p>
+<h3>面试常见考点</h3>
+<p>在面试中，面向对象的常见考察点是三个基本特征：封装、继承、多态。</p>
+<p>封装，也就是把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。</p>
+<p>继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来类的情况下对这些功能进行扩展。通过继承创建的新类称为「子类」或「派生类」，被继承的类称为「基类」、「父类」或「超类」。</p>
+<p>要实现继承，可以通过 继承和组合 来实现。</p>
+<p>多态性是允许你将父对象设置成为和一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的特性以不同的方式运作。简单说就是一句话：允许将子类类型的指针赋值给父类类型的指针。</p>
+<p>实现多态，有两种方式，覆盖和重载。两者的区别在于：覆盖在运行时决定，重载是在编译时决定。并且覆盖和重载的机制不同。例如在 Java 中，重载方法的签名必须不同于原先方法的，但对于覆盖签名必须相同。</p>
+<p>我对面向对象的理解：面向对象的编程方式使得每一个类都只做一件事。面向过程会让一个类越来越全能，就像一个管家一样做了所有的事。而面向对象像是雇佣了一群职员，每个人做一件小事，各司其职，最终合作共赢！</p>
+<h3>引申阅读</h3>
+<p>最后，我们谈谈面向对象有什么好处？</p>
+<p>《大话设计模式》中大鸟给小菜讲的故事非常经典：</p>
+<p>“话说三国时期，曹操带领百万大军攻打东吴，大军在长江赤壁驻扎，军船连成一片，眼看就要灭掉东吴，统一天下，曹操大悦，于是大宴众文武，在酒席间，曹操诗性大发，不觉吟道：‘喝酒唱歌，人生真爽……’众文武齐呼：‘丞相好诗！’于是一臣子速命印刷工匠刻版印刷，以便流传天下。”</p>
+<p>“样张出来给曹操一看，曹操感觉不妥，说道：‘喝与唱，此话过俗，应改为‘对酒当歌’较好！’于是此臣就命工匠重新来过。工匠眼看连夜刻版之工，彻底白费，心中叫苦不迭。只得照办。”</p>
+<p>“样张再次出来请曹操过目，曹操细细一品，觉得还是不好，说：‘人生真爽‘太过直接，应改问语才够意境，因此应改为‘对酒当歌，人生几何……’当臣子转告工匠之时，工匠晕倒……”</p>
+<p>大鸟：“小菜你说，这里面问题出在哪里？”</p>
+<p>小菜：“是不是因为三国时期活字印刷还未发明，所以要改字的时候，就必须要整个刻板全部重新刻。”</p>
+<p>大鸟：“说得好！如果是有了活字印刷，则只需更改四个字就可，其余工作都未白做。岂不妙哉。</p>
+<p>一、要改，只需更改要改之字，此为可维护；</p>
+<p>二、这些字并非用完这次就无用，完全可以在后来的印刷中重复使用，此乃可复用；</p>
+<p>三、此诗若要加字，只需另刻字加入即可，这是可扩展；</p>
+<p>四、字的排列其实可能是竖排可能是横排，此时只需将活字移动就可做到满足排列需求，此是灵活性好。”</p>
+<p>“而在活字印刷术出现之前，上面的四种特性都无法满足，要修改，必须重刻，要加字，必须重刻，要重新排列，必须重刻，印完这本书后，此版已无任何可再利用价值。”</p>
+<p>小菜：“是的，小时候我一直奇怪，为何火药、指南针、造纸术都是从无到有，从未知到发现的伟大发明，而活字印刷仅仅是从刻版印刷到活字印刷的一次技术上的进步，为何不是评印刷术为四大发明之一呢？原来活字印刷是思想的成功，面向对象的胜利。”</p>
+
+
+<p style='float:right;'>本页共351段，13334个字符，20587 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
