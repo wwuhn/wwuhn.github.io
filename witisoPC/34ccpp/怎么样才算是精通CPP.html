@@ -1,0 +1,673 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:5px;
+	margin-left:2em;
+	background-color:RGB(240,240,240);
+    color:blue;
+	margin-left:2em;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+pre{
+    margin-left:2em;
+	}
+a:visited, a:link{
+    color:blue;
+}
+a:visited{
+    color:#CC0000;
+}a:hover{
+    color:green;
+	}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <p align="left">怎么样才算是精通  C++？ </p>
+<p><a href="https://www.zhihu.com/question/19794858">zhifu</a></p>
+  <p align="left">精通C++是一个艰巨的任务。为什么C++比别的语言难学这么多？其实这基本上是因为C++他爹Bjarne Stroustrup说过的一句话“我特别讨厌语言的设计者把自己的喜好强加给用户”（看向go）。结果C++为了不限制你的想法，于是也就变成了现在这个样子--包含若干范式，大概有</p>
+
+<p>面向对象（灵活应用virtual继承+shared_ptr可以达到java/C#的效果）</p>
+
+<p>模板（这里分两类，分别为type rich programming和meta programming，区别很大）</p>
+
+<p>函数式编程（如今有了lambda，配合&lt;algorithm&gt;文件，简直无敌了）</p>
+
+<p>过程式</p>
+
+<p>但是难能可贵的是，这几种东西在C++混在一起用也是多么的自然。不过，这需要你花时间去掌控他。</p>
+
+<p>那到底有没有必要真的学到这个地步呢，我觉得跟你的领域是有关系的。譬如说我，基本上算是人格分裂的，因为：</p>
+
+<p>当我搞语言设计和编译器的时候，我总是会倾向于创造各种小DSL来给自己用，用的都是模板（想想boost的spirit大概就明白我的意思了，虽然我不用它），尽量让跟我有同样背景的人一眼能看懂我代码的意思。</p>
+
+<p>当我做我那个GUI库（<u>www.gaclib.net  &lt;https://link.zhihu.com/?target=http%3A//www.gaclib.net&gt;</u>）的时候，纯粹是用OO和IoC那一套。</p>
+
+<p>当我写3D渲染程序的时候，我会变成一个为了性能不惜牺牲可读性的人。</p>
+
+<p>当我是不同的我的时候，我当然只会用C++的一部分来完成我当前的这个任务。这好像是多重标准，但是实际上是由于项目本身的性质而定的。</p>
+
+<p>到了这个时候你会觉得，C++真是一门好语言。当你需要为了你的项目放弃不同的部分的时候，C++都能帮你做到。当你需要不同的抽象层次需要不同的性能要求的是，C++还是能够帮你做到。如果你用别的语言，你最终会发现那个语言只能做某几类的项目。这是因为，<strong>C++能够自由的让你放弃某些部分，而别的语言会阻止你放弃某些部分</strong>。</p>
+
+<p>为了达到这个层次，你必须进入一个无限接近于精通C++的状态里，这个时候你才能收放自如，不被C++社区的各种不同的价值观所捆绑。倘若你的项目非常大，不同的部分有不同的特征的时候（什么，一个没有遍布全世界的一两千人写了20年的程序能叫程序吗？），就更加需要你有这种本事了。</p>
+
+<p>说到这里，大家大概都明白精通C++大概是个什么感觉了吧--<strong>大丈夫能屈能伸</strong>。 </p>
+  <p align="left">&nbsp;</p>
+  <p align="left">2</p>
+  <p align="left">精通没有标准，但学习有路径。 我来说说  学习掌握C++的路径吧，从低到高，分0～10级：</p>
+
+<p>0级：掌握常见C++语法和语言构造，能够顺溜地写清楚各种语言构造（很多小白鼠死在这里）</p>
+
+<p>1级：掌握基本的编程范式：面向过程、面向对象、泛型编程、以及C++11/14支持的函数式编程</p>
+
+<p>2级：清楚编译器在 后面干了什么（compiler  under the hood－考验功力的时候到了）</p>
+
+<p>3级：清楚运行时内存模型（memory  under the hood）</p>
+
+<p>4级：对经典库（包括但不限于STL,  BOOST, Folly）应用熟练，关键原理清晰，掌握设计模式</p>
+
+<p>5级：熟悉至少一个操作系统常用API和内核，调试工具和方法</p>
+
+<p>6级：有清晰的机器和系统模型:CPU,  Memery, Cache, GPU, Disk, I/O, Process, Thread, TCP/IP...</p>
+
+<p>7级：有一定系统级应用开发经验，被系统级应用的性能、内存、规模等问题折磨过，并解决过...</p>
+
+<p>8级：从头到尾设计过一个C++库、或框架，并被一定量级的应用使用过</p>
+
+<p>9级：设计并开发过系统级、高性能、大规模的软件系统</p>
+
+<p>10级：成为Bjarne  Stroustrup，设计一门语言</p>
+
+<p></p>
+
+<p>当然，这些打怪升级并不完全线性递增，有些需要综合运用。修炼则需要 研习＋实践，反复螺旋。 </p>
+  <p align="left">3</p>
+  <p align="left">实际的面试中，一般按照以下的标准来区分水平。（随便写的，不成系统）</p>
+
+<p>1 听说过C++</p>
+
+<p>常见的问题 什么是类，什么继承</p>
+
+<p>new和malloc有什么区别</p>
+
+<p>什么是虚函数，什么是虚继承</p>
+
+<p>之类的泛泛而谈的入门问题</p>
+
+<p>2 会C++</p>
+
+<p>new实际上执行了什么操作，可能在什么步骤出现异常</p>
+
+<p>怎么写一个class，禁止分配在栈上</p>
+
+<p>怎么突破private的限制访问变量</p>
+
+<p>虚继承的细节</p>
+
+<p>怎么自己模拟实现引用</p>
+
+<p>3 比较了解C++</p>
+
+<p>主要是一些边角的语法或者是不常见的问题</p>
+
+<p>逗号表达式，位域</p>
+
+<p>初始化列表的异常怎么捕获</p>
+
+<p>对于常见的主流编译器，写不写inline有什么影响</p>
+
+<p>完美转发</p>
+
+<p>怎么在编译器判断一个类中有没有定义某个特定的方法</p>
+
+<p>构造函数中调析构函数会有什么结果</p>
+
+<p></p>
+
+<p></p>
+
+<p>4</p>
+  <p align="left">c艹毕竟只是工具，掌握到可以满足自己设计的需求的程度就够</p>
+
+<p>除非你研究编译，否则对语言本身不必刻意深入。一些边边角角的知识和一些坑，一边做东西一边也就了解了</p>
+
+<p>而是否做出有价值的东西取决于算法水平</p>
+
+<p></p>
+
+<p>精通使用筷子却营养不良，这岂不是更大的笑话… </p>
+  <p>5</p>
+  <p align="left">精通就不必强求了，live is too short to program in C++.</p>
+
+<p>学习 C++ 可以经过这么几个阶段。第一是找一本不太「膨胀」的 C++ 教材。基本上掌握 class , overriding, overloading, 最简单的  template （完全不用掌握 partialization ）。</p>
+
+<p>第二步是好好阅读《 The Design and Evolution of C++ 》。因为有人说过，一门学科的全部就是它的历史。</p>
+
+<p>接下来你可以学学编译原理，看看高级动态语言，为第四步做准备。</p>
+
+<p>第四步，也就是最最关键的一步。好好看看 C++ FQA （没错，不是 FAQ ，不是 frequently asked question ，而是 frequently questioned answer ）。<u>http://yosefk.com/c++fqa/  &lt;https://link.zhihu.com/?target=http%3A//yosefk.com/c%2B%2Bfqa/&gt;</u> 这些揭穿了 C++ 设计者从自身角度文过饰非编写的春秋笔法。《 The Design and Evolution of C++ 》解释了 C++ 为什么是一个怪胎，但是它还是一个怪胎。</p>
+
+<p></p>
+
+<p></p>
+
+<p>6</p>
+
+
+
+<p>职业程序员，用了十三四年，依然是小白。</p>
+
+<p>学校的时候，大头书看得头痛，生硬理解概念，现在看来完全不知所以然，但仍经常为自以为懂了一个新特性高兴。那时候还经常为不知什么目的做点练手小程序，当然全是垃圾。</p>
+
+<p>毕业了因为会一些CPP而找到一份不错的工作，坐标海外行业金融，薪水是大多数同班同学的十几倍，那时候个人标签是狂，在大多数人因为难度大而转投JAVA服务器端开发的年代，会点CPP能不狂吗…</p>
+
+<p>工作头两年开始被CPP疯狂的折磨，参与到项目中打下手，全是坑，打印出来几米长的bug单，经常为了查一个崩溃要连续一周每天只睡一小会儿，最后人崩溃。最奇葩的是有人实在受不了，为了通过测试在程序里面设置各种标志位，然后跳槽走人。</p>
+
+<p>工作三四年，逆袭翻身当leader，有了项目话语权，一些设计可以按自己思路走，终于可以施展CPP语法绝学，高级语法，模板满天飞。团队三四个人，干得很好，觉得CPP确实牛逼，效率高，开发方便。团队扩大了，觉得bug怎么冒出来这么多，要找到十个人都精通CPP的语法和特性，真的好难啊，成本好高啊，万一混进来一个猪队友，大家就得通宵陪着加班找bug。</p>
+
+<p>后来老子也辞职不干了，回国创业，发现JAVA真是个好东西，普通学校招一帮子人也能干得风生水起。底层的东西一两个人用CPP搞定，其他能JAVA就JAVA，或者C#。或许这才是最好的模式。</p>
+
+<p>再后来业务领域更专了，要的是结果，至于用什么语言，who在乎。现在更多时候我是在单打独斗，由于习惯原因，加上专业领域的特性，主要还是使用CPP，但我其实想要的是C，无PP，飞一般的编译速度，清晰的结构，灵活的跨二进制接口。</p>
+
+<p>说了这么多，似乎和精通CPP没有什么关系，但现在真的在把CPP当C用，析构函数自动释放资源，太TMD爽了，其他，呵呵。标准库？什么语言没有自己的亲生儿子？STL各个方面都比.NET Framework中对应功能好吗？</p>
+
+<p>再说专业，比如做量化交易，有没有策略和想法，远比会用CPP重要，给个赚钱的idea，只要保证不出乌龙指，程序偶尔崩了，跑慢点又如何 - 场景不同，需求不同。</p>
+
+<p>所以，越简单越好。大部分的人，领域知识比语言工具更重要，我精通不了CPP，所以把使用限制在最基本的层面。</p>
+
+<p>至于OOP，有时候觉得流水账程序嵌套简单的函数调用，比为了OO而OO效果好，除错方便，维护简单。 </p>
+  <p>7</p>
+  <p align="left">阶段一，C 语言。</p>
+
+<p>这个阶段我并不理解什么是面向过程，只会用 C++ 写一些简单的小函数，掌握了基本的语法。我学生时代基本上就是这个水平。</p>
+
+<p>阶段二，带类的 C 。</p>
+
+<p>这时候我会了简单的面向对象编程，会简单的类的设计与组合，可以写稍微大一些的程序了。我职业生涯的前两年，在创业公司工作的时候，就是这个水平。</p>
+
+<p>阶段三，modern C++ 与规范的编程风格。</p>
+
+<p>这时候我学习了 C++ 11 / 14 / 17 中的新特性，如 lambda expression,  std::move, 等等。并且我开始写标准的 unit test，代码风格从混乱到清晰。我在入职某家大厂的前半年多是这个状态。</p>
+
+<p>阶段四，C++ 与其他知识的融合。</p>
+
+<p>这时候我开始把 C++ 与其他的知识贯通了。比如说，从面向对象开始我扩展到了设计模式，从 lambda  expression 我开始研究函数式编程，从数组指针等我延伸到了内存管理，等等等等。融会贯通应该精通某一项技能的自然状态。现在的我正在这个阶段的初级阶段。</p>
+
+<p>8</p>
+
+<p>自己心中的精通为何也早有定义:</p>
+
+<p>1) 知道所有关键字的含义，这个是最基本的。有很多很少用的也必须知道……比如auto、mutable、explicit、volatile……通读过一遍  ISO C++标准。</p>
+  <p align="left">2 )STL的使用和基本实现原理。</p>
+
+<p>3)《Effective  C++》、《More Effective C++》……之类的经验手册型书籍熟读3本以上，其中大部分条款要烂熟于胸。</p>
+
+<p>4) boost库的整体框架要了解，清楚其中某些实现的超级BT的库不能被某些编译器编译的原因。还要清楚哪些库将会被iso  c++ 收录……用到某些功能的时候会不由自主的想到“boost 中有这个功能？”结果花上比自己手写还要多的时间去使用boost。</p>
+
+<p>4) 看过Moden  C++ Design，loki的实现原理要清楚……当然也要知道loki是干什么的……</p>
+
+<p>5) 林锐的《高质量C++编程指南》后面的习题能得到90分以上(记得是第一次做，以后补的不算！)。</p>
+
+<p>6) C++中的线程安全模型是怎样的。</p>
+
+<p>7) C++中的字符串处理库，包括C++对unicode，多种语言编码的支持。</p>
+
+<p>8) 预编译命令都知道是用来干什么的和常见的使用习惯……</p>
+
+<p>9) 平时最常用的一个编译器的所有编译选项熟记于心，以及他和ISO  C++定义的编译器的差别。</p>
+
+<p>10)这条凑数……不管怎么样，也要会用gcc……这样保证了在每个平台下面  都可以编译个helloworld按上面的标准查看下自己……还是要继续努力啊……</p>
+
+<p></p>
+
+<p>9</p>
+
+<p>就语言层面来说，正如大部分C程序员都能毫不费力地将任意C源码&quot;肉眼翻译&quot;成伪汇编码那样，一个合格的C++程序员也应当可以做到将任意C++源码&quot;人脑编译&quot;为对应的伪汇编码。但现实的情况是由于C++新增了模板、虚函数、RTTI、虚基类、异常等大量高级特性，以至于能够真正透彻掌握C++语言的程序员不多。</p>
+
+<p>除非完全不使用前文中列出的那些C++高级特性，仅把它作为一个&quot;稍好的C&quot;来使用。否则，对于任何一个职业程序员来说，贸然地使用一种尚不了解其底层（编译器或VM）实现细节的语言特性是一件很危险的事。</p>
+
+<p>关于编译器如何实现异常，可参考小文：<a href="https://link.zhihu.com/?target=http%3A//baiy.cn/doc/cpp/inside_exception.htm" target="_blank">C++异常机制的实现方式和开销分析</a></p>
+
+<p>关于编译器如何实现继承、虚函数、虚基类和 RTTI，可参考小文：<a href="https://link.zhihu.com/?target=http%3A//baiy.cn/doc/cpp/inside_rtti.htm" target="_blank">RTTI、虚函数和虚基类的实现方式、开销分析及使用指导</a></p>
+
+<p>至于 Lambda 表达式和闭包这种看起来“神奇”的机制就简单多了，其实只是语法糖而已，可参考小文：<a href="https://link.zhihu.com/?target=http%3A//baiy.cn/doc/cpp/comments_of_cxx0x.htm%23%25E6%25A0%25B8%25E5%25BF%2583%25E8%25AF%25AD%25E8%25A8%2580_Lambda_%25E8%25A1%25A8%25E8%25BE%25BE%25E5%25BC%258F%25E5%2592%258C%25E9%2597%25AD%25E5%258C%2585" target="_blank">C++0x（C++11）新特性点评</a></p>
+
+<p>对于其它更“一目了然”的语言特性，相信稍有经验的开发者都能不费力地做到“人肉编译”了。</p>
+
+<p>以上仅就C++编程语言方面来讨论。但是需要注意，想成为一个优秀的程序员并是不仅仅精通一门程序设计语言这样简单，还设计数据结构与算法、底层硬件和操作系统等等各种背景知识，以及涉及开发、维护等方面的方法论等各个方面。详见小文《程序员的素质》<a href="https://link.zhihu.com/?target=http%3A//baiy.cn/doc/quality_of_programmer.pdf" target="_blank">http://baiy.cn/doc/quality_of_programmer.pdf</a> 。</p>
+
+<p>10</p>
+
+<p>这个问题的确很难讲清楚，可以从这几个方面下手（这是一个死循环体，1-&gt;2-&gt;3-&gt;1）：</p>
+
+<p>1、C++的发展历史，包括为什么会出现C++、C++的具体应用、C++的发展前途等，在互联网上好好查查，利用好各大搜索引擎，对C++先要有一定的“感性”（初步）认识；</p>
+
+<p>2、C++的编程思想，包括对象、接口、继承、多态、异常处理、STL、IOstream等编程设计思想，找本厚书，把门窗都关上，使劲的“啃”，理解了的东西才能更好地感觉到它；</p>
+
+<p>3、C++的项目开发（还要学很多其他技术），包括开源项目整改、各种类库开发、外包项目承接等，写个东西，能解决实际问题，并得到使用者的一致好评，正所谓实践验真知。</p>
+
+<p></p>
+
+<p>能做到这三点的，在别人的眼里，都是精通C++的大牛；但他们自己却认为这只是用C++完成个项目而已，接下来还有很多新东西要学。</p>
+
+<p></p>
+
+<p>所以说精通就是要循环地去做这件事，一旦跳出来了，也就成了过去时；“我以前很精通这个的！”你信么？至于你信不信，反正我是不信的！</p>
+
+<p></p>
+
+<p>11</p>
+  <ol start="1" type="1">
+    <li>C++语言熟练，熟悉C++语法，包括<a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3D%25E9%259D%25A2%25E5%2590%2591%25E5%25AF%25B9%25E8%25B1%25A1%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">面向对象</a>的概念，模版等 </li>
+  </ol>
+  <p align="left">这一阶段需要比较艰辛的过程，需要学习很多书，包括《C++ Programming Language》，<a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3D%25E3%2580%258AEffective%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">《Effective</a> <a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3DC%252B%252B%25E3%2580%258B%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">C++》</a>，《More Effective <a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3DC%252B%252B%25E3%2580%258B%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">C++》</a>，《Thinking in <a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3DC%252B%252B%25E3%2580%258B%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">C++》</a>，<a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3D%25E3%2580%258AC%252B%252B%25E5%25AF%25B9%25E8%25B1%25A1%25E6%25A8%25A1%25E5%259E%258B%25E3%2580%258B%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">《C++对象模型》</a>，《C++ <a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3D%25E6%25A8%25A1%25E7%2589%2588%25E3%2580%258B%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">模版》</a>，如果上述书籍已经很熟悉了，本人认为，在学习阶段，已经很不错了。该过程可以在大学完成，需要一到两年的时间，应为是纯理论的东西，只能算熟悉。在该过程中，需要做一些简单的程序。 </p>
+  <ol start="1" type="1">
+    <li>C++做项目，使用C++做项目，需要比较多的其它库，比如UI库，还需要使用一些网络库等，这个时候，就可以看到C++的博大精深了，此时，光有C++语言知识是不够的，需要补充一些平台开发的知识，看看开源的C++项目。比如：<a href="https://link.zhihu.com/?target=https%3A//www.baidu.com/s%3Fwd%3DWindows%25E7%25A8%258B%25E5%25BA%258F%25E8%25AE%25BE%25E8%25AE%25A1%26tn%3D44039180_cpr%26fenlei%3Dmv6quAkxTZn0IZRqIHckPjm4nH00T1Y3nHcsPWwWrjmkm1nYrAfs0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHfYrjRdPHRznjfzrHfdPHmvn0" target="_blank">Windows程序设计</a>，C++网络编程，DirectX游戏开发，如果用C++做了两个以上的项目，那以及很不错了。 </li>
+    <li>最高境界是精通，自然是量的积累才会有质地变化。 </li>
+  </ol>
+  <p align="left">12</p>
+  <p align="left">&nbsp;</p>
+  <p align="left">1 简历上写着了解c++,  实际上不知道mfc 根 VC有什么区别. 0级</p>
+
+<p>2 简历上写着精通c++,  但是仅仅知道mfc, 认为VC就是C++的一切。 1级</p>
+
+<p>3 总是使用malloc，或者  char[100] 来获得内存，但不知道怎么在指定内存上面创建对象。 2级</p>
+
+<p>4 感觉std::string  没有 CString 好用! 听说过g++ 3级</p>
+
+<p>5 会使用std::string,  认为 &quot;c/c++&quot; 很不科学,完全就不是一个语言嘛. 知道4种以上c++ compiler. 感觉自己什么都会。 4级</p>
+
+<p>6 看山是山，看水是水。崇拜boost  source code， 呕心沥血的研究经典库的代码. 感觉自己什么都不会。5级</p>
+
+<p>7 看山不是山，看水不是水。为自己钟情的函数库而奋斗着,恨不得用尽各种tricks  和 traits, 因为各种经典设计模式想得头疼. 稍有走火入魔迹象。 6级</p>
+
+<p>8 看山仍然山，看水仍然是水。  看到每行代码，都是汇编的指令和内存数据的移动。 代码中几乎不出现for 和 while 关键字，不停地否定自己的过去。 7级</p>
+
+<p>9 维护着g++,或者Watcom  C++ 之类的项目，头发也比较长，有艺术家气质。 8级</p>
+
+<p>10 参与 C++  Standards Committee, 代表不同的利益集团发言。 9级</p>
+
+<p>11 彻底走火入魔,  成天幻想修改C++的语法, 添加自己的关键字, 重新实现一个C++的改进, 还想把c++变成脚本，解释执行。已经超越了利益。 10级.</p>
+
+<p>12</p>
+
+<p>突然想起一个捷径，可以试一试。</p>
+
+<p>C++的每一个特性几乎都不是原创，它有一个来源，你也许可以先去学习一下那个来源。</p>
+
+<p>比如，用C先写一下常见的数据结构，再把它改为ADT范式。</p>
+
+<p>比如，写一个模仿int语义的string类。</p>
+
+<p>比如，面向对象是学smalltalk，可以学习一下smalltalk，再用C++实现一下单继承体系，接口继承，消息传递。还可以抄一个toolkit，实现一下mvc。</p>
+
+<p>比如，学习一下sml，用C++仿写一个基础库。</p>
+
+<p>比如，试试用C++写一个语法描述的DSL，就像bison那样。</p>
+
+<p>比如，还有fp，可以试试翻译一个haskell代码，写成C++。</p>
+
+<p>等等，如果这个列表足够长，应该可以精通C++。</p>
+
+<p>13</p>
+
+<p>会无法忍受 public static void main，想使用类，又想用指针，又想跑的飞快，偶尔还可能插入一段汇编来做些奇怪的事情，喜欢一切都掌握在手里的感觉，优化的时候很痛快，更多地是有理有据有办法地优化，没有垃圾回收在作怪（从这个角度看，这也是一种摧枯拉朽），又想这又想那最后自己成了奇葩。</p>
+
+<p>于是会选择c++这一奇葩，虽然选择了它，但至今都认为这是屎一样的语言，或许永远也无法写的像python有种摧枯拉朽的感觉，但是却可以写的很整齐，每一句都是有理由的，没有一句是不过脑子写出来的，是在雕琢代码。</p>
+
+<p>c++ python js lua 我都喜欢，自己一个人写东西首选py，想掌控一切的时候会考虑c++，可惜自己写自己的东西总是一个人，就我的情况来说还真没有足够的精力，而我又是个极其嫌麻烦的人，真是个遗憾。</p>
+
+<p>14</p>
+
+<p>有对比才有体会吧。我是拿 C++ 和 c# 这个严谨而 OO 程度非常高的语言对比，你可以看到两种语言的设计宗旨的差异和特点：</p>
+
+<p>说点 C++ 的特点：</p>
+
+<p>（1）C++ 里字符和数字无缝衔接，char 和数字（number），是没有任何差异的，你怎样用它把它当什么来用它就是什么。C# 居然不行，非得要 Encoding 来转或者显示 Convert （还不一定是你要的结果），吐血！</p>
+
+<p>（2）switch 语句在 C++ 里可以随意贯穿（落下），c# 不行。你喜欢哪一个？</p>
+
+<p>（3）C++ 引用 dll（静态链接），只要拿来 h，lib，dll 这三个文件，直接 include 就可以用了。C# 要自己写 pinvoke。。累不累啊。</p>
+
+<p>（4）序列化和反序列化，C++ 里可以在内存和文件之间进行直接传输。C# 好像需要手工写，或者要引封送 api，烦！</p>
+
+<p>（5）C++ 可以把类实例声明在栈上（构造也一并完成），非常便捷。C # 必须得写赋值的 new ，（当然这里还有点区别 c# 的内存管理策略也不把对象放在栈上）。</p>
+
+<p>（6）C++ 比 C#（java 也是），少了一个抽象层（平台），也就是说，C++ 写的 windows 程序，不需要装 .net framework 。同时，运行程序的内存需求也远小于后者。换句话说，在硬件比较垃圾的场合，前者的适应性更强。 </p>
+  <p align="left">那么用 C# 的优点是什么呢？</p>
+
+<p>写代码的时候，基本不需要操心什么内存和资源的问题。。。。。。这一条的差异性很大。总之，用 C# 写代码，你会感觉轻松很多，而用 C++ 写代码，真是操碎了心，很累的感觉。 </p>
+  <p align="left">&nbsp;</p>
+  <p>&nbsp;</p>
+  <p align="left">&nbsp;</p>
+  <p align="left">&nbsp;</p>
+  <p align="left">&nbsp;</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
