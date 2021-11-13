@@ -1,0 +1,585 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>应用图的深度优先遍历思路求解问题</h4>
+
+
+<a href="https://helijian.blog.csdn.net/article/details/49622743" title="">ref</a>
+                  <p>本文是[<a href="http://edu.csdn.net/course/detail/1595">数据结构基础系列(7)&#xff1a;图</a>]中第8课时[<a href="http://edu.csdn.net/course/detail/1595/24598?auto_start&#61;1">图的邻接矩阵存储结构及算法</a>]的例程。</p> 
+<p>&#xff08;程序中graph.h是图存储结构的“算法库”中的头文件&#xff0c;详情请<a href="http://blog.csdn.net/sxhelijian/article/details/49591419">单击链接…</a>&#xff09;</p> 
+<p>1、是否有简单路径? <br /> 问题&#xff1a;假设图G采用邻接表存储&#xff0c;设计一个算法&#xff0c;判断顶点u到v是否有简单路径。</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="hljs-preprocessor">#include &lt;malloc.h&gt;</span>
+<span class="hljs-preprocessor">#include &#34;graph.h&#34;</span>
+<span class="hljs-keyword">int</span> visited[MAXV];     <span class="hljs-comment">//定义存放节点的访问标志的全局数组</span>
+<span class="hljs-keyword">void</span> ExistPath(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v, <span class="hljs-keyword">bool</span> &amp;has)
+{
+    <span class="hljs-keyword">int</span> w;
+    ArcNode *p;
+    visited[u]&#61;<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span>(u&#61;&#61;v)
+    {
+        has&#61;<span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">return</span>;
+    }
+    p&#61;G-&gt;adjlist[u].firstarc;
+    <span class="hljs-keyword">while</span> (p!&#61;NULL)
+    {
+        w&#61;p-&gt;adjvex;
+        <span class="hljs-keyword">if</span> (visited[w]&#61;&#61;<span class="hljs-number">0</span>)
+            ExistPath(G,w,v,has);
+        p&#61;p-&gt;nextarc;
+    }
+}
+<span class="hljs-keyword">void</span> HasPath(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v)
+{
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">bool</span> flag &#61; <span class="hljs-keyword">false</span>;
+    <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;G-&gt;n; i&#43;&#43;)
+        visited[i]&#61;<span class="hljs-number">0</span>; <span class="hljs-comment">//访问标志数组初始化</span>
+    ExistPath(G,u,v,flag);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34; 从 %d 到 %d &#34;</span>, u, v);
+    <span class="hljs-keyword">if</span>(flag)
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;有简单路径\n&#34;</span>);
+    <span class="hljs-keyword">else</span>
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;无简单路径\n&#34;</span>);
+}
+<span class="hljs-keyword">int</span> main()
+{
+    ALGraph *G;
+    <span class="hljs-keyword">int</span> A[<span class="hljs-number">5</span>][<span class="hljs-number">5</span>]&#61;
+    {
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>},
+    };  <span class="hljs-comment">//请画出对应的有向图</span>
+    ArrayToList(A[<span class="hljs-number">0</span>], <span class="hljs-number">5</span>, G);
+    HasPath(G, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+    HasPath(G, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>附&#xff1a;测试图结构及存储 <br /> <img src="https://img-blog.csdn.net/20151103213225990" alt="这里写图片描述" title="" /></p> 
+<p>2、输出简单路径 <br /> 问题&#xff1a;假设图G采用邻接表存储&#xff0c;设计一个算法输出图G中从顶点u到v的一条简单路径&#xff08;假设图G中从顶点u到v至少有一条简单路径&#xff09;。</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="hljs-preprocessor">#include &lt;malloc.h&gt;</span>
+<span class="hljs-preprocessor">#include &#34;graph.h&#34;</span>
+<span class="hljs-keyword">int</span> visited[MAXV];     <span class="hljs-comment">//定义存放节点的访问标志的全局数组</span>
+<span class="hljs-keyword">void</span> FindAPath(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v,<span class="hljs-keyword">int</span> path[],<span class="hljs-keyword">int</span> d)
+{
+    <span class="hljs-comment">//d表示path中的路径长度&#xff0c;初始为-1</span>
+    <span class="hljs-keyword">int</span> w,i;
+    ArcNode *p;
+    visited[u]&#61;<span class="hljs-number">1</span>;
+    d&#43;&#43;;
+    path[d]&#61;u;  <span class="hljs-comment">//路径长度d增1&#xff0c;顶点u加入到路径中</span>
+    <span class="hljs-keyword">if</span> (u&#61;&#61;v)   <span class="hljs-comment">//找到一条路径后输出并返回</span>
+    {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;一条简单路径为:&#34;</span>);
+        <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;&#61;d; i&#43;&#43;)
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;%d &#34;</span>,path[i]);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;\n&#34;</span>);
+        <span class="hljs-keyword">return</span>;         <span class="hljs-comment">//找到一条路径后返回</span>
+    }
+    p&#61;G-&gt;adjlist[u].firstarc;  <span class="hljs-comment">//p指向顶点u的第一个相邻点</span>
+    <span class="hljs-keyword">while</span> (p!&#61;NULL)
+    {
+        w&#61;p-&gt;adjvex;    <span class="hljs-comment">//相邻点的编号为w</span>
+        <span class="hljs-keyword">if</span> (visited[w]&#61;&#61;<span class="hljs-number">0</span>)
+            FindAPath(G,w,v,path,d);
+        p&#61;p-&gt;nextarc;   <span class="hljs-comment">//p指向顶点u的下一个相邻点</span>
+    }
+}
+<span class="hljs-keyword">void</span> APath(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v)
+{
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">int</span> path[MAXV];
+    <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;G-&gt;n; i&#43;&#43;)
+        visited[i]&#61;<span class="hljs-number">0</span>; <span class="hljs-comment">//访问标志数组初始化</span>
+    FindAPath(G,u,v,path,-<span class="hljs-number">1</span>);  <span class="hljs-comment">//d初值为-1&#xff0c;调用时d&#43;&#43;&#xff0c;即变成了0</span>
+}
+<span class="hljs-keyword">int</span> main()
+{
+    ALGraph *G;
+    <span class="hljs-keyword">int</span> A[<span class="hljs-number">5</span>][<span class="hljs-number">5</span>]&#61;
+    {
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>},
+    };  <span class="hljs-comment">//请画出对应的有向图</span>
+    ArrayToList(A[<span class="hljs-number">0</span>], <span class="hljs-number">5</span>, G);
+    APath(G, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+    APath(G, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>3、输出所有路径 <br /> 问题&#xff1a;输出从顶点u到v的所有简单路径。</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="hljs-preprocessor">#include &lt;malloc.h&gt;</span>
+<span class="hljs-preprocessor">#include &#34;graph.h&#34;</span>
+<span class="hljs-keyword">int</span> visited[MAXV];     <span class="hljs-comment">//定义存放节点的访问标志的全局数组</span>
+<span class="hljs-keyword">void</span> FindPaths(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v,<span class="hljs-keyword">int</span> path[],<span class="hljs-keyword">int</span> d)
+<span class="hljs-comment">//d是到当前为止已走过的路径长度&#xff0c;调用时初值为-1</span>
+{
+    <span class="hljs-keyword">int</span> w,i;
+    ArcNode *p;
+    visited[u]&#61;<span class="hljs-number">1</span>;
+    d&#43;&#43;;            <span class="hljs-comment">//路径长度增1</span>
+    path[d]&#61;u;              <span class="hljs-comment">//将当前顶点添加到路径中</span>
+    <span class="hljs-keyword">if</span> (u&#61;&#61;v &amp;&amp; d&gt;<span class="hljs-number">1</span>)            <span class="hljs-comment">//输出一条路径</span>
+    {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;  &#34;</span>);
+        <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;&#61;d; i&#43;&#43;)
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;%d &#34;</span>,path[i]);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;\n&#34;</span>);
+    }
+    p&#61;G-&gt;adjlist[u].firstarc; <span class="hljs-comment">//p指向u的第一条边</span>
+    <span class="hljs-keyword">while</span>(p!&#61;NULL)
+    {
+        w&#61;p-&gt;adjvex;     <span class="hljs-comment">//w为u的邻接顶点</span>
+        <span class="hljs-keyword">if</span> (visited[w]&#61;&#61;<span class="hljs-number">0</span>)      <span class="hljs-comment">//若顶点未标记访问&#xff0c;则递归访问之</span>
+            FindPaths(G,w,v,path,d);
+        p&#61;p-&gt;nextarc; <span class="hljs-comment">//找u的下一个邻接顶点</span>
+    }
+    visited[u]&#61;<span class="hljs-number">0</span>;   <span class="hljs-comment">//恢复环境</span>
+}
+<span class="hljs-keyword">void</span> DispPaths(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v)
+{
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">int</span> path[MAXV];
+    <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;G-&gt;n; i&#43;&#43;)
+        visited[i]&#61;<span class="hljs-number">0</span>; <span class="hljs-comment">//访问标志数组初始化</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;从%d到%d的所有路径:\n&#34;</span>,u,v);
+    FindPaths(G,u,v,path,-<span class="hljs-number">1</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;\n&#34;</span>);
+}
+<span class="hljs-keyword">int</span> main()
+{
+    ALGraph *G;
+    <span class="hljs-keyword">int</span> A[<span class="hljs-number">5</span>][<span class="hljs-number">5</span>]&#61;
+    {
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>}
+    };  <span class="hljs-comment">//请画出对应的有向图</span>
+    ArrayToList(A[<span class="hljs-number">0</span>], <span class="hljs-number">5</span>, G);
+    DispPaths(G, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>附&#xff1a;测试用的图结构、存储结构、运行结果 <br /> <img src="https://img-blog.csdn.net/20151103214106628" alt="这里写图片描述" title="" /></p> 
+<p>4、输出一些简单回路 <br /> 问题&#xff1a;输出图G中从顶点u到v的长度为s的所有简单路径。</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="hljs-preprocessor">#include &lt;malloc.h&gt;</span>
+<span class="hljs-preprocessor">#include &#34;graph.h&#34;</span>
+<span class="hljs-keyword">int</span> visited[MAXV];     <span class="hljs-comment">//定义存放节点的访问标志的全局数组</span>
+<span class="hljs-keyword">void</span> SomePaths(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v,<span class="hljs-keyword">int</span> s, <span class="hljs-keyword">int</span> path[],<span class="hljs-keyword">int</span> d)
+<span class="hljs-comment">//d是到当前为止已走过的路径长度&#xff0c;调用时初值为-1</span>
+{
+    <span class="hljs-keyword">int</span> w,i;
+    ArcNode *p;
+    visited[u]&#61;<span class="hljs-number">1</span>;
+    d&#43;&#43;;            <span class="hljs-comment">//路径长度增1</span>
+    path[d]&#61;u;              <span class="hljs-comment">//将当前顶点添加到路径中</span>
+    <span class="hljs-keyword">if</span> (u&#61;&#61;v &amp;&amp; d&#61;&#61;s)           <span class="hljs-comment">//输出一条路径</span>
+    {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;  &#34;</span>);
+        <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;&#61;d; i&#43;&#43;)
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;%d &#34;</span>,path[i]);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;\n&#34;</span>);
+    }
+    p&#61;G-&gt;adjlist[u].firstarc; <span class="hljs-comment">//p指向u的第一条边</span>
+    <span class="hljs-keyword">while</span>(p!&#61;NULL)
+    {
+        w&#61;p-&gt;adjvex;     <span class="hljs-comment">//w为u的邻接顶点</span>
+        <span class="hljs-keyword">if</span> (visited[w]&#61;&#61;<span class="hljs-number">0</span>)      <span class="hljs-comment">//若顶点未标记访问&#xff0c;则递归访问之</span>
+            SomePaths(G,w,v,s,path,d);
+        p&#61;p-&gt;nextarc; <span class="hljs-comment">//找u的下一个邻接顶点</span>
+    }
+    visited[u]&#61;<span class="hljs-number">0</span>;   <span class="hljs-comment">//恢复环境</span>
+}
+<span class="hljs-keyword">void</span> DispSomePaths(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v, <span class="hljs-keyword">int</span> s)
+{
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">int</span> path[MAXV];
+    <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;G-&gt;n; i&#43;&#43;)
+        visited[i]&#61;<span class="hljs-number">0</span>; <span class="hljs-comment">//访问标志数组初始化</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;从%d到%d长为%d的路径:\n&#34;</span>,u,v,s);
+    SomePaths(G,u,v,s,path,-<span class="hljs-number">1</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;\n&#34;</span>);
+}
+<span class="hljs-keyword">int</span> main()
+{
+    ALGraph *G;
+    <span class="hljs-keyword">int</span> A[<span class="hljs-number">5</span>][<span class="hljs-number">5</span>]&#61;
+    {
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>}
+    };  <span class="hljs-comment">//请画出对应的有向图</span>
+    ArrayToList(A[<span class="hljs-number">0</span>], <span class="hljs-number">5</span>, G);
+    DispSomePaths(G, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>附&#xff1a;测试的图结构、运行结果 <br /> <img src="https://img-blog.csdn.net/20151103214239111" alt="这里写图片描述" title="" /></p> 
+<p>5、输出通过一个节点的所有简单回路 <br /> 问题&#xff1a;求图中通过某顶点k的所有简单回路&#xff08;若存在&#xff09;</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;stdio.h&gt;</span>
+<span class="hljs-preprocessor">#include &lt;malloc.h&gt;</span>
+<span class="hljs-preprocessor">#include &#34;graph.h&#34;</span>
+<span class="hljs-keyword">int</span> visited[MAXV];       <span class="hljs-comment">//全局变量</span>
+<span class="hljs-keyword">void</span> DFSPath(ALGraph *G,<span class="hljs-keyword">int</span> u,<span class="hljs-keyword">int</span> v,<span class="hljs-keyword">int</span> path[],<span class="hljs-keyword">int</span> d)
+<span class="hljs-comment">//d是到当前为止已走过的路径长度&#xff0c;调用时初值为-1</span>
+{
+    <span class="hljs-keyword">int</span> w,i;
+    ArcNode *p;
+    visited[u]&#61;<span class="hljs-number">1</span>;
+    d&#43;&#43;;
+    path[d]&#61;u;
+    p&#61;G-&gt;adjlist[u].firstarc;   <span class="hljs-comment">//p指向顶点u的第一条边</span>
+    <span class="hljs-keyword">while</span> (p!&#61;NULL)
+    {
+        w&#61;p-&gt;adjvex;            <span class="hljs-comment">//w为顶点u的相邻点</span>
+        <span class="hljs-keyword">if</span> (w&#61;&#61;v &amp;&amp; d&gt;<span class="hljs-number">0</span>)        <span class="hljs-comment">//找到一个回路&#xff0c;输出之</span>
+        {
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;  &#34;</span>);
+            <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;&#61;d; i&#43;&#43;)
+                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;%d &#34;</span>,path[i]);
+            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;%d \n&#34;</span>,v);
+        }
+        <span class="hljs-keyword">if</span> (visited[w]&#61;&#61;<span class="hljs-number">0</span>)          <span class="hljs-comment">//w未访问&#xff0c;则递归访问之</span>
+            DFSPath(G,w,v,path,d);
+        p&#61;p-&gt;nextarc;       <span class="hljs-comment">//找u的下一个邻接顶点</span>
+    }
+    visited[u]&#61;<span class="hljs-number">0</span>;           <span class="hljs-comment">//恢复环境&#xff1a;使该顶点可重新使用</span>
+}
+<span class="hljs-keyword">void</span> FindCyclePath(ALGraph *G,<span class="hljs-keyword">int</span> k)
+<span class="hljs-comment">//输出经过顶点k的所有回路</span>
+{
+    <span class="hljs-keyword">int</span> path[MAXV],i;
+    <span class="hljs-keyword">for</span> (i&#61;<span class="hljs-number">0</span>; i&lt;G-&gt;n; i&#43;&#43;)
+        visited[i]&#61;<span class="hljs-number">0</span>; <span class="hljs-comment">//访问标志数组初始化</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;经过顶点%d的所有回路\n&#34;</span>,k);
+    DFSPath(G,k,k,path,-<span class="hljs-number">1</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&#34;\n&#34;</span>);
+}
+<span class="hljs-keyword">int</span> main()
+{
+    ALGraph *G;
+    <span class="hljs-keyword">int</span> A[<span class="hljs-number">5</span>][<span class="hljs-number">5</span>]&#61;
+    {
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>},
+        {<!-- --><span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>}
+    };  <span class="hljs-comment">//请画出对应的有向图</span>
+    ArrayToList(A[<span class="hljs-number">0</span>], <span class="hljs-number">5</span>, G);
+    FindCyclePath(G, <span class="hljs-number">0</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>附&#xff1a;测试用图结构、输出结果 <br /> <img src="https://img-blog.csdn.net/20151103214408532" alt="这里写图片描述" title="" /></p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-d7a94ec6ab.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-49037e4d27.css" rel="stylesheet">
+        </div>
+        <div id="treeSkill"></div>
+    </article>
+</div>
+
+<p style='float:right;'>本页共288段，22489个字符，24532 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,609 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>对象更有用的玻璃罩——常引用</h4>
+
+
+<p style="padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-bottom: 0px;">原创案例讲解——”玻璃罩const”系列的三篇文章&#xff1a;</p>
+<p style="padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-bottom: 0px;">1. <a target="_blank" style="color: rgb(255, 153, 0); text-decoration: none;" href="http://blog.csdn.net/sxhelijian/article/details/7385683" rel="noopener noreferrer">使用常对象——为共用数据加装一个名为const的玻璃罩</a><br /></p>
+<p style="padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-bottom: 0px;">2. <a target="_blank" style="color: rgb(255, 153, 0); text-decoration: none;" href="http://blog.csdn.net/sxhelijian/article/details/7386906" rel="noopener noreferrer">常&#xff08;const&#xff09;&#43; 对象 &#43; 指针&#xff1a;玻璃罩到底保护哪一个</a></p>
+<p style="padding-top: 0px; padding-bottom: 0px; margin-top: 0px; margin-bottom: 0px;">3. <a target="_blank" style="color: rgb(255, 153, 0); text-decoration: none;" href="http://blog.csdn.net/sxhelijian/article/details/7390929" rel="noopener noreferrer">对象更有用的玻璃罩——常引用</a></p>
+<p><br /></p>
+<p>　　本文讲在基于对象的程序设计中&#xff0c;函数中传递参数使用更广泛的技术&#xff0c;利用引用及常引用的话题。</p>
+<p>　　先从引用的作用开始谈起。</p>
+<p><br /></p>
+<p>　　<strong>一、引用用在参数传递中的优势&#xff1a;带回修改值及节省开支</strong></p>
+<p>　　先从一个经典的例子开始。</p>
+<p>　　假如现在要交换两个整数&#xff0c;编写出的程序如下&#xff1a;</p>
+<p></p>
+<pre><code class="language-cpp">//程序1
+#include &lt;iostream&gt;  
+using namespace std;  
+void swap(int x, int y); //用整形本身做形参
+int main()
+{
+	int a&#61;5,b&#61;3;
+	swap(a,b);    //函数调用时传值
+	cout&lt;&lt;&#34;a&#61;&#34;&lt;&lt;a&lt;&lt;&#34; , b&#61;&#34;&lt;&lt;b&lt;&lt;endl;  //输出a&#61;5,b&#61;3&#xff0c;根本不能完成交换值
+	system(&#34;pause&#34;);
+	return 0;
+}
+void swap(int x,int y)
+{
+	int t;
+	t&#61;x;
+	x&#61;y;
+	y&#61;t;
+}</code></pre>　　这个程序无法完成任务。因为在第9行调用swap()函数时&#xff0c;将实参a,b的值传递给了实参x,y&#xff0c;函数swap()在执行时&#xff0c;确实也交换了x和y。但是&#xff0c;任务最终交换a和b的要求却不能完成&#xff0c;前述的交换已经与a,b无关。
+<p></p>
+<p>　　在传统C语言中&#xff0c;可以利用指针实现在函数中改变实参所对应存储单元的值。</p>
+<p></p>
+<pre><code class="language-cpp">//程序2
+#include &lt;iostream&gt;  
+using namespace std;  
+void swap(int *x, int *y);
+int main()
+{
+	int a&#61;5,b&#61;3;
+	swap(&amp;a,&amp;b); //将a和b的地址值传递给形式参数x和y
+	cout&lt;&lt;&#34;a&#61;&#34;&lt;&lt;a&lt;&lt;&#34; , b&#61;&#34;&lt;&lt;b&lt;&lt;endl;  //将输出a&#61;3, b&#61;5&#xff0c;交换成功
+	system(&#34;pause&#34;);
+	return 0;
+}
+void swap(int *x,int *y) //x指向a&#xff0c;y指向b
+{
+	int t;
+	t&#61;*x;
+	*x&#61;*y;   //对*x的修改&#xff0c;即是对实参a的修改
+	*y&#61;t;    //对*y的修改&#xff0c;即是对实参b的修改
+}
+</code></pre>　　在将实际参数a和b的地址值传递给形式参数x和y后&#xff0c;swap()函数中所做出的针对x和y所指向的单元的修改&#xff0c;改的就是a和b的值。函数调用完后&#xff0c;尽管x和y的生命周期结束&#xff0c;但“交换”的结果却留在了main()函数中。
+<p></p>
+<p>　　在C&#43;&#43;中&#xff0c;引入了引用类型专门处理此类问题。</p>
+<p></p>
+<pre><code class="language-cpp">//程序3
+#include &lt;iostream&gt;  
+using namespace std;  
+void swap(int &amp;x, int &amp;y);
+int main()
+{
+	int a&#61;5,b&#61;3;
+	swap(a,b); //a即是x&#xff0c;b即是y
+	cout&lt;&lt;&#34;a&#61;&#34;&lt;&lt;a&lt;&lt;&#34; , b&#61;&#34;&lt;&lt;b&lt;&lt;endl;  //将输出a&#61;3, b&#61;5&#xff0c;交换成功
+	system(&#34;pause&#34;);
+	return 0;
+}
+void swap(int &amp;x,int &amp;y) //x即是a&#xff0c;y即是b
+{
+	int t;
+	t&#61;x;
+	x&#61;y;   //对x的修改&#xff0c;即是对实参a的修改
+	y&#61;t;    //对y的修改&#xff0c;即是对实参b的修改
+}</code></pre>　　在第9行调用函数swap()时&#xff0c;按函数传值的特点和引用类型的含义&#xff0c;x与a共用存储单元&#xff0c;y与b共用存储单元&#xff0c;所以在执行函数swap时&#xff0c;对x和y的修改&#xff0c;就是对a和b的修改。函数调用完后&#xff0c;x和y的生命周期结束了&#xff0c;但a和b显然保存的是交换后的值。
+<p></p>
+<p>　　略做一个总结&#xff0c;可以发现程序3中的诸多优势。</p>
+<p>　　程序3与程序2相比&#xff0c;都能实现在函数中修改实参对应的值&#xff0c;但在实现中&#xff0c;不用意识到地址的存在&#xff0c;并且从调用的角度&#xff0c;swap(a,b)比swap(&amp;a,&amp;b)直观、简单的多&#xff0c;这会有效减少程序中在调用时可能犯的错误。程序2中需要两个存储地址值的单元x和y&#xff0c;而程序3中的x和y直接用的就是a和b的单元&#xff0c;从空间角度&#xff0c;节省了可能我们并不在意的一点点空间。</p>
+<p>　　程序3与程序1相比&#xff0c;两者在调用的形式上完全一样&#xff0c;函数体的写法完全一样&#xff0c;仅是函数原型中有些许差别。但是&#xff0c;程序3之伟大之一在于&#xff0c;可以在函数中对实参的值进行修改&#xff0c;而程序1却不行。另外一个显著区别在于&#xff0c;程序1在调用sway()时&#xff0c;要为形参分配存储单元&#xff0c;然后将实参的值写入&#xff0c;而程序3中x和y直接用的就是a和b的单元&#xff0c;不用分配空间&#xff0c;也不用花时间赋值。从本例中&#xff0c;程序1的空间多占用8个字节&#xff08;x和y分别4字节&#xff09;&#xff0c;赋值要多占用一点点时间&#xff0c;这点空间和时间微不足道。但是&#xff0c;如果形参和实参是对象&#xff0c;并且数据成员比较多&#xff0c;尤其是某些成员是数组等占用空间很大时&#xff0c;引用的机制带来的在开支上的节约就不是可以轻言忽略了。</p>
+<p>　　综上&#xff0c;鉴于可以实现修改的功能&#xff0c;以及在空间、时间上的巨大优势&#xff0c;可以提高程序的执行效率。当函数参数中需要涉及对象(类)时&#xff0c;我们用引用类型。</p>
+<p>　　引用&#xff0c;专为对象而生&#xff01;</p>
+<p><br /></p>
+<p>　　<strong>二、类对象的引用做形式参数</strong></p>
+<p>　　看一个例子&#xff1a;</p>
+<p></p>
+<pre><code class="language-cpp">//程序4
+#include &lt;iostream&gt;  
+using namespace std;  
+class  Test  
+{  
+private:   
+	int x;   
+	int y;  
+public:  
+	Test(int a, int b){x&#61;a;y&#61;b;}  
+	void printxy() const;  
+	void setX(int n) {x&#61;n;}  
+	void setY(int n) {y&#61;n;}  
+} ;  
+void Test::printxy() const   
+{  
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;  
+}  
+void doSomething(Test &amp;p1)  //形参是引用类型 
+{
+	p1.setX(5); 
+	p1.printxy( ); 
+}
+void main(void)  
+{      
+	Test t1(3,5);
+	doSomething(t1); //实参是对象&#xff0c;t1和p1是同义词&#xff0c;p1占用的就是t1的地址
+	t1.printxy(); 
+	system(&#34;pause&#34;);  
+} </code></pre>　　可以知道&#xff0c;程序执行的结果是输出了两次&#xff1a;x*y&#61;25。第一次的输出表明&#xff0c;在调用doSomething()函数中&#xff0c;t1的x数据成员被修改&#xff1b;而第2次的输出则说明&#xff0c;这个修改确实影响了实参t1&#xff0c;尽管随着程序调用结束&#xff0c;这种引用关系已经解除。
+<p></p>
+<p>　　这是一件令人感到快意的事。但&#xff0c;问题由此而生。如果在需求中&#xff0c;doSomething()函数确定为不允许修改t1&#xff0c;这种机制不正好成了bug的温床&#xff0c;当程序员无意中错误地写入了诸如第22行对数据成员修改的语句&#xff0c;这种错误将被编译器包庇下来。假如项目灰常大&#xff0c;那是令人抓狂的后果。</p>
+<p>　　为了限制这种无意的修改&#xff0c;我们想到了玻璃罩——const。</p>
+<p><br /></p>
+<p>　　<strong>三、用对象的常引用做形参</strong></p>
+<p>　　所谓对象的常引用&#xff0c;就是将引用用const进行限定。自然&#xff0c;引用不能被修改。</p>
+<p>　　将对象说明为常引用形式是&#xff1a;</p>
+<p>　　　<span style="color:#000099;">　const 类型名 &amp;对象名;</span></p>
+<p>　　下面是用对象的常引用做形参的例子。</p>
+<p></p>
+<pre><code class="language-cpp">//程序5
+#include &lt;iostream&gt;  
+using namespace std;  
+class  Test  
+{  
+private:   
+	int x;   
+	int y;  
+public:  
+	Test(int a, int b){x&#61;a;y&#61;b;}  
+	void printxy() const;  
+	void setX(int n) {x&#61;n;}  
+	void setY(int n) {y&#61;n;}  
+} ;  
+void Test::printxy() const   
+{  
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;  
+}  
+void doSomething(const Test &amp;p1)  //形参是常引用 
+{
+	p1.setX(5);  //将招致错误——error C2662: “Test::setX”: 不能将“this”指针从“const Test”转换为“Test &amp;”
+	p1.printxy( ); 
+}
+void main(void)  
+{      
+	Test t1(3,5);
+	doSomething(t1); //实参是对象
+	system(&#34;pause&#34;);  
+} </code></pre>　　第22行在编译时会出现错误&#xff0c;这说明用常引用做形参可以避免函数中对对象的修改。无论实际参数是否为常对象&#xff0c;这种限制都是存在的。
+<p></p>
+<p><br /></p>
+<p>　　<strong>四、小结</strong></p>
+<p>　　在对象做函数的形式参数时&#xff0c;用对象的引用做形式参数是一个直观且高效的处理方法&#xff0c;提倡用好。</p>
+<p>　　当不允许在函数体内对参数的值作出修改时&#xff0c;常将形式参数指定为const&#xff0c;这也是需要用好的C&#43;&#43;的特性。</p>
+<p><br /></p>
+<p>　　<strong>五、玻璃罩系列总结</strong></p>
+<p>　　我将const比喻为一个玻璃罩&#xff0c;由const决定的“常XX”的目标就是防止出现不该发生的对变量/对象的改变&#xff0c;“只许看不许摸”式的限制&#xff0c;成了一个有效的机制。</p>
+<p>　　下面将限制由严格到更灵活做个排列&#xff0c;也作为对系列文章的总结。</p>
+<p></p>
+<table align="center" border="1" cellspacing="1" cellpadding="1"><tbody><tr><td>方法</td><td>示例</td><td>含义</td><td>详解链接</td></tr><tr><td>使用常对象</td><td>Test const t1;或<br />const Test  t1;</td><td>对象在初始化之后&#xff0c;在任何情况下都不能被修改。这是最严格的限制。<br />&#xff08;整体任何时候、任何场合都不能改&#xff09;</td><td><a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7385683" rel="noopener noreferrer">名为const的玻璃罩</a></td></tr><tr><td>类中定义常数据成员</td><td>class Test{<!-- --><br />   const int x;<br />   ……<br />}</td><td>Test类的任一对象&#xff0c;其数据成员x 均不能被修改&#xff1b;访问x的成员函数也必<br />须为常成员函数。<br />&#xff08;对象中的某一特定部分在任何时候、任何场合都不能改&#xff09;</td><td><a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7385683" rel="noopener noreferrer">名为const的玻璃罩</a></td></tr><tr><td>类中定义常成员函数</td><td>class Test{<!-- --><br />    int x;<br />   ……<br />   void f() const;<br />}</td><td>f 函数中&#xff0c;对本类的数据成员&#xff0c;可以访问&#xff0c;但不可以修改&#xff08;在本函数之外&#xff0c;随便&#xff1b;但进了本函数所管辖范围&#xff0c;谁都不要改&#xff0c;无论是在其他场合可改变的非 const 对象&#xff0c;还是在其他场合也不能改变的const对象。f 的地盘 f 做主。&#xff09;</td><td><a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7385683" rel="noopener noreferrer">名为const的玻璃罩</a></td></tr><tr><td>函数参数中使用指向常对象<br />的指针作形式参数</td><td>void f(const Test *p1, Test *p2)</td><td>通过*p1访问实参的对象&#xff0c;无论对象是否加了const 限定&#xff0c;都不可以被修改。而在同一个函数中&#xff0c;p2所指向的对象却是可以被修改的。<br />&#xff08;在 f 的地盘上&#xff0c;根据声明区别对待&#xff0c;不该改的别该&#xff0c;该改的任你改。——民主社会的追求。 &#xff09;<br />&#xff08;用指针避免了函数调用中“大”对象的复制&#xff0c;可以提高效率。&#xff09;</td><td><a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7386906" rel="noopener noreferrer">玻璃罩保护哪一个</a></td></tr><tr><td>函数参数中使用指向常引用<br />作形式参数</td><td>void f(const Test &amp;t1, Test &amp;t2)</td><td>通过t1访问实参的对象&#xff0c;无论对象是否加了const 限定&#xff0c;都不可以被修改。而在同一个函数中&#xff0c;t2所引用的对象却是可以被修改的。<br />&#xff08;在 f 的地盘上&#xff0c;根据声明区别对待&#xff0c;不该改的别该&#xff0c;该改的任你改。——这也是实现“民主”的一种途径。 &#xff09;<br />&#xff08;用引用除了可以避免了函数调用中“大”对象的复制&#xff0c;可以提高效率外&#xff0c;其调用形式更加直观。&#xff09;</td><td>本文</td></tr></tbody></table>　　最后一种“函数参数中使用指向常引用作形式参数”是C&#43;&#43;中提供的精华&#xff0c;应该提倡在需要的时候用好。《c&#43;&#43;编程规范——101条规则、准则与最佳实践》中也强调&#xff1a;
+<p></p>
+<p></p>
+<ul><li>始终用const 限制所有指向只输入参数的指针和引用&#xff1b;</li><li>优先按const 的引用取得其他用户定义类型的输入。</li></ul>
+<p></p>
+<p>　　在C&#43;&#43;类库中对&#xff08;成员&#xff09;函数的处理也是遵循了这些原则。为进一步加强读者对此的映像&#xff0c;列举出C&#43;&#43;标准类库中string类的成员函数的原型以供赏析&#xff0c;也以此作为本系列三篇文章的结束。以这些砖&#xff0c;引出读者更高质量的程序来。</p>
+<p></p>
+<pre><code class="language-cpp">//以下文档来自MSDN&#xff0c;可以看出其中对象的常引用作形式参数的应用有多么广泛。
+//要看懂这些内容只需再结合一点“类模板”的有关知识即可&#xff0c;请读者自行解决。
+namespace std {
+//    TEMPLATE CLASSES
+template&lt;class E&gt;
+    struct char_traits;
+struct char_traits&lt;char&gt;;
+struct char_traits&lt;wchar_t&gt;;
+template&lt;class E,
+    class T &#61; char_traits&lt;E&gt;,
+    class A &#61; allocator&lt;E&gt; &gt;
+    class basic_string;
+typedef basic_string&lt;char&gt; string;
+typedef basic_string&gt;wchar_t&gt; wstring;
+//    TEMPLATE FUNCTIONS
+template&lt;class E, class T, class A&gt;
+    basic_string&lt;E, T, A&gt; operator&#43;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    basic_string&lt;E, T, A&gt; operator&#43;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const E *rhs);
+template&lt;class E, class T, class A&gt;
+    basic_string&lt;E, T, A&gt; operator&#43;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        E rhs);
+template&lt;class E, class T, class A&gt;
+    basic_string&lt;E, T, A&gt; operator&#43;(
+        const E *lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    basic_string&lt;E, T, A&gt; operator&#43;(
+        E lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&#61;&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&#61;&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const E *rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&#61;&#61;(
+        const E *lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator!&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator!&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const E *rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator!&#61;(
+        const E *lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&lt;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&lt;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const E *rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&lt;(
+        const E *lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&gt;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&gt;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const E *rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&gt;(
+        const E *lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&lt;&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&lt;&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const E *rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&lt;&#61;(
+        const E *lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&gt;&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&gt;&#61;(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const E *rhs);
+template&lt;class E, class T, class A&gt;
+    bool operator&gt;&#61;(
+        const E *lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    void swap(
+        const basic_string&lt;E, T, A&gt;&amp; lhs,
+        const basic_string&lt;E, T, A&gt;&amp; rhs);
+template&lt;class E, class T, class A&gt;
+    basic_ostream&lt;E&gt;&amp; operator&lt;&lt;(
+        basic_ostream &lt;E&gt;&amp; os,
+        const basic_string&lt;E, T, A&gt;&amp; str);
+template&lt;class E, class T, class A&gt;
+    basic_istream&lt;E&gt;&amp; operator&gt;&gt;(
+        basic_istream &lt;E&gt;&amp; is,
+        basic_string&lt;E, T, A&gt;&amp; str);
+template&lt;class E, class T, class A&gt;
+    basic_istream&lt;E, T&gt;&amp; getline(
+        basic_istream &lt;E, T&gt;&amp; is,
+        basic_string&lt;E, T, A&gt;&amp; str);
+ template&lt;class E, class T, class A&gt;
+    basic_istream&lt;E, T&gt;&amp; getline(
+        basic_istream &lt;E, T&gt;&amp; is,
+        basic_string&lt;E, T, A&gt;&amp; str,
+        E delim);
+    };
+</code></pre>
+<br />
+<br />
+<p></p>
+<p></p>
+<p></p>
+<p><br /></p>
+<p><br /></p>
+<p>&#xff08;全文完&#xff09;</p>
+
+<p style='float:right;'>本页共312段，14252个字符，19653 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>谈迭代方法与递归方法</h4>
+
+
+<h3>（一）迭代法</h3>
+<p>迭代法也称辗转法，是一种不断用变量的旧值递推新值的过程。迭代算法利用计算机运算速度快、适合做重复性操作的特点，让计算机对一组指令（或一定步骤）进行重复执行，在每次执行这组指令（或这些步骤）时，都从变量的原值推出它的一个新值，是用计算机解决问题的一种基本方法。</p>
+<p>迭代常用循环实现。</p>
+<p>例1：分析下面的程序的功能</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font><font color=#00F> main</font>(<font color=#00F>void</font>)
+{
+    <font color=#00F>int</font> x;
+   <font color=#CC0000> cin</font>>>x;
+   <font color=#00F> while</font>(x>0)
+    {
+       <font color=#CC0000> cout</font>&lt;&lt;x%10;
+        x=x/10;
+    }
+   <font color=#CC0000> cout</font>&lt;&lt;endl;
+}
+</pre>
+<p>通过走查不难发现，输出的是x的倒序数。例如输入的x值为358，输出853。</p>
+<p>在循环中，每一次迭代，x的数值都变小，直至为0结束循环，而在迭代中，每次都取出当前的最后一位数输出，于是x中的各位数，越靠后的越先输出，最终输出的是x的倒序数。</p>
+<p>思考：如果将例子中的10换成2、8或16呢？</p>
+<p>输出的结果自然是x对应的2、8或16进制数的倒序数。</p>
+<p>联想到十进制数转换为其他进制数的方法。以转换为2进制数为例，方法为除2取余法，且最后得到的余数应在前面。我们将前面的迭代过程稍做修改，引入数组暂存余数解决此问题。</p>
+<p>参考程序如下：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font><font color=#00F> main</font>(<font color=#00F>void</font>)
+{
+    <font color=#00F>int</font> x, n=0, a[50];
+   <font color=#CC0000> cin</font>>>x;
+   <font color=#00F> while</font>(x>0)
+    {
+        a[n]=x%2;
+        x=x/2;
+        n++;
+    }
+   <font color=#00F> for</font>(<font color=#00F>int</font> i=n-1;i>=0; i--)
+       <font color=#CC0000> cout</font>&lt;&lt;a[i];
+   <font color=#CC0000> cout</font>&lt;&lt;endl;
+}
+</pre>
+<p>还有一种迭代法叫近似迭代法，常用于数值计算中，如弦截法求解方程（p106例4.9）。例子中)重复步骤(2)和(3)，直到|f(x)|＜ξ（ξ为一个很小的正数）为止, 此时认为 f(x)≈0，获得了f(x)=0的近似解x。这个过程就是迭代。</p>
+<p>请阅读下面的函数，其中f(x)是任意的方程，且调用时，要保证f(x1)和f(x2)异号。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>double</font> root(<font color=#00F>double</font> x1, <font color=#00F>double</font> x2)
+{
+    <font color=#00F>double</font> x,y,y1;
+    y1=f(x1);
+   
+<font color=#00F>do</font>
+    {
+        x=xpoint(x1,x2);
+        y=f(x);
+       <font color=#00F> if</font>(y*y1>0)
+        {   y1=y;
+            x1=x;
+        }
+       
+<font color=#00F>else</font>
+            x2=x;
+    }<font color=#00F>while</font>(fabs(y)>=0.00001);
+    <font color=#00F>return </font>x;
+}
+</pre>
+<p>总结：利用迭代算法解决问题，需要做好以下三个方面的工作：</p>
+<p>1、确定迭代变量。在可以用迭代算法解决的问题中，至少存在一个直接或间接地不断由旧值递推出新值的变量，这个变量就是迭代变量。</p>
+<p>2、建立迭代关系式。所谓迭代关系式，指如何从变量的前一个值推出其下一个值的公式(或关系)。迭代关系式的建立是解决迭代问题的关键，通常可以使用递推或倒推的方法来完成。</p>
+<p>3、对迭代过程进行控制。在什么时候结束迭代过程?这是编写迭代程序必须考虑的问题。不能让迭代过程无休止地重复执行下去。迭代过程的控制通常可分为两种情况：一种是所需的迭代次数是个确定的值，可以计算出来;另一种是所需的迭代次数无法确定。对于前一种情况，可以构建一个固定次数的循环来实现对迭代过程的控制;对于后一种情况，需要进一步分析出用来结束迭代过程的条件。</p>
+<h3>（二）递归法</h3>
+<p>递归是计算机科学中的一种重要方法。</p>
+<p>能采用递归描述的算法通常有这样的特征：为求解规模为N的问题，设法将它分解成规模较小的问题，然后从这些小问题的解方便地构造出大问题的解，并且这些规模较小的问题也能采用同样的分解和综合方法，分解成规模更小的问题，并从这些更小问题的解构造出规模较大问题的解。特别地，当规模N=1时，能直接得解。</p>
+<p>例如求n!，由n!=n*(n-1)!，且1!=1，容易写出下面的函数：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>long</font> fact(<font color=#00F>int</font> n)
+{
+    <font color=#00F>long</font> f;
+    <font color=#00F>if </font>(n==1)
+    f=1;
+   
+<font color=#00F>else</font>
+        f=n*fact(n-1);
+    <font color=#00F>return </font>f;
+}
+</pre>
+<p>递归函数在执行过程中，有一个递推的过程，求fact(n)先求fact(n-1)，求fact(n-1)先求fact(n-2)，……。在求得fact(1)=1后，再回归回去，求出fact(2)、fact(3)……直到得出fact(n)。递归，由递推和回归两个阶段组成。</p>
+<p>递归不仅可以用于计算此类形式的问题。实际上，所有用迭代可以完成的任务用递归也可以完成，所有用递归完成的任务也可以用迭代完成。一般而言，递归更容易表达（人的效率），而迭代的执行效率更高（机器的效率）。递归程序的执行效率低是由于每一次敲击用函数都需要在计算机内保存相关的运行环境，既费时间又占空间，尤其是有些递归需要执行很多“层次”。所以在实践中，常用递归将问题分析清楚了，写出迭代程序来求解。</p>
+<p>用递归的思路求解问题，需要找出这种递推和回归的过程来。</p>
+<p>对比例1，我们给出相同功能的递归实现。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font><font color=#00F> main</font>(<font color=#00F>void</font>)
+{
+    <font color=#00F>int</font> x, n;
+   <font color=#CC0000> cin</font>>>x;
+    f(x);
+   <font color=#CC0000> cout</font>&lt;&lt;endl;
+    <font color=#00F>return </font>0;
+}
+<font color=#00F>void</font> f(<font color=#00F>int</font> a)
+{
+    <font color=#00F>if </font>(a==0)
+    return;
+   
+<font color=#00F>else</font>
+    {
+       <font color=#CC0000> cout</font>&lt;&lt;a%10;          <font color=#CCC>//(1)</font>
+        f(a/10);             <font color=#CCC>//(2)</font>
+    }
+}
+</pre>
+<p>请自行分析，输入x的值为358，输出将是？</p>
+<p>试图实现十进制向二进制的转换，要保证对2取余数后，按照倒序取出来，需要将(1)、(2)两句换一下位置。即：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>void</font> f(<font color=#00F>int</font> a)
+{
+    <font color=#00F>if </font>(a==0)
+    return;
+   
+<font color=#00F>else</font>
+    {
+        f(a/2);      <font color=#CCC>//(2)</font>
+       <font color=#CC0000> cout</font>&lt;&lt;a%2;  <font color=#CCC>//(1)</font>
+    }
+}
+</pre>
+<p>为什么？走查一遍就清楚了。</p>
+<p>最后总结，递归的基本概念和特点：</p>
+<p>程序调用自身的编程技巧称为递归( recursion)。</p>
+<p>一个过程或函数在其定义或说明中又直接或间接调用自身的一种方法，它通常把一个大型复杂的问题层层转化为一个与原问题相似的规模较小的问题来求解，递归策略只需少量的程序就可描述出解题过程所需要的多次重复计算，大大地减少了程序的代码量。递归的能力在于用有限的语句来定义对象的无限集合。用递归思想写出的程序往往十分简洁易懂。</p>
+<p>一般来说，递归需要有边界条件、递归前进段和递归返回段。当边界条件不满足时，递归前进;当边界条件满足时，递归返回。</p>
+<p>注意：</p>
+<p>(1) 递归就是在过程或函数里调用自身;</p>
+<p>(2) 在使用递增归策略时，必须有一个明确的递归结束条件，称为递归出口。</p>
+
+
+<p style='float:right;'>本页共138段，5369个字符，8915 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

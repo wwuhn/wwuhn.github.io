@@ -1,0 +1,496 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>常（const）+ 对象 + 指针：玻璃罩到底保护哪一个</h4>
+
+
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">原创案例讲解——”玻璃罩const”系列的三篇文章&#xff1a;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">1. <a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7385683" style="color:rgb(255,153,0); text-decoration:none" rel="noopener noreferrer">使用常对象——为共用数据加装一个名为const的玻璃罩</a><br /></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">2. <a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7386906" style="color:rgb(255,153,0); text-decoration:none" rel="noopener noreferrer">常&#xff08;const&#xff09;&#43; 对象 &#43; 指针&#xff1a;玻璃罩到底保护哪一个</a></p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px">3. <a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7390929" style="color:rgb(255,153,0); text-decoration:none" rel="noopener noreferrer">对象更有用的玻璃罩——常引用</a></p>
+<br />
+<p>　　在上一篇文章《<a target="_blank" href="http://blog.csdn.net/sxhelijian/article/details/7385683" rel="noopener noreferrer">使用常对象——为共用数据加装一个名为const的玻璃罩</a>》中&#xff0c;利用案例讨论了运用常对象&#xff0c;常成员函数、常数据成员及其用法。const这个玻璃罩让数据只能看&#xff0c;不能改&#xff0c;有效地避免程序免受不该出现的修改&#xff08;引起bug的元凶&#xff09;操作的影响。</p>
+<p>　　本文继续讨论const这个玻璃罩&#xff0c;主要是要引入指针来。这时&#xff0c;玻璃罩要保护何方&#xff1f;事情似乎变得更复杂。但实际情况是&#xff0c;C&#43;&#43;的内在机理仍然很清晰&#xff0c;我们还是要借助实例看下去。读者如果一边能够将程序放到自己的IDE中调一调&#xff0c;改一改&#xff0c;撞撞错&#xff0c;那是更好的了。</p>
+<p><br /></p>
+<p>　　<strong>一、指向对象的常指针</strong></p>
+<p>　　定义指向对象的常指针的一般形式为&#xff1a;</p>
+<p>　　　　<span style="color:#333399">类名 * const 指针变量名&#xff1b;</span></p>
+<p>　　首先应该正确地将这一定义形式识别准确了。按照结合的顺序&#xff08;类名 &#xff08;* &#xff08;const 指针变量名&#xff09;&#xff09;&#xff09;&#xff1a;就是首先是常量&#xff1b;其次是指针&#xff1b;最后确定指向的是类。作为常量的定义&#xff0c;还要注意的是定义时必须初始化。</p>
+<p>　　例如&#xff0c;下面程序中第23行&#xff1a;Test * const p1 &#61; &amp;t1;&#xff1a;p1是常量&#xff0c;是指针&#xff0c;指向Test类的对象&#xff0c;初始化为t1对象的地址。看惯了&#xff0c;挺可爱的。</p>
+<p></p>
+<pre><code class="language-cpp">//程序1
+#include &lt;iostream&gt;  
+using namespace std;  
+class  Test  
+{  
+private:   
+    int x;   
+    int y;  
+public:  
+    Test(int a, int b){x&#61;a;y&#61;b;}  
+    void printxy() const;  
+    void setX(int n) {x&#61;n;}  
+    void setY(int n) {y&#61;n;}  
+} ;  
+void Test::printxy() const   
+{  
+    cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;  
+}  
+void main(void)  
+{      
+	Test t1(3,5),t2(4,7);
+	const Test t3(5,9); 
+	Test * const p1 &#61; &amp;t1;
+	//p1 &#61; &amp;t2; //招致错误——error C3892: “p1”: 不能给常量赋值
+	p1-&gt;setX(5);
+	t1.printxy( );   //输出x*y&#61;25
+	Test *p2&#61;&amp;t1;
+	p2&#61;&amp;t2;
+	p2-&gt;setX(5);
+	p2-&gt;printxy();  //输出x*y&#61;35
+	//p2&#61;&amp;t3;  //招致错误——error C2440: “&#61;”: 无法从“const Test *”转换为“Test *”
+	//p2-&gt;setX(7);
+	//p2-&gt;printxy();  
+	system(&#34;pause&#34;);  
+}  </code></pre>
+<p></p>
+<p>　　常指针一经初始化后将不能再被改变值&#xff08;这是常之所在&#xff09;。但指针指向的值是否可变&#xff0c;取决于指向的对象。例如第25行 p1-&gt;setX(5); 成功地修改了t1对象中的 x 成员的值。</p>
+<p>　　程序中p2不是常指针&#xff0c;所以在第29行&#xff0c;可以为其赋值为&amp;t2&#xff0c;从而指向了t2对象。但是在第33行的赋值却会发生错误。错误的原因不是p2的值&#xff08;指针&#xff09;不可变&#xff0c;而是t3是一个常对象&#xff0c;需要指向常对象的指针变量进行处理。</p>
+<p><br /></p>
+<p>　　<strong>二、指向常对象的指针变量</strong></p>
+<p>　　定义指向常变量的指针变量的一般形式为</p>
+<p>　　　<span style="color:#000099">　const 类名 *指针变量名&#xff1b;</span></p>
+<p>　　识别指向常对象的指针要这样看。按照结合的顺序&#xff08;const &#xff08; 类名&#xff08; *指针变量名&#xff09;&#xff09;&#xff09;&#xff1a;就是首先是指针变量&#xff1b;其次指向的是类的对象&#xff1b;最后&#xff0c;这个对象应该是常对象。</p>
+<p></p>
+<p>　　例如&#xff0c;下面程序中第22行&#xff1a;const Test *p1;&#xff1a;p1是指针&#xff0c;指向test类的对象&#xff0c;指向的是Test类的常对象&#xff0c;初始化为t1对象的地址。</p>
+<pre><code class="language-cpp">//程序2
+#include &lt;iostream&gt;  
+using namespace std;  
+class  Test  
+{  
+private:   
+	int x;   
+	int y;  
+public:  
+	Test(int a, int b){x&#61;a;y&#61;b;}  
+	void printxy() const;  
+	void setX(int n) {x&#61;n;}  
+	void setY(int n) {y&#61;n;}  
+} ;  
+void Test::printxy() const   
+{  
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;  
+}  
+void main(void)  
+{      
+	const Test t1(3,5),t2(4,7);
+	const Test *p1;
+	p1 &#61; &amp;t1;
+	//p1-&gt;setX(5); //招致错误——error C2662: “Test::setX”: 不能将“this”指针从“const Test”转换为“Test &amp;”
+	t1.printxy( );   //输出x*y&#61;25
+	p1&#61;&amp;t2;
+	p1-&gt;printxy();  //输出x*y&#61;35
+	Test t3(1,3);
+	p1&#61;&amp;t3;
+	t3.setX(2);
+	//p1-&gt;setX(3);//招致错误——error C2662: “Test::setX”: 不能将“this”指针从“const Test”转换为“Test &amp;”
+	p1-&gt;printxy(); //输出x*y&#61;6
+	Test const *p3&#61;&amp;t1;
+	//p3-&gt;setX(9);//招致错误——error C2662: “Test::setX”: 不能将“this”指针从“const Test”转换为“Test &amp;”
+	p3-&gt;printxy();  
+	system(&#34;pause&#34;);  
+} </code></pre>
+<p>　　在程序中可以看出&#xff0c;第24行&#xff0c;由于p1指向的是常对象&#xff0c;是不能被修改的对象&#xff0c;p1-&gt;setX(5);试图修改对象的数据成员&#xff0c;带来错误并不意外。</p>
+<p>　　指向常对象的指针变量&#xff0c;是对象不能变&#xff0c;不能通过指针改变其值&#xff0c;而不是指针不能变&#xff0c;所以在第27行&#xff0c;p1&#61;&amp;t2;使p1指向了另外一个常对象。</p>
+<p>　　如果一个变量已被声明为常变量&#xff0c;只能用指向常变量的指针变量指向它&#xff0c;而不能用指向非const型变量的指针变量去指向它。</p>
+<p>　　第31行将指向常对象的指针指向了一个非const对象&#xff0c;这是允许的。第32行可以成功地修改这一非const对象的值&#xff0c;但是不要指望p1&#xff08;指向常对象的指针&#xff09;去修改。在对待修改的这件事情上&#xff0c;C&#43;&#43;采取的是一种较严格的要求&#xff0c;对象本身是否为“常”和指针指向的对象是否为常&#xff0c;两者中有一个为“常”&#xff0c;就不要修改。</p>
+<p>　　在第36行&#xff0c;定义的指向对象的常指针p3赋初值为&amp;t1&#xff0c;是一个常对象的地址。&#xff08;注&#xff1a;去掉下面的部分&#xff0c;表述错误。谢谢2楼的评论。原内容&#xff1a;按照这一定义要表达的内容&#xff0c;似乎p3称为指向常对象的常指针更全面&#xff0c;即*p3&#61;&amp;t1;。第36行成功地通过了编译告诉我们&#xff0c;指向对象的常指针可以指向一个常对象。第37行对修改的禁止由于t1为常对象所致&#xff0c;看来&#xff0c;指向对象的常指针不能改变其指向的常对象。&#xff09;</p>
+<p><br />　　<strong>三、用&#xff08;常&#xff09;指针作形参&#xff1a;实参如何搭配&#xff1f;</strong></p>
+<p>　　在上面的例子中&#xff0c;指针是通过赋值直接取得值的。在程序设计中还有另一种很重要的情形&#xff0c;来传递变量的值&#xff0c;那就是函数中的参数传递&#xff1a;将实际参数的值传递给形式参数。在这个传递的过程中&#xff0c;道理一样&#xff0c;下表将形、实参是否为const&#xff08;常&#xff09;的4种组合产生的效果进行一个罗列&#xff1a;</p>
+<p></p>
+<table border="1" cellspacing="1" cellpadding="1" align="center"><tbody><tr><td>序号</td><td>形参</td><td>实参</td><td>是否合法</td><td>是否可以改变指向的对象的值</td></tr><tr><td>&#xff08;1&#xff09;</td><td>指向非const型变量的指针</td><td>非const变量的地址</td><td>合法</td><td>可以</td></tr><tr><td>&#xff08;2&#xff09;</td><td>指向非const型变量的指针</td><td>const变量的地址</td><td>非法</td><td>不必讨论</td></tr><tr><td>&#xff08;3&#xff09;</td><td>指向const型变量的指针 </td><td>非const变量的地址</td><td>合法</td><td>不可</td></tr><tr><td>&#xff08;4&#xff09;</td><td>指向const型变量的指针</td><td>const变量的地址 </td><td>合法</td><td>不可</td></tr></tbody></table>　　在这儿的表述中&#xff0c;用了变量&#xff0c;而不是对象。实际上这两者的本质是统一的&#xff0c;道理一样。这样写作&#xff0c;也是提醒读者不要将二者看成不同的事物。
+<p></p>
+<p>　　先给出程序来&#xff1a;</p>
+<p></p>
+<pre><code class="language-cpp">//程序3
+#include &lt;iostream&gt;  
+using namespace std;  
+class  Test  
+{  
+private:   
+	int x;   
+	int y;  
+public:  
+	Test(int a, int b){x&#61;a;y&#61;b;}  
+	void printxy() const;  
+	void setX(int n) {x&#61;n;}  
+	void setY(int n) {y&#61;n;}  
+} ;  
+void Test::printxy() const   
+{  
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;  
+}  
+void doSomething(Test *p1)  //&#xff08;1&#xff09;形参是指向非const型变量的指针 
+{
+	p1-&gt;setX(5); 
+	p1-&gt;printxy( ); 
+}
+void main(void)  
+{      
+	Test t1(3,5);
+	doSomething(&amp;t1); //&#xff08;1&#xff09;实参是非const变量的地址 
+	system(&#34;pause&#34;);  
+} </code></pre>　　&#xff08;1&#xff09;形参是指向非const型变量的指针&#xff0c;实参是非const变量的地址 
+<p></p>
+<p>　　上面的程序中没有给变量/对象做出任何的限制&#xff0c;调用合法&#xff0c;也能够实施修改操作。</p>
+<p><br /></p>
+<p>　　&#xff08;2&#xff09;形参是指向非const型变量的指针&#xff0c;实参是const变量的地址 </p>
+<p>　　下面的程序将不再给出Test类的定义。这组示例中&#xff0c;区别仅在于函数doSomething()的定义形式和调用中使用的实参。</p>
+<p></p>
+<pre><code class="language-cpp">void doSomething(Test *p1)  //&#xff08;2&#xff09;形参是指向非const型变量的指针 
+{
+	p1-&gt;setX(5);   //由于第XXx行的错误&#xff0c;这一行可能引起的问题尚无机会讨论
+	p1-&gt;printxy( ); 
+}
+void main(void)  
+{      
+	const Test t1(3,5);
+	doSomething(&amp;t1); //&#xff08;2&#xff09;实参是const变量的地址 
+			  //这一行招致错误——error C2664: “doSomething”: 不能将参数 1 从“const Test *”转换为“Test *”
+	system(&#34;pause&#34;);  
+} </code></pre>　　这段程序将出现编译错误。
+<p></p>
+<p>　　错误产生在第10行—— error C2664: “doSomething”: 不能将参数 1 从“const Test *”转换为“Test *”&#xff0c;还提示—— 转换丢失限定符。</p>
+<p>　　与前面所讲一致&#xff0c;不能将const对象地址赋值给一个非const指针&#xff0c;如果这个操作成功&#xff0c;就会产生严重的后果&#xff1a;doSomething()函数中将能够修改由传递地址值而对应的对象的值。调用函数时&#xff0c;实际参数的值传递给形式参数时&#xff0c;系统会进行自动类型转换&#xff0c;但这个转换无法进行下去&#xff0c;因为“转换丢失限定符”。</p>
+<p><br /></p>
+<p>　　&#xff08;3&#xff09;形参是指向const型变量的指针&#xff0c;实参是const变量的地址 </p>
+<p></p>
+<pre><code class="language-cpp">void doSomething(const Test *p1)  //&#xff08;3&#xff09;形参是指向const型变量的指针 
+{
+	p1-&gt;setX(5); //招致错误——error C2662: “Test::setX”: 不能将“this”指针从“const Test”转换为“Test &amp;”
+	p1-&gt;printxy( ); 
+}
+void main(void)  
+{      
+	const Test t1(3,5);
+	doSomething(&amp;t1); //&#xff08;3&#xff09;实参是const变量的地址 
+	system(&#34;pause&#34;);  
+} </code></pre>　　第3行
+<span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)">p1-&gt;setX(5);出错&#xff0c;是因为仅形参p1就限定p1所指向的对象为常对象&#xff0c;是不能被修改的。</span>
+<p></p>
+<p><span style="font-family:monospace"><span style="white-space:pre">　　从另一方面讲&#xff0c;第10行的调用</span></span><span style="font-family:monospace; white-space:pre; background-color:rgb(240,240,240)">doSomething(&amp;t1);“门当户对”&#xff0c;是合法语法规定的。实际参数本身也决定了&#xff0c;对象是不能被改变的。</span></p>
+<p><span style="font-family:monospace; white-space:pre"><br /></span></p>
+<p><span style="font-family:monospace; white-space:pre">　　&#xff08;4&#xff09;形参是指向const型变量的指针&#xff0c;实参是非const变量的地址 </span></p>
+<pre><code class="language-cpp">void doSomething(const Test *p1)  //&#xff08;4&#xff09;形参是指向const型变量的指针 
+{
+	p1-&gt;setX(5); //招致错误——error C2662: “Test::setX”: 不能将“this”指针从“const Test”转换为“Test &amp;”
+	p1-&gt;printxy( ); 
+}
+void main(void)  
+{      
+	Test t1(3,5);
+	doSomething(&amp;t1); //&#xff08;4&#xff09;实参是const变量的地址 
+	system(&#34;pause&#34;);  
+} </code></pre>　　程序出的错误是一模一样的&#xff0c;形式参数p1所指向的对象不能被修改。和&#xff08;3&#xff09;稍有不同的是&#xff0c;单从实参的性质来看&#xff0c;p1所指向的对象t1是允许修改的&#xff0c;只是单纯因为形参上做的限定&#xff0c;不能改了。这要遗憾&#xff0c;这是const最大的功绩&#xff01;若在某一个函数中&#xff0c;需求提及该函数只读取而不修改形参所指的对象&#xff0c;最好的方法就是&#xff0c;将形参设为const型变量的指针&#xff0c;无论实参是const对象&#xff0c;还是非const对象&#xff0c;统统一不能修改&#xff0c;这不正是我们要谈的关于数据的保护吗&#xff1f;
+<p></p>
+<p><br /></p>
+<p>　　<strong>四、小结</strong></p>
+<p>　　引入指针之后&#xff0c;让这一部内容马上显得弯弯绕了。这可不是为了绕概念而设置的&#xff0c;最根本的目的&#xff0c;还是实施数据保护。通过将某些指针设置为指向常对象的指针&#xff0c;从而避免利用指针给对象改变值。</p>
+<p>　　所以&#xff0c;本讲最有价值的地方在于第三部分之&#xff08;3&#xff09;和&#xff08;4&#xff09;——使用指向常对象的指针做形式参数。根据用指针做形参的机制&#xff0c;在函数中&#xff0c;可以通过指针改变实际参数所给定内存单元的值。如果这部分值是不能被改变的&#xff0c;为了实现这个需求&#xff0c;将指针设为指向常对象的指针&#xff0c;可以让编译器替我们把关。如果开发的是类库&#xff0c;那也可以避免使用者陷入不种令人抓狂的bug阵中。</p>
+<p>　　另外&#xff0c;在程序执行中&#xff0c;如果一个指针所指向的位置一经初始化就不能再变&#xff0c;指向对象的常指针是最好的选择。</p>
+<p>　　在C&#43;&#43;提供的如此多的机制中&#xff0c;择其最合适的使用&#xff0c;考验的是程序员的智慧。深入理解&#xff0c;灵活搭配&#xff0c;方显专业功底。</p>
+<p><br /></p>
+<p>&#xff08;全文完&#xff09;</p>
+
+<p style='float:right;'>本页共199段，10531个字符，16119 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

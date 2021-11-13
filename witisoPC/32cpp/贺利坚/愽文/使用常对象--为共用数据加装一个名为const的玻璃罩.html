@@ -1,0 +1,589 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style>
+
+</style>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>使用常对象--为共用数据加装一个名为const的玻璃罩</h4>
+
+
+     <p>原创案例讲解——”玻璃罩const”系列的三篇文章&#xff1a;</p> 
+<p>1. <a href="http://blog.csdn.net/sxhelijian/article/details/7385683">使用常对象——为共用数据加装一个名为const的玻璃罩</a><br /> </p> 
+<p>2. <a href="http://blog.csdn.net/sxhelijian/article/details/7386906">常&#xff08;const&#xff09;&#43; 对象 &#43; 指针&#xff1a;玻璃罩到底保护哪一个</a></p> 
+<p>3. <a href="http://blog.csdn.net/sxhelijian/article/details/7390929">对象更有用的玻璃罩——常引用</a></p> 
+<p><br /> </p> 
+<p>　　话题的引入&#xff1a;C&#43;&#43;采取了不少有效的措施(如设private保护)以增加数据的安全性&#xff0c;但也可以在不同的场合通过不同的途径访问同一个数据对象。有时在无意之中的误操作会改变有关数据的状况&#xff0c;而这是人们不希望出现的。</p> 
+<p>　　例如&#xff1a;</p> 
+<p></p> 
+<pre><code class="language-cpp">//程序1
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	int x, y;
+public:
+	Test(int a, int b){x&#61;a;y&#61;b;}
+	void printxy();
+} ;
+void Test::printxy()  //用于显示x*y的值
+{
+	x&#61;2;  //这是一个bug
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	Test t(3,5);
+	t.printxy( );
+	system(&#34;pause&#34;);
+}
+</code></pre> 
+<p>　　这段程序的运行结果为x*y&#61;10。显然不是我们期望的。原因在于&#xff0c;本来printxy()只是用来输出结果&#xff0c;需求当中只是“读取”类中数据成员即可&#xff1b;而现在&#xff0c;其中包含改变数据成员值的语句x&#61;2&#xff0c;现有的程序没有表达出printxy()不能修改x值这一约事&#xff0c;从而程序失去了一种“免疫力”——自动拒绝不应该有的对类中数据成员值的修改。按照相关的机制&#xff0c;尽管x是私有的&#xff0c;但在整个类的内部&#xff0c;默认是任何成员函数都可以访问的。</p> 
+<p>　　在这一段短程序中&#xff0c;可能此事一眼可以看出。但需要考虑在一个大工程中&#xff0c;涉及上百个类&#xff0c;几万甚至更多行的代码&#xff0c;由数&#xff08;十&#xff09;名程序员合作完成的一个工程中&#xff0c;这个小小的x&#61;2;是会犯下滔天罪行的。强调程序员要仔细、认真是必要的&#xff0c;但质量的保证不应该仅凭程序员在体力、脑力上的投入&#xff0c;应该有种机制预以保证&#xff0c;或者有一定的防范措施&#xff0c;才是最根本的。这同时也可以降低处理这类事情的成本。好比在社会领域&#xff0c;强调人人做个好人是必要的&#xff0c;但铲除各种丑恶现象&#xff0c;制度建设和执行更重要。</p> 
+<p>　　C&#43;&#43;中给出应对的办法就是&#xff0c;使用const修饰符&#xff0c;声明程序中的某些部件具有“常”的性质&#xff1a;即不允许改变、不可改变、不应该改变等。我愿将之形象地比喻为一个玻璃罩——其中的成员只可读取&#xff0c;不可修改&#xff08;只可以看&#xff0c;但不能摸&#xff0c;不能动&#xff09;。</p> 
+<p>　　本文从常对象、常数据成员、常成员函数三个角度给出这个问题的解答。系列文章中的其他两篇涉及常指针和常引用。</p> 
+<p><br /> </p> 
+<p>　　<strong>一、常对象——const对象</strong></p> 
+<p>　　凡希望保证数据成员不被改变的对象&#xff0c;可以声明为常对象&#xff0c;常对象中的所有成员的值都不能被修改。</p> 
+<p>　　常对象两种等价的定义形式&#xff1a;</p> 
+<p>　　　　　<span style="color:#3333ff">类名 const 对象名[(实参表列)];</span></p> 
+<p><span style="color:#3333ff">　　　　　const 类名 对象名[(实参表列)];</span></p> 
+<p>　　在定义常对象时&#xff0c;必须要在初始化时给出初值。此外&#xff0c;对于常对象中数据成员的任何修改都是非法的&#xff0c;编译器将给出编译错误提示。例如&#xff1a;</p> 
+<pre><code class="language-cpp">//程序2
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	int x, y;
+public:
+	Test(int a, int b){x&#61;a;y&#61;b;}
+	void printxy();
+} ;
+void Test::printxy()  //用于显示x*y的值
+{
+	x&#61;2;  //这是一个bug
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	const Test t(3,5);//将对象t定义为常对象
+	t.printxy( );
+	system(&#34;pause&#34;);
+}
+</code></pre> 
+<p>　　在编译时&#xff0c;第20行会提示错误&#xff1a;error C2662: “Test::printxy”: 不能将“this”指针从“const Test”转换为“Test &amp;”。原因在于printxy()成员函数中要对数据成员进行修改&#xff0c;而当前对象却是一个常对象。</p> 
+<p>　　在实际应用中&#xff0c;其值只能在初始化时置&#xff0c;且不能再修改的情况很多。比如有表示时间的类Date&#xff0c;定义一个日期&#xff1a;Date myBirthday(yyyy,mm,dd)表示生日&#xff0c;这个值是在程序中要保证不被修改的。回顾更简单的情况&#xff0c;变量前加const修饰符定义的是常变量&#xff0c;如const double pi&#61;3.14;&#xff0c;一样的道理。</p> 
+<p>　　关于这个错误提示作些解释&#xff08;看这些解释头疼的读者暂时可以略过下一段&#xff0c;但过后要看。目前不能理解的&#xff0c;需要在this指针和const的其他用法上有所积累。另外&#xff0c;下一段也可以作为this指针和const其他用法的案例使用。&#xff09;</p> 
+<p>　　我们知道&#xff0c;每一个成员函数都包含一个特殊的指针——this&#xff0c;其值为当前正在调用成员函数的对象的起始地址&#xff0c;即指向当前对象。printxy()被声明为无参函数&#xff0c;而实际是隐含一个this指针参数的&#xff0c;即</p> 
+<pre><code class="language-cpp">void Test::printxy(Test *this)
+{
+	this-&gt;x &#61; 2;  
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;(this-&gt;x)*(this-&gt;y)&lt;&lt;endl;
+}</code></pre> 
+<p>　　这样&#xff0c;在第20行调用t.printxy();时&#xff0c;相当于t.printxy(&amp;t);&#xff0c;即将对象 t 的地址传递给形参this。从实参 &amp;t 应当和形参对应的角度&#xff0c;t 是常对象&#xff0c;printxy()函数的原型应该是&#xff1a;void printxy(const Test *this)&#xff0c;而非void printxy(Test *this)。至于提示中“const Test”转换为“Test &amp;”中的&amp;&#xff0c;等理解了常引用后再作讨论。</p> 
+<p>　　面对这个错误提示&#xff0c;我们排除bug&#xff0c;将原程序第14行x&#61;2;删除&#xff0c;这是符合需求的。但是&#xff0c;问题并没有得到解决。编译仍然出错&#xff0c;需要考虑常成员函数了。</p> 
+<br /> 
+<p>　　<strong>二、常成员函数——const成员函数</strong></p> 
+<p>　　要引用常对象中的数据成员&#xff0c;需将该成员函数声明为const型函数&#xff0c;即常成员函数。常成员函数的原型为&#xff1a;</p> 
+<p>　　　　<span style="color:#6600cc">　返回值类型 成员函数名[(形参表列)] const;</span></p> 
+<p>　　对于去除了上面bug的程序&#xff1a;</p> 
+<pre><code class="language-cpp">//程序3
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	int x, y;
+public:
+	Test(int a, int b){x&#61;a;y&#61;b;}
+	void printxy();
+} ;
+void Test::printxy() //功能&#xff1a;输出x*y的值
+{
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	const Test t(3,5);//将对象t定义为常对象
+	t.printxy( );
+	system(&#34;pause&#34;);
+}</code></pre> 
+<p>　　其中存在的问题就是&#xff0c;printxy()是“非const成员函数”&#xff0c;而被const对象调用&#xff0c;违反了“常对象只能调用常成员函数”的规则。</p> 
+<p>　　程序应该改为&#xff1a;</p> 
+<pre><code class="language-cpp">//程序4
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	int x, y;
+public:
+	Test(int a, int b){x&#61;a;y&#61;b;}
+	void printxy() const;
+} ;
+void Test::printxy() const //用于显示x*y的值
+{
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	const Test t(3,5);//将对象t定义为常对象
+	t.printxy( );
+	system(&#34;pause&#34;);
+}</code></pre> 
+<p>　　注意&#xff0c;const是函数类型的一部分&#xff0c;在声明函数和定义函数时都要有const关键字&#xff0c;在调用时不必加const。常对象中的成员函数未加const&#xff0c;编译系统认为其是非const成员函数。常成员函数可以访问常对象中的数据成员&#xff0c;但不允许修改常对象中数据成员的值。</p> 
+<p>　　那么&#xff0c;在将一个对象定义为常对象时&#xff0c;是否意味着其所属类中的所有成员函数都应该为const成员函数呢&#xff1f;不是这样的。例如下面的程序&#xff0c;常对象t1只能调用常成员函数&#xff1b;对象t2不是常对象&#xff0c;则可以调用非const函数setX();在其中还可以修改数据成员 x 的值。</p> 
+<p></p> 
+<pre><code class="language-cpp">//程序5
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	int x; 
+	int y;
+public:
+	Test(int a, int b){x&#61;a;y&#61;b;}
+	void printxy() const;
+	void setX(int n) {x&#61;n;}
+	void setY(int n) {y&#61;n;}
+} ;
+void Test::printxy() const //用于显示x*y的值
+{
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	const Test t1(3,5);//将对象t1定义为常对象
+	t1.printxy( ); //t1.setX(2);将招致错误
+	Test t2(4,7);//将对象t定义为非const对象
+	t2.setX(2);//合法的调用
+	t2.printxy();
+	system(&#34;pause&#34;);
+}</code></pre> 
+<p></p> 
+<p>　　这个程序给我们留下的最实用的启示是&#xff0c;如果一个函数&#xff0c;如printxy()&#xff0c;无论何时都不会改变数据成员的值&#xff0c;不管将来是用于const对象&#xff0c;还是非const对象&#xff0c;都将其定义为const成员函数。</p> 
+<p><br /> </p> 
+<p>　　<strong>三、常数据成员——const数据成员</strong></p> 　　使用常对象是一个非常强的要求&#xff0c;其中的所有数据成员将不能改变。而实际中的需求是这样的&#xff1a;一个对象中&#xff0c;个别数据成员的值经初始化后不允许改变&#xff0c;其他的可以改变。这时&#xff0c;不要将对象设为常对象&#xff0c;而是使用常数据成员——const数据成员。 
+<p>　　声明常数据成员也用关键字const&#xff0c;其形式为&#xff1a;</p> 
+<p>　　　　<span style="color:#6600cc">const 数据类型 数据成员名;</span></p> 
+<p>　　看下面的例子&#xff1a;</p> 
+<p></p> 
+<pre><code class="language-cpp">//程序6
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	const int x; //const数据成员
+	int y;       //非const数据成员
+public:
+	Test(int a, int b){x&#61;a;y&#61;b;}
+	void printxy() const;
+	void setX(int n) {x&#61;n;}
+	void setY(int n) {y&#61;n;}
+} ;
+void Test::printxy() const //函数中一定不修改数据成员值&#xff0c;定义为const成员函数
+{
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	Test t(3,5);
+	t.setX(2);
+	t.setY(4);
+	t.printxy( ); 
+	system(&#34;pause&#34;);
+}</code></pre>　　程序编译时&#xff0c;出现3个错误。 
+<p></p> 
+<p>　　先说第12行 void setX(int n) {x&#61;n;} 的错误&#xff1a;error C2166: 左值指定 const 对象。显然&#xff0c;赋值表达式 x&#61;n 中的左值 x 已经被声明为const数据成员了&#xff0c;只允许初始化&#xff0c;不允许赋值。这个函数是不允许存在在。</p> 
+<p>　　第10行是构造函数Test(int a, int b){x&#61;a;y&#61;b;}&#xff0c;按道理const数据成员可以被初始化&#xff0c;但现在的问题是对const数据成员 x 的初始化的方式不对&#xff0c;与前同样的理由不能用赋值表达式完成&#xff08;C&#43;&#43;中初始化和赋值是有区别的&#xff0c;请自行搜索&#xff0c;这方面的资料很多。&#xff09;。另外的一个错误提示“error C2758: “Test::x”: 必须在构造函数基/成员初始值设定项列表中初始化”告诉我们如何解决这个问题。构造函数的写法上存在问题。Test(int a, int b):x(a){y&#61;b;}能够保证没有编译错误&#xff0c;而Test(int a, int b):x(a),y(b){}是最佳写法。《Effective C&#43;&#43;》书中告诫我们&#xff1a; 尽量使用初始化而不要在构造函数里赋值&#xff08;条款12&#xff09;。</p> 
+<p>　　所以&#xff0c;程序改为&#xff1a;</p> 
+<p></p> 
+<pre><code class="language-cpp">//程序7
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	const int x; //const数据成员
+	int y;       //非const数据成员
+public:
+	Test(int a, int b):x(a),y(b){}//Test(int a, int b):x(a){y&#61;b;}也是一个不会发生错误的写法
+	void printxy() const;
+	//void setX(int n) {x&#61;n;}  //修改const数据成员是不允许的
+	void setY(int n) {y&#61;n;}
+} ;
+void Test::printxy() const //函数中一定不修改数据成员值&#xff0c;定义为const成员函数
+{
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	Test t(3,5);
+	//t.setX(2);
+	t.setY(4);
+	t.printxy( ); 
+	system(&#34;pause&#34;);
+}</code></pre>　　上面的程序中还有一个有趣的话题&#xff0c;printxy()是个const成员函数&#xff0c;它能够访问const数据成员&#xff0c;也能访问非const数据成员。将printxy()声明为非const成员函数&#xff0c;取消了不得修改数据成员的限制&#xff0c;是个更宽松的要求&#xff0c;同样对const数据成员和非const数据成员都能访问&#xff0c;不过若要修改&#xff0c;只能修改y&#xff0c;而不能修改x。
+<br /> 
+<pre><code class="language-cpp">//程序8
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	const int x; //const数据成员
+	int y;       //非const数据成员
+public:
+	Test(int a, int b):x(a),y(b){}
+	void printxy();
+	void setY(int n) {y&#61;n;}
+} ;
+void Test::printxy()  //改为非const成员函数&#xff0c;仅为演示语法&#xff0c;实际已经背离了需求
+{
+	x&#61;5; //这一句的存在引发错误&#xff1a;error C2166: 左值指定 const 对象
+	y&#61;4;
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	Test t(3,5);
+	t.setY(4);
+	t.printxy( ); 
+	system(&#34;pause&#34;);
+}</code></pre> 
+<p>　　如果所有的数据成员都允许修改&#xff0c;我们将不涉及有些恼人的“常”问题。对于已经讨论的常数据成员的做法&#xff0c;适合于大量数据成员允许修改&#xff0c;而少量不允许修改&#xff0c;这时将少量的定义为const数据成员。</p> 
+<p>　　另一方面&#xff0c;如果所有的数据成员都不允许修改&#xff0c;我们在定义对象时将对象定义为常对象处理&#xff08;本文第一部分&#xff09;。那么大量数据成员不允许修改&#xff0c;只有少量允许修改时该怎么办呢&#xff1f;总不至于100个不允许修改的数据成员加const&#xff0c;只为满足那1个允许修改成员吧&#xff1f;</p> 
+<p>　　在ANSI C&#43;&#43;给出了特例&#xff1a;编程时一定要修改常对象中的某个数据成员&#xff0c;该数据成员声明为mutable&#xff0c;如正面的程序&#xff1a; </p> 
+<pre><code class="language-cpp">//程序9
+#include &lt;iostream&gt;
+using namespace std;
+class  Test
+{
+private: 
+	mutable int x; //即使在const对象中&#xff0c;x也是可以修改的
+	int y;
+public:
+	Test(int a, int b){x&#61;a;y&#61;b;}
+	void printxy() const;
+} ;
+void Test::printxy() const //用于显示x*y的值
+{
+	x&#61;2; //此处确实可以在const成员函数中修改const对象中声明为mutable的数据成员&#xff0c;
+	cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;
+}
+void main(void)
+{    
+	const Test t(3,5);//将对象t定义为常对象
+	t.printxy( );
+	system(&#34;pause&#34;);
+}</code></pre>
+<br /> 
+<p>　　<strong>四、总结</strong></p> 
+<p>　　不加限制的对象享受着极端的自由&#xff0c;也为bug的滋生提供了土壤。将对象定义为常对象则走入了另一个极端&#xff0c;谁也不许动。于是处在这两个方案中间的做法给我们提供了便利&#xff0c;将不可修改的数据成员声明为const数据成员&#xff0c;从而保证其除了初始化不能被修改&#xff1b;用const成员函数限制函数中不得对数据成员进行修改。再重复一遍&#xff1a;将不可修改的数据成员声明为const数据成员&#xff0c;从而保证其除了初始化不能被修改&#xff1b;用const成员函数限制函数中不得对数据成员进行修改。</p> 
+<p>　　不过&#xff0c;这样做也带来了多种组合困扰刚入道的菜鸟&#xff0c;即使老鸟也不能“背会”这些规则。这些内容不是靠背书得到的&#xff0c;一些良好的设计原则会给出指导&#xff0c;彻底理解其实也不难。熟悉了&#xff0c;不过尔尔。</p> 
+<p> </p>
+<table border="1" cellspacing="1" cellpadding="1" align="center"><tbody><tr><td>数据成员</td><td>非const成员函数</td><td>const成员函数</td></tr><tr><td>非const数据成员</td><td>可引用&#xff0c;可改变值</td><td>可引用&#xff0c;不可改变值</td></tr><tr><td>const数据成员</td><td>可引用&#xff0c;不可改变值</td><td>可引用&#xff0c;不可改变值</td></tr><tr><td>const对象的数据成员</td><td>不可引用&#xff0c;不可改变</td><td>可引用&#xff0c;不可改变值</td></tr></tbody></table> 
+<p></p> 
+<p>　　念熟这张表格还是很有成就感的一件事情。只不过念起来太拗口&#xff0c;我常把“非const”念作“可变的”&#xff0c;倒也减轻了大脑的负担&#xff0c;且不至于引起太大的歧义。另外&#xff0c;我还把“非const成员函数”看成肉食动物&#xff0c;本事大呗&#xff0c;不光看&#xff0c;还要修改&#xff1b;而把“const成员函数”看成食草动物&#xff0c;只图自保&#xff0c;但也要生存&#xff0c;温顺而没有野心。相应的&#xff0c;&#34;非const数据成员”不好消化&#xff0c;&#34;const数据成员&#34;好消化。这样想想&#xff0c;可以增加思维的形象性。</p> 
+<p>　　下面&#xff0c;通过表格中给出一些代码&#xff0c;我将给出更直观的对这一干关系的解释&#xff0c;希望帮助读者更容易地掌握相关内容。</p> 
+<p> </p>
+<table border="1" cellspacing="1" cellpadding="1" align="center"><tbody><tr><td>数据成员</td><td>非const成员函数</td><td>const成员函数</td></tr><tr><td>class{<!-- --><br /> private: <br />  int x; //非const数据成员<br />  int y;//非const数据成员<br /> ……}</td><td>void printxy()<br /> {cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;}//可引用;<br /> void setX(int n) {x&#61;n;}//可改变值<br /> void setY(int n) {y&#61;n;}//可改变值</td><td>void printxy()const<br />  { cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;//可引用<br />     x&#61;2;//出错&#xff1a;不可改变值<br /> }</td></tr><tr><td>class{<!-- --><br /> private: <br />  const int x; //const数据成员<br />  int y;//非const数据成员<br /> ……}</td><td>void printxy()<br /> {cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;}//可引用;<br /> void setX(int n) {x&#61;n;}//错误&#xff1a;不可改变值x<br /> void setY(int n) {y&#61;n;}//可改变值y</td><td>void printxy() const<br /> { cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;//可引用<br />   x&#61;2;//错误&#xff1a;不可改变值x<br />   y&#61;4;//错误&#xff1a;不可改变值y<br /> }</td></tr><tr><td>class Test{<!-- --><br /> private: <br />  int x; <br />  int y;<br /> ……}<br /> const Test t(3,5);//t.x,t.y为const对象的数据成员</td><td>void Test::printxy()<br /> {cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;}<br /> void Test::setX(int n) {x&#61;n;}<br /> ……<br /> t.printxy();//不可引用<br /> t.setX(1);//不可改变</td><td>void Test::printxy() const<br /> {cout&lt;&lt;&#34;x*y&#61;&#34;&lt;&lt;x*y&lt;&lt;endl;}<br /> void Test::setX(int n) const<br />   {x&#61;n;} //此处的改变就不合法<br /> ……<br /> t.printxy();//可引用<br /> t.setX(1);//不可改变</td></tr></tbody></table> 
+<p></p> 
+<p><br /> </p> 
+<p><br /> </p> 
+
+<p style='float:right;'>本页共289段，13031个字符，20261 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,551 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>STL使用小实例2</h4>
+
+
+<p>(1)下面程序通过输入流迭代器来填充vector容器&#xff0c;通过输出流迭代器来写入“流cout”。程序执行时&#xff0c;如果输入为&#xff1a;1 2 3 4 5 q <br /> 则输出为&#xff1a;1,2,3,4,5, <br /> 1 | 2 | 3 | 4 | 5 | <br /> 请填空将程序补充完整。</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include&lt;iostream&gt;</span>
+<span class="hljs-preprocessor">#include&lt;vector&gt;</span>
+<span class="hljs-preprocessor">#include&lt;algorithm&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> main()
+{
+   <span class="hljs-stl_container"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;</span> col1;
+   istream_iterator&lt;<span class="hljs-keyword">int</span>&gt; intreader(<span class="hljs-built_in">cin</span>),eof;;
+   <span class="hljs-keyword">while</span>(intreader!&#61;eof)
+   {
+      col1.push_back(_______________);          <span class="hljs-comment">// &#xff08;1&#xff09;</span>
+      _______________;                        <span class="hljs-comment">// &#xff08;2&#xff09;</span>
+   }
+   _______________ intwriter(<span class="hljs-built_in">cout</span>,<span class="hljs-string">&#34;,&#34;</span>);   <span class="hljs-comment">// &#xff08;3&#xff09;</span>
+   copy(col1.begin(),col1.end(),intwriter);
+   <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+   copy(col1.begin(),col1.end(),_______________);   <span class="hljs-comment">// &#xff08;4&#xff09;</span>
+   <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>参考解答&#xff1a; <br /> &#xff08;1&#xff09;*intreader 　&#xff08;2&#xff09;&#43;&#43;intreader <br /> &#xff08;3&#xff09;ostream_iterator &#xff08;4&#xff09;ostream_iterator(cout,” | “) <br /> 等价程序&#xff1a;</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include&lt;iostream&gt;</span>
+<span class="hljs-preprocessor">#include&lt;vector&gt;</span>
+<span class="hljs-preprocessor">#include&lt;algorithm&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iterator&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> main()
+{
+   <span class="hljs-stl_container"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;</span> col1(<span class="hljs-number">5</span>);
+   copy(istream_iterator&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-built_in">cin</span>),istream_iterator&lt;<span class="hljs-keyword">int</span>&gt;(),col1.begin());
+   ostream_iterator&lt;<span class="hljs-keyword">int</span>&gt; intwriter(<span class="hljs-built_in">cout</span>,<span class="hljs-string">&#34;,&#34;</span>);   
+   copy(col1.begin(),col1.end(),intwriter);
+   <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+   copy(col1.begin(),col1.end(),ostream_iterator&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-built_in">cout</span>,<span class="hljs-string">&#34;|&#34;</span>));   
+   <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>(2)set用法</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;algorithm&gt;</span>
+<span class="hljs-preprocessor">#include&lt;set&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iterator&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iostream&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> main()
+{
+    <span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span>eg1;
+<span class="hljs-comment">//插入</span>
+    eg1.insert(<span class="hljs-number">1</span>);
+    eg1.insert(<span class="hljs-number">100</span>);
+    eg1.insert(<span class="hljs-number">5</span>);
+    eg1.insert(<span class="hljs-number">1</span>);<span class="hljs-comment">//元素1因为已经存在所以set中不会再次插入1</span>
+    eg1.insert(<span class="hljs-number">10</span>);
+    eg1.insert(<span class="hljs-number">9</span>);
+<span class="hljs-comment">//遍历set&#xff0c;可以发现元素是有序的</span>
+    <span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span>::iterator set_iter&#61;eg1.begin();
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Set named eg1:&#34;</span>&lt;&lt;endl;
+    <span class="hljs-keyword">for</span>(; set_iter!&#61;eg1.end(); set_iter&#43;&#43;)
+        <span class="hljs-built_in">cout</span>&lt;&lt;*set_iter&lt;&lt;<span class="hljs-string">&#34; &#34;</span>;
+    <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+<span class="hljs-comment">//使用size()函数可以获得当前元素个数</span>
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Now there are &#34;</span>&lt;&lt;eg1.size()&lt;&lt;<span class="hljs-string">&#34; elements in the set eg1&#34;</span>&lt;&lt;endl;
+    <span class="hljs-keyword">if</span>(eg1.find(<span class="hljs-number">200</span>)&#61;&#61;eg1.end())<span class="hljs-comment">//find()函数可以查找元素是否存在</span>
+        <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;200 isn&#39;t in the set eg1&#34;</span>&lt;&lt;endl;
+    <span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span>eg2;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i&#61;<span class="hljs-number">6</span>; i&lt;<span class="hljs-number">15</span>; i&#43;&#43;)
+        eg2.insert(i);
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Set named eg2:&#34;</span>&lt;&lt;endl;
+    <span class="hljs-keyword">for</span>(set_iter&#61;eg2.begin(); set_iter!&#61;eg2.end(); set_iter&#43;&#43;)
+        <span class="hljs-built_in">cout</span>&lt;&lt;*set_iter&lt;&lt;<span class="hljs-string">&#34; &#34;</span>;
+    <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+<span class="hljs-comment">//获得两个set的并</span>
+    <span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span>eg3;
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Union:&#34;</span>;
+    set_union(eg1.begin(),eg1.end(),eg2.begin(),eg2.end(),
+              insert_iterator&lt;<span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span> &gt;(eg3,eg3.begin()));<span class="hljs-comment">//注意第五个参数的形式</span>
+    copy(eg3.begin(),eg3.end(),ostream_iterator&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-built_in">cout</span>,<span class="hljs-string">&#34; &#34;</span>));
+    <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+<span class="hljs-comment">//获得两个set的交&#xff0c;注意进行集合操作之前接收结果的set要调用clear()函数清空一下</span>
+    eg3.clear();
+    set_intersection(eg1.begin(),eg1.end(),eg2.begin(),eg2.end(),insert_iterator&lt;<span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span> &gt;(eg3,eg3.begin()));
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Intersection:&#34;</span>;
+    copy(eg3.begin(),eg3.end(),ostream_iterator&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-built_in">cout</span>,<span class="hljs-string">&#34; &#34;</span>));
+    <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+<span class="hljs-comment">//获得两个set的差</span>
+    eg3.clear();
+    set_difference(eg1.begin(),eg1.end(),eg2.begin(),eg2.end(),insert_iterator&lt;<span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span> &gt;(eg3,eg3.begin()));
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Difference:&#34;</span>;
+    copy(eg3.begin(),eg3.end(),ostream_iterator&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-built_in">cout</span>,<span class="hljs-string">&#34; &#34;</span>));
+    <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+<span class="hljs-comment">//获得两个set的对称差&#xff0c;也就是假设两个集合分别为A和B那么对称差为AUB-A∩B</span>
+    eg3.clear();
+    set_symmetric_difference(eg1.begin(),eg1.end(),eg2.begin(),eg2.end(),insert_iterator&lt;<span class="hljs-stl_container"><span class="hljs-built_in">set</span>&lt;<span class="hljs-keyword">int</span>&gt;</span> &gt;(eg3,eg3.begin()));
+    copy(eg3.begin(),eg3.end(),ostream_iterator&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-built_in">cout</span>,<span class="hljs-string">&#34; &#34;</span>));
+    <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>(3)multiset</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;algorithm&gt;</span>
+<span class="hljs-preprocessor">#include&lt;set&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iterator&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iostream&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> main()
+{
+    <span class="hljs-stl_container"><span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>&gt;</span>eg1;
+<span class="hljs-comment">//插入</span>
+    eg1.insert(<span class="hljs-number">1</span>);
+    eg1.insert(<span class="hljs-number">100</span>);
+    eg1.insert(<span class="hljs-number">5</span>);
+    eg1.insert(<span class="hljs-number">1</span>);<span class="hljs-comment">//是否插入</span>
+    eg1.insert(<span class="hljs-number">10</span>);
+    eg1.insert(<span class="hljs-number">9</span>);
+<span class="hljs-comment">//遍历set&#xff0c;可以发现元素是有序的</span>
+    <span class="hljs-stl_container"><span class="hljs-built_in">multiset</span>&lt;<span class="hljs-keyword">int</span>&gt;</span>::iterator set_iter&#61;eg1.begin();
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Set named eg1:&#34;</span>&lt;&lt;endl;
+    <span class="hljs-keyword">for</span>(; set_iter!&#61;eg1.end(); set_iter&#43;&#43;)
+        <span class="hljs-built_in">cout</span>&lt;&lt;*set_iter&lt;&lt;<span class="hljs-string">&#34; &#34;</span>;
+    <span class="hljs-built_in">cout</span>&lt;&lt;endl;
+<span class="hljs-comment">//使用size()函数可以获得当前元素个数</span>
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;Now there are &#34;</span>&lt;&lt;eg1.size()&lt;&lt;<span class="hljs-string">&#34; elements in the set eg1&#34;</span>&lt;&lt;endl;
+    <span class="hljs-keyword">if</span>(eg1.find(<span class="hljs-number">200</span>)&#61;&#61;eg1.end())<span class="hljs-comment">//find()函数可以查找元素是否存在</span>
+        <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;200 isn&#39;t in the set eg1&#34;</span>&lt;&lt;endl;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>(4)理解map</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;algorithm&gt;</span>
+<span class="hljs-preprocessor">#include&lt;map&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iterator&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iostream&gt;</span>
+<span class="hljs-preprocessor">#include&lt;cstring&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">struct</span> ltstr
+{
+    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span>()(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* s1, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* s2) <span class="hljs-keyword">const</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">strcmp</span>(s1, s2) &lt; <span class="hljs-number">0</span>;
+    }
+};
+<span class="hljs-keyword">int</span> main()
+{
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*, <span class="hljs-keyword">int</span>, ltstr&gt;</span> months;
+    months[<span class="hljs-string">&#34;january&#34;</span>] &#61; <span class="hljs-number">31</span>;
+    months[<span class="hljs-string">&#34;february&#34;</span>] &#61; <span class="hljs-number">28</span>;
+    months[<span class="hljs-string">&#34;march&#34;</span>] &#61; <span class="hljs-number">31</span>;
+    months[<span class="hljs-string">&#34;april&#34;</span>] &#61; <span class="hljs-number">30</span>;
+    months[<span class="hljs-string">&#34;may&#34;</span>] &#61; <span class="hljs-number">31</span>;
+    months[<span class="hljs-string">&#34;june&#34;</span>] &#61; <span class="hljs-number">30</span>;
+    months[<span class="hljs-string">&#34;july&#34;</span>] &#61; <span class="hljs-number">31</span>;
+    months[<span class="hljs-string">&#34;august&#34;</span>] &#61; <span class="hljs-number">31</span>;
+    months[<span class="hljs-string">&#34;september&#34;</span>] &#61; <span class="hljs-number">30</span>;
+    months[<span class="hljs-string">&#34;october&#34;</span>] &#61; <span class="hljs-number">31</span>;
+    months[<span class="hljs-string">&#34;november&#34;</span>] &#61; <span class="hljs-number">30</span>;
+    months[<span class="hljs-string">&#34;december&#34;</span>] &#61; <span class="hljs-number">31</span>;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;june -&gt; &#34;</span> &lt;&lt; months[<span class="hljs-string">&#34;june&#34;</span>] &lt;&lt; endl;
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*, <span class="hljs-keyword">int</span>, ltstr&gt;</span>::iterator cur  &#61; months.find(<span class="hljs-string">&#34;june&#34;</span>);
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*, <span class="hljs-keyword">int</span>, ltstr&gt;</span>::iterator prev &#61; cur;
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*, <span class="hljs-keyword">int</span>, ltstr&gt;</span>::iterator next &#61; cur;
+    &#43;&#43;next;
+    --prev;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;Previous (in alphabetical order) is &#34;</span> &lt;&lt; (*prev).first &lt;&lt; endl;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;Next (in alphabetical order) is &#34;</span> &lt;&lt; (*next).first &lt;&lt; endl;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>(5)map再例</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;map&gt;</span>
+<span class="hljs-preprocessor">#include &lt;iostream&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> main( )
+{
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span> &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;</span> m1, m2, m3;
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span> &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;</span>::iterator m1_Iter;
+    m1.insert ( pair &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;  ( <span class="hljs-number">1</span>, <span class="hljs-number">10</span> ) );
+    m1.insert ( pair &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;  ( <span class="hljs-number">2</span>, <span class="hljs-number">20</span> ) );
+    m1.insert ( pair &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;  ( <span class="hljs-number">3</span>, <span class="hljs-number">30</span> ) );
+    m2.insert ( pair &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;  ( <span class="hljs-number">10</span>, <span class="hljs-number">100</span> ) );
+    m2.insert ( pair &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;  ( <span class="hljs-number">20</span>, <span class="hljs-number">200</span> ) );
+    m3.insert ( pair &lt;<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>&gt;  ( <span class="hljs-number">30</span>, <span class="hljs-number">300</span> ) );
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;The original map m1 is:&#34;</span>;
+    <span class="hljs-keyword">for</span> ( m1_Iter &#61; m1.begin( ); m1_Iter !&#61; m1.end( ); m1_Iter&#43;&#43; )
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34; &#34;</span> &lt;&lt; m1_Iter-&gt;second;
+    <span class="hljs-built_in">cout</span>   &lt;&lt; <span class="hljs-string">&#34;.&#34;</span> &lt;&lt; endl;
+    <span class="hljs-comment">// This is the member function version of swap</span>
+    <span class="hljs-comment">//m2 is said to be the argument map; m1 the target map</span>
+    m1.swap( m2 );
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;After swapping with m2, map m1 is:&#34;</span>;
+    <span class="hljs-keyword">for</span> ( m1_Iter &#61; m1.begin( ); m1_Iter !&#61; m1.end( ); m1_Iter&#43;&#43; )
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34; &#34;</span> &lt;&lt; m1_Iter -&gt; second;
+    <span class="hljs-built_in">cout</span>  &lt;&lt; <span class="hljs-string">&#34;.&#34;</span> &lt;&lt; endl;
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;After swapping with m2, map m2 is:&#34;</span>;
+    <span class="hljs-keyword">for</span> ( m1_Iter &#61; m2.begin( ); m1_Iter !&#61; m2.end( ); m1_Iter&#43;&#43; )
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34; &#34;</span> &lt;&lt; m1_Iter -&gt; second;
+    <span class="hljs-built_in">cout</span>  &lt;&lt; <span class="hljs-string">&#34;.&#34;</span> &lt;&lt; endl;
+    <span class="hljs-comment">// This is the specialized template version of swap</span>
+    swap( m1, m3 );
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;After swapping with m3, map m1 is:&#34;</span>;
+    <span class="hljs-keyword">for</span> ( m1_Iter &#61; m1.begin( ); m1_Iter !&#61; m1.end( ); m1_Iter&#43;&#43; )
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34; &#34;</span> &lt;&lt; m1_Iter -&gt; second;
+    <span class="hljs-built_in">cout</span>   &lt;&lt; <span class="hljs-string">&#34;.&#34;</span> &lt;&lt; endl;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre> 
+<p>(6)map三例</p> 
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-preprocessor">#include &lt;algorithm&gt;</span>
+<span class="hljs-preprocessor">#include&lt;map&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iterator&gt;</span>
+<span class="hljs-preprocessor">#include&lt;iostream&gt;</span>
+<span class="hljs-preprocessor">#include&lt;cstring&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">int</span> main()
+{
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">char</span>,<span class="hljs-keyword">int</span>&gt;</span> mymap;
+    mymap[<span class="hljs-string">&#39;a&#39;</span>]&#61;<span class="hljs-number">10</span>;
+    mymap[<span class="hljs-string">&#39;b&#39;</span>]&#61;<span class="hljs-number">60</span>;
+    mymap[<span class="hljs-string">&#39;c&#39;</span>]&#61;<span class="hljs-number">30</span>;
+    mymap[<span class="hljs-string">&#39;d&#39;</span>]&#61;<span class="hljs-number">90</span>;
+    mymap[<span class="hljs-string">&#39;e&#39;</span>]&#61;<span class="hljs-number">50</span>;
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">char</span>,<span class="hljs-keyword">int</span>&gt;</span> second(mymap);
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">char</span>,<span class="hljs-keyword">int</span>&gt;</span> third(mymap.begin(),mymap.end());
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">char</span>,<span class="hljs-keyword">int</span>&gt;</span>::key_compare key_comp;
+    <span class="hljs-stl_container"><span class="hljs-built_in">map</span>&lt;<span class="hljs-keyword">char</span>,<span class="hljs-keyword">int</span>&gt;</span>::iterator it;
+    it&#61;mymap.begin();
+    <span class="hljs-keyword">for</span> (;it!&#61;mymap.end();it&#43;&#43;)
+    {
+        <span class="hljs-built_in">cout</span>&lt;&lt;it-&gt;first&lt;&lt;<span class="hljs-string">&#34;:&#34;</span>&lt;&lt;it-&gt;second&lt;&lt;endl;
+    }
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#34;</span>&lt;&lt;endl;
+    second.clear();
+    second[<span class="hljs-string">&#39;a&#39;</span>]&#61;<span class="hljs-number">1002</span>;
+    second[<span class="hljs-string">&#39;b&#39;</span>]&#61;<span class="hljs-number">10023</span>;
+    <span class="hljs-keyword">while</span> (!second.empty())
+    {
+        <span class="hljs-built_in">cout</span> &lt;&lt; second.begin()-&gt;first &lt;&lt; <span class="hljs-string">&#34; &#61;&gt; &#34;</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; second.begin()-&gt;second &lt;&lt; endl;
+        second.erase(second.begin());
+    }
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#34;</span>&lt;&lt;endl;
+    mymap.insert(pair&lt;<span class="hljs-keyword">char</span>,<span class="hljs-keyword">int</span>&gt;(<span class="hljs-string">&#39;f&#39;</span>,<span class="hljs-number">100</span>) );
+    mymap.insert(pair&lt;<span class="hljs-keyword">char</span>,<span class="hljs-keyword">int</span>&gt;(<span class="hljs-string">&#39;g&#39;</span>,<span class="hljs-number">200</span>) );
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;f &#61;&gt; &#34;</span> &lt;&lt;mymap.find(<span class="hljs-string">&#39;f&#39;</span>)-&gt;second&lt;&lt;endl;
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;g &#61;&gt; &#34;</span> &lt;&lt;mymap.find(<span class="hljs-string">&#39;g&#39;</span>)-&gt;second&lt;&lt;endl;
+    <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&#34;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#61;&#34;</span>&lt;&lt;endl;
+    key_comp&#61;mymap.key_comp();
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&#34;mymap contains:\n&#34;</span>;
+    <span class="hljs-keyword">char</span> highest&#61;mymap.rbegin()-&gt;first;     <span class="hljs-comment">// key value of last element</span>
+    it&#61;mymap.begin();
+    <span class="hljs-keyword">do</span> {
+        <span class="hljs-built_in">cout</span> &lt;&lt; (*it).first &lt;&lt; <span class="hljs-string">&#34; &#61;&gt; &#34;</span> &lt;&lt; (*it).second &lt;&lt; endl;
+    } <span class="hljs-keyword">while</span> ( key_comp((*it&#43;&#43;).first, highest) );
+    <span class="hljs-built_in">cout</span> &lt;&lt; endl;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre>
+                </div>
+
+<p style='float:right;'>本页共254段，24795个字符，25572 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
