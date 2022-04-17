@@ -1,0 +1,579 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	width:115%;
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	overflow-x:auto;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>Moving from Java to CPP</h4>
+
+
+<p>This appendix explains how to transfer your Java programming skills to a substantial subset of C++. This is necessary for students who take their first programming course in Java and the second course in C++. Naturally, it would be easiest if the second course were also offered in Java, but learning to move from one language to another is a fact of life for today's software professionals. Fortunately, C++ has many features in common with Java, and it is easy for a Java programmer to gain a working knowledge of C++. Nevertheless, C++ is a much more complex language than Java. This appendix does not attempt to cover all features of C++. But if you master all of the constructs described in this appendix, you will be able to use C++ effectively.</p>
+<p>We only cover the differences between Java and C++. In particular, control flow (if, while, for) is essentially identical in C++ and Java, and it is not covered here.</p>
+<p>This appendix describes ANSI C++. Some older C++ compilers lack essential features described here. To use those compilers, you will need to learn more about the parts of C++ that were inherited from C. That is beyond the scope of this discussion.</p>
+<h4>A3.1. Data Types and Variables</h4>
+<p>The data types in C++ are similar to those in Java. Like Java, C++ has int and double types. However, the range of the numeric types such as int is machine-dependent. On 16-bit systems such as PCs running DOS or Windows 3.x, int are 2-byte quantities with a much more limited range than the 4-byte Java int type. On those machines, you need to switch to long whenever the int range is not sufficient.</p>
+<p>C++ has short and unsigned types that can store numbers more efficiently. It is best to avoid these types unless the added efficiency is crucial.</p>
+<p>The Boolean type is called bool in C++.</p>
+<p>The C++ string type is called string. It is quite similar to the Java String type. However, pay attention to these differences:</p>
+<p>1. C++ strings store ASCII characters, not Unicode characters</p>
+<p>2. C++ strings can be modified, whereas Java strings are immutable.</p>
+<p>3. The substring operation in C++ is called substr. The command s.substr(i, n) extracts a substring of length n starting at position i.</p>
+<p>4. You can only concatenate strings with other strings, not with arbitrary objects.</p>
+<p>5. To compare strings, use the relational operators == != < <= > >=. The last four operators perform lexicographic comparison. This is actually more convenient than the use of equals and compareTo in Java.</p>
+<h4>A3.2. Variables and Constants</h4>
+<p>In C++, local variables are defined just as in Java.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> n = 5;
+</pre>
+<p>There is, however, a major difference between C++ and Java. The C++ compiler does not check whether all local variables are initalized before they are read. It is quite easy to forget initializing a variable in C++. The value of the variable is then the random bit pattern that happened to be in the memory location that the local variable occupies. This is clearly a fertile source of programming errors.</p>
+<p>As in Java, classes can have data fields and static variables. Furthermore, variables can be declared outside functions and classes. These so-called global variables can be accessed from any function in a program. That makes them difficult to manage. C++ programs should avoid global variables.</p>
+<p>In C++, constants can be declared anywhere. (Recall that in Java, they had to be static data of a class.) C++ uses the const keyword instead of final.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>const</font> <font color=#00F>int </font>DAYS_PER_YEAR = 365;
+</pre>
+<h3>A3.3. Classes</h3>
+The definition of classes in C++ is somewhat different than in Java. Here is an example: a C++ version of the Point class:
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> Point <font color=#CCC>/* C++ */</font>
+{
+<font color=#00F>public</font>:
+   Point();
+   Point(<font color=#00F>double</font> xval, <font color=#00F>double </font>yval);
+   <font color=#00F>void </font>move(<font color=#00F>double</font> dx, <font color=#00F>double </font>dy);
+   <font color=#00F>double </font>getX() const;
+   <font color=#00F>double </font>getY() const;
+<font color=#00F>private</font>:
+   <font color=#00F>double </font>x;
+   <font color=#00F>double </font>y;
+};
+</pre>
+<p>There are several essential differences.</p>
+<p>1. In C++, there are public and private sections, started by the keywords public and private. In Java, each individual item must be tagged with public or private.</p>
+<p>2. The class definition only contains the declarations of the methods. The actual implementations are listed separately.</p>
+<p>3. Accessor methods are tagged with the keyword const</p>
+<p>4. There is a semicolon at the end of the class</p>
+<p>The implementation of methods follows the class definition. Because the methods are defined outside the classes, each method name is prefixed by the class name. The :: operator separates class and method name. Accessor methods that do not modify the implicit parameter are tagged as const.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Point::Point() { x = 0; y = 0; }
+<font color=#00F>void</font> Point::move(<font color=#00F>double</font> dx, <font color=#00F>double </font>dy)
+{  x = x + dx;
+   y = y + dy;
+}
+<font color=#00F>double</font> Point::getX() const
+{  
+    <font color=#00F>return </font>x;
+}
+</pre>
+<h4>A3.4. Objects</h4>
+<p>The major difference between Java and C++ is the behavior of object variables. In C++, object variables hold values, not object references. Note that the new operator is never used when constructing objects in C++. You simply supply the construction parameters after the variable name.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Point p(1, 2); <font color=#CCC>/* construct p */</font>
+</pre>
+<p>If you do not supply construction parameters, then the object is constructed with the default constructor.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Time now; <font color=#CCC>/* construct now with Time::Time() */</font>
+</pre>
+<p>This is very different from Java. In Java, this command would merely create an uninitialized reference. In C++, it constructs an actual object.</p>
+<p>When one object is assigned to another, a copy of the actual values is made. In Java, copying an object variable merely establishes a second reference to the object. Copying a C++ object is just like calling clone in Java. Modifying the copy does not change the original.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Point q = p;  <font color=#CCC>/* copies p into q */</font>
+q.move(1, 1); <font color=#CCC>/* moves q but not p */</font>
+</pre>
+<p>In most cases, the fact that objects behave like values is very convenient. There are, however, a number of situations where this behavior is undesirable.</p>
+<p>1. When modifying an object in a function, you must remember to use call by reference (see below)</p>
+<p>2. Two object variables cannot jointly access one object. If you need this effect in C++, then you need to use pointers (see below)</p>
+<p>3. An object variable can only hold values of a particular type. If you want a variable to hold objects from different subclasses, you need to use pointers</p>
+<p>4. If you want a variable point to either null or to an actual object, then you need to use pointers in C++</p>
+<h4>A3.5. Functions</h4>
+<p>In Java, every function must be an instance method or a static function of a class. C++ supports instance methods and static functions of classes, but it also permits functions that are not a part of any class. Such functions are called global functions.</p>
+<p>In particular, every C++ function starts with the global function main.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font><font color=#00F> main</font>()
+{ 
+    <font color=#CCC>//. . .</font>
+}
+</pre>
+<p>There is a second version of main that you can use to capture command-line arguments, but it requires knowledge of C-style arrays and strings, and we will not cover it here.</p>
+<p>By convention, the return value of main is zero if the program completed succesfully, a non-zero integer otherwise.</p>
+<p>As in Java, function arguments are passed by value. In Java, functions were nevertheless able to modify objects. However, since C++ object values are not references to actual objects, a function receives a copy of the actual argument and hence can never modify the original.</p>
+<p>Therefore, C++ has two parameter passing mechanisms, call by value (as in Java) and call by reference. When a parameter is passed by reference, the function can modify the original. Call by reference is indcated by an & behind the parameter type.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>void</font> raiseSalary(Employee& e, <font color=#00F>double </font>by)
+{ 
+    <font color=#CCC>//. . .</font>
+}
+</pre>
+Here is a typical function that takes advantage of call by reference. Note that it would be impossible to write such a function in Java.
+void swap(int& a, int& b)
+{  int temp = a;
+   a = b;
+   b = temp;
+}
+<p>If this function is called as swap(x, y), then the reference parameters a and b refer to the locations of the arguments x and y, not the values of these arguments. Hence the function can actually swap the contents of these variables.</p>
+<p>In C++, you always use call by reference when a function needs to modify a parameter.</p>
+<h4>A3.6. Vectors</h4>
+<p>The C++ vector construct combines the best features of arrays and vectors in Java. A C++ vector has convenient element access, and it can grow dynamically. If T is any type, then vector<T> is a dynamic array of elements of type T. The instruction</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+vector&lt;int> a;
+</pre>
+<p>makes an initially empty vector. The command</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+vector&lt;int> a(100);
+</pre>
+<p>makes a vector that has initially 100 elements. You can add more elements with the push_back method:</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+a.push_back(n);
+</pre>
+<p>The call a.pop_back() removes the last element from a. Use the size method to find the current number of elements in a.</p>
+<p>You access the elements with the familiar [] operator.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>for</font> (i = 0; i &lt; a.size(); i++)
+   sum = sum + a[i];
+</pre>
+<p>As in Java, array indexes must be between 0 and a.size() - 1. However, unlike Java, there is no runtime check for legal array indexes. Accessing an illegal index can cause very serious errors.</p>
+<p>Just like all other C++ objects, vectors are values. If you assign one vector to another, all elements are copied.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+vector&lt;int> b = a; <font color=#CCC>/* all elements are copied */</font>
+</pre>
+<p>Contrast that with the situation in Java. In Java, an array variable is a reference to the array. Making a copy of the variable just yields a second reference to the same array.</p>
+<p>For that reason, C++ functions that modify vectors must use reference parameters.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>void</font> sort(vector&lt;int>& a)
+{ 
+    <font color=#CCC>//. . .</font>
+}
+</pre>
+<h4>A3.7. Input and Output</h4>
+<p>In C++, the standard input and output stream are represented by the cin and cout objects. You use the &lt;&lt; operator to write output.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>cout</font> &lt;&lt; "Hello, World!";
+</pre>
+<p>You can print multiple items as well.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>cout</font> &lt;&lt; "The answer is " &lt;&lt; x &lt;&lt; "\n";
+</pre>
+<p>To read a number or a word from input, use the >> operator.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>double</font> x;
+<font color=#C00>cout</font> &lt;&lt; "Please enter x: ";
+<font color=#C00>cin</font> >> x;
+string fname;
+<font color=#C00>cout</font> &lt;&lt; "Please enter your first name: ";
+<font color=#C00>cin</font> >> fname;
+</pre>
+<p>The getline method reads an entire line of input.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+string inputLine;
+getline(cin, inputLine);
+</pre>
+<p>If the end of input has been reached, or if a number could not be read correctly, the stream is set to a failed state. You can test for that with the fail method.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> n;
+<font color=#C00>cin</font> >> n;
+<font color=#00F>if</font> (cin.fail()) 
+   <font color=#C00> cout</font> &lt;&lt; "Bad input";
+</pre>
+<p>Once the stream state has failed, you cannot easily reset it. If your program needs to handle bad input, you should use getline and then manually process the input.</p>
+<h4>A3.8. Pointers</h4>
+<p>In C++, object variables hold object values. This is different from Java, where an object variable only is a reference to an object value that is stored elsewhere. There are circumstances where the same arrangement is required in C++. In C++, a variable that can refer to an object is called a pointer. If T is any type, then T* is a pointer to an object of type T.</p>
+<p>Just as in Java, a pointer variable can be initialized with NULL, with another pointer variable, or with a call to new.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Employee* p = NULL;
+Employee* q = <font color=#00F>new </font>Employee("Hacker, Harry", 35000);
+Employee* r = q;
+</pre>
+<p>Actually, there is a fourth possibility. Pointers can be initialized with the address of another object, by using the & operator.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Employee boss("Morris, Melinda", 83000);
+Employee* s = &boss;
+</pre>
+<p>This is usually not a good idea. As a rule of thumb, C++ pointers should only refer to objects allocated wth new.</p>
+<p>So far, C++ pointers look very much like Java object variables. There is, however, an essential syntactical difference. You must apply the * operator to access the object to which a pointer points. If p is a pointer to an Employee object, then *p refers to that object.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Employee* p = . . .;
+Employee boss = *p;
+</pre>
+<p>You also need to refer to *p when you want to execute a method or access a data field.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+(*p).setSalary(91000);
+</pre>
+<p>The parentheses are necessary because the . operator has a higher precedence than the * operator. The designers of C found this sufficiently ugly that they provided an alternate -> operator to combine the * and . operators. The expression</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+p->setSalary(91000);
+</pre>
+<p>invokes the setSalary method on the object *p. You can simply remember to use the . operator for objects, the -> operator for pointers.</p>
+<p>If you do not initialize a pointer, or if the pointer is NULL or refers to an object that no longer exists, then it is an error to apply the * or -> operator. Unfortunately, the C++ runtime system does not check against these errors. If you make such a mistake, your program can die a horrible death or act flaky.</p>
+<p>In Java, these errors are not possible. You cannot have an uninitialized reference. All objects are kept alive as long as there is a reference to it. Hence you cannot have a reference to a deleted object. The runtime system checks for null references and throws a null pointer exception if a null pointer is accessed.</p>
+<p>There is another significant difference between C++ and Java. Java has a garbage collector that automatically reclaims all objects that are no longer needed. In C++, it is the responsibility of the programmer to manage memory.</p>
+<p>Object variables are automatically reclaimed when they go out of scope. However, objects created with new must be reclaimed manually with the delete operator.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Employee* p = <font color=#00F>new </font>Employee("Hacker, Harry", 38000);
+<font color=#CCC>//. . .</font>
+<font color=#00F>delete</font> p; <font color=#CCC>/* no longer need this object */</font>
+</pre>
+<p>If you forget to delete an object, then you can eventually exhaust all memory. This is called a memory leak. More importantly, if you delete an object and then continue to use it, you can overwrite data that no longer belongs to you. If you overwrite any of the data fields that are used to manage the recycled storage, the allocation mechanism can malfunction and cause subtle errors that are very difficult to diagnose and fix. For this reason, it is best if you minimize the use of pointers in C++.</p>
+<h4>A3.9. Inheritance</h4>
+<p>The basic syntax for inheritance is similar in C++ and Java. In C++, you use : public instead of extends to denote inheritance. (C++ also supports a concept called private inheritance, but it is not very useful.)</p>
+<p>By default, functions are not dynamically bound in C++. If you want which dynamic binding for a particular function, you must declare it as virtual.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> Manager : <font color=#00F>public </font>Employee
+{
+<font color=#00F>public</font>:
+   Manager(string name, <font color=#00F>double </font>salary, string dept);
+   virtualvoid print() const;
+<font color=#00F>private</font>:
+   string department;
+};
+</pre>
+<p>As in Java, there is special syntax for a constructor to invoke the constructor of the superclass. Java uses the keyword super. In C++, you must call the superclass constructor outside the body of the subclass constructor. Here is an example.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Manager::Manager(string name, <font color=#00F>double </font>salary, string dept)
+: Employee(name, salary) <font color=#CCC>/* call superclass constructor */</font>
+{  
+    department = dept;
+}
+</pre>
+<p>Java also uses the super keyword when a subclass method calls the superclass method. In C++, you use the name of the superclass and the ::operator instead.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>void</font> Manager::print() const
+{  
+    Employee::print();   <font color=#CCC>/* call superclass method */</font>
+  <font color=#C00> cout</font> &lt;&lt; department &lt;&lt; "\n";
+}
+</pre>
+<p>A C++ object variable holds objects of a specific type. To exploit polymorphism in C++, you need pointers. A T* pointer can point to objects of type T or any subclass.of T.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Employee* e = <font color=#00F>new </font>Manager("Morris, Melinda", 83000, "Finance");
+</pre>
+<p>You can collect multiple objects of a mixture of super- and subclasses in a vector of pointers, and then apply a dynamically bound function.</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+vector&lt;Employee*> staff;
+<font color=#CCC>//. . .</font>
+<font color=#00F>for</font> (i = 0; i &lt; staff.size(); i++)
+   staff[i]->print();
+</pre>
+<a href="https://horstmann.com/ccj2/ccjapp3.html" title="">ref</a>
+
+
+<p style='float:right;'>本页共279段，21735个字符，22014 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
