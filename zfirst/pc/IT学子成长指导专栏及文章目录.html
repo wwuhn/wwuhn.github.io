@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>IT学子成长指导专栏及文章目录</h3>
+
+<p>
+<p>
+<p>
+<p><p>为大学生迷茫&#xff0c;共同寻找快乐、激情的成长之旅&#xff01;<p><p>本专栏创建于2012年5月。几年中&#xff0c;无数的IT学子到此交流&#xff0c;也形成了一道独特风景。这里&#xff0c;汇聚了众多成长中的烦恼&#xff0c;也集合了更多的突破智慧。<p><p>读者不妨可以浏览本文&#xff0c;找适合的文章深入阅读&#xff0c;将之作为大学之路的参考。可以将你未解的困惑和疑虑写出来&#xff0c;Email发给博主sxhelijian&#64;163.com&#xff0c;关注<a href="http://www.csdn.net/article/2012-05-25/2806158.html">雪中送炭</a>的博主愿为你服务。若写信&#xff0c;请详述自己的情况&#xff1a;身份&#xff08;在校学生、几年级、什么专业&#xff09;、兴趣&#xff08;专业兴趣或其他&#xff09;、面临的问题、你自己的观点和做法等&#xff0c;这些叙述将有利于博主为你提出有针对性的建议。有时&#xff0c;通过你自己的写作&#xff0c;自己就会给出答案。<p><p> &#xff08;本文目录为手工整理&#xff0c;2017年9月8日以后的文章请直接点《<a href="https://blog.csdn.net/sxhelijian/category_9261204.html">“IT学子成长指导”专栏</a>》&#xff09;<p><hr />
+<p><h2><a name="zero"> </a>快速定位到各个话题</h2>
+<p><p><strong><a href="#two">学习方法指导</a></strong><p><p><strong><a href="#four">关于自学、学习</a></strong><p><p><strong><a href="#six">专业兴趣和学业规划</a></strong><p><p><strong><a href="#three">学习、成长观点</a></strong><p><p><strong><a href="#one">程序设计初学者园地</a></strong><p><p><strong><a href="#eight">职场新人</a></strong><p><p><strong><a href="#seven">我的教学故事和感受</a></strong><p><p><strong><a href="#nine">各方观点</a></strong><p><p> <p><hr />
+<p><h2><strong>各话题中的文章详细列表——</strong></h2>
+<p><p> <p><h3><a name="two"> </a> 学习方法指导</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">大四学生“精通C语言”的学习路线</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">论教学型教材和手册型教材</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">写给正在冲击名校研究生的大四学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">通过改写算法获得数据结构学习的更佳效果</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">一位大一学生的N个问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">学习规律及其在学习中的应用</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">答大二学生&#xff1a;怎样才能有解题思路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">怎么破“完全看不懂”</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">想算法无头绪&#xff0c;咋办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">一位想学很多的大一同学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">该不该和教师一起去做项目</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43950473">将“操作系统”当“高级C语言”如何&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/44228561">论文&#xff0c;MOOC&#xff0c;考研——答大二学生三问</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/48801957">怎么在博客上积累代码量&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/48825057">写给请求推荐C#视频教程的研二学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50119427">C&#43;&#43;网络服务器编程的学习路线&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50059425">答大二软件工程专业学生——重点学什么</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/49632755">写给大二想投入ACM的女生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/49407633">关于学习操作系统的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/41357443" name="41357443">Bird来信&#xff1a;应用高手品味到了基础的重要</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/41355827" name="41355827">写给大二女生&#xff1a;发现问题&#xff0c;主动想办法解决</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39673915" name="39673915">《逆袭大学》文摘——7.1.2 中学生学习单片机的启示</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40505463" name="40505463">讲座&#xff1a;计算机专业及其学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/38421145" name="38421145">学习中专业基础与应用技术间的取舍</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/28582031">程序员加油站 -- 不是人人都懂的学习要点</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/27290885">程序员与线性代数</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24762447">算法重要&#xff0c;但并非全部&#xff0c;并非所有人的选择</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/26544701">风景在路上</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/25537189">在实验室还是企业实习&#xff0c;这个无定数</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/25178971">面对完全看不懂的书</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/25093481">《逆袭大学》文摘——9.5 用算法和数学奠定专业基础</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/25029683">职场二年级转型C&#43;&#43;的困惑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24960403">软件工程师周兆熊给IT学子的倾情奉献</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24829463">答一名总是半途而废的大二学生&#xff1a;如何坚持&#xff0c;坚持什么</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24803497">给电信专业大二学生解答几个问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24800559">学数据结构&#xff0c;只需要基本的编程体验</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24799307">大一女生的几个“不知道”</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24622251">给想上MIT的牛学生说几句</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24620033">给大二学生——可以再坚持一年的ACM</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24453025">写给研二学生&#xff1a;关键是管理好自己的时间</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24199193">大四学生发现自己不合企业要求……</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24196415">给想跨专业考研的学生——消除顾虑&#xff0c;做好安排</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24171743">四封短信【非专业、算法与应用】</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23993911">《逆袭大学》文摘——9.1 一切让代码行数说话</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23906229">五个问题的简短回复【调试、求职疑虑、编程能力提高、做题】</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23784259">写给看着题干着急的学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23782129">大二学生——如何弥补没有学好的东西</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23357965">与大二学生讨论专业学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/22640935">可以坚持实践为先的课外学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21096905">两名在校生的问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20079949">一步怎能登天&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18150521">看电子书还是实体书</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17735411">学习目标的五个层次</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17582287">写给认真学习却进步缓慢的大一学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17575067">研究生&#xff0c;在研究中学会研究方法</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/14102245">读书和学习本为一体&#xff0c;行和知相得益彰</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/14100913">学习网络和编程&#xff0c;本不必分得那么清</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/13887983">非计算机专业的同学&#xff0c;不见得也要追求计算机基础扎实</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/13864431">听课、看书、实践&#xff0c;立体式地学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12754355">学数据结构当然会比学第二门语言觉得难</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12522223">数据结构中的算法都需要实现吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9633313">专业学习中&#xff0c;学、用英语</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8878456">软件工程一位大三学生成功上大学的案例</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9006249">经常做不下去——项目要由小到大做</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8779300">谈学习中的改变——有病要诊断&#xff0c;有药要服用</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8825988">CSDN博客和OJ&#xff0c;两种积累编程代码量的方法对比</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8312344">以实践为起点&#xff0c;设计出重基础的学习之路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8316203">视觉型学生用好做笔记的方法</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8316441">纠结于数学&#xff0c;还能继续程序员的目标吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8316553">回复喜欢C和汇编的大学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8328706">买N多书≠学会C&#43;&#43;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8333293">编程思想要靠有效的实践去获得</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8351629">跟着自己的感觉走</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8362411">抓住兴趣点&#xff0c;安排出自己的学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8197822">冲破应试思维制约&#xff0c;改进学习方法</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8197824">专题聊天&#xff1a;为什么努力了&#xff0c;编程还是不行</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7972827">讲座&#xff1a;跨过算法和程序之间的那道沟&#xff08;带视频链接&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7959647">给数据结构初学者&#xff1a;跨过算法和程序之间的鸿沟</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7955718">写给未来IT工程师协会/CSDN俱乐部会员同学的一封信</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7953506">跟不同的老师&#xff0c;用不同的学法</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7931352">讲座&#xff1a;踏上快乐与激情的IT学习之旅</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7928077">中学生学单片机带来的学习方法启示</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7823308">软件开发的能力体系及锻炼</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7796911">计算机专业这么多课程怎么学&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7776831">重视基础学习的大一同学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7769592">调程序就恶心&#xff0c;怎么办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7760011">给一位准大三学生的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7755707">一名准大学生的疑惑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7752786">五封信——大专生的自卑、工作不好想考研、大一就着急的孩子、是否学MFC</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7744374">不能只看不干——给又一位准大四学生的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7686357">写给在校生——听师兄传的IT之道</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7385018">主动&#xff0c;永远的法宝</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7363358">开发经验和屁股的关系</a></li></ol>
+<p><p><strong> </strong><a href="#zero">回到话题列表……</a><p><hr />
+<p><h3><a name="four"> </a> 焦点&#xff1a;关于自学、学习</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/69056118">给考研亲学生&#xff1a;用时间管理让自己找到状态</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/70224075">和计算机专业学生谈学英语</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/67637487">阅读(英文)大部头教材遇到了困难...</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/53761553">没有时间看MOOC怎么办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51711875">给“习得性无助”者的回信</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51297166">深度对话&#xff1a;系统学习还是野路子&#xff1f;</a></li><li>学会用markdown写博文</li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40976535">想学逆向工程的大二学生——将自己塑造成一位有特色的人才</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40740783" name="40740783">先实践起来再说别的</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/38259411" name="38259411">对思归者的建议</a><a href="http://blog.csdn.net/sxhelijian/article/details/38168979" name="38168979">用博客记录成长的历程</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/37988539" name="37988539">关于算法学习方法的讨论</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24450629">给大三学生&#xff1a;阅读经典的“乱搭”中形成自己的“系统”</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21889257">独行怎能走远——给不喜欢有人教的学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21830029">ACM还是网络技术&#xff0c;两难取舍</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21216141">两种视角下的金字塔</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18492059">免费的文献服务&#xff0c;中国人的自豪</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17833205">关于考试的进一步讨论</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17651761">大三计算机科班学生悟道理论联系实际</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17584775">想系统学习计算机的法学专业学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17434121">考试周&#xff0c;不上课了并不意味着不学习了</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/13686979">感想——学会提问</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/11820451">答一名大三同学的信——我该不该做项目</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12177147">英语学习也可以“做中学”</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12183875">关于读书的几个问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12183853">以提前体验为目标的自主性学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12524817">给大三学生——要根据目标确定学习内容</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12942443">毫无编程能力的研一学生该如何安排</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708219">学习的动力系统</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708199">学习也需要管理</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708337">学习也要有策略</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708325">用运动去维护学习的硬件系统</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708321">安排妥当的作息时间</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708299">为了大脑要吃好</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708245">选择适合自己的学习风格</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8709113">一封延迟的回复——自学和考研</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8741877">对学习数据结构的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8769324">【2008级的一些事】找到自己课外学习的方向</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8830085">大学生组建好团队做点什么项目好</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8695469">讲座&#xff1a;计算机类专业大学生的课外自主学习路径及ACM协会成立事宜</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8461793">关于大学学习的对话</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8458350">不可将“学到实际的东西”与学校开设的课程对立起来</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8575122">不必追核心&#xff0c;前进途中路自明</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8611368">计算机类专业大学生的课外自学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8328560">和游戏开发爱好者浅谈“自学”</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8197822">信息与计算科学大三学生&#xff0c;加强算法还是做点项目&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7986135">菜鸟要学Web开发&#xff0c;先前台还是先后台</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7895053">改变学习模式&#xff0c;在课外学习中获得突破</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7895010">学编程要重视交流——写给一位有疑惑的好学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7892347">关于兴趣和快乐——答某大三学生的四个问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7892315">答北京某大学学生——利用好已有的条件即可</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7841618">破除“系统学习”的情结</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7832298">关于自学的一些话题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9261531">害死人的“以后不一定能用上</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8607940">是去是留&#xff0c;去向何方——中职学生的再选择</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7777249">让大学在个性化的学习中绽放</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7777221">大学生&#xff0c;请将“是否有用”的问题留给未来</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7777195">上大学究竟是来干什么的&#xff1f;为什么会这样&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7777176">大学内的“学无用处论”</a></li></ol>
+<p><p><strong> <a href="#one">回到话题列表……</a></strong><p><hr />
+<p><h3><a name="six"> </a> 焦点&#xff1a;专业兴趣和学业规划</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/75336307">写给喜欢计算机的机械专业硕士生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/52012155">想自学硬件的软件工程专业学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/75333307">写给喜欢互联网技术的机械类学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/68940970">是否转专业&#xff1f;课程怎么办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/53696831">回复热爱计算机的数控生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51749782">跨专业考研学生的三个问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51553126">答大二学生&#xff1a;跟着自己的兴趣定方向</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51408176">面对培训的忽悠</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50836211">专硕还是学硕&#xff0c;用人单位会区别对待吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50815616">面对选择&#xff0c;优先自己的兴趣</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/49362341" name="49362341">大三了&#xff0c;剩下的时间如何规划</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39575477" name="39575477">给想跨专业考研的同学&#xff1a;确定考研目标&#xff0c;立足自我进行安排</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39575453" name="39575453">是不是应该坚持跟老师做项目</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39575437" name="39575437">在大学中获得全面的成长</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39060281" name="39060281">要以“我”为中心看待求职方向</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/28434347">退出游戏行业去考研&#xff0c;可否&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/27298197">通信专业学生的迷茫</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24849897">文凭的确没有那么重要&#xff0c;但也要避免挂科</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23606127">考研、工作、出国&#xff1f;——给一位大二学生出的主意</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23514921">关于考研的若干讨论</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23514207">给通信专业研究生——安心完成培养&#xff0c;你不是在劣势下和计算机学生抢饭碗来的</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24300673">考研学生应该知道&#xff1a;研究方向和开发技术</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23301389">研究生应该优先完成培养环节的学习任务</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23209401">来自想进入IT的外行人</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/23163683">写给考研学生&#xff1a;凭什么让好大学要你</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/22501719">写给心怀从军梦的软件工程大一学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/22029809">大一想去参加培训的学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20077095">不考研的大三学生该做些什么&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20053649">ACM搞得不太好&#xff0c;还有必要吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20041303">不要继续过度复习的伤害——写给考研学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/19424669">计算机专业的研究生专业方向</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/19251919">关于考研的几个问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17731491">为考研弃考者痛</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17296265">什么也没学上的毕业生是否还来得及</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/14131663">一名大二学生的学习状况和未来计划</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/14100753">大三了&#xff0c;意识到了数学、物理、外语的重要……</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12177471">由专业兴趣引起对“通识教育”的期望</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12233413">IT毕业生给学弟学妹们的真心话——离校座谈记录</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9662845">索要兴趣</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708367">基础和应用——两手都要抓&#xff0c;两手都要硬</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708557">通识教育深入人心</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708571">大学只是专业教育的基础阶段</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708603">通识与专业结合的大学之路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8894980">正解“三十岁”挨踢</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8895361">大一学生的疑惑&#xff1a;考研、30岁挨踢</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9052843">自学中走出的大三学生面临就业选择</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9109183">要考研&#xff0c;先要做到不比钱</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9156699">答就业不顺的毕业生——思路清楚了就坚决执行</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9208197">启发准大学生找到感兴趣的专业</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8684916">软件工程专业大二下学期了&#xff0c;路该怎么走&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8747907">殊途望同归——两种不同类型的成才路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8768482">一个职高生对未来的规划困惑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8769346">【2008级的一些事】答惶恐者——立足现状&#xff0c;补足基础</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8769367">【2008级的一些事】在考研准备和个性学习中分配好时</a>间</li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8871352">处境好难的毕业生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8498527">临近毕业&#xff0c;更要抬头看路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8546706">初三同学的选择——上职高是否可行&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8760391">初三同学的选择&#xff08;续&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8873063">初三同学的选择&#xff08;再续&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8333516">大四学生的纠结</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8176966">辅修计算机专业是否能被认可&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8197825">写给不喜欢编程的编程能手</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8155292">三流大专孤单的IT学子&#xff0c;不打无准备之战</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8202019">科学型IT人才和工程型IT人才</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7973515">怎么办&#xff1f;一位感受到大学之“阴暗”的同学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7928194">给喜欢生物的软件工程专业学生提建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7922600">回信&#xff1a;对要考研学生的几点交待【考研】</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7819434">大三学生——要不要上研究生&#xff1f;【考研】</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7798265">自己的道路自己选——为一位准大四学生出主意</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7772146">研二学生的迷茫【考研】</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7765785">从大三开始奋发的程序员面临新的困惑……</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7765754">混了大学&#xff0c;要继续找专业方向的工作吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7739149">答疑&#xff1a;一名大四学生的选择</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7687392">解疑&#xff1a;浪费两年的计算机专业学生如何走出低谷</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7698250">关于“差生”的深度讨论</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7687164">振作只需一个理由&#xff1a;日子不能这样过</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7658472">“差生”&#xff0c;不要再拿兴趣说事</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7533449">谈谈对攻读计算机研究生的看法【考研】</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7335150">挂了羊头就要卖羊肉</a></li></ol>
+<p><p><strong> </strong><a href="#zero">回到话题列表……</a><p><hr />
+<p><h3><a name="three"> </a> 学习、成长观点</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/74645077">耐心积累</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/60968046">机器码与汇编指令的对应关系&#xff08;兼议好问题怎么成了傻问题&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/56287565">有些事&#xff0c;该提前想好了的</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/52970782">面临的越多越迷茫&#xff0c;怎么破&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/52892760">回复一位面试被拒的大四学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51749529">将通识能力的提高融于日常学生和生活中</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51635309">切勿再用“过了再说”安慰自己</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43735995">鼓起体验的勇气</a></li><li>&#xfeff;<a href="http://blog.csdn.net/sxhelijian/article/details/43730133" name="43730133">和北邮的学生相比&#xff0c;差哪儿了</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43676175" name="43676175">有信心&#xff0c;坚持往前走</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/44227569" name="44227569">写给一名初中生——要有效完成该有的知识积累</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/44341841" name="44341841">一位优秀学子的大学规划和我的补充</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/48416629" name="48416629">为大二软件工程专业大学生解答的几个问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/45568635" name="45568635">给大二学生——重视课程为前提&#xff0c;课外学习要随心</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/48826087" name="48826087">答大一学生&#xff1a;我的专业真这么烂吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/48825339" name="48825339">莫让“专业对口”俘虏了你</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/49079723" name="49079723">给机械专业大学生的回信</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/48826893" name="48826893">为大二软件工程专业大学生解答问题&#xff08;二&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50613930" name="50613930">一位大学生的自我救赎之路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50447538" name="50447538">学数据结构&#xff0c;是不是一定要先学离散数学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50196351" name="50196351">写给一位期望做得更好的大学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40656425" name="40656425">做一个有主见的女生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40588269" name="40588269">学会找到让自己变得更好的视角</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40187441" name="40187441">师生对话&#xff1a;我们都曾是爱学习的孩子</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40118379" name="40118379">有计划&#xff0c;坚决执行——写给大三犹豫的女生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40086905" name="40086905">立足未稳&#xff0c;不轻易出兵</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39900297" name="39900297">给一名大二学生的回信</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39753775" name="39753775">写给有目标却还称迷茫的大三学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/35987753" name="35987753">对准大三学生选专业方向的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/33282305" name="33282305">答大二学生&#xff1a;坚持正确方向&#xff0c;改变学习方式</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/30706013">快大三了&#xff0c;该确定专业方向了</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/30210291">做一个不乖的孩子</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24618973">基础和应用的平衡中找到大学的节奏</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24618663">大三学生关于实习和考研的安排</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24576253">给重回正路的大二学生&#xff1a;戒急戒躁中前行</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/22911131">珍惜在团队中共同进步的机会</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/22908939">在不学成风的大学里顶风而上</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/22893665">不要让急躁左右自己</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21857427">“好好学”中有隐患</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21705721">和准毕业生谈人生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21406721">回复犹豫的实习生——走好脚下&#xff0c;心怀未来</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/19188091">是否该写上一年工作经验&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18127219">谈IT大学生的竞争优势</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17479993">军品怎能在民用前踌躇&#xff1f;——答军校里出来的地方生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17391273">大二学生的三个问题——恋爱、比赛、面向对象</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17346205">为一位大三同学的学习之路点评一二</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12997341">大一学生关心的问题&#xff08;一&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/13757445">大一学生关心的问题&#xff08;二&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17089739">大二觉醒&#xff0c;还有很多主动</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/16329861">莫虚度&#xff0c;从改变态度开始</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/15657099">保持前行&#xff0c;珍惜磨难</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/14118889">少年&#xff0c;请多一些开疆拓土的勇气——写给在C和C&#43;&#43;间犹豫的学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12184191">面对真实的大学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12193445">全面学习观和创新学习观</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12320651">给基础学科唱些赞歌</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12302365">追寻大学的理性</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12302359">课堂、课外和假期</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12256967">大行业中的矛盾</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12255603">找到校园中师生共同的家</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12255577">自由的大学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12249959">阅读&#xff1a;朱自清《大学的路》</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12249677">教室里的师生——《How to solve it 》观点</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12836645">也许你会遇见</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9420907">本科生如何会不如专科生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9316565">担心提前做了码农的大学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708237">自卑就是在自虐</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9828153">学得越多&#xff0c;发现自己不懂的也越多</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8933862">有感&#xff1a;一名大学毕业生的反思:轰动中国万言帖最露骨大学生活</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8963221">嵌入式的苦逼从何而来</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8972443">为什么讲座时间在通知中提前了半个小时</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9154153">与一名上海学生深度交流上大学的事</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9174871">你为保持现状找好理由了吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8713112">谈学习中的交流</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8715859">听程序设计基础课感受——要利用好课堂</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8741888">事关就业&#xff0c;我是否应该诚实&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8749452">努力了就没有失败【考研】</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8757585">坚持塑造独特的自我</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8759524">谈提问与看书</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8763241">消除对英语的恐惧</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8456777">两位在校大学生的2012</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8481403">踏实地走出追求智慧的求学路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8316313">需要靠一段时间的坚持找到好感觉</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8202019">大二学车&#xff0c;一个无比愚蠢的选择</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8189471">真实面对&#xff0c;心怀感恩&#xff0c;减负前行</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7980659">重读“算计人生”</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8100196">女生真的就不适合学计算机了吗&#xff1f;——答大二女生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8072175">关于读书&#xff1a;读XX书是否为时过早&#xff0c;是否有意义</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7922551">答来信 &#xff1a;读书和实践哪个更重要&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7906555">大学&#xff0c;学&#xff0c;或不学&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7830919">写给大一翘课后悔了的同学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7789201">答专升本的“穷孩子”——放下包袱&#xff0c;才能取得突破</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7784528">大一学生不必为定位着急</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7727754">写给要结束大一的孩子——飞出个样子来</a><br /><br />  </li></ol>
+<p><p><strong> </strong><a href="#zero">回到话题列表……</a><p><hr />
+<p><h3><a name="one"> </a>程序设计初学者园地</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/60756805">对话&#xff1a;学C语言有什么技巧吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/56830477">学C语言和英语水平的关系顶多不过半毛</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/55187082">不懂的代码要先背下来吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51780193">怎么才能有写程序的思路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51646619">循序渐进写程序</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51643582">给大一ACM队员的四个问题答复</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50806009">大一学生数据结构与算法的先后取舍</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43601977" name="43601977">写给一心刷ACM题目的学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43601313" name="43601313">为非计算机专业学生学习IT提的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43567485" name="43567485">何必要去用C</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43050967" name="43050967">给小吴&#xff1a;从实践下手去学编程</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/43882693" name="43882693">初中生可能学好编程么&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/48662701" name="48662701">《精妙的IT》免费公开课</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/50718592" name="50718592">给大一学生&#xff1a;让积累说话</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40382001" name="40382001">一气呵成编完代码的感觉对不对</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39753585" name="39753585">写给英语和数学都不怎么好的游戏开发爱好者</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39673985" name="39673985">学霸也要会看书</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/38963487" name="38963487">逻辑思维并非凭空而来</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/38779613" name="38779613">为准大学生释疑——看书、敲代码、OJ</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/38519369" name="38519369">答复学习汇编不顺利的准大学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/37722599" name="37722599">学会写出&#xff02;图形界面&#xff0b;数据库&#xff02;的程序要多长时间&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/37722073" name="37722073">编程学习中要注意效率和感受</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/37600445" name="37600445">排序算法的体验游戏</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/42341515" name="42341515">一位热爱编程的大一同学期末困惑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/42001993" name="42001993">答疑&#xff1a;C语言和框架</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/41642709" name="41642709">ACM协会编程学习座谈的记录和思考</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/25428285">答复大一学生&#xff1a;学会爬&#xff0c;再说跑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/25180021">答大一学生&#xff1a;英语成绩不好&#xff0c;能有多大发展空间</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21989419">C语言没学好&#xff0c;C&#43;&#43;听不懂&#xff0c;怎么办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21645199">从实践中要编程的体验和感觉</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21482681">给想提高水平的大一学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21482177">写给不想做OJ题的C&#43;&#43;学习者</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21276913">给初学者解释程序设计中内存外存的利用</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21151581">大学、软件外包——为大一学生答疑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20945385">回复大一学生&#xff1a;编程、语言、数学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20845847">想学Python的农村青年</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20689841">学C&#43;&#43;后进一步的动作</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17616267">菜鸟学编程总结集——帮你找到初学编程的回忆</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17480049">大一学生学习没劲、数学不好、想学游戏&#xff0c;怎么办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/13348333">随笔——初学编程&#xff0c;急而不慌</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17230551">写过的程序忘了怎么办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17111509">接受自己做题需要参考的现实</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12186503">学会读代码</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/11991731">给而立之年纯为兴趣的IT爱好者提建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/11776173">做一个会编程的人——美国32位顶级精英如是说</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/11704591">注释的有趣写法</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12653517">给初学编程解题没思路的学生的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12868143">程序能看懂&#xff0c;但就是不会写</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708187">浅说编程中的框架</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8903373">C&#43;&#43;学法指导——对“背程序”的答复</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8942851">转载&#xff1a;阅读我们的学科——计算机专业学习浅谈</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8978794">ACM题目中输入数据的处理&#xff08;C语言版&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8978850">ACM题目中输入数据的处理&#xff08;C&#43;&#43;版&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9006285">大学为何从C语言学起&#xff0c;C&#43;&#43;为何没讲STL</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8689889">在编程实践中不可对英文提示视而不见</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8740016">C&#43;&#43;学有余力的大一同学的学习拓展</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8655466">在编程练习中学会设计和使用测试程序</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8302333">写给亲学生&#xff1a;坚定地和大家一起进步</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8302381">初中学历的成年人想做程序员&#xff0c;可否&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8373364">放松心态&#xff0c;争取最好结果</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8155292">对三封短邮件的答复</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8189471">初学C&#43;&#43;&#xff0c;要抓紧&#xff0c;也要放松</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8208403">用指头敲出对编程的热爱</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8210502">程序员是否都要面对“换语言即淘汰”</a> </li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8262422">提高编程基本功走不得捷径</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8134982">答C语言初学者——有些问题可以放一放</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8121533">菜鸟“抄程序”之道</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8119201">初学C语言&#xff0c;没有头绪&#xff0c;怎么办</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8000215">给计算机专业的大一新生准备的阅读链接</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7982325">零基础计算机专业学生如何面对</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7981187">编程困难没思路&#xff0c;我差到哪儿了&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7796070">进一步学习C&#43;&#43;的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7730439">某高中生的编程学习咨询</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8709236">给一位27岁的编程初学者回答的四个问题</a></li></ol>
+<p><p><strong> </strong><a href="#zero">回到话题列表……</a><p><hr />
+<p><h3><a name="eight"> </a> 职场新人</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/56830623">27岁的大专毕业生还能继续IT职业吗&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51735532">给职场新人的提升建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/51224703">边工作边学习的现实选择</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/45165587" name="45165587">工作两年想换工作&#xff1a;是否要去考研&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/40592331" name="40592331">给毕业4年的待业者——要将学习继续下去</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/37921615" name="37921615">职场新人&#xff0c;优先选择在当前工作中提高自己</a><a href="http://blog.csdn.net/sxhelijian/article/details/37900083" name="37900083">自主性学习&#xff0c;用实践开路</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24388905">给非专业职场新人——补上基础&#xff0c;用好现在</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21827997">关于对培训生的歧视</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21514273">职场新人的烦恼——人家不愿意解答我的问题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18764127">C&#43;&#43;还是Java&#xff0c;职场新人的困惑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12189001">用学习和发展在职场中站稳脚跟</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8800718">给一位想提高水平的PHP程序员的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8450954">在工作中学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8546519">答毕业4年的网维人——认真对待&#xff0c;在工作中学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8636305">发展是硬道理——写给初入行的Java程序员</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8618083">在职人士&#xff0c;围绕工作开展学习更实在</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8657769">不顺本也正常&#xff0c;斗志不可磨灭</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8302361">转行后的迷茫</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8333504">中技毕业生入IT行之困惑</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8362277">写给职场一年级新生——莫为精神目标背上枷锁</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8362282">答“找工作会困难吗”——走出去揭晓答案</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8362286">依工作需要安排学习&#xff0c;在工作中提高</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8450954">在工作中学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8176966">刚工作&#xff0c;要辞职需谨慎</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8208403">并不是所有软件开发人员都能高薪</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8210502">因为年轻&#xff0c;可以去闯北上广</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8105343">写给加班的IT女生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7821164">对新入职员工五个问题的简答</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7780414">毕业两年&#xff0c;想跳槽&#xff0c;想延长IT生涯</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7776846">两难选择&#xff1a;继续工作&#xff0c;还是培训后再工作</a></li></ol>
+<p><p><strong> </strong><a href="#zero">回到话题列表……</a><p><hr />
+<p><h3><a name="seven"> </a> 我的教学故事与感受</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/41575891" name="41575891">写给教师同行和受我迫害的学生</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/41318877" name="41318877">为师的快乐</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/39923739" name="39923739">读《了解你的学生》有感</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/37761541" name="37761541">享受学生给我的精神动力</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/29167829">高考日晨起杂感</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/27296925">考试容易了&#xff0c;学习怎么办&#xff1f;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/26979931">百字3元的论文摘要&#xff0c;——我们要买来些什么</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/26678919">让学生主动学习——转自孙志岗博客</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/24956623">石头剪子布的研究价值</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/22602009">与丁又专老师讨论高年级课堂的一些事情</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21773165">雪中送炭者的局限</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/21276999">走在《逆袭大学》的征程上</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20736863">点拨学生三件事</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20534993">携手共进——再答丁又专老师</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20473037">避开伤害——给金老师的留言</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18351299">创建CSDN虚拟大学</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18190153">对CSDN高校俱乐部的建议</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18148595">参加培训的小盆友进步了</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17762479">开卷考试祭</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17276555">和杨青探讨程序设计作业方式</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17251873">我治大学生抄作业毛病的办法——兼答丁又专老师</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17030357">读《上学记》</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/16855191">陶行知&#xff1a;学生自治问题之研究</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/16354151">一篇旧文——大学老师的底线</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/15334069">想起海大爷</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12881481">《逆袭大学——传给IT学子的正能量》进展及最终目录</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9286835">开卷有益——我的读书经历</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9568051">大连东软实习纪行</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9565121">写在《逆袭大学——传给IT学子正能量》修改稿提交之时</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9260623">《逆袭大学》半拉子自序</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9717475">我的独立面对</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9708449">《逆袭大学——传给IT学子正能量》一审稿目录</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9154245">是兰大文科楼的辉煌灯火让我找到了自己</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8712827">一封旧信——伴学生一起成长本是我愿意做的事</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8856580">我的大学——为20岁的大学生讲我20多年前20岁的故事</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8653818">老师怎么看“靠点名留学生的老师就跟靠怀孕留男人的小三一样”</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8117521">对“放弃给某些同学一厢情愿的大学布道”的进一步讨论</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8116854">放弃给某些同学一厢情愿的大学布道</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8072223">大学中教与学的几个话题</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7998924">由“师生诊病靠仪器”想到的IT学习</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7906551">谷歌、苹果模式与大学教育杂想</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7777117">给众人答疑的日子</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7765501">快乐与激情的大学——我的文集</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7643876">这一年&#xff0c;与84个写代码的菜鸟相伴而行</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7643654">C&#43;&#43;课程教学改革问卷调查报告</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7587468">提前体验——工程教育中的法则</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7104694">写给计114-34的同学——IT雏鸟即将起飞</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7085122">将时尚的互联网引入教学中来</a></li><li>CSDN社区对我的<a href="http://www.csdn.net/article/2012-12-12/2812727">专访</a>、<a href="http://www.csdn.net/article/2014-04-16/2819342">再访&#xff08;一&#xff09;</a>、<a href="http://www.csdn.net/article/2014-04-23/2819452/1">再访&#xff08;二&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8856580">我的大学</a></li></ol>
+<p><p><strong> </strong><a href="#zero">回到话题列表……</a><p><hr />
+<p><h3><a name="nine"> </a> 各方观点</h3>
+<p><ol><li><a href="http://blog.csdn.net/sxhelijian/article/details/31823577">IT学子成长指导类文章链接&#xff08;十二&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/20846357">IT学子成长指导类文章链接&#xff08;十一&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/18324707">IT学子成长指导类文章链接&#xff08;十&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/17320049">IT学子成长指导类文章链接&#xff08;九&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/11480883">大学生学业指导类书目</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/12233413">IT毕业生给学弟学妹们的真心话——离校座谈记录</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/11853913">IT学子成长指导类文章链接&#xff08;八&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/9036467">IT学子成长指导类文章链接&#xff08;七&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8832216">IT学子成长指导类文章链接&#xff08;六&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8644086">IT学子成长指导类文章链接&#xff08;五&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8496959">IT学子成长指导类文章链接&#xff08;四&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8282664">IT学子成长指导类文章链接&#xff08;三&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8116825">毕业生反馈&#xff08;四&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8087757">IT学子成长指导类文章链接&#xff08;二&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/8054656">毕业生反馈&#xff08;三&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7986179">毕业生反馈&#xff08;二&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7986139">毕业生反馈&#xff08;一&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7834546">IT学子成长指导类文章链接&#xff08;一&#xff09;</a></li><li><a href="http://blog.csdn.net/sxhelijian/article/details/7825398">IT学生技术入门值得关注的网站&#xff08;页&#xff09;链接</a></li></ol>
+<p><p><strong> </strong><a href="#zero">回到话题列表……</a><p><hr />
+<p><p> <p><h2>快速定位到各个话题&#xff1a;</h2>
+<p><p><strong><a href="#two">学习方法指导</a></strong><p><p><strong><a href="#four">关于自学、学习</a></strong><p><p><strong><a href="#six">专业兴趣和学业规划</a></strong><p><p><strong><a href="#three">学习、成长观点</a></strong><p><p><strong><a href="#one">程序设计初学者园地</a></strong><p><p><strong><a href="#eight">职场新人</a></strong><p><p><strong><a href="#seven">我的教学故事和感受</a></strong><p><p><strong><a href="#nine">各方观点</a></strong><p><p> <p><p> <p><p> <p><p>&#xff08;本文整理到2017年9月8日&#xff0c;更新的文章直接访问专栏&#xff1a;<a href="http://blog.csdn.net/column/details/itstudy.html">IT学子成长指导</a>&#xff09;<p><hr />
+<p>          
+
+
+<p style='float:right;'>本页共35段，52669个字符，67194 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

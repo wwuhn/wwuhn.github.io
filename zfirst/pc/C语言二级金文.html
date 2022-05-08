@@ -1,0 +1,559 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	width:115%;
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	overflow-x:auto;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h3>C语言二级金文</h3>
+
+<p>
+<p>https://www.bilibili.com/video/BV1j4411T7v3?spm_id_from=333.999.0.0 <p><a href="https://www.bilibili.com/video/BV1j4411T7v3?spm_id_from=333.999.0.0" title="">1.程序设计的基本概念</a>
+<p>2.程序设计的基本概念
+<p>3.程序设计的基本概念
+<p>4.简单C语言的构成和格式(1)
+<p>5.简单C语言的构成和格式(2)
+<p>6.标识符的组成和分类
+<p>7.整型数据和实型数据(1)
+<p>8.整型数据和实型数据(2)
+<p>9.整型数据和实型数据(3)
+<p>10.整型数据和实型数据(4)
+<p>11.整型数据和实型数据(5)
+<p>12.整型数据和实型数据(6)
+<p>13.整型数据和实型数据(7)
+<p>14.算术表达式和赋值表达式(1)
+<p>15.算术表达式和赋值表达式(2)
+<p>16.算术表达式和赋值表达式(3)
+<p>17.算术表达式和赋值表达式(4)
+<p>18.自加自减运算
+<p>19.课后习题和典型例题讲解
+<p>20.输出函数(1)
+<p>21.输出函数(2)
+<p>22.输出函数(3)
+<p>23.输出函数(4)
+<p>24.输出函数(5)
+<p>25.输入函数(1)
+<p>26.输入函数(2)
+<p>27.输入函数(3)
+<p>28.输入函数(4)
+<p>29.程序举例
+<p>30.课后习题和典型例题详解
+<p>31.关系运算符和关系表达式(1)
+<p>32.关系运算符和关系表达式(2)
+<p>33.逻辑运算符和逻辑表达式(1)
+<p>34.逻辑运算符和逻辑表达式(2)
+<p>35.逻辑运算符和逻辑表达式(3)
+<p>36.选择语句的使用(1)
+<p>37.选择语句的使用(2)
+<p>38.选择语句的使用(3)
+<p>39.选择语句的使用(4)
+<p>40.goto语句和课后习题详解(1)
+<p>41.goto语句和课后习题详解(2)
+<p>42.while语句和do-while语句(1)
+<p>43.while语句和do-while语句(2)
+<p>44.while语句和do-while语句(3)
+<p>45.while语句和do-while语句(4)
+<p>46.while语句和do-while语句(5)
+<p>47.for语句和累加累乘算法(1)
+<p>48.for语句和累加累乘算法(2)
+<p>49.for语句和累加累乘算法(3)
+<p>50.for语句和累加累乘算法(4)
+<p>51.for语句和累加累乘算法(5)
+<p>52.循环嵌套实例(1)
+<p>53.循环嵌套实例(2)
+<p>54.循环嵌套实例(3)
+<p>55.循环嵌套实例(4)
+<p>56.循环嵌套实例(5)
+<p>57.循环嵌套实例(6)
+<p>58.循环嵌套实例(7)
+<p>59.循环嵌套实例(8)
+<p>60.循环嵌套实例(9)
+<p>61.循环嵌套实例(10)
+<p>62.循环嵌套实例(11)
+<p>63.循环嵌套实例(12)
+<p>64.循环嵌套实例(13)
+<p>65.循环嵌套实例(14)
+<p>66.循环嵌套实例(15)
+<p>67.循环嵌套实例(16)
+<p>68.循环嵌套实例(17)
+<p>69.循环嵌套实例(18)
+<p>70.循环嵌套实例(19)
+<p>71.循环嵌套实例(20)
+<p>72.break语句和continue语句的使用方法
+<p>73.课后习题和典型例题的讲解(1)
+<p>74.课后习题和典型例题的讲解(2)
+<p>75.字符型常量和字符型变量(1)
+<p>76.字符型常量和字符型变量(2)
+<p>77.字符型常量和字符型变量(2)
+<p>78.字符型常量和字符型变量(3)
+<p>79.字符型常量和字符型变量(4)
+<p>80.输入输出函数(1)
+<p>
+<p>https://www.bilibili.com/video/BV134411T73D?spm_id_from=333.999.0.0 <p><a href="https://www.bilibili.com/video/BV134411T73D?spm_id_from=333.999.0.0" title="">81.输入输出函数(2)</a>
+<p>82.输入输出函数(3)
+<p>83.程序举例(1)
+<p>84.程序举例(2)
+<p>85.程序举例(3)
+<p>86.课后习题讲解和典型例题分析
+<p>87.函数的定义和返回值(1)
+<p>88.函数的定义和返回值(2)
+<p>89.函数的定义和返回值(3)
+<p>90.函数的定义和返回值(4)
+<p>91.函数的调用和说明(1)
+<p>92.函数的调用和说明(2)
+<p>93.调用函数和被调用函数之间的数值传递(1)
+<p>94.调用函数和被调用函数之间的数值传递(2)
+<p>95.函数程序举例(1)
+<p>96.函数程序举例(2)
+<p>97.函数程序举例(3)
+<p>98.函数程序举例(4)
+<p>99.函数程序举例(5)
+<p>100.函数程序举例(6)
+<p>101.函数程序举例(7)
+<p>102.课后习题讲解
+<p>103.变量的地址和指针
+<p>104.指针的定义赋值(1)
+<p>105.指针的定义赋值(2)
+<p>106.指针的定义赋值(3)
+<p>107.对指针变量的操作(1)
+<p>108.对指针变量的操作(2)
+<p>109.对指针变量的操作(3)
+<p>110.对指针变量的操作(4)
+<p>111.指针在函数中的应用及举例(1)
+<p>112.指针在函数中的应用及举例(2)
+<p>113.指针在函数中的应用及举例(3)
+<p>114.课后习题讲解(1)
+<p>115.课后习题讲解(2)
+<p>116.课后习题讲解(3)
+<p>117.一维数组的定义和一维数组的引用(1)
+<p>118.一维数组的定义和一维数组的引用(2)
+<p>119.一维数组的定义和一维数组的引用(3)
+<p>120.一维数组和指针(1)
+<p>121.一维数组和指针(2)
+<p>122.函数之间对一维数组和数组元素的引用及实例(1)
+<p>123.函数之间对一维数组和数组元素的引用及实例(2)
+<p>124.函数之间对一维数组和数组元素的引用及实例(3)
+<p>125.函数之间对一维数组和数组元素的引用及实例(4)
+<p>126.函数之间对一维数组和数组元素的引用及实例(6)
+<p>127.函数之间对一维数组和数组元素的引用及实例(7)
+<p>128.函数之间对一维数组和数组元素的引用及实例(8)
+<p>129.函数之间对一维数组和数组元素的引用及实例(9)
+<p>130.二维数组的定义和二维数组元素的引用(1)
+<p>131.二维数组的定义和二维数组元素的引用(2)
+<p>132.二维数组和指针以及二维数组程序举例(1)
+<p>133.二维数组和指针以及二维数组程序举例(2)
+<p>134.二维数组和指针以及二维数组程序举例(3)
+<p>135.二维数组和指针以及二维数组程序举例(4)
+<p>136.二维数组和指针以及二维数组程序举例(5)
+<p>137.二维数组和指针以及二维数组程序举例(6)
+<p>138.二维数组和指针以及二维数组程序举例(7)
+<p>139.二维数组和指针以及二维数组程序举例(8)
+<p>140.二维数组和指针以及二维数组程序举例(9)
+<p>141.二维数组和指针以及二维数组程序举例(10)
+<p>142.课后习题讲解(1)
+<p>143.课后习题讲解(2)
+<p>144.用一个一维数组来存放字符串(1)
+<p>145.用一个一维数组来存放字符串(2)
+<p>146.字符串的输入和输出(1)
+<p>147.字符串的输入和输出(2)
+<p>148.字符串的输入和输出(3)
+<p>149.字符串数组(1)
+<p>150字符串数组(2)
+<p>151.字符串数组(3)
+<p>152.字符串数组(4)
+<p>153.字符串数组(5)
+<p>154.用于字符串处理的函数(1)
+<p>155.用于字符串处理的函数(2)
+<p>156.用于字符串处理的函数(3)
+<p>157.用于字符串处理的函数(4)
+<p>158.用于字符串处理的函数(5)
+<p>159.用于字符串处理的函数(6)
+<p>160.实例讲解(1)
+<p>
+<p>https://www.bilibili.com/video/BV144411T7az?p=1 <p><a href="https://www.bilibili.com/video/BV144411T7az?p=1" title="">161.实例讲解(2)</a>
+<p>162.课后习题的讲解
+<p>163.传给main函数的参数(1)
+<p>164.传给main函数的参数(2)
+<p>165.通过实参向函数传递函数名或指向函数的指针变量(1)
+<p>166.通过实参向函数传递函数名或指向函数的指针变量(2)
+<p>167.函数的递归调用(1)
+<p>168.函数的递归调用(2)
+<p>169.函数的递归调用(3)
+<p>170.函数的递归调用(4)
+<p>171.函数的递归调用(5)
+<p>172.函数的递归调用(6)
+<p>173.课后习题讲解(1)
+<p>174.课后习题讲解(2)
+<p>175.课后习题讲解(3)
+<p>176.局部变量.全局变量和存储分类
+<p>177.局部变量及其作用域和生存期(1)
+<p>178.局部变量及其作用域和生存期(2)
+<p>179.全局变量及其作用域和生存期(1)
+<p>180.全局变量及其作用域和生存期(2)
+<p>181.课后习题讲解(1)
+<p>182.课后习题讲解(2)
+<p>183.课后习题讲解(3)
+<p>184.宏替换(1)
+<p>185.宏替换(2)
+<p>186.宏替换(3)
+<p>187.宏替换(4)
+<p>188.文件包含和动态存储分配(1)
+<p>189.文件包含和动态存储分配(2)
+<p>190.文件包含和动态存储分配(3)
+<p>191.课后习题讲解(1)
+<p>192.课后习题讲解(2)
+<p>193课后习题讲解(3)
+<p>194.用typedef说明一种新类型名
+<p>195.结构体(1)
+<p>196.结构体(2)
+<p>197.结构体(3)
+<p>198.结构体(4)
+<p>199.结构体(5)
+<p>200.结构体(6)
+<p>201.结构体(7)
+<p>202.结构体(8)
+<p>203.结构体(9)
+<p>204.结构体(10)
+<p>205.结构体(11)
+<p>206.结构体(12)
+<p>207.结构体(13)
+<p>208.结构体(14)
+<p>209.结构体(15)
+<p>210.结构体(16)
+<p>211.结构体(17)
+<p>212.利用结构体变量构成链表(1)
+<p>213.利用结构体变量构成链表(2)
+<p>214.利用结构体变量构成链表(3)
+<p>215.利用结构体变量构成链表(4)
+<p>216.利用结构体变量构成链表(5)
+<p>217.利用结构体变量构成链表(6)
+<p>218.利用结构体变量构成链表(7)
+<p>219.利用结构体变量构成链表(8)
+<p>220.利用结构体变量构成链表(9)
+<p>221.利用结构体变量构成链表(10)
+<p>222.共用体和共用体变量的引用(1)
+<p>223.共用体和共用体变量的引用(2)
+<p>224.课后习题讲解(1)
+<p>225.课后习题讲解(2)
+<p>226.课后习题讲解(3)
+<p>227.函数之间对一维数组和数组元素的引用及实例(5)
+<p>228.位运算符及其功能(1)
+<p>229.位运算符及其功能(2)
+<p>230.位运算符及其功能(3)
+<p>231.课后习题讲解(1)
+<p>232.课后习题讲解(2)
+<p>233.课后习题讲解(3)
+<p>234.C语言文件的概念和文件指针
+<p>235.打开和关闭文件(1)
+<p>236.打开和关闭文件(2)
+<p>237.打开和关闭文件(3)
+<p>238.打开和关闭文件(4)
+<p>239.六组文件函数的应用(1)
+<p>240.六组文件函数的应用(2)
+<p>241.六组文件函数的应用(3)
+<p>242.六组文件函数的应用(4)
+<p>243.六组文件函数的应用(5)
+<p>244.六组文件函数的应用(6)
+<p>245.六组文件函数的应用(7)
+<p>246.六组文件函数的应用(8)
+<p>247.课后习题讲解
+<p>
+<p>这套教程由 21 互联的金文老师主讲，主要针对考计算机二级的同学，非常基础。
+<p>
+<p>21 互联远程教育网(沈阳市网聚优课信息服务有限公司)于 2006 年 6 月在辽宁沈阳成立，想法来自于一个年轻人多年的梦想，从成立之日起 21 互联就立志为了中国千百万学习者而服务。目前网站拥有原创视频课件四百余门两万三千多集包含电脑入门、平面设计、影视动画、装饰制图、编程语言等十二大类。
+<p>
+<p>目前每天都有数十万人通过 21 互联开发的课件进行计算机学习。 21 互联今天的成就来自于全体授课教师与网站员工的努力，我们将一如既往的秉承专业、专注、陈恳的精神为您制作出更加优秀的视频课件。
+<p><a href="http://pan.baidu.com/s/1jG7quCA" title="">百度网盘：http://pan.baidu.com/s/1jG7quCA</a>
+<p>提取密码：63c3
+
+
+<p style='float:right;'>本页共259段，5722个字符，10807 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,870 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	width:115%;
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	overflow-x:auto;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>C语言实现面向对象的原理</h4>
+
+
+<a href="https://mp.weixin.qq.com/s?__biz=MzI3ODQ3OTczMw==&mid=2247487610&idx=2&sn=3c63ccb0dc8b56ab5f82b6964a3aac5f&chksm=eb570660dc208f767c4e8b2b1e7548df28d17a0c7d1fb0610e7e63e6395f4679a773886cf4e6&cur_album_id=1337136794982350849&scene=189#wechat_redirect" title="">ref</a>
+<p>不知道有多少人去了解过语言的发展史，早期C语言的语法功能其实比较简单。随着应用需求和场景的变化，C语言的语法功能在不断升级变化。</p>
+<p>虽然我们的教材有这么一个结论：C语言是面向过程的语言，C++是面向对象的编程语言，但面向对象的概念是在C语言阶段就有了，而且应用到了很多地方，比如某些操作系统内核、通信协议等。</p>
+<p>面向对象编程，也就是大家说的OOP（Object Oriented Programming）并不是一种特定的语言或者工具，它只是一种设计方法、设计思想，它表现出来的三个最基本的特性就是封装、继承与多态。</p>
+<h4>1 为什么要用C语言实现面向对象</h4>
+<p>阅读文本之前肯定有读者会问这样的问题：我们有C++面向对象的语言，为什么还要用C语言实现面向对象呢？</p>
+<p>C语言这种非面向对象的语言，同样也可以使用面向对象的思路来编写程序的。只是用面向对象的C++语言来实现面向对象编程会更简单一些，但是C语言的高效性是其他面向对象编程语言无法比拟的。</p>
+<p>当然使用C语言来实现面向对象的开发相对不容易理解，这就是为什么大多数人学过C语言却看不懂Linux内核源码。</p>
+<p>所以这个问题其实很好理解，只要有一定C语言编程经验的读者都应该能明白：面向过程的C语言和面向对象的C++语言相比，代码运行效率、代码量都有很大差异。在性能不是很好、资源不是很多的MCU中使用C语言面向对象编程就显得尤为重要。</p>
+<h4>2 具备条件</h4>
+<p>要想使用C语言实现面向对象，首先需要具备一些基础知识。比如：（C语言中的）结构体、函数、指针，以及函数指针等，（C++中的）基类、派生、多态、继承等。</p>
+<p>首先，不仅仅是了解这些基础知识，而是有一定的编程经验，因为上面说了“面向对象是一种设计方法、设计思想”，如果只是停留在字面意思的理解，没有这种设计思想肯定不行。</p>
+<p>因此，不建议初学者使用C语言实现面向对象，特别是在真正项目中。建议把基本功练好，再使用。</p>
+<p>利用C语言实现面向对象的方法很多，下面就来描述最基本的封装、继承和多态。</p>
+<h4>3 封装</h4>
+<p>封装就是把数据和函数打包到一个类里面，其实大部分C语言编程者都已近接触过了。</p>
+<p>C 标准库中的 fopen(), fclose(), fread(), fwrite()等函数的操作对象就是 FILE。数据内容就是 FILE，数据的读写操作就是 fread()、fwrite()，fopen() 类比于构造函数，fclose() 就是析构函数。</p>
+<p>这个看起来似乎很好理解，那下面我们实现一下基本的封装特性。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>#ifndef</font> SHAPE_H
+<font color=#C00>#define</font> SHAPE_H
+<font color=#C00>#include</font> &lt;stdint.h>
+<font color=#CCC>// Shape 的属性</font>
+<font color=#00F>typedef</font> <font color=#00F>struct </font>{
+    int16_t x; 
+    int16_t y; 
+} Shape;
+<font color=#CCC>// Shape 的操作函数，接口函数</font>
+<font color=#00F>void</font> Shape_ctor(Shape * <font color=#00F>const </font>me, int16_t x, int16_t y);
+<font color=#00F>void</font> Shape_moveBy(Shape * <font color=#00F>const </font>me, int16_t dx, int16_t dy);
+<font color=#00F>int</font>16_t Shape_getX(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#00F>int</font>16_t Shape_getY(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#C00>#endif</font> <font color=#CCC>/* SHAPE_H */</font>
+</pre>
+<p>这是 Shape 类的声明，非常简单，很好理解。一般会把声明放到头文件里面 “Shape.h”。来看下 Shape 类相关的定义，当然是在 “Shape.c” 里面。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> "shape.h"
+<font color=#CCC>// 构造函数</font>
+<font color=#00F>void</font> Shape_ctor(Shape * <font color=#00F>const </font>me, int16_t x, int16_t y)
+{
+    me->x = x;
+    me->y = y;
+}
+<font color=#00F>void</font> Shape_moveBy(Shape * <font color=#00F>const </font>me, int16_t dx, int16_t dy) 
+{
+    me->x += dx;
+    me->y += dy;
+}
+<font color=#CCC>// 获取属性值函数</font>
+<font color=#00F>int</font>16_t Shape_getX(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    <font color=#00F>return </font>me->x;
+}
+<font color=#00F>int</font>16_t Shape_getY(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    <font color=#00F>return </font>me->y;
+}
+</pre>
+<p>再看下 main.c</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> "shape.h"  <font color=#CCC>/* Shape class interface */</font>
+<font color=#C00>#include</font> &lt;stdio.h>  <font color=#CCC>/* for printf() */</font>
+<font color=#00F>int</font><font color=#00F> main</font>() 
+{
+    Shape s1, s2; <font color=#CCC>/* multiple instances of Shape */</font>
+    Shape_ctor(&s1, 0, 1);
+    Shape_ctor(&s2, -1, 2);
+   <font color=#C00> printf</font>("Shape s1(x=%d,y=%d)\n", Shape_getX(&s1), Shape_getY(&s1));
+   <font color=#C00> printf</font>("Shape s2(x=%d,y=%d)\n", Shape_getX(&s2), Shape_getY(&s2));
+    Shape_moveBy(&s1, 2, -4);
+    Shape_moveBy(&s2, 1, -2);
+   <font color=#C00> printf</font>("Shape s1(x=%d,y=%d)\n", Shape_getX(&s1), Shape_getY(&s1));
+   <font color=#C00> printf</font>("Shape s2(x=%d,y=%d)\n", Shape_getX(&s2), Shape_getY(&s2));
+    <font color=#00F>return </font>0;
+}
+</pre>
+<p>编译之后，看看执行结果：</p>
+<pre>
+Shape s1(x=0,y=1)
+Shape s2(x=-1,y=2)
+Shape s1(x=2,y=-3)
+Shape s2(x=0,y=0)
+</pre>
+<p>整个例子，非常简单，非常好理解。以后写代码时候，要多去想想标准库的文件IO操作，这样也有意识的去培养面向对象编程的思维。</p>
+<h4>
+4 继承</h4>
+<p>继承就是基于现有的一个类去定义一个新类，这样有助于重用代码，更好的组织代码。在 C 语言里面，去实现单继承也非常简单，只要把基类放到继承类的第一个数据成员的位置就行了。</p>
+<p>例如，我们现在要创建一个 Rectangle 类，我们只要继承 Shape 类已经存在的属性和操作，再添加不同于 Shape 的属性和操作到 Rectangle 中。</p>
+<p>下面是 Rectangle 的声明与定义：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>#ifndef</font> RECT_H
+<font color=#C00>#define</font> RECT_H
+<font color=#C00>#include</font> "shape.h" <font color=#CCC>// 基类接口</font>
+<font color=#CCC>// 矩形的属性</font>
+<font color=#00F>typedef</font> <font color=#00F>struct </font>{
+    Shape super; <font color=#CCC>// 继承 Shape</font>
+    <font color=#CCC>// 自己的属性</font>
+    uint16_t width;
+    uint16_t height;
+} Rectangle;
+<font color=#CCC>// 构造函数</font>
+<font color=#00F>void</font> Rectangle_ctor(Rectangle * <font color=#00F>const </font>me, int16_t x, int16_t y,
+                    uint16_t width, uint16_t height);
+<font color=#C00>#endif</font> <font color=#CCC>/* RECT_H */</font>
+<font color=#C00>#include</font> "rect.h"
+<font color=#CCC>// 构造函数</font>
+<font color=#00F>void</font> Rectangle_ctor(Rectangle * <font color=#00F>const </font>me, int16_t x, int16_t y,
+                    uint16_t width, uint16_t height)
+{
+    <font color=#CCC>/* first call superclass’ ctor */</font>
+    Shape_ctor(&me->super, x, y);
+    <font color=#CCC>/* next, you initialize the attributes added by this subclass... */</font>
+    me->width = width;
+    me->height = height;
+}
+</pre>
+<p>我们来看一下 Rectangle 的继承关系和内存布局：</p>
+<img src="1.png" width="80%" />
+<p>因为有这样的内存布局，所以你可以很安全的传一个指向 Rectangle 对象的指针到一个期望传入 Shape 对象的指针的函数中，就是一个函数的参数是 “Shape *”，你可以传入 “Rectangle *”，并且这是非常安全的。这样的话，基类的所有属性和方法都可以被继承类继承！</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> "rect.h"  
+<font color=#C00>#include</font> &lt;stdio.h> 
+<font color=#00F>int</font><font color=#00F> main</font>() 
+{
+    Rectangle r1, r2;
+    <font color=#CCC>// 实例化对象</font>
+    Rectangle_ctor(&r1, 0, 2, 10, 15);
+    Rectangle_ctor(&r2, -1, 3, 5, 8);
+   <font color=#C00> printf</font>("Rect r1(x=%d,y=%d,width=%d,height=%d)\n",
+           Shape_getX(&r1.super), Shape_getY(&r1.super),
+           r1.width, r1.height);
+   <font color=#C00> printf</font>("Rect r2(x=%d,y=%d,width=%d,height=%d)\n",
+           Shape_getX(&r2.super), Shape_getY(&r2.super),
+           r2.width, r2.height);
+    <font color=#CCC>// 注意，这里有两种方式，一是强转类型，二是直接使用成员地址</font>
+    Shape_moveBy((Shape *)&r1, -2, 3);
+    Shape_moveBy(&r2.super, 2, -1);
+   <font color=#C00> printf</font>("Rect r1(x=%d,y=%d,width=%d,height=%d)\n",
+           Shape_getX(&r1.super), Shape_getY(&r1.super),
+           r1.width, r1.height);
+   <font color=#C00> printf</font>("Rect r2(x=%d,y=%d,width=%d,height=%d)\n",
+           Shape_getX(&r2.super), Shape_getY(&r2.super),
+           r2.width, r2.height);
+    <font color=#00F>return </font>0;
+}
+/*
+输出结果：
+Rect r1(x=0,y=2,width=10,height=15)
+Rect r2(x=-1,y=3,width=5,height=8)
+Rect r1(x=-2,y=5,width=10,height=15)
+Rect r2(x=1,y=2,width=5,height=8)
+*/
+</pre>
+<h4>5 多态</h4>
+<p>C++ 语言实现多态就是使用虚函数。在 C 语言里面，也可以实现多态。</p>
+<p>现在，我们又要增加一个圆形，并且在 Shape 要扩展功能，我们要增加 area() 和 draw() 函数。但是 Shape 相当于抽象类，不知道怎么去计算自己的面积，更不知道怎么去画出来自己。而且，矩形和圆形的面积计算方式和几何图像也是不一样的。</p>
+<p>下面让我们重新声明一下 Shape 类：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>#ifndef</font> SHAPE_H
+<font color=#C00>#define</font> SHAPE_H
+<font color=#C00>#include</font> &lt;stdint.h>
+<font color=#00F>struct</font> ShapeVtbl;
+<font color=#CCC>// Shape 的属性</font>
+<font color=#00F>typedef</font> <font color=#00F>struct </font>{
+    <font color=#00F>struct </font>ShapeVtbl <font color=#00F>const </font>*vptr;
+    int16_t x; 
+    int16_t y; 
+} Shape;
+<font color=#CCC>// Shape 的虚表</font>
+<font color=#00F>struct</font> ShapeVtbl {
+    uint32_t (*area)(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+    <font color=#00F>void </font>(*draw)(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+};
+<font color=#CCC>// Shape 的操作函数，接口函数</font>
+<font color=#00F>void</font> Shape_ctor(Shape * <font color=#00F>const </font>me, int16_t x, int16_t y);
+<font color=#00F>void</font> Shape_moveBy(Shape * <font color=#00F>const </font>me, int16_t dx, int16_t dy);
+<font color=#00F>int</font>16_t Shape_getX(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#00F>int</font>16_t Shape_getY(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#00F>static</font> <font color=#00F>inline </font>uint32_t Shape_area(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    <font color=#00F>return </font>(*me->vptr->area)(me);
+}
+<font color=#00F>static</font> <font color=#00F>inline </font>void Shape_draw(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me)
+{
+    (*me->vptr->draw)(me);
+}
+Shape <font color=#00F>const </font>*largestShape(Shape <font color=#00F>const </font>*shapes[], uint32_t nShapes);
+<font color=#00F>void</font> drawAllShapes(Shape <font color=#00F>const </font>*shapes[], uint32_t nShapes);
+<font color=#C00>#endif</font> <font color=#CCC>/* SHAPE_H */</font>
+</pre>
+<p>看下加上虚函数之后的类关系图：</p>
+<img src="2.png" width="80%" />
+<p>5.1 虚表和虚指针</p>
+<p>虚表（Virtual Table）是这个类所有虚函数的函数指针的集合。</p>
+<p>虚指针（Virtual Pointer）是一个指向虚表的指针。这个虚指针必须存在于每个对象实例中，会被所有子类继承。</p>
+<p>在《Inside The C++ Object Model》的第一章内容中，有这些介绍。</p>
+<p>5.2 在构造函数中设置vptr</p>
+<p>在每一个对象实例中，vptr 必须被初始化指向其 vtbl。最好的初始化位置就是在类的构造函数中。事实上，在构造函数中，C++ 编译器隐式的创建了一个初始化的vptr。在 C 语言里面， 我们必须显示的初始化vptr。</p>
+<p>下面就展示一下，在 Shape 的构造函数里面，如何去初始化这个 vptr。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> "shape.h"
+<font color=#C00>#include</font> &lt;assert.h>
+<font color=#CCC>// Shape 的虚函数</font>
+<font color=#00F>static</font> uint32_t Shape_area_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#00F>static</font> <font color=#00F>void </font>Shape_draw_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#CCC>// 构造函数</font>
+<font color=#00F>void</font> Shape_ctor(Shape * <font color=#00F>const </font>me, int16_t x, int16_t y) 
+{
+    <font color=#CCC>// Shape 类的虚表</font>
+    <font color=#00F>static </font>struct ShapeVtbl <font color=#00F>const </font>vtbl = 
+    { 
+       &Shape_area_,
+       &Shape_draw_
+    };
+    me->vptr = &vtbl; 
+    me->x = x;
+    me->y = y;
+}
+<font color=#00F>void</font> Shape_moveBy(Shape * <font color=#00F>const </font>me, int16_t dx, int16_t dy)
+{
+    me->x += dx;
+    me->y += dy;
+}
+<font color=#00F>int</font>16_t Shape_getX(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    <font color=#00F>return </font>me->x;
+}
+<font color=#00F>int</font>16_t Shape_getY(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    <font color=#00F>return </font>me->y;
+}
+<font color=#CCC>// Shape 类的虚函数实现</font>
+<font color=#00F>static</font> uint32_t Shape_area_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    assert(0); <font color=#CCC>// 类似纯虚函数</font>
+    <font color=#00F>return </font>0U; <font color=#CCC>// 避免警告</font>
+}
+<font color=#00F>static</font> <font color=#00F>void </font>Shape_draw_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    assert(0); <font color=#CCC>// 纯虚函数不能被调用</font>
+}
+Shape <font color=#00F>const </font>*largestShape(Shape <font color=#00F>const </font>*shapes[], uint32_t nShapes) 
+{
+    Shape <font color=#00F>const </font>*s = (Shape *)0;
+    uint32_t max = 0U;
+    uint32_t i;
+    <font color=#00F>for </font>(i = 0U; i &lt; nShapes; ++i) 
+    {
+        uint32_t area = Shape_area(shapes[i]);<font color=#CCC>// 虚函数调用</font>
+        <font color=#00F>if </font>(area > max) 
+        {
+            max = area;
+            s = shapes[i];
+        }
+    }
+    <font color=#00F>return </font>s;
+}
+<font color=#00F>void</font> drawAllShapes(Shape <font color=#00F>const </font>*shapes[], uint32_t nShapes) 
+{
+    uint32_t i;
+    <font color=#00F>for </font>(i = 0U; i &lt; nShapes; ++i) 
+    {
+        Shape_draw(shapes[i]); <font color=#CCC>// 虚函数调用</font>
+    }
+}
+</pre>
+<p>5.3 继承 vtbl 和 重载 vptr</p>
+<p>上面已经提到过，基类包含 vptr，子类会自动继承。但是，vptr 需要被子类的虚表重新赋值。并且，这也必须发生在子类的构造函数中。下面是 Rectangle 的构造函数。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> "rect.h"  
+<font color=#C00>#include</font> &lt;stdio.h> 
+<font color=#CCC>// Rectangle 虚函数</font>
+<font color=#00F>static</font> uint32_t Rectangle_area_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#00F>static</font> <font color=#00F>void </font>Rectangle_draw_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me);
+<font color=#CCC>// 构造函数</font>
+<font color=#00F>void</font> Rectangle_ctor(Rectangle * <font color=#00F>const </font>me, int16_t x, int16_t y,
+                    uint16_t width, uint16_t height)
+{
+    <font color=#00F>static </font>struct ShapeVtbl <font color=#00F>const </font>vtbl = 
+    {
+        &Rectangle_area_,
+        &Rectangle_draw_
+    };
+    Shape_ctor(&me->super, x, y); <font color=#CCC>// 调用基类的构造函数</font>
+    me->super.vptr = &vtbl;           <font color=#CCC>// 重载 vptr</font>
+    me->width = width;
+    me->height = height;
+}
+<font color=#CCC>// Rectangle's 虚函数实现</font>
+<font color=#00F>static</font> uint32_t Rectangle_area_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    Rectangle <font color=#00F>const </font>* <font color=#00F>const </font>me_ = (Rectangle <font color=#00F>const </font>*)me; <font color=#CCC>//显示的转换</font>
+    <font color=#00F>return </font>(uint32_t)me_->width * (uint32_t)me_->height;
+}
+<font color=#00F>static</font> <font color=#00F>void </font>Rectangle_draw_(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    Rectangle <font color=#00F>const </font>* <font color=#00F>const </font>me_ = (Rectangle <font color=#00F>const </font>*)me; <font color=#CCC>//显示的转换</font>
+   <font color=#C00> printf</font>("Rectangle_draw_(x=%d,y=%d,width=%d,height=%d)\n",
+           Shape_getX(me), Shape_getY(me), me_->width, me_->height);
+}
+</pre>
+<p>5.4 虚函数调用</p>
+<p>有了前面虚表（Virtual Tables）和虚指针（Virtual Pointers）的基础实现，虚拟调用（后期绑定）就可以用下面代码实现了。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+uint32_t Shape_area(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me)
+{
+    <font color=#00F>return </font>(*me->vptr->area)(me);
+}
+</pre>
+<p>这个函数可以放到.c文件里面，但是会带来一个缺点就是每个虚拟调用都有额外的调用开销。为了避免这个缺点，如果编译器支持内联函数（C99）。我们可以把定义放到头文件里面，类似下面：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>static</font> <font color=#00F>inline </font>uint32_t Shape_area(Shape <font color=#00F>const </font>* <font color=#00F>const </font>me) 
+{
+    <font color=#00F>return </font>(*me->vptr->area)(me);
+}
+</pre>
+<p>如果是老一点的编译器（C89），我们可以用宏函数来实现，类似下面这样：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>#define</font> Shape_area(me_) ((*(me_)->vptr->area)((me_)))
+</pre>
+<p>看一下例子中的调用机制：</p>
+<img src="3.png" width=100%/>
+<p>5.5 main.c</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> "rect.h"  
+<font color=#C00>#include</font> "circle.h" 
+<font color=#C00>#include</font> &lt;stdio.h> 
+<font color=#00F>int</font><font color=#00F> main</font>() 
+{
+    Rectangle r1, r2; 
+    Circle    c1, c2; 
+    Shape <font color=#00F>const </font>*shapes[] = 
+    { 
+        &c1.super,
+        &r2.super,
+        &c2.super,
+        &r1.super
+    };
+    Shape <font color=#00F>const </font>*s;
+    <font color=#CCC>// 实例化矩形对象</font>
+    Rectangle_ctor(&r1, 0, 2, 10, 15);
+    Rectangle_ctor(&r2, -1, 3, 5, 8);
+    <font color=#CCC>// 实例化圆形对象</font>
+    Circle_ctor(&c1, 1, -2, 12);
+    Circle_ctor(&c2, 1, -3, 6);
+    s = largestShape(shapes,<font color=#00F> sizeof</font>(shapes)/sizeof(shapes[0]));
+   <font color=#C00> printf</font>("largetsShape s(x=%d,y=%d)\n", Shape_getX(s), Shape_getY(s));
+    drawAllShapes(shapes,<font color=#00F> sizeof</font>(shapes)/sizeof(shapes[0]));
+    <font color=#00F>return </font>0;
+}
+<font color=#CCC>/*
+输出结果：
+largetsShape s(x=1,y=-2)
+Circle_draw_(x=1,y=-2,rad=12)
+Rectangle_draw_(x=-1,y=3,width=5,height=8)
+Circle_draw_(x=1,y=-3,rad=6)
+Rectangle_draw_(x=0,y=2,width=10,height=15)
+*/</font>
+</pre>
+<h4>6 总结</h4>
+<p>还是那句话，面向对象编程是一种方法，并不局限于某一种编程语言。用 C 语言实现封装、单继承，理解和实现起来比较简单，多态反而会稍微复杂一点，如果打算广泛的使用多态，还是推荐转到 C++ 语言上，毕竟这层复杂性被这个语言给封装了，你只需要简单的使用就行了。但并不代表，C 语言实现不了多态这个特性。</p>
+<p>参考素材：</p>
+<p><a href="https://blog.csdn.net/onlyshi/article/details/81672279">https://blog.csdn.net/onlyshi/article/details/81672279</a></p>
+<p>------------ END ------------</p>
+
+
+<h3>用C实现多重继承的简单方案</h3>
+<a href="https://blog.csdn.net/happyorzking/article/details/120135277?spm=1001.2014.3001.5501" title="">ref</a>
+
+<p>继承是为了实现多态，即可以把子类当父类来用。</p>
+<p>我们一般在父类中声明接口，在子类中实现接口。所谓接口，就是一个个函数组成的集合。</p>
+
+
+<p>思路：</p>
+<p>用C实现继承很简单，子结构体内包含父结构体成员就可以了，把子类当父类来使用时只需要一次强制类型转换。</p>
+<p>那么实现多重继承呢？</p>
+<p>思路也很简单，一点就破。</p>
+<p>沿用单继承的实现思路，我们还是像之前实现单继承那样子结构体内包含多个父结构体的所有成员，发现当作父类使用时无法像之前那样方便地利用C语言提供的强制类型转换。原因是什么？</p>
+<p>无法将所有的父都放在结构体的开头，因为一个结构体只有一个开头，哈哈。</p>
+<p>我们最终的目的是什么？</p>
+<p>我们最终的目的是获取子结构体里存在的父的特性。</p>
+<p>相比与第一个父，第二个、第三个父无非就是多了个偏移，知道了这个偏移自然就拿到了从属于父的数据。</p>
+<p>问题就变成了怎么获取偏移，或怎么获取数据，核心其实是获取数据。</p>
+<p>我这里用的一种方法会浪费一个字节的空间，不过胜在简单。</p>
+
+
+<p>具体描述就是：</p>
+<p>在父类的结构体内插入一个额外的特殊命名的标记成员。再实现一个宏，这个宏有两个参数，分别为子类对象和想转化的父类结构体名。这个宏相当于是重新实现了强制类型转化。在子类退化为父类的场合用这个宏替代之前的强制类型转换。</p>
+<p>下面看具体的代码：</p>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//OOC.h</font>
+<font color=#C00>#ifndef</font> _INCLUDE_OOC_H
+<font color=#C00>#define</font> _INCLUDE_OOC_H
+<font color=#00F>typedef</font> <font color=#00F>unsigned </font><font color=#00F>char </font>OOC_START_T; 
+<font color=#CCC>//作为基类的结构体一定要有一个名为OOC_START_XXX 的成员 XXX表示结构体名</font>
+<font color=#CCC>//在子类退化为父类的场合用 OOC_BASE宏代替强制类型转换</font>
+<font color=#C00>#define</font> OOC_BASE(p_s,base) ((base*)(&p_s->OOC_START_##base))  <font color=#CCC>//子类对象退化为基类对象</font>
+<font color=#CCC>//在父类特化为子类的场合用OOC_SON宏代替强制类型转换</font>
+<font color=#C00>#define</font> OOC_SON(p_b,son,base) ((son*)((<font color=#00F>char</font>*)p_b-(<font color=#00F>char</font>*)&((son*)0)->OOC_START_##base))
+<font color=#CCC>//在某些场合需要从父类对象特化为子类对象，</font>
+<font color=#CCC>// 比如实现了一个通用链表节点父类，通过节点访问子类属性时 </font>
+<font color=#C00>#endif</font>
+</pre>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//teacher.h</font>
+<font color=#C00>#ifndef</font> _INCLUDE_TEACHER_H_
+<font color=#C00>#define</font> _INCLUDE_TEACHER_H_
+<font color=#C00>#include</font> "OOC.h"
+<font color=#00F>typedef</font> <font color=#00F>void </font>(* teach_t)(<font color=#00F>void</font>);
+<font color=#C00>#define</font> TEACHER_BASE \
+	OOC_START_T OOC_START_teacher_t;\
+	teach_t teaching    
+	
+<font color=#00F>typedef</font> <font color=#00F>struct </font>techer_s
+{
+	TEACHER_BASE;
+}teacher_t;
+<font color=#C00>#endif</font>
+</pre>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//writer.h</font>
+<font color=#C00>#ifndef</font> _INCLUDE_WRITER_H_
+<font color=#C00>#define</font> _INCLUDE_WRITER_H_
+<font color=#C00>#include</font> "OOC.h"
+<font color=#00F>typedef</font> <font color=#00F>void </font>(* write_t)(<font color=#00F>void</font>);
+<font color=#C00>#define</font> WRITER_BASE\
+	OOC_START_T OOC_START_writer_t;\
+	write_t writing
+	
+<font color=#00F>typedef</font> <font color=#00F>struct </font>writer_s
+{
+	WRITER_BASE;
+}writer_t;
+<font color=#C00>#endif</font>
+</pre>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//ryan.h</font>
+<font color=#C00>#ifndef</font> _INCLUDE_RYAN_H_
+<font color=#C00>#define</font> _INCLUDE_RYAN_H_
+<font color=#C00>#include</font> "OOC.h"
+<font color=#C00>#include</font> "teacher.h"
+<font color=#C00>#include</font> "writer.h"
+
+<font color=#00F>typedef</font> <font color=#00F>struct </font>ryan_s
+{
+	TEACHER_BASE;
+    WRITER_BASE;
+}ryan_t;
+ryan_t * create_ryan(<font color=#00F>void</font>);
+
+<font color=#C00>#endif</font>
+</pre>
+
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//juliet.h</font>
+<font color=#C00>#ifndef</font> _INCLUDE_JULIET_H_
+<font color=#C00>#define</font> _INCLUDE_JULIET_H_
+<font color=#C00>#include</font> "OOC.h"
+<font color=#C00>#include</font> "teacher.h"
+<font color=#C00>#include</font> "writer.h"
+
+<font color=#00F>typedef</font> <font color=#00F>struct </font>juliet_s
+{
+	  TEACHER_BASE;
+    WRITER_BASE;
+}juliet_t;
+juliet_t * create_juliet(<font color=#00F>void</font>);
+
+<font color=#C00>#endif</font>
+</pre>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//ryan.c</font>
+<font color=#C00>#include</font> "ryan.h"
+<font color=#C00>#include</font> &lt;stdio.h>
+<font color=#00F>static</font> ryan_t instance;
+<font color=#00F>static</font> <font color=#00F>void </font>ryan_teaching(<font color=#00F>void</font>)
+{
+   <font color=#C00> printf</font>("I am ryan, i teaching math !\n");
+}
+<font color=#00F>static</font> <font color=#00F>void </font>ryan_writing(<font color=#00F>void</font>)
+{
+   <font color=#C00> printf</font>("I am ryan, i am a writer use pen!\n");
+}
+ryan_t * create_ryan(<font color=#00F>void</font>)
+{
+    instance.teaching = ryan_teaching;
+    instance.writing = ryan_writing;
+    <font color=#00F>return </font>&instance;
+}
+</pre>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//juliet.c</font>
+<font color=#C00>#include</font> "juliet.h"
+<font color=#C00>#include</font> &lt;stdio.h>
+<font color=#00F>static</font> juliet_t instance;  <font color=#CCC>//这里可以理解为单例模式，多实例的实现方式可以用堆 </font>
+<font color=#00F>static</font> <font color=#00F>void </font>juliet_teaching(<font color=#00F>void</font>)
+{
+   <font color=#C00> printf</font>("I am juliet, i teaching English !\n");
+}
+<font color=#00F>static</font> <font color=#00F>void </font>juliet_writing(<font color=#00F>void</font>)
+{
+   <font color=#C00> printf</font>("I am juliet, i am a writer use computer!\n");
+}
+juliet_t * create_juliet(<font color=#00F>void</font>)
+{
+    instance.teaching = juliet_teaching;
+    instance.writing = juliet_writing;
+    <font color=#00F>return </font>&instance;
+}
+</pre>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>//main.c </font>
+<font color=#C00>#include</font> "OOC.h"
+<font color=#C00>#include</font> "teacher.h"
+<font color=#C00>#include</font> "writer.h"
+<font color=#C00>#include</font> "ryan.h"
+<font color=#C00>#include</font> "juliet.h"
+teacher_t*  p_teachers[2]={0};
+writer_t* p_writers[2]={0};
+<font color=#00F>void</font> write_talk(<font color=#00F>void</font>)
+{
+    p_writers[0]->writing();
+    p_writers[1]->writing();
+}
+<font color=#00F>void</font> teacher_talk(<font color=#00F>void</font>)
+{
+    p_teachers[0]->teaching();
+    p_teachers[1]->teaching();
+}
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+    ryan_t* p_ryan =  create_ryan();
+    juliet_t* p_juliet =  create_juliet();
+    p_teachers[0]= OOC_BASE(p_ryan,teacher_t);
+    p_teachers[1]= OOC_BASE(p_juliet,teacher_t);
+    p_writers[0]= OOC_BASE(p_ryan,writer_t);
+    p_writers[1]= OOC_BASE(p_juliet,writer_t);
+
+	write_talk();
+    teacher_talk();
+}
+</pre>
+<p>上面的代码定义了老师类和作家类两个基类。Ryan 是数学老师兼用笔写作的作家。Juliet是英语老师兼用电脑创造的作家。英语不好轻喷。</p>
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
