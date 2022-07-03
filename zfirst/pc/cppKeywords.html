@@ -3145,7 +3145,20 @@ std::basic_string&lt;char8_t> str3()
 <li><a href="https://en.cppreference.com/w/cpp/keyword/static">static</a></li>
 <p>static（静态的）</p>
 <p>① 存续期：静态变量作用范围在一个文件内，程序开始时分配空间，结束时释放空间，默认初始化为 0，使用时可改变其值。</p>
-
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>unsigned</font> <font color=#00F>int </font>LCG16(<font color=#00F>unsigned</font> <font color=#00F>int </font>seed = 5323) <font color=#CCC>// our PRNG</font>
+{
+    <font color=#00F>static </font>unsigned <font color=#00F>int </font>state{ seed };
+    <font color=#CCC>// Generate the next number</font>
+    <font color=#CCC>// Due to our use of large constants and overflow, it would be</font>
+    <font color=#CCC>// hard for someone to casually predict what the next number is</font>
+    <font color=#CCC>// going to be from the previous one.</font>
+    state = 8253729 * state + 2396403; <font color=#CCC>// first we modify the state</font>
+    <font color=#00F>return </font>state % 32768; <font color=#CCC>// then we use the new state </font>
+    <font color=#CCC>// to generate the next number in the sequence</font>
+}
+</pre>
 <p>② 文件链接性：静态变量或静态函数，只有本文件内的代码才可访问它，它的名字（变量名或函数名）在其它文件中不可见。因此也称为"文件作用域"。</p>
 <p>③ 静态成员：在 C++ 类的成员变量被声明为 static（称为静态成员变量），意味着它被该类的所有实例所共享，也就是说当某个类的实例修改了该静态成员变量，其修改值为该类的其它所有实例所见；而类的静态成员函数也只能访问静态成员（变量或函数）。类的静态成员变量必须在声明它的文件范围内进行初始化才能使用，private 类型的也不例外。</p>
 

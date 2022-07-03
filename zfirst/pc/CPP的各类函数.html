@@ -1,0 +1,844 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	width:115%;
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	overflow-x:auto;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>CPP的各类函数</h4>
+
+<p><a href="https://www.toutiao.com/article/7113844656269738534">ref</a></p>
+
+<pre>
+1 C++11之前
+    1.1 非成员函数或自由函数
+    1.2 成员函数
+    1.3 可变参函数
+    1.4 重载函数
+    1.5 静态函数
+    1.6 内联函数
+    1.7 运算符重载函数
+    1.8 只读成员函数
+    1.9 友元函数
+    1.10 虚成员函数
+    1.11 特殊成员函数（构造、析构、拷贝、拷贝复制）
+    1.12 函数模板、类模板、成员模板
+2 C++11
+    2.1 可变参模板函数
+    2.2 返回值类型后置模板函数
+    2.3 带override 说明符成员函数
+    2.4 带final说明符成员函数
+    2.5 增加的特殊成员函数（移动、移动赋值）
+    2.6 default 成员函数(显式预置的函数定义)
+    2.7 delete 成员函数(显式弃置的函数定义)
+    2.8 delete 其他函数
+    2.9 lambda 函数
+3 C++14
+    3.1 返回类型自动推导函数
+    3.2 泛型lambda
+4 C++17
+    4.1 扩展 lambda
+    4.2 向 lambda 传递 this 的拷贝
+    4.3 异常声明作为函数类型的一部分
+5 C++20
+    5.1 consteval 函数(立即函数）
+    5.2 简短的函数模板
+    5.3 lambda 函数模板
+    5.4 constexpr 虚成员函数
+    5.5 协程
+6 未来
+    6.1 Contracts 合约
+</pre>
+
+<h3>1 C++11之前</h3>
+<h4>1.1 非成员函数或自由函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> add(<font color=#00F>int</font> a, <font color=#00F>int</font> b)
+{
+   <font color=#00F>return </font>a + b;
+}
+</pre>
+<h4>1.2 成员函数</h4>
+<p>它们是类/结构的一部分。这些也被称为方法（就像在大多数其他面向对象的编程语言中一样），尽管这个术语在C++标准中没有被使用。下面是一个例子：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> math
+{
+<font color=#00F>public</font>:
+   <font color=#00F>int </font>add(<font color=#00F>int</font> a, <font color=#00F>int </font>b)
+   {
+      <font color=#00F>return </font>a + b;
+   }
+};
+</pre>
+<h4>1.3 可变参函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> &lt;stdarg.h>
+<font color=#00F>int</font> sum(<font color=#00F>int</font> count, ...);    　　<font color=#CCC>//原型中使用省略号</font>
+<font color=#00F>int</font> sum(<font color=#00F>int</font> count, ...){    　　
+    va_list ap;　　　　　　　　　　
+    va_start(ap, count);　　 　　
+    <font color=#00F>int </font>sum = 0;  
+   <font color=#00F> for</font>(<font color=#00F>int</font> i = 0; i &lt; count; i++)          
+        sum += va_arg(ap, int);
+    va_end(ap);          　　　
+    <font color=#00F>return </font>sum;
+}
+</pre>
+<h4>1.4 重载函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> add(<font color=#00F>int</font> a, <font color=#00F>int</font> b) {
+    <font color=#00F>return </font>a + b;
+}
+<font color=#00F>double</font> add(<font color=#00F>double</font> a, <font color=#00F>double </font>b) {
+    <font color=#00F>return </font>a + b;
+}
+</pre>
+<h4>1.5 静态函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>static</font> <font color=#00F>int </font>add(<font color=#00F>int</font> a, <font color=#00F>int </font>b) {return a + b;}
+<font color=#00F>struct</font> math
+{
+   <font color=#00F>static</font> <font color=#00F>int </font>add(<font color=#00F>int</font> a, <font color=#00F>int </font>b) {return a + b;}
+}
+</pre>
+<h4>1.6 内联函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>inline</font> <font color=#00F>int </font>add(<font color=#00F>int</font> a, <font color=#00F>int </font>b) {return a + b;}
+<font color=#00F>struct</font> math
+{
+   <font color=#00F>inline</font> <font color=#00F>int </font>add(<font color=#00F>int</font> a, <font color=#00F>int </font>b);
+}
+<font color=#00F>int</font> match::add(<font color=#00F>int</font> a, <font color=#00F>int </font>b) {return a + b;}
+</pre>
+<h4>1.7 运算符重载函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+std::string operator+(std::string <font color=#00F>const </font>& txt, <font color=#00F>int </font>n)
+{
+    <font color=#00F>return </font>txt + std::to_string(n); <font color=#CCC>// channels your JavaScript energy</font>
+}
+</pre>
+<h4>1.8 只读成员函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> wrapper
+{
+<font color=#00F>public</font>:
+   wrapper(<font color=#00F>int</font> a): value_(a) {}
+   <font color=#00F>int </font>get() <font color=#00F>const </font>{return value_;}
+<font color=#00F>private</font>:
+   <font color=#00F>int </font>value_;
+};
+</pre>
+<h4>1.9 友元函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> math
+{
+    <font color=#00F>int </font>a,b;
+<font color=#00F>public</font>:
+    math(<font color=#00F>int</font> a,<font color=#00F>int</font> b):a(a),b(b){}
+   <font color=#00F>friend </font>int add(math m);
+};
+<font color=#00F>int</font> add(math m)
+{
+   <font color=#00F>return </font>m.a + m.b;
+}
+</pre>
+<h4>1.10 虚成员函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> A
+{
+   <font color=#00F>virtual </font>void f() { std::cout &lt;&lt; "A::f()\n"; }
+};
+<font color=#00F>struct</font> B : <font color=#00F>public </font>A
+{
+   <font color=#00F>virtual </font>void f() { std::cout &lt;&lt; "B::f()\n"; }
+};
+</pre>
+<h4>1.11 特殊成员函数（构造、析构、拷贝、拷贝复制）</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> wrapper
+{
+<font color=#00F>public</font>:
+   wrapper() : value_(0) {}
+   wrapper(wrapper <font color=#00F>const </font>& other) {value_ = other.value_; }
+   wrapper& operator=(wrapper <font color=#00F>const </font>& other) {if(<font color=#00F>this</font> != &other) {value_ = other.value_;} }
+   ~wrapper() {}
+<font color=#00F>private</font>:
+   <font color=#00F>int </font>value_;
+};
+</pre>
+<h4>1.12 函数模板、类模板、成员模板</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>template</font> &lt;typename T>
+T add(T a, T b)
+{
+   <font color=#00F>return </font>a + b;
+}
+<font color=#00F>template</font> &lt;typename T>
+<font color=#00F>class</font> math1
+{
+<font color=#00F>public</font>:
+   T add(T a, T b)
+   {
+      <font color=#00F>return </font>a + b;
+   }
+};
+<font color=#00F>class</font> math2
+{
+<font color=#00F>public</font>:
+   <font color=#00F>template</font> &lt;typename T>
+   T add(T a, T b)
+   {
+      <font color=#00F>return </font>a + b;
+   }
+};
+</pre>
+<h3>2 C++11</h3>
+2.1 可变参模板函数
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>template</font> &lt;typename T>
+T add(T a, T b)
+{
+    <font color=#00F>return </font>a + b;
+}
+<font color=#00F>template</font> &lt;typename T, <font color=#00F>typename </font>...Ts>   <font color=#CCC>// [1]</font>
+T add(T t, Ts ... rest)                 <font color=#CCC>// [2]</font>
+{
+    <font color=#00F>return </font>t + add(rest...);            <font color=#CCC>// [3]</font>
+}
+</pre>
+<h4>2.2 返回值类型后置模板函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>auto</font> add(<font color=#00F>int</font> a, <font color=#00F>int </font>b) -> int
+{
+   <font color=#00F>return </font>a + b;
+}
+<font color=#00F>template</font>&lt;typename T, <font color=#00F>typename </font>U>
+<font color=#00F>auto</font> add(T <font color=#00F>const </font>& a, U <font color=#00F>const </font>& b) -><font color=#00F> decltype</font>(a + b)
+{
+    <font color=#00F>return </font>a + b;
+}
+<font color=#00F>const</font>expr 函数
+<font color=#00F>template</font> &lt;typename T>
+<font color=#00F>const</font>expr T add(T a, T b)
+{
+    <font color=#00F>return </font>a + b;
+}
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+    <font color=#00F>int </font>arr[add(1,2)] = {1,2,3};    <font color=#CCC>// [1]</font>
+    <font color=#00F>int </font>a, b;
+    std::cin >> a >> b;
+    std::cout &lt;&lt; add(a, b) &lt;&lt; '\n';  <font color=#CCC>// [2]</font>
+}
+</pre>
+<h4>2.3 带override 说明符成员函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> A
+{
+   <font color=#00F>virtual </font>void f(<font color=#00F>int</font>) {}
+   <font color=#00F>virtual </font>void g() {}
+};
+<font color=#00F>struct</font> B : <font color=#00F>public </font>A
+{
+   <font color=#00F>void </font>f(<font color=#00F>int</font>) <font color=#00F>override </font>{}  <font color=#CCC>// OK</font>
+   <font color=#00F>void </font>g(<font color=#00F>char</font>) <font color=#00F>override </font>{} <font color=#CCC>// error, g() does not override anything</font>
+};
+</pre>
+<h4>2.4 带final说明符成员函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> A
+{
+   <font color=#00F>virtual </font>void f() {}
+};
+<font color=#00F>struct</font> B : <font color=#00F>public </font>A
+{
+   <font color=#00F>void </font>f() <font color=#00F>override </font>(<font color=#00F>final</font> {}
+};
+<font color=#00F>struct</font> C : <font color=#00F>public </font>B
+{
+   <font color=#00F>void </font>f() <font color=#00F>override </font>{}   <font color=#CCC>// error, f cannot be overridden anymore</font>
+};
+</pre>
+<h4>2.5 增加的特殊成员函数（移动、移动赋值）</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> buffer
+{
+   buffer()                       <font color=#CCC>// default constructor</font>
+       :data_(<font color=#00F>nullptr</font>), size_(0) 
+   {}
+    
+   <font color=#00F>explicit </font>buffer(size_t size)   <font color=#CCC>// constructor</font>
+       :data_(<font color=#00F>new</font> char[size]), size_(size)
+   {}
+    
+   ~buffer()                      <font color=#CCC>// destructor</font>
+   {
+       <font color=#00F>delete </font>[] data_;
+   }
+   
+   buffer(buffer <font color=#00F>const </font>& other)   <font color=#CCC>// copy constructor</font>
+      : data_(<font color=#00F>new</font> char[other.size_])
+      , size_(other.size_)
+   {
+      std::memcpy(data_, other.data_, size_);
+   }
+    
+   buffer& operator=(buffer <font color=#00F>const </font>& other) <font color=#CCC>// copy assignment operator</font>
+   {
+      <font color=#00F> if</font>(<font color=#00F>this</font> != &other)
+       {
+           <font color=#00F>delete </font>[] data_;
+           data_ = <font color=#00F>new </font>char[other.size_];
+           size_ = other.size_;
+           std::memcpy(data_, other.data_, size_);
+       }
+       
+       <font color=#00F>return </font>*this;
+   }
+    
+   buffer(buffer&& other)           <font color=#CCC>// move constructor</font>
+       : data_(std::move(other.data_))
+       , size_(other.size_)
+   {
+      other.data_ = nullptr;
+      other.size_ = 0;
+   }
+    
+   buffer& operator=(buffer&& other) <font color=#CCC>// move assignment operator</font>
+   {
+      <font color=#00F> if</font>(<font color=#00F>this</font> != &other)
+       {
+           <font color=#00F>delete </font>[] data_;
+           data_ = std::move(other.data_);
+           size_ = other.size_;
+           other.data_ = nullptr;
+           other.size_ = 0;
+       }
+       
+       <font color=#00F>return </font>*this;
+   }
+    
+<font color=#00F>private</font>:
+   char* data_;
+   size_t size_;
+};
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+  buffer b1;
+  buffer b2(10);
+  buffer b3 = b2;
+  buffer b4 = std::move(b3);
+}
+</pre>
+<h4>2.6 default 成员函数(显式预置的函数定义)</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> foo
+{
+   foo(<font color=#00F>int</font>) {}      <font color=#CCC>// user-defined constructor</font>
+   foo() = default; <font color=#CCC>// compiler generated default constructor</font>
+};
+</pre>
+<h4>2.7 delete 成员函数(显式弃置的函数定义)</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> noncopyable
+{
+  noncopyable() = default;
+  noncopyable(noncopyable <font color=#00F>const </font>&) = delete;
+  noncopyable& operator=(noncopyable <font color=#00F>const </font>&) = delete;
+};
+</pre>
+<h4>2.8 delete 其他函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>template</font> &lt;typename T>
+T add(T a, T b)
+{
+    <font color=#00F>return </font>a + b;
+}
+<font color=#00F>template</font> &lt;>
+<font color=#00F>int</font> add&lt;int>(<font color=#00F>int</font> a, <font color=#00F>int </font>b) = delete;
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+    add(1, 2); <font color=#CCC>// error, this specialization is deleted</font>
+}
+</pre>
+<h4>2.9 lambda 函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+    <font color=#00F>auto </font>add = [](<font color=#00F>int</font> a, <font color=#00F>int</font> b) { <font color=#00F>return </font>a + b; };
+    add(1, 2);
+}
+</pre>
+<h3>3 C++14</h3>
+<h4>3.1 返回类型自动推导函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>auto</font> add(<font color=#00F>int</font> a, <font color=#00F>int </font>b)
+{
+   <font color=#00F>return </font>a + b;
+}
+<font color=#00F>template</font> &lt;typename T, <font color=#00F>typename </font>U>
+<font color=#00F>auto</font> add(T a, U b)
+{
+   <font color=#00F>return </font>a + b;
+}
+</pre>
+<h4>3.2 泛型lambda</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+    <font color=#00F>using </font><font color=#00F>namespace </font>std::string_literals;
+    
+    <font color=#00F>auto </font>add = [](<font color=#00F>auto</font> a, <font color=#00F>auto </font>b) {return a + b;};
+    
+    add(1, 2);
+    add(1.0, 2.0);
+    add("1"s, "2"s);
+}
+</pre>
+<h3>4 C++17</h3>
+<h4>4.1 扩展 lambda</h4>
+<p>constexpr lambda，自从 C++17 起，lambda表达式会尽可能的隐式声明 constexpr。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>auto</font> squared = [](<font color=#00F>auto</font> val) { <font color=#CCC>// 自 从C++17起 隐 式constexpr</font>
+    <font color=#00F>return </font>val*val;
+};
+std::array&lt;int, squared(5)> a; <font color=#CCC>// 自 从C++17起OK => std::array&lt;int, 25></font>
+</pre>
+<h4>4.2向 lambda 传递 this 的拷贝</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> C {
+<font color=#00F>private</font>:
+    std::string name;
+<font color=#00F>public</font>:
+    <font color=#00F>void </font>foo() {
+        <font color=#00F>auto </font>l1 = [*this] { std::cout &lt;&lt; name &lt;&lt; '\n'; };
+    }
+};
+</pre>
+<h4>4.3 异常声明作为函数类型的一部分</h4>
+<p>这里，派生类中的成员函数 foo() 和基类中的 foo() 类型不同所以不能重载。这段代码不能通过编译，即使 没有 override 修饰符代码也不能编译，因为我们不能用更宽松的异常声明重载。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> Base {
+<font color=#00F>public</font>:
+    <font color=#00F>virtual </font>void foo() noexcept;
+};
+<font color=#00F>class</font> Derived : <font color=#00F>public </font>Base {
+<font color=#00F>public</font>:
+    <font color=#00F>void </font>foo() override; <font color=#CCC>// ERROR： 不 能 重 载</font>
+    <font color=#CCC>//...</font>
+};
+</pre>
+<h3>5 C++20</h3>
+<h4>5.1 consteval 函数(立即函数）</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>consteval</font> <font color=#00F>int </font>add(<font color=#00F>int</font> <font color=#00F>const </font>a, <font color=#00F>int </font><font color=#00F>const </font>b)
+{
+   <font color=#00F>return </font>a + b;
+} 
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+   <font color=#00F>constexpr </font>int s1 = add(1, 2);   <font color=#CCC>// OK, compile-time evaluation</font>
+   <font color=#00F>int </font>a = 12, b = 66;
+   <font color=#00F>const </font>int s2 = add(a, b);       <font color=#CCC>// error</font>
+    
+   <font color=#00F>using </font>fptr =<font color=#00F> int</font>(<font color=#00F>int</font>, int);
+   fptr* padd = add;               <font color=#CCC>// error</font>
+}
+</pre>
+<h4>5.2 简短的函数模板</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>auto</font> add(<font color=#00F>auto</font> a, <font color=#00F>auto</font> b)
+{
+   <font color=#00F>return </font>a + b;
+}
+</pre>
+<h4>5.3 lambda 函数模板</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>auto</font> add = [](<font color=#00F>auto</font> a, <font color=#00F>auto</font> b) {return a + b;};
+</pre>
+<h4>5.4 constexpr 虚成员函数</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> magic
+{
+    <font color=#00F>constexpr </font>virtual <font color=#00F>int </font>def() <font color=#00F>const </font>{ <font color=#00F>return </font>0; }
+};
+<font color=#00F>struct</font> programming_magic : <font color=#00F>public </font>magic
+{
+    <font color=#00F>constexpr </font>int def() <font color=#00F>const </font>(<font color=#00F>override</font> { <font color=#00F>return </font>42; }
+};
+<font color=#00F>const</font>expr <font color=#00F>int </font>initval(magic <font color=#00F>const </font>& m)
+{
+    <font color=#00F>return </font>m.def() + 1;
+}
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+   <font color=#00F>constexpr </font>programming_magic pm;
+   <font color=#00F>int </font>arr[initval(pm)] = {0};
+}
+</pre>
+<h4>5.5 协程</h4>
+<p>协程，这个是C++20标准的主要特征之一。coroutine是一个具有暂停和恢复能力的函数。不幸的是，C++20只定义了一个执行程序的框架，但并没有定义任何满足这种要求的程序类型。这意味着，我们需要自己编写或者依靠第三方库来实现。这样一个库就是cppcoro库。在C++20中，有三个新的关键字，用于coroutine：co_await，co_return，和co_yield。如果一个函数使用了这三个中的一个，它就会成为一个循环程序。</p>
+<p>co_await操作符，用于暂停执行，直到重新开始。</p>
+<p>co_return关键字，完成执行并可选返回一个值</p>
+<p>co_yield关键字用于暂停执行并返回一个值</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> &lt;cppcoro/generator.hpp>
+cppcoro::generator&lt;std::string> produce_items()
+{
+  <font color=#00F>while </font>(<font color=#00F>true</font>)
+  {
+     <font color=#00F>auto </font>v = rand();
+     <font color=#00F>using </font><font color=#00F>namespace </font>std::string_literals;
+     <font color=#00F>auto </font>i = "item "s + std::to_string(v);
+     print_time();
+     std::cout &lt;&lt; "produced " &lt;&lt; i &lt;&lt; '\n';
+     <font color=#00F>co_yield </font>i;
+  }
+}
+<font color=#C00>#include</font> &lt;cppcoro/task.hpp>
+cppcoro::task&lt;> consume_items(<font color=#00F>int</font> <font color=#00F>const </font>n)
+{
+  <font color=#00F>int </font>i = 1;
+ <font color=#00F> for</font>(<font color=#00F>auto</font> const& s : produce_items())
+  {
+     print_time();
+     std::cout &lt;&lt; "consumed " &lt;&lt; s &lt;&lt; '\n';
+     <font color=#00F>if </font>(++i > n) break;
+  }
+  co_return;
+}
+</pre>
+<h3>6 未来</h3>
+<h4>6.1 Contracts 合约</h4>
+<p>前提条件（Preconditions）：你对输入值的期望/要求是什么？</p>
+<p>后置条件（Postconditions）：对于输出值，你应该给出什么保证？</p>
+<p>不变量（Invariants）：你的函数的调用者/使用者期望什么不会改变？</p>
+<p>目的（Purpose）：你的函数是否有一个明确的目的？</p>
+<p>名称（Name）：该函数的名称是否反映了它的目的？</p>
+<p>参数（Parameters）：调用者/用户能轻易混淆它们的含义吗？</p>
+<p>前提条件检查:</p>
+<p>宽合约函数执行前提条件检查，即检查输入参数值（或程序状态）的有效性。</p>
+<p>窄合约函数不执行前提条件检查，即调用者必须确保输入参数（和程序状态）是有效的。</p>
+
+
+<p style='float:right;'>本页共502段，19645个字符，21857 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
