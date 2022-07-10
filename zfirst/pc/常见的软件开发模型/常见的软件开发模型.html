@@ -1,0 +1,557 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	margin-left:2em;
+	color:blue;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+pre{
+    margin-left:2em;
+	}
+a:visited, a:link{
+    color:blue;
+}
+a:visited{
+    color:#CC0000;
+}a:hover{
+    color:green;
+	}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:5px;
+	margin-left:2em;
+	background-color:RGB(240,240,240);
+    color:blue;
+	margin-left:2em;
+	}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>常见的软件开发模型</h4>
+
+
+<a href="https://www.toutiao.com/article/7118563603392758283/" title="">ref</a>
+<h3>1.什么是软件开发模型</h3>
+<p>所谓的软件开发模型，其实就是开发软件所经历的各个阶段，一般都会包括：需求->设计->编码-测试-运行维护。当然，不同的开发模型会稍有不同，每个模型都有其使用场景以及对应的公司使用，每个模型都有其优缺点，同时每个模型所解决问题的侧重点不同。</p>
+<h3>2.软件开发模型有哪些</h3>
+<p>目前已经存在的开发模型有很多，如：</p>
+<pre>
+瀑布模型
+V模型
+W模型
+H模型
+螺旋模型
+迭代模型
+增量模型
+敏捷模型
+</pre>
+<p>以上模型中，在企业中可能常使用到的就是瀑布模型，迭代模型，瀑布模型，和敏捷模型。接下来我们重点介绍如下的四种模型。</p>
+<h3>3.软件开发模型介绍</h3>
+<h4>3.1 瀑布模型</h4>
+<p>所谓的瀑布模型，其实是从其形状看着像瀑布，故称之为瀑布模型。如下图：</p>
+<img src="1.png" width="100%" />
+<p>瀑布模型主要包括的阶段有： 需求->设计->编码->测试->维护。</p>
+<p>瀑布模型有如下的几个特点：</p>
+<p>首先，瀑布模型的开发方式是线性开发，也就是必须是上一个阶段完成以后且审核通过才能进入到下一个阶段。</p>
+<p>其次，在每个阶段中，都会产生大量的文档，这些文档不仅多而且都比较重，有很多文档可能光写一个文档就的好几天，比如写一个测试计划十几页甚至更多。</p>
+<p>最后，它的整体开发周期长，一个项目少则两个月，多则就会按年去计算。</p>
+<p>那么以上的开发方式会导致怎样的结果呢 ？我们可以通过三个维度去衡量，分别是：</p>
+<p>产品需求： 从整体来说，此种模式下开发出来的软件适应需求的变化是很差的，由于其开发周期长，往往到了后期开发的功能很有可能并非是用户想要的，但是由于已经到了后期或者已经开发完毕了，那么再去调整的成本就会很高。</p>
+<p>产品质量：开发出来的产品质量也是较差的，主要原因在于其公司对成本的控制。</p>
+<p>公司成本及对技术要求： 从公司角度来说，公司的成本可能相对是最低的，同时也对技术要求也不是很高。</p>
+<p>以上几点可以说明，使用瀑布模型开发可能对公司来说，可能就是看重的是它的成本低廉。</p>
+<p>最后，我们要讨论的是哪些类型的公司会使用瀑布模型呢 ？ 主要是一些做项目性的公司，公司没有自己的产品，主要是给别人开发软件。同时因为其成本原因，所以公司对人员的技术上要求也不是很高。</p>
+<h4>3.2 V模型</h4>
+<p>所谓的V模型，也是从其形状来看像个V字，故起名为V模型。</p>
+<img src="2.png" width="100%" />
+<p>V模型主要包含的阶段有： 需求分析->概要设计->详细设计->编码->单元测试->集成测试->系统测试->验收测试</p>
+<p>主要的不同点就是v模型会注重设计和测试，测试划分的更细了，可以简单的理解为v模型测试需要做白盒测试，而瀑布模型不需要。</p>
+<p>同样的V模型也有如下的几个特点：</p>
+<p>首先，V模型的开发方式是线性开发，也就是说必须是上一个阶段完成以后且审核通过才能进入到下一个阶段。</p>
+<p>其次，在每个阶段中，都会产生大量的文档，这些文档不仅多而且都比较重，有很多文档可能光写一个文档就的好几天，比如写一个测试计划十几页甚至更多。</p>
+<p>最后，它的整体开发周期长，一个项目少则三个月，多则就会按年去计算。</p>
+<p>那么以上的开发方式会导致怎样的结果呢 ？我们可以通过三个维度去衡量，分别是：</p>
+<p>产品需求： 从整体来说，此种模式下开发出来的软件需求的适应性也是很差的，由于其开发周期长，后期变更的成本就会很高。</p>
+<p>产品质量：因为在V模型中更注重的设计和测试，所以开发出来的产品质量是有保证的。</p>
+<p>公司的成本及对技术要求： 由于其对设计和测试比较重视，那么对于开发和测试这两个岗位比较重视，<strong>比如开发往往有专门的架构师进行设计，而测试中也必须有懂白盒测试的人员</strong>。</p>
+<p>以上几点可以说明，使用V模型进行开发，可能有的特点是需求相对变化不大， 且要能保证质量这样的场景要求。</p>
+<p>最后，什么样的公司会使用V模型呢 ？ 一般是为大型企业开发的大型软件，比如银行外包公司，开发银行相关的软件，开发一个版本可能就是一年半载，他们对流程要求很严，同时对质量也要求很高。</p>
+<h4>3.3 迭代模型</h4>
+<p>所谓的迭代模型，其实就是指通过不断迭代软件，使其产品逐渐变为想要的状态。</p>
+<img src="3.png" width="100%" />
+<p>迭代模型包含的阶段有： 需求设计->系统设计->代码实现->测试->上线</p>
+<p>同样的迭代模型也有如下的几个特点：</p>
+<p>首先，迭代模型的开发方式是也线性开发，也就是必须是上一个阶段完成以后且审核通过才能进入到下一个阶段。</p>
+<p>其次，由于将一整个系统拆分成若干个版本开发，每个版本开发的功能就会少很多，同时每个版本的需求也会根据上线后的反馈来进行实时调整，这就有利于适用需求的变化。</p>
+<p>最后，它的上线后期会大大的缩短，而且在各阶段所产生的文档也尽量轻量化。</p>
+<p>那么以上的开发方式会导致怎样的结果呢 ？我们可以通过三个维度去衡量，分别是：</p>
+<p>产品需求： 通过迭代开发的软件，整体的需求适应性是很好的，能较好的适应市场需求变化。</p>
+<p>产品质量：开发出来的产品质量一般。</p>
+<p>公司成本及对技术要求： 由于注重的是迭代，所以整体来说对产品要求较高。</p>
+<p>以上几点可以说明，使用迭代模型进行开发，主要是对产品有快速更新，并且要有一定质量要求的需求的公司。</p>
+<p>最后，什么样的公司会使用迭代模型呢 ？<strong>一般就是互联网企业，往往互联网开发的都是自己产品，希望能尽快面向用户，并可以快速的获取用户反馈。</strong></p>
+<p><h3>3.4 敏捷模型</h3></p>
+<p>所谓的敏捷模型，是一种以人为核心、迭代、循序渐进的开发方法。即它是一种开发方法，也就是一种软件开发的流程，它会指导我们用规定的环节去一步一步完成项目的开发；而这种开发方式的主要驱动核心是人；它采用的是迭代式开发；</p>
+<p><a href="4.png"><img src="4.png" width="100%" /></a></p>
+<p>敏捷开发的特点就是：小步快跑，快速迭代。</p>
+<p>所以，一般使用敏捷开发会在需求适应性以及质量上都很好，但同时它对整个团队的要求也很高。</p>
+<p>那么，什么样的公司会使用到敏捷开发呢 ？ 一般都是互联网大厂，不过随着敏捷的普及，目前也陆续的深入各种中小企业了。</p>
+<h3>4.软件开发比对</h3>
+<p>最后，我们将这几个模型放到一起做个对比，以看它们有什么区别 ？</p>
+
+
+
+            <table id="tbrowser">
+			<col width="10%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="15%" />												
+                <tbody>
+                    <tr>
+                        <td>开发模型</td>
+                        <td>开发过程</td>
+                        <td>特点</td>
+                        <td>优缺点</td>
+                        <td>开发周期</td>
+                    </tr>
+                    <tr>
+                        <td>瀑布模型</td>
+                        <td>将所有都完成以后才进入下一个阶段，依次类推。</td>
+                        <td>产品串行开发 编写文档多而且重 开发周期长</td>
+                        <td>优点：开发成本低 缺点：需求适应性差，质量差</td>
+                        <td>2月+</td>
+                    </tr>
+                    <tr>
+                        <td>V模型</td>
+                        <td>将所有都完成以后才进入下一个阶段，依次类推。</td>
+                        <td>产品串行开发 编写文档多而且重 开发周期长</td>
+                        <td>优点：质量稳定，质量好 缺点：需求适应性差，开发成本高</td>
+                        <td>3月+</td>
+                    </tr>
+                    <tr>
+                        <td>迭代模型</td>
+                        <td>分成几次迭代进行，迭代功能包含用户反馈的信息</td>
+                        <td>产品串行开发 编写文档少而且轻 开发周期相对短</td>
+                        <td>优点：需求适应性好 缺点：没有明显缺点</td>
+                        <td>2周~6周</td>
+                    </tr>
+                    <tr>
+                        <td>敏捷模型</td>
+                        <td>按用户故事进行拆分，然后进行快速迭代</td>
+                        <td>产品串行开发 编写文档少而且轻 开发周期最短</td>
+                        <td>优点：需求适应性好，且质量高 缺点：开发成本高</td>
+                        <td>1周以内</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
