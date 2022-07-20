@@ -1,0 +1,689 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+	color:#990000;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+    <p>1.编写：编写的Java代码保存在以“.java”结尾的源文件中。 </p>
+    <p>2.编译：使用javac.exe命令编译java源文件，生成字节码文件。格式：javac 源文件名.java</p>
+    <p>3.运行：使用java.exe命令解释运行字节码文件。格式：java 类名 </p>
+    <p>4.在一个java源文件中可以声明多个class，但是只能最多有一个类声明为public，而且被声明为public的类的类名必须与源文件名相同。 </p>
+    <p>5.java关键字中所有字母都为小写 </p>
+    <p>6.Java中的名称命名规范：包名：多单词组成时所有字母都小写：xxxyyyzzz 类名、接口名：多单词组成时，所有单词的首字母大写：XxxYyyZzz变量名、方法名：多单词组成时，第一个单词首字母小写，第二个单词开始每个 单词首字母大写：xxxYyyZzz常量名：所有字母都大写。多单词时每个单词用下划线连接：XXX_YYY_ZZZ</p>
+    <p>7.字符串是属于一个类，属于引用数据类型</p>
+
+<p><img width="100%" src="a_clip_image001.jpg" /></p>
+
+<p>8.在类体内，在方法体外声明的变量称为成员变量。 </p>
+    <p>9.在方法体内部声明的变量称为局部变量。局部变量除形参外，需显式初始化才能使用。（形参也是局部变量） </p>
+    <p>10.java的整型常量默认为 int 型，声明long型常量须后加‘l’或‘L’。 </p>
+    <p>11.Java的浮点型常量默认为double型，声明float型常量，须后加‘f’或‘F’。 </p>
+    <p>12.Java中的所有字符都使用Unicode编码，一个字符可以存储一个字母，一个汉字，所以java中char类型是两个字节。 </p>
+    <p>13.boolean类型数据只允许取值true和false，无null。不可以使用0或非 0 的整数替代false和true。Java虚拟机中没有任何供boolean值专用的字节码指令，Java语言表达所操作的 boolean值，在编译之后都使用java虚拟机中的int数据类型来代替：true用1表示，false 用0表示。 </p>
+    <p>14.虽然long类型是8个字节，float是4个字节，但是float类型采用科学计数法存储，所以float类型的存储范围比long类型更大。</p>
+
+<p><img width="100%" src="a_clip_image002.jpg" /></p>
+
+<p>15.自动类型转换：容量小的类型自动转换为容量大的数据类型。byte,short,char之间不会相互转换，他们三者在计算时首先转换为int类型。</p>
+
+<p><img width="100%" src="a_clip_image003.jpg" /></p>
+
+<p>16.强制类型转换：将容量大的数据类型转换为容量小的数据类型，但可能造成精度降低或溢出。 </p>
+    <p>17.字符串不能直接转换为基本类型，但通过基本类型对应的包装类则可以实现把字符串转换成基本类型。 </p>
+    <p>18.计算机底层都以二进制补码的方式来存储数据。 </p>
+    <p>19.正数（最高位是0）的原码、反码、补码都相同，负数（最高位是1）的补码是其反码+1。 </p>
+    <p>20.赋值运算符：= += -= *= /= %=，运算的结果不会改变变量本身的数据类型。short i = i + 1；由于常量“1”默认是int型的，所以编译会报错，使用short i += 1，则做到了+1的作用，也没有改变数据类型。 </p>
+    <p>21.&amp;与&amp;&amp;、| 与 || 的区别：&amp;&amp;、|| 具备短路功能，左边的条件成立或者不成立，右边的条件不用再判断，&amp;、| 不管什么情况，都要把所有条件判断完。 </p>
+    <p>22.位运算：位运算符操作的都是整型的数据。（左移运算符）&lt;&lt; ：在一定范围内，每向左移1位，相当于 * 2（右移运算符）&gt;&gt;  ：在一定范围内，每向右移1位，相当于 / 2</p>
+
+<p><img width="100%" src="a_clip_image004.jpg" /></p>
+
+<p>23.流程控制：顺序结构：程序从上到下执行。分支结构：if - else、switch-case循环结构：for、while、do-while</p>
+    <p>24.数组属于引用数据类型变量，但是数组的元素既可以是基本数据类型，也可以是引用数据类型。 </p>
+    <p>25.数组的长度一旦确定就不能修改，初始化完成，长度就定了。 </p>
+    <p>26.数组静态初始化：数组元素的初始化和数组元素的赋值同时进行。例如：int a[ ]  = new int [ ] { 1,2,3 };</p>
+    <p>27.数组动态初始化：数组元素的初始化和数组元素的赋值分开进行。例如：int b[ ]  = new int [5]; b[0] = 1 ;</p>
+    <p>28.数组元素的默认初始化值：整型：0浮点型：0.0字符型：0或者’\u0000’，而非’0’布尔类型：false引用数据类型：null</p>
+    <p>29.关键字 break、continue  可以带标签使用（类似于C语言的goto语句）break label;//结束指定标识的一层循环结构。continue  label;//结束指定标识的一层循环结构当次循环。 </p>
+    <p>30.面向对象vs面向过程面向过程：强调的是功能行为，以函数为最小单位，考虑怎么做。面向对象：强调具备了功能的对象，以类/对象为最小单位，考虑谁来做。 </p>
+    <p>31.面向对象中两个重要的概念：类：对一类事物的描述，是抽象的、概念上的定义对象：是实际存在的该类事物的每个个体，因而也称为实例(instance)</p>
+    <p>32.虚拟机栈，即为平时提到的栈结构。局部变量存储在栈结构中；new出来的结构（比如：数组、对象）加载在堆空间中。</p>
+
+<p><strong>补充：对象的属性（非static的成员变量）也是加载在堆空间中。int arr [ ] = new arr  [ ]，以等号“=”为界，左边是局部变量存放在栈，右边是new  的机构，存放在堆中。</strong></p>
+
+<p>方法区：类的加载信息、常量池、静态域</p>
+
+<p><img width="100%" src="a_clip_image005.jpg" /></p>
+
+<p><img width="100%" src="a_clip_image006.jpg" /></p>
+
+<p>33.“属性”与“变量”的区别：</p>
+
+<p><strong>①  在类中声明的位置的不同属性：</strong></p>
+
+<p>直接定义在类的一对{}内。局部变量：声明在方法内、方法形参、代码块内、构造器形参、构造器内部的变量。</p>
+
+<p><strong>②  关于权限修饰符的不同属性：</strong></p>
+
+<p>可以在声明属性时，指明其权限，使用权限修饰符。常用的权限修饰符：private、public、缺省、protected  —&gt;体现为封装性。局部变量：不可以使用权限修饰符。</p>
+
+<p><strong>③  默认初始化值的情况属性：</strong></p>
+
+<p>类的属性，根据其类型，都默认初始化值。整型（byte、short、int、long：0）、浮点型（float、double：0.0）、字符型（char：0 （或’\u0000’））、布尔型（boolean：false）、引用数据类型（类、数组、接口：null）局部变量：没默认初始化值。意味着，我们在调用局部变量之前，一定要显式赋值。特别地：形参在调用时，我们赋值即可。</p>
+
+<p><strong>④ 在内存中加载的位置属性：</strong></p>
+
+<p>加载到堆空间中 （非static）。局部变量：加载到栈空间。 </p>
+    <p>34.如果方法没返回值，“return;”表示结束此方法的意思。 </p>
+    <p>35.封装性思想具体的代码体现：</p>
+
+<p>①  将类的属性xxx私化（private），同时，提供公共的（public）方法来获取（getXxx）和设置（setXxx）此属性的值；</p>
+<p>②  不对外暴露的私有的方法；</p>
+<p>③  单例模式（将构造器私有化）；</p>
+<p>④  如果不希望类在包外被调用，可以将类设置为缺省的； </p>
+<p>36.权限修饰符的范围：</p>
+
+<p><img width="100%" src="a_clip_image008.jpg" /></p>
+
+<p>37.4种权限都可以用来修饰类的内部结构：属性、方法、构造器、内部类。修饰类的话，只能使用：缺省、public。 </p>
+    <p>38.如果没显式的定义类的构造器的话，则系统默认提供一个空参的构造器。 </p>
+    <p>39.一个类中定义的多个构造器，彼此构成重载。 </p>
+    <p>40.一旦我们显式的定义了类的构造器之后，系统就不再提供默认的空参构造器。 </p>
+    <p>41.一个类中，至少会有一个构造器。 </p>
+    <p>42.this可以理解为：当前对象或当前正在创建的对象。 </p>
+    <p>43.可以显式的使用&quot;this(形参列表)&quot;方式，调用本类中指定的其他构造器，但是构造器中不能通过&quot;this(形参列表)&quot;方式调用自己（死循环）。 </p>
+    <p>44.规定：&quot;this(形参列表)“必须声明在当前构造器的首行，可以推出构造器内部，最多只能声明一个&quot;this(形参列表)”，用来调用其他的构造器。 </p>
+    <p>45.如果使用的类或接口是java.lang包下定义的，则可以省略import结构。使用&quot;xxx.*&quot;方式表明可以调用xxx包下的所有结构。但是如果使用的是xxx子包下的结构，则仍需要显式导入。 </p>
+    <p>46.一个类可以被多个子类继承（一个爸爸可以有多个儿子），但是一个类只能有一个父类（一个儿子只能有一个亲生爸爸） </p>
+    <p>47.子类继承父类以后有哪些不同？一旦子类A继承父类B以后，子类A中就获取了父类B中声明的所有的属性和方法。特别的，父类中声明为private的属性或方法，子类继承父类以后，仍然是获取了父类中私的结构，只因为封装性（private权限修饰符）的影响，使得子类不能直接调用父类的结构而已。子类继承父类以后，还可以声明自己特有的属性或方法：实现功能的拓展。 </p>
+    <p>48.子类直接继承的父类，称为：直接父类。间接继承的父类称为：间接父类。子类继承父类以后，就获取了直接父类以及所有间接父类中声明的属性和方法。 </p>
+    <p>49.如果没有显式的声明一个类的父类的话，则此类继承于java.lang.Object类。 </p>
+    <p>50.方法的重写(override 或  overwrite)。</p>
+
+<p>子类继承父类以后，可以对父类中同名同参数的方法，进行覆盖操作。</p>
+
+<p>51.重写的规则：</p>
+
+<p>① 子类重写的方法的方法名和形参列表与父类被重写的方法的方法名和形参列表相同。</p>
+
+<p>② 子类重写的方法的权限修饰符不小于父类被重写的方法的权限修饰符</p>
+
+<p>特殊情况：子类不能重写父类中声明为private权限的方法。</p>
+
+<p>③ 返回值类型：</p>
+
+<p>父类被重写的方法的返回值类型是void，则子类重写的方法的返回值类型只能是void。</p>
+
+<p>父类被重写的方法的返回值类型是A类型，则子类重写的方法的返回值类型可以是A类或A类的子类。</p>
+
+<p>父类被重写的方法的返回值类型是基本数据类型(比如：double)，则子类重写的方法的返回值类型必须是相同的基本数据类型(必须也是double)。</p>
+
+<p>④ 子类重写的方法抛出的异常类型不大于父类被重写的方法抛出的异常类型。 </p>
+    <p align="left">52.什么是重写和什么是重载？</p>
+
+<p>重载：是指存在多个同名方法，而这些方法的参数不同，编译器根据方法不同的参数表，对同名方法的名称做修饰，对于编译器而言，这些同名方法就成了不同的方法。它们的调用地址在编译期就绑定了。Java的重载是可以包括父类和子类的，即子类可以重载父类的同名不同参数的方法。所以，对于重载而言，在方法调用之前，编译器就已经确定了所要调用的方法，这称为“早绑定”或“静态绑定”。</p>
+<p>重写：方法重写的前提是发生在具有继承关系的两个类之间，只等到方法调用的那一刻，解释运行器才会确定所要调用的具体方法，这称为“晚绑定”或“动态绑定”。</p>
+<p>53.super调用属性、方法：① 在子类的方法或构造器中，通过使用&quot;super.属性&quot;或&quot;super.方法&quot;的方式，显式的调用父类中声明的属性或方法，通常情况下，习惯省略&quot;super.&quot;。</p>
+
+<p>② 特殊情况：当子类和父类中定义了同名的属性时，要想在子类中调用父类中声明的属性，则必须显式的使用&quot;super.属性&quot;的方式，表明调用的是父类中声明的属性。</p>
+
+<p>③ 特殊情况：当子类重写了父类中的方法以后，想在子类的方法中调用父类中被重写的方法时，则必须显式的使用&quot;super.方法&quot;的方式，表明调用的是父类中被重写的方法。 </p>
+    <p align="left">54.super调用构造器：① 我们可以在子类的构造器中显式的使用&quot;super(形参列表)&quot;的方式，调用父类中声明的指定的构造器。</p>
+
+<p>② &quot;super(形参列表)&quot;的使用，必须声明在子类构造器的首行！</p>
+
+<p>③  我们在类的构造器中，针对于&quot;this(形参列表)&quot;或&quot;super(形参列表)&quot;只能二选一，不能同时出现。</p>
+
+<p>④ 在构造器的首行，没显式的声明&quot;this(形参列表)“或&quot;super(形参列表)”，则默认调用的是父类中空参的构造器：super()。</p>
+
+<p>⑤ 在类的多个构造器中，至少一个类的构造器中使用了&quot;super(形参列表)&quot;，调用父类中的构造器。 </p>
+    <p align="left">55.子类对象实例化过程：从结果上看，子类继承父类以后，就获取了父类中声明的属性或方法，创建子类的对象，就会在堆空间中加载父类中声明的属性。</p>
+
+<p>从过程上看：通过子类的构造器创建子类对象时，一定会直接或间接的调用其父类的构造器，进而调用父类的父类的构造器，直到调用了java.lang.Object类中空参的构造器为止。正因为加载过所有的父类的结构，所以才可以看到内存中父类中的结构，子类对象才可以考虑进行调用。 </p>
+    <p align="left">56.多态性：可以理解为一个事物的多种形态。对象的多态性：父类的引用指向子类的对象（或子类的对象赋给父类的引用），Person p = new  Man(); 。有了对象的多态性以后，我们在编译期，只能调用父类中声明的方法，但在运行期，我们实际执行的是子类重写父类的方法。总结：编译，看左边；运行，看右边。多态运行时行为，不是编译时行为。 </p>
+    <p align="left">57.对象的多态性，只适用于方法，不适用于属性（编译和运行都看左边）。 </p>
+    <p align="left">58.Object类中定义的equals()和==的作用是相同的：比较两个对象的地址值是否相同,即两个引用是否指向同一个对象实体。 </p>
+    <p align="left">59.String、Date、File、包装类等都重写了Object类中的equals()方法。重写以后，比较的不是两个引用的地址是否相同，而是比较两个对象的&quot;实体内容&quot;是否相同。 </p>
+    <p align="left">60.“==”如果比较的是基本数据类型变量，则比较两个变量保存的数据是否相等。（不一定类型要相同，有自动类型提升）如果比较的是引用数据类型变量，则比较两个对象的地址值是否相同，即两个引用是否指向同一个对象实体。 </p>
+    <p align="left">61.当我们输出一个对象的引用时，实际上就是调用当前对象的toString()。 </p>
+    <p align="left">62.Object类中toString()的定义：</p>
+	<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>public</font> String toString() {
+    <font color=#00F>return </font>getClass().getName() +  “@” + Integer.toHexString(hashCode());
+}
+</pre>
+
+    <p align="left">63.像String、Date、File、包装类等都重写了Object类中的toString()方法，使得在调用对象的toString()时，返回&quot;实体内容&quot;信息。 </p>
+    <p align="left">64.基本数据类型与对应的包装类：</p>
+
+<p><img width="100%" src="a_clip_image010.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>65.自动装箱和自动拆箱（JDK 5.0之后）</p>
+
+<p><img width="642" height="622" src="a_clip_image011.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>66.static关键字可以用来修饰属性、方法、代码块、内部类。 </p>
+    <p align="left">67.静态变量 vs 实例变量</p>
+
+<p>静态变量：创建了类的多个对象，多个对象共享同一个静态变量。当通过某一个对象修改静态变量时，会导致其他对象调用此静态变量时，变量的值是修改过了的。</p>
+
+<p>实例变量：创建了类的多个对象，每个对象都独立拥有一套类中的非静态属性。当修改其中一个对象中的非静态属性时，不会导致其他对象中同样的属性值的修改。 </p>
+    <p align="left">68.static修饰属性的说明：①  静态变量随着类的加载而加载，可以通过&quot;类.静态变量&quot;的方式进行调用。</p>
+
+<p>②  静态变量的加载要早于对象的创建。</p>
+
+<p>③  由于类只会加载一次，则静态变量在内存中也只会存在一份：存在方法区的静态域中。 </p>
+    <p align="left">69.static修饰方法的说明：① 随着类的加载而加载，可以通过&quot;类.静态方法&quot;的方式进行调用。</p>
+
+<p>② 静态方法中，只能调用静态的方法或属性。非静态方法中，既可以调用非静态的方法或属性，也可以调用静态的方法或属性。 </p>
+    <p align="left">70.在静态的方法内，不能使用this关键字、super关键字（生命周期）。静态属性和静态方法的使用，都可以从生命周期的角度去理解。 </p>
+    <p align="left">71.单例设计模式：就是采取一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例。</p>
+
+<p>代码实现一：</p>
+
+<p><img width="100%" src="a_clip_image001_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>好处：线程安全。</p>
+
+<p>坏处：对象加载时间过长。</p>
+
+<p>代码实现二：</p>
+
+<p><img width="100%" src="a_clip_image002_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>好处：延迟对象的创建。</p>
+
+<p>坏处：线程不安全。 </p>
+    <p align="left">72.静态代码块使用说明：</p>
+
+<p>① 内部可以输出语句</p>
+
+<p>② 随着类的加载而执行,而且只执行一次</p>
+
+<p>③ 作用：初始化类的信息</p>
+
+<p>④ 如果一个类中定义了多个静态代码块，则按照声明的先后顺序执行</p>
+
+<p>⑤ 静态代码块的执行要优先于非静态代码块的执行</p>
+
+<p>⑥ 静态代码块内只能调用静态的属性、静态的方法，不能调用非静态的结构 </p>
+    <p align="left">73.非静态代码块使用说明：</p>
+
+<p>① 内部可以输出语句</p>
+
+<p>② 随着对象的创建而执行</p>
+
+<p>③ 每创建一个对象，就执行一次非静态代码块</p>
+
+<p>④ 作用：可以在创建对象时，对对象的属性等进行初始化</p>
+
+<p>⑤ 如果一个类中定义了多个非静态代码块，则按照声明的先后顺序执行</p>
+
+<p>⑥ 非静态代码块内可以调用静态的属性、静态的方法，或非静态的属性、非静态的方法 </p>
+    <p align="left">74.实例化子类对象时，涉及到父类、子类中静态代码块、非静态代码块、构造器的加载顺序：由父及子，静态先行。 </p>
+    <p align="left">75.属性的赋值顺序：</p>
+
+<p>① 默认初始化</p>
+
+<p>② 显式初始化/⑤ 在代码块中赋值</p>
+
+<p>③ 构造器中初始化</p>
+
+<p>④ 有了对象以后，可以通过&quot;对象.属性&quot;或&quot;对象.方法&quot;的方式，进行赋值执行的先后顺序：①  - ②  / ⑤  - ③  - ④  </p>
+    <p align="left">76.final的使用说明：</p>
+
+<p>① final可以用来修饰的结构：类、方法、变量</p>
+
+<p>② final 用来修饰一个类:此类不能被其他类所继承。比如：String类、System类、StringBuffer类</p>
+
+<p>③ final 用来修饰方法：表明此方法不可以被重写，比如：Object类中getClass();</p>
+
+<p>④ final 用来修饰变量：此时的&quot;变量&quot;就称为是一个常量</p>
+
+<p>⑤ final修饰属性：可以考虑赋值的位置有：显式初始化、代码块中初始化、构造器中初始化</p>
+
+<p>⑥ final修饰局部变量：尤其是使用final修饰形参时，表明此形参是一个常量。当我们调用此方法时，给常量形参赋一个实参。一旦赋值以后，就只能在方法体内使用此形参，但不能进行重新赋值。</p>
+
+<p>⑦ static final 用来修饰属性：全局常量 </p>
+    <p align="left">77.abstract可以用来修饰：类、方法。</p>
+
+<p>abstract修饰类：抽象类</p>
+
+<p>① 此类不能实例化。</p>
+
+<p>② 抽象类中一定有构造器，便于子类实例化时调用（涉及：子类对象实例化的全过程）。</p>
+
+<p>abstract修饰方法：抽象方法</p>
+
+<p>①  抽象方法只有方法的声明，没方法体。</p>
+
+<p>②  包含抽象方法的类，一定是一个抽象类。反之，抽象类中可以没有抽象方法的。</p>
+
+<p>③  若子类重写了父类中的所的抽象方法后，此子类方可实例化。</p>
+
+<p>④  若子类没重写父类中的所有的抽象方法，则此子类也是一个抽象类，需要使用abstract修饰</p>
+
+<p>注意点：abstract不能用来修饰：属性、构造器等结构；abstract不能用来修饰私有方法、静态方法、final的方法、final的类。 </p>
+    <p align="left">78.接口使用interface来定义，Java中，接口和类是并列的两个结构。 </p>
+    <p align="left">79.JDK7及以前：只能定义全局常量和抽象方法</p>
+
+<p>全局常量：public static  final的.但是书写时，可以省略不写</p>
+
+<p>抽象方法：public abstract的</p>
+
+<p>JDK8：除了定义全局常量和抽象方法之外，还可以定义静态方法、默认方法 </p>
+    <p align="left">80.接口中不能定义构造器的！意味着接口不可以实例化。 </p>
+    <p align="left">81.Java开发中，接口通过让类去实现(implements)的方式来使用。如果实现类覆盖了接口中的所抽象方法，则此实现类就可以实例化。如果实现类没覆盖接口中所的抽象方法，则此实现类仍为一个抽象类。 </p>
+    <p align="left">82.Java类可以实现多个接口 —&gt;弥补了Java单继承性的局限性格式：class AA extends  BB implements CC,DD,EE。 </p>
+    <p align="left">83.接口与接口之间可以继承，而且可以多继承。如下：</p>
+
+<p><img width="614" height="541" src="a_clip_image003_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>84.接口使用上也满足多态性，接口，实际上就是定义了一种规范，下面这个例子可以帮你深刻理解并记住接口！</p>
+
+<p><img width="100%" src="a_clip_image004_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p><img width="100%" src="a_clip_image005_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>85.Java中关于接口的新规范</p>
+
+<p>① 接口中定义的静态方法，只能通过接口来调用。</p>
+
+<p>② 通过实现类的对象，可以调用接口中的默认方法。如果实现类重写了接口中的默认方法，调用时，仍然调用的是重写以后的方法。</p>
+
+<p>③ 如果子类(或实现类)继承的父类和实现的接口中，声明了同名同参数的默认方法，那么子类在没重写此方法的情况下，默认调用的是父类中的同名同参数的方法。–&gt;类优先原则。</p>
+
+<p>④ 如果实现类实现了多个接口，而这多个接口中定义了同名同参数的默认方法，那么在实现类没重写此方法的情况下，报错。–&gt;接口冲突。这就需要我们必须在实现类中重写此方法。</p>
+
+<p>⑤ 如何在子类(或实现类)的方法中调用父类、接口中被重写的方法。</p>
+
+<p><img width="856" height="326" src="a_clip_image006_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>86.内部类的分类：成员内部类（静态、非静态 ）、局部内部类(方法内、代码块内、构造器内)。 </p>
+    <p align="left">87.成员内部类的理解：① 一方面，作为外部类的成员调用外部类的结构，可以被static修饰，可以被4种不同的权限修饰。</p>
+
+<p>② 另一方面，作为一个类类内可以定义属性、方法、构造器等可以被final修饰，表示此类不能被继承。言外之意，不使用final，就可以被继承可以被abstract修饰。 </p>
+    <p align="left">88.如何在外部类创建成员内部类的对象？(静态的，非静态的)</p>
+
+<p><img width="100%" src="a_clip_image007_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>89.如何在成员内部类中调用外部类的结构？</p>
+
+<p><img width="100%" src="a_clip_image008_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>90.在局部内部类的方法中(比如：show) ，如果调用局部内部类所声明的方法 *(比如：method)中的局部变量(比如：num)的话， *要求此局部变量声明为final的。 </p>
+    <p align="left">91.jdk 7及之前版本：要求此局部变量显式的声明为final。jdk 8及之后的版本：可以省略final的声明</p>
+
+<p><img width="100%" src="a_clip_image009_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>92.java异常处理的抓抛模型——“抛”：程序在正常执行的过程中，一旦出现异常，就会在异常代码处，生成一个对应异常类的对象，并将此对象抛出。一旦抛出对象以后，其后的代码就不再执行。 </p>
+    <p align="left">93.关于异常对象的产生：①  系统自动生成的异常对象②  手动的生成一个异常对象，并抛出（throw）。 </p>
+    <p align="left">94.“抓”：可以理解为异常的处理方式：①   try-catch-finally②  throws</p>
+    <p align="left">95.异常处理模板：</p>
+
+<p><img width="742" height="600" src="a_clip_image010_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>注意点：① finally是可选的。</p>
+
+<p>② 使用try将可能出现异常代码包装起来，在执行过程中，一旦出现异常，就会生成一个对应异常类的对象，根据此对象的类型，去catch中进行匹配。</p>
+
+<p>③ 一旦try中的异常对象匹配到某一个catch时，就进入catch中进行异常的处理。一旦处理完成，就跳出当前的try-catch结构（在没写finally的情况，继续执行其后的代码。）</p>
+
+<p>④ catch中的异常类型如果没子父类关系，则谁声明在上，谁声明在下无所谓。catch中的异常类型如果满足子父类关系，则要求子类一定声明在父类的上面。否则报错。</p>
+
+<p>⑤ 常用的异常对象处理的方式：⑴ String  getMessage() ⑵ printStackTrace()</p>
+
+<p>⑥ 在try结构中声明的变量，再出了try结构以后，就不能再被调用。</p>
+
+<p>⑦ try-catch-finally结构可以嵌套。</p>
+
+<p>⑧ finally中声明的是一定会被执行的代码。即使catch中又出现了异常，try中出现了return语句，catch中出现了return语句等情况。 </p>
+    <p align="left">96.&quot;throws + 异常类型&quot;写在方法的声明处。指明此方法执行时，可能会抛出的异常类型。throws的方式只是将异常抛给了方法的调用者。并没真正将异常处理掉。 </p>
+    <p align="left">97.如果父类中被重写的方法没用throws方式处理异常，则子类重写的方法也不能使用throws，意味着如果子类重写的方法中异常，必须使用try-catch-finally方式处理。 </p>
+    <p align="left">98.子类重写的方法抛出的异常类型，不大于父类被重写的方法抛出的异常类型。 </p>
+    <p align="left">99.在程序执行中，除了自动抛出异常对象的情况之外，我们还可以手动的throw一个异常类的对象。</p>
+
+<p><img width="100%" src="a_clip_image011_0000.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>100.如何自定义一个异常类？</p>
+
+<p><img width="100%" src="a_clip_image012.jpg" alt="来了来了，100条必背JAVA知识点（下）" /></p>
+
+<p>-End-</p>
+    <p>&nbsp;</p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
