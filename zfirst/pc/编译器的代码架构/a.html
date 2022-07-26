@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+	color:#990000;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+    <p align="left"><strong>编译器的代码架构</strong><strong> </strong></p>
+
+<p>2022-07-25 <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAFE8hfWyLu6WnP5zye8AcpgDHMfufkFDkvnuhZG0p-ktFWcB9u1P3yDso3c3fZvlN/?source=tuwen_detail" target="_blank">底层技术栈</a></p>
+<p></p>
+
+<pre>
+1 词法分析 lexical analysis
+2 语法分析 syntax analysis, parsing;
+3 语义分析 semantic analysis
+4 中间代码生成（三地址码）
+6 寄存器分配
+7 指令选择
+8 机器码生成
+9 目标文件生成
+10 可执行文件的生成
+</pre>
+
+<p><strong>编译器</strong>，是把<strong>高级语言</strong>转化为<strong>机器语言</strong>的工具软件。</p>
+
+<p>高级语言的代码也是个<strong>文本字符串</strong>，所以<strong>编译器的前端</strong>与sed、gawk、grep是差不多的，都是广义上的<strong>字符串匹配</strong>。</p>
+
+<p>编译器把代码转化为<strong>机器码</strong>的<strong>过程</strong>如下：</p>
+
+<h3><strong>1</strong><strong> 词法分析 lexical analysis</strong></h3>
+
+<p>这是编译器里<strong>最简单的模块</strong>。</p>
+
+<p><strong>词法分析</strong>，就是通过<strong>查看下一个字符</strong>来确定怎么把<strong>代码字符串</strong>分割成一个个的<strong>语法词汇</strong>。</p>
+
+<p>起始符、终止符，是词法分析的主要概念。</p>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> day = 24 * 3600;
+</pre>
+
+
+<p>这行代码的<strong>第1个词是int</strong>，起始符是i，终止符是<strong>空格</strong>。</p>
+
+<p>在词法分析时它是一个<strong>标志符</strong>，也就是<strong>字母、下划线、数字</strong>组成的一个字符串，必须以字母或下划线开头。</p>
+
+<p>在分析出int这个标志符之后，它后面的<strong>空格</strong>就没用了，直接丢弃它。</p>
+
+<p><strong>第2个词day</strong>也是一个标志符，起始符是d，终止符也是空格。</p>
+
+<p>习惯把代码写得密集的人可能这么写：int day=24*3600;</p>
+
+<p>这时day的终止符是<strong>=</strong>，它同时还是下一个词的起始符，在把day加入词汇序列之后需要从=开始接着分析。</p>
+
+<p>第3个词是=，第4个词是24，第5个词是*，第6个词是3600，第7个词是分号;</p>
+
+<p>在词法分析时要把<strong>数字字符串24和3600</strong>转化为<strong>整数24和3600</strong>，这两个在程序里是不同的。</p>
+
+<p>10进制、16进制、8进制、2进制、浮点数的支持，都是词法分析时的任务。</p>
+
+<p>另外，<strong>转义字符串</strong>也要在这里支持。</p>
+
+<p>'\0' 在源代码里是<strong>字符串文本</strong>，包含着<strong>4个字符</strong>' \ 0 '，要转义成单个字符0。</p>
+
+<p>'\r' '\n' '\t'的处理和'\0'一样。</p>
+
+<p>词法分析还是很好写的。</p>
+
+<h3><strong>2</strong><strong> 语法分析 syntax analysis, parsing;</strong></h3>
+
+<p>这是编译器前端<strong>最难写</strong>的模块，它需要把<strong>源代码</strong>转化成<strong>一棵</strong>描述整个程序结构的<strong>多叉树</strong>。</p>
+
+<p>这个多叉树叫做<strong>抽象语法树</strong>（英文缩写<strong>AST</strong>）。</p>
+
+<p>类型、变量、运算符、函数定义、函数调用、if语句、for/while循环，都是这个这棵树的一部分。</p>
+
+<p>抽象语法树的层次结构，与源代码的结构是一样的。</p>
+
+<p>如果是这样的源代码的话：</p>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> sum = 0;
+<font color=#00F>for</font>(<font color=#00F>int</font> i = 0; i &lt; 8; i++) {
+   <font color=#00F> if</font>(i % 2 == 0)
+        sum += i;
+}
+</pre>
+
+
+<p>那么语法树是这样的：</p>
+
+<p><img border="0" width="100%" src="a_clip_image001.jpg" alt="技术文章：编译器的代码架构" /></p>
+
+<p>语法树</p>
+
+<p>初始化语句sum = 0与后续的for循环是顺序执行的，它们属于同一个顺序块，在语法树上有<strong>同一个父节点</strong>。</p>
+
+<p>for循环有<strong>4个子节点</strong>：<strong>初始化</strong>表达式i = 0，<strong>条件</strong>i &lt; 8，<strong>循环体</strong>if语句、<strong>更新</strong>表达式i++。</p>
+
+<p>其中循环体又是个if语句，具有2个子节点：条件表达式i % 2 == 0，主体sum += i。</p>
+
+<p><strong>while</strong><strong>循环</strong>的结构与for类似，只要去掉初始化表达式和更新表达式就行，只有2个节点。</p>
+
+<p>把词法分析之后的<strong>词汇序列</strong>转化成<strong>抽象语法树</strong>时，常用的方法是<strong>有限自动机</strong>。</p>
+
+<p>也可以把代码直接写成<strong>递归函数调用</strong>，但是后续<strong>改起语法来</strong>就比较麻烦。</p>
+
+<p>我一开始就是把scf的parse模块写成了递归函数调用，后来为了可以编辑语法，又自己做了个简单的有限自动机。</p>
+
+<h3><strong>3</strong><strong> 语义分析 semantic analysis</strong></h3>
+
+<p>把语法树遍历一遍，检查一下<strong>类型是否匹配</strong>，就是语义分析。</p>
+
+<p>如果要支持<strong>面向对象</strong>的话，就可以在这里进行<strong>函数重载</strong>和<strong>运算符重载</strong>。</p>
+
+<p><strong>常量表达式</strong>也要在这里计算出来，int day = 24 *3600要转化成day = 86400。</p>
+
+<p><img border="0" width="100%" src="a_clip_image002.jpg" alt="技术文章：编译器的代码架构" /></p>
+
+<p>常量表达式的计算</p>
+
+<p>对语法树进行遍历时，不同的<strong>语法节点</strong>使用的<strong>处理函数</strong>是<strong>不同</strong>的，这就是<strong>语义</strong>。</p>
+
+<p>符号=要当作赋值，符号+要当作加法，其他类似。</p>
+
+<p>C语言里常见的函数调用，语法树是这样的：</p>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+int<font color=#C00> printf</font>(<font color=#00F>const</font> char* fmt, ...);
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+   <font color=#C00> printf</font>("hello world\n");
+}
+</pre>
+
+
+<p>函数调用也是一个运算符，具有一个单独的语法节点，它的子节点都是它的参数：</p>
+
+<p>其中<strong>函数名</strong>也是一个参数，要转化为对应的<strong>函数体的</strong>节点的<strong>指针</strong>。</p>
+
+<p>通过这个指针才可以找到函数的代码，进行<strong>内联优化（inline）</strong>。</p>
+
+<p><img border="0" width="100%" src="a_clip_image003.jpg" alt="技术文章：编译器的代码架构" /></p>
+
+<p>函数调用和定义</p>
+
+<p>如果要是调用的<strong>外部函数</strong>，只有声明没有实现，那就没法内联了。</p>
+
+<h3><strong>4</strong><strong> 中间代码生成（三地址码）</strong></h3>
+
+<p>从这里开始就是<strong>编译器的后端</strong>了。</p>
+
+<p>这一步也是对语法树进行遍历，把对应的表达式、函数、if语句、for循环都变成类似汇编的三地址码。</p>
+
+<p>上面那段for循环，这时会被变成如下的三地址码序列：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+assign sum, 0
+assign i, 0
+start:      <font color=#CCC>// for循环的开头</font>
+cmp i, 8
+jge end     <font color=#CCC>// 条件不成立，则结束循环</font>
+assign t, i % 2   <font color=#CCC>// t是编译器生成的临时变量</font>
+cmp t, 0
+jne next
+add sum, sum, i   <font color=#CCC>// 这行才是三地址码</font>
+next:       <font color=#CCC>// 下一轮for循环</font>
+inc i       <font color=#CCC>// 循环变量+1</font>
+jmp start   <font color=#CCC>// 跳转回开头，继续循环</font>
+end：       <font color=#CCC>// for循环结束</font>
+</pre>
+
+
+<p>到了这里，那个复杂的<strong>树型结构</strong>已经变成<strong>线形结构</strong>了，可以按顺序写到一个文本文件里，这就是<strong>汇编代码</strong>。</p>
+
+<p><strong>到这里</strong>，编译器就可以生成<strong>类似gcc -S</strong>的汇编代码了。 </p>
+<h3 align="left"><strong>5</strong><strong> 中间代码优化</strong></h3>
+
+<p>这是编译器后端的主要部分，属于<strong>机器无关优化</strong>，这部分的优化是不依赖于<strong>CPU平台</strong>的。</p>
+
+<p>scf框架的这部分包含以下功能：</p>
+
+<p></p>
+
+<pre>
+1）内联函数
+2）有向无环图DAG的生成
+3）带二级指针参数的函数调用分析
+4）指针别名分析，也就是分析指针指向的变量
+5）活跃变量分析
+6）变量的加载保存分析
+7）需要自动内存管理的变量分析
+8）代码流程图的&lt;strong>深度优先排序
+9）自动内存管理代码的添加
+10）基本块内的优化
+11）循环分析
+</pre>
+
+
+<p>会把一些变量<strong>尽量</strong>在循环的<strong>入口加载</strong>，在循环<strong>出口保存</strong>，减少循环内的内存读写。</p>
+
+<p>没有<strong>常量传播</strong>的优化，哪天有空我把它添上</p>
+
+<h3><strong>6</strong><strong> 寄存器分配</strong></h3>
+
+<p>使用图的着色算法，之前的文章写过。</p>
+
+<h3><strong>7</strong><strong> 指令选择</strong></h3>
+
+<p>直接写在代码里的，没做龙书里提到的那个树的覆盖。</p>
+
+<h3><strong>8</strong><strong> 机器码生成</strong></h3>
+
+<p>根据intel x64的手册编写机器码就行。</p>
+
+<h3><strong>9</strong><strong> 目标文件生成</strong></h3>
+
+<p>也就是gcc -c 得到那个.o文件。</p>
+
+<p>Linux上的elf文件是什么样的就怎么写，可以参考<strong>linux的man手册</strong>里对<strong>elf</strong>的讲解。</p>
+
+<h3><strong>10</strong><strong> 可执行文件的生成</strong></h3>
+
+<p>这是<strong>连接器</strong>的功能，它把多个.o .a .so文件连接成一个可执行文件。</p>
+
+<p>这一步的代码在scf/elf目录，有兴趣的可以看看。</p>
+
+<p>连接之后的文件就可以在<strong>shell命令行</strong>里运行了。 </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
