@@ -1,0 +1,938 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>C20109</title><script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	width:100%;
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	overflow-x:auto;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>C20109</h4>
+
+
+<h3>一、选择题</h3>
+<p>((1)-(40)题每题1分,(41)-(50)题每题2分,共60分)</p>
+<p>下列各题A) 、B)、C)、D)四个选项中，只有一个选项是正确的，请将正确的选项涂写在答题卡相应位置上，答在试卷上不得分。</p>
+<h4>(l) 在计算机系统中，一个字节的二进制位数为（B）。</h4>
+<p>A) 16
+<p>B) 8
+<p>C) 4
+<p>D) 由 CPU的型号决定</p>
+<h4> (2) 存储 16×16点阵的一个汉字信息，需要的字节数为（A）。</h4>
+<p>A) 32
+<p>B) 64
+<p>C) 128
+<p>D) 256</p>
+<h4> (3) 英文大写字母B的ASCII码为42H，英文小写字母b的ASCII码为（D）。</h4>
+<p>A) 43H
+<p>B) 84H
+<p>C) 74H
+<p>D) 62H</p>
+<h4> (4) 下列计算机语言中，CPU能直接识别的是（D）。</h4>
+<p>A) 自然语言
+<p>B) 高级语言
+<p>C) 汇编语言 
+<p>D) 机器语言</p>
+<h4>
+ (5) 在计算机领域中，所谓"裸机"是指（C）。</h4>
+<p>A) 单片机
+<p>B) 单板机</p>
+<p>C) 不安装任何软件的计算机
+<p>D) 只安装操作系统的计算机</p>
+<h4> (6) 下列带有通配符的文件名中，能代表文件ABCDEF.DAT的是（A）。</h4>
+<p>A) A*.*
+<p>B) ?F.*
+<p>C) *.？
+<p>D) AB?.*</p>
+<h4> (7) 下列DOS命令中，执行时不会发生错误的是（B）。</h4>
+<p>A) TYPE *.TXT        
+<p>B) DIR *.TXT</p>
+<p>C) REN A.TXT A:b.TXT 
+<p>D) COPY *.TXT>CON</p>
+ 
+<h4> (8) 设当前盘为C盘，C盘的当前目录为\A\B\C。下列DOS 命令中能正确执行的是（D）。</h4>
+<p>A) MD \
+<p>B) MD A:\
+<p>C) MD \A\B 
+<p>D) CD C:</p>
+<h4> (9) 为了将C:\USER中的文件FILE.TXT同名复制到A盘根目录下，下列DOS命令中能正确执行的是（A）。</h4>
+<p>A) TYPE C:\USER\FILE.TXT > A:\FILE.TXT</p>
+<p>B) TYPE C:\USER\FILE.TXT A:\FILE.TXT</p>
+<p>C) COPY C:\USER\FILE.TXT > A:\FILE.TXT</p>
+<p>D) COPY C:\USER\FILE.TXT</p>
+<h4>(10) 在Windows下，当一个应用程序窗口被最小化后，该应用程序（C）。</h4>
+<p>A) 终止运行
+<p>B) 暂停运行
+<p>C) 继续在后台运行
+<p>D) 继续在前台运行</p>
+<h4> (11) 在Windows环境下，下列操作中与剪贴板无关的是（D）。</h4>
+<p>A) 剪切
+<p>B) 复制
+<p>C) 粘贴
+<p>D) 删除</p>
+<h4> (12) 在Windows环境下，实现窗口移动的操作是（A）。</h4>
+<p>A) 用鼠标拖动窗口中的标题栏
+<p>B) 用鼠标拖动窗口中的控制按钮</p>
+<p>C) 用鼠标拖动窗口中的边框
+<p>D) 用鼠标拖动窗口中的任何部位</p>
+<h4> (13) 一台计算机连入计算机网络后，该计算机（B）。</h4>
+<p>A) 运行速度会加快
+<p>B) 可以共享网络中的资源</p>
+<p>C) 内存容量变大
+<p>D) 运行精度会提高</p>
+<h4> (14) 不能作为计算机网络中传输介质的是（C）。</h4>
+<p>A) 微波
+<p>B) 光纤
+<p>C) 光盘
+<p>D) 双绞线</p>
+<h4> (15) 下列各项中，不属于多媒体硬件的是（D）。</h4>
+<p>A) 声卡
+<p>B) 光盘驱动器
+<p>C) 显示器
+<p>D) 多媒体制作工具</p>
+<h4> (16) 在C语言中，合法的长整型常数是（A）。</h4>
+<p>A) OL
+<p>B) 4962710
+<p>C) 324562&
+<p>D) 216D</p>
+<h4> (17) 以下有4组用户标识符，其中合法的一组是（C）。</h4>
+<pre>
+A) For    B) 4d   C) f2_G3   D) WORD
+   -sub       DO          IF               void
+   Case       Size        abc             define
+</pre>
+<h4> (18) 以下选项中合法的字符常量是（B）。</h4>
+<p>A)"B"
+<p>B) ‘\010’
+<p>C) 68 
+<p>D) D</p>
+<h4> (19) 假定x和y为 double型，则表达式x=2,y=x+3/2的值是（D）。</h4>
+<p>A) 3.500000
+<p>B) 3
+<p>C) 2.000000
+<p>D) 3.000000</p>
+<h4> (20) 以下合法的赋值语句是（B）。</h4>
+<p>A) x=y=100
+<p>B) d--;
+<p>C) x+y;
+<p>D) c=int(a+b);</p>
+<h4> (21) 设x、y均为整型变量，且x=10 y=3，则以下语句的输出结果是（D）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+printf("%d,%d\n",x--,--y);
+</pre>
+
+<p>A) 10,3
+<p>B) 9.3
+<p>C) 9.2 
+<p>D) 10,2</p>
+<h4> (22) x、y、z被定义为int型变量，若从键盘给x、y、z输入数据，正确的输入语句是(B)</h4>
+<p>A) INPUT x、y、z;          
+<p>B) scanf("%d%d%d",&x,&y,&z);</p>
+<p>C) scanf("%d%d%d",x,y,z);
+<p>D) read("%d%d%d",&x,&y,&z);</p>
+<h4> (23) 以下程序的输出结果是（D）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>a=3;
+   <font color=#C00> printf</font>("%d\n",(a+=a-=a*a) );
+}
+</pre>
+<p>A) –6
+<p>B) 12
+<p>C) 0
+<p>D) -12</p>
+<h4> (24) 设 a、b、C、d、m、n均为 int型变量，且 a=5、b=6、c=7、d=8、m=2、n=2，则逻辑表达式 (m=a>b)&&(n=c>d)运算后，n的值位为（C）。</h4>
+<p>A) 0
+<p>B) 1 
+<p>C) 2
+<p>D) 3</p>
+<h4> (25) 阅读以下程序：</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>x;
+   <font color=#C00> scanf</font>("%d",&x);
+   <font color=#00F> if</font>(x--&lt;5)
+       <font color=#C00> printf</font>("%d",x);
+    else
+       <font color=#C00> printf</font>("%d",x++);
+}
+</pre>
+<h4>程序运行后，如果从键盘上输人5，则输出结果是（B）。</h4>
+<p>A) 3
+<p>B) 4
+<p>C) 5
+<p>D) 6</p>
+<h4> (26) 假定w、x、y、z、m均为int型变量，有如下程序段：</h4>
+<p></p>
+
+<pre>
+ｗ=１;ｘ=２;ｙ=３;ｚ=４;
+ｍ=(ｗ&lt;ｘ)?ｗ:ｘ;
+ｍ=(ｍ&lt;ｙ)?ｍ:ｙ;
+ｍ=(ｍ&lt;ｚ)?ｍ:ｚ;
+</pre>
+
+<p>则该程序运行后，m的值是（D）。</p>
+<p>A) 4
+<p>B) 3
+<p>C) 2
+<p>D) 1</p>
+<h4> (27) t为int类型，进人下面的循环之前，t的值为0</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>while</font>( t=1 )
+{
+    …… 
+}
+</pre>
+<p>则以下叙述中正确的是（B）。</p>
+<p>A) 循环控制表达式的值为0
+<p>B) 循环控制表达式的值为1</p>
+<p>C) 循环控制表达式不合法 
+<p>D) 以上说法都不对</p>
+<h4> (28) 以下程序的输出结果是（B）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>num= 0;
+   <font color=#00F> while</font>(num&lt;=2)
+    {
+        num++;
+       <font color=#C00> printf</font>("%d\n",num);
+    }
+}
+</pre>
+<pre>
+A)1
+<p>B) 1 C)1
+<p>D) l
+  2    2   2
+  3    3
+  4
+</pre>
+<h4> (29) 以下各选项企图说明一种新的类型名，其中正确的是（C）。</h4>
+<p>A) typedef v1 int;
+<p>B) typedef v2=int;</p>
+<p>C) typedef int v3;
+<p>D) typedef v4: int;</p>
+<h4> (30) 在调用函数时，如果实参是简单变量，它与对应形参之间的数据传递方式是（B）。</h4>
+<p>A) 地址传递
+<p>B) 单向值传递</p>
+<p>C) 由实参传给形参，再由形参传回实参
+<p>D) 传递方式由用户指定</p>
+<h4> (31) 以下函数值的类型是（A）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+fun ( <font color=#00F>float </font>x )
+{
+    <font color=#00F>float </font>y;
+    y= 3*x-4;
+    <font color=#00F>return </font>y;
+}
+</pre>
+<p>A) int
+<p>B) 不确定
+<p>C) void
+<p>D) float</p>
+<h4>(32 ) 设有以下函数：</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+f ( <font color=#00F>int </font>a)
+{
+    <font color=#00F>int </font>b=0;
+    <font color=#00F>static </font><font color=#00F>int </font>c = 3;
+    b++; c++;
+   <font color=#00F> return</font>(a+b+c);
+}
+</pre>
+<p>如果在下面的程序中调用该函数，则输出结果是（A）。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>a = 2, i;
+   <font color=#00F> for</font>(i=0;i&lt;3;i++)
+       <font color=#C00> printf</font>("%d\n",f(a));
+}
+</pre>
+<pre>
+A)7  B)7  C) 7  D)7
+   8      9      10       7
+   9     11      13       7
+</pre>
+<h4> (33) 以下程序的输出结果是(A)</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>char </font>c=’z’;
+   <font color=#C00> printf</font>("%c",c-25);
+}
+</pre>
+<p>A) a
+<p>B) Z
+<p>C) z-25
+<p>D) y</p>
+<h4> (34) 以下选项中，非法的字符常量是（C）。</h4>
+<p>A) ‘\t’
+<p>B) ‘\17’ <p>C） "n"
+<p>D) ‘\xaa’</p>
+<h4> (35) 若有说明：int i, j=2，*p=&i;，则能完成i=j赋值功能的语句是（B）。</h4>
+<p>A) i=*p;
+<p>B) *p=*&j;
+<p>C) i=&j;
+<p>D) i=**p;</p>
+<h4> (36) 以下定义语句中，错误的是（D）。</h4>
+<p>A) int a[]={1,2};      
+<p>B) char *a[3];</p>
+<p>C) char s[10]="test";
+<p>D) int n=5,a[n];</p>
+<h4> (37) 假定int类型变量占用两个字节，其有定义：int x[10]={0,2,4};，则数组x在内存中所占字节数是（D）。</h4>
+<p>A) 3
+<p>B) 6
+<p>C) 10
+<p>D) 20</p>
+<h4> (38) 以下程序的输出结果是（C）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>i, a[10];
+   <font color=#00F> for</font>(i=9;i>=0;i--)
+        a[i]=10-i;
+   <font color=#C00> printf</font>("%d%d%d",a[2],a[5],a[8]);
+}
+</pre>
+<p>A) 258
+<p>B) 741
+<p>C) 852
+<p>D) 369</p>
+<h4> (39) 以下数组定义中不正确的是（D）。</h4>
+<p>A) int a[2][3];</p>
+<p>B) int b[][3]={0,1,2,3};</p>
+<p>C) int c[100][100]={0};</p>
+<p>D) int d[3][]={{1,2},{1,2,3},{1,2,3,4}};</p>
+<h4> (40) 以下程序的输出结果是（A）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>a[4][4]={{1,3,5},{2,4,6},{3,5,7}};
+   <font color=#C00> printf</font>("%d%d%d%d\n",a[0][3],a[1][2],a[2][1],a[3][0];
+}
+</pre>
+<p>A) 0650
+<p>B) 1470
+<p>C) 5430
+<p>D) 输出值不定</p>
+<h4> (41) 以下程序的输出结果是（B）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>char </font>st[20]= "hello\0\t\\\";
+   <font color=#C00> printf</font>(%d %d \n",strlen(st),<font color=#00F>sizeof</font>(st));
+}
+</pre>
+<p>A) 9 9
+<p>B) 5 20
+<p>C) 13 20
+<p>D) 20 20</p>
+<h4> (42) 以下选项中，不能正确赋值的是（A）。</h4>
+<p>A) char s1[10];s1="Ctest";</p>
+<p>B) char s2[]={'C', 't', 'e', 's', 't'};</p>
+<p>C) char s3[20]="Ctest";</p>
+<p>D) char *s4="Ctest\n"</p>
+<h4> (43) 以下程序的输出结果是（A）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> &lt;stdio.h>
+<font color=#C00>#include</font> &lt;stdlib.h>
+<font color=#00F>void</font> amovep(<font color=#00F>int</font> *p, <font color=#00F>int </font>(*a)[3],<font color=#00F>int</font> n)
+{
+    <font color=#00F>int </font>i, j;
+   <font color=#00F> for</font>( i=0;i&lt;n;i++)
+       <font color=#00F> for</font>(j=0;j&lt;3;j++)
+            p[3*i+j]=a[i][j];
+}
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>*p,a[3][3]={{1,3,5},{2,4,6}};
+    p=(<font color=#00F>int</font> *)malloc(100);
+    amovep(p,a,3);
+   <font color=#C00> printf</font>("%d%d \n",p[2],p[5]);
+    free(p);
+    getchar();
+}
+</pre>
+<p>A) 56
+<p>B) 25
+<p>C) 34
+<p>D) 程序错误</p>
+<h4> (44) 以下程序的输出结果是（D）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> &lt;stdio.h>
+<font color=#00F>struct</font> HAR
+{
+    <font color=#00F>int </font>x, y;
+    <font color=#00F>struct </font>HAR *p;
+} h[2];
+<font color=#00F>main</font>()
+{
+    h[0].x=1;h[0].y=2;
+    h[1].x=3;h[1].y=4;
+    h[0].p=&h[1],h[1].p=&h[0];
+   <font color=#C00> printf</font>("%d%d \n",(h[0].p)->x,(h[1].p)->y);
+    getchar();
+}
+</pre>
+<p>A) 12
+<p>B) 23
+<p>C) 14
+<p>D) 32</p>
+<h4> (45) 以下程序的输出结果是（D）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>a, b;
+   <font color=#00F> for</font>(a=1, b=1; a&lt;=100; a++)
+    {
+       <font color=#00F> if</font>(b>=10) break;
+       <font color=#00F> if</font>(b%3==1)
+        {
+            b+=3; continue;
+        }
+    }
+   <font color=#C00> printf</font>("%d\n",a);
+}
+</pre>
+<p>A) 101
+<p>B) 6
+<p>C) 5
+<p>D) 4</p>
+<h4> (46) 以下程序的输出结果是（D）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>union</font> myun
+{
+    struct
+    {
+        <font color=#00F>int </font>x, y, z;
+    } u;
+    <font color=#00F>int </font>k;
+} a;
+<font color=#00F>main</font>()
+{
+    a.u.x=4; a.u.y=5; a.u.z=6;
+    a.k=0;
+   <font color=#C00> printf</font>(%d\n",a.u.x);
+}
+</pre>
+<p>A) 4
+<p>B) 5
+<p>C) 6
+<p>D) 0</p>
+<h4> (47) 以下程序的输出结果是（B）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> a, b;
+<font color=#00F>void</font> fun()
+{
+    a=100; b=200; 
+}
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int</font> a=5, b=7;
+    fun();
+   <font color=#C00> pr<font color=#00F>int</font>f</font>("%d％d \n", a,b);
+}
+</pre>
+<p>A) 100200
+<p>B) 57
+<p>C) 200100
+<p>D) 75</p>
+<h4> (48) 以下程序的输出结果是（D）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>#define</font> M(x,y,z) x*y+z
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>a=1,b=2, c=3;
+   <font color=#C00> printf</font>("%d\n", M(a+b,b+c, c+a));
+}
+</pre>
+<p>A) 19
+<p>B) 17
+<p>C) 15
+<p>D) 12</p>
+<h4> (49) 整型变量x和y的值相等、且为非0值，则以下选项中，结果为零的表达式是（D）。</h4>
+<p>A) x || y
+<p>B) x | y
+<p>C) x & y
+<p>D) x ^ y</p>
+<h4> (50) 下面的程序执行后，文件testt.t中的内容是（A）。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font>&lt;stdio.h>
+<font color=#C00>#include</font>&lt;string.h>
+<font color=#00F>void</font> fun(<font color=#00F>char</font> *fname,<font color=#00F>char</font> *st)
+{
+    FILE *myf; <font color=#00F>int </font>i;
+    myf=fopen(fname,"w" );
+   <font color=#00F> for</font>(i=0;i&lt;strlen(st);i++)
+        fputc(st[i],myf);
+    fclose(myf);
+}
+<font color=#00F>main</font>()
+{
+    fun("test","new world"); 
+    fun("test","hello,");
+}
+</pre>
+<p>A）hello， B）new worldhello， C）new world D） hello, rld</p>
+<h3>二、填空题(每空2分，共40分)</h3>
+<p>请将每一个空的正确答案写在答题卡【l】至【20】序号的横线上，答在试卷上不得分。</p>
+<p>（l）为了将当前盘当前目录中的所有文本文件（扩展名为.TXT）的内容打印输出，正确的单条DOS命令为 【copy *.TXT PRN】 。</p>
+<p> （2）设当前盘为C盘。为了在A盘的当前自录\USER下建立一个新的子目录X，正确的DOS命令为 【MD A\USER\X】 。</p>
+<p> （3）在 XCOPY、COPY、TIME三个 DOS命令中，属于外部命令的是 【XCOPY】 。</p>
+<p> （4）在32位的计算机中，一个字长等于【4】个字节。</p>
+<p> （5）计算机网络分为局域网和广域网，因特网属于 【广域网】 。</p>
+<p> （6）语句：x++; ++x; x=x+1; x=l+x; ，执行后都使变量x中的值增1，请写出一条同一功能的赋值语句（不得与列举的相同） 【x+=1;】 。</p>
+<p> （7）设y是int型变量，请写出判断y为奇数的关系表达 【y%2==1】 。</p>
+<h4> （8）以下程序运行后的输出结果是 【52】 。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>i=10, j=0;
+    <font color=#00F>do</font>{
+        j=j+i; i--;
+    }<font color=#00F>while</font>(i>2);
+   <font color=#C00> printf</font>("%d\n",j);
+}
+</pre>
+<h4> (9) 设有以下程序:</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>n1,n2;
+   <font color=#C00> scanf</font>("%d",&n2);
+   <font color=#00F> while</font>(n2!=0)
+    {
+        n1=n2%10;
+        n2=n2/10;
+       <font color=#C00> printf</font>("%d",n1);
+    }
+}
+</pre>
+<p>程序运行后，如果从键盘上输入1298；则输出结果为 【8921】 。</p>
+<h4> (10) 以下程序输出的最后一个值是【120】 。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> ff(<font color=#00F>int</font> n)
+{
+    <font color=#00F>static </font><font color=#00F>int</font> f=l;
+    f=f*n;
+    <font color=#00F>return </font>f;
+}
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int</font> i;
+   <font color=#00F> for</font>(i=1;i&lt;=5;i++)
+       <font color=#C00> pr<font color=#00F>int</font>f</font>("%d\n",ff(i));
+}
+</pre>
+<h4> (11) 以下函数的功能是：求x的y次方，请填空。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>double</font> fun( <font color=#00F>double</font> x, <font color=#00F>int </font>y)
+{
+    <font color=#00F>int </font>i;
+    <font color=#00F>double</font> z;
+   <font color=#00F> for</font>(i=1, z=x; i&lt;y;i++)
+        z *= x;
+    <font color=#00F>return </font>z;
+}
+</pre>
+<h4> (12) 设有以下程序：</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>main</font>()
+{
+    <font color=#00F>int </font>a, b, k=4, m=6, *p1=&k, *p2=&m;
+    a=pl==&m;
+    b=(*p1)／(*p2)+7;
+   <font color=#C00> printf</font>("a=%d\n",a);
+   <font color=#C00> printf</font>("b=%d\n",b);
+}
+</pre>
+<p>执行该程序后，a的值为【0】 ，b的值为【7】 。</p>
+<h4> (13) 若已定义：</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>int</font> a[10], i;
+</pre>
+<p>以下fun函数的功能是：在第一个循环中给前10个数组元素依次赋1、2、3、4、5、6、7、8、9、10；在第二个循环中使a数组前10个元素中的值对称折叠，变成1、2、3、4、5、5、4、3、2、1。请填空。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+fun( <font color=#00F>int </font>a[])
+{
+    <font color=#00F>int </font>i;
+   <font color=#00F> for</font>(i=1; i&lt;=10; i++)
+        【a[i-1】=i;
+   <font color=#00F> for</font>(i=0; i&lt;5; i++)
+        【a[10-i-1】=a[i];
+}
+</pre>
+<h4> (14) 以下程序运行后的输出结果是 【9876 876】 。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>char</font> s[]="9876",*p;
+   <font color=#00F> for</font>(p=s; p&lt;s+2;p++)
+       <font color=#C00> printf</font>("%s\n",p);
+</pre>
+<h4> (15) 若有定义语句：</h4> 
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>char</font> s[100],d[100]; 
+<font color=#00F>int</font> j=0, i=0;
+</pre>
+<p>且s中已赋字符串，请填空以实现字符串拷贝。（注：不得使用逗号表达式）</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>while</font>(s[i]){
+    d[j]= 【s[i++]】;
+    j++;
+}
+d[j]=0;
+</pre>
+<h4> (16) 以下程序段用于构成一个简单的单向链表，请填空。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> STRU
+{
+    <font color=#00F>int </font>x, y ;
+    <font color=#00F>float </font>rate;
+    【<font color=#00F>struct</font> STRU*】 p;
+} a, b;
+a.x=0; a.y=0; a.rate=0; a.p=&b;
+b.x=0; b.y=0; b.rate=0; b.p=NULL;
+</pre>
+<h4> (l7) 若有如下结构体说明：</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>struct</font> STRU
+{
+    <font color=#00F>int </font>a, b ; <font color=#00F>char </font>c; <font color=#00F>double </font>d;
+    <font color=#00F>struct</font> STRU* p1,p2;
+};
+</pre>
+<p>请填空，以完成对t数组的定义，t数组的每个元素为该结构体类型</p>
+<p>【struct STRU】 t[20];</p>
+<h4> (18) 以下程序段打开文件后，先利用 fseek函数将文件位置指针定位在文件末尾，然后调用ftell函数返回当前文件位置指针的具体位置，从而确定文件长度，请填空。</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+FILE *myf; <font color=#00F>long </font>f1;
+myf= 【fopen】 ("test.t","rb");
+fseek(myf,0,SEEK_END); f1=ftel(myf);
+fclose(myf);
+<font color=#C00>printf</font>("%d\n",f1);
+</pre>
+
+
+<p style='float:right;'>本页共507段，17270个字符，21982 Byte(字节)</p>﻿
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
