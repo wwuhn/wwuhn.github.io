@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CPP的RTTI观念和用途</title><script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:1.1em;
+	font-weight:bold;
+	text-indent:0em;
+	color:#990000;
+}
+h4{
+	font-size:1.0em;
+	font-weight:bold;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	width:100%;
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	color:blue;
+	overflow-x:auto;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+<h4>CPP的RTTI观念和用途</h4>
+
+
+<p>自从1993年Bjarne Stroustrup提出有关C++的RTTI功能之建议﹐以及C++的异常处理(exception handling)需要RTTI；最近新推出的C++多或少已提供RTTI。然而，若不小心使用RTTI，可能会导致软件弹性的降低。本文将介绍RTTI的观念和近况﹐并说明如何善用它。</p>
+<h3>一、什么是RTTI﹖</h3>
+<p>在C++环境中﹐头文件(header file)含有类之定义(class definition)，亦即包含有关类的结构资料(representational information)。但是﹐这些资料只供编译器(compiler)使用﹐编译完毕后并未留下来﹐所以在执行时期(at run-time)﹐无法得知对象的类资料﹐包括类名称、数据成员名称与类型、函数名称与类型等等。例如﹐两个类Figure和Circle﹐有继承关系。</p>
+<p>若有如下指令﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+Figure *p; 
+p = <font color=#00F>new </font>Circle(); 
+Figure &q = *p;
+</pre>
+在执行时﹐p指向一个对象﹐但欲得知此对象之类资料﹐就有困难了。同样欲得q所参考(reference)对象的类资料﹐也无法得到。RTTI(Run-Time Type Identification)就是要解决这类困难﹐也就是在执行时﹐您想知道指针所指到或参考到的对象类型时﹐该对象有能力来告诉您。随着应用场合之不同﹐所需支持的RTTI范围也不同。最单纯的RTTI包括﹕
+<p>I 类识别(class identification)──包括类名称或ID。</p>
+<p>II 继承关系(inheritance relationship)──支持执行时期的「往下变换类型」(downward casting)﹐亦即动态变换类型(dynamic casting)。</p>
+<p>在对象数据库存取上﹐还需要下述RTTI﹕</p>
+<p>III 对象结构(object layout)──包括属性的类型、名称及其位置（position或offset）。
+</p>
+<p>IV 成员函数表(table of functions)──包括函数的类型、名称、及其参数类型等。</p>
+<p>其目的是协助对象的I/O和持久化(persistence)﹐也提供调试讯息等。</p>
+<p>若依照Bjarne Stroustrup之建议﹐C++还应包括更完整的RTTI﹕</p>
+<p>V 能得知类所实例化的各对象。</p>
+<p>VI 能参考到函数的源代码。</p>
+<p>VII 能取得类的有关在线说明(on-line documentation)。</p>
+<p>其实这些都是C++编译完成时所丢弃的资料﹐如今只是希望寻找个途径来将之保留到执行期间。然而﹐要提供完整的RTTI﹐将会大幅提高C++的复杂度﹗</p>
+<h3>二、RTTI可能伴随的副作用</h3>
+<p>RTTI最主要的副作用是﹕程序员可能会利用RTTI来支持其「复选」(multiple-selection)方法﹐而不使用虚函数(virtual function)方法。</p>
+<p>虽然这两种方法皆能达到多态化(polymorphism)﹐但使用复选方法﹐常导致违反著名的「开放╱封闭原则」(open/closed principle)。反之﹐使用虚函数方法则可合乎这个原则。</p>
+<p>Circle和Square皆是由Figure所派生出来的子类﹐它们各有自己的draw()函数。当C++提供了RTTI﹐就可写个函数如下﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+<font color=#00F>void</font> drawing( Figure *p )
+{
+   <font color=#00F> if</font>(<font color=#00F> typeid</font>(*p).name() == "Circle"
+ )
+    ((Circle*)p) -> draw();
+   <font color=#00F> if</font>(<font color=#00F> typeid</font>(*p).name() == "Rectang
+le" )
+    ((Rectangle*)p) -> draw();
+}
+</pre>
+<p>虽然drawing()函数也具有多型性﹐但它与Figure类体系的结构具有紧密的相关性。当Figure类体系再派生出子类时﹐drawing()函数的内容必须多加个if指令。因而违反了「开放╱封闭原则」﹐如下﹕</p>
+<p>很显然地﹐drawing()函数应加以修正。</p>
+<p>想一想﹐如果C++并未提供RTTI﹐则程序员毫无选择必须使用虚函数来支持drawing()函数的多型性。于是程序员将draw()宣告为虚函数﹐并写drawing()如下﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+<font color=#00F>void</font> drawing(Figure *p)
+{
+    p->draw();
+}
+</pre>
+<p>如此﹐Figure类体系能随时派生类﹐而不必修正drawing()函数。亦即﹐Figure体系有个稳定的接口(interface)﹐drawing()使用这接口﹐使得drawing()函数也稳定﹐不会随Figure类体系的扩充而变动。这是封闭的一面。而这稳定的接口并未限制Figure体系的成长﹐这是开放的一面。
+因而合乎「开放╱封闭」原则﹐软件的结构会更具弹性﹐更易于随环境而不断成长。</p>
+<h3>三、RTTI的常见的使用场合</h3>
+<p>一般而言﹐RTTI的常见使用场合有四﹕异常处理(exceptions handling)、动态转类型(dynamic casting)、模块集成、以及对象I/O。</p>
+<p>3.1 异常处理──大家所熟悉的C++新功能﹕异常处理﹐其需要RTTI﹐如类名称等。</p>
+<p>3.2 动态转类型──在类体系(class hierarchy)中﹐往下的类型转换需要类继承的RTTI。
+</p>
+<p>3.3 模块集成──当某个程序模块里的对象欲跟另一程序模块的对象沟通时﹐应如何得知对方的身分呢﹖知道其身份资料﹐才能呼叫其函数。一般的C++程序﹐常见的解决方法是──在源代码中把对方对象之类定义（即存在头文件里）包含进来﹐在编译时进行连结工作。然而﹐像目前流行的主从(Client-Server)架构中﹐客户端(client)的模块对象﹐常需与主机端(server)的现成模块对象沟通﹐它们必须在执行时沟通﹐但又常无法一再重新编译。于是靠标头文件来提供的类定义资料﹐无助于执行时的沟通工作﹐只得依赖RTTI了。</p>
+<p>3.4 对象I/O──C++程序常将其对象存入数据库﹐未来可再读取之。对象常内含其它小对象﹐因之在存入数据库时﹐除了必须知道对象所属的类名称﹐也必须知道各内含小对象之所属类﹐才能完整地将对象存进去。储存时﹐也将这些RTTI资料连同对象内容一起存入数据库中。未来读取对象时﹐可依据这些RTTI资料来分配内存空间给对象。</p>
+<h3>四、RTTI从那里来﹖</h3>
+<p>上述谈到RTTI的用途﹐以及其副作用。这众多争论﹐使得RTTI的标准迟迟未呈现出来。也导致各C++开发环境提供者﹐依其环境所需而以各种方式来支持RTTI﹐且其支持RTTI的范围也所不同。目前常见的支持方式包括﹕</p>
+<p>I 由类库提供RTTI──例如﹐Microsoft公司的Visual C++环境。</p>
+<p>II 由C++编译器(compiler)提供──例如﹐Borland C++4.5 版本。</p>
+<p>III 由源代码产生器(code generator)提供──例如Bellvobr系统。</p>
+<p>IV 由OO数据库的特殊预处理器(preprocessor)提供──例如Poet系统。</p>
+<p>V 由程序员自己加上去。</p>
+<p> 这些方法皆只提供简单的RTTI﹐其仅为Stroustrup先生所建议RTTI内涵的部分集合而已。相信不久的将来﹐会由C++编译器来提供ANSI标准的RTTI﹐但何时会订出这标准呢﹖没人晓得吧﹗
+</p>
+<h4>4.1 程序员自己提供的RTTI</h4>
+<p>通常程序员自己可提供简单的RTTI﹐例如提供类的名称或识别(TypeID)。最常见的方法是﹕为类体系定义些虚函数如Type_na()及Isa()函数等。请先看个例子﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> Figure { };
+
+<font color=#00F>class</font> Rectangle : <font color=#00F>public </font>Figure { };
+
+<font color=#00F>class</font>Square : <font color=#00F>public </font>Rectangle
+{
+    <font color=#00F>int </font>data;
+<font color=#00F>public</font>:
+    Square() { data=88; }
+    <font color=#00F>void</font> Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>;  
+};
+
+<font color=#00F>void</font><font color=#00F> main</font>()
+{
+    Figure *f = <font color=#00F>new </font>Rectangle();
+    Square *s = (Square *)f;
+    s -> Display();
+}
+</pre>
+<p>这时s指向Rectangle之对象﹐而s->Display()呼叫Square::Display()﹐将找不到data值。若在执行时能利用RTTI来检查之﹐就可发出错误讯息。于是﹐自行加入RTTI功能﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+<font color=#00F>class</font> Figure
+{
+<font color=#00F>public</font>:
+    <font color=#00F>virtual </font>char* Type_na() { <font color=#00F>return </font> "Figure"; }
+    <font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=#00F> char</font>* cna) { <font color=#00F>return </font>!strcmp(cna, "Figure")? 1:0; }
+};
+
+<font color=#00F>class</font> Rectangle:public Figure
+{
+<font color=#00F>public</font>:
+    <font color=#00F>virtual </font>char* Type_na() { <font color=#00F>return </font> "Rectangle"; }
+    <font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=#00F> char</font>* cna)  {
+        <font color=#00F>return </font>!strcmp(cna, "Rectangle")?1 : Figure::Isa(cna); }
+    <font color=#00F>static </font>Rectangle* Dynamic_cast(Figure* fg) {
+        <font color=#00F>return </font>fg -> Isa(Type_na())?(Rectangle*)fg : 0; }
+};
+
+<font color=#00F>class</font> Square:public Rectangle
+{
+    <font color=#00F>int </font>data;
+public:
+    Square() { data=88; }
+    <font color=#00F>virtual </font>char* Type_na() { <font color=#00F>return </font>"Square"; }
+    <font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=# 00F>char</font>* cna) {
+        <font color=#00F>return </font>!strcmp(cna, "Rectangle")? 1 : Rectangle::Isa(cna); }
+    <font color=#00F>static </font>Square* Dynamic_cast(Figure *fg)  {
+        <font color=#00F>return </font>fg->Isa(Type_na())? (Square*)fg : 0; }
+    <font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; "888" &lt;&lt;<font color=#C00> endl</font>; }
+};
+
+</pre>
+<p>虚函数Type_na()提供类名称之RTTI﹐而Isa()则提供继承之RTTI﹐用来支持「动态转类型」函数──Dynamic_cast()。例如﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+Figure *f = <font color=#00F>new </font>Rectangle();
+<font color=#C00>cout</font> &lt;&lt; f -> Isa("Square") &lt;&lt;<font color=#C00> endl</font>;
+<font color=#C00>cout</font> &lt;&lt; f -> Isa("Figure") &lt;&lt;<font color=#C00> endl</font>;
+</pre>
+
+<p>这些指令可显示出﹕f所指向之对象并非Square之对象﹐但是Figure之对象（含子孙对象）。再如﹕</p>
+
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+Figure *f; Square *s; 
+f = <font color=#00F>new </font>Rectangle(); 
+s = Square == Dynamic_cast(f); 
+<font color=#00F>if</font>(!s) 
+   <font color=#C00> cout</font> &lt;&lt; "dynamic_cast error!!" &lt;&lt;<font color=
+#C00> endl</font>;
+</pre>
+<p>此时﹐依RTTI来判断出这转类型是不对的。</p>
+<h4>4.2 类库提供RTTI</h4>
+<p>由类库提供RTTI是最常见的﹐例如Visual C++的MFC类库内有个CRuntimeClass类﹐其内含简单的RTTI。请看个程序﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+<font color=#00F>class</font> Figure:public CObject
+{
+    DECLARE_DYNAMIC(Figure);
+};
+<font color=#00F>class</font> Rectangle : <font color=#00F>public </font>Figure
+{
+    DECLARE_DYNAMIC(Rectangle);
+};
+<font color=#00F>class</font> Square : <font color=#00F>public </font>Rectangle
+{
+    DECLARE_DYNAMIC(Square);
+    <font color=#00F>int </font>data;
+<font color=#00F>public</font>:
+    <font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>; }
+    Square() { data=88; }
+};
+IMPLEMENT_DYNAMIC(Figure, CObject); 
+IMPLEMENT_DYNAMIC(Rectangle, Figure); 
+IMPLEMENT_DYNAMIC(Square, Rectangle);
+</pre>
+<p>Visual C++程序依赖这些宏(Macor)来支持RTTI。现在就看看如何使用CRuntimeClass类吧﹗如下﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+CRuntimeClass *r;
+Figure *f = <font color=#00F>new </font>Rectangle();
+r = f -> GetRuntimeClass();
+<font color=#C00>cout</font> &lt;&lt; r -> m_psClassName &lt;&lt;<font color=#C00> endl</font>;
+</pre>
+<p>这就在执行时期得到类的名称。Visual C++的类库仅提供些较简单的RTTI──类名称、对象大小及父类等。至于其它常用的RTTI如──数据项的类型及位置(position)等皆未提供。</p>
+<h4>4.3 C++编译器提供RTTI</h4>
+<p>由C++语言直接提供RTTI是最方便了﹐但是因RTTI的范围随应用场合而不同﹐若C++语言提供所有的RTTI﹐将会大幅度增加C++的复杂度。目前﹐C++语言只提供简单的RTTI﹐例如Borland C++新增typeid()操作数以及dynamic_cast&lt;T*>函数样版。请看个程序﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> Figure
+{
+<font color=#00F>public</font>:
+    <font color=#00F>virtual </font>void Display();
+};
+
+<font color=#00F>class</font> Rectangle : <font color=#00F>public </font>Figure { };
+<font color=#00F>class</font> Square:public Rectangle
+{
+    <font color=#00F>int </font>data;
+<font color=#00F>public</font>:
+    Square() { data=88; }
+    <font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>; }
+};
+</pre>
+<p>现在看看如何使用typeid()操作数──</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+Figure *f = <font color=#00F>new </font>Square(); 
+<font color=#00F>const</font> typeinfo ty =<font color=#00F> typeid</font>(*f);
+cout &lt;&lt; ty.name() &lt;&lt; endl; 
+</pre>
+<p>这会告诉您﹕f 指针所指的对象﹐其类名称是Square。ic_cast<T*>函数样版──</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+Figure *f; Square *s;
+f = <font color=#00F>new </font>Rectangle();
+s = dynamic_cast&lt;Sqiare *>(f);
+<font color=#00F>if</font>(!s)
+   <font color=#C00> cout</font> &lt;&lt; "dynamic casting error!!" &lt;&lt;<font col
+or=#C00> endl</font>;
+</pre>
+<p>在执行时﹐发现f是不能转为Square *类型的。如下指令﹕</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+Figure *f; Rectangle *r;
+f = <font color=#00F>new </font>Square();
+r = dynamic_cast&lt;Rectangle *>(f);
+<font color=#00F>if</font>(r) 
+    r->Display();
+</pre>
+<p>这种类型转换是对的。</p>
+<h3>五、 RTTI与虚函数表</h3>
+<p>在C++程序中﹐若类含有虚函数﹐则该类会有个虚函数表（Virtual Function Table﹐简称VFT）。为了提供RTTI﹐C++就将在VFT中附加个指针﹐指向typeinfo对象﹐这对象内含RTTI资料.
+</p>
+<p>由于该类所实例化之各对象﹐皆含有个指针指向VFT表﹐因之各对象皆可取出typeinfo对象而得到RTTI。例如﹐</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
+margin-left:2em; color:black; ">
+Figure *f1 = <font color=#00F>new </font>Square(); 
+Figure *f2 = <font color=#00F>new </font>Square(); 
+<font color=#00F>const</font> typeinfo ty =<font color=#00F> typeid</font>(*f2);
+</pre>
+<p>其中﹐typeid(*f2)的动作是﹕</p>
+<p>1.取得f2所指之对象。</p>
+<p>2.从对象取出指向VMF之指针﹐经由此指针取得VFT表。</p>
+<p>3.从表中找出指向typeinfo对象之指针﹐经由此指针取得typeinfo对象。</p>
+<p>这typeinfo对象就含有RTTI了。经由f1及f2两指针皆可取得typeinfo对象﹐所以typeid(*f2) == typeid(*f1)。</p>
+<h3>六、总结</h3>
+<p>RTTI是C++的新功能。过去﹐C++语言来提供RTTI时﹐大多依赖类库来支持﹐但各类库使用的方法有所不同﹐使得程序的可移植性(portability)大受影响。然而﹐目前C++也只提供最简单的RTTI而已﹐可预见的未来﹐当大家对RTTI的意见渐趋一致时﹐C++将会提供更完整的RTTI﹐包括数据项和成员函数的类型、位置(offset)等资料﹐使得C++程序更井然有序﹐易于维护。</p>
+<h3>七、参考资料</h3>
+<p>[注1] Stroustrup B., “Run-Time Type Identification for C++”, Usenix C++C onference, Portland, 1993.</p>
+<p>[注2] Meyer B.,Object-Oriented Software Construction, Prentice Hall, 1988</p>
+ 
+<p><a href="http://www.cnblogs.com/yc_sunniwell/archive/2010/07/07/1773068.html">http://www.cnblogs.com/yc_sunniwell/archive/2010/07/07/1773068.html</a></p>
+
+
+
+
+
+
+
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
