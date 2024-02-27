@@ -252,7 +252,7 @@ sub,sup{
 
 <p>自从1993年Bjarne Stroustrup提出有关C++的RTTI功能之建议﹐以及C++的异常处理(exception handling)需要RTTI；最近新推出的C++或多或少已提供RTTI。然而，若不小心使用RTTI，可能会导致软件弹性的降低。本文将介绍RTTI的观念和近况﹐并说明如何善用它。</p>
 <h3>一、什么是RTTI？</h3>
-<p>在C++环境中﹐头文件(header file)含有类之定义(class definition)，亦即包含有关类的结构资料(representational information)。但是﹐这些资料只供编译器(compiler)使用﹐编译完毕后并未留下来﹐所以在执行时期(at run-time)﹐无法得知对象的类资料﹐包括类名称、数据成员名称与类型、函数名称与类型等等。例如﹐两个类Figure和Circle﹐有继承关系。</p>
+<p>在C++环境中﹐头文件(header file)含有类之定义(class definition)，亦即包含有关类的结构资料(representational information)。但是﹐这些资料只供编译器(compiler)使用﹐编译完毕后并未留下来﹐所以在执行时期(at run-time)﹐无法得知对象的类资料﹐包括类名称、数据成员名称与类型、函数名称与类型等等。例如﹐两基类Figure和它的派生类Circle。</p>
 <p>若有如下指令﹕</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
@@ -261,9 +261,9 @@ Figure *p;
 p = <font color=#00F>new </font>Circle(); 
 Figure &q = *p;
 </pre>
-在执行时﹐p指向一个对象﹐但欲得知此对象之类资料﹐就有困难了。同样欲得q所参考(reference)对象的类资料﹐也无法得到。RTTI(Run-Time Type Identification)就是要解决这类困难﹐也就是在执行时﹐您想知道指针所指到或参考到的对象类型时﹐该对象有能力来告诉您。随着应用场合之不同﹐所需支持的RTTI范围也不同。最单纯的RTTI包括﹕
+在执行时﹐p指向一个对象﹐但欲得知此对象之类资料﹐就有困难了。同样欲得q所引用(reference)对象的类资料﹐也无法得到。RTTI(Run-Time Type Identification)就是要解决这类困难﹐也就是在执行时﹐您想知道指针所指到或引用到的对象类型时﹐该对象有能力来告诉您。随着应用场合之不同﹐所需支持的RTTI范围也不同。最单纯的RTTI包括﹕
 <p>I 类识别(class identification)──包括类名称或ID。</p>
-<p>II 继承关系(inheritance relationship)──支持执行时期的「往下变换类型」(downward casting)﹐亦即动态变换类型(dynamic casting)。</p>
+<p>II 继承关系(inheritance relationship)──支持执行时期的「往下转换类型」(downward casting)﹐亦即动态类型转换(dynamic casting)。</p>
 <p>在对象数据库存取上﹐还需要下述RTTI﹕</p>
 <p>III 对象结构(object layout)──包括属性的类型、名称及其位置（position或offset）。
 </p>
@@ -271,7 +271,7 @@ Figure &q = *p;
 <p>其目的是协助对象的I/O和持久化(persistence)﹐也提供调试讯息等。</p>
 <p>若依照Bjarne Stroustrup之建议﹐C++还应包括更完整的RTTI﹕</p>
 <p>V 能得知类所实例化的各对象。</p>
-<p>VI 能参考到函数的源代码。</p>
+<p>VI 能引用到函数的源代码。</p>
 <p>VII 能取得类的有关在线说明(on-line documentation)。</p>
 <p>其实这些都是C++编译完成时所丢弃的资料﹐如今只是希望寻找个途径来将之保留到执行期间。然而﹐要提供完整的RTTI﹐将会大幅提高C++的复杂度﹗</p>
 <h3>二、RTTI可能伴随的副作用</h3>
@@ -289,9 +289,9 @@ margin-left:2em; color:black; ">
         ((Rectangle*)p) -> draw();
 }
 </pre>
-<p>虽然drawing()函数也具有多型性﹐但它与Figure类体系的结构具有紧密的相关性。当Figure类体系再派生出子类时﹐drawing()函数的内容必须多加个if指令。因而违反了「开放╱封闭原则」﹐如下﹕</p>
+<p>虽然drawing()函数也具有多态﹐但它与Figure类体系的结构具有紧密的相关性。当Figure类体系再派生出子类时﹐drawing()函数的内容必须加多一个if指令。因而违反了「开放╱封闭原则」﹐如下﹕</p>
 <p>很显然地﹐drawing()函数应加以修正。</p>
-<p>想一想﹐如果C++并未提供RTTI﹐则程序员毫无选择必须使用虚函数来支持drawing()函数的多型性。于是程序员将draw()宣告为虚函数﹐并写drawing()如下﹕</p>
+<p>想一想﹐如果C++并未提供RTTI﹐则程序员毫无选择必须使用虚函数来支持drawing()函数的多态。于是程序员将draw()声明为虚函数﹐并写drawing()如下﹕</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
@@ -303,14 +303,14 @@ margin-left:2em; color:black; ">
 <p>如此﹐Figure类体系能随时派生类﹐而不必修正drawing()函数。亦即﹐Figure体系有个稳定的接口(interface)﹐drawing()使用这接口﹐使得drawing()函数也稳定﹐不会随Figure类体系的扩充而变动。这是封闭的一面。而这稳定的接口并未限制Figure体系的成长﹐这是开放的一面。
 因而合乎「开放╱封闭」原则﹐软件的结构会更具弹性﹐更易于随环境而不断成长。</p>
 <h3>三、RTTI的常见的使用场合</h3>
-<p>一般而言﹐RTTI的常见使用场合有四﹕异常处理(exceptions handling)、动态转类型(dynamic casting)、模块集成、以及对象I/O。</p>
+<p>一般而言﹐RTTI的常见使用场合有四﹕异常处理(exceptions handling)、动态类型转换(dynamic casting)、模块集成、以及对象I/O。</p>
 <p>3.1 异常处理──大家所熟悉的C++新功能﹕异常处理﹐其需要RTTI﹐如类名称等。</p>
-<p>3.2 动态转类型──在类体系(class hierarchy)中﹐往下的类型转换需要类继承的RTTI。
+<p>3.2 动态类型转换──在类体系(class hierarchy)中﹐往下的类型转换需要类继承的RTTI。
 </p>
-<p>3.3 模块集成──当某个程序模块里的对象欲跟另一程序模块的对象沟通时﹐应如何得知对方的身份呢﹖知道其身份资料﹐才能呼叫其函数。一般的C++程序﹐常见的解决方法是──在源代码中把对方对象之类定义（即存在头文件里）包含进来﹐在编译时进行连结工作。然而﹐像目前流行的主从(Client-Server)架构中﹐客户端(client)的模块对象﹐常需与主机端(server)的现成模块对象沟通﹐它们必须在执行时沟通﹐但又常无法一再重新编译。于是靠标头文件来提供的类定义资料﹐无助于执行时的沟通工作﹐只得依赖RTTI了。</p>
+<p>3.3 模块集成──当某个程序模块里的对象欲跟另一程序模块的对象沟通时﹐应如何得知对方的身份呢﹖知道其身份资料﹐才能调用其函数。一般的C++程序﹐常见的解决方法是──在源代码中把对方对象之类定义（即存在头文件里）包含进来﹐在编译时进行链接工作。然而﹐像目前流行的主从(Client-Server)架构中﹐客户端(client)的模块对象﹐常需与主机端(server)的现成模块对象沟通﹐它们必须在执行时沟通﹐但又常无法一再重新编译。于是靠头文件来提供的类定义资料﹐无助于执行时的沟通工作﹐只得依赖RTTI了。</p>
 <p>3.4 对象I/O──C++程序常将其对象存入数据库﹐未来可再读取之。对象常内含其它小对象﹐因之在存入数据库时﹐除了必须知道对象所属的类名称﹐也必须知道各内含小对象之所属类﹐才能完整地将对象存进去。储存时﹐也将这些RTTI资料连同对象内容一起存入数据库中。未来读取对象时﹐可依据这些RTTI资料来分配内存空间给对象。</p>
 <h3>四、RTTI从那里来﹖</h3>
-<p>上述谈到RTTI的用途﹐以及其副作用。这众多争论﹐使得RTTI的标准迟迟未呈现出来。也导致各C++开发环境提供者﹐依其环境所需而以各种方式来支持RTTI﹐且其支持RTTI的范围也所不同。目前常见的支持方式包括﹕</p>
+<p>上述谈到RTTI的用途﹐以及其副作用。有众多争论﹐使得RTTI的标准迟迟未呈现出来。也导致各C++开发环境提供者﹐依其环境所需而以各种方式来支持RTTI﹐且其支持RTTI的范围也所不同。目前常见的支持方式包括﹕</p>
 <p>I 由类库提供RTTI──例如﹐Microsoft公司的Visual C++环境。</p>
 <p>II 由C++编译器(compiler)提供──例如﹐Borland C++4.5 版本。</p>
 <p>III 由源代码产生器(code generator)提供──例如Bellvobr系统。</p>
@@ -341,7 +341,7 @@ margin-left:2em; color:black; ">
     s -> Display();
 }
 </pre>
-<p>这时s指向Rectangle之对象﹐而s->Display()呼叫Square::Display()﹐将找不到data值。若在执行时能利用RTTI来检查之﹐就可发出错误讯息。于是﹐自行加入RTTI功能﹕</p>
+<p>这时s指向Rectangle之对象﹐而s->Display()调用Square::Display()﹐将找不到data值。若在执行时能利用RTTI来检查之﹐就可发出错误讯息。于是﹐自行加入RTTI功能﹕</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
@@ -376,7 +376,7 @@ public:
 };
 
 </pre>
-<p>虚函数Type_na()提供类名称之RTTI﹐而Isa()则提供继承之RTTI﹐用来支持「动态转类型」函数──Dynamic_cast()。例如﹕</p>
+<p>虚函数Type_na()提供类名称之RTTI﹐而Isa()则提供继承之RTTI﹐用来支持「动态类型转换」函数──Dynamic_cast()。例如﹕</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
 Figure *f = <font color=#00F>new </font>Rectangle();
@@ -504,7 +504,7 @@ Figure *f2 = <font color=#00F>new </font>Square();
  
 <p><a href="http://www.cnblogs.com/yc_sunniwell/archive/2010/07/07/1773068.html">http://www.cnblogs.com/yc_sunniwell/archive/2010/07/07/1773068.html</a></p>
 
-
+<p><a href="https://blog.csdn.net/qychjj/article/details/89086010">https://blog.csdn.net/qychjj/article/details/89086010</a></p>
 
 
 
