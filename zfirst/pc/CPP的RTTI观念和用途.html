@@ -251,6 +251,9 @@ sub,sup{
 
 
 <p>自从1993年Bjarne Stroustrup提出有关C++的RTTI功能之建议﹐以及C++的异常处理(exception handling)需要RTTI；最近新推出的C++或多或少已提供RTTI。然而，若不小心使用RTTI，可能会导致软件弹性的降低。本文将介绍RTTI的观念和近况﹐并说明如何善用它。</p>
+<p>Java中任何一个类都可以通过反射机制来获取类的基本信息（接口、父类、方法、属性、Annotation等），而且Java中还提供了一个关键字，可以在运行时判断一个类是不是另一个类的子类或者是该类的对象。</p>
+<p>和Java相比，C++要想获得运行时类型信息，只能通过RTTI机制。</p>
+
 <h3>一、什么是RTTI？</h3>
 <p>在C++环境中﹐头文件(header file)含有类之定义(class definition)，亦即包含有关类的结构资料(representational information)。但是﹐这些资料只供编译器(compiler)使用﹐编译完毕后并未留下来﹐所以在执行时期(at run-time)﹐无法得知对象的类资料﹐包括类名称、数据成员名称与类型、函数名称与类型等等。例如﹐两基类Figure和它的派生类Circle。</p>
 <p>若有如下指令﹕</p>
@@ -258,7 +261,7 @@ sub,sup{
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
 Figure *p; 
-p = <font color=#00F>new </font>Circle(); 
+p =<font color=#00F>new </font>Circle(); 
 Figure &q = *p;
 </pre>
 在执行时﹐p指向一个对象﹐但欲得知此对象之类资料﹐就有困难了。同样欲得q所引用(reference)对象的类资料﹐也无法得到。RTTI(Run-Time Type Identification)就是要解决这类困难﹐也就是在执行时﹐您想知道指针所指到或引用到的对象类型时﹐该对象有能力来告诉您。随着应用场合之不同﹐所需支持的RTTI范围也不同。最单纯的RTTI包括﹕
@@ -273,7 +276,9 @@ Figure &q = *p;
 <p>V 能得知类所实例化的各对象。</p>
 <p>VI 能引用到函数的源代码。</p>
 <p>VII 能取得类的有关在线说明(on-line documentation)。</p>
-<p>其实这些都是C++编译完成时所丢弃的资料﹐如今只是希望寻找个途径来将之保留到执行期间。然而﹐要提供完整的RTTI﹐将会大幅提高C++的复杂度﹗</p>
+<p>其实这些都是C++编译完成时所丢弃的资料﹐如今只是希望寻找个途径来将之保留到执行期间。然而﹐要提供完整的RTTI﹐将会大幅提高C++的复杂度！</p>
+
+
 <h3>二、RTTI可能伴随的副作用</h3>
 <p>RTTI最主要的副作用是﹕程序员可能会利用RTTI来支持其「复选」(multiple-selection)方法﹐而不使用虚函数(virtual function)方法。</p>
 <p>虽然这两种方法皆能达到多态化(polymorphism)﹐但使用复选方法﹐常导致违反著名的「开放╱封闭原则」(open/closed principle)。反之﹐使用虚函数方法则可合乎这个原则。</p>
@@ -283,9 +288,9 @@ Figure &q = *p;
 margin-left:2em; color:black; ">
 <font color=#00F>void</font> drawing( Figure *p )
 {
-   <font color=#00F> if</font>(<font color=#00F> typeid</font>(*p).name() == "Circle")
+<font color=#00F> if</font>(<font color=#00F> typeid</font>(*p).name() == "Circle")
         ((Circle*)p) -> draw();
-   <font color=#00F> if</font>(<font color=#00F> typeid</font>(*p).name() == "Rectangle" )
+<font color=#00F> if</font>(<font color=#00F> typeid</font>(*p).name() == "Rectangle" )
         ((Rectangle*)p) -> draw();
 }
 </pre>
@@ -316,7 +321,7 @@ margin-left:2em; color:black; ">
 <p>III 由源代码产生器(code generator)提供──例如Bellvobr系统。</p>
 <p>IV 由OO数据库的特殊预处理器(preprocessor)提供──例如Poet系统。</p>
 <p>V 由程序员自己加上去。</p>
-<p> 这些方法皆只提供简单的RTTI﹐其仅为Stroustrup先生所建议RTTI内涵的部分集合而已。相信不久的将来﹐会由C++编译器来提供ANSI标准的RTTI﹐但何时会订出这标准呢﹖没人晓得吧﹗
+<p> 这些方法皆只提供简单的RTTI﹐其仅为Stroustrup先生所建议RTTI内涵的部分集合而已。相信不久的将来﹐会由C++编译器来提供ANSI标准的RTTI﹐但何时会订出这标准呢﹖没人晓得吧！
 </p>
 <h4>4.1 程序员自己提供的RTTI</h4>
 <p>通常程序员自己可提供简单的RTTI﹐例如提供类的名称或识别(TypeID)。最常见的方法是﹕为类体系定义些虚函数如Type_na()及Isa()函数等。请先看个例子﹕</p>
@@ -324,19 +329,19 @@ margin-left:2em; color:black; ">
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
 <font color=#00F>class</font> Figure { };
 
-<font color=#00F>class</font> Rectangle : <font color=#00F>public </font>Figure { };
+<font color=#00F>class</font> Rectangle :<font color=#00F>public </font>Figure { };
 
-<font color=#00F>class</font>Square : <font color=#00F>public </font>Rectangle
+<font color=#00F>class</font>Square :<font color=#00F>public </font>Rectangle
 {
-    <font color=#00F>int </font>data;
+<font color=#00F>int </font>data;
 <font color=#00F>public</font>:
     Square() { data=88; }
-    <font color=#00F>void</font> Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>;  
+<font color=#00F>void</font> Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>;  
 };
 
 <font color=#00F>void</font><font color=#00F> main</font>()
 {
-    Figure *f = <font color=#00F>new </font>Rectangle();
+    Figure *f =<font color=#00F>new </font>Rectangle();
     Square *s = (Square *)f;
     s -> Display();
 }
@@ -348,38 +353,38 @@ margin-left:2em; color:black; ">
 <font color=#00F>class</font> Figure
 {
 <font color=#00F>public</font>:
-    <font color=#00F>virtual </font>char* Type_na() { <font color=#00F>return </font> "Figure"; }
-    <font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=#00F> char</font>* cna) { <font color=#00F>return </font>!strcmp(cna, "Figure")? 1:0; }
+<font color=#00F>virtual </font>char* Type_na() {<font color=#00F>return </font> "Figure"; }
+<font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=#00F> char</font>* cna) {<font color=#00F>return </font>!strcmp(cna, "Figure")? 1:0; }
 };
 
 <font color=#00F>class</font> Rectangle:public Figure
 {
 <font color=#00F>public</font>:
-    <font color=#00F>virtual </font>char* Type_na() { <font color=#00F>return </font> "Rectangle"; }
-    <font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=#00F> char</font>* cna)  {
-        <font color=#00F>return </font>!strcmp(cna, "Rectangle")?1 : Figure::Isa(cna); }
-    <font color=#00F>static </font>Rectangle* Dynamic_cast(Figure* fg) {
-        <font color=#00F>return </font>fg -> Isa(Type_na())?(Rectangle*)fg : 0; }
+<font color=#00F>virtual </font>char* Type_na() {<font color=#00F>return </font> "Rectangle"; }
+<font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=#00F> char</font>* cna)  {
+<font color=#00F>return </font>!strcmp(cna, "Rectangle")?1 : Figure::Isa(cna); }
+<font color=#00F>static </font>Rectangle* Dynamic_cast(Figure* fg) {
+<font color=#00F>return </font>fg -> Isa(Type_na())?(Rectangle*)fg : 0; }
 };
 
 <font color=#00F>class</font> Square:public Rectangle
 {
-    <font color=#00F>int </font>data;
+<font color=#00F>int </font>data;
 public:
     Square() { data=88; }
-    <font color=#00F>virtual </font>char* Type_na() { <font color=#00F>return </font>"Square"; }
-    <font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=# 00F>char</font>* cna) {
-        <font color=#00F>return </font>!strcmp(cna, "Rectangle")? 1 : Rectangle::Isa(cna); }
-    <font color=#00F>static </font>Square* Dynamic_cast(Figure *fg)  {
-        <font color=#00F>return </font>fg->Isa(Type_na())? (Square*)fg : 0; }
-    <font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; "888" &lt;&lt;<font color=#C00> endl</font>; }
+<font color=#00F>virtual </font>char* Type_na() {<font color=#00F>return </font>"Square"; }
+<font color=#00F>virtual </font><font color=#00F>int </font>Isa(<font color=# 00F>char</font>* cna) {
+<font color=#00F>return </font>!strcmp(cna, "Rectangle")? 1 : Rectangle::Isa(cna); }
+<font color=#00F>static </font>Square* Dynamic_cast(Figure *fg)  {
+<font color=#00F>return </font>fg->Isa(Type_na())? (Square*)fg : 0; }
+<font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; "888" &lt;&lt;<font color=#C00> endl</font>; }
 };
 
 </pre>
 <p>虚函数Type_na()提供类名称之RTTI﹐而Isa()则提供继承之RTTI﹐用来支持「动态类型转换」函数──Dynamic_cast()。例如﹕</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
-Figure *f = <font color=#00F>new </font>Rectangle();
+Figure *f =<font color=#00F>new </font>Rectangle();
 <font color=#C00>cout</font> &lt;&lt; f -> Isa("Square") &lt;&lt;<font color=#C00> endl</font>;
 <font color=#C00>cout</font> &lt;&lt; f -> Isa("Figure") &lt;&lt;<font color=#C00> endl</font>;
 </pre>
@@ -390,10 +395,10 @@ Figure *f = <font color=#00F>new </font>Rectangle();
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
 Figure *f; Square *s; 
-f = <font color=#00F>new </font>Rectangle(); 
+f =<font color=#00F>new </font>Rectangle(); 
 s = Square == Dynamic_cast(f); 
 <font color=#00F>if</font>(!s) 
-   <font color=#C00> cout</font> &lt;&lt; "dynamic_cast error!!" &lt;&lt;<font color=
+<font color=#C00> cout</font> &lt;&lt; "dynamic_cast error!!" &lt;&lt;<font color=
 #C00> endl</font>;
 </pre>
 <p>此时﹐依RTTI来判断出这转类型是不对的。</p>
@@ -406,27 +411,27 @@ margin-left:2em; color:black; ">
 {
     DECLARE_DYNAMIC(Figure);
 };
-<font color=#00F>class</font> Rectangle : <font color=#00F>public </font>Figure
+<font color=#00F>class</font> Rectangle :<font color=#00F>public </font>Figure
 {
     DECLARE_DYNAMIC(Rectangle);
 };
-<font color=#00F>class</font> Square : <font color=#00F>public </font>Rectangle
+<font color=#00F>class</font> Square :<font color=#00F>public </font>Rectangle
 {
     DECLARE_DYNAMIC(Square);
-    <font color=#00F>int </font>data;
+<font color=#00F>int </font>data;
 <font color=#00F>public</font>:
-    <font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>; }
+<font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>; }
     Square() { data=88; }
 };
 IMPLEMENT_DYNAMIC(Figure, CObject); 
 IMPLEMENT_DYNAMIC(Rectangle, Figure); 
 IMPLEMENT_DYNAMIC(Square, Rectangle);
 </pre>
-<p>Visual C++程序依赖这些宏(Macor)来支持RTTI。现在就看看如何使用CRuntimeClass类吧﹗如下﹕</p>
+<p>Visual C++程序依赖这些宏(Macor)来支持RTTI。现在就看看如何使用CRuntimeClass类吧！如下﹕</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
 CRuntimeClass *r;
-Figure *f = <font color=#00F>new </font>Rectangle();
+Figure *f =<font color=#00F>new </font>Rectangle();
 r = f -> GetRuntimeClass();
 <font color=#C00>cout</font> &lt;&lt; r -> m_psClassName &lt;&lt;<font color=#C00> endl</font>;
 </pre>
@@ -438,24 +443,24 @@ r = f -> GetRuntimeClass();
 <font color=#00F>class</font> Figure
 {
 <font color=#00F>public</font>:
-    <font color=#00F>virtual </font>void Display();
+<font color=#00F>virtual </font>void Display();
 };
 
-<font color=#00F>class</font> Rectangle : <font color=#00F>public </font>Figure { };
+<font color=#00F>class</font> Rectangle :<font color=#00F>public </font>Figure { };
 <font color=#00F>class</font> Square:public Rectangle
 {
-    <font color=#00F>int </font>data;
+<font color=#00F>int </font>data;
 <font color=#00F>public</font>:
     Square() { data=88; }
-    <font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>; }
+<font color=#00F>void </font>Display() {<font color=#C00> cout</font> &lt;&lt; data &lt;&lt;<font color=#C00> endl</font>; }
 };
 </pre>
 <p>现在看看如何使用typeid()操作数──</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
-Figure *f = <font color=#00F>new </font>Square(); 
-<font color=#00F>const</font> typeinfo ty =<font color=#00F> typeid</font>(*f);
+Figure *f =<font color=#00F>new </font>Square(); 
+<font color=#00F>const</font> type_info ty =<font color=#00F> typeid</font>(*f);
 cout &lt;&lt; ty.name() &lt;&lt; endl; 
 </pre>
 <p>这会告诉您﹕f 指针所指的对象﹐其类名称是Square。ic_cast<T*>函数样版──</p>
@@ -463,10 +468,10 @@ cout &lt;&lt; ty.name() &lt;&lt; endl;
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
 Figure *f; Square *s;
-f = <font color=#00F>new </font>Rectangle();
+f =<font color=#00F>new </font>Rectangle();
 s = dynamic_cast&lt;Sqiare *>(f);
 <font color=#00F>if</font>(!s)
-   <font color=#C00> cout</font> &lt;&lt; "dynamic casting error!!" &lt;&lt;<font col
+<font color=#C00> cout</font> &lt;&lt; "dynamic casting error!!" &lt;&lt;<font col
 or=#C00> endl</font>;
 </pre>
 <p>在执行时﹐发现f是不能转为Square *类型的。如下指令﹕</p>
@@ -474,29 +479,316 @@ or=#C00> endl</font>;
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
 Figure *f; Rectangle *r;
-f = <font color=#00F>new </font>Square();
+f =<font color=#00F>new </font>Square();
 r = dynamic_cast&lt;Rectangle *>(f);
 <font color=#00F>if</font>(r) 
     r->Display();
 </pre>
 <p>这种类型转换是对的。</p>
 <h3>五、 RTTI与虚函数表</h3>
-<p>在C++程序中﹐若类含有虚函数﹐则该类会有个虚函数表（Virtual Function Table﹐简称VFT）。为了提供RTTI﹐C++就将在VFT中附加个指针﹐指向typeinfo对象﹐这对象内含RTTI资料.
+<p>在C++程序中﹐若类含有虚函数﹐则该类会有个虚函数表（Virtual Function Table﹐简称VFT）。为了提供RTTI﹐C++就将在VFT中附加个指针﹐指向type_info对象﹐这对象内含RTTI资料。
 </p>
-<p>由于该类所实例化之各对象﹐皆含有个指针指向VFT表﹐因之各对象皆可取出typeinfo对象而得到RTTI。例如﹐</p>
+<p>由于该类所实例化之各对象﹐皆含有个指针指向VFT表﹐因之各对象皆可取出type_info对象而得到RTTI。例如﹐</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
 margin-left:2em; color:black; ">
-Figure *f1 = <font color=#00F>new </font>Square(); 
-Figure *f2 = <font color=#00F>new </font>Square(); 
-<font color=#00F>const</font> typeinfo ty =<font color=#00F> typeid</font>(*f2);
+Figure *f1 =<font color=#00F>new </font>Square(); 
+Figure *f2 =<font color=#00F>new </font>Square(); 
+<font color=#00F>const</font> type_info ty =<font color=#00F> typeid</font>(*f2);
 </pre>
 <p>其中﹐typeid(*f2)的动作是﹕</p>
 <p>1.取得f2所指之对象。</p>
 <p>2.从对象取出指向VMF之指针﹐经由此指针取得VFT表。</p>
-<p>3.从表中找出指向typeinfo对象之指针﹐经由此指针取得typeinfo对象。</p>
-<p>这typeinfo对象就含有RTTI了。经由f1及f2两指针皆可取得typeinfo对象﹐所以typeid(*f2) == typeid(*f1)。</p>
-<h3>六、总结</h3>
+<p>3.从表中找出指向type_info对象之指针﹐经由此指针取得type_info对象。</p>
+<p>这type_info对象就含有RTTI了。经由f1及f2两指针皆可取得type_info对象﹐所以typeid(*f2) == typeid(*f1)。</p>
+<h3>六、type_info类</h3>
+<p>我们知道C++的多态性（运行时）是由虚函数实现的，对于多态性的对象，无法在程序编译阶段确定对象的类型（运行阶段动态确定，如由用户自行指定）。当类中含有虚函数时，其基类的指针就可以指向任何派生类的对象，这时就有可能不知道基类指针到底指向的是哪个对象的情况，类型的确定要在运行时利用运行时类型标识做出。为了获得一个对象的类型可以使用typeid函数，该函数反回一个对type_info类对象的引用，要使用typeid必须使用头文件<type_info>，因为typeid是一个返回类型为typ_info的引用的函数所以这里有必要先介绍一下type_info类。</p>
+<p>下面是typeinfo的源代码：</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>/***
+*typeinfo.h - Defines the type_info structure and exceptions used for RTTI
+*
+*    Copyright (c) Microsoft Corporation. All rights reserved.
+*    Modified January 1996 by P.J. Plauger
+*
+*Purpose:
+*       Defines the type_info structure and exceptions used for
+*       Runtime Type Identification.
+*
+*       [Public]
+*
+****/</font>
+
+<font color=#C00>#pragma</font> once
+
+<font color=#C00>#ifndef</font> _TYPEINFO_
+<font color=#C00>#define</font> _TYPEINFO_
+<font color=#C00>#ifndef</font> RC_INVOKED
+<font color=#C00>#include</font> &lt;xstddef>
+<font color=#C00>#include</font> &lt;string.h>    <font color=#CCC>// for type_info::hash_code()</font>
+
+<font color=#C00>#pragma</font> pack(push,_CRT_PACKING)
+<font color=#C00>#pragma</font> warning(push,3)
+<font color=#C00>#pragma</font> push_macro("new")
+<font color=#C00>#undef</font> new
+<font color=#C00>#pragma</font> warning(disable: 4275)
+
+<font color=#C00><font color=#C00>#if</font>ndef</font> __cplusplus
+<font color=#C00>#error</font> This header <font color=#00F>requires </font>a C++ compiler ...
+<font color=#C00>#endif</font>
+
+<font color=#C00>#if</font> !defined(_WIN32)
+<font color=#C00>#error</font> ERROR: Only Win32 target supported!
+<font color=#C00>#endif</font>
+
+<font color=#00F>struct</font>__type_info_node {
+    <font color=#00F>void </font>*_MemPtr;
+    __type_info_node* _Next;
+};
+
+<font color=#00F>extern</font> __type_info_node __type_info_root_node;
+
+<font color=#00F>class</font> type_info {
+<font color=#00F>public</font>:
+    size_t hash_code() <font color=#00F>const </font>_THROW0()
+        {    <font color=#CCC>// hash name() to size_t value by pseudorandomizing transform</font>
+        <font color=#00F>return </font>(_STD _Hash_seq((<font color=#00F>const</font> <font color=#00F>unsigned </font><font color=#00F>char </font>*) name(),
+            _CSTD strlen(name())));
+        }
+
+<font color=#C00>#if</font> defined(CRTDLL) && defined(_CRTBLD)
+    _CRTIMP_PURE
+<font color=#C00>#endif</font>
+<font color=#C00><font color=#C00>#if</font>def</font> _M_CEE
+    [System::Security::SecurityCritical]
+<font color=#C00>#endif</font>
+    <font color=#00F>virtual </font>~type_info() _NOEXCEPT;
+<font color=#C00>#if</font> defined(_SYSCRT)
+    _CRTIMP_PURE <font color=#00F>int </font>__CLR_OR_THIS_CALL operator==(<font color=#00F>const</font> type_info& _Rhs) const;
+    _CRTIMP_PURE <font color=#00F>int </font>__CLR_OR_THIS_CALL operator!=(<font color=#00F>const</font> type_info& _Rhs) const;
+<font color=#C00>#else</font>
+    _CRTIMP_PURE <font color=#00F>bool </font>__CLR_OR_THIS_CALL operator==(<font color=#00F>const</font> type_info& _Rhs) const;
+    _CRTIMP_PURE <font color=#00F>bool </font>__CLR_OR_THIS_CALL operator!=(<font color=#00F>const</font> type_info& _Rhs) const;
+<font color=#C00>#endif</font>
+    _CRTIMP_PURE <font color=#00F>bool </font>__CLR_OR_THIS_CALL before(<font color=#00F>const</font> type_info& _Rhs) const;
+    _CRTIMP_PURE <font color=#00F>const </font>char* __CLR_OR_THIS_CALL name(__type_info_node* __ptype_info_node = &__type_info_root_node) const;
+    _CRTIMP_PURE <font color=#00F>const </font>char* __CLR_OR_THIS_CALL raw_name() const;
+<font color=#00F>private</font>:
+    <font color=#00F>void </font>*_M_data;
+    <font color=#00F>char </font>_M_d_name[1];
+<font color=#C00>#if</font> defined(_CRTBLD) <font color=#CCC>/* TRANSITION */</font>
+    __CLR_OR_THIS_CALL type_info(<font color=#00F>const</font> type_info& _Rhs);
+    type_info& __CLR_OR_THIS_CALL operator=(<font color=#00F>const</font> type_info& _Rhs);
+<font color=#C00>#else</font>
+<font color=#00F>public</font>:
+    __CLR_OR_THIS_CALL type_info(<font color=#00F>const</font> type_info&) = delete;
+    type_info& __CLR_OR_THIS_CALL operator=(<font color=#00F>const</font> type_info&) = delete;
+<font color=#00F>private</font>:
+<font color=#C00>#endif</font>
+    _CRTIMP_PURE <font color=#00F>static </font><font color=#00F>const </font><font color=#00F>char </font>*__CLRCALL_OR_CDECL _Name_base(<font color=#00F>const</font> type_info *,__type_info_node* __ptype_info_node);
+    _CRTIMP_PURE <font color=#00F>static </font>void __CLRCALL_OR_CDECL _Type_info_dtor(type_info *);
+<font color=#C00>#if</font> defined(_CRTBLD)
+<font color=#C00>#if</font> !defined(_SYSCRT)
+    _CRTIMP_PURE <font color=#00F>static </font><font color=#00F>const </font><font color=#00F>char </font>*__CLRCALL_OR_CDECL _Name_base_internal(<font color=#00F>const</font> type_info *,__type_info_node* __ptype_info_node);
+    _CRTIMP_PURE <font color=#00F>static </font>void __CLRCALL_OR_CDECL _Type_info_dtor_internal(type_info *);
+
+<font color=#00F>public</font>:
+    <font color=#CCC>// CRT dll import libs alias non _internal to _internal. These method definitions are</font>
+    <font color=#CCC>// only used within the crtdll to provide targets for aliasobj in the crt import lib.</font>
+    _CRTIMP_PURE <font color=#00F>void </font>__CLR_OR_THIS_CALL _type_info_dtor_internal_method(<font color=#00F>void</font>);
+    _CRTIMP_PURE <font color=#00F>const </font>char* __CLR_OR_THIS_CALL _name_internal_method(__type_info_node* __ptype_info_node) const;
+<font color=#C00>#endif</font>
+<font color=#C00>#endif</font>
+};
+
+<font color=#C00> #if</font> _HAS_EXCEPTIONS
+
+ _STD_BEGIN
+
+<font color=#00F>using</font> ::type_info;
+
+ _STD_END
+
+<font color=#C00>#if</font> !defined(_CRTBLD) || !defined(_TICORE)
+
+<font color=#CCC>// This include must occur below the definition of class type_info</font>
+<font color=#C00>#include</font> &lt;exception>
+
+ _STD_BEGIN
+
+<font color=#00F>class</font> _CRTIMP_PURE bad_cast : <font color=#00F>public </font>exception {
+<font color=#00F>public</font>:
+<font color=#C00>#ifdef</font> _M_CEE_PURE
+    __CLR_OR_THIS_CALL bad_cast(<font color=#00F>const</font> <font color=#00F>char </font>* _Message = "bad cast")
+        : exception(_Message)
+    {}
+    __CLR_OR_THIS_CALL bad_cast(<font color=#00F>const</font> bad_cast &_That)
+        : exception(_That)
+    {}
+    <font color=#00F>virtual </font>__CLR_OR_THIS_CALL ~bad_cast() _NOEXCEPT
+    {}
+<font color=#C00>#if</font> defined(_CRTBLD) && defined(CRTDLL)
+<font color=#00F>private</font>:
+    <font color=#CCC>// This is aliased to public:bad_cast(const char * const &) to provide</font>
+    <font color=#CCC>// the old, non-conformant constructor.</font>
+    __CLR_OR_THIS_CALL bad_cast(<font color=#00F>const</font> <font color=#00F>char </font>* <font color=#00F>const </font>* _Message)
+        : exception((<font color=#00F>const</font> <font color=#00F>char </font>*)_Message)
+    { }
+<font color=#C00>#endif</font>  <font color=#CCC>/* _CRTBLD && CRTDLL */</font>
+<font color=#C00>#else</font>   <font color=#CCC>/* _M_CEE_PURE */</font>
+    __CLR_OR_THIS_CALL bad_cast(<font color=#00F>const</font> <font color=#00F>char </font>* _Message = "bad cast");
+    __CLR_OR_THIS_CALL bad_cast(<font color=#00F>const</font> bad_cast &);
+    <font color=#00F>virtual </font>__CLR_OR_THIS_CALL ~bad_cast() _NOEXCEPT;
+<font color=#C00>#if</font> defined(_CRTBLD) && defined(CRTDLL)
+<font color=#00F>private</font>:
+    <font color=#CCC>// This is aliased to public:bad_cast(const char * const &) to provide</font>
+    <font color=#CCC>// the old, non-conformant constructor.</font>
+    __CLR_OR_THIS_CALL bad_cast(<font color=#00F>const</font> <font color=#00F>char </font>* <font color=#00F>const </font>* _Message);
+<font color=#C00>#endif</font>  <font color=#CCC>/* _CRTBLD && CRTDLL */</font>
+<font color=#C00>#endif</font>  <font color=#CCC>/* _M_CEE_PURE */</font>
+};
+
+<font color=#00F>class</font> _CRTIMP_PURE bad_typeid : <font color=#00F>public </font>exception {
+<font color=#00F>public</font>:
+<font color=#C00>#ifdef</font> _M_CEE_PURE
+    __CLR_OR_THIS_CALL bad_typeid(<font color=#00F>const</font> <font color=#00F>char </font>* _Message = "bad typeid")
+        : exception(_Message)
+    {}
+    __CLR_OR_THIS_CALL bad_typeid(<font color=#00F>const</font> bad_typeid &_That)
+        : exception(_That)
+    {}
+    <font color=#00F>virtual </font>__CLR_OR_THIS_CALL ~bad_typeid() _NOEXCEPT
+    {}
+<font color=#C00>#else</font>  <font color=#CCC>/* _M_CEE_PURE */</font>
+    __CLR_OR_THIS_CALL bad_typeid(<font color=#00F>const</font> <font color=#00F>char </font>* _Message = "bad typeid");
+    __CLR_OR_THIS_CALL bad_typeid(<font color=#00F>const</font> bad_typeid &);
+    <font color=#00F>virtual </font>__CLR_OR_THIS_CALL ~bad_typeid() _NOEXCEPT;
+<font color=#C00>#endif</font> <font color=#CCC>/* _M_CEE_PURE */</font>
+
+};
+
+<font color=#00F>class</font> _CRTIMP_PURE __non_rtti_object : <font color=#00F>public </font>bad_(<font color=#00F>typeid</font> {
+<font color=#00F>public</font>:
+<font color=#C00>#ifdef</font> _M_CEE_PURE
+    __CLR_OR_THIS_CALL __non_rtti_object(<font color=#00F>const</font> <font color=#00F>char </font>* _Message)
+        : bad_typeid(_Message)
+    {}
+    __CLR_OR_THIS_CALL __non_rtti_object(<font color=#00F>const</font> __non_rtti_object &_That)
+        : bad_typeid(_That)
+    {}
+    <font color=#00F>virtual </font>__CLR_OR_THIS_CALL ~__non_rtti_object() _NOEXCEPT
+    {}
+<font color=#C00>#else</font>  <font color=#CCC>/* _M_CEE_PURE */</font>
+    __CLR_OR_THIS_CALL __non_rtti_object(<font color=#00F>const</font> <font color=#00F>char </font>* _Message);
+    __CLR_OR_THIS_CALL __non_rtti_object(<font color=#00F>const</font> __non_rtti_object &);
+    <font color=#00F>virtual </font>__CLR_OR_THIS_CALL ~__non_rtti_object() _NOEXCEPT;
+<font color=#C00>#endif</font> <font color=#CCC>/* _M_CEE_PURE */</font>
+};
+
+ _STD_END
+<font color=#C00>#endif</font>  <font color=#CCC>// !_CRTBLD || !_TICORE</font>
+
+<font color=#C00>#else</font>
+
+ _STD_BEGIN
+
+        <font color=#CCC>// CLASS bad_cast</font>
+<font color=#00F>class</font> _CRTIMP2 bad_cast : <font color=#00F>public </font>exception
+    {    <font color=#CCC>// base of all bad cast exceptions</font>
+<font color=#00F>public</font>:
+    bad_cast(<font color=#00F>const</font> <font color=#00F>char </font>*_Message = "bad cast") _THROW0()
+        : exception(_Message)
+        {    <font color=#CCC>// construct from message string</font>
+        }
+
+    <font color=#00F>virtual </font>~bad_cast() _NOEXCEPT
+        {    <font color=#CCC>// destroy the object</font>
+        }
+
+<font color=#00F>protected</font>:
+    <font color=#00F>virtual </font>void _Doraise() const
+        {    <font color=#CCC>// perform class-specific exception handling</font>
+        _RAISE(*this);
+        }
+    };
+
+        <font color=#CCC>// CLASS bad_typeid</font>
+<font color=#00F>class</font> _CRTIMP2 bad_typeid
+    : <font color=#00F>public </font>exception
+    {    <font color=#CCC>// base of all bad typeid exceptions</font>
+<font color=#00F>public</font>:
+    bad_typeid(<font color=#00F>const</font> <font color=#00F>char </font>*_Message = "bad typeid") _THROW0()
+        : exception(_Message)
+        {    <font color=#CCC>// construct from message string</font>
+        }
+
+    <font color=#00F>virtual </font>~bad_typeid() _NOEXCEPT
+        {    <font color=#CCC>// destroy the object</font>
+        }
+
+<font color=#00F>protected</font>:
+    <font color=#00F>virtual </font>void _Doraise() const
+        {    <font color=#CCC>// perform class-specific exception handling</font>
+        _RAISE(*this);
+        }
+    };
+
+<font color=#00F>class</font> _CRTIMP2 __non_rtti_object : <font color=#00F>public </font>bad_typeid
+    {    <font color=#CCC>// report a non RTTI object</font>
+<font color=#00F>public</font>:
+    __non_rtti_object(<font color=#00F>const</font> <font color=#00F>char </font>*_Message)
+        : bad_typeid(_Message)
+        {    <font color=#CCC>// construct from message string</font>
+        }
+    };
+_STD_END
+<font color=#C00>#endif</font> <font color=#CCC>/* _HAS_EXCEPTIONS */</font>
+
+<font color=#C00>#endif</font> <font color=#CCC>/* RC_INVOKED */</font>
+
+<font color=#C00>#pragma</font> pop_macro("new")
+<font color=#C00>#pragma</font> pack(pop)
+<font color=#C00>#pragma</font> warning(pop)
+
+<font color=#C00>#endif</font> <font color=#CCC>// _TYPEINFO_</font>
+
+<font color=#CCC>/*
+ * Copyright (c) Microsoft Corporation.  ALL RIGHTS RESERVED.
+ * Modified January 1996 by P.J. Plauger
+ * Modified November 1998 by P.J. Plauger
+ * Consult your license regarding permissions and restrictions.
+  V6.00:0009 */</font>
+</pre>
+<h4>对于源码可以简单解释为：</h4>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#00F>class</font> type_info {  
+<font color=#00F>public</font>:  
+        <font color=#CCC>//析构函数  </font>
+    _CRTIMP <font color=#00F>virtual </font>~type_info();  
+    <font color=#CCC>//重载的==操作符  </font>
+    _CRTIMP <font color=#00F>int </font>operator==(<font color=#00F>const</font> type_info& rhs) const;  
+    <font color=#CCC>//重载的!=操作符  </font>
+    _CRTIMP <font color=#00F>int </font>operator!=(<font color=#00F>const</font> type_info& rhs) const;  
+    _CRTIMP <font color=#00F>int </font>before(<font color=#00F>const</font> type_info& rhs) const;<font color=#CCC>//用于type_info对象之间的排序算法  </font>
+    <font color=#CCC>//返回类的名字  </font>
+    _CRTIMP <font color=#00F>const </font>char* name() const;  
+    _CRTIMP <font color=#00F>const </font>char* raw_name() const;<font color=#CCC>//返回类名称的编码字符串  </font>
+<font color=#00F>private</font>:  
+    <font color=#CCC>//各种存储数据成员  </font>
+    <font color=#00F>void </font>*_m_data;  
+    <font color=#00F>char </font>_m_d_name[1];  
+    <font color=#CCC>//将拷贝构造函数与赋值构造函数设为了私有  </font>
+    type_info(<font color=#00F>const</font> type_info& rhs);  
+    type_info& operator=(<font color=#00F>const</font> type_info& rhs);  
+};
+</pre>
+<p>因为type_info类的复制构造函数和赋值运算符都是私有的，所以不允许用户自已创建type_info的类。可以使用typeid函数返回一个type_info引用。</p>
+
+<p>多态类的对象的类型信息保存在一个type_info对象中，该对象的地址保存在虚函数表的索引的-1的项中，该type_info对象保存着该对象对应的类型信息，每个类都对应着一个type_info对象。</p>
+
+<h3>七、总结</h3>
 <p>RTTI是C++的新功能。过去﹐C++语言来提供RTTI时﹐大多依赖类库来支持﹐但各类库使用的方法有所不同﹐使得程序的可移植性(portability)大受影响。然而﹐目前C++也只提供最简单的RTTI而已﹐可预见的未来﹐当大家对RTTI的意见渐趋一致时﹐C++将会提供更完整的RTTI﹐包括数据项和成员函数的类型、位置(offset)等资料﹐使得C++程序更井然有序﹐易于维护。</p>
 <h3>七、参考资料</h3>
 <p>[注1] Stroustrup B., “Run-Time Type Identification for C++”, Usenix C++C onference, Portland, 1993.</p>
@@ -504,10 +796,10 @@ Figure *f2 = <font color=#00F>new </font>Square();
  
 <p><a href="http://www.cnblogs.com/yc_sunniwell/archive/2010/07/07/1773068.html">http://www.cnblogs.com/yc_sunniwell/archive/2010/07/07/1773068.html</a></p>
 
-<p><a href="https://blog.csdn.net/qychjj/article/details/89086010">https://blog.csdn.net/qychjj/article/details/89086010</a></p>
+<p><a href="https://blog.csdn.net/qychjj/article/details/89086010">RTTI: 观念，机制解析和实现原理_rtti的原理</a></p>
 
 
-
+<p><a href="https://www.cnblogs.com/bigben0123/p/14745772.html">C++对象模型之RTTI的实现原理</a></p>
 
 
 </div>
