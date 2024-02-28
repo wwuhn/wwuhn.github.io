@@ -251,11 +251,11 @@ sub,sup{
 
 
 <p>自从1993年Bjarne Stroustrup提出有关C++的RTTI功能之建议﹐以及C++的异常处理(exception handling)需要RTTI；最近新推出的C++或多或少已提供RTTI。然而，若不小心使用RTTI，可能会导致软件弹性的降低。本文将介绍RTTI的观念和近况﹐并说明如何善用它。</p>
-<p>Java中任何一个类都可以通过反射机制来获取类的基本信息（接口、父类、方法、属性、Annotation等），而且Java中还提供了一个关键字，可以在运行时判断一个类是不是另一个类的子类或者是该类的对象。</p>
+<p>Java中任何一个类都可以通过反射机制来获取类的基本信息（接口、父类、方法、属性、Annotation等），而且Java中还提供了一个关键字instanceof，可以在运行时判断一个类是不是另一个类的子类或者是该类的对象。</p>
 <p>和Java相比，C++要想获得运行时类型信息，只能通过RTTI机制。</p>
 
 <h3>一、什么是RTTI？</h3>
-<p>在C++环境中﹐头文件(header file)含有类之定义(class definition)，亦即包含有关类的结构资料(representational information)。但是﹐这些资料只供编译器(compiler)使用﹐编译完毕后并未留下来﹐所以在执行时期(at run-time)﹐无法得知对象的类资料﹐包括类名称、数据成员名称与类型、函数名称与类型等等。例如﹐两基类Figure和它的派生类Circle。</p>
+<p>在C++环境中﹐头文件(header file)含有类之定义(class definition)，亦即包含有关类的结构资料(representational information)。但是﹐这些资料只供编译器(compiler)使用﹐编译完毕后并未留下来﹐所以在执行时期(at run-time)﹐无法得知对象的类资料﹐包括类名称、数据成员名称与类型、函数名称与类型等等。例如﹐有基类Figure和它的派生类Circle。</p>
 <p>若有如下指令﹕</p>
 <p></p>
 <pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; 
@@ -265,17 +265,17 @@ p =<font color=#00F>new </font>Circle();
 Figure &q = *p;
 </pre>
 在执行时﹐p指向一个对象﹐但欲得知此对象之类资料﹐就有困难了。同样欲得q所引用(reference)对象的类资料﹐也无法得到。RTTI(Run-Time Type Identification)就是要解决这类困难﹐也就是在执行时﹐您想知道指针所指到或引用到的对象类型时﹐该对象有能力来告诉您。随着应用场合之不同﹐所需支持的RTTI范围也不同。最单纯的RTTI包括﹕
-<p>I 类识别(class identification)──包括类名称或ID。</p>
-<p>II 继承关系(inheritance relationship)──支持执行时期的「往下转换类型」(downward casting)﹐亦即动态类型转换(dynamic casting)。</p>
+<p>① 类识别(class identification)──包括类名称或ID。</p>
+<p>② 继承关系(inheritance relationship)──支持执行时期的「往下转换类型」(downward casting)﹐亦即动态类型转换(dynamic casting)。</p>
 <p>在对象数据库存取上﹐还需要下述RTTI﹕</p>
-<p>III 对象结构(object layout)──包括属性的类型、名称及其位置（position或offset）。
+<p>③ 对象结构(object layout)──包括属性的类型、名称及其位置（position或offset）。
 </p>
-<p>IV 成员函数表(table of functions)──包括函数的类型、名称、及其参数类型等。</p>
+<p>④ 成员函数表(table of functions)──包括函数的类型、名称、及其参数类型等。</p>
 <p>其目的是协助对象的I/O和持久化(persistence)﹐也提供调试讯息等。</p>
 <p>若依照Bjarne Stroustrup之建议﹐C++还应包括更完整的RTTI﹕</p>
-<p>V 能得知类所实例化的各对象。</p>
-<p>VI 能引用到函数的源代码。</p>
-<p>VII 能取得类的有关在线说明(on-line documentation)。</p>
+<p>⑤ 能得知类所实例化的各对象。</p>
+<p>⑥ 能引用到函数的源代码。</p>
+<p>⑦ 能取得类的有关在线说明(on-line documentation)。</p>
 <p>其实这些都是C++编译完成时所丢弃的资料﹐如今只是希望寻找个途径来将之保留到执行期间。然而﹐要提供完整的RTTI﹐将会大幅提高C++的复杂度！</p>
 
 
@@ -787,6 +787,126 @@ _STD_END
 <p>因为type_info类的复制构造函数和赋值运算符都是私有的，所以不允许用户自已创建type_info的类。可以使用typeid函数返回一个type_info引用。</p>
 
 <p>多态类的对象的类型信息保存在一个type_info对象中，该对象的地址保存在虚函数表的索引的-1的项中，该type_info对象保存着该对象对应的类型信息，每个类都对应着一个type_info对象。</p>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> &lt;iostream>
+<font color=#00F>using</font> <font color=#00F>namespace </font>std;
+<font color=#00F>class</font> X{
+    public:
+        X(){
+			mX = 101;}
+        <font color=#00F>virtual </font>void vfunc(){
+           <font color=#C00> cout</font> &lt;&lt; "X::vfunc()" &lt;&lt;<font color=#C00> endl</font>;}
+    private:
+        <font color=#00F>int </font>mX;
+};
+<font color=#00F>class</font> XX : <font color=#00F>public </font>X{
+    public:
+        XX():X(){
+            mXX = 1001;}
+        <font color=#00F>virtual </font>void vfunc(){
+           <font color=#C00> cout</font> &lt;&lt; "XX::vfunc()" &lt;&lt;<font color=#C00> endl</font>;}
+    private:
+        <font color=#00F>int </font>mXX;
+};
+
+<font color=#00F>typedef</font> <font color=#00F>void </font>(*FuncPtr)();
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+    XX xx;
+    FuncPtr func;
+    <font color=#00F>char </font>*p = (<font color=#00F>char</font>*)&xx;
+    <font color=#CCC>// 获得虚函数表的地址</font>
+    <font color=#00F>int </font>**vtbl = (<font color=#00F>int</font>**)*(<font color=#00F>int</font>**)p;
+    <font color=#CCC>// 输出虚函数表的地址，即vptr的值</font>
+   <font color=#C00> cout</font> &lt;&lt; vtbl &lt;&lt;<font color=#C00> endl</font>;
+    <font color=#CCC>// 获得type_info对象的指针，并调用其name成员函数</font>
+   <font color=#C00> cout</font> &lt;&lt; "\t[-1]: " ;
+	cout &lt;&lt; (vtbl[-1]) &lt;&lt; " -> ";
+   <font color=#C00> cout</font> &lt;&lt; ((type_info*)(vtbl[-1]))->name() &lt;&lt;<font color=#C00> endl</font>;
+    <font color=#CCC>// 调用第一个virtual函数</font>
+   <font color=#C00> cout</font> &lt;&lt; "\t[0]: " &lt;&lt; vtbl[0] &lt;&lt; " -> ";
+    func = (FuncPtr)vtbl[0];
+    func();
+    <font color=#CCC>// 输出基类的成员变量的值</font>
+    p +=<font color=#00F> sizeof</font>(<font color=#00F>int</font>**);
+   <font color=#C00> cout</font> &lt;&lt; *(<font color=#00F>int</font>*)p &lt;&lt;<font color=#C00> endl</font>;
+    <font color=#CCC>// 输出派生类的成员变量的值</font>
+    p +=<font color=#00F> sizeof</font>(<font color=#00F>int</font>);
+   <font color=#C00> cout</font> &lt;&lt; *(<font color=#00F>int</font>*)p &lt;&lt;<font color=#C00> endl</font>;
+    <font color=#00F>return </font>0;
+}
+</pre>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>/*运行结果
+0x402048
+	[-1]: 0x402068 -> 2XX
+	[0]: 0x40134e -> XX::vfunc()
+101
+1001
+*/</font>
+</pre>
+
+<h4>typeid()</h4>
+<p>当typeid中的操作数是如下情况之一时，typeid运算符需要在程序运行时计算类型，因为其其操作数的类型在编译时期是不能被确定的。</p>
+
+
+<p>（1）一个指向不含有virtual函数的类对象的指针的解引用</p>
+
+
+<p>（2）一个指向不含有virtual函数的类对象的引用</p>
+
+
+<p>多态的类型是可以在运行过程中被改变的，例如，一个基类的指针，在程序运行的过程中，它可以指向一个基类对象，也可以指向该基类的派生类的对象，而typeid运算符需要在运行过程中识别出该基类指针所指向的对象的实际类型，这就需要typeid运算符在运行过程中计算其指向的对象的实际类型</p>
+
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#C00>#include</font> &lt;iostream>
+<font color=#00F>using</font> <font color=#00F>namespace </font>std;
+<font color=#00F>class</font> X{
+    public:
+        X(){
+			mX = 101;}
+        <font color=#00F>virtual </font>void vfunc(){
+           <font color=#C00> cout</font> &lt;&lt; "X::vfunc()" &lt;&lt;<font color=#C00> endl</font>;}
+    private:
+        <font color=#00F>int </font>mX;
+};
+<font color=#00F>class</font> XX : <font color=#00F>public </font>X{
+    public:
+        XX():X(){
+            mXX = 1001;}
+        <font color=#00F>virtual </font>void vfunc(){
+           <font color=#C00> cout</font> &lt;&lt; "XX::vfunc()" &lt;&lt;<font color=#C00> endl</font>;}
+    private:
+        <font color=#00F>int </font>mXX;
+};
+
+<font color=#00F>void</font> printTypeInfo(<font color=#00F>const</font> X *px)
+{
+   <font color=#C00> cout</font> &lt;&lt; "typeid(px) -> " &lt;&lt;<font color=#00F> typeid</font>(px).name() &lt;&lt;<font color=#C00> endl</font>;
+   <font color=#C00> cout</font> &lt;&lt; "typeid(*px) -> " &lt;&lt;<font color=#00F> typeid</font>(*px).name() &lt;&lt;<font color=#C00> endl</font>;
+}
+<font color=#00F>int</font><font color=#00F> main</font>()
+{
+    X x;
+    XX xx;
+    printTypeInfo(&x);
+    printTypeInfo(&xx);
+    <font color=#00F>return </font>0;
+}
+</pre>
+<p></p>
+<pre style="line-height:130%; background-color:#F6F6F6; font-size:120%; padding:8px; margin-left:2em; color:black; ">
+<font color=#CCC>/*
+typeid(px) -> PK1X
+typeid(*px) -> 1X
+typeid(px) -> PK1X
+typeid(*px) -> 2XX
+*/</font>
+</pre>
+
+
 
 <h3>七、总结</h3>
 <p>RTTI是C++的新功能。过去﹐C++语言来提供RTTI时﹐大多依赖类库来支持﹐但各类库使用的方法有所不同﹐使得程序的可移植性(portability)大受影响。然而﹐目前C++也只提供最简单的RTTI而已﹐可预见的未来﹐当大家对RTTI的意见渐趋一致时﹐C++将会提供更完整的RTTI﹐包括数据项和成员函数的类型、位置(offset)等资料﹐使得C++程序更井然有序﹐易于维护。</p>
