@@ -1,0 +1,1432 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:link，#container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:65.29%;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h2{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	margin-left:2em;
+	color:blue;
+	padding:8px;
+	}
+.code0, .code2, .code4{
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+#tbrowser {
+	width:100%;
+	margin:auto;
+	border-collapse:collapse;
+font-family:"宋体";
+	text-align:left;
+	line-height:1.3em;
+	table-layout:fixed;
+}
+
+#tbrowser th,#tbrowser td{
+border:1px solid #ddd;
+font-size:1em;
+color:#000000;
+text-align:left;
+font-family: "宋体";
+vertical-align:top;
+padding-left:3px;
+height:28px;
+//white-space:nowrap;
+//overflow:hidden; 
+//text-overflow:ellipsis; 
+}
+
+
+#tbrowser thead th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+}
+#tbrowser .nd{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+background-color:#D3D3A9;
+color:red;
+}
+
+#tbrowser th{
+border-bottom:2px solid #3d580b;
+background-color:#8fc629;
+color:#fff;
+padding:5px 0px;
+padding-left:2px;
+}
+#tbrowser th.title{
+background-color:#e3e685;
+}
+
+#tbrowser caption{
+font-weight:bold;
+padding:1px 0px;
+color:#3d580b;
+font-size:18px;
+}
+
+
+#tbrowser .xhx{
+border-bottom:0px solid #aaa;
+}
+
+
+#tbrowser tr{
+height:6px;
+}
+
+#tbrowser tr>td{/*1*/
+font-size:1em;
+text-align:left;
+/*width:13%;*/
+}
+#tbrowser tr>td+td{/*2*/
+text-align:left;
+/*width:8%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td{/*3*/
+font-size:1em;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td{/*4*/
+font-size:1em;
+text-align:left;
+/*width:6%;*/
+}
+#tbrowser tr>td+td+td+td+td{/*5*/
+font-size:1em;
+text-align:left;
+/*width:5%;*/
+}
+#tbrowser tr>td+td+td+td+td+td{/*6*/
+/*width:13%;*/
+font-size:1em;
+}
+#tbrowser tr>td+td+td+td+td+td+td{/*7*/
+/*width:59%;*/
+font-size:1em;
+}
+
+
+#tbrowser tfoot td{
+border-width:0px;
+text-align:left;
+line-height:18px;
+font-size:16px;
+color:#777;
+}
+
+#tbrowser th a:link {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:hover {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:active {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser th a:visited {
+	text-decoration: none;
+	color:white;
+}
+#tbrowser caption{
+font-size:1.2em;
+text-align:left;
+}
+#tbrowser thead td{
+font-size:0.8em;
+text-align:left;
+}
+pre{
+    margin-left:2em;
+	}
+a:visited, a:link{
+    color:blue;
+}
+a:visited{
+    color:#CC0000;
+}a:hover{
+    color:green;
+	}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:5px;
+	margin-left:2em;
+	background-color:RGB(240,240,240);
+    color:blue;
+	margin-left:2em;
+	}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+
+
+
+
+
+
+
+
+<h3>中国历届总书记、军委主席、国家主席、总理、人大委员长、外交部长</h3>
+
+
+<h3> 一、中国历届中共中央委员会总书记 </h3>
+
+
+<p>中国共产党中央委员会总书记，是中国共产党最高领导人的正式称呼之一。 </p>
+
+
+<p>中国共产党最高领导人的正式称呼，历史上有过几次改变。 </p>
+
+
+<p>一大为中央局书记。 </p>
+
+
+<p>二大、三大为中央执行委员会委员长。 </p>
+
+
+<p>四大为中央执行委员会总书记。 </p>
+
+
+<p>五大、六大为中央委员会总书记（也有说六大为中央委员会主席）。 </p>
+
+
+<p>从1943年3月20日（七大）到1982年（十二大）为中央委员会主席。 </p>
+
+
+<p>十二大以来为中央委员会总书记。全称为中国共产党中央委员会总书记，简称中共中央总书记，较少称“中国共产党总书记”或“中共总书记”。 </p>
+
+
+<p>八大时期（1956年--1966年）和1980年2月十一届五中全会到1982年9月十二大也有总书记，但主要负责书记处的工作，并不是党的最高领导人。 </p>
+
+
+<p>从1949年中华人民共和国成立起，在中国的政治体制之下，中国共产党最高领导人就是中华人民共和国最高领导人。邓小平曾担任过总书记，但他当时并不是最高领导人。其间，最高领导人为中共中央主席毛泽东。 </p>
+
+
+
+
+
+
+
+<table id="tbrowser">
+  <col width="40" />
+  <col width="120" />
+  <col width="130" />
+  <col width="60" />
+    <col width="60" />
+  <col width="300" />
+  <tr>
+    <th>届</th>
+<th>time</th>
+<th>机构</th>
+<th>职务</th>
+<th>姓名</th>
+<th>备注</th>
+  </tr>
+  <tr>
+    <td>1大</td>
+    <td>1921年7月23</td>
+    <td>中央局</td>
+    <td>书记</td>
+    <td>陈独秀</td>
+    <td>张国焘为组织主任，李达任宣传主任</td>
+  </tr>
+  <tr>
+    <td>2大</td>
+    <td>1922年7月16</td>
+    <td>中央执行委员会</td>
+    <td>委员长</td>
+    <td>陈独秀</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>3大</td>
+    <td>1923年6月12</td>
+    <td>中央执行委员会</td>
+    <td>委员长</td>
+    <td>陈独秀</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>4大</td>
+    <td>1925年1月11</td>
+    <td>中央执行委员会</td>
+    <td>总书记</td>
+    <td>陈独秀</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>5大</td>
+    <td>1927年5月9</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>陈独秀</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>6大</td>
+    <td>1928年7月19</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>向忠发</td>
+    <td>一说为政治局主席兼中央常委主席</td>
+  </tr>
+  <tr>
+    <td>7大</td>
+    <td>1945年6月19</td>
+    <td>中央委员会</td>
+    <td>主席</td>
+    <td>毛泽东</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>8大</td>
+    <td>1956年9月28</td>
+    <td>中央委员会</td>
+    <td>主席</td>
+    <td>毛泽东</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>9大</td>
+    <td>1969年4月28</td>
+    <td>中央委员会</td>
+    <td>主席</td>
+    <td>毛泽东</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>10大</td>
+    <td>1973年8月30</td>
+    <td>中央委员会</td>
+    <td>主席</td>
+    <td>毛泽东</td>
+    <td>1973年8月30－1976年9月9</td>
+  </tr>
+  <tr>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>华国锋</td>
+    <td>1976年10月7－1977年8月18</td>
+  </tr>
+  <tr>
+    <td>11大</td>
+    <td>1977年8月19</td>
+    <td>中央委员会</td>
+    <td>主席</td>
+    <td>华国锋</td>
+    <td>1977年8月19－1981年6月28</td>
+  </tr>
+  <tr>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>胡耀邦</td>
+    <td>1981年6月29－1982年9月11</td>
+  </tr>
+  <tr>
+    <td>12大</td>
+    <td>1982年9月12</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>胡耀邦</td>
+    <td>1982年9月12－1987年1月15</td>
+  </tr>
+  <tr>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>赵紫阳</td>
+    <td>1987年1月16－1987年11月1日代理</td>
+  </tr>
+  <tr>
+    <td>13大</td>
+    <td>1987年11月2</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>赵紫阳</td>
+    <td>1987年11月2－1989年6月23日，实际上-5月19</td>
+  </tr>
+  <tr>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>　</td>
+    <td>江泽民</td>
+    <td>1989年6月24－1992年10月18</td>
+  </tr>
+  <tr>
+    <td>14大</td>
+    <td>1992年10月19</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>江泽民</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>15大</td>
+    <td>1997年9月19</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>江泽民</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>16大</td>
+    <td>2002年11月14</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>胡锦涛</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>17大</td>
+    <td>2007年10月22</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>胡锦涛</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>18大</td>
+    <td>2012年11月14</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>习近平</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>19大</td>
+    <td>2017年10月24</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>习近平</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>20大</td>
+    <td>2022年10月22</td>
+    <td>中央委员会</td>
+    <td>总书记</td>
+    <td>习近平</td>
+    <td>　</td>
+  </tr>
+</table>
+<p><strong>①</strong> 1921年7月23日至8月初中国共产党第一次全国代表大会在上海法租界望志路106号（现兴业路76号）和浙江嘉兴召开。选举<strong>陈独秀为中央局书记</strong>。  </p>
+
+<img src="1.png" width="90%" />
+
+<p><strong>②</strong> 1922年7月16日至23日，中国共产党第二次全国代表大会在上海南成都路辅德里625号召开。出席会议的代表共12名（有一名代表姓名不详），代表全国195名党员。 选举<strong>陈独秀为中央执行委员会委员长</strong>。</p>
+
+<img src="2.png" width="80%" />
+
+<p><strong>③</strong> 1923年6月12日至20日，中国共产党第三次全国代表大会在广州东山恤孤院31号（现恤孤院路3号）召开。 选举<strong>陈独秀为中央执行委员会委员长</strong>。</p>
+
+<img src="3.png" width="80%" />
+
+<p><strong>④</strong> 1925年1月11日至22日，中国共产党第四次全国代表大会在上海召开，中国共产党第四届中央执行委员会第一次会议选举<strong>陈独秀为中国共产党中央执行委员会总书记兼中央组织部主任</strong>，彭述之为中央宣传部主任，张国焘为中央工农部主任，蔡和森、瞿秋白为中央宣传部委员，以上5人组成中央局。 </p>
+
+<img src="4.png" width="80%" />
+
+<p><strong>⑤</strong> 1927年5月9日，中国共产党第五次全国代表大会在武汉（汉口）举行，选举<strong>陈独秀为中央总书记</strong>。</p>
+
+<img src="5.png" width="80%" />
+
+
+<p><strong>⑥</strong> 1928年7月19日在苏联莫斯科克里姆林宫举行中国共产党第六届中央委员会第一次全体会议，选举<strong>向忠发为中共中央政治局主席兼中央常委主席</strong>。</p>
+
+<img src="6.png" width="80%" />
+
+
+
+<p><strong>⑦</strong> 1945年6月19日中共第七次全国代表大会选举产生中共第七届中央委员会，选举<strong>毛泽东为中央委员会、中央政治局主席</strong>。</p>
+
+<img src="7.png" width="100%" />
+
+<p><strong>⑧</strong> 1956年9月28日中共第八次全国代表大会选举产生中共第八届中央委员会。选举<strong>毛泽东为中央委员会主席</strong>，邓小平为总书记（主要负责书记处的工作，并不是党的最高领导人）。</p>
+
+<img src="8.png" width="100%" />
+
+
+<p><strong>⑨</strong> 1969年4月28日中共第九次全国代表大会选举产生中共第九届中央委员会，选举<strong>毛泽东为中央委员会主席</strong>。</p>
+
+<img src="9.png" width="100%" />
+
+
+<p><strong>⑩</strong> 1973年8月30日中共第十次全国代表大会选举产生中共第十届中央委员会。</p>
+<p>选举<strong>毛泽东为中央委员会主席</strong>（1973年8月中共十届一中全会选举产生。1976年9月9日逝世。）</p>
+<p>1976年10月7日中央政治局决定<strong>华国锋为中央委员会主席</strong>。1977年7月中共十届三中全会追认。）</p>
+
+<img src="10.png" width="100%" />
+
+<p><strong>十一</strong> 1977年8月中共十一届一中全会选举<strong>华国锋为中央委员会主席</strong>。1981年6月中共十一届六中全会同意华国锋辞去党中央主席和中央军委主席职务的请求）</p>
+
+<img src="11.png" width="100%" />
+
+<p><strong>十二 </strong>1982年9月12日中共第十二次全国代表大会选举产生中共第十二届中央委员会，选举<strong>胡耀邦为中央委员会总书记</strong>（1987年1月十二届七中全会辞职），<strong>邓小平为中央军事委员会主席</strong>。</p>
+<p>第十二届中央政治局党委↓</p>
+<img src="12.png" width="70%" />
+
+<p><strong>十三 </strong>1987年11月2日在北京举行中国共产党第十三届中央委员会第一次全体会议，选举<strong>赵紫阳为中央委员会总书记</strong>（1987年11月—1989年6月），邓小平为中央军事委员会主席，1989年11月十三届五中全会选举<strong>江泽民中共中央总书记、中央军委主席</strong>。</p>
+<p>第十三届中央政治局党委↓</p>
+<img src="13.png" width="90%" />
+
+<p><strong>十四 </strong>1992年10月19日中共第十四次全国代表大会选举产生中共第十四届中央委员会，选举<strong>江泽民中共中央总书记、中央军委主席</strong>，1993年3月27日选举为<strong>国家主席</strong>。</p>
+<img src="14.png" width="90%" />
+
+
+<p><strong>十五 </strong>1997年9月19日中共第十五次全国代表大会选举产生中共第十五届中央委员选举<strong>江泽民为中共中央总书记、中央军委主席，国家主席</strong>。</p>
+<img src="15.png" width="90%" />
+
+
+<p><strong>十六 </strong>2002年11月14日中共第十六次全国代表大会选举产生中共第十六届中央委员会，选举<strong>胡锦涛为中共中央总书记</strong>，2003年3月15日选举为国家主席，2004年9月十六届四中全会选举为中央军委主席。</p>
+<img src="16.png"  width="100%" />
+
+<p><strong>十七 </strong>2007年10月22日中共第十七次全国代表大会选举产生中共第十七届中央委员会。</p>
+<img src="17.png" width="100%" />
+
+
+<p><strong>十八 </strong>2012年11月14日中共第十八次全国代表大会选举产生中共第十八届中央委员会。</p>
+<img src="18.png" />
+
+<p><strong>十九 </strong>2017年10月24日中共第十九次全国代表大会选举产生中共第十九届中央委员会。</p>
+<img src="19.png" />
+
+<p><strong>二十 </strong>2022年10月22日中共第二十次全国代表大会选举产生中共第二十届中央委员会。</p>
+<img src="20.png" />
+
+
+<h3>二、中央军委主席</h3>
+
+
+<p>中央军委主席，是中央军委的最高职务。 </p>
+
+
+<p>1982年起，中华人民共和国宪法规定国家设立中央军事委员会，至此，形式上存在两个中央军事委员会，即中华人民共和国中央军事委员会和中国共产党中央军事委员会，但是两会的主席（又分别称中共中央军委主席和国家军委主席）和第一副主席除了过渡时期外均为相同的人选。 </p>
+
+
+<p> 由于中国社会的特有政治生活背景，中央军委主席一职的人选一般标志着一个统治时代的开始和终结，尽管理论上军委主席只是中国的最高军事统帅，实际上多数为中国的最高领导人或掌握实权的人。 </p>
+
+
+<p>中华人民共和国成立以后，在毛泽东时代，由毛泽东担任军委主席；在邓小平时代，过渡时期由华国锋担任，之后邓小平担任直至1989年，随后就是江泽民时期或称后邓小平时代。 </p>
+
+
+<p>客观上在中国，军事权力在政权完全稳定以后，中共中央主席（总书记）、国家主席和军委主席均由一人兼任。在政权的过渡时期，中共中央总书记、国家主席有时由一个人兼任，军委主席由实权人担任。如邓小平主政后最高职务为军委主席，期间胡耀邦、赵紫阳和江泽民先后担任党的总书记。1993年以后，江泽民集国家主席、党的总书记和军委主席三职于一身，其中1989年6月接替赵紫阳为党的总书记、1989年9月接替邓小平为军委主席、1993年接替杨尚昆为国家主席。 </p>
+
+
+<p> 如国家主席、中共中央总书记胡锦涛为中共中央军委主席。在2005年3月的全国人民代表大会上，胡锦涛当选为中华人民共和国国家中央军委主席。 </p>
+
+
+<p>毛泽东（1949年-1976年） </p>
+
+
+<p>华国锋（1976年-1981年） </p>
+
+
+<p>邓小平（1981年-1989年11月7日） </p>
+
+
+<p>江泽民（1989年11月7日-2004年9月19日） </p>
+
+
+<p>胡锦涛（2004年9月19日） </p>
+
+
+<h3>三、中华人民共和国主席</h3>
+
+
+<p> 中华人民共和国主席，是中华人民共和国国家机构的组成部分，是国家机构中的一种。自1954年开始设立。主席和全国人大常委会结合行使国家元首的职权，它对外代表国家。根据中华人民共和国宪法，主席由全国人民代表大会根据宪法第六十二条选举产生，任期五年，最多可连任两届，根据宪法规定：国家主席必须是年满45周岁并有选举权及被选举权的中华人民共和国公民，在实践上则同时中国共产党中央政治局委员以上的高级干部。 </p>
+
+
+<p> 宪法第三章第二节界定了主席的职责与义务。主席的主要权力包括，根据全国人大和其常委会的决定公布法律、任免国务院总理和国务院其它组成人员、发布特赦令、宣布进入紧急状态、动员令、授予国家勋章；代表中华人民共和国从事国事活动，接受外国使节、批准或废除与外国缔约等。 </p>
+
+
+<p> 按宪法，主席职务仅仅是象征性的国家的元首。如果主席同时任别的职务，其实际权力则来自其他职务，自杨尚昆开始，国家主席一般都兼任中央军委主席或副主席。 </p>
+
+
+<p>根据中华人民共和国宪法规定：如果国家主席出缺，由国家副主席继任；如果正副主席都出缺，则由全国人大常委会委员长代理主席职位至新的国家正副主席人选产生为止。 </p>
+
+
+
+
+<table id="tbrowser">
+  <col width="30" />
+  <col width="60"/>
+    <col width="90"/>
+  <col width="90" />
+  <col width="90" />
+  <col width="160" />
+  <tr>
+    <th>届</th>
+    <th>姓名</th>
+    <th>　</th>
+    <th>任期开始</th>
+    <th>任期结束</th>
+    <th>副主席</th>
+  </tr>
+  <tr>
+    <td colspan="6">中华人民共和国中央人民政府主席（1949-1954）</td>
+  </tr>
+  <tr>
+    <td>-</td>
+    <td>毛泽东</td>
+    <td>（1893-1976）</td>
+    <td>1949年9月</td>
+    <td>1954年9月</td>
+    <td>朱德、刘少奇、宋庆龄、李济深、张澜、高岗</td>
+  </tr>
+  <tr>
+    <td colspan="6">中华人民共和国主席（1954-1975）</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>毛泽东</td>
+    <td>　</td>
+    <td>1954年9月</td>
+    <td>1959年4月</td>
+    <td>朱德</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>刘少奇</td>
+    <td>（1898-1969）</td>
+    <td>1959年4月</td>
+    <td>1965年1月</td>
+    <td>宋庆龄、董必武</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>刘少奇</td>
+    <td>　</td>
+    <td>1965年1月</td>
+    <td>1966年</td>
+    <td>宋庆龄、董必武</td>
+  </tr>
+  <tr>
+    <td colspan="6">中华人民共和国名誉主席</td>
+  </tr>
+  <tr>
+    <td>-</td>
+    <td>宋庆龄</td>
+    <td>（1893-1981）</td>
+    <td>1981年5月16</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td colspan="6">中华人民共和国主席（1983至今）</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>李先念</td>
+    <td>（1909-1992）</td>
+    <td>1983年6月</td>
+    <td>1988年4月</td>
+    <td>乌兰夫</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>杨尚昆</td>
+    <td>（1907-1998）</td>
+    <td>1988年4月</td>
+    <td>1993年3月</td>
+    <td>王震</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>江泽民</td>
+    <td>（1926-2022）</td>
+    <td>1993年3月</td>
+    <td>1998年3月</td>
+    <td>荣毅仁</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>　</td>
+    <td>　</td>
+    <td>1998年3月</td>
+    <td>2003年3月</td>
+    <td>胡锦涛</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>胡锦涛</td>
+    <td>（1942-    ）</td>
+    <td>2003年3月</td>
+    <td>2008年3月</td>
+    <td>曾庆红</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>　</td>
+    <td>　</td>
+    <td>2008年3月</td>
+    <td>2013年3月</td>
+    <td>习近平</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td><div data-tag="paragraph" data-uuid="gncopyfvnr" data-idx="">习近平</td>
+    <td><div data-tag="paragraph" data-uuid="gncopyfvpf" data-idx="">（1953-    ）</td>
+    <td>2013年3月</td>
+    <td>2018年3月</td>
+    <td>李源潮</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>　</td>
+    <td>　</td>
+    <td>2018年3月</td>
+    <td>2023年3月</td>
+    <td>王岐山</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>　</td>
+    <td>　</td>
+    <td>2023年3月</td>
+    <td></td>
+    <td>韩正</td>
+  </tr>
+</table>
+<h3>四、中国历届中华人民共和国国务院总理</h3>
+
+
+<p>中华人民共和国国务院总理为中华人民共和国政府首脑。每届任期为五年，连续任职不得超过两届。总理负责召集和主持国务院常务会议和国务院全体会议，根据宪法对国务院赋予的职权行事。 </p>
+
+
+<p>总理产生程序：国家主席提名，交全国人民代表大会通过，再由国家主席任免。 </p>
+
+
+<h4>历任总理：</h4>
+<table id="tbrowser">
+  <col width="30" />
+    <col width="50" />
+	  <col width="100" />
+	    <col width="100" />
+		  <col width="100" />
+		    <col width="100" />
+  <tr>
+    <th>届次</th>
+    <th>姓名</th>
+    <th>　</th>
+    <th>任期开始</th>
+    <th>任期结束</th>
+    <th>备注</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td> 周恩来</td>
+    <td>（1898-1976）</td>
+    <td>1949年10月1</td>
+    <td>1954年9月27</td>
+    <td> 　</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td> 周恩来</td>
+    <td>　</td>
+    <td> 1954年9月27</td>
+    <td> 1959年4月27</td>
+    <td> 　</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>　</td>
+    <td>　</td>
+    <td> 1959年4月27</td>
+    <td> 1965年1月4</td>
+    <td> 　</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>　</td>
+    <td>　</td>
+    <td> 1965年1月4</td>
+    <td> 1975年1月17</td>
+    <td> 　</td>
+  </tr>
+  <tr>
+    <td> 4</td>
+    <td>　</td>
+    <td>　</td>
+    <td> 1975年1月17</td>
+    <td> 1976年1月8</td>
+    <td> 在任时逝世</td>
+  </tr>
+  <tr>
+  <td></td>
+    <td>空缺</td>
+    <td>　</td>
+    <td> 1976年1月8</td>
+    <td> 1976年2月2</td>
+    <td> 尚未任命接替者</td>
+  </tr>
+  <tr>  <td></td>
+
+    <td>华国锋</td>
+    <td>（1921-2008）</td>
+    <td>1976年2月2</td>
+    <td>1976年4月7</td>
+    <td>代总理</td>
+  </tr>
+  <tr>  <td></td>
+
+    <td></td>
+    <td>　</td>
+    <td>1976年4月7</td>
+    <td>1978年3月5</td>
+    <td>正式任命</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>　</td>
+    <td>　</td>
+    <td>1978年3月5</td>
+    <td>1980年9月10</td>
+    <td>辞去职务</td>
+  </tr>
+  <tr>  <td></td>
+
+    <td>赵紫阳</td>
+    <td>（1919-2005）</td>
+    <td>1980年9月10</td>
+    <td>1983年6月18</td>
+    <td>任命接替</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>　</td>
+    <td>　</td>
+    <td>1983年6月18</td>
+    <td>1987年11月24</td>
+    <td>改任代总书记</td>
+  </tr>
+  <tr>  <td></td>
+
+    <td>李鹏</td>
+    <td>（1928-2019）</td>
+    <td>1987年11月24</td>
+    <td>1988年4月13</td>
+    <td>代总理</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>　</td>
+    <td>　</td>
+    <td>1988年4月13</td>
+    <td>1993年3月31</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>　</td>
+    <td>　</td>
+    <td>1993年3月31</td>
+    <td>1998年3月17</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td> 朱镕基</td>
+    <td>（1928-）</td>
+    <td>1998年3月17</td>
+    <td>2003年3月16</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td> 温家宝</td>
+    <td>（1942-）</td>
+    <td>2003年3月16</td>
+    <td>2008年3月16</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>　</td>
+    <td>　</td>
+    <td>2008年3月16</td>
+    <td>2013年3月15</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td> 李克强</td>
+    <td>（1955.7-2023.10</td>
+    <td> 2013年3月15</td>
+    <td> 2018年3月18</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>　</td>
+    <td>　</td>
+    <td> 2018年3月18</td>
+    <td> 2023年3月11</td>
+    <td>　</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>李强</td>
+    <td>（1959.7-）</td>
+    <td>2023年3月11</td>
+    <td>　</td>
+    <td>　</td>
+  </tr>
+</table>
+
+
+
+
+
+<h3>五、人大委员长</h3>
+
+
+
+
+
+<table id="tbrowser">
+  <col width="50" />
+    <col width="50" />
+	  <col width="50" />
+	    <col width="50" />
+		  <col width="170" />
+  <tr>
+    <th>届次</th>
+    <th>姓名</th>
+    <th>届次时间</th>
+    <th>　</th>    <th>备注</th>
+  </tr>
+  <tr>
+    <td>第一届</td>
+    <td>刘少奇</td>
+    <td>1954年9月</td>
+    <td>1959年4月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第二届</td>
+    <td>朱德</td>
+    <td>1959年4月</td>
+    <td>1965年1月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第三届</td>
+    <td>　</td>
+    <td>1965年1月</td>
+    <td>1975年1月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第四届</td>
+    <td>　</td>
+    <td>1975年1月</td>
+    <td>1978年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第五届</td>
+    <td>叶剑英</td>
+    <td>1978年3月</td>
+    <td>1983年6月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第六届</td>
+    <td>彭真</td>
+    <td>1983年6月</td>
+    <td>1988年4月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第七届</td>
+    <td>万里</td>
+    <td>1988年4月</td>
+    <td>1993年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第八届</td>
+    <td>乔石</td>
+    <td>1993年3月</td>
+    <td>1998年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第九届</td>
+    <td>李鹏</td>
+    <td>1998年3月</td>
+    <td>2003年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第十届</td>
+    <td>吴邦国</td>
+    <td>2003年3月</td>
+    <td>2008年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第十一届</td>
+    <td>　</td>
+    <td>2008年3月</td>
+    <td>2013年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第十二届</td>
+    <td>张德江</td>
+    <td>2013年3月</td>
+    <td>2018年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第十三届</td>
+    <td>栗战书</td>
+    <td>2018年3月</td>
+    <td>2023年3月</td>    <td>　</td>
+  </tr>
+  <tr>
+    <td>第十四届</td>
+    <td>赵乐际</td>
+    <td>2023年3月</td>
+    <td></td>    <td>　</td>
+  </tr>
+</table>
+<h3>六、外交部长</h3>
+<table id="tbrowser">
+
+  <col width="64">
+  <col width="61">
+  <col width="83">
+  <col width="64">
+    <col width="264">
+  <tr>
+    <th width="64">任次</th>
+    <th width="61">姓名</th>
+    <th width="83">开始</th>
+    <th width="64">结束</th>
+    <th width="64">备注</th>
+  </tr>
+  <tr>
+    <td>第一任</td>
+    <td>周恩来</td>
+    <td>1949</td>
+    <td>1958</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第二任</td>
+    <td>陈毅</td>
+    <td>1958</td>
+    <td>1972</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第三任</td>
+    <td>姬鹏飞</td>
+    <td>1972</td>
+    <td>1974</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第四任</td>
+    <td>乔冠华</td>
+    <td>1974.11</td>
+    <td>1976.12</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第五任</td>
+    <td>黄华</td>
+    <td>1976.12</td>
+    <td></td>
+    <td>曾用名王汝梅</td>
+  </tr>
+  <tr>
+    <td>第六任</td>
+    <td>吴学谦</td>
+    <td>1982.11</td>
+    <td>1988.4</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第七任</td>
+    <td>钱其琛</td>
+    <td>1988.4</td>
+    <td>1998.3</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第八任</td>
+    <td>唐家璇</td>
+    <td>1998.3.18</td>
+    <td>2003.3</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第九任</td>
+    <td>李肇星</td>
+    <td>2003.03.17</td>
+    <td colspan="2">2007.04.27</td>
+  </tr>
+  <tr>
+    <td>第十任</td>
+    <td>杨洁篪</td>
+    <td>2007.04.27</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第十一任</td>
+    <td>王毅</td>
+    <td>2013.3</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第十二任</td>
+    <td>秦刚</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>第十三任</td>
+    <td>王毅</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+
+
+
+
+<p>ref</p>
+<p><a href="https://www.gov.cn/test/2008-09/09/content_1091158_2.htm">中共中央历届领导机构</a></p>
+
+<p><a href="https://m.wyzxwk.com/content.php?classid=21&id=141371">中国历届总书记、委员长、总理、国家主席、军委主席</a></p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*<br />\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+-->
+
+
