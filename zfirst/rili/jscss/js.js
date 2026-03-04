@@ -1,6 +1,11 @@
+// 31号有问题
+// 2026.2.28显示空白
+//在head中chrome可以使用多个script标签，IE只能使用1个
+<!--  // 日期资料 1900-2049 , 1900年1月31日农历正月初一
+
 <!--倒计时-->
 var time_now_server,time_now_client,time_end,time_server_client,timerID;
-time_end=new Date("Feb 16, 2026 00:00:00");
+time_end=new Date("Feb 27, 2026 00:00:00");
 time_end=time_end.getTime();
 
 time_now_server=new Date();
@@ -42,17 +47,31 @@ function show_time()
 	}
 	else
 	{
-		timer.innerHTML ="over";
-		clearTimeout(timerID)
+		time_distance=time_now-time_end;
+		int_day=Math.floor(time_distance/86400000)
+		time_distance-=int_day*86400000;
+		int_hour=Math.floor(time_distance/3600000)
+		time_distance-=int_hour*3600000;
+		int_minute=Math.floor(time_distance/60000)
+		time_distance-=int_minute*60000;
+		int_second=Math.floor(time_distance/1000)
+	
+		if(int_hour<10)
+			int_hour="0"+int_hour;
+		if(int_minute<10)
+			int_minute="0"+int_minute;
+		if(int_second<10)
+			int_second="0"+int_second;
+		str_time="<font style='font-size:12pt;color:#28C84A;font-weight:bold;'>"+"已过去"+int_day+"</font><font face='黑体' style='font-size:10pt;'>天</font><br>"+int_hour+":"+int_minute+":"+int_second;
+		timer.innerHTML=str_time;
+<!--timer.innerHTML ="over";-->
+<!--clearTimeout(timerID)-->
 	}
 }
+<!--↑ 倒计时-->
 
 
 
-//31号有问题
-// line: 920 春节
-//在head中chrome可以使用多个script标签，IE只能使用1个
-<!--  // 日期资料 1900-2049 , 1900年1月31日农历正月初一
 var lunarInfo=new Array(
 0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
 0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977, // 1910-1919
@@ -224,15 +243,14 @@ function monthDays(y,m) {
 <!--Lunar-->
 
 function Lunar(objDate) { // 函数构造器，构造一个对象，this表示对象本身
-
-   var i, leap=0, temp=0
-   var baseDate = new Date(1900,0,31)		// 在JS中，0-11表示1-12月，1900.1.31号是正月初一
-   var offset=(objDate - baseDate)/86400000 // 86400000：一天的毫秒数，offset是两个日期相距天数
-											// 在函数构造器中，构造一个对象，this表示对象自身。
-   this.dayCyl = offset + 40  			// 1900,0,31是甲辰日，是41
-   this.monCyl = 14							// 干支纪月，China year lunar，正月建寅（立春后）
-											// 1900,1,31是正月初一，丁丑月，立春是初四，
-   for(i=1900; i<2050 && offset>0; i++) { 	// offset>0控制到参数objDate的日期
+    var i, leap=0, temp=0
+    var baseDate = new Date(1900,0,31)		 // 在JS中，0-11表示1-12月，1900.1.31号是正月初一
+    var offset=(objDate - baseDate)/86400000 // 86400000：一天的毫秒数，offset是两个日期相距天数
+											 // 在函数构造器中，构造一个对象，this表示对象自身。
+   this.dayCyl = offset + 40  			     // 1900,0,31是甲辰日，是41
+   this.monCyl = 14							 // 干支纪月，China year lunar，正月建寅（立春后）
+											 // 1900,1,31是正月初一，丁丑月，立春是初四，
+   for(i=1900; i<2050 && offset>0; i++) { 	 // offset>0控制到参数objDate的日期
       temp = lYearDays(i)
       offset -= temp		// offset通过递减算农历日，递减所有年的天数、参数年的所有月天数
       this.monCyl += 12
@@ -565,7 +583,6 @@ function changeCld() {
    var lm = ld.month;
 
    picOutput(lm)
-
 }
 
 function pushBtm(K) { 	// 参数为按钮调用函数参数
@@ -602,7 +619,6 @@ function pushBtm(K) { 	// 参数为按钮调用函数参数
    }
    changeCld();
    oneToday2(clickDay)
-   
 }
 
 function toToday()
@@ -618,9 +634,6 @@ function toToday()
 
 	printDate(tM+1,Today.getDate())
 	goto(Today.getDate())
-
-
-
 }
 
 
@@ -659,8 +672,8 @@ function oneday(v) { // mouseover显示详细日期资料
 		 
 	// 构造一个显示在某一个对象的innerHTML内的字符串
       s= '<table border="1" cellpadding="0" cellspacing="0" width="0%" '+'bordercolorlight="#000000" bordercolor="#FFFFFF" '+'height="0%" bgcolor="#C0C0C0"><tr><td>' +
-         "<table border='1' cellspacing='3' width='160' bordercolor='#009B00' bgcolor='#FFFFFF' height='110' cellpadding='2'"+'<tr><td ALIGN="center" style="line-height:32px;"><font COLOR="#00f" STYLE="font-size:14pt;">'+
-         cld[d].sYear+' 年 '+cld[d].sMonth+' 月 '+ "</font><br><font face='Arial' size='8' color=#FF8040>"+ cld[d].sDay + "</font><br><font face='Arial' size='4' color=blue>星期"+cld[d].week+'</font><br>'+
+         "<table border='1' cellspacing='3' width='160' bordercolor='#009B00' bgcolor='#FFFFFF' height='108' cellpadding='2'"+'<tr><td ALIGN="center" style="line-height:28px;"><font COLOR="#00f" STYLE="font-size:14pt;">'+
+         cld[d].sYear+' 年 '+cld[d].sMonth+' 月 '+ "</font><br><font face='Arial' size='6' color=#FF8040>"+ cld[d].sDay + "</font><br><font face='Arial' size='4' color=blue>星期"+cld[d].week+'</font><br>'+
          '<font color="black">'+cld[d].cYear +' '+ cld[d].cAnimal+'年 <br>'+
          '<font color="#8B0000">'+(cld[d].isLeap?'闰 ':' ')+cld[d].lMonth+' '+ cDay(Math.floor(cld[d].lDay)) + ' </font><br>'+jy+'月 '+ jr + '日</font>'+
          '</font><br>'+ festival +'</td></tr></table>'; //Animals[(cld[1].lYear-4)%12]
@@ -921,6 +934,23 @@ function printDate(m,d) {
 	//document.write('<img src="' + days[theDate.getDate()] + '">'); // day
 	str +='<img src="' + days[d] + '">' // day
 	detail3.innerHTML = str
+	
+	
+var month24 = new Array();
+	month24[1] ="1月小寒接大寒。大寒三候：鸡乳、征鸟厉疾、水泽腹坚。";	
+month24[2] ="2月立春雨水连。立春雨水到，早起晚睡觉。尺麦怕寸水。立春三候：东风解冻、蜇虫始振、鱼陟负冰；雨水三候：獭祭鱼、鸿雁来、草木萌动";	
+month24[3] ="惊蛰春分在3月。惊蜇地气通，锄麦莫放松。春分麦起身，肥水要紧跟。春分秋分，昼夜平分。惊蛰三候：桃始华、仓庚鸣、鹰化为鸠。";	
+month24[4] ="清明谷雨4月天。清明前后，种瓜点豆。清明物候：桐始华、田鼠化为鴽、虹始见、萍始生。谷雨三候：萍始生、鸣鸠拂其羽、戴胜降于桑。";	
+month24[5] ="5月立夏和小满。立夏物候：蝼蝈鸣，蚯蚓出，王瓜生，苦菜秀。小满三候：苦菜秀、靡草死、麦秋至。<br>立夏“见三鲜”，为尝新之俗。地三鲜：蚕豆、苋菜、黄瓜（笋子）。树三鲜：樱桃、青梅、枇杷。水三鲜：鲥鱼、河豚、海螺（银鱼）。";	
+month24[6] ="6月芒种夏至连。芒种芒种，连收带种。“芒”字指麦类等作物的收获，“种”字是指谷黍类作物的播种，“芒种”二字表明一切作物都在“忙种”了，是农事最为繁忙的时节。夏至三候：鹿角解、蝉始鸣、半夏生。";	
+month24[7] ="7月小署和大暑。大暑三候：腐草为萤、土润溽暑、大雨时行。";	
+month24[8] ="立秋处署8月间。处暑，即为“出暑”，是炎热离开的意思。处暑三候：鹰乃祭鸟、天地始肃、禾乃登。";	
+month24[9] ="9月白露接秋分。秋分种麦正当时。白露三候：鸿雁来、玄鸟归、群鸟养羞。";
+month24[10] ="10月寒露霜降。寒露收山楂，霜降刨地瓜。寒露三候：鸿雁来宾、雀入大水为蛤、菊有黄华。";	
+month24[11] ="11月立冬小雪。立，建始也；冬，终也，万物收藏也。";
+month24[12] ="12月大雪冬至";
+months24.innerHTML = month24[m];
+		
 }
 
 function picOutput(m) {
@@ -958,6 +988,8 @@ function picOutput(m) {
 	months[11] ="冬月：十一月山茶初开放，冬月葭草吐绿头，又称葭月，在冬三月的正中间，此时节，冬日渐深，冬寒更甚。根据农历历法，冬至节气必须出现在农历十一月，如果出现误差，则用设闰月来进行调整。因为农历十一月是二十四节气中的冬至所在的月份，所以农历十一月又被称为冬月。";
 	months[12] ="腊月：十二月梅花雪里香，因干燥少雨的气候适宜制作腊味而得名。腊月习俗包含扫尘、祭灶、写春联等，北方地区以腊月二十三为小年，南方则多以二十四为小年。腊是“猎”的通假字，“腊祭”亦为“猎祭”，指猎取禽兽祭祀先祖的意思。腊月二十五，推磨做豆腐。腊月二十六 ，杀猪割年肉。腊月二十七，宰鸡赶大集。年廿八，洗邋遢。";
 	month.innerHTML = months[m];
+
+	
 }
 function initial() {
 	dStyle = detail.style;
