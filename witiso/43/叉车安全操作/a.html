@@ -1,0 +1,554 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base target="_blank" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript">
+var userAgent = navigator.userAgent.toLowerCase();
+var browser = 
+	(browser = userAgent.match(/qqbrowser\/([\d.]+)/))?"qqbrowser/"+browser[1]:
+	(browser = userAgent.match(/se\s+2.x/))?"sogou/2.x": //sougou
+	(browser = userAgent.match(/msie\s+([\d.]+)/))?"msie/"+browser[1]: //ie
+	(browser = userAgent.match(/chrome\/([\d.]+)/))?"chrome/"+browser[1]: //chrome
+	(browser = userAgent.match(/firefox\/([\d.]+)/))?"firefox/"+browser[1]: //firefox
+	(browser = userAgent.match(/version\/([\d.]+)\s+safari\/([\d.]+)/))?"safari/"+browser[1]: //safari
+	(browser = userAgent.match(/opera\/([\d.]+)([\w\W]+)version\/([\d.]+)/))?"opera/"+browser[3]: //opera
+	"other browser";
+	var browser4 = browser.substr(0,2);
+//实现回到页面顶部  
+function goTopEx(){  
+	var obj=document.getElementById("goTopBtn"); 
+	var obj2=document.getElementById("shangy"); 
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");  
+	
+	function getScrollTop(){  
+		if(browser4=="ch"){
+			//chrome
+			//chrome63.0.3239.132对DTD XHTML 1.0不再支持body.scrollTop属性，只支持documentElement.scrollTop 
+			return document.documentElement.scrollTop; 
+		}else{
+			//IE、firefox
+			return document.documentElement.scrollTop;  
+		}  
+	}
+	function setScrollTop(value){ 
+		if(browser4=="ch"){ 
+			//chrome
+			document.documentElement.scrollTop=value; 
+		}else{  
+			//IE、firefox
+			document.documentElement.scrollTop=value;  
+		} 
+	}     
+	window.onscroll=function(){getScrollTop()>50?obj.style.display="":obj.style.display="none";
+	getScrollTop()>100?obj2.style.display="":obj2.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj3.style.display="":obj3.style.display="none";
+	document.body.clientHeight-getScrollTop()>650?obj4.style.display="":obj4.style.display="none";
+	}  
+	obj.onclick=function(){  
+		var goTop=setInterval(scrollMove,10);  
+		function scrollMove(){  
+				setScrollTop(getScrollTop()/1.1);  
+				if(getScrollTop()<1)clearInterval(goTop);  
+		}  
+	}  
+}  
+function downn(){
+	if(browser4=="ch"){
+		//chrome
+		window.scrollBy(0,document.body.clientHeight);
+	}else{
+		//IE、firefox
+		window.scrollBy(0,document.documentElement.clientHeight*1000); 
+	}
+}
+</script>
+<script>
+function changePage(){ 
+	var page = document.getElementById("container");
+	page.style.background="black";
+	page.style.color="white";
+	page.style.fontSize="22px";
+	page.style.fontFamily="MV boli";
+}
+document.write('<div style="position:fixed; right: 10px; top:20px; color:#eee;">背景颜色<br><select name=bcolor id=bcolor onchange="javascript:document.body.style.background=this.options[this.selectedIndex].value;"><option style="background-color: #ffffff" value="#ffffff">白色</option><option style="background-color: #f6f6f6" value="#f6f6f6">银灰</option><option style="background-color: #e4ebf1" value="#e4ebf1">淡蓝</option><option style="background-color: #e6f3ff" value="#e6f3ff">蓝色</option> <option style="background-color: #eeeeee" value="#eeeeee">淡灰</option><option style="background-color: #eaeaea" value="#eaeaea">灰色</option>  <option style="background-color: #e4e1d8" value="#e4e1d8">深灰</option><option style="background-color: #e6e6e6" value="#e6e6e6">暗灰</option><option style="background-color: #eefaee" value="#eefaee">绿色</option><option style="background-color: #ffffed" value="#ffffed">明黄</option><option style="background-color: #333333" value="#333333">黑色</option></select><br>字体颜色<br><select name=txtcolor id=txtcolor onchange="javascript:document.getElementById(\'container\').style.color=this.options[this.selectedIndex].value;"> <option value="#000000">黑色</option><option value="#ff0000" style="color:red;">红色</option><option value="#006600" style="color:green;">绿色</option><option value="#0000ff" style="color:blue;">蓝色</option><option value="#660000" style="color:#006600;">棕色</option><option value="#ffffff">白色</option></select><br>字体大小<br><select name=fontsize id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontSize=this.options[this.selectedIndex].value;"> <option value="12px" >小号</option> <option value="14px" >较小</option> <option value="19px" >中号</option> <option value="19px" >默认</option><option value="22px" >较大</option><option value="25px" >大号</option><option value="35px" >35px</option><option value="45px" >45px</option><option value="55px" >55px</option><option value="65px" >65px</option><option value="75px" >75px</option><option value="85px" >85px</option><option value="95px" >95px</option></select>><br>字体类型<br><select name=fonttype id=fonttype onchange="javascript:document.getElementById(\'container\').style.fontFamily=this.options[this.selectedIndex].value;"> <option value="宋体" >宋体</option> <option value="MV boli" style="font-family:MV boli">MV boli</option> <option value="隶书" style="font-family:隶书">隶书</option> <option value="黑体" style="font-family:黑体">黑体</option><option value="楷体" style="font-family:楷体">楷体</option><option value="幼圆" style="font-family:幼圆">幼圆</option><option value="华文中宋" style="font-family:华文中宋">华文中宋</option><option value="华文行楷" style="font-family:华文行楷">华文行楷</option><option value="微软雅黑" style="font-family:微软雅黑">微软雅黑</option><option value="Arial" style="font-family:Arial">Arial</option><option value="Vrinda" style="font-family:Vrinda">Vrinda</option><option value="Tahoma" style="font-family:Tahoma">Tahoma</option><option value="Courier" style="font-family:Courier">Courier</option><option value="Times" style="font-family:Times">Times</option><option value="Georgia" style="font-family:Georgia">Georgia</option><option value="Lucida" style="font-family:Lucida">Lucida</option></select><br><a onClick="changePage()" target="_self" id="changepage">黑底白字</a></div>');   
+</script>
+<style type="text/css">
+#tbrowser a:linked container a:visited{
+	font-size:18px;
+	text-decoration:none;
+}
+a:link{
+	text-decoration:none;
+	}
+#container{
+	font-size:1.2em;
+	margin:auto;
+	font-family:"宋体";
+	width:40em;
+	line-height:1.6em;
+}
+P{
+	margin-top:16px;
+	margin-bottom:16px;
+	text-indent:2em;
+}
+.uls{
+	color:#CC6666;
+	font-weight:bold;
+}
+.uls>ol{
+	list-style:none;
+	font-weight:normal;
+	list-style:lower-latin;
+	color:#000000;
+	line-height:1.3em;
+}
+h3{
+	font-size:20px;
+	font-weight:bold;
+	margin-top:15px;
+	margin-bottom:0px;
+	text-indent:0em;
+	color:#990000;
+}
+
+#goTopBtn, #goBottom, #shangy, #xiay, #ftsize1, #ftsize2, #ftsize3{
+	width: 18px;
+    line-height: 1.2;
+    padding: 5px 0;
+    font-size: 12px;
+    text-align: center;
+    position: fixed;
+	right: 10px;
+    cursor: pointer;
+    filter: Alpha(opacity=30);
+	opacity=.3;
+	font-weight:bold;
+}
+#goTopBtn, #goBottom, #ftsize1, #ftsize3  {
+    background-color:#999;
+    color:#000;
+}
+#shangy, #xiay, #ftsize2{
+    background-color: #bbb;
+    color: #000;
+}
+#ftsize1{
+	bottom:240px;
+}
+#ftsize2{
+	bottom:214px;
+}
+#ftsize3{
+	bottom:188px;
+}
+
+#goTopBtn{
+    bottom: 105px;
+}
+#goBottom {
+    bottom: 30px;
+}
+#shangy {
+    bottom: 80px;
+}
+#xiay {
+    bottom: 55px;
+}
+#goTopBtn:hover, #goBottom:hover, #shangy:hover, #xiay:hover, #ftsize1:hover, #ftsize2:hover, #ftsize3:hover{
+	background-color:#ccc;
+	border:#ccc 0px solid;
+}
+#goTopBtn a:link, #goBottom a:link, #xiay a:link, #shangy a:link, #ftsize1 a:link, #ftsize2 a:link, #ftsize3 a:link {
+	text-decoration: none;
+	color:white;
+}
+img{
+	margin-right:2em;
+	text-indent:2em;
+	border:0;
+	margin-bottom:-1em;
+	margin-top:1em;
+}
+.picsay{
+	color:#930;
+	font-size:90%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+}
+.remark{
+	color:#930;
+	font-size:90%;
+	line-height:140%;
+	margin-top:-12px;
+	text-indent:0em;
+	padding:0;
+}
+.ref{
+	color:#930;
+	font-size:95%;
+	line-height:150%;
+	margin-top:-12px;
+	text-indent:2em;
+	padding:0;
+}
+pre{
+	font-size:120%;
+	line-height:130%;
+	padding:0;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	//background-color:#ffe;
+	background-color:#eee;
+	padding:8px;
+	margin-left:2em;
+	}
+.code0, .code2, .code4{
+	font-size:95%;
+	line-height:110%;
+	margin-top:-12px;
+	padding:0;
+	//background-color:#D9D1CA;
+	//background-color:#f6f6f6;
+	//background-color:#fff5ee;
+	background-color:#ffe;
+}
+.code0{
+	color:red;
+	text-indent:0em;
+}
+.code2{
+	color:#930;
+	text-indent:2em;
+}
+.code4{
+	color:blue;
+	text-indent:4em;
+}
+sub,sup{
+	font-size:80%;
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+  <h3><strong><em>叉车安全操作规程</em></strong> </h3>
+  <h4>一、检查车辆</h4>
+
+<p>1.叉车作业前，应检查外观，加注燃料、润滑油和冷却水；</p>
+
+<p>2.检查启动、运转及制动性能；</p>
+
+<p>3.检查灯光、音响信号是否齐全有效；</p>
+
+<p>4.叉车运行过程中，应检查压力、温度是否正常；</p>
+
+<p>5.叉车运行后，还应检查外泄漏情况，并及时更换密封件；</p>
+
+<p>6.电瓶叉车除应检查以上内容外，还应按电瓶车的有关检查内容，对电瓶叉车的电路进行检查。</p>
+
+<h4>二、起步</h4>
+
+<p>1.起步前，观察四周，确认无妨碍行车安全的障碍后，先鸣笛，后起步；</p>
+
+<p>2.气压制动的车辆，制动气压表读数须达到规定值才可起步；</p>
+
+<p>3.叉车在载物起步时，驾驶员应先确认所载货物平稳可靠；</p>
+
+<p>4.起步时，须缓慢平稳起步。</p>
+
+<h4>三、行驶</h4>
+
+<p>1.行驶时货叉底端距地面高度应保持300~400mm、门架须后倾；</p>
+
+<p>2.行驶时不得将货叉升得太高。进出作业现场或行驶途中，要注意上空有无障碍物刮碰；载物行驶时，如货叉升得太高，还会增加叉车总体重心高度，影响叉车的稳定性；</p>
+
+<p>3.卸货后，应先降落货叉至正常的行驶位置后再行驶；</p>
+
+<p>4.转弯时，如附近有行人或车辆，应发出信号并禁止高速急转弯；高速急转弯，会导致车辆失去横向稳定而倾翻；</p>
+
+<p>5.内燃叉车在下坡时，严禁熄火滑行；</p>
+
+<p>6.非特殊情况，禁止载物行驶中急刹车；</p>
+
+<p>7.载物行驶在超过7度和用高于一挡的速度上下坡时，非特殊情况不得使用制动器；</p>
+
+<p>8.叉车在运行时要遵守厂内交通规则，必须与前面的车辆保持一定的安全距离；</p>
+
+<p>9.叉车运行时，载荷必须处在不妨碍行驶的最低位置，门架要适当后倾，除堆垛或装车时，不得升高载荷；在搬运庞大物件时，物体挡住驾驶员的视线，此时应倒开叉车；</p>
+
+<p>10.叉车由后轮控制转向，所以必须时刻注意车后的摆幅，避免初学者驾驶时，经常出现的转弯过急现象；</p>
+
+<p>11.禁止在坡道上转弯，也不应横跨坡道行驶；</p>
+
+<p>12.叉车载货下坡时，应倒退行驶，以防货物颠落。</p>
+
+<h4>四、装卸</h4>
+
+<p>1.叉载物品时，应按需调整两货叉间距，使两叉负荷均衡，不得偏斜，物品的一面应贴靠挡货架，叉载的重量应符合载荷中心曲线标志牌的规定；</p>
+
+<p>2.载物高度不得遮挡驾驶员的视线；</p>
+
+<p>3.在进行物品的装卸过程中，必须用制动器制动叉车；</p>
+
+<p>4.货叉车接近或撤离物品时，车速应缓慢平稳，注意车轮不要碾压物品、木垫等，以免碾压物飞起伤人；</p>
+
+<p>5.用货叉叉取货物时，货叉应尽可能深地叉入载荷下面，还要注意货叉尖不能碰到其它货物或物件；应采用最小的门架后倾来稳定载荷，以免载荷向后滑动；放下载荷时，可使门架小量前倾，以便于安放载荷和抽出货叉；</p>
+
+<p>6.禁止高速叉取货物、和用叉头与坚硬物体碰撞；</p>
+
+<p>7.叉车作业时，禁止人员站在货叉上；</p>
+
+<p>8.叉车叉物作业，禁止人员站在货叉周围，以免货物倒塌伤人；</p>
+
+<p>9.禁止用货叉举升人员从事高处作业，以免发生高处坠落事故；</p>
+
+<p>10.不准用制动惯性溜放物品。 </p>
+  <h3><strong>《叉车安全守则》系列漫画</strong><strong> </strong></h3>
+
+
+<p><img width="93" height="150" src="a_clip_image001.gif" />    
+   
+<p>1 只有经过培训或者经允许的人员，才可以进行叉车操作。</p>
+
+
+
+<p><img width="47" height="150" src="a_clip_image002.gif" />    
+   
+<p>2 驾驶车辆时应佩戴安全帽、防护眼镜并穿好安全鞋，禁止褒衣博带。</p>
+
+
+<p><img width="184" height="150" src="a_clip_image003.gif" />    
+<p>3 工作开始前要按照驾乘人员检查事项表，对叉车进行检查后再使用。</p>
+
+
+
+<p><img width="185" height="150" src="a_clip_image004.gif" />    
+<p>4 请不要在非经允许的场所开动叉车，必须遵守所有安全规则并熟悉警告牌。</p>
+
+ 
+
+<p><img width="189" height="150" src="a_clip_image005.gif" /> 
+<p>5 没有安装托物装置（LBR）或护顶装置的叉车不要启动。 </p>
+
+
+<p><img width="192" height="150" src="a_clip_image006.gif" /> 
+   
+<p>6 搬运当中货物靠后时，必须最大限度降低货叉，可以确保叉车的安全性及宽广的视野。</p>
+
+
+<p><img width="198" height="150" src="a_clip_image007.gif" />    
+<p>7 请不要用叉车载人，叉车不是用来载人，是用来载货的。</p>
+
+
+<p><img width="86" height="150" src="a_clip_image008.gif" />    
+<p>8 如果是未经认可的安全装置，无论任何人都不得进入其中，将其放在货叉上升降。</p>
+
+
+<p><img width="119" height="150" src="a_clip_image009.gif" />    
+<p>9 避免急出发、急启动、急转弯及突然间的方向转换，禁止突然加速，应总是根据周围环境进行叉车操作。</p>
+
+
+
+<p><img width="85" height="150" src="a_clip_image010.gif" />    
+<p>10 不得在手湿或穿湿鞋的情况下启动叉车，并且绝对不能用带有油的手操作任何控制装置，为避免手和脚滑落控制装置而引起事故。</p>
+
+
+<p><img width="110" height="150" src="a_clip_image011.gif" />    
+<p>11 货叉上载有货物或者起升时下面不得站人或行走，货物掉落可能导致人员受伤或死亡。 </p>
+
+
+<p><img width="190" height="150" src="a_clip_image012.gif" />    
+<p>12 载着货物上斜坡时前进，下斜坡时后退。 </p>
+
+
+<p><img width="189" height="150" src="a_clip_image013.gif" />    
+<p>13 如果在斜坡上装载，不要转换方向，请直进上下。 </p>
+
+
+
+<p><img width="125" height="150" src="a_clip_image014.gif" />    
+<p>14 松散着装载货物，不能超过LBR的高度进行起升。 </p>
+
+
+<p><img width="155" height="150" src="a_clip_image015.gif" />    
+<p>15 如果货物使视野受到限制，请不要前进驾驶，除上斜坡外，为了使视野宽阔，请后退行驶。</p>
+
+
+<p><img width="199" height="150" src="a_clip_image016.gif" />    
+   
+<p>16 不得搬运或举升不安全的货物，总是适当的载物并把载物调整放至两叉子的上面。</p>
+
+
+<p><img width="208" height="150" src="a_clip_image017.gif" />    
+<p>17 不得超过叉车的负载和平衡力，可以看贴在叉车上的额定负载进行确认，绝对不能超过标示的负载，超过负载可能导致翻车，引起伤害或叉车损伤。</p>
+
+
+<p><img width="164" height="150" src="a_clip_image018.gif" />    
+<p>    
+<p>18 货物不是装载于两货叉上，即单货叉上的状态下请不要开动叉车，货物下面的货叉位置调整至最大限度，用心操作并小心检查安全性和平衡，请记住货物的坠落会导致伤害及损伤。</p>
+
+
+
+<p><img width="142" height="150" src="a_clip_image019.gif" />    
+<p>19 请遵守特别是已标示最大负重的地面，升降机最大负重、最大高度等所有的允许基准。</p>
+
+
+
+<p><img width="166" height="150" src="a_clip_image020.gif" />    
+<p>20 在装卸场或倾斜路边缘上请注意行驶，叉车可能会从边缘上掉下引起伤害或导致死亡，请保持与边缘的安全距离，地面滑时要特别注意。</p>
+
+
+
+<p><img width="222" height="150" src="a_clip_image021.gif" />    
+    
+<p>21 桥板如果承受不住叉车及货物的重量，请不要在其上方行驶，将桥板放至准确的位置，为了避免遛车，要用轫块将车辆固定住。 </p>
+
+
+<p><img width="173" height="150" src="a_clip_image022.gif" />    
+   
+<p>22 没回到驾驶座的状态下，请不要启动叉车，胳膊、头、腿一定要保持在驾驶室内。</p>
+
+
+
+<p><img width="224" height="150" src="a_clip_image023.gif" />    
+   
+<p>23 请不要接近其他叉车并启动，要时常确保可以使车辆安全静止充分的安全距离。 </p>
+
+
+<p><img width="210" height="150" src="a_clip_image024.gif" />    
+<p>24 推或者牵引其他叉车时，请不要使用本人的叉车，如果叉车没有启动时，请联系维修公司。 </p>
+
+
+<p><img width="172" height="150" src="a_clip_image025.gif" />    
+<p>25 所有叉车驾驶员不能丧失控制力，还有一定要注意运行方向。</p>
+
+
+
+<p><img width="106" height="150" src="a_clip_image026.gif" />    
+<p>26 货物在升起的状态下不要启动叉车，可能会造成翻车或者给本人或其他人造成伤害，还可能导致死亡，举升货物或者承载货物时一定要注意头顶上的障碍物，装载时要注意坠落物。</p>
+
+
+
+<p><img width="230" height="150" src="a_clip_image027.gif" />    
+<p>27 叉车加油要选在特定场所完成，加油时应注意关闭发动机，禁止吸烟及烟火，这一禁止事项当然也适用于液化气罐交替时，还有发动机再启动时不要忘记关闭燃料罐并把漏的燃料擦干净。</p>
+
+
+
+<p><img width="194" height="150" src="a_clip_image028.gif" />    
+<p>28 叉车要停在经允许的场所并把货叉完全降到地面，方向操纵杆要放在停车档上，拔出钥匙，为了避免遛车，用轫块轮胎固定住。</p>
+
+<p>（资料来源：http://www.clarkmhc.com.cn/） </p>
+</div>
+
+
+<div>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.4em";' target="_self" style="color:#fff;" title="大：1.4em"><div id="ftsize1" style="color:#fff;">大</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.2em";' target="_self" style="color:#fff;" title="中：1.2em"><div id="ftsize2" style="color:#fff;">中</div></a>
+<a id="ftsizea" onclick='document.getElementById("container").style.fontSize = "1.0em";' target="_self" style="color:#fff;" title="小：1em"><div id="ftsize3" style="color:#fff;">小</div></a>
+
+<a target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="goTopBtn">&and;</div></a>
+<a onclick="shangy()" target="_self" style="color:#fff;"><div style="display:none; color:#fff;" id="shangy">&uarr;</div></a>
+<a onclick="xiay()" target="_self" style="color:#fff;"><div id="xiay" style="color:#fff;">&darr;</div></a>
+<a onclick="downn()" target="_self" style="color:#fff;"><div id="goBottom" style="color:#fff;">&or;</div></a>
+<script type=text/javascript>
+	goTopEx();
+	function xiay(){
+		window.scrollBy(0,window.innerHeight-10);
+	}
+	function shangy(){
+		window.scrollBy(0,-window.innerHeight+10);
+	}
+	var obj3=document.getElementById("xiay");
+	var obj4=document.getElementById("goBottom");
+	function getHeight(){  
+		if(browser4=="ch"){
+			//谷歌浏览器
+			return document.body.clientHeight; 
+		}else{
+			//IE、firefox等浏览器 
+			return document.documentElement.clientHeight;  
+		}  
+	}
+	getHeight()<window.innerHeight+50?obj3.style.display="none":obj3.style.display="";
+	getHeight()<window.innerHeight+50?obj4.style.display="none":obj4.style.display="";
+	if(browser4!="ch"){	//firefox需要尝一下才显示向下图标
+		xiay();
+		shangy();
+	}
+</script>
+</div>
+
+</body>
+</html>
+
+<!--
+_____________________________________________________________________________________
+
+1 段落替换
+\s*</p>
+
+<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+2 汉字中间的空格替换：
+([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])
+([^\s\*^{}"^u4e00-u9fa5])\s+([^\s\*^{}"^u4e00-u9fa5])
+
+
+------------------
+$1$2
+_____________________________________________________________________________________
+3 段落前的空格替换
+\s*</p>\s*
+\s*<p>\s*
+------------------
+</p>
+
+<p>
+_____________________________________________________________________________________
+
+4 把第和章两个字去掉
+第(\S*)章
+------------------
+$1
+_____________________________________________________________________________________
+
+7 正则表达式参考：
+https://www.toutiao.com/i6370960744082571778/
+_____________________________________________________________________________________
+
+8
+<p class="picsay">
+<p class="picsay">
+<p class="code0">
+<p class="code2">
+<p class="code4">
+_____________________________________________________________________________________
+9 将标注序号更改为上标，红色，需一个个替换，英文html中有[1]
+(\[\d\])
+------------------
+<sup>$1</sup>
+_____________________________________________________________________________________
+10 替换章不是以1-9。?！…”“结尾的段落
+([^1-90。?！…”：？“章])</p>
+<p>
+------------------
+$1
+
+11 
+width="\d\d\d\d" height="\d\d\d"
+width="100%"
+-->
+
+
