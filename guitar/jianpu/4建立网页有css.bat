@@ -1,3 +1,4 @@
+chcp 65001
 echo ^<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  >index.html
 echo  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"^> >>index.html
 echo ^<html xmlns="http://www.w3.org/1999/xhtml"^> >>index.html
