@@ -56,8 +56,7 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
   line-height: 2;
   z-index: 1000;
 }
-.legend-item { display: flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.2s; border-radius: 4px; padding: 2px 4px; margin: 2px -4px; }
-.legend-item:hover { background: rgba(79, 195, 247, 0.15); }
+.legend-item { display: flex; align-items: center; gap: 6px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
 /* 底图切换按钮组 */
@@ -148,11 +147,9 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
 </div>
 
 <div class="legend">
-  <div class="legend-item" data-target="27.911514,111.641153" data-zoom="18"><span class="legend-dot" style="background:#e94560"></span> 白竹岭村中心</div>
-  <div class="legend-item" data-target="27.895168,111.641141" data-zoom="16"><span class="legend-dot" style="background:#ffeb3b"></span> 古塘乡政府（塘边村）</div>
-  <div class="legend-item" data-target="27.696334,111.656249" data-zoom="14"><span class="legend-dot" style="background:#4fc3f7"></span> 涟源市中心(市政府)</div>
-  <div class="legend-item" data-target="23.267059,113.236107" data-zoom="14"><span class="legend-dot" style="background:#00ff00"></span> 广州白云唐阁</div>
-      <div class="legend-item" ><span class="legend-dot" style="background:#00ff00"></span><a href="https://www.mapchaxun.cn/jingweidu" target="_blank">经纬度查询</a></div>
+  <div class="legend-item"><span class="legend-dot" style="background:#e94560"></span> 白竹岭村中心</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#ffeb3b"></span> 古塘乡政府（塘边村）</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#4fc3f7"></span> 涟源市中心</div>
 </div>
 
 <div class="scale-info">
@@ -164,11 +161,10 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
 // 白竹岭村中心（2026-08-22 调整至 27.911514°N, 111.641153°E）
 const BAIZHULING = [27.911514, 111.641153];
 // 古塘乡政府驻地（塘边村）
-const GUTANG_TOWN = [27.895168, 111.641141];
+const GUTANG_TOWN = [27.9180, 111.6350];
 // 涟源市中心城区
-const LIANYUAN_CENTER = [27.696334, 111.656249];
-// 广州白云唐阁23.267059°N, 113.236107°E
-const gzbytg = [23.267059,113.236107];
+const LIANYUAN_CENTER = [27.8900, 111.6900];
+
 // ===== 底图图层 =====
 // Esri World_Imagery（带标注）
 const esriImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -241,10 +237,10 @@ L.marker(GUTANG_TOWN, {
   <div style="font-family:Microsoft YaHei;">
     <b style="color:#ffeb3b;">古塘乡政府驻地</b><br/>
     <span style="color:#666;">塘边村</span><br/>
-    <span style="color:#4fc3f7;">坐标: 27.895168°N, 111.641141°E</span><br/>
-    <span style="color:#aaa;">距白竹岭村约2.9km（南稍偏东方向）</span>
+    <span style="color:#4fc3f7;">坐标: 27.9180°N, 111.6350°E</span><br/>
+    <span style="color:#aaa;">距白竹岭村约3km（东南方向）</span>
   </div>
-`); 
+`);
 
 // 涟源市中心
 L.marker(LIANYUAN_CENTER, {
@@ -253,21 +249,11 @@ L.marker(LIANYUAN_CENTER, {
   <div style="font-family:Microsoft YaHei;">
     <b style="color:#4fc3f7;">涟源市中心城区</b><br/>
     <span style="color:#666;">蓝田街道</span><br/>
-    <span style="color:#4fc3f7;">坐标: 23.267059°N, 113.236107°E</span><br/>
-    <span style="color:#aaa;">距白竹岭村约40.5km（南稍偏东方向）</span>
+    <span style="color:#4fc3f7;">坐标: 27.8900°N, 111.6900°E</span><br/>
+    <span style="color:#aaa;">距白竹岭村约10km（东南方向）</span>
   </div>
 `);
-// 广州白云唐阁
-L.marker(gzbytg, {
-  title: '广州白云唐阁'
-}).addTo(map).bindPopup(`
-  <div style="font-family:Microsoft YaHei;">
-    <b style="color:#00ff00;">广州白云唐阁</b><br/>
-    <span style="color:#666;">唐阁中</span><br/>
-    <span style="color:#4fc3f7;">坐标: 27.696334°N, 111.656249°E</span><br/>
-    <span style="color:#aaa;">距白竹岭村约645.3km（南稍偏东方向）</span>
-  </div>
-`);
+
 // ===== 底图切换 =====
 function switchBase(type) {
   // 移除所有 TileLayer
@@ -326,18 +312,6 @@ function switchBase(type) {
       break;
   }
 }
-
-
-// ===== 图例点击跳转到对应位置 =====
-document.querySelectorAll('.legend-item').forEach(function(item) {
-  item.addEventListener('click', function() {
-    var coords = this.getAttribute('data-target').split(',');
-    var lat = parseFloat(coords[0]);
-    var lng = parseFloat(coords[1]);
-    var zoom = parseInt(this.getAttribute('data-zoom')) || 16;
-    map.flyTo([lat, lng], zoom, { duration: 1.5 });
-  });
-});
 
 // ===== 实时更新信息 =====
 map.on('mousemove', function(e) {

@@ -56,8 +56,7 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
   line-height: 2;
   z-index: 1000;
 }
-.legend-item { display: flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.2s; border-radius: 4px; padding: 2px 4px; margin: 2px -4px; }
-.legend-item:hover { background: rgba(79, 195, 247, 0.15); }
+.legend-item { display: flex; align-items: center; gap: 6px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
 /* 底图切换按钮组 */
@@ -148,11 +147,10 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
 </div>
 
 <div class="legend">
-  <div class="legend-item" data-target="27.911514,111.641153" data-zoom="18"><span class="legend-dot" style="background:#e94560"></span> 白竹岭村中心</div>
-  <div class="legend-item" data-target="27.895168,111.641141" data-zoom="16"><span class="legend-dot" style="background:#ffeb3b"></span> 古塘乡政府（塘边村）</div>
-  <div class="legend-item" data-target="27.696334,111.656249" data-zoom="14"><span class="legend-dot" style="background:#4fc3f7"></span> 涟源市中心(市政府)</div>
-  <div class="legend-item" data-target="23.267059,113.236107" data-zoom="14"><span class="legend-dot" style="background:#00ff00"></span> 广州白云唐阁</div>
-      <div class="legend-item" ><span class="legend-dot" style="background:#00ff00"></span><a href="https://www.mapchaxun.cn/jingweidu" target="_blank">经纬度查询</a></div>
+  <div class="legend-item"><span class="legend-dot" style="background:#e94560"></span> 白竹岭村中心</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#ffeb3b"></span> 古塘乡政府（塘边村）</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#4fc3f7"></span> 涟源市中心(市政府)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#00ff00"></span> 广州白云唐阁</div>
 </div>
 
 <div class="scale-info">
@@ -326,18 +324,6 @@ function switchBase(type) {
       break;
   }
 }
-
-
-// ===== 图例点击跳转到对应位置 =====
-document.querySelectorAll('.legend-item').forEach(function(item) {
-  item.addEventListener('click', function() {
-    var coords = this.getAttribute('data-target').split(',');
-    var lat = parseFloat(coords[0]);
-    var lng = parseFloat(coords[1]);
-    var zoom = parseInt(this.getAttribute('data-zoom')) || 16;
-    map.flyTo([lat, lng], zoom, { duration: 1.5 });
-  });
-});
 
 // ===== 实时更新信息 =====
 map.on('mousemove', function(e) {
