@@ -14,7 +14,7 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
 .header {
   background: linear-gradient(135deg, #16213e, #0f3460);
   border-bottom: 2px solid #4fc3f7;
-  padding: 14px 24px;
+  padding: 6px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,23 +24,26 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
 .header .coords { font-size: 12px; color: #4fc3f7; font-family: monospace; text-align: right; }
 
 /* 地图容器 */
-#map { width: 100%; height: calc(100vh - 60px); }
+#map { width: 100%; 
+height: calc(100vh); 
+//height: calc(100vh - 60px); 
+}
 
 /* 信息面板 */
 .info-panel {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(13, 27, 42, 0.92);
+  //background: rgba(13, 27, 42, 0.92);
   border: 1px solid #4fc3f7;
   border-radius: 8px;
-  padding: 14px 18px;
+  padding: 6px 8px;
   font-size: 13px;
   line-height: 2;
   z-index: 1000;
   min-width: 220px;
 }
-.info-panel .label { color: #888; }
+.info-panel .label { color: white; }
 .info-panel .value { color: #4fc3f7; font-weight: bold; }
 
 /* 图例 */
@@ -48,10 +51,10 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
   position: absolute;
   bottom: 30px;
   left: 12px;
-  background: rgba(13, 27, 42, 0.9);
+  //background: rgba(13, 27, 42, 0.9);
   border: 1px solid #333;
   border-radius: 8px;
-  padding: 10px 14px;
+  padding: 6px 18px;
   font-size: 11px;
   line-height: 2;
   z-index: 1000;
@@ -63,15 +66,15 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
 /* 底图切换按钮组 */
 .map-toggle {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 8px;
+  left: 300px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
 }
 .map-toggle button {
-  padding: 8px 14px;
+  padding: 2px 4px;
   border: 1px solid #4fc3f7;
   border-radius: 6px;
   background: rgba(13, 27, 42, 0.92);
@@ -88,7 +91,7 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: rgba(13, 27, 42, 0.9);
+  //background: rgba(13, 27, 42, 0.9);
   border: 1px solid #333;
   border-radius: 6px;
   padding: 6px 12px;
@@ -114,19 +117,36 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
 }
 .leaflet-control-attribution a { color: #4fc3f7 !important; }
 .leaflet-tile-pane { filter: saturate(0.9) contrast(1.05); }
+
+a:link {/*tool bar and ones*/
+	text-decoration: none;
+    font-size:1em;
+}
+a:visited {/*tool bar and ones*/
+	text-decoration: none;
+	color:white;
+	font-size:1em;
+}
+a:hover {
+	text-decoration: underline;
+	color:white;
+}
+.info-panel div,.legend div{
+height:1.5em;
+}
 </style>
 </head>
 <body>
 
-<div class="header">
+<!--<div class="header">
   <div>
     <h1>湖南省涟源市古塘乡白竹岭村</h1>
     <div class="subtitle">Esri World_Imagery 卫星影像 · Leaflet.js 地图</div>
-  </div>
-  <div class="coords" id="coordDisplay">
+  </div>-->
+<!--  <div class="coords" id="coordDisplay">
     纬度: 27.911514°N &nbsp; 经度: 111.641153°E
   </div>
-</div>
+</div>-->
 
 <div id="map"></div>
 
@@ -135,29 +155,30 @@ body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'Pin
   <div><span class="label">所属乡镇：</span><span class="value">古塘乡</span></div>
   <div><span class="label">所属县市：</span><span class="value">涟源市（娄底市）</span></div>
   <div><span class="label">所属省份：</span><span class="value">湖南省</span></div>
-  <div><span class="label">行政区划代码：</span><span class="value">431382202225</span></div>
-  <div><span class="label">海拔：</span><span class="value">约686m</span></div>
+  <div><span class="label">行政区划：</span><span class="value">431382202225</span></div>
+  <div><span class="label">海拔：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="value">约686m</span></div>
   <div><span class="label">缩放级别：</span><span class="value" id="zoomLevel">18</span></div>
   <div><span class="label">鼠标坐标：</span><span class="value" id="mouseCoord">—</span></div>
 </div>
 
 <div class="map-toggle">
-  <button id="btnSat" onclick="switchBase('sat')"> 卫星影像 + 标注</button>
-  <button id="btnSatPure" class="active" onclick="switchBase('satPure')"> 纯卫星影像</button>
-  <button id="btnStreet" onclick="switchBase('street')"> 街道地图</button>
+  <button id="btnSat" onClick="switchBase('sat')"> 卫星影像 + 标注</button>
+  <button id="btnSatPure" class="active" onClick="switchBase('satPure')"> 纯卫星影像</button>
+  <!--<button id="btnStreet" onClick="switchBase('street')"> 街道地图</button>-->
 </div>
 
 <div class="legend">
   <div class="legend-item" data-target="27.911514,111.641153" data-zoom="18"><span class="legend-dot" style="background:#e94560"></span> 白竹岭村中心</div>
   <div class="legend-item" data-target="27.895168,111.641141" data-zoom="16"><span class="legend-dot" style="background:#ffeb3b"></span> 古塘乡政府（塘边村）</div>
-  <div class="legend-item" data-target="27.696334,111.656249" data-zoom="14"><span class="legend-dot" style="background:#4fc3f7"></span> 涟源市中心(市政府)</div>
-  <div class="legend-item" data-target="23.267059,113.236107" data-zoom="14"><span class="legend-dot" style="background:#00ff00"></span> 广州白云唐阁</div>
-      <div class="legend-item" ><span class="legend-dot" style="background:#00ff00"></span><a href="https://www.mapchaxun.cn/jingweidu" target="_blank">经纬度查询</a></div>
+  <div class="legend-item" data-target="27.696334,111.656249" data-zoom="16"><span class="legend-dot" style="background:#4fc3f7"></span> 涟源市中心(市政府)</div>
+  <div class="legend-item" data-target="27.743290,112.010604" data-zoom="16"><span class="legend-dot" style="background:yellow"></span> 娄底供校</div>
+  <div class="legend-item" data-target="23.267059,113.236107" data-zoom="16"><span class="legend-dot" style="background:#00ff00"></span> 广州白云唐阁</div>
+      <div class="legend-item" ><span class="legend-dot" style="background:white"></span><a href="https://www.mapchaxun.cn/jingweidu" target="_blank">经纬度查询</a></div>
 </div>
 
-<div class="scale-info">
+<!--<div class="scale-info">
   比例尺: <span class="val" id="scaleValue">—</span> &nbsp;|&nbsp; 当前视图范围: <span class="val" id="boundsInfo">—</span>
-</div>
+</div>-->
 
 <script>
 // ===== 坐标定义 =====
@@ -169,6 +190,9 @@ const GUTANG_TOWN = [27.895168, 111.641141];
 const LIANYUAN_CENTER = [27.696334, 111.656249];
 // 广州白云唐阁23.267059°N, 113.236107°E
 const gzbytg = [23.267059,113.236107];
+
+// 娄底供校27.743290°N, 112.010604°E
+const ldgx = [27.743290,112.010604];
 // ===== 底图图层 =====
 // Esri World_Imagery（带标注）
 const esriImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -232,7 +256,7 @@ markerBzl.bindPopup(`
     <span style="color:#aaa;">海拔约686m | 区划代码: 431382202225</span><br/>
     <span style="color:#aaa;">村域面积3km² | 384户/1265人</span>
   </div>
-`).openPopup();
+`);
 
 // 古塘乡政府（塘边村）
 L.marker(GUTANG_TOWN, {
@@ -255,6 +279,17 @@ L.marker(LIANYUAN_CENTER, {
     <span style="color:#666;">蓝田街道</span><br/>
     <span style="color:#4fc3f7;">坐标: 23.267059°N, 113.236107°E</span><br/>
     <span style="color:#aaa;">距白竹岭村约40.5km（南稍偏东方向）</span>
+  </div>
+`);
+
+L.marker(ldgx, {
+  title: '娄底供校'
+}).addTo(map).bindPopup(`
+  <div style="font-family:Microsoft YaHei;">
+    <b style="color:#4fc3f7;">娄底职业技术学院</b><br/>
+    <span style="color:#666;">娄底市娄星区月塘街727号</span><br/>
+    <span style="color:#4fc3f7;">坐标: 27.743290°N, 112.010604°E</span><br/>
+    <span style="color:#aaa;">距白竹岭村约61.3km（东南方向）</span>
   </div>
 `);
 // 广州白云唐阁

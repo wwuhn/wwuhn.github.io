@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>湖南省涟源市古塘乡白竹岭村 - Esri卫星影像</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d1b2a; color: #e0e0e0; font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif; }
+
+/* 顶部标题栏 */
+.header {
+  background: linear-gradient(135deg, #16213e, #0f3460);
+  border-bottom: 2px solid #4fc3f7;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header h1 { font-size: 18px; color: #fff; }
+.header .subtitle { font-size: 12px; color: #aaa; margin-top: 4px; }
+.header .coords { font-size: 12px; color: #4fc3f7; font-family: monospace; text-align: right; }
+
+/* 地图容器 */
+#map { width: 100%; height: calc(100vh - 60px); }
+
+/* 信息面板 */
+.info-panel {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(13, 27, 42, 0.92);
+  border: 1px solid #4fc3f7;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 13px;
+  line-height: 2;
+  z-index: 1000;
+  min-width: 220px;
+}
+.info-panel .label { color: #888; }
+.info-panel .value { color: #4fc3f7; font-weight: bold; }
+
+/* 图例 */
+.legend {
+  position: absolute;
+  bottom: 30px;
+  left: 12px;
+  background: rgba(13, 27, 42, 0.9);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 11px;
+  line-height: 2;
+  z-index: 1000;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.2s; border-radius: 4px; padding: 2px 4px; margin: 2px -4px; }
+.legend-item:hover { background: rgba(79, 195, 247, 0.15); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+/* 底图切换按钮组 */
+.map-toggle {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.map-toggle button {
+  padding: 8px 14px;
+  border: 1px solid #4fc3f7;
+  border-radius: 6px;
+  background: rgba(13, 27, 42, 0.92);
+  color: #e0e0e0;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.map-toggle button:hover { background: rgba(79, 195, 247, 0.2); }
+.map-toggle button.active { background: rgba(79, 195, 247, 0.35); border-color: #fff; color: #fff; }
+
+/* 比例尺提示 */
+.scale-info {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(13, 27, 42, 0.9);
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: #aaa;
+  z-index: 1000;
+}
+.scale-info .val { color: #4fc3f7; font-weight: bold; }
+
+/* Leaflet 控件样式覆盖 */
+.leaflet-control-zoom a {
+  background: rgba(13, 27, 42, 0.92) !important;
+  color: #4fc3f7 !important;
+  border-color: #333 !important;
+}
+.leaflet-control-zoom a:hover {
+  background: rgba(79, 195, 247, 0.3) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(13, 27, 42, 0.85) !important;
+  color: #666 !important;
+  font-size: 10px !important;
+}
+.leaflet-control-attribution a { color: #4fc3f7 !important; }
+.leaflet-tile-pane { filter: saturate(0.9) contrast(1.05); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>湖南省涟源市古塘乡白竹岭村</h1>
+    <div class="subtitle">Esri World_Imagery 卫星影像 · Leaflet.js 地图</div>
+  </div>
+  <div class="coords" id="coordDisplay">
+    纬度: 27.911514°N &nbsp; 经度: 111.641153°E
+  </div>
+</div>
+
+<div id="map"></div>
+
+<div class="info-panel" id="infoPanel">
+  <div><span class="label">当前位置：</span><span class="value">27.911514°N, 111.641153°E</span></div>
+  <div><span class="label">所属乡镇：</span><span class="value">古塘乡</span></div>
+  <div><span class="label">所属县市：</span><span class="value">涟源市（娄底市）</span></div>
+  <div><span class="label">所属省份：</span><span class="value">湖南省</span></div>
+  <div><span class="label">行政区划代码：</span><span class="value">431382202225</span></div>
+  <div><span class="label">海拔：</span><span class="value">约686m</span></div>
+  <div><span class="label">缩放级别：</span><span class="value" id="zoomLevel">18</span></div>
+  <div><span class="label">鼠标坐标：</span><span class="value" id="mouseCoord">—</span></div>
+</div>
+
+<div class="map-toggle">
+  <button id="btnSat" onclick="switchBase('sat')"> 卫星影像 + 标注</button>
+  <button id="btnSatPure" class="active" onclick="switchBase('satPure')"> 纯卫星影像</button>
+  <button id="btnStreet" onclick="switchBase('street')"> 街道地图</button>
+</div>
+
+<div class="legend">
+  <div class="legend-item" data-target="27.911514,111.641153" data-zoom="18"><span class="legend-dot" style="background:#e94560"></span> 白竹岭村中心</div>
+  <div class="legend-item" data-target="27.895168,111.641141" data-zoom="16"><span class="legend-dot" style="background:#ffeb3b"></span> 古塘乡政府（塘边村）</div>
+  <div class="legend-item" data-target="27.696334,111.656249" data-zoom="14"><span class="legend-dot" style="background:#4fc3f7"></span> 涟源市中心(市政府)</div>
+  <div class="legend-item" data-target="23.267059,113.236107" data-zoom="14"><span class="legend-dot" style="background:#00ff00"></span> 广州白云唐阁</div>
+      <div class="legend-item" ><span class="legend-dot" style="background:#00ff00"></span><a href="https://www.mapchaxun.cn/jingweidu" target="_blank">经纬度查询</a></div>
+</div>
+
+<div class="scale-info">
+  比例尺: <span class="val" id="scaleValue">—</span> &nbsp;|&nbsp; 当前视图范围: <span class="val" id="boundsInfo">—</span>
+</div>
+
+<script>
+// ===== 坐标定义 =====
+// 白竹岭村中心（2026-08-22 调整至 27.911514°N, 111.641153°E）
+const BAIZHULING = [27.911514, 111.641153];
+// 古塘乡政府驻地（塘边村）
+const GUTANG_TOWN = [27.895168, 111.641141];
+// 涟源市中心城区
+const LIANYUAN_CENTER = [27.696334, 111.656249];
+// 广州白云唐阁23.267059°N, 113.236107°E
+const gzbytg = [23.267059,113.236107];
+// ===== 底图图层 =====
+// Esri World_Imagery（带标注）
+const esriImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Esri',
+  maxZoom: 18
+});
+
+// Esri World_Imagery + Esri World_Topo_Map 标注叠加
+const esriLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Esri',
+  maxZoom: 18,
+  opacity: 0.6
+});
+
+// Esri World_Imagery 纯卫星（无标注）
+const esriImageryPure = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Esri',
+  maxZoom: 18
+});
+
+// OpenStreetMap 街道地图
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{y}/{x}.png', {
+  attribution: 'OpenStreetMap',
+  maxZoom: 18
+});
+
+// ===== 地图初始化 =====
+// 默认底图：纯卫星影像（satPure），缩放级别18
+const map = L.map('map', {
+  center: [27.911514, 111.641153],
+  zoom: 18,
+  zoomControl: true,
+  layers: [esriImageryPure]  // 默认：纯卫星影像
+});
+
+// ===== 比例尺控件 =====
+L.control.scale({
+  position: 'bottomright',
+  imperial: false,
+  metric: true,
+  maxWidth: 200
+}).addTo(map);
+
+// ===== 标记点 =====
+// 白竹岭村中心标记
+const markerBzl = L.marker(BAIZHULING, {
+  title: '白竹岭村',
+  icon: L.divIcon({
+    className: 'custom-marker',
+    html: '<div style="width:16px;height:16px;background:#e94560;border-radius:50%;border:2px solid #fff;box-shadow:0 0 10px rgba(233,69,96,0.6);"></div>',
+    iconSize: [16, 16],
+    iconAnchor: [8, 8]
+  })
+}).addTo(map);
+
+markerBzl.bindPopup(`
+  <div style="font-family:Microsoft YaHei;min-width:180px;">
+    <b style="font-size:14px;color:#e94560;">白竹岭村</b><br/>
+    <span style="color:#666;">湖南省娄底市涟源市古塘乡</span><br/>
+    <span style="color:#4fc3f7;">坐标: 27.911514°N, 111.641153°E</span><br/>
+    <span style="color:#aaa;">海拔约686m | 区划代码: 431382202225</span><br/>
+    <span style="color:#aaa;">村域面积3km² | 384户/1265人</span>
+  </div>
+`).openPopup();
+
+// 古塘乡政府（塘边村）
+L.marker(GUTANG_TOWN, {
+  title: '古塘乡政府（塘边村）'
+}).addTo(map).bindPopup(`
+  <div style="font-family:Microsoft YaHei;">
+    <b style="color:#ffeb3b;">古塘乡政府驻地</b><br/>
+    <span style="color:#666;">塘边村</span><br/>
+    <span style="color:#4fc3f7;">坐标: 27.895168°N, 111.641141°E</span><br/>
+    <span style="color:#aaa;">距白竹岭村约2.9km（南稍偏东方向）</span>
+  </div>
+`); 
+
+// 涟源市中心
+L.marker(LIANYUAN_CENTER, {
+  title: '涟源市中心城区'
+}).addTo(map).bindPopup(`
+  <div style="font-family:Microsoft YaHei;">
+    <b style="color:#4fc3f7;">涟源市中心城区</b><br/>
+    <span style="color:#666;">蓝田街道</span><br/>
+    <span style="color:#4fc3f7;">坐标: 23.267059°N, 113.236107°E</span><br/>
+    <span style="color:#aaa;">距白竹岭村约40.5km（南稍偏东方向）</span>
+  </div>
+`);
+// 广州白云唐阁
+L.marker(gzbytg, {
+  title: '广州白云唐阁'
+}).addTo(map).bindPopup(`
+  <div style="font-family:Microsoft YaHei;">
+    <b style="color:#00ff00;">广州白云唐阁</b><br/>
+    <span style="color:#666;">唐阁中</span><br/>
+    <span style="color:#4fc3f7;">坐标: 27.696334°N, 111.656249°E</span><br/>
+    <span style="color:#aaa;">距白竹岭村约645.3km（南稍偏东方向）</span>
+  </div>
+`);
+// ===== 底图切换 =====
+function switchBase(type) {
+  // 移除所有 TileLayer
+  map.eachLayer(layer => {
+    if (layer instanceof L.TileLayer) {
+      map.removeLayer(layer);
+    }
+  });
+
+  // 重新添加标记
+  L.marker(BAIZHULING, {
+    icon: L.divIcon({
+      className: 'custom-marker',
+      html: '<div style="width:16px;height:16px;background:#e94560;border-radius:50%;border:2px solid #fff;box-shadow:0 0 10px rgba(233,69,96,0.6);"></div>',
+      iconSize: [16, 16],
+      iconAnchor: [8, 8]
+    })
+  }).addTo(map);
+
+  L.marker(GUTANG_TOWN).addTo(map);
+  L.marker(LIANYUAN_CENTER).addTo(map);
+
+  switch(type) {
+    case 'sat':
+      // 卫星影像 + 标注
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18
+      }).addTo(map);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+        opacity: 0.6
+      }).addTo(map);
+      document.getElementById('btnSat').classList.add('active');
+      document.getElementById('btnSatPure').classList.remove('active');
+      document.getElementById('btnStreet').classList.remove('active');
+      break;
+
+    case 'satPure':
+      // 纯卫星影像
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18
+      }).addTo(map);
+      document.getElementById('btnSat').classList.remove('active');
+      document.getElementById('btnSatPure').classList.add('active');
+      document.getElementById('btnStreet').classList.remove('active');
+      break;
+
+    case 'street':
+      // 街道地图
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{y}/{x}.png', {
+        attribution: 'OpenStreetMap',
+        maxZoom: 18
+      }).addTo(map);
+      document.getElementById('btnSat').classList.remove('active');
+      document.getElementById('btnSatPure').classList.remove('active');
+      document.getElementById('btnStreet').classList.add('active');
+      break;
+  }
+}
+
+
+// ===== 图例点击跳转到对应位置 =====
+document.querySelectorAll('.legend-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    var coords = this.getAttribute('data-target').split(',');
+    var lat = parseFloat(coords[0]);
+    var lng = parseFloat(coords[1]);
+    var zoom = parseInt(this.getAttribute('data-zoom')) || 16;
+    map.flyTo([lat, lng], zoom, { duration: 1.5 });
+  });
+});
+
+// ===== 实时更新信息 =====
+map.on('mousemove', function(e) {
+  const lat = e.latlng.lat.toFixed(6);
+  const lng = e.latlng.lng.toFixed(6);
+  document.getElementById('mouseCoord').textContent = `${lat}°N, ${lng}°E`;
+});
+
+map.on('zoomend', function() {
+  document.getElementById('zoomLevel').textContent = map.getZoom();
+  updateScaleInfo();
+});
+
+map.on('moveend', function() {
+  updateScaleInfo();
+  updateBoundsInfo();
+});
+
+function updateScaleInfo() {
+  const zoom = map.getZoom();
+  // Leaflet 比例尺近似计算（米/像素）
+  const metersPerPixel = 156543.03392 * Math.cos(27.911514 * Math.PI / 180) / Math.pow(2, zoom);
+  let scaleText;
+  if (metersPerPixel < 1) {
+    scaleText = (metersPerPixel * 100).toFixed(1) + ' cm/px';
+  } else if (metersPerPixel < 1000) {
+    scaleText = metersPerPixel.toFixed(1) + ' m/px';
+  } else {
+    scaleText = (metersPerPixel / 1000).toFixed(2) + ' km/px';
+  }
+  document.getElementById('scaleValue').textContent = scaleText;
+}
+
+function updateBoundsInfo() {
+  const bounds = map.getBounds();
+  const sw = bounds.getSouthWest();
+  const ne = bounds.getNorthEast();
+  const w = (ne.lng - sw.lng).toFixed(5);
+  const h = (ne.lat - sw.lat).toFixed(5);
+  document.getElementById('boundsInfo').textContent = `约${w}° × ${h}°`;
+}
+
+// 初始化
+updateScaleInfo();
+updateBoundsInfo();
+</script>
+</body>
+</html>
