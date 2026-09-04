@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>bzl百度</title>
+    <script type="text/javascript">window.ak = 'O6Um0m4UnUpcY25qrXqqgls9gTyWJVZ5';</script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=O6Um0m4UnUpcY25qrXqqgls9gTyWJVZ5"></script>
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: "宋体";
+        }
+        #allmap {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="allmap"></div>
+    <script type="text/javascript">
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(111.646911,27.910921);
+        map.centerAndZoom(point, 12);
+        map.enableScrollWheelZoom(true);
+
+        function addMapControl() {
+            var ctrl_nav = new BMap.NavigationControl({
+                anchor: BMAP_ANCHOR_TOP_LEFT,
+                type: BMAP_NAVIGATION_CONTROL_LARGE
+            });
+            map.addControl(ctrl_nav);
+
+            var ctrl_ove = new BMap.OverviewMapControl({
+                anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+                isOpen: 1
+            });
+            map.addControl(ctrl_ove);
+
+            var ctrl_sca = new BMap.ScaleControl({
+                anchor: BMAP_ANCHOR_BOTTOM_LEFT
+            });
+            map.addControl(ctrl_sca);
+
+            var ctrl_type = new BMap.MapTypeControl();
+            map.addControl(ctrl_type);
+        }
+
+        addMapControl();
+		
+
+	    //标注点数组
+    var markerArr = [{title:"bzl",content:"Zhulian village,Gutang town,Lianyuan City,Loudi District,Hunan Province",point:"111.651031|27.913191",isOpen:0,icon:{w:23,h:25,l:23,t:21,x:9,lb:12}}//right is the marker type
+		 ];
+    //创建marker
+    function addMarker(){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0,p1);
+			var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point,{icon:iconImg});
+			var iw = createInfoWindow(i);
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+			marker.setLabel(label);
+            map.addOverlay(marker);
+            label.setStyle({
+                        borderColor:"#808080",
+                        color:"#333",
+                        cursor:"pointer"
+            });
+			
+			(function(){
+				var index = i;
+				var _iw = createInfoWindow(i);
+				var _marker = marker;
+				_marker.addEventListener("click",function(){
+				    this.openInfoWindow(_iw);
+			    });
+			    _iw.addEventListener("open",function(){
+				    _marker.getLabel().hide();
+			    })
+			    _iw.addEventListener("close",function(){
+				    _marker.getLabel().show();
+			    })
+				label.addEventListener("click",function(){
+				    _marker.openInfoWindow(_iw);
+			    })
+				if(!!json.isOpen){
+					label.hide();
+					_marker.openInfoWindow(_iw);
+				}
+			})()
+        }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i){
+        var json = markerArr[i];
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        return iw;
+    }
+    //创建一个Icon
+    function createIcon(json){
+        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        return icon;
+    }
+	addMarker();
+	</script>
+</body>
+</html>
