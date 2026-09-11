@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>去山野-桐桐</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'Microsoft YaHei', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* 歌词容器：严格限制高度，确保一屏显示 */
+        .lyrics-box {
+            width: 100%;
+            max-width: 800px;
+            max-height: 400px; /* 歌词区域高度，远小于1000 */
+            overflow-y: auto;
+            padding: 20px;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        /* 隐藏滚动条但保留功能 */
+        .lyrics-box::-webkit-scrollbar { width: 0; }
+        
+        /* 当前高亮行 */
+        .lyrics-box p.active {
+            color: #4CAF50;
+            font-size: 20px;
+            font-weight: bold;
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+        
+        /* 视频播放器 */
+        video {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lyrics-box" id="lyricsBox">
+        <!-- 歌词将通过JS生成 -->
+    </div>
+    
+<video id="videoPlayer" controls>
+        <source src="去山野.mp4" type="video/mp4">
+        您的浏览器不支持视频播放
+    </video>
+
+<script>
+    // 歌词数据 [时间(秒), "歌词"]
+    const lyricsData = [
+        [0, "去山野 · 桐桐"],
+	    [15, "……"],
+        [17, "想离开城市的喧嚣"],
+        [24, "找一个有山有水的地方"],
+        [30, "盖一间小小的房子"],
+        [38, "种满花和草"],
+        [42, "……"],
+        [60, "每天听着鸟鸣起床"],
+        [62, "看着夕阳落山岗"],
+        [66, "不用再为了生活 奔波忙碌慌张"],
+        [73, "只享受 这简单的时光"],
+        [79, "……"],
+        [80, "山野归心 远离尘纷"],
+        [86, "清风作伴 日月为邻"],
+        [93, "一壶清茶 一本书本"],
+        [100, "不问世事 只守本心"],
+        [108, "……"],
+        [108, "山野归心 归隐山林"],
+        [114, "鸟语花香 流水知音"],
+        [122, "抛开烦恼 放下功名"],
+        [129, "自在逍遥 度过余生"],
+        [136, "……"],
+        [150, "想牵着你的手"],
+        [154, "一起走到白头"],
+        [157, "在这山野之间"],
+        [161, "慢慢的变老"],
+        [165, "……"],
+        [166, "春看花开满山"],
+        [169, "夏听流水潺潺"],
+        [172, "秋看红叶满山"],
+        [175, "冬赏雪落人间"],
+        [178, "……"],
+        [179, "山野归心 远离尘纷"],
+        [186, "清风作伴 日月为邻"],
+        [192, "一壶清茶 一本书本"],
+        [199, "不问世事 只守本心"],
+        [206, "……"],
+        [207, "山野归心 归隐山林"],
+        [214, "鸟语花香 流水知音"],
+        [220, "抛开烦恼 放下功名"],
+        [227, "自在逍遥 度过余生"],
+        [234, "……"],
+      
+        [235, "—— 完 ——"]
+    ];
+
+    const video = document.getElementById('videoPlayer');
+    const lyricsBox = document.getElementById('lyricsBox');
+    let currentLineIndex = -1;
+
+    // 初始化歌词
+    function initLyrics() {
+        lyricsBox.innerHTML = '';
+        lyricsData.forEach((item, index) => {
+            const p = document.createElement('p');
+            p.textContent = item[1];
+            p.dataset.time = item[0];
+            p.dataset.index = index;
+            lyricsBox.appendChild(p);
+        });
+    }
+
+    // 更新高亮
+    function updateLyrics() {
+        const currentTime = video.currentTime;
+        let newIndex = -1;
+
+        // 找到当前时间对应的歌词
+        for (let i = lyricsData.length - 1; i >= 0; i--) {
+            if (currentTime >= lyricsData[i][0]) {
+                newIndex = i;
+                break;
+            }
+        }
+
+        if (newIndex !== currentLineIndex && newIndex !== -1) {
+            // 移除旧高亮
+            const oldActive = lyricsBox.querySelector('.active');
+            if (oldActive) oldActive.classList.remove('active');
+
+            // 添加新高亮
+            const newActive = lyricsBox.children[newIndex];
+            if (newActive) {
+                newActive.classList.add('active');
+                // 自动滚动到可视区域（虽然是一屏，但防止意外）
+                newActive.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            currentLineIndex = newIndex;
+        }
+    }
+
+    // 绑定事件
+    video.addEventListener('timeupdate', updateLyrics);
+    video.addEventListener('loadedmetadata', () => {
+        initLyrics();
+        updateLyrics();
+        // 尝试自动播放（浏览器可能因静音策略阻止，已设置muted）
+        video.play().catch(e => console.log("自动播放需用户交互"));
+    });
+
+</script>
+</body>
+</html>
