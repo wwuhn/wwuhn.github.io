@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>志兴说史 - 视频列表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 {
+            text-align: center; color: #fff; font-size: 28px;
+            margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            text-align: center; color: rgba(255,255,255,0.8);
+            font-size: 14px; margin-bottom: 10px;
+        }
+        .subtitle a { color: rgba(255,255,255,0.9); text-decoration: underline; }
+
+        /* 工具栏 */
+        .toolbar {
+            display: flex; flex-wrap: wrap; gap: 12px;
+            align-items: center; justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .search-box {
+            position: relative; flex: 1; min-width: 220px;
+        }
+        .search-box input {
+            width: 100%; padding: 10px 14px 10px 38px;
+            border: none; border-radius: 8px; font-size: 14px;
+            background: rgba(255,255,255,0.95); color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            outline: none; transition: box-shadow 0.2s;
+        }
+        .search-box input:focus { box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
+        .search-box::before {
+            content: "🔍"; position: absolute; left: 12px; top: 50%;
+            transform: translateY(-50%); font-size: 14px; pointer-events: none;
+        }
+        .stats {
+            color: rgba(255,255,255,0.9); font-size: 13px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px; border-radius: 20px; white-space: nowrap;
+        }
+
+        /* 表格 */
+        .table-wrap {
+            background: #fff; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        thead th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff; font-size: 14px; font-weight: 600;
+            padding: 14px 16px; text-align: left;
+            border-bottom: 2px solid #5a6fd6;
+            cursor: pointer; user-select: none;
+            position: relative; white-space: nowrap;
+            transition: background 0.2s;
+        }
+        thead th:hover { background: linear-gradient(135deg, #5a6fd6, #6a3f96); }
+        thead th .sort-icon {
+            display: inline-block; margin-left: 4px; font-size: 11px;
+            opacity: 0.5; transition: opacity 0.2s;
+        }
+        thead th.sort-active .sort-icon { opacity: 1; }
+        thead th:first-child { width: 60px; text-align: center; cursor: default; }
+        thead th:last-child { width: 90px; text-align: center; }
+        tbody tr { transition: background 0.15s; }
+        tbody tr:nth-child(even) { background: #f8f9ff; }
+        tbody tr:hover { background: #e8ebff !important; }
+        tbody td {
+            padding: 11px 16px; border-bottom: 1px solid #f0f0f0;
+            font-size: 14px; color: #333; vertical-align: middle;
+        }
+        tbody td:first-child {
+            text-align: center; font-weight: bold;
+            color: #667eea; font-size: 13px;
+        }
+        tbody td:last-child {
+            text-align: center; color: #888; font-size: 13px;
+            font-variant-numeric: tabular-nums;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody td a {
+            color: #333; text-decoration: none; transition: color 0.2s;
+        }
+        tbody td a:hover { color: #667eea; }
+
+        /* 无结果提示 */
+        .no-result {
+            text-align: center; padding: 40px 20px;
+            color: #999; font-size: 15px; display: none;
+        }
+        .no-result.show { display: table-row; }
+
+        /* 高亮匹配文字 */
+        mark {
+            background: #ffe066; color: #333; border-radius: 2px;
+            padding: 0 1px;
+        }
+
+        /* 回到顶部按钮 */
+        .back-top {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(255,255,255,0.9); border: none;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            font-size: 20px; cursor: pointer;
+            display: none; align-items: center; justify-content: center;
+            transition: transform 0.2s, opacity 0.2s;
+            z-index: 100;
+        }
+        .back-top:hover { transform: scale(1.1); }
+        .back-top.show { display: flex; }
+
+        @media (max-width: 600px) {
+            body { padding: 16px 10px; }
+            h1 { font-size: 22px; }
+            thead th, tbody td { padding: 9px 10px; font-size: 13px; }
+            thead th:first-child, tbody td:first-child { width: 40px; }
+            thead th:last-child, tbody td:last-child { width: 70px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📺 志兴说史 - 视频列表</h1>
+        <div class="subtitle">
+            UP主：<a href="https://space.bilibili.com/330663301" target="_blank">志兴说史</a> |
+            合集来源：<a href="https://space.bilibili.com/330663301/lists/6721782?type=season" target="_blank">查看合集</a>
+        </div>
+
+        <div class="toolbar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="输入关键词搜索视频标题..." autocomplete="off">
+            </div>
+            <span class="stats" id="statsText">共 156 个视频</span>
+        </div>
+
+        <div class="table-wrap">
+            <table id="videoTable">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th data-col="title" data-type="string">视频标题 <span class="sort-icon">⇅</span> &nbsp;&nbsp;周志兴，曾供职于中央文献研究室，任刘少奇研究小组组长，接触过许多一手资料，上级是金冲及</th>
+                        <th data-col="views" data-type="number">播放量 <span class="sort-icon">⇅</span></th>
+                    </tr>
+                </thead>
+                <tbody id="videoBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button class="back-top" id="backTop" title="回到顶部">↑</button>
+
+    <script>
+        // ===== 视频数据 =====
+        const videos = [
+            { id: 1, title: "古田会议的前因后果", bv: "BV14W23BbEJh", views: 41000 },
+            { id: 2, title: "古田会议的前因后果", bv: "BV1T81XBkESV", views: 22000 },
+            { id: 3, title: "背叛的中共创党元老张国焘（上）", bv: "BV1AKkSBDEU6", views: 29000 },
+            { id: 4, title: "背叛的中共创始元老张国焘（下）", bv: "BV1JvkDBSEBZ", views: 24000 },
+            { id: 5, title: "陈昌浩的\"三桩罪\"（上）", bv: "BV1AUkBBpEuQ", views: 28000 },
+            { id: 6, title: "陈昌浩的\"三桩罪\"（中）", bv: "BV1N6kmBSEWd", views: 18000 },
+            { id: 7, title: "陈昌浩的\"三桩罪\"（下）", bv: "BV1ssCpB2EJj", views: 20000 },
+            { id: 8, title: "最危险的叛徒顾顺章（上）", bv: "BV1G5CPBrEnH", views: 18000 },
+            { id: 9, title: "最危险的叛徒顾顺章（下）", bv: "BV1Q4CgBoEqr", views: 14000 },
+            { id: 10, title: "\"秋天，我去接你\"（上）-贺龙", bv: "BV1sryjBvE2C", views: 138000 },
+            { id: 11, title: "\"秋天，我去接你\"（下）-贺龙", bv: "BV1vMCfBPEYf", views: 38000 },
+            { id: 12, title: "败于\"你一个，我一个\"的高大麻子（指高岗）", bv: "BV1zEyuBTEkS", views: 35000 },
+            { id: 13, title: "特立独行的仲甫先生（陈独秀）", bv: "BV1U5UgBYEUx", views: 18000 },
+            { id: 14, title: "\"明君\"洛甫（一）", bv: "BV14USMBxEgw", views: 23000 },
+            { id: 15, title: "明君\"洛甫\"（二）", bv: "BV169SLBKE9x", views: 18000 },
+            { id: 16, title: "\"明君\"洛甫（三）", bv: "BV15hUoBuEic", views: 38000 },
+            { id: 17, title: "谢富治（上）", bv: "BV16JSkBVEXv", views: 42000 },
+            { id: 18, title: "谢富治（下）", bv: "BV1hESaBPEqP", views: 37000 },
+            { id: 19, title: "\"湖人队\"作家-老舍（上）", bv: "BV17vmFBjEYK", views: 19000 },
+            { id: 20, title: "\"湖人队\"作家-老舍（下）", bv: "BV17q2rBwEyr", views: 15000 },
+            { id: 21, title: "毛泽东与胡适的恩恩怨怨（上）", bv: "BV13dm7BREBn", views: 20000 },
+            { id: 22, title: "毛泽东和胡适的恩恩怨怨（下）", bv: "BV1A2mvBREdU", views: 16000 },
+            { id: 23, title: "乔冠华：大才子的大败笔（上）", bv: "BV1ZTqHBmEBo", views: 24000 },
+            { id: 24, title: "乔冠华_大才子的大败笔（下）", bv: "BV1Arq2BaEfo", views: 22000 },
+            { id: 25, title: "先叛党后叛国的周佛海（上）", bv: "BV1LzBHBSEC9", views: 17000 },
+            { id: 26, title: "先叛党后叛国的周佛海（下）", bv: "BV1zVB3BoEsx", views: 13000 },
+            { id: 27, title: "不亚于袁隆平的农业政策制定者杜润生（温铁军恩师）", bv: "BV1hpBrBAEd2", views: 10000 },
+            { id: 28, title: "延安的大掌柜南汉宸（上）", bv: "BV1KHvUBKEU6", views: 14000 },
+            { id: 29, title: "延安的大掌柜南汉宸（下）", bv: "BV1Fwv8BTEYV", views: 11000 },
+            { id: 30, title: "张学良是中共党员吗？", bv: "BV1FUiKBrEyV", views: 11000 },
+            { id: 31, title: "党内第一支笔胡乔木（上）", bv: "BV1DoipBuEGc", views: 26000 },
+            { id: 32, title: "党内第一支笔胡乔木（下）", bv: "BV17xrwBBEua", views: 14000 },
+            { id: 33, title: "李立三的革命和婚姻（上）", bv: "BV1GerpB9ESv", views: 12000 },
+            { id: 34, title: "李立三的革命与婚姻（下）", bv: "BV14VkcBQEVY", views: 9719 },
+            { id: 35, title: "最年轻的一大代表刘仁静（上）", bv: "BV1Mwk7BPE74", views: 10000 },
+            { id: 36, title: "最年轻的一大代表刘仁静（下）", bv: "BV1gszLBfEDw", views: 9172 },
+            { id: 37, title: "李汉俊（上）-\"一大\"会址", bv: "BV1EozQBCE4g", views: 7903 },
+            { id: 38, title: "李汉俊（下）-中共建党的提出者", bv: "BV1W8zaB8EmU", views: 6748 },
+            { id: 39, title: "李达，最大\"公司\"的发起人（上）", bv: "BV1bM6FBEEXy", views: 8295 },
+            { id: 40, title: "李达，最大\"公司\"的发起人（中）1949年与毛关系的演变", bv: "BV1Xs6vBWEWX", views: 7560 },
+            { id: 41, title: "李达，最大\"公司\"的发起人（下）", bv: "BV1hd64BcESW", views: 8540 },
+            { id: 42, title: "曾和毛泽东，周恩来平起平坐的包惠僧（上）", bv: "BV1vfFazAEnQ", views: 13000 },
+            { id: 43, title: "曾和毛泽东、周恩来平起平坐的包惠僧（下）", bv: "BV15KFzzQEeF", views: 8973 },
+            { id: 44, title: "好老师，好记者的瞿秋白", bv: "BV1NDFQzgEUN", views: 8647 },
+            { id: 45, title: "下\"罪己诏\"的博古", bv: "BV1x3ctzkE9G", views: 11000 },
+            { id: 46, title: "李德：唯一一个走完长征的外国人却是中国革命的\"罪人\"", bv: "BV1sRcjzCEpR", views: 11000 },
+            { id: 47, title: "常州\"三杰\"之张太雷", bv: "BV1pDZxB4ExH", views: 7440 },
+            { id: 48, title: "向忠发：中共早期最大的叛徒之一", bv: "BV11xfgBHEZz", views: 8999 },
+            { id: 49, title: "吴四宝：76号第一杀手", bv: "BV1qSPVzcE6q", views: 9379 },
+            { id: 50, title: "一代大儒梁漱溟", bv: "BV1KtAZzcEs8", views: 9503 },
+            { id: 51, title: "师哲", bv: "BV1ocPrzqEMA", views: 18000 },
+            { id: 52, title: "盖棺未论定的柯庆施（上）", bv: "BV17yNKzLEQd", views: 17000 },
+            { id: 53, title: "李士群之死", bv: "BV1FbNFzwEUd", views: 14000 },
+            { id: 54, title: "红色特工李时雨（上）", bv: "BV1epckzhEqM", views: 10000 },
+            { id: 55, title: "红色特工李时雨（下）", bv: "BV1qtcUzHETq", views: 7519 },
+            { id: 56, title: "四大金刚之邱会作（一）", bv: "BV1UVw4zLEfk", views: 21000 },
+            { id: 57, title: "四大金刚之邱会作（二）", bv: "BV1euwMzKE7C", views: 21000 },
+            { id: 58, title: "蒋介石的\"文胆\"陈布雷", bv: "BV1RbwrzhEMZ", views: 14000 },
+            { id: 59, title: "\"大炮\"傅斯年", bv: "BV1TGAJzoEbE", views: 10000 },
+            { id: 60, title: "四大金刚之李作鹏（一）", bv: "BV1bBAsz5EU8", views: 19000 },
+            { id: 61, title: "四大金刚之李作鹏（二）", bv: "BV1XTAcz7EDG", views: 30000 },
+            { id: 62, title: "四大金刚之李作鹏（三）", bv: "BV1R7AuzkE8y", views: 23000 },
+            { id: 63, title: "\"辞职仙人\"蔡元培", bv: "BV1ehQRB3Eur", views: 11000 },
+            { id: 64, title: "梁启超和杨度：不是冤家不聚头", bv: "BV1DkQmBSEXA", views: 11000 },
+            { id: 65, title: "\"两块石头的碰撞\"杨天石和蒋介石", bv: "BV1vPXxBcEH3", views: 9533 },
+            { id: 66, title: "\"老夫子\"陈伯达（一）", bv: "BV1aXXUBdEVm", views: 26000 },
+            { id: 67, title: "教员厚爱的徐海东", bv: "BV1hRXqBREN4", views: 23000 },
+            { id: 68, title: "教员两次访苏经历（上）", bv: "BV1CqXrBXE3M", views: 17000 },
+            { id: 69, title: "教员两次访苏经历（中）", bv: "BV11L9jBREg1", views: 12000 },
+            { id: 70, title: "教员二次访苏经历（下）", bv: "BV1Pg9WBGE1a", views: 12000 },
+            { id: 71, title: "郭沫若究竟是怎样一个人？（上）", bv: "BV1ofQtBTELi", views: 25000 },
+            { id: 72, title: "郭沫若究竟是怎样一个人？（下）", bv: "BV1EFQgBREZj", views: 14000 },
+            { id: 73, title: "野百合王实味（上）", bv: "BV1QAdJB7E6P", views: 34000 },
+            { id: 74, title: "野百合王实味（下）", bv: "BV15pdRBHEqB", views: 18000 },
+            { id: 75, title: "厦门经济特区的奠基者项南", bv: "BV1s9dSBREj5", views: 9895 },
+            { id: 76, title: "才华横溢的诗人穆旦", bv: "BV1vLosBBEYU", views: 9857 },
+            { id: 77, title: "不待见的两岸特工李次白", bv: "BV1xLo5BZEyp", views: 9851 },
+            { id: 78, title: "圆润的上将陈锡联（上）", bv: "BV1FeoDBHEiS", views: 40000 },
+            { id: 79, title: "圆润的上将陈锡联（下）", bv: "BV1doofBqEmo", views: 18000 },
+            { id: 80, title: "学者秦晖", bv: "BV1reorB8EWx", views: 19000 },
+            { id: 81, title: "志兴说史；赵鼎新辞职风波", bv: "BV12p9aBKEKr", views: 16000 },
+            { id: 82, title: "潘汉年（一）", bv: "BV1dCRKBUEHQ", views: 22000 },
+            { id: 83, title: "潘汉年（二）", bv: "BV1axR5BPEkk", views: 55000 },
+            { id: 84, title: "潘汉年（三）", bv: "BV1gR9RBkEmw", views: 32000 },
+            { id: 85, title: "旋风将军韩先楚", bv: "BV1UCRrBiEYo", views: 17000 },
+            { id: 86, title: "陈光", bv: "BV1YHduBsEXr", views: 30000 },
+            { id: 87, title: "\"过山车\"上的杨成武（上）", bv: "BV1EFRQB2Es9", views: 27000 },
+            { id: 88, title: "\"过山车\"上的杨成武（中）", bv: "BV1WWRfBVEjU", views: 23000 },
+            { id: 89, title: "\"过山车\"上的杨成武（下）", bv: "BV1rD5s6LEa9", views: 14000 },
+            { id: 90, title: "民国第一外交家顾维钧", bv: "BV1nS516qErM", views: 17000 },
+            { id: 91, title: "顾准的悲剧（上）", bv: "BV1gA5k6GE8G", views: 14000 },
+            { id: 92, title: "顾准的悲剧（下）", bv: "BV18mLj6uE3d", views: 12000 },
+            { id: 93, title: "黄土高坡走出的经济学家张维迎", bv: "BV1iTLw6gE3g", views: 9420 },
+            { id: 94, title: "美国历史学家傅高义", bv: "BV1HJLx6JEvj", views: 11000 },
+            { id: 95, title: "再论高岗·性格决定命运（中）", bv: "BV11PGv66EwR", views: 26000 },
+            { id: 96, title: "再论高岗·性格决定命运（下）", bv: "BV1iRGJ6nEeN", views: 49000 },
+            { id: 97, title: "高岗之死（上）", bv: "BV1YpG963EB2", views: 36000 },
+            { id: 98, title: "高岗之死（下）", bv: "BV1DmV46wEai", views: 30000 },
+            { id: 99, title: "大秘田家英（上）", bv: "BV1zCVG6BEnP", views: 22000 },
+            { id: 100, title: "大秘田家英（下）", bv: "BV14LVS6pEYC", views: 33000 },
+            { id: 101, title: "会打军事仗，不会打政治仗的战神粟裕（上）", bv: "BV1m5VB6WEwc", views: 43000 },
+            { id: 102, title: "会打军事仗，不会打政治仗的战神粟裕（下）", bv: "BV15eV169EGd", views: 30000 },
+            { id: 103, title: "饶漱石（上）-淹没在历史中的聪明人", bv: "BV1GG7Z6wEDw", views: 36000 },
+            { id: 104, title: "饶漱石（中）-其家世与家事", bv: "BV1pmEb6BE6x", views: 17000 },
+			{ id: 105, title: "饶漱石（下）-淹没在历史中的聪明人", bv: "BV1Z2TT6zEXe", views: 13000 },
+            
+            { id: 106, title: "现代海瑞黄克诚（上）阻止\"二十大\"发生的", bv: "BV1iBEq62EFo", views: 20000 },
+            { id: 107, title: "现代海瑞黄克诚（下）", bv: "BV16iEr6eEGg", views: 15000 },
+            { id: 108, title: "李宗仁回国秘闻和与蒋介石的明争暗斗", bv: "BV1VHJg6qEgY", views: 14000 },
+            { id: 109, title: "李宗仁生命的最后三年", bv: "BV1XNLX6CEvV", views: 11000 },
+            { id: 110, title: "萧克历史上的两个争议话题（上）", bv: "BV1rmjA6REpp", views: 21000 },
+            { id: 111, title: "萧克历史上的两个争议话题（下）", bv: "BV1wPjv6LEes", views: 14000 },
+            { id: 112, title: "特殊将军许世友（上）", bv: "BV1TKjn6mEY2", views: 16000 },
+            { id: 113, title: "特殊将军许世友（中）", bv: "BV1E7jt6pEtk", views: 13000 },
+            { id: 114, title: "特殊将军许世友（下）", bv: "BV1Tej26sERq", views: 19000 },
+            { id: 115, title: "伯父的好侄子毛远新（上））", bv: "BV1aT7H6fE4s", views: 16000 },
+            { id: 116, title: "伯父的好侄子毛远新（中）", bv: "BV16G7p65EST", views: 16000 },
+            { id: 117, title: "伯父的好侄子毛远新（下）", bv: "BV1ZTTT6KEju", views: 14000 },
+            { id: 118, title: "卡洛拉玛社区（美国的第二权力中心？）", bv: "BV1reEX6vEm4", views: 7819 },
+            { id: 119, title: "周恩来身上的六个字：谨慎、周到、细致", bv: "BV117TY6sEQ9", views: 12000 },
+            { id: 120, title: "\"小脚女人\"邓子恢（上）", bv: "BV1QbTp6TETv", views: 10000 },
+            { id: 121, title: "\"小脚女人\"邓子恢（下）", bv: "BV1dmMF6UEgN", views: 8921 },
+            { id: 122, title: "邓小平：忍耐，就是想的开，挺得住（下）", bv: "BV1G7TD6JEgU", views: 16000 },
+            { id: 123, title: "邓小平：忍耐，就是想的开，挺得住（上）", bv: "BV1ZRMK6MEhs", views: 22000 },
+            { id: 124, title: "朱德与毛泽东，创业团队双核心（上）", bv: "BV19BMx6QE8J", views: 10000 },
+            { id: 125, title: "朱德和毛泽东：创业团队双核心（下）", bv: "BV1yLMq6KEmC", views: 9620 },
+            { id: 126, title: "作为枢纽的叶群（上）", bv: "BV16DM766E4m", views: 11000 },
+            { id: 127, title: "作为枢纽的叶群（下）", bv: "BV1jUNL6WEbG", views: 17000 },
+            { id: 128, title: "回忆高华", bv: "BV1H5Nx64ERU", views: 12000 },
+            { id: 129, title: "彭大将军彭德怀（上）", bv: "BV1xiNM6EETE", views: 15000 },
+            { id: 130, title: "彭大将军彭德怀搬出中南海（下）", bv: "BV1fpNq6SEtg", views: 6457 },
+            { id: 131, title: "当代\"孙武\"刘伯承（上）", bv: "BV1uvNd6sEXM", views: 23000 },
+            { id: 132, title: "当代\"孙武\"刘伯承（下）", bv: "BV1y6Kq6wE1j", views: 14000 },
+            { id: 133, title: "邓小平小细节中的大外交", bv: "BV1zVgC6UEzt", views: 9303 },
+            { id: 134, title: "共和国悬案之公安部长李震蹊跷死去（上）", bv: "BV1TGgQ6pEQU", views: 12000 },
+            { id: 135, title: "共和国悬案之公安部长李震蹊跷死去（下）", bv: "BV1Fi3E6DEbT", views: 11000 },
+            { id: 136, title: "红军第一叛将龚楚（上）", bv: "BV1dc3t6vEqt", views: 13000 },
+            { id: 137, title: "红军第一叛将龚楚（中）", bv: "BV1hXGw6ZEzo", views: 9266 },
+            { id: 138, title: "红军第一叛将龚楚（下）", bv: "BV1tEGV6DECu", views: 7236 },
+            { id: 139, title: "阎仲川和\"一号号令\"（上）", bv: "BV1Hd3969EQW", views: 8499 },
+            { id: 140, title: "阎仲川和\"一号号令\"（下）", bv: "BV1EqMX6ME7y", views: 6730 },
+            { id: 141, title: "传奇美女曾志和她的三个丈夫（一）", bv: "BV1uVuP6pEX5", views: 10000 },
+            { id: 142, title: "美女曾志当起了中间人（二）", bv: "BV1sUMy6oEaR", views: 8131 },
+            { id: 143, title: "晚年华国锋（上）", bv: "BV1j5uG69Epm", views: 19000 },
+            { id: 144, title: "晚年华国锋（下）", bv: "BV12fum66E2F", views: 41000 },
+            { id: 145, title: "叶飞与金门战役（一）", bv: "BV1zLuq6FEA4", views: 10000 },
+            { id: 146, title: "叶飞与金门战役（二）", bv: "BV13VgG6EEmr", views: 6160 },
+            { id: 147, title: "叶飞与金门炮战（三）", bv: "BV1N1gp6TEHL", views: 6655 },
+            { id: 148, title: "为何教员赏识陈永贵（上）", bv: "BV1UPbk6rEbm", views: 11000 },
+            { id: 149, title: "邓拓（上）", bv: "BV16y876cEqs", views: 7532 },
+            { id: 150, title: "吴桂贤：我知道自己不属于中南海！！", bv: "BV1Mq8y6DEjZ", views: 9127 },
+            { id: 151, title: "费孝通", bv: "BV1uJ8i6cEjn", views: 7236 },
+            { id: 152, title: "万里（一）", bv: "BV1628Q6ZErH", views: 7978 },
+            { id: 153, title: "万里（二）", bv: "BV1jU4Q61ETy", views: 4386 },
+            { id: 154, title: "毛泽东的元旦", bv: "BV16zt26gEZ3", views: 6337 },
+            { id: 155, title: "彭大将军和教员（上）：两个湘人的性格碰撞", bv: "BV14wbK6TEeQ", views: 12000 },
+            { id: 156, title: "排污不排外的任仲夷", bv: "BV1c4Yj6vEFk", views: 2843 }
+        ];
+
+        // ===== 状态管理 =====
+        let currentSort = { col: null, asc: true };
+        let currentKeyword = '';
+
+        // ===== 工具函数 =====
+        function formatViews(n) {
+            if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + '万';
+            return n.toLocaleString();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function highlightText(text, keyword) {
+            if (!keyword) return escapeHtml(text);
+            const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(${escaped})`, 'gi');
+            return escapeHtml(text).replace(regex, '<mark>$1</mark>');
+        }
+
+        // ===== 渲染表格 =====
+        function renderTable() {
+            const tbody = document.getElementById('videoBody');
+            const statsText = document.getElementById('statsText');
+
+            // 过滤
+            let filtered = videos;
+            if (currentKeyword) {
+                const kw = currentKeyword.toLowerCase();
+                filtered = videos.filter(v => v.title.toLowerCase().includes(kw));
+            }
+
+            // 排序
+            if (currentSort.col) {
+                filtered = [...filtered].sort((a, b) => {
+                    let valA, valB;
+                    if (currentSort.col === 'title') {
+                        valA = a.title; valB = b.title;
+                        const cmp = valA.localeCompare(valB, 'zh-CN');
+                        return currentSort.asc ? cmp : -cmp;
+                    } else if (currentSort.col === 'views') {
+                        valA = a.views; valB = b.views;
+                        return currentSort.asc ? valA - valB : valB - valA;
+                    }
+                    return 0;
+                });
+            }
+
+            // 统计
+            const totalViews = filtered.reduce((s, v) => s + v.views, 0);
+            if (currentKeyword || currentSort.col) {
+                statsText.textContent = `筛选结果：${filtered.length} 个视频 · 总播放 ${formatViews(totalViews)}`;
+            } else {
+                statsText.textContent = `共 ${videos.length} 个视频 · 总播放 ${formatViews(totalViews)}`;
+            }
+
+            // 生成HTML
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;padding:40px;color:#999;font-size:15px;">😕 没有找到匹配的视频</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            filtered.forEach(v => {
+                html += `<tr>
+                    <td>${v.id}</td>
+                    <td><a href="https://www.bilibili.com/video/${v.bv}" target="_blank">${highlightText(v.title, currentKeyword)}</a></td>
+                    <td>${formatViews(v.views)}</td>
+                </tr>`;
+            });
+            tbody.innerHTML = html;
+        }
+
+        // ===== 搜索功能 =====
+        const searchInput = document.getElementById('searchInput');
+        let searchTimer;
+        searchInput.addEventListener('input', function () {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                currentKeyword = this.value.trim();
+                renderTable();
+            }, 200);
+        });
+
+        // ===== 排序功能 =====
+        document.querySelectorAll('thead th[data-col]').forEach(th => {
+            th.addEventListener('click', function () {
+                const col = this.dataset.col;
+
+                // 切换排序方向
+                if (currentSort.col === col) {
+                    currentSort.asc = !currentSort.asc;
+                } else {
+                    currentSort.col = col;
+                    currentSort.asc = true;
+                }
+
+                // 更新表头图标
+                document.querySelectorAll('thead th[data-col]').forEach(h => {
+                    h.classList.remove('sort-active');
+                    h.querySelector('.sort-icon').textContent = '⇅';
+                });
+                this.classList.add('sort-active');
+                this.querySelector('.sort-icon').textContent = currentSort.asc ? '↑' : '↓';
+
+                renderTable();
+            });
+        });
+
+        // ===== 回到顶部 =====
+        const backTopBtn = document.getElementById('backTop');
+        window.addEventListener('scroll', () => {
+            backTopBtn.classList.toggle('show', window.scrollY > 300);
+        });
+        backTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== 初始渲染 =====
+        renderTable();
+    </script>
+</body>
+</html>
