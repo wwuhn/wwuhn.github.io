@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+def create_china_map():
+    html_content = r"""<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -299,4 +300,11 @@
         window.addEventListener('resize', function() { chart.resize(); });
     </script>
 </body>
-</html>
+</html>"""
+
+    with open("render.html", "w", encoding="utf-8") as f:
+        f.write(html_content)
+    print("生成成功！请在同目录下打开 render.html 查看效果。")
+
+if __name__ == "__main__":
+    create_china_map()
