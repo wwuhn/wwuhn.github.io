@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三山四渎五岳</title>
+<link rel="stylesheet" href="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.css">
+<script src="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.js"></script>
+<style>
+/* SECTION: reset-and-base */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#f5f0e8;--ink:#2c2c2c;--ink-light:#5a5a5a;
+  --mountain:#2d6a4f;--river:#2563eb;--sacred:#b91c1c;
+  --gold:#c9a84c;--border:#d4c9b0;
+  --shadow:0 4px 24px rgba(0,0,0,.12);
+}
+html,body{height:100%;font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;background:var(--paper);color:var(--ink)}
+
+/* SECTION: layout */
+.app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 24px;background:linear-gradient(135deg,#3b1c0a,#5c2e15);color:#f5f0e8;z-index:10;flex-shrink:0}
+header h1{font-size:1.4rem;letter-spacing:.15em;font-weight:700}
+header .subtitle{font-size:.82rem;opacity:.7;letter-spacing:.08em}
+
+/* SECTION: main */
+.main{flex:1;position:relative;overflow:hidden}
+#mapContainer{width:100%;height:100%;z-index:1}
+
+/* SECTION: custom markers */
+.site-marker{display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform .2s}
+.site-marker:hover{transform:scale(1.15)}
+.site-marker .dot{width:30px;height:30px;border-radius:50%;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.35);flex-shrink:0}
+.site-marker .dot.mountain{background:var(--mountain)}
+.site-marker .dot.river{background:var(--river)}
+.site-marker .dot.sacred{background:var(--sacred)}
+.site-marker .lbl{margin-top:2px;font-size:12px;font-weight:700;color:var(--ink);text-shadow:0 0 4px #fff,0 0 4px #fff,1px 1px 2px rgba(0,0,0,.15);white-space:nowrap;pointer-events:none}
+.site-marker .sub{font-size:9px;color:#777;text-shadow:0 0 3px #fff,0 0 3px #fff;pointer-events:none}
+
+/* SECTION: popup */
+.site-popup{font-family:"PingFang SC","Microsoft YaHei",sans-serif;min-width:220px;max-width:300px}
+.site-popup h3{font-weight:700;font-size:17px;margin:0 0 6px;padding-bottom:6px;border-bottom:2px solid var(--gold)}
+.site-popup .badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;color:#fff;margin-bottom:8px}
+.site-popup .badge.mountain{background:var(--mountain)}
+.site-popup .badge.river{background:var(--river)}
+.site-popup .badge.sacred{background:var(--sacred)}
+.site-popup p{font-size:13px;line-height:1.7;color:#4a4a4a;margin:4px 0}
+.site-popup .alt-text{color:var(--ink-light);font-size:12px}
+.site-popup .loc-text{font-size:11px;color:#999;margin-top:6px}
+.leaflet-popup-content-wrapper{border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+.leaflet-popup-tip{box-shadow:none}
+
+/* SECTION: legend */
+.legend{position:absolute;top:16px;left:16px;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-radius:12px;padding:16px;box-shadow:var(--shadow);z-index:500;min-width:185px;max-width:230px}
+.legend h3{font-size:.82rem;margin-bottom:10px;color:var(--ink-light);letter-spacing:.1em}
+.legend-group{margin-bottom:8px}
+.legend-group:last-child{margin-bottom:0}
+.legend-header{display:flex;align-items:center;gap:8px;cursor:pointer;padding:3px 0;user-select:none}
+.legend-header input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.legend-dot.mountain{background:var(--mountain)}
+.legend-dot.river{background:var(--river)}
+.legend-dot.sacred{background:var(--sacred)}
+.legend-title{font-size:.82rem;font-weight:600}
+.legend-items{list-style:none;padding-left:28px;margin-top:4px}
+.legend-items li{font-size:.75rem;color:var(--ink-light);padding:2px 0;cursor:pointer;transition:color .2s}
+.legend-items li:hover{color:var(--ink);font-weight:600}
+.legend-items .river-line-item{display:flex;align-items:center;gap:7px;padding:3px 0}
+.legend-items .river-line-item label{display:flex;align-items:center;gap:7px;cursor:pointer;flex:1;margin:0}
+.legend-items .river-line-item input[type=checkbox]{accent-color:var(--gold);width:13px;height:13px;flex-shrink:0}
+.legend-line{display:inline-block;width:22px;height:3px;border-radius:2px;flex-shrink:0}
+.legend-line.dashed{height:0;border-top:3px dashed}
+
+/* SECTION: info-panel */
+.info-panel{position:absolute;right:0;top:0;bottom:0;width:340px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);box-shadow:-4px 0 24px rgba(0,0,0,.12);z-index:600;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:24px}
+.info-panel.open{transform:translateX(0)}
+.info-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;background:rgba(0,0,0,.06);border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;color:var(--ink-light);transition:background .2s}
+.info-close:hover{background:rgba(0,0,0,.12)}
+.info-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:600;color:#fff;margin-bottom:10px}
+.info-badge.mountain{background:var(--mountain)}
+.info-badge.river{background:var(--river)}
+.info-badge.sacred{background:var(--sacred)}
+.info-name{font-size:1.5rem;font-weight:700;margin-bottom:4px;letter-spacing:.05em}
+.info-alt{font-size:.88rem;color:var(--ink-light);margin-bottom:16px}
+.info-section{margin-bottom:16px}
+.info-section h4{font-size:.78rem;color:var(--gold);letter-spacing:.1em;margin-bottom:6px;font-weight:700}
+.info-section p{font-size:.88rem;line-height:1.75;color:var(--ink)}
+.info-loc{font-size:.82rem;color:var(--ink-light)}
+
+/* SECTION: responsive */
+@media(max-width:768px){
+  header{padding:8px 14px}
+  header h1{font-size:1.1rem}
+  header .subtitle{display:none}
+  .legend{top:8px;left:8px;padding:12px;min-width:150px;max-width:185px;border-radius:10px}
+  .info-panel{width:100%;top:auto;height:50vh;transform:translateY(100%);border-radius:16px 16px 0 0}
+  .info-panel.open{transform:translateY(0)}
+}
+@media(max-width:420px){
+  header h1{font-size:.95rem;letter-spacing:.08em}
+  .legend{padding:10px;min-width:130px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- SECTION: header -->
+<header>
+  <div>
+    <h1>三山四渎五岳</h1>
+    <div class="subtitle">中国古代地理文化名胜</div>
+  </div>
+</header>
+
+<div class="main">
+<!-- SECTION: map -->
+<div id="mapContainer"></div>
+
+<!-- SECTION: legend -->
+<div class="legend" id="legend">
+  <h3>图 例</h3>
+  <div class="legend-group">
+    <label class="legend-header"><input type="checkbox" checked data-cat="mountain"><span class="legend-dot mountain"></span><span class="legend-title">三山</span></label>
+    <ul class="legend-items" id="legendMountain"></ul>
+  </div>
+  <div class="legend-group">
+    <label class="legend-header"><input type="checkbox" checked data-cat="river"><span class="legend-dot river"></span><span class="legend-title">四渎</span></label>
+    <ul class="legend-items" id="legendRiver"></ul>
+  </div>
+  <div class="legend-group">
+    <label class="legend-header"><input type="checkbox" checked data-cat="sacred"><span class="legend-dot sacred"></span><span class="legend-title">五岳</span></label>
+    <ul class="legend-items" id="legendSacred"></ul>
+  </div>
+</div>
+
+<!-- SECTION: info-panel -->
+<div class="info-panel" id="infoPanel">
+  <button class="info-close" id="infoClose">&times;</button>
+  <span class="info-badge" id="infoBadge"></span>
+  <div class="info-name" id="infoName"></div>
+  <div class="info-alt" id="infoAlt"></div>
+  <div class="info-section"><h4>简 介</h4><p id="infoDesc"></p></div>
+  <div class="info-section"><h4>位 置</h4><p class="info-loc" id="infoLoc"></p></div>
+</div>
+</div>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+/* SECTION: data-sites */
+var SITES=[
+  /* ── 三山 ── */
+  {id:'huangshan',name:'黄山',cat:'mountain',lat:30.131,lng:118.168,alt:'海拔 1864 m',
+   desc:'位于安徽省南部，以奇松、怪石、云海、温泉"四绝"闻名于世。明代旅行家徐霞客曾赞："五岳归来不看山，黄山归来不看岳。"1990年列入世界文化与自然双重遗产。',
+   loc:'安徽省黄山市'},
+  {id:'lushan',name:'庐山',cat:'mountain',lat:29.562,lng:115.969,alt:'海拔 1474 m',
+   desc:'位于江西省北部、长江南岸，以雄、奇、险、秀闻名。"不识庐山真面目，只缘身在此山中"千古传诵。庐山是中国山水文化的重要发祥地，1996年列入世界文化景观遗产。',
+   loc:'江西省九江市'},
+  {id:'yandangshan',name:'雁荡山',cat:'mountain',lat:28.385,lng:121.070,alt:'海拔 1056 m',
+   desc:'位于浙江省东南部，素有"海上名山、寰中绝胜"之誉。以峰、洞、瀑、嶂称奇，灵峰夜景尤为著名。沈括《梦溪笔谈》曾记其地貌，被誉为"东南第一山"。',
+   loc:'浙江省温州市乐清市'},
+
+  /* ── 四渎（长江/黄河/淮河在底图上已有，仅标注济水古河道）── */
+  {id:'jishui',name:'济水',sub:'古河道',cat:'river',lat:36.50,lng:116.00,alt:'古河流（今已湮没）',
+   desc:'古代四渎之一，发源于河南省济源市王屋山。古济水曾独流入海，"济源"即济水之源。后黄河多次改道夺济入海，济水故道渐湮。今黄河下游河道大体循古济水故道。济南、济宁等地名皆源于济水。',
+   loc:'古河道经河南、山东入海（今已湮没）'},
+
+  /* ── 五岳 ── */
+  {id:'taishan',name:'泰山',sub:'东岳',cat:'sacred',lat:36.254,lng:117.100,alt:'海拔 1532.7 m',
+   desc:'五岳之首，"天下第一山"。位于山东中部，自古被视为"直通帝座"的天堂阶梯。秦始皇至清乾隆，共有13代帝王亲临登封。泰山石刻、庙宇群和日出云海享誉中外，1987年列入世界文化与自然双重遗产。',
+   loc:'山东省泰安市'},
+  {id:'huashan',name:'华山',sub:'西岳',cat:'sacred',lat:34.468,lng:110.084,alt:'海拔 2154.9 m',
+   desc:'以"奇险天下第一山"闻名。位于陕西东部，由东、西、南、北、中五峰组成，犹如一朵盛开的莲花。长空栈道、鹞子翻身等处惊险绝伦，自古有"华山天下险"之称。',
+   loc:'陕西省渭南市华阴市'},
+  {id:'hengshan_s',name:'衡山',sub:'南岳',cat:'sacred',lat:27.254,lng:112.655,alt:'海拔 1300.2 m',
+   desc:'五岳之南岳，位于湖南中部，有"五岳独秀"之美誉。衡山以秀见长，七十二峰逶迤八百里，祝融峰为最高峰。山中寺庙众多，是佛道共存的宗教圣地，南岳大庙尤为壮观。',
+   loc:'湖南省衡阳市'},
+  {id:'hengshan_n',name:'恒山',sub:'北岳',cat:'sacred',lat:39.677,lng:113.733,alt:'海拔 2016.1 m',
+   desc:'五岳之北岳，位于山西北部，为塞外高原与冀中平原之界山。恒山以"幽"著称，悬空寺为天下奇观——建于绝壁之上，距地面约60米，已有1500余年历史。',
+   loc:'山西省大同市浑源县'},
+  {id:'songshan',name:'嵩山',sub:'中岳',cat:'sacred',lat:34.484,lng:112.952,alt:'海拔 1491.7 m',
+   desc:'五岳之中岳，位于河南中部。嵩山由太室山和少室山组成，少林寺即坐落于少室山麓。嵩山是儒释道三教荟萃之地，中岳庙为中国现存最完整的道教庙宇之一，2010年列入世界文化遗产。',
+   loc:'河南省郑州市登封市'}
+];
+
+var catLabel={mountain:'三山',river:'四渎',sacred:'五岳'};
+var legendMap={mountain:'legendMountain',river:'legendRiver',sacred:'legendSacred'};
+
+/* ============================================================
+   MAP INIT — Leaflet + 高德瓦片（无需 Key）
+   ============================================================ */
+/* SECTION: map-init */
+var map=L.map('mapContainer',{
+  center:[33,112],
+  zoom:5,
+  minZoom:4,
+  maxZoom:14,
+  zoomControl:true
+});
+
+// 高德标准地图瓦片（无需 Key）
+var tileUrl='https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}';
+var tileUrlBackup='https://wprd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}';
+
+function createTileLayer(url){
+  return L.tileLayer(url,{
+    subdomains:'1234',
+    attribution:'&copy; 高德地图',
+    maxZoom:18,
+    errorTileUrl:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+  });
+}
+
+var currentLayer=createTileLayer(tileUrl).addTo(map);
+
+// 瓦片加载失败自动切换备用源
+var errorCount=0,switched=false;
+currentLayer.on('tileerror',function(){
+  errorCount++;
+  if(errorCount>5&&!switched){
+    switched=true;
+    map.removeLayer(currentLayer);
+    currentLayer=createTileLayer(tileUrlBackup).addTo(map);
+  }
+});
+
+// 卫星影像层
+var satLayer=L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',{
+  subdomains:'1234',attribution:'&copy; 高德地图',maxZoom:18
+});
+var satLabel=L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}',{
+  subdomains:'1234',attribution:'&copy; 高德地图',maxZoom:18
+});
+
+// 图层切换控件
+L.control.layers({
+  '标准地图':currentLayer,
+  '卫星影像':L.layerGroup([satLayer,satLabel])
+},null,{position:'topright'}).addTo(map);
+
+/* ============================================================
+   MARKERS
+   ============================================================ */
+/* SECTION: markers */
+var allMarkers={};
+
+function createIcon(site){
+  var iconText=site.cat==='mountain'?'山':site.cat==='river'?'济':'岳';
+  var html='<div class="site-marker">'
+    +'<div class="dot '+site.cat+'">'+iconText+'</div>';
+  if(site.sub){
+    html+='<div class="sub">'+site.sub+'</div>';
+  }
+  html+='<div class="lbl">'+site.name.replace(/（.*）/,'')+'</div>'
+    +'</div>';
+  return L.divIcon({
+    className:'',
+    html:html,
+    iconSize:[40,60],
+    iconAnchor:[20,50],
+    popupAnchor:[0,-35]
+  });
+}
+
+function createPopupContent(s){
+  return '<div class="site-popup">'
+    +'<span class="badge '+s.cat+'">'+catLabel[s.cat]+'</span>'
+    +'<h3>'+s.name.replace(/（.*）/,'')+'</h3>'
+    +'<p class="alt-text">'+s.alt+'</p>'
+    +'<p>'+s.desc+'</p>'
+    +'<p class="loc-text">'+s.loc+'</p>'
+    +'</div>';
+}
+
+SITES.forEach(function(site){
+  var marker=L.marker([site.lat,site.lng],{
+    icon:createIcon(site)
+  }).addTo(map);
+
+  marker.bindPopup(createPopupContent(site),{
+    maxWidth:320,
+    className:'site-popup-wrapper'
+  });
+
+  marker.on('click',function(){
+    selectSite(site);
+  });
+
+  if(!allMarkers[site.cat])allMarkers[site.cat]=[];
+  allMarkers[site.cat].push(marker);
+});
+
+/* ============================================================
+   济水古河道虚线
+   ============================================================ */
+/* SECTION: river-lines */
+var riverLines={};
+
+// 四渎数据（含说明，用于图例点击弹出）
+var riverInfo={
+  huanghe:{name:'黄河',desc:'中国第二大河，全长5464公里，发源于青藏高原巴颜喀拉山脉，呈"几"字形流经黄土高原、华北平原，注入渤海。黄河流域是华夏文明的摇篮，四渎之二，称"河"。',loc:'流经青海、四川、甘肃、宁夏、内蒙古、陕西、山西、河南、山东'},
+  changjiang:{name:'长江',desc:'中国第一大河、世界第三大河，全长6300公里。发源于青藏高原唐古拉山脉，自西向东横贯中国，注入东海。长江流域是中华文明的重要发源地之一，四渎之首，称"江"。',loc:'流经青海、西藏、云南、四川、重庆、湖北、湖南、江西、安徽、江苏、上海'},
+  huaihe:{name:'淮水',desc:'全长约1000公里，发源于河南省桐柏山，东流入洪泽湖后分路入江入海。淮河是中国南北地理分界线之一，自古与江、河、济并称"四渎"，称"淮"。',loc:'流经河南、安徽、江苏'},
+  jishui:{name:'济水',desc:'古代四渎之一，发源于河南省济源市王屋山。古济水曾独流入海，"济源"即济水之源。后黄河多次改道夺济入海，济水故道渐湮。今黄河下游河道大体循古济水故道。济南、济宁等地名皆源于济水。',loc:'古河道经河南、山东入海（今已湮没）'}
+};
+
+// 淮水（实线绘制）
+var huaiheLine=L.polyline([
+  [32.5,113],[32.8,114.5],[33.2,115.5],[33.5,116.5],
+  [33.3,117.5],[33.5,118.5],[33.5,119.5],[33.5,120.2]
+],{color:'#2563eb',weight:3,opacity:0.55,lineCap:'round',lineJoin:'round'}).addTo(map);
+riverLines.huaihe={line:huaiheLine,name:'淮水'};
+
+// 济水（古河道，虚线绘制）
+var jishuiLine=L.polyline([
+  [35.2,112.3],[35.8,113.0],[36.2,114.0],
+  [36.5,115.0],[36.8,116.0],[37.0,117.0],
+  [37.2,118.0],[37.5,119.0]
+],{color:'#2563eb',weight:3,opacity:0.45,dashArray:'10,8',lineCap:'round',lineJoin:'round'}).addTo(map);
+riverLines.jishui={line:jishuiLine,name:'济水'};
+
+/* ============================================================
+   LEGEND
+   ============================================================ */
+/* SECTION: legend-build */
+SITES.forEach(function(s){
+  if(s.cat==='river')return;
+  var ul=document.getElementById(legendMap[s.cat]);
+  var li=document.createElement('li');
+  li.textContent=s.name.replace(/（.*）/,'');
+  li.addEventListener('click',function(){
+    selectSite(s);
+    map.flyTo([s.lat,s.lng],8,{duration:0.6});
+  });
+  ul.appendChild(li);
+});
+
+// 四渎河道图例
+var riverLegendUl=document.getElementById('legendRiver');
+var riverLineStyles={
+  huanghe:{color:'#92400e',dashed:false,hasLine:false},
+  changjiang:{color:'#1d4ed8',dashed:false,hasLine:false},
+  huaihe:{color:'#2563eb',dashed:false,hasLine:true},
+  jishui:{color:'#2563eb',dashed:true,hasLine:true}
+};
+['huanghe','changjiang','huaihe','jishui'].forEach(function(rid){
+  var info=riverInfo[rid];
+  var st=riverLineStyles[rid];
+  var li=document.createElement('li');
+  li.className='river-line-item';
+  var lbl=document.createElement('label');
+  if(st.hasLine){
+    var cb=document.createElement('input');
+    cb.type='checkbox';cb.checked=true;cb.dataset.river=rid;
+    var lineSpan=document.createElement('span');
+    lineSpan.className='legend-line'+(st.dashed?' dashed':'');
+    lineSpan.style[st.dashed?'borderColor':'background']=st.color;
+    lbl.appendChild(cb);lbl.appendChild(lineSpan);
+    cb.addEventListener('change',function(){
+      var r=riverLines[rid];
+      if(this.checked){r.line.addTo(map);}else{map.removeLayer(r.line);}
+    });
+  }
+  var nameSpan=document.createElement('span');
+  nameSpan.textContent=info.name;
+  nameSpan.style.cursor='pointer';
+  nameSpan.title='点击查看说明';
+  lbl.appendChild(nameSpan);
+  li.appendChild(lbl);
+  // 点击名称弹出说明
+  nameSpan.addEventListener('click',function(e){
+    e.stopPropagation();
+    selectSite({cat:'river',name:info.name,alt:rid==='jishui'?'古河流（今已湮没）':'',desc:info.desc,loc:info.loc});
+  });
+  riverLegendUl.appendChild(li);
+});
+
+// 类别勾选显隐
+document.querySelectorAll('.legend-header input[type=checkbox]').forEach(function(cb){
+  cb.addEventListener('change',function(){
+    var cat=this.dataset.cat;
+    var visible=this.checked;
+    (allMarkers[cat]||[]).forEach(function(m){
+      if(m._isLine){
+        if(visible){m.addTo(map);}else{m.remove();}
+      }else{
+        if(visible){map.addLayer(m);}else{map.removeLayer(m);}
+      }
+    });
+    // 四渎类别同时控制所有河道线条
+    if(cat==='river'){
+      Object.keys(riverLines).forEach(function(rid){
+        var rl=riverLines[rid];
+        if(visible){rl.line.addTo(map);}else{map.removeLayer(rl.line);}
+      });
+      document.querySelectorAll('.river-line-item input[type=checkbox]').forEach(function(rcb){
+        rcb.checked=visible;
+      });
+    }
+  });
+});
+
+/* ============================================================
+   INFO PANEL
+   ============================================================ */
+/* SECTION: info-panel */
+var infoPanel=document.getElementById('infoPanel');
+
+function selectSite(s){
+  document.getElementById('infoBadge').textContent=catLabel[s.cat];
+  document.getElementById('infoBadge').className='info-badge '+s.cat;
+  document.getElementById('infoName').textContent=s.name.replace(/（.*）/,'');
+  document.getElementById('infoAlt').textContent=s.alt;
+  document.getElementById('infoDesc').textContent=s.desc;
+  document.getElementById('infoLoc').textContent=s.loc;
+  infoPanel.classList.add('open');
+}
+
+document.getElementById('infoClose').addEventListener('click',function(){
+  infoPanel.classList.remove('open');
+});
+</script>
+</body>
+</html>
