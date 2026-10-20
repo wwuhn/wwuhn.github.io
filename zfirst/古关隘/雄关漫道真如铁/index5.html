@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国古代重要关隘分布图</title>
+    <script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+    <script src="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.js"></script>
+    <link rel="stylesheet" href="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --theme-rgb: 139, 69, 19;
+            --accent-rgb: 178, 34, 34;
+            --card-bg: rgba(255, 253, 245, 0.95);
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #fdfbf7 0%, #f5efe6 50%, #ebe3d5 100%);
+            min-height: 100vh;
+        }
+        
+        .title-font {
+            font-family: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+        }
+        
+        #map {
+            height: 65vh;
+            min-height: 500px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(139, 69, 19, 0.15);
+            z-index: 1;
+            background: #e8e4df;
+        }
+
+        /* 地图加载提示 */
+        .map-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            text-align: center;
+            color: #8b7355;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .map-loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(139, 69, 19, 0.2);
+            border-top-color: #8b4513;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 8px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .custom-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .custom-marker:hover {
+            transform: scale(1.2);
+        }
+        
+        .marker-guanzhong { background: #c41e3a; }
+        .marker-xiyu { background: #d4a017; }
+        .marker-mobei { background: #2e8b57; }
+        .marker-qingzang { background: #4169e1; }
+        .marker-dongbei { background: #8b4513; }
+        .marker-zhongyuan { background: #9932cc; }
+        .marker-hexi { background: #cd853f; }
+        .marker-sichuan { background: #008b8b; }
+        .marker-shanxi { background: #b8860b; }
+        .marker-yungui { background: #6b8e23; }
+        .marker-nanfang { background: #e67e22; }
+        
+        .pass-popup {
+            font-family: 'Noto Sans SC', sans-serif;
+            min-width: 220px;
+        }
+        
+        .pass-popup h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 18px;
+            margin: 0 0 8px 0;
+            color: #8b4513;
+            border-bottom: 2px solid #d4a017;
+            padding-bottom: 6px;
+        }
+        
+        .pass-popup .direction-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .pass-popup p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin: 4px 0;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .legend-item:hover {
+            background: rgba(139, 69, 19, 0.08);
+        }
+        
+        .legend-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 69, 19, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(139, 69, 19, 0.08);
+        }
+        
+        .filter-btn {
+            padding: 8px 10px;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: white;
+            color: #666;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .filter-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+        
+        .stat-number {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 36px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8b4513, #c41e3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        
+        .leaflet-popup-tip {
+            box-shadow: none;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-in {
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4a017, transparent);
+            margin: 24px 0;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-6 lg:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- 标题区域 -->
+        <header class="text-center mb-8 animate-in">
+            <h1 class="title-font text-4xl md:text-5xl lg:text-6xl font-black text-[#5c3d2e] mb-3 tracking-wide">
+                雄关漫道真如铁
+            </h1>
+            <p class="text-lg md:text-xl text-[#8b7355] font-medium">中国古代十一大区域入口关隘分布图</p>
+            <p class="text-sm text-[#a08060] mt-2">漠北 · 西域 · 青藏 · 中原 · 东北 · 关中 · 河西走廊 · 四川盆地 · 山西高原 · 南方 · 云贵高原</p>
+        </header>
+
+        <!-- 统计卡片 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="glass-card p-4 text-center animate-in" style="animation-delay: 0.1s">
+                <div class="stat-number" id="pass-count">35</div>
+                <div class="text-sm text-[#8b7355] mt-1">座著名关隘</div>
+            </div>
+            <div class="glass-card p-4 text-center animate-in" style="animation-delay: 0.2s">
+                <div class="stat-number">11</div>
+                <div class="text-sm text-[#8b7355] mt-1">大地理区域</div>
+            </div>
+            <div class="glass-card p-4 text-center animate-in" style="animation-delay: 0.3s">
+                <div class="stat-number">2000+</div>
+                <div class="text-sm text-[#8b7355] mt-1">年历史跨度</div>
+            </div>
+            <div class="glass-card p-4 text-center animate-in" style="animation-delay: 0.4s">
+                <div class="stat-number">6</div>
+                <div class="text-sm text-[#8b7355] mt-1">条文明通道</div>
+            </div>
+        </div>
+
+        <!-- 筛选按钮 -->
+        <div class="glass-card p-4 mb-6 animate-in" style="animation-delay: 0.5s">
+            <div class="flex flex-wrap gap-2 justify-center" id="filter-buttons">
+                <button class="filter-btn active" style="background: linear-gradient(135deg, #8b4513, #a0522d);" data-filter="all">全部关隘</button>
+                <button class="filter-btn" data-filter="guanzhong" style="--btn-color: #c41e3a;">关中平原</button>
+                <button class="filter-btn" data-filter="xiyu" style="--btn-color: #d4a017;">西域方向</button>
+                <button class="filter-btn" data-filter="mobei" style="--btn-color: #2e8b57;">漠北方向</button>
+                <button class="filter-btn" data-filter="qingzang" style="--btn-color: #4169e1;">青藏方向</button>
+                <button class="filter-btn" data-filter="dongbei" style="--btn-color: #8b4513;">东北平原</button>
+                <button class="filter-btn" data-filter="zhongyuan" style="--btn-color: #9932cc;">中原腹地</button>
+                <button class="filter-btn" data-filter="hexi" style="--btn-color: #cd853f;">河西走廊</button>
+                <button class="filter-btn" data-filter="sichuan" style="--btn-color: #008b8b;">四川盆地</button>
+                <button class="filter-btn" data-filter="shanxi" style="--btn-color: #b8860b;">山西高原</button>
+                <button class="filter-btn" data-filter="yungui" style="--btn-color: #6b8e23;">云贵高原</button>
+                <button class="filter-btn" data-filter="nanfang" style="--btn-color: #e67e22;">南方方向</button>
+            </div>
+        </div>
+
+        <!-- 地图容器 -->
+        <div class="glass-card p-4 mb-6 animate-in" style="animation-delay: 0.6s; position: relative;">
+            <div id="map"></div>
+            <div class="map-loading" id="map-loading">
+                <div class="map-loading-spinner"></div>
+                <div>地图加载中…</div>
+            </div>
+        </div>
+
+        <!-- 图例与说明 -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- 图例 -->
+            <div class="glass-card p-6 animate-in" style="animation-delay: 0.7s">
+                <h2 class="title-font text-2xl font-bold text-[#5c3d2e] mb-4 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-[#d4a017]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                    </svg>
+                    关隘图例
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="legend-container">
+                </div>
+            </div>
+
+            <!-- 关隘简介 -->
+            <div class="glass-card p-6 animate-in" style="animation-delay: 0.8s">
+                <h2 class="title-font text-2xl font-bold text-[#5c3d2e] mb-4 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-[#d4a017]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    地理意义说明
+                </h2>
+                <div class="space-y-3 text-[15px] text-[#5c4d3d] leading-relaxed">
+                    <p><strong class="text-[#c41e3a]">关中四塞</strong>：东潼关、南武关、西大散关、北萧关，构筑了关中平原"金城千里"的天然防御体系。</p>
+                    <p><strong class="text-[#d4a017]">西域门户</strong>：玉门关、阳关扼守丝绸之路南北两道，是中原通往西域的必经之路。</p>
+                    <p><strong class="text-[#2e8b57]">漠北通道</strong>：鸡鹿塞、高阙塞扼守阴山，雁门、宁武、偏头"外三关"屏护晋北，居庸关锁钥军都，杀虎口连通西口，共同构成穿越阴山—晋北长城防线、北通蒙古高原的完整隘口体系，是中原抵御漠北游牧势力、中原与草原民族互市通商的核心通道。</p>
+                    <p><strong class="text-[#4169e1]">青藏天路</strong>：日月山、昆仑山口、唐古拉山口是从内地进入青藏高原的重要地标。</p>
+                    <p><strong class="text-[#8b4513]">东北锁钥</strong>：山海关控制辽西走廊，是华北进入东北的咽喉要道。</p>
+                    <p><strong class="text-[#cd853f]">河西咽喉</strong>：嘉峪关坐镇河西走廊西端，是明长城最西端起点。</p>
+                    <p><strong class="text-[#008b8b]">巴蜀四塞</strong>：剑门、瞿塘、阳平、江油，四周高山环绕、栈道艰险，使四川盆地成为天然的"四塞之国"。</p>
+                    <p><strong class="text-[#b8860b]">表里山河</strong>：山西高原东依太行、西临黄河、北屏长城、南接中条，娘子关（井陉）、平型关、倒马关、紫荆关扼守太行诸陉，构成"京师右辅"的太行陉道防御体系，其中紫荆关即《吕氏春秋》"天下九塞"之"荆阮"，倒马关于唐代即置关，二者与居庸关并称明代"内三关"，"天下形势必有取于山西"。</p>
+                    <p><strong class="text-[#e67e22]">南下锁钥</strong>：武胜关、平靖关、九里关合称"义阳三关"，分踞桐柏、大别山三大隘口，构成中原南下江汉平原的完整锁钥体系；镇南关（今友谊关）扼守中越边境，为控扼岭南、绥服中南半岛的南疆门户。</p>
+                    <p><strong class="text-[#6b8e23]">川黔锁钥</strong>：娄山关扼守大娄山脉中段脊梁，北拒巴蜀、南扼黔桂，是四川盆地南下云贵高原的必经隘口，关口海拔1277米，两侧大小尖山夹峙、南北峡谷高差约400米，"一夫当关，万夫莫开"即此；1935年红军两战娄山关于此写下"雄关漫道真如铁"，千年古关遂成中国革命的精神地标。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部信息 -->
+        <footer class="text-center mt-8 text-sm text-[#a08060] animate-in" style="animation-delay: 0.9s">
+            <div class="section-divider"></div>
+            <p>点击地图上的标记可查看关隘详细信息 · 使用筛选按钮可按区域查看</p>
+        </footer>
+    </div>
+
+    <script>
+        // 关隘数据
+        const passes = [
+            // 关中平原四关
+            {
+                name: '潼关',
+                lat: 34.54,
+                lng: 110.24,
+                direction: 'guanzhong',
+                directionName: '关中平原',
+                color: '#c41e3a',
+                description: '关中平原东大门，地处陕晋豫三省要冲，北临黄河，南依秦岭，自古有"畿内首险"、"四镇咽喉"之誉。',
+                famous: '曹操与马超大战、安史之乱桃林大战'
+            },
+            {
+                name: '函谷关',
+                lat: 34.62,
+                lng: 110.92,
+                direction: 'guanzhong',
+                directionName: '关中平原',
+                color: '#c41e3a',
+                description: '战国至东汉时期关中东关，"双峰高耸大河旁，自古函谷一战场"，老子著《道德经》之地。',
+                famous: '六国伐秦、刘邦守关拒项羽'
+            },
+            {
+                name: '武关',
+                lat: 33.58,
+                lng: 110.92,
+                direction: 'guanzhong',
+                directionName: '关中平原',
+                color: '#c41e3a',
+                description: '关中平原南大门，位于丹凤县东武关河的北岸，是关中通往南阳盆地、荆楚地区的要道。',
+                famous: '刘邦入咸阳、秦楚丹阳之战'
+            },
+            {
+                name: '大散关',
+                lat: 34.20,
+                lng: 106.88,
+                direction: 'guanzhong',
+                directionName: '关中平原',
+                color: '#c41e3a',
+                description: '关中平原西大门，位于宝鸡西南大散岭上，扼守川陕交通要道，"铁马秋风大散关"即此。',
+                famous: '吴玠吴璘抗金、韩信暗度陈仓'
+            },
+            {
+                name: '萧关',
+                lat: 36.05,
+                lng: 106.28,
+                direction: 'guanzhong',
+                directionName: '关中平原',
+                color: '#c41e3a',
+                description: '关中平原北大门，位于六盘山东南，是关中通往塞北的要冲，屏护关中西北安全。',
+                famous: '汉文帝十四年匈奴入萧关、汉武帝出萧关巡边'
+            },
+            // 西域方向
+            {
+                name: '玉门关',
+                lat: 40.35,
+                lng: 93.88,
+                direction: 'xiyu',
+                directionName: '西域方向',
+                color: '#d4a017',
+                description: '丝绸之路北道起点，因西域玉石经此输入中原得名，"春风不度玉门关"即此。',
+                famous: '张骞出使西域、班超经营西域三十年'
+            },
+            {
+                name: '阳关',
+                lat: 39.93,
+                lng: 94.13,
+                direction: 'xiyu',
+                directionName: '西域方向',
+                color: '#d4a017',
+                description: '丝绸之路南道起点，与玉门关并称"两关"，"劝君更尽一杯酒，西出阳关无故人"。',
+                famous: '玄奘西行取经、丝绸之路商旅通行'
+            },
+            // 漠北方向
+            {
+                name: '鸡鹿塞',
+                lat: 40.92,
+                lng: 106.42,
+                direction: 'mobei',
+                directionName: '漠北方向',
+                color: '#2e8b57',
+                description: '汉代著名塞城，位于磴口县哈隆格乃峡谷南口，是穿越阴山进入漠北的重要通道。',
+                famous: '霍去病北击匈奴、昭君出塞途经、呼韩邪单于归汉'
+            },
+            {
+                name: '高阙塞',
+                lat: 41.25,
+                lng: 106.85,
+                direction: 'mobei',
+                directionName: '漠北方向',
+                color: '#2e8b57',
+                description: '战国赵武灵王所筑要塞，位于乌拉特后旗狼山南麓，控制北方草原通向河套的咽喉。',
+                famous: '赵武灵王胡服骑射、蒙恬北逐匈奴、卫青收复河南地'
+            },
+            {
+                name: '居庸关',
+                lat: 40.29,
+                lng: 116.07,
+                direction: 'mobei',
+                directionName: '漠北方向',
+                color: '#2e8b57',
+                description: '"天下九塞"之一，位于北京昌平军都山关沟，是北京西北门户，华北通往内蒙古高原要道。',
+                famous: '成吉思汗攻金、明代京师保卫战'
+            },
+            // 青藏方向
+            {
+                name: '日月山',
+                lat: 36.43,
+                lng: 101.17,
+                direction: 'qingzang',
+                directionName: '青藏方向',
+                color: '#4169e1',
+                description: '黄土高原与青藏高原分界线，季风区与非季风区分界线，文成公主进藏途经之地。',
+                famous: '文成公主进藏、唐蕃古道要冲、茶马互市'
+            },
+            {
+                name: '昆仑山口',
+                lat: 35.64,
+                lng: 94.07,
+                direction: 'qingzang',
+                directionName: '青藏方向',
+                color: '#4169e1',
+                description: '海拔4767米，是青海甘肃通往西藏的必经之地，青藏公路上的一大关隘，万山之祖昆仑山隘口。',
+                famous: '青藏公路修筑、索南达杰保护站'
+            },
+            {
+                name: '唐古拉山口',
+                lat: 32.88,
+                lng: 91.93,
+                direction: 'qingzang',
+                directionName: '青藏方向',
+                color: '#4169e1',
+                description: '海拔5231米，青海西藏两省分界线，青藏公路最高点，是沿青藏线进藏的最后一道天险。',
+                famous: '青藏铁路最高点、唐蕃古道重要节点'
+            },
+            // 东北平原
+            {
+                name: '山海关',
+                lat: 40.01,
+                lng: 119.77,
+                direction: 'dongbei',
+                directionName: '东北平原',
+                color: '#8b4513',
+                description: '"天下第一关"，位于秦皇岛东北，燕山与渤海之间，辽西走廊最狭窄处，华北进入东北唯一通道。',
+                famous: '吴三桂引清兵入关、长城抗战、徐达建关'
+            },
+            {
+                name: '喜峰口',
+                lat: 40.42,
+                lng: 118.48,
+                direction: 'dongbei',
+                directionName: '东北平原',
+                color: '#8b4513',
+                description: '古称卢龙塞，位于迁西县与宽城县交界处，是商周以来从华北进入东北的古老通道。',
+                famous: '曹操北征乌桓、二十九军大刀队抗战'
+            },
+            {
+                name: '古北口',
+                lat: 40.68,
+                lng: 117.17,
+                direction: 'dongbei',
+                directionName: '东北平原',
+                color: '#8b4513',
+                description: '位于密云区古北口镇，是山海关、居庸关之间的长城要塞，华北通往东北、内蒙古的重要通道。',
+                famous: '辽宋古道、清代帝王北巡御道、古北口抗战'
+            },
+            // 中原腹地
+            {
+                name: '虎牢关',
+                lat: 34.83,
+                lng: 113.22,
+                direction: 'zhongyuan',
+                directionName: '中原腹地',
+                color: '#9932cc',
+                description: '又称汜水关，位于荥阳汜水镇，南连嵩岳，北濒黄河，是洛阳以东重要门户，东西交通要冲。',
+                famous: '三英战吕布、李世民虎牢关之战、成皋之战'
+            },
+            // 河西走廊
+            {
+                name: '嘉峪关',
+                lat: 39.77,
+                lng: 98.22,
+                direction: 'hexi',
+                directionName: '河西走廊',
+                color: '#cd853f',
+                description: '"天下第一雄关"，明长城最西端，祁连山与黑山夹峙的河西咽喉，是中原通往西域的西部门户。',
+                famous: '冯胜建关、林则徐贬谪伊犁途经、丝绸之路要冲'
+            },
+            // 四川盆地
+            {
+                name: '剑门关',
+                lat: 32.22,
+                lng: 105.56,
+                direction: 'sichuan',
+                directionName: '四川盆地',
+                color: '#008b8b',
+                description: '"天下雄关""剑门天下险"，位于剑阁县大剑山中断处，两崖如门、壁立千仞，扼守金牛道，是四川盆地北大门，"一夫当关，万夫莫开"即此。',
+                famous: '姜维守关拒钟会、诸葛亮修筑关楼、唐玄宗入蜀避难'
+            },
+            {
+                name: '瞿塘关',
+                lat: 31.04,
+                lng: 109.58,
+                direction: 'sichuan',
+                directionName: '四川盆地',
+                color: '#008b8b',
+                description: '又称夔门、江关，位于奉节白帝山下长江入口，两岸赤甲白盐两山对峙如门，是长江三峡西大门，四川盆地东部门户，"夔门天下雄"。',
+                famous: '刘备白帝城托孤、宋元夔门之战、李白"朝辞白帝彩云间"'
+            },
+            {
+                name: '阳平关',
+                lat: 32.96,
+                lng: 106.12,
+                direction: 'sichuan',
+                directionName: '四川盆地',
+                color: '#008b8b',
+                description: '位于宁强县阳平关镇，嘉陵江与汉水分水岭，北通秦陇、南达巴蜀，是金牛道与陈仓道交汇要冲，川陕交通锁钥。',
+                famous: '曹操征张鲁、蜀汉北伐基地、宋金仙人关大战前奏'
+            },
+            {
+                name: '江油关',
+                lat: 32.30,
+                lng: 104.78,
+                direction: 'sichuan',
+                directionName: '四川盆地',
+                color: '#008b8b',
+                description: '又称江油戍，位于平武县南坝镇，涪江上游，扼守阴平道入川要冲，是蜀汉防御邓艾偷渡阴平的最后一道关隘。',
+                famous: '邓艾偷渡阴平灭蜀、马邈不战而降、诸葛亮曾驻兵设防'
+            },
+            // 云贵高原
+            {
+                name: '娄山关',
+                lat: 28.01,
+                lng: 106.85,
+                direction: 'yungui',
+                directionName: '云贵高原',
+                color: '#6b8e23',
+                description: '又称太平关、娄关，素有"黔北第一险要"之称，位于遵义市汇川区板桥镇大娄山脉中段脊梁，关口海拔1277米，两侧大小尖山夹峙、南北峡谷高差约400米，川黔公路盘旋而过，北拒巴蜀、南扼黔桂，是四川盆地南下云贵高原、黔北通往川渝的必经锁钥，"一夫当关，万夫莫开"即此。',
+                famous: '1935年1月红军首夺娄山关保障遵义会议召开、1935年2月彭德怀指挥红三军团再克娄山关歼黔军4个团取得长征首次大捷、毛泽东在此写下《忆秦娥·娄山关》'
+            },
+            // 山西高原
+            {
+                name: '雁门关',
+                lat: 39.19,
+                lng: 112.87,
+                direction: 'mobei',
+                directionName: '漠北方向',
+                color: '#2e8b57',
+                description: '"中华第一关""天下九塞，雁门为首"，位于代县勾注山上，北通大同，南达太原，扼守晋北通向漠北的陉道，是漠北骑兵南下中原的咽喉锁钥，"得雁门而得中原，失雁门而失天下"，与宁武、偏头并称"外三关"。',
+                famous: '李牧大破匈奴十万骑、杨家将世代镇守三关、昭君出塞、汉高祖白登之围后撤归'
+            },
+            {
+                name: '娘子关',
+                lat: 37.93,
+                lng: 113.82,
+                direction: 'shanxi',
+                directionName: '山西高原',
+                color: '#b8860b',
+                description: '"天下第九关"，位于平定县晋冀交界处，井陉西口，是晋冀交通要冲，太行八陉之井陉西端锁钥，因唐代平阳公主率娘子军驻守得名。',
+                famous: '平阳公主镇守娘子关、八国联军侵华娘子关抗战、百团大战娘子关战斗'
+            },
+            {
+                name: '宁武关',
+                lat: 39.00,
+                lng: 112.31,
+                direction: 'mobei',
+                directionName: '漠北方向',
+                color: '#2e8b57',
+                description: '"外三关"之中路，位于宁武县，北踞云朔、西带偏保、南控忻代，是晋北南北交通枢纽，内长城"三关"中路门户，扼守蒙古骑兵由大同南下太原的通道，与雁门、偏头并称"外三关"。',
+                famous: '周遇吉宁武关抗李自成、明代俺答入寇必经之地'
+            },
+            {
+                name: '偏头关',
+                lat: 39.43,
+                lng: 111.50,
+                direction: 'mobei',
+                directionName: '漠北方向',
+                color: '#2e8b57',
+                description: '"外三关"之西路，位于偏关县黄河东岸，"地控黄河北，山连紫塞长"，是晋西北屏障，扼守黄河渡口与长城交汇点，防御河套蒙古部落东渡南下，与雁门、宁武并称"外三关"。',
+                famous: '明代鞑靼屡入犯之地、杨家将抗辽西线、黄河古渡老牛湾'
+            },
+            {
+                name: '杀虎口',
+                lat: 40.01,
+                lng: 112.35,
+                direction: 'mobei',
+                directionName: '漠北方向',
+                color: '#2e8b57',
+                description: '又称杀胡口，位于右玉县晋蒙交界处，是万里长城西段重要关隘，晋商"走西口"的西口所在，扼晋蒙交通咽喉，是漠南蒙古南下山西的重要通道。',
+                famous: '晋商走西口、康熙西征噶尔丹途经、清代茶马互市重镇'
+            },
+            {
+                name: '平型关',
+                lat: 39.31,
+                lng: 113.92,
+                direction: 'shanxi',
+                directionName: '山西高原',
+                color: '#b8860b',
+                description: '位于繁峙县与灵丘县交界处，内长城要隘，是晋北通向冀西的咽喉，东连云中、西扼雁门，为恒山山脉重要隘口，明代"内三关"西侧外围屏障。',
+                famous: '八路军平型关大捷、明代蒙古骑兵南下通道'
+            },
+            {
+                name: '倒马关',
+                lat: 39.11,
+                lng: 114.95,
+                direction: 'shanxi',
+                directionName: '山西高原',
+                color: '#b8860b',
+                description: '位于河北唐县西北倒马关乡，"内三关"之一（与居庸关、紫荆关并称），因山路险峻、战马至此易跌倒而得名，扼守太行八陉之飞狐陉南端，是山西高原东出华北平原、屏护京师西南翼的重要关隘。',
+                famous: '杨六郎镇守倒马关抗辽、明代土木之变后瓦剌由此窥京师、北宋为防御契丹在此筑关设险'
+            },
+            {
+                name: '紫荆关',
+                lat: 39.35,
+                lng: 115.05,
+                direction: 'shanxi',
+                directionName: '山西高原',
+                color: '#b8860b',
+                description: '位于河北易县紫荆岭上，"内三关"之一，扼守太行八陉之蒲阴陉，为山西高原东出华北平原、直逼京师侧后的门户。《吕氏春秋》"天下九塞"之"荆阮"即指此关，以"荆关紫气"位列易州八景。',
+                famous: '成吉思汗迂回紫荆关破金中都、明代土木之变后于谦守紫荆卫京师、李自成率部由紫荆关入京城'
+            },
+            // 南方方向
+            {
+                name: '武胜关',
+                lat: 31.77,
+                lng: 114.01,
+                direction: 'nanfang',
+                directionName: '南方方向',
+                color: '#e67e22',
+                description: '又称武阳关，"义阳三关"之一，雄踞桐柏山与大别山交会处，是豫鄂两省的界关与南北分水岭。北屏中原、南锁鄂州，自古为中原腹地南下江汉平原的咽喉要道，与九里关、平靖关互为犄角。',
+                famous: '孙武、伍子胥破关伐楚入郢、北魏与南梁反复争夺武阳关、岳飞遣牛皋驻守、1938年武汉会战武胜关阻击战'
+            },
+            {
+                name: '镇南关',
+                lat: 21.98,
+                lng: 106.71,
+                direction: 'nanfang',
+                directionName: '南方方向',
+                color: '#e67e22',
+                description: '今称友谊关，位于广西凭祥西南中越交界处，两山夹峙、一关锁钥，素有"中国南大门"之称。是中原王朝经略岭南、控扼中南半岛的南疆第一雄关，现为中国通往东盟最重要的陆路通道。',
+                famous: '1885年冯子材镇南关大捷、1907年孙中山镇南关起义、1949年红旗插上镇南关宣告广西解放'
+            },
+            {
+                name: '九里关',
+                lat: 31.70,
+                lng: 114.17,
+                direction: 'nanfang',
+                directionName: '南方方向',
+                color: '#e67e22',
+                description: '又名黄岘关、百雁关，"义阳三关"之一，位于河南罗山县西南、鄂豫交界的大别山口，东距武胜关约40里，两山对峙、一水中流，是信阳东南通往湖北应山、汉口的古道要隘，与武胜关、平靖关互为犄角。',
+                famous: '春秋时吴楚争霸主战场、南北朝争夺义阳三关战事、南宋抗金重要防线'
+            },
+            {
+                name: '平靖关',
+                lat: 31.80,
+                lng: 113.87,
+                direction: 'nanfang',
+                directionName: '南方方向',
+                color: '#e67e22',
+                description: '又名冥厄关、行者关，"义阳三关"之一，位于河南信阳市西南鄂豫交界的桐柏山隘口，西距武胜关约30里，因关寨险峻、人过须平心静气而得名，古称"天下九塞"之"冥厄"，是信阳西向通往湖北随州、襄阳的咽喉。',
+                famous: '《吕氏春秋》"天下九塞"之冥厄、孙武率吴军经此破楚入郢、北伐战争北伐军由此入鄂'
+            }
+        ];
+
+        // 区域信息
+        const directions = {
+            guanzhong: { name: '关中平原', color: '#c41e3a', desc: '四塞之国，金城千里' },
+            xiyu: { name: '西域方向', color: '#d4a017', desc: '丝绸之路，中西通衢' },
+            mobei: { name: '漠北方向', color: '#2e8b57', desc: '阴山外三关，草原门户' },
+            qingzang: { name: '青藏方向', color: '#4169e1', desc: '唐蕃古道，世界屋脊' },
+            dongbei: { name: '东北平原', color: '#8b4513', desc: '辽西走廊，两京锁钥' },
+            zhongyuan: { name: '中原腹地', color: '#9932cc', desc: '九州咽喉，天下之中' },
+            hexi: { name: '河西走廊', color: '#cd853f', desc: '丝路走廊，河西咽喉' },
+            sichuan: { name: '四川盆地', color: '#008b8b', desc: '四塞之国，天府之国' },
+            shanxi: { name: '山西高原', color: '#b8860b', desc: '表里山河，太行陉道' },
+            yungui: { name: '云贵高原', color: '#6b8e23', desc: '川黔通道，黔北锁钥' },
+            nanfang: { name: '南方方向', color: '#e67e22', desc: '荆楚岭南，南疆锁钥' }
+        };
+
+        // 初始化地图
+        const map = L.map('map', {
+            center: [37.5, 105],
+            zoom: 5,
+            minZoom: 4,
+            maxZoom: 10,
+            zoomControl: true
+        });
+
+        // 添加地图瓦片（使用高德地图中文底图，国内访问稳定）
+        let currentLayer;
+        const tileUrl = 'https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}';
+        const tileUrlBackup = 'https://wprd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}';
+
+        function createTileLayer(url) {
+            return L.tileLayer(url, {
+                subdomains: '1234',
+                attribution: '© 高德地图',
+                maxZoom: 18,
+                errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+            });
+        }
+
+        currentLayer = createTileLayer(tileUrl).addTo(map);
+
+        // 瓦片加载完成后隐藏加载提示
+        currentLayer.on('load', function() {
+            const loading = document.getElementById('map-loading');
+            if (loading) {
+                loading.style.transition = 'opacity 0.5s';
+                loading.style.opacity = '0';
+                setTimeout(() => loading.style.display = 'none', 500);
+            }
+        });
+        // 兜底：2秒后强制隐藏加载提示
+        setTimeout(() => {
+            const loading = document.getElementById('map-loading');
+            if (loading) loading.style.display = 'none';
+        }, 3000);
+
+        // 监听瓦片加载错误，自动切换备用源
+        let errorCount = 0;
+        let switched = false;
+        currentLayer.on('tileerror', function(e) {
+            errorCount++;
+            if (errorCount > 5 && !switched) {
+                switched = true;
+                map.removeLayer(currentLayer);
+                currentLayer = createTileLayer(tileUrlBackup).addTo(map);
+            }
+        });
+
+        // 备用瓦片层（卫星影像）
+        const gaodeSatLayer = L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}', {
+            subdomains: '1234',
+            attribution: '© 高德地图',
+            maxZoom: 18
+        });
+
+        // 卫星标注层
+        const gaodeSatLabel = L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}', {
+            subdomains: '1234',
+            attribution: '© 高德地图',
+            maxZoom: 18
+        });
+
+        // 添加图层切换控件
+        const baseLayers = {
+            '标准地图': currentLayer,
+            '卫星影像': L.layerGroup([gaodeSatLayer, gaodeSatLabel])
+        };
+        L.control.layers(baseLayers, null, { position: 'topright' }).addTo(map);
+
+        // 存储标记
+        let markers = {};
+
+        // 创建自定义图标
+        function createCustomIcon(pass) {
+            return L.divIcon({
+                className: 'custom-marker-container',
+                html: `<div class="custom-marker marker-${pass.direction}" style="background: ${pass.color};">${pass.name.charAt(0)}</div>`,
+                iconSize: [32, 32],
+                iconAnchor: [16, 16],
+                popupAnchor: [0, -20]
+            });
+        }
+
+        // 添加所有关隘标记
+        passes.forEach((pass, index) => {
+            const marker = L.marker([pass.lat, pass.lng], {
+                icon: createCustomIcon(pass),
+                direction: pass.direction
+            }).addTo(map);
+
+            const popupContent = `
+                <div class="pass-popup">
+                    <h3>${pass.name}</h3>
+                    <span class="direction-tag" style="background: ${pass.color};">${pass.directionName}</span>
+                    <p><strong>战略地位：</strong>${pass.description}</p>
+                    <p><strong>著名事件：</strong>${pass.famous}</p>
+                    <p style="font-size:12px;color:#999;margin-top:8px;">坐标：${pass.lat.toFixed(2)}°N, ${pass.lng.toFixed(2)}°E</p>
+                </div>
+            `;
+
+            marker.bindPopup(popupContent, {
+                maxWidth: 300,
+                className: 'pass-popup-wrapper'
+            });
+
+            markers[pass.name] = marker;
+        });
+
+        // 生成图例
+        const legendContainer = document.getElementById('legend-container');
+        Object.entries(directions).forEach(([key, dir]) => {
+            const item = document.createElement('div');
+            item.className = 'legend-item';
+            item.innerHTML = `
+                <div class="legend-dot" style="background: ${dir.color};"></div>
+                <div>
+                    <div class="font-medium text-[#5c3d2e]">${dir.name}</div>
+                    <div class="text-xs text-[#8b7355]">${dir.desc}</div>
+                </div>
+            `;
+            item.addEventListener('click', () => {
+                filterMarkers(key);
+                // 更新按钮状态
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.style.background = 'white';
+                    btn.style.color = '#666';
+                    if (btn.dataset.filter === key) {
+                        btn.classList.add('active');
+                        btn.style.background = `linear-gradient(135deg, ${dir.color}, ${dir.color}dd)`;
+                        btn.style.color = 'white';
+                    }
+                });
+            });
+            legendContainer.appendChild(item);
+        });
+
+        // 筛选功能
+        function filterMarkers(filter) {
+            Object.entries(markers).forEach(([name, marker]) => {
+                const pass = passes.find(p => p.name === name);
+                if (filter === 'all' || pass.direction === filter) {
+                    map.addLayer(marker);
+                } else {
+                    map.removeLayer(marker);
+                }
+            });
+
+            // 如果筛选特定区域，飞到该区域
+            if (filter !== 'all') {
+                const filteredPasses = passes.filter(p => p.direction === filter);
+                if (filteredPasses.length > 0) {
+                    const bounds = L.latLngBounds(filteredPasses.map(p => [p.lat, p.lng]));
+                    map.fitBounds(bounds, { padding: [50, 50], maxZoom: 7 });
+                }
+            } else {
+                // 回到全图
+                map.setView([37.5, 105], 5);
+            }
+        }
+
+        // 绑定筛选按钮事件
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // 更新按钮样式
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = 'white';
+                    b.style.color = '#666';
+                });
+                btn.classList.add('active');
+                if (filter === 'all') {
+                    btn.style.background = 'linear-gradient(135deg, #8b4513, #a0522d)';
+                } else {
+                    btn.style.background = `linear-gradient(135deg, ${directions[filter].color}, ${directions[filter].color}dd)`;
+                }
+                btn.style.color = 'white';
+                
+                filterMarkers(filter);
+            });
+        });
+
+        // 为非全部按钮设置悬停颜色
+        document.querySelectorAll('.filter-btn:not([data-filter="all"])').forEach(btn => {
+            const dirKey = btn.dataset.filter;
+            if (directions[dirKey]) {
+                btn.addEventListener('mouseenter', () => {
+                    if (!btn.classList.contains('active')) {
+                        btn.style.background = directions[dirKey].color + '20';
+                        btn.style.color = directions[dirKey].color;
+                        btn.style.borderColor = directions[dirKey].color;
+                    }
+                });
+                btn.addEventListener('mouseleave', () => {
+                    if (!btn.classList.contains('active')) {
+                        btn.style.background = 'white';
+                        btn.style.color = '#666';
+                        btn.style.borderColor = 'transparent';
+                    }
+                });
+            }
+        });
+
+        // 更新统计数量
+        document.getElementById('pass-count').textContent = passes.length;
+    </script>
+</body>
+</html>
