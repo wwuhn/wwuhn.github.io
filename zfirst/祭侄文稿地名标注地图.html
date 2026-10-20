@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《祭侄文稿》地名标注地图</title>
+    <script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+    <link rel="stylesheet" href="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.css">
+    <script src="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&display=swap');
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f8f5f0 0%, #fff 50%, #f0ebe3 100%);
+            min-height: 100vh;
+        }
+        
+        .title-font {
+            font-family: 'Noto Serif SC', 'Songti SC', serif;
+        }
+        
+        #map {
+            height: 650px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            border: 1px solid rgba(139,69,19,0.15);
+        }
+        
+        .custom-marker {
+            width: 32px;
+            height: 32px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            border: 3px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .custom-marker span {
+            transform: rotate(45deg);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .marker-tumen { background: #c41e3a; }
+        .marker-changshan { background: #1e40af; }
+        .marker-pingyuan { background: #15803d; }
+        .marker-puzhou { background: #b45309; }
+        .marker-danyang { background: #7c3aed; }
+        .marker-changan { background: #4b5563; }
+        .marker-taiyuan { background: #1f2937; }
+        
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .leaflet-popup-content {
+            margin: 0;
+            min-width: 260px;
+        }
+        
+        .popup-content {
+            padding: 8px;
+        }
+        
+        .popup-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            border-bottom: 2px solid #8B0000;
+            padding-bottom: 6px;
+        }
+        
+        .popup-ancient {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+        
+        .popup-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .popup-quote {
+            background: #fdf2f2;
+            border-left: 3px solid #8B0000;
+            padding: 8px 12px;
+            margin-top: 8px;
+            font-style: italic;
+            font-size: 13px;
+            color: #5a1a1a;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .place-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .place-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .place-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        
+        .legend-line {
+            stroke-dasharray: 6, 4;
+            animation: dash 20s linear infinite;
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -100;
+            }
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(139,69,19,0.1);
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #7f1d1d;
+            border-bottom: 2px solid #fecaca;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .ancient-text {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.125rem;
+            line-height: 2.2;
+            color: #1f2937;
+            background: #fef3c7;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #b45309;
+            margin-bottom: 1.5rem;
+        }
+
+        .translation-text {
+            font-size: 1rem;
+            line-height: 2;
+            color: #4b5563;
+            padding: 1rem 1.5rem;
+            background: #f9fafb;
+            border-radius: 12px;
+            border-left: 4px solid #9ca3af;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 1.5rem;
+            border-left: 2px solid #fca5a5;
+        }
+
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #dc2626;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #fca5a5;
+        }
+
+        .modification-item {
+            background: #fef2f2;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #dc2626;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- 标题区 -->
+        <header class="text-center mb-8">
+            <h1 class="title-font text-3xl md:text-5xl font-black text-gray-900 mb-3 tracking-tight">
+                《祭侄文稿》地名标注地图
+            </h1>
+            <p class="text-gray-600 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+                颜真卿乾元元年（公元758年）书，基于高德地图底图标注全文涉及的全部地名与关键历史节点，
+                追溯颜氏一门忠烈的山河足迹
+            </p>
+            <div class="mt-4 inline-flex items-center gap-6 text-sm">
+                <span class="inline-flex items-center gap-2 text-amber-800 bg-amber-50 px-4 py-2 rounded-full border border-amber-200">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                    底图：高德标准街道图 · 坐标系：GCJ-02
+                </span>
+                <span class="inline-flex items-center gap-2 text-gray-600 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
+                    <span class="w-3 h-3 rounded-full bg-gray-600"></span>唐都长安
+                </span>
+                <span class="inline-flex items-center gap-2 text-gray-600 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
+                    <span class="w-3 h-3 rounded-full bg-gray-900"></span>贼臣王承业驻地（太原）
+                </span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- 地图区 -->
+            <div class="lg:col-span-3">
+                <div id="map"></div>
+                
+                <!-- 路线说明 -->
+                <div class="mt-4 bg-white/80 backdrop-blur rounded-xl p-5 border border-gray-100 shadow-sm">
+                    <h3 class="title-font text-lg font-bold text-gray-800 mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+                        历史事件路线
+                    </h3>
+                    <div class="flex flex-wrap gap-3 text-sm">
+                        <span class="flex items-center"><span class="w-3 h-0.5 bg-red-700 mr-2"></span>颜季明秘密信使路线（平原↔常山）</span>
+                        <span class="flex items-center"><span class="w-3 h-0.5 bg-blue-700 mr-2"></span>史思明叛军回攻路线</span>
+                        <span class="flex items-center"><span class="w-3 h-0.5 bg-green-700 mr-2"></span>郭子仪李光弼东出反攻路线</span>
+                        <span class="flex items-center"><span class="w-3 h-0.5 bg-amber-700 mr-2"></span>颜泉明携首榇归葬路线</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 侧栏地名列表 -->
+            <div class="lg:col-span-1 lg:self-start lg:h-[650px] lg:flex lg:flex-col">
+                
+                
+                <div class="flex-1 flex flex-col justify-evenly">
+                <div class="place-card bg-white rounded-xl p-4 border border-gray-100 shadow-sm" onClick="flyToPlace(110.3244, 34.8344, 10)">
+                    <div class="flex items-start">
+                        <span class="place-dot mt-1.5" style="background: #b45309"></span>
+                        <div>
+                            <h4 class="font-bold text-gray-900">蒲州</h4>
+                            <p class="text-xs text-gray-500 mt-1">今山西永济蒲州镇</p>
+                            <p class="text-sm text-gray-600 mt-2 leading-relaxed">颜真卿撰文时任职地，文中"移牧河关"即指此地</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card bg-white rounded-xl p-4 border border-gray-100 shadow-sm" onClick="flyToPlace(114.5709, 38.1464, 11)">
+                    <div class="flex items-start">
+                        <span class="place-dot mt-1.5" style="background: #1e40af"></span>
+                        <div>
+                            <h4 class="font-bold text-gray-900">常山郡</h4>
+                            <p class="text-xs text-gray-500 mt-1">今河北正定县</p>
+                            <p class="text-sm text-gray-600 mt-2 leading-relaxed">颜杲卿任太守之地，"孤城围逼，父陷子死"的殉难处</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card bg-white rounded-xl p-4 border border-gray-100 shadow-sm" onClick="flyToPlace(116.5761, 37.3358, 11)">
+                    <div class="flex items-start">
+                        <span class="place-dot mt-1.5" style="background: #15803d"></span>
+                        <div>
+                            <h4 class="font-bold text-gray-900">平原郡</h4>
+                            <p class="text-xs text-gray-500 mt-1">今山东德州陵城区</p>
+                            <p class="text-sm text-gray-600 mt-2 leading-relaxed">颜真卿举义旗抗叛之地，河北诸郡唯平原坚守不降</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card bg-white rounded-xl p-4 border border-gray-100 shadow-sm" onClick="flyToPlace(114.2885, 38.0724, 13)">
+                    <div class="flex items-start">
+                        <span class="place-dot mt-1.5" style="background: #c41e3a"></span>
+                        <div>
+                            <h4 class="font-bold text-gray-900">土门关</h4>
+                            <p class="text-xs text-gray-500 mt-1">今河北鹿泉东土门村</p>
+                            <p class="text-sm text-gray-600 mt-2 leading-relaxed">井陉东口咽喉，"土门既开，凶威大蹙"，安史之乱核心战场</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="place-card bg-white rounded-xl p-4 border border-gray-100 shadow-sm" onClick="flyToPlace(119.5834, 31.9845, 10)">
+                    <div class="flex items-start">
+                        <span class="place-dot mt-1.5" style="background: #7c3aed"></span>
+                        <div>
+                            <h4 class="font-bold text-gray-900">丹杨县</h4>
+                            <p class="text-xs text-gray-500 mt-1">今江苏镇江丹阳市</p>
+                            <p class="text-sm text-gray-600 mt-2 leading-relaxed">颜真卿爵位"丹杨县开国侯"的封地，文中题署所及</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 原文地名摘录 -->
+        <div class="mt-8 bg-gradient-to-r from-red-50 via-amber-50 to-red-50 rounded-2xl p-6 md:p-8 border border-red-100">
+            <h3 class="title-font text-xl font-bold text-red-900 mb-4 text-center">—— 原文地名相关摘录 ——</h3>
+            <blockquote class="title-font text-lg md:text-xl leading-loose text-center text-gray-800 max-w-4xl mx-auto">
+                "第十三叔银青光禄夫使持节<span class="text-amber-700 font-bold">蒲州</span>诸军事、<span class="text-amber-700 font-bold">蒲州</span>刺史、上轻车都尉、<span class="text-purple-700 font-bold">丹杨</span>县开国侯真卿……尔父竭诚，<span class="text-blue-700 font-bold">常山</span>作郡。余时受命，亦在<span class="text-green-700 font-bold">平原</span>……尔既归止，爰开<span class="text-red-700 font-bold">土门</span>。<span class="text-red-700 font-bold">土门</span>既开，凶威大蹙。贼臣不救，孤城围逼。父陷子死，巢倾卵覆……吾承天泽，移牧河关。泉明比者，再陷<span class="text-blue-700 font-bold">常山</span>。携尔首榇，及兹同还。"
+            </blockquote>
+            <p class="text-center text-gray-500 text-sm mt-4">—— 唐 · 颜真卿 《祭侄赠赞善大夫季明文》 乾元元年（758年）</p>
+        </div>
+
+        <!-- 第一部分：全文与译文 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+                《祭侄文稿》全文与白话文译文
+            </h2>
+            <div class="ancient-text">
+                维乾元元年，岁次戊戌九月庚午朔三日壬申，第十三叔银青光禄大夫使持节蒲州诸军事、蒲州刺史、上轻车都尉、丹杨县开国侯真卿，以清酌庶羞，祭于亡侄赠赞善大夫季明之灵曰：<br><br>
+                惟尔挺生，夙标幼德，宗庙瑚琏，阶庭兰玉，每慰人心，方期戬谷。何图逆贼间衅，称兵犯顺。尔父竭诚，常山作郡。余时受命，亦在平原。仁兄爱我，俾尔传言。尔既归止，爰开土门。土门既开，凶威大蹙。贼臣不救，孤城围逼，父陷子死，巢倾卵覆。天不悔祸，谁为荼毒？念尔遘残，百身何赎？呜呼哀哉！<br><br>
+                吾承天泽，移牧河关。泉明比者，再陷常山，携尔首榇，及兹同还。抚念摧切，震悼心颜。方俟远日，卜尔幽宅。魂而有知，无嗟久客。呜呼哀哉！尚飨。
+            </div>
+            <div class="translation-text">
+                <strong>【白话文译文】</strong><br>
+                时在唐肃宗乾元元年（公元758年），岁次戊戌，九月庚午朔三日壬申，你的第十三叔银青光禄大夫、使持节蒲州诸军事、蒲州刺史、上轻车都尉、丹杨县开国侯颜真卿，以清酒与各种珍馐，祭奠亡侄、追赠赞善大夫颜季明的在天之灵：<br><br>
+                你自幼就天资卓异，少年时便有贤德美名，是颜家宗庙中的重器，庭院里的芝兰玉树，一直是全家人的安慰，本以为你能享尽福禄。怎料逆贼安禄山趁机作乱，举兵反叛。你父亲颜杲卿赤诚报国，镇守常山郡；我当时也奉朝廷之命，在平原郡坚守。你父亲因与我同心抗贼，派你往返两郡传递密信。你回到常山后，帮助父亲收复了土门关。土门光复后，叛军的嚣张气焰遭到沉重打击。<br><br>
+                可恨那贼臣王承业拥兵不救，常山孤城被叛军重重围困，最终城破，你父亲被俘、你惨死沙场，颜家一门如同覆巢之下再无完卵。苍天啊，你为何不肯降福止祸，是谁制造了这场惨剧？想到你遭此横祸，就算用我一百条命，也换不回你一人啊！呜呼痛哉！<br><br>
+                我如今承蒙圣上恩典，到蒲州（河关）任职。你的兄长颜泉明近来又到常山，将装着你头颅的棺木带回，一同归葬。我抚摸着你的灵柩，悲痛摧心裂肺，五脏俱焚。等选个吉日，为你选好永久的墓穴安葬。你的灵魂如果有知，不要悲叹长久客居异乡。呜呼哀哉！请享用这祭品吧。
+            </div>
+        </div>
+
+        <!-- 第二部分：创作背景 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+                文稿创作历史背景
+            </h2>
+            <div class="pl-4">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h4 class="font-bold text-lg text-gray-900 mb-1">天宝十四载（755年）十一月：安史之乱爆发</h4>
+                    <p class="text-gray-700 leading-relaxed">安禄山以"忧国之危"、奉密诏讨伐杨国忠为借口，在范阳起兵叛乱。河北二十四郡望风而降，唐玄宗听闻后叹道："河北二十四郡，岂无一忠臣乎！"唯独颜真卿镇守的平原郡提前修缮城池、储备粮草，举义旗坚守不降，使者到长安奏报后，玄宗大喜感慨："朕不识颜真卿形状如何，所为得如此！"</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h4 class="font-bold text-lg text-gray-900 mb-1">天宝十四载年末：颜氏兄弟联手起事</h4>
+                    <p class="text-gray-700 leading-relaxed">颜真卿堂兄颜杲卿当时任常山太守，表面接受安禄山授予的官职，暗中与颜真卿联络，约定连兵断安禄山归路。颜杲卿第三子颜季明年少英勇，主动请缨作为秘密信使，往返于平原、常山两郡之间传递起事密令，来往于叛军控制区，九死一生。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h4 class="font-bold text-lg text-gray-900 mb-1">天宝十五载（756年）正月：常山陷落，满门殉国</h4>
+                    <p class="text-gray-700 leading-relaxed">颜杲卿设计诱杀土门关叛将李钦凑，收复土门关，河北十七郡同日归唐，兵力达二十万。安禄山急派史思明率精锐回攻常山，太原节度使王承业嫉妒颜杲卿功劳，拥兵数万坐视不救。常山苦战六日，箭尽粮绝城破，颜季明被斩首，颜杲卿被押往洛阳，当面骂贼，被凌迟处死，颜氏一门三十余口同日罹难。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h4 class="font-bold text-lg text-gray-900 mb-1">乾元元年（758年）九月：血泪祭文</h4>
+                    <p class="text-gray-700 leading-relaxed">安史之乱稍平后，颜真卿被任命为蒲州刺史。颜泉明（颜杲卿长子）在河北寻亲，只找回颜季明的头骨和颜杲卿的部分尸骨，送到蒲州。颜真卿见到侄儿仅存的头颅，悲愤交加，援笔作文祭奠，全程情绪激荡，边写边改，一气呵成，留下这篇被誉为"天下第二行书"的千古绝唱——这不是刻意创作的书法作品，完全是痛彻心扉的真情流露。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第三部分：土门关之战细节 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                土门关之战关键细节
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-red-50 rounded-xl p-5 border border-red-100">
+                    <h4 class="font-bold text-red-900 text-lg mb-3">📍 关隘战略地位</h4>
+                    <p class="text-gray-700 leading-relaxed">土门关是太行八陉第五陉井陉的东口，西起娘子关、东到土门关，全长百余里，山道狭窄到"车不得方轨，骑不能成列"，是从山西高原进入河北平原的唯一通道。安禄山叛军从范阳南下进攻洛阳、长安，必须控制土门关保障后方补给线；一旦土门关失守，叛军就会被切断和范阳老巢的联系，陷入腹背受敌的绝境。</p>
+                </div>
+                <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
+                    <h4 class="font-bold text-blue-900 text-lg mb-3">⚔️ 智取土门关</h4>
+                    <p class="text-gray-700 leading-relaxed">安禄山派义子李钦凑率七千精兵驻守土门关。颜杲卿假传安禄山命令，以犒军为名请李钦凑到常山郡接受赏赐。李钦凑不疑有他，带少量亲兵到常山，在宴席上被灌醉斩首，尸体被投入滹沱河。颜杲卿随即派军接管土门关，同时生擒叛将高邈、何千年，一夜之间收复这处战略咽喉。</p>
+                </div>
+                <div class="bg-amber-50 rounded-xl p-5 border border-amber-100">
+                    <h4 class="font-bold text-amber-900 text-lg mb-3">📢 十七郡同日归唐</h4>
+                    <p class="text-gray-700 leading-relaxed">土门关收复后，颜杲卿传檄河北各郡，谎称朝廷三十万大军已东出土门关，即将平定河北叛乱。河北十七郡官员纷纷响应，杀掉安禄山任命的守将，重新归顺朝廷，颜真卿、颜杲卿兄弟被推举为河北义军盟主，兵力合计二十万，安禄山控制的区域只剩下范阳、卢龙等六郡，甚至一度打算放弃洛阳退回范阳。</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+                    <h4 class="font-bold text-gray-900 text-lg mb-3">💔 孤城陷落的真相</h4>
+                    <p class="text-gray-700 leading-relaxed">史思明率叛军急攻常山，颜杲卿率军民苦战六日，城中箭尽粮绝，向太原尹王承业紧急求援。但王承业此前曾冒领颜杲卿的功劳上报朝廷，害怕颜杲卿回来对质，竟然手握数万重兵，在距常山仅一百多里的太原全程按兵不动，眼睁睁看着常山城破。颜杲卿被俘后押到洛阳，当面痛骂安禄山，被割舌肢解而死，至死骂不绝口。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第四部分：涂改细节与心境变化 -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/></svg>
+                文稿涂改痕迹与作者心境变化
+            </h2>
+            <p class="text-gray-600 mb-4 leading-relaxed">全卷共234字，其中涂抹修改共34字，每一处涂改都是颜真卿落笔时情绪波动的直接体现。整幅作品只蘸墨七次，墨色从开篇的沉稳淡墨，到中段的浓墨疾书，最后到结尾"呜呼哀哉"的颤抖枯笔，没有任何刻意的书法设计，完全是情绪从克制到彻底崩溃的真实轨迹。</p>
+            
+            <div class="modification-item">
+                <h4 class="font-bold text-red-800 mb-1">1. 开篇称谓涂改："从父" → "第十三叔"</h4>
+                <p class="text-gray-700 leading-relaxed">原本写了泛称的"从父"二字，随即涂掉，改成家族内部排行的"第十三叔"。他不想用官方祭文的泛泛称谓，而是要以亲叔叔的身份祭奠自己的侄儿，落笔瞬间就把个人情感放在了最前面。</p>
+            </div>
+            <div class="modification-item">
+                <h4 class="font-bold text-red-800 mb-1">2. 赞誉涂改：涂掉"方凭积善"</h4>
+                <p class="text-gray-700 leading-relaxed">夸颜季明是"阶庭兰玉"后，本来写了"方凭积善"（本想靠着积善之家的福报），但立刻意识到颜氏一门忠烈却惨遭灭门，这句话根本无法成立，悲痛到连祝福吉祥话都写不下去，直接涂掉改作"每慰人心，方期戬谷"。</p>
+            </div>
+            <div class="modification-item">
+                <h4 class="font-bold text-red-800 mb-1">3. 守城涂改："被胁" → "竭诚"</h4>
+                <p class="text-gray-700 leading-relaxed">写颜杲卿守常山时，先后写了"□制""被胁"，两次涂掉，最终定笔"尔父竭诚，常山作郡"。他绝对不能让兄长留下"曾被叛军胁迫"的污名，反复涂改后，只用"竭诚"二字，坐实了兄长舍身报国的忠烈底色。</p>
+            </div>
+            <div class="modification-item">
+                <h4 class="font-bold text-red-800 mb-1">4. 最愤怒的涂改："贼臣拥众不救" → "贼臣不救"</h4>
+                <p class="text-gray-700 leading-relaxed">原本完整写下"贼臣拥众不救"六字，整句涂掉，后来又涂掉"拥"字，最终只留下"贼臣不救"四字。从愤怒指责"他拥着大军不肯来"，到最后只剩四个字的冰冷裁决，删掉所有修饰，把对王承业见死不救的满腔愤懑压缩到极致，力道反而重了数倍。</p>
+            </div>
+            <div class="modification-item">
+                <h4 class="font-bold text-red-800 mb-1">5. 最痛处的涂改："父擒子死" → "父陷子死"</h4>
+                <p class="text-gray-700 leading-relaxed">最初写的是"父擒子死"，随即涂掉"擒"字，改成"陷"字。"擒"只是人被活捉，"陷"是整座城、整个家族一起沉入深渊。他落笔时想到的不只是颜杲卿被俘、颜季明被杀，更是常山全城覆灭、颜氏三十余口罹难的灭顶之灾，一个字的改动，把国仇家恨的全部重量都压在了纸上。</p>
+            </div>
+            <div class="modification-item">
+                <h4 class="font-bold text-red-800 mb-1">6. 收尾涂改：反复修改寻亲细节</h4>
+                <p class="text-gray-700 leading-relaxed">写颜泉明寻回尸骨部分，先后涂掉"河东近""提""亦自常山"等字，数次停顿犹豫。此时他眼前就是侄儿仅存的头骨，想到两年前还在两郡之间奔走传信的英武少年，如今只剩一抔白骨，手已经因为悲痛而颤抖，连字都写不稳了。到最后两个"呜呼哀哉"，笔墨已经枯干，几乎是笔锋在纸上擦过，情绪彻底崩溃。</p>
+            </div>
+        </div>
+
+        <footer class="text-center text-gray-400 text-sm mt-8 pb-4">
+            坐标依据《旧唐书·地理志》及现代地理考证 · 底图数据 © 高德地图
+        </footer>
+    </div>
+
+    <script>
+        // 初始化地图
+        const map = L.map('map', {
+            center: [36.5, 114.5],
+            zoom: 6,
+            zoomControl: true
+        });
+
+        // 加载高德标准街道图瓦片
+        L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+            subdomains: ['1', '2', '3', '4'],
+            attribution: '底图数据 © 高德地图',
+            maxZoom: 18
+        }).addTo(map);
+
+        // 创建自定义图标
+        function createMarkerIcon(colorClass, label) {
+            return L.divIcon({
+                className: 'custom-marker-wrapper',
+                html: `<div class="custom-marker ${colorClass}"><span>${label}</span></div>`,
+                iconSize: [32, 42],
+                iconAnchor: [16, 42],
+                popupAnchor: [0, -42]
+            });
+        }
+
+        // 主地名数据（侧栏展示）
+        const places = [
+            {
+                name: '蒲州（河关）',
+                ancient: '唐蒲州，今山西永济市蒲州镇',
+                coords: [34.8344, 110.3244],
+                color: 'marker-puzhou',
+                label: '蒲',
+                desc: '乾元元年颜真卿任蒲州刺史，于此写下《祭侄文稿》。"河关"即黄河蒲津关，为关中门户，尧舜故都，表里山河，古称天险。',
+                quote: '"吾承天泽，移牧河关"'
+            },
+            {
+                name: '常山郡',
+                ancient: '唐常山郡，今河北正定县',
+                coords: [38.1464, 114.5709],
+                color: 'marker-changshan',
+                label: '常',
+                desc: '颜杲卿为常山太守，设计杀叛将李钦凑收复土门。后史思明回攻，太原节度使王承业拥兵不救，常山苦战三日城破，颜氏三十余口殉国。',
+                quote: '"尔父竭诚，常山作郡" / "父陷子死，巢倾卵覆"'
+            },
+            {
+                name: '平原郡',
+                ancient: '唐平原郡，今山东德州市陵城区',
+                coords: [37.3358, 116.5761],
+                color: 'marker-pingyuan',
+                label: '原',
+                desc: '安史之乱爆发，河北二十四郡皆降，唯颜真卿在平原郡提前修城浚池、举义旗拒叛，被推为河北义军盟主。玄宗叹曰："朕不识颜真卿形状如何，所为得如此！"',
+                quote: '"余时受命，亦在平原"'
+            },
+            {
+                name: '土门关（井陉关）',
+                ancient: '唐土门关，今河北石家庄鹿泉区东土门村',
+                coords: [38.0724, 114.2885],
+                color: 'marker-tumen',
+                label: '土',
+                desc: '太行八陉第五陉井陉的东口，扼晋冀交通咽喉。颜杲卿收复此关，切断叛军与范阳老巢通道，河北十七郡同日归唐。后李光弼郭子仪东出此关平定河北。',
+                quote: '"尔既归止，爰开土门。土门既开，凶威大蹙"'
+            },
+            {
+                name: '丹杨县',
+                ancient: '唐丹杨县，今江苏镇江市丹阳市',
+                coords: [31.9845, 119.5834],
+                color: 'marker-danyang',
+                label: '丹',
+                desc: '天宝元年改曲阿县为丹杨县，颜真卿受封"丹杨县开国侯"，为文中题署官爵所及。',
+                quote: '"上轻车都尉、丹杨县开国侯真卿"'
+            }
+        ];
+
+        // 新增标记点：长安和太原（不进侧栏）
+        const extraPlaces = [
+            {
+                name: '唐都长安',
+                ancient: '唐都城长安，今陕西西安市',
+                coords: [34.2658, 108.9398],
+                color: 'marker-changan',
+                label: '长',
+                desc: '大唐帝国都城，安史之乱爆发后唐玄宗在此感叹河北无忠臣，颜真卿举义的消息传来后龙颜大悦。常山陷落后，唐肃宗在灵武即位，组织平叛。',
+                quote: '安史之乱时的大唐政治中心'
+            },
+            {
+                name: '太原府（贼臣王承业驻地）',
+                ancient: '唐北京太原府，今山西太原市',
+                coords: [37.8706, 112.5489],
+                color: 'marker-taiyuan',
+                label: '贼',
+                desc: '太原尹王承业驻地，常山被围时他手握数万河东重兵，因嫉妒颜杲卿功劳，全程坐视不救，直接导致常山陷落、颜氏满门殉国，即文中"贼臣不救"所指。后王承业因军政不修被朝廷处死。',
+                quote: '"贼臣不救，孤城围逼"'
+            }
+        ];
+
+        // 添加主地名标记
+        places.forEach(place => {
+            const marker = L.marker(place.coords, {
+                icon: createMarkerIcon(place.color, place.label)
+            }).addTo(map);
+            
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-title title-font">${place.name}</div>
+                    <div class="popup-ancient">📍 ${place.ancient}</div>
+                    <div class="popup-desc">${place.desc}</div>
+                    <div class="popup-quote">${place.quote}</div>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent, {
+                maxWidth: 320,
+                closeButton: true
+            });
+        });
+
+        // 添加额外标记点
+        extraPlaces.forEach(place => {
+            const marker = L.marker(place.coords, {
+                icon: createMarkerIcon(place.color, place.label)
+            }).addTo(map);
+            
+            const popupContent = `
+                <div class="popup-content">
+                    <div class="popup-title title-font">${place.name}</div>
+                    <div class="popup-ancient">📍 ${place.ancient}</div>
+                    <div class="popup-desc">${place.desc}</div>
+                    <div class="popup-quote">${place.quote}</div>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent, {
+                maxWidth: 320,
+                closeButton: true
+            });
+        });
+
+        // 绘制路线
+        // 颜季明信使路线：平原 - 常山
+        L.polyline([
+            [37.3358, 116.5761],
+            [37.8, 116.0],
+            [38.0, 115.3],
+            [38.1464, 114.5709]
+        ], {
+            color: '#c41e3a',
+            weight: 3,
+            opacity: 0.7,
+            dashArray: '8, 8',
+            className: 'legend-line'
+        }).addTo(map);
+
+        // 史思明回攻路线：从范阳方向攻常山
+        L.polyline([
+            [39.5, 116.2],
+            [38.8, 115.8],
+            [38.1464, 114.5709]
+        ], {
+            color: '#1e40af',
+            weight: 3,
+            opacity: 0.6,
+            dashArray: '6, 6'
+        }).addTo(map);
+
+        // 郭子仪李光弼东出路线：山西方向出土门关
+        L.polyline([
+            [37.8706, 112.5489],
+            [37.8, 113.5],
+            [38.0724, 114.2885],
+            [38.1464, 114.5709]
+        ], {
+            color: '#15803d',
+            weight: 3,
+            opacity: 0.6,
+            dashArray: '6, 6'
+        }).addTo(map);
+
+        // 颜泉明携榇归蒲州路线
+        L.polyline([
+            [38.1464, 114.5709],
+            [37.2, 113.0],
+            [36.0, 111.5],
+            [34.8344, 110.3244]
+        ], {
+            color: '#b45309',
+            weight: 2.5,
+            opacity: 0.5,
+            dashArray: '4, 8'
+        }).addTo(map);
+
+        // 飞行到指定位置
+        function flyToPlace(lng, lat, zoom) {
+            map.flyTo([lat, lng], zoom, {
+                duration: 1.5,
+                easeLinearity: 0.25
+            });
+            
+            // 找到对应marker并打开popup
+            places.forEach((place) => {
+                if (Math.abs(place.coords[1] - lng) < 0.01 && Math.abs(place.coords[0] - lat) < 0.01) {
+                    setTimeout(() => {
+                        map.eachLayer(layer => {
+                            if (layer instanceof L.Marker) {
+                                const ll = layer.getLatLng();
+                                if (Math.abs(ll.lat - lat) < 0.01 && Math.abs(ll.lng - lng) < 0.01) {
+                                    layer.openPopup();
+                                }
+                            }
+                        });
+                    }, 1500);
+                }
+            });
+        }
+
+        // 自动打开土门关popup介绍核心地点
+        setTimeout(() => {
+            map.eachLayer(layer => {
+                if (layer instanceof L.Marker) {
+                    const ll = layer.getLatLng();
+                    if (Math.abs(ll.lat - 38.0724) < 0.01) {
+                        layer.openPopup();
+                    }
+                }
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
