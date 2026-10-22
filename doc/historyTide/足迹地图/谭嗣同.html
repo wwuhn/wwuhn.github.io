@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>谭嗣同一生足迹地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;background:#f5f0e6;color:#333;}
+.container{display:flex;height:100%;}
+.sidebar{width:320px;background:#faf7f0;border-right:1px solid #e0d8c8;padding:20px;overflow-y:auto;}
+.map-area{flex:1;position:relative;}
+#map{width:100%;height:100%;}
+h1{font-size:22px;color:#8b0000;text-align:center;margin-bottom:8px;}
+.subtitle{text-align:center;color:#666;font-size:13px;margin-bottom:15px;font-style:italic;}
+.seal{width:60px;height:60px;margin:0 auto 15px;display:flex;align-items:center;justify-content:center;background:#c41e3a;color:#fff;font-size:22px;font-weight:bold;border-radius:4px;transform:rotate(-5deg);font-family:serif;}
+.legend{margin-bottom:15px;padding:12px;background:#fff;border-radius:6px;border:1px solid #e0d8c8;}
+.legend-title{font-weight:bold;margin-bottom:8px;font-size:14px;}
+.legend-item{display:flex;align-items:center;margin:5px 0;font-size:13px;}
+.legend-dot{width:12px;height:12px;border-radius:50%;margin-right:8px;}
+.timeline{margin-top:10px;}
+.timeline-year{font-weight:bold;color:#8b0000;font-size:14px;margin-top:10px;}
+.timeline-item{padding:8px;margin:5px 0;background:#fff;border-radius:4px;border-left:3px solid #c41e3a;font-size:13px;cursor:pointer;transition:all 0.2s;}
+.timeline-item:hover{background:#fff5f5;transform:translateX(3px);}
+.timeline-item .time{color:#888;font-size:12px;}
+.controls{position:absolute;top:15px;left:50%;transform:translateX(-50%);z-index:1000;background:rgba(255,255,255,0.95);padding:10px 20px;border-radius:30px;box-shadow:0 2px 10px rgba(0,0,0,0.15);display:flex;align-items:center;gap:15px;}
+.controls button{padding:6px 16px;border:none;border-radius:20px;background:#c41e3a;color:#fff;cursor:pointer;font-size:14px;}
+.controls button:hover{background:#a01830;}
+.controls .speed{display:flex;gap:5px;}
+.controls .speed button{background:#666;padding:4px 10px;font-size:12px;}
+.controls .speed button.active{background:#c41e3a;}
+.year-display{font-size:18px;font-weight:bold;color:#8b0000;min-width:60px;text-align:center;}
+.progress-container{width:200px;height:6px;background:#e0d8c8;border-radius:3px;cursor:pointer;position:relative;}
+.progress-bar{height:100%;background:#c41e3a;border-radius:3px;width:0;}
+.place-label{position:absolute;right:10px;background:#fff;padding:8px 12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:14px;z-index:999;display:none;max-width:280px;border-left:4px solid #c41e3a;}
+.popup-title{font-size:15px;font-weight:bold;color:#8b0000;margin-bottom:5px;}
+.popup-time{font-size:12px;color:#888;margin-bottom:5px;}
+.popup-desc{font-size:13px;line-height:1.5;}
+.stamp{position:fixed;top:20px;right:20px;width:80px;height:80px;opacity:0.15;pointer-events:none;}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="sidebar">
+<div class="seal">复生</div>
+<h1>谭嗣同一生足迹</h1>
+<p class="subtitle">我自横刀向天笑，去留肝胆两昆仑</p>
+<div class="legend">
+<div class="legend-title">人生阶段</div>
+<div class="legend-item"><div class="legend-dot" style="background:#52c41a;"></div>出生成长</div>
+<div class="legend-item"><div class="legend-dot" style="background:#1890ff;"></div>壮游四方</div>
+<div class="legend-item"><div class="legend-dot" style="background:#fa8c16;"></div>维新著述</div>
+<div class="legend-item"><div class="legend-dot" style="background:#c41e3a;"></div>百日维新·慷慨殉国</div>
+</div>
+<div class="timeline-title" style="font-weight:bold;font-size:15px;margin:15px 0 10px;">生平时间线</div>
+<div class="timeline" id="timeline"></div>
+</div>
+<div class="map-area">
+<div class="controls">
+<button id="playBtn">▶ 播放</button>
+<div class="progress-container" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="year-display" id="yearDisplay">1865</div>
+<div class="speed">
+<button class="active" data-speed="1">1x</button>
+<button data-speed="2">2x</button>
+</div>
+<button id="resetBtn">↺ 重置</button>
+</div>
+<div class="place-label" id="placeLabel"></div>
+<div id="map"></div>
+</div>
+</div>
+
+<script>
+const points = [
+{year:1865,name:"北京出生",lat:39.9,lng:116.4,color:"#52c41a",time:"1865年",desc:"生于北京宣武城南孏眠胡同，字复生，号壮飞，祖籍湖南浏阳，父亲谭继洵为朝廷官员。"},
+{year:1866,name:"浏阳故乡",lat:28.16,lng:113.64,color:"#1890ff",time:"童年-1895年",desc:"童年返乡，师从欧阳中鹄崇仰王夫之；1895年创办浏阳算学馆，开湖南新学风气之先。"},
+{year:1877,name:"兰州壮游",lat:36.06,lng:103.83,color:"#1890ff",time:"1877-1888年",desc:"随父宦游甘肃兰州、秦州，十年遍历西北大漠，策马纵横八万里，斗酒纵横谈天下事，作《莽苍苍斋诗》。"},
+{year:1889,name:"武昌游历",lat:30.58,lng:114.3,color:"#1890ff",time:"1889-1894年",desc:"父亲升任湖北巡抚后随居武昌，十余年间走遍南北十余省，结交义士考察民生，痛感清廷积弱民生凋敝。"},
+{year:1896,name:"南京著书",lat:32.06,lng:118.8,color:"#fa8c16",time:"1896年",desc:"在南京候补知府，闭户一年写成《仁学》，喊出'冲决君主之网罗'，痛斥两千年秦政皆为大盗，是维新派最激进的思想纲领。"},
+{year:1897,name:"长沙新政",lat:28.2,lng:112.94,color:"#fa8c16",time:"1897-1898年",desc:"回长沙与梁启超、唐才常创办时务学堂、南学会、《湘报》，倡民权办实业，使湖南成为全国维新运动核心。"},
+{year:1898,name:"入京变法",lat:39.91,lng:116.4,color:"#c41e3a",time:"1898年8月",desc:"奉光绪帝诏书入京，任四品卿衔军机章京，与林旭、杨锐、刘光第并称'军机四卿'，成为百日维新核心骨干。"},
+{year:1898,name:"法华寺夜访",lat:39.93,lng:116.42,color:"#c41e3a",time:"1898年9月",desc:"变法危局中夜访法华寺见袁世凯，劝其起兵围园挽政，袁世凯假意应允后随即向荣禄告密。"},
+{year:1898,name:"浏阳会馆待捕",lat:39.89,lng:116.37,color:"#c41e3a",time:"1898年9月",desc:"慈禧发动戊戌政变后，拒绝东渡日本，言'各国变法无不从流血而成，有之，请自嗣同始'，从容待捕，狱中题壁'我自横刀向天笑'。"},
+{year:1898,name:"菜市口就义",lat:39.89,lng:116.38,color:"#c41e3a",time:"1898年9月28日",desc:"与林旭、杨锐、刘光第、杨深秀、康广仁作为戊戌六君子就义，临刑大呼'有心杀贼，无力回天，死得其所，快哉快哉！'，年仅33岁。"}
+];
+
+const map = L.map('map',{zoomControl:true,attributionControl:false}).setView([33.0,113.0],6);
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
+subdomains:['1','2','3','4'],
+maxZoom:18
+}).addTo(map);
+L.control.scale({imperial:false}).addTo(map);
+
+let markers=[],polylines=[],isPlaying=false,currentIndex=0,speed=1,timer=null;
+
+points.forEach(p=>{
+const icon=L.divIcon({html:`<div style="width:14px;height:14px;background:${p.color};border:3px solid #fff;border-radius:50%;box-shadow:0 0 8px ${p.color};"></div>`,iconSize:[14,14],className:'pulse-marker'});
+const m=L.marker([p.lat,p.lng],{icon:icon}).addTo(map);
+m.bindPopup(`<div class="popup-title">${p.name}</div><div class="popup-time">${p.time}</div><div class="popup-desc">${p.desc}</div>`);
+markers.push(m);
+m.on('click',()=>showPlace(p));
+});
+
+const tl=document.getElementById('timeline');
+points.forEach((p,i)=>{
+const g=document.createElement('div');
+if(i===0||points[i-1].color!==p.color){
+const y=document.createElement('div');
+y.className='timeline-year';
+const stageNames={
+'#52c41a':'出生成长','#1890ff':'壮游四方','#fa8c16':'维新著述','#c41e3a':'慷慨殉国'
+};
+y.textContent=stageNames[p.color];
+tl.appendChild(y);
+}
+const item=document.createElement('div');
+item.className='timeline-item';
+item.innerHTML=`<div class="time">${p.time}</div><div>${p.name}</div>`;
+item.onclick=()=>{stop();currentIndex=i;flyToPoint(i);updateProgress();};
+tl.appendChild(item);
+});
+
+function showPlace(p){
+document.getElementById('placeLabel').style.display='block';
+document.getElementById('placeLabel').innerHTML=`<b>${p.name}</b><br><span style="color:#888;font-size:12px;">${p.time}</span><br>${p.desc}`;
+setTimeout(()=>document.getElementById('placeLabel').style.display='none',8000);
+}
+
+function flyToPoint(i){
+const p=points[i];
+map.flyTo([p.lat,p.lng],8,{duration:1.2});
+if(i>0){
+const line=L.polyline([[points[i-1].lat,points[i-1].lng],[p.lat,p.lng]],{
+color:'#c41e3a',weight:3,dashArray:'8,8',opacity:0.8
+}).addTo(map);
+polylines.push(line);
+}
+setTimeout(()=>markers[i].openPopup(),800);
+showPlace(p);
+document.getElementById('yearDisplay').textContent=p.year;
+}
+
+function updateProgress(){
+const pct=currentIndex/(points.length-1)*100;
+document.getElementById('progressBar').style.width=pct+'%';
+}
+
+function play(){
+if(currentIndex>=points.length-1){currentIndex=0;resetMap();}
+isPlaying=true;
+document.getElementById('playBtn').textContent='⏸ 暂停';
+next();
+}
+function next(){
+if(!isPlaying||currentIndex>=points.length)return;
+flyToPoint(currentIndex);
+updateProgress();
+currentIndex++;
+timer=setTimeout(next,2500/speed);
+}
+function stop(){
+isPlaying=false;
+clearTimeout(timer);
+document.getElementById('playBtn').textContent='▶ 播放';
+}
+function resetMap(){
+markers.forEach(m=>m.closePopup());
+polylines.forEach(l=>map.removeLayer(l));
+polylines=[];
+document.getElementById('placeLabel').style.display='none';
+}
+
+document.getElementById('playBtn').onclick=()=>isPlaying?stop():play();
+document.getElementById('resetBtn').onclick=()=>{stop();currentIndex=0;resetMap();map.flyTo([33.0,113.0],6);document.getElementById('yearDisplay').textContent='1865';document.getElementById('progressBar').style.width='0';};
+document.querySelectorAll('.speed button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.speed button').forEach(x=>x.classList.remove('active'));b.classList.add('active');speed=parseInt(b.dataset.speed);if(isPlaying){stop();play();}});
+document.getElementById('progress').onclick=e=>{
+const rect=e.currentTarget.getBoundingClientRect();
+const pct=(e.clientX-rect.left)/rect.width;
+currentIndex=Math.round(pct*(points.length-1));
+resetMap();for(let i=0;i<=currentIndex;i++)flyToPoint(i);
+updateProgress();
+};
+document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();isPlaying?stop():play();}});
+</script>
+</body>
+</html>
