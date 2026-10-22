@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>辛弃疾一生足迹地图 · 高德地图底图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<style>
+  :root{
+    --ink:#2c2c2c;
+    --ink-light:#5a5a5a;
+    --paper:#f7f2e8;
+    --paper-warm:#fdfaf3;
+    --zhu:#a63a2a;
+    --zhu-deep:#7a2518;
+    --qing:#3a6b7a;
+    --gold:#c8a45c;
+    --line:#d9cfc0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink)}
+  .serif{font-family:'Songti SC','STSong','SimSun',serif}
+  .header-bar{
+    background:linear-gradient(135deg,#fdfaf3 0%,#f2ead9 100%);
+    border-bottom:2px solid var(--zhu);
+    box-shadow:0 2px 12px rgba(122,37,24,.08);
+  }
+  .title-main{
+    font-family:'Songti SC','STSong',serif;
+    font-weight:900;letter-spacing:.12em;color:var(--zhu-deep);
+  }
+  .subtitle{color:var(--ink-light);font-size:13px;letter-spacing:.08em}
+  .map-wrap{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    overflow:hidden;position:relative;
+  }
+  #map{width:100%;height:100%;background:#e8e2d5}
+  .leaflet-control-attribution{background:rgba(253,250,243,.8)!important;font-size:10px!important;color:var(--ink-light)!important}
+  .leaflet-control-zoom a{background:var(--paper-warm)!important;color:var(--zhu-deep)!important;border-color:var(--line)!important}
+  .leaflet-control-zoom a:hover{background:var(--zhu)!important;color:#fff!important}
+  .leaflet-control-scale-line{background:rgba(253,250,243,.8)!important;border-color:var(--line)!important;color:var(--ink)!important}
+
+  /* Popup */
+  .leaflet-popup-content-wrapper{
+    background:var(--paper-warm);border:1px solid var(--line);border-radius:8px;
+    box-shadow:0 6px 24px rgba(0,0,0,.15);color:var(--ink);padding:0;
+  }
+  .leaflet-popup-content{margin:14px 16px!important;min-width:240px}
+  .leaflet-popup-tip{background:var(--paper-warm)!important;border:1px solid var(--line)!important}
+  .leaflet-popup-close-button{color:var(--zhu)!important;font-size:18px!important;font-weight:bold!important;padding:4px 8px!important}
+  .popup-title{font-family:'Songti SC',serif;font-size:17px;font-weight:700;color:var(--zhu-deep);margin-bottom:4px}
+  .popup-period{font-size:12px;color:var(--qing);margin-bottom:6px}
+  .popup-desc{font-size:13px;line-height:1.65;color:var(--ink-light)}
+  .popup-work{font-size:12px;color:var(--gold);margin-top:6px;font-style:italic;border-top:1px dashed var(--line);padding-top:6px}
+
+  .timeline-panel{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    display:flex;flex-direction:column;
+  }
+  .timeline-title{
+    font-family:'Songti SC',serif;font-weight:700;color:var(--zhu-deep);
+    font-size:18px;padding:14px 16px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:8px;
+  }
+  .timeline-scroll{flex:1;overflow-y:auto;padding:8px 0}
+  .timeline-scroll::-webkit-scrollbar{width:6px}
+  .timeline-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .era-group{margin-bottom:4px}
+  .era-label{
+    font-size:12px;font-weight:700;color:#fff;
+    background:var(--zhu);padding:4px 14px;letter-spacing:.1em;
+  }
+  .foot-item{
+    padding:10px 16px;cursor:pointer;border-left:3px solid transparent;
+    transition:all .3s ease;border-bottom:1px dashed var(--line);opacity:.45;
+  }
+  .foot-item.visited{opacity:.8}
+  .foot-item.current{
+    background:rgba(200,164,92,.15);border-left-color:var(--zhu);opacity:1;
+    box-shadow:inset 0 0 12px rgba(166,58,42,.08);
+  }
+  .foot-item:hover{background:rgba(166,58,42,.06);border-left-color:var(--zhu);opacity:1}
+  .foot-name{font-family:'Songti SC',serif;font-weight:700;font-size:15px;color:var(--ink)}
+  .foot-year{font-size:12px;color:var(--qing);margin-top:2px}
+  .foot-brief{font-size:12px;color:var(--ink-light);margin-top:2px;line-height:1.5}
+  .foot-tag{
+    display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;
+    margin-right:4px;margin-top:4px;
+  }
+  .tag-birth{background:#e8f0e8;color:#2d5a2d}
+  .tag-office{background:#e0ecf2;color:var(--qing)}
+  .tag-battle{background:#e8d8e8;color:#6b3a6b}
+  .tag-retire{background:#e8e8e0;color:#5a5a3d}
+  .tag-travel{background:#f5eed8;color:#8a6d2c}
+  .tag-end{background:#e8e0e8;color:#5a3d5a}
+  .tag-youth{background:#e8f0e8;color:#2d5a2d}
+
+  .legend-box{
+    position:absolute;bottom:28px;right:12px;z-index:500;
+    background:rgba(253,250,243,.95);border:1px solid var(--line);
+    border-radius:6px;padding:10px 14px;font-size:12px;
+    backdrop-filter:blur(4px);
+  }
+  .legend-title{font-weight:700;color:var(--zhu-deep);margin-bottom:6px;font-family:'Songti SC',serif}
+  .legend-item{display:flex;align-items:center;gap:6px;margin:3px 0}
+  .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .seal{
+    display:inline-block;background:var(--zhu);color:#fdfaf3;
+    font-family:'Songti SC',serif;font-weight:900;padding:2px 8px;border-radius:2px;
+    font-size:14px;transform:rotate(-3deg);margin-left:8px;letter-spacing:.2em;
+  }
+  .quote-box{
+    background:linear-gradient(135deg,rgba(200,164,92,.1),rgba(166,58,42,.08));
+    border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 6px 6px 0;
+    font-family:'Songti SC',serif;color:var(--zhu-deep);font-size:14px;
+    line-height:1.7;margin:8px 16px;
+  }
+
+  /* ====== 播放器控制栏 ====== */
+  .player-bar{
+    position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:600;
+    background:rgba(253,250,243,.96);border:1px solid var(--line);border-radius:40px;
+    padding:8px 18px;display:flex;align-items:center;gap:14px;
+    box-shadow:0 4px 20px rgba(0,0,0,.12);backdrop-filter:blur(6px);
+    min-width:460px;max-width:calc(100% - 40px);
+  }
+  .play-btn{
+    width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--zhu);color:#fff;display:flex;align-items:center;justify-content:center;
+    transition:all .2s;flex-shrink:0;box-shadow:0 2px 8px rgba(166,58,42,.3);
+  }
+  .play-btn:hover{background:var(--zhu-deep);transform:scale(1.05)}
+  .play-btn:active{transform:scale(.95)}
+  .play-btn svg{width:18px;height:18px;fill:currentColor}
+  .year-display{
+    font-family:'Songti SC',serif;font-weight:700;font-size:20px;
+    color:var(--zhu-deep);min-width:52px;text-align:center;
+    letter-spacing:.05em;flex-shrink:0;
+  }
+  .place-display{
+    font-size:13px;color:var(--ink-light);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;max-width:150px;flex-shrink:0;
+  }
+  .progress-wrap{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0}
+  .progress-track{
+    width:100%;height:6px;background:var(--line);border-radius:3px;
+    position:relative;cursor:pointer;
+  }
+  .progress-fill{
+    height:100%;background:linear-gradient(90deg,var(--zhu),var(--gold));
+    border-radius:3px;transition:width .3s ease;position:relative;
+  }
+  .progress-fill::after{
+    content:'';position:absolute;right:-6px;top:50%;transform:translateY(-50%);
+    width:12px;height:12px;background:var(--zhu);border:2px solid #fff;
+    border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.2);
+  }
+  .progress-years{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-light)}
+  .speed-btn{
+    font-size:12px;font-weight:700;padding:4px 10px;border-radius:12px;
+    border:1px solid var(--line);background:transparent;cursor:pointer;
+    color:var(--ink-light);transition:all .2s;flex-shrink:0;
+  }
+  .speed-btn:hover{border-color:var(--zhu);color:var(--zhu)}
+  .speed-btn.active{background:var(--zhu);color:#fff;border-color:var(--zhu)}
+  .restart-btn{
+    font-size:12px;padding:4px 10px;border-radius:12px;border:1px solid var(--line);
+    background:transparent;cursor:pointer;color:var(--ink-light);transition:all .2s;
+    flex-shrink:0;display:flex;align-items:center;gap:3px;
+  }
+  .restart-btn:hover{border-color:var(--qing);color:var(--qing)}
+
+  /* 自定义标记 */
+  .custom-marker{
+    position:relative;width:28px;height:28px;
+    display:flex;align-items:center;justify-content:center;
+    pointer-events:auto;cursor:pointer;
+  }
+  .custom-marker .dot-core{
+    width:14px;height:14px;border-radius:50%;
+    border:3px solid #fdfaf3;transition:all .4s cubic-bezier(.34,1.56,.64,1);
+    box-shadow:0 2px 8px rgba(0,0,0,.3);
+  }
+  .custom-marker.inactive .dot-core{
+    width:11px;height:11px;border-width:2px;opacity:.5;
+    background:#b8b0a0!important;box-shadow:0 1px 4px rgba(0,0,0,.2);
+  }
+  .custom-marker.active .dot-core{transform:scale(1)}
+  .custom-marker .ring{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+  }
+  .custom-marker.active .ring{animation:ringPulse 1.6s ease-out infinite}
+  .custom-marker.active .ring2{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+    animation:ringPulse 1.6s ease-out infinite .5s;
+  }
+  @keyframes ringPulse{
+    0%{transform:translate(-50%,-50%) scale(.5);opacity:1}
+    100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}
+  }
+  @keyframes markerPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:1}}
+  .custom-marker.activate .dot-core{animation:markerPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .animate-in{animation:fadeInUp .6s cubic-bezier(.2,.8,.2,1) both}
+
+  @media(max-width:768px){
+    .main-grid{grid-template-columns:1fr!important}
+    #map{height:420px!important}
+    .timeline-scroll{max-height:280px}
+    .player-bar{min-width:auto;padding:6px 12px;gap:8px;top:8px}
+    .year-display{font-size:16px;min-width:42px}
+    .place-display{display:none}
+    .speed-btn,.restart-btn{padding:3px 7px;font-size:11px}
+  }
+</style>
+</head>
+<body class="h-full flex flex-col">
+
+<!-- Header -->
+<header class="header-bar px-4 md:px-8 py-3 md:py-4 flex-shrink-0">
+  <div class="flex items-center justify-between flex-wrap gap-2">
+    <div>
+      <h1 class="title-main text-2xl md:text-3xl animate-in">辛弃疾一生足迹地图<span class="seal">稼轩</span></h1>
+      <p class="subtitle animate-in mt-1" style="animation-delay:.1s">1140—1207 · 从济南到铅山 · 词中之龙 · 壮志未酬 · 点击播放随稼轩仗剑走天涯</p>
+    </div>
+    <div class="text-right text-xs text-[var(--ink-light)] hidden md:block">
+      底图：高德地图 · 共标注 <span id="count" class="font-bold text-[var(--zhu)]">0</span> 处重要足迹
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="flex-1 p-3 md:p-5 overflow-hidden">
+  <div class="main-grid grid gap-4 h-full" style="grid-template-columns:1fr 320px">
+
+    <!-- Map -->
+    <div class="flex flex-col min-h-0">
+      <div class="map-wrap flex-1 min-h-[400px]">
+        <div id="map"></div>
+
+        <!-- 播放控制栏 -->
+        <div class="player-bar" id="playerBar">
+          <button class="play-btn" id="playBtn" title="播放/暂停">
+            <svg id="playIcon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+          </button>
+          <div class="year-display" id="yearDisplay">1140</div>
+          <div class="place-display" id="placeDisplay"></div>
+          <div class="progress-wrap">
+            <div class="progress-track" id="progressTrack">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="progress-years" id="progressYears"></div>
+          </div>
+          <button class="speed-btn active" data-speed="1" title="播放速度">1x</button>
+          <button class="speed-btn" data-speed="2">2x</button>
+          <button class="restart-btn" id="restartBtn" title="重新播放">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            重置
+          </button>
+        </div>
+
+        <div class="legend-box">
+          <div class="legend-title">图例说明</div>
+          <div class="legend-item"><span class="dot" style="background:#3a7a3a"></span>出生地 / 成长地</div>
+          <div class="legend-item"><span class="dot" style="background:#6b3a6b"></span>起义 / 军事要地</div>
+          <div class="legend-item"><span class="dot" style="background:var(--qing)"></span>任职治所</div>
+          <div class="legend-item"><span class="dot" style="background:#8a8a5a"></span>罢官闲居地</div>
+          <div class="legend-item"><span class="dot" style="background:var(--gold)"></span>重要行经地</div>
+          <div class="legend-item"><span class="dot" style="background:#6b4a6b"></span>终老之地</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Sidebar -->
+    <aside class="timeline-panel flex flex-col min-h-0">
+      <div class="timeline-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        生平时间线
+      </div>
+      <div class="quote-box">"醉里挑灯看剑，梦回吹角连营。了却君王天下事，赢得生前身后名。可怜白发生！"</div>
+      <div class="timeline-scroll" id="timeline"></div>
+    </aside>
+
+  </div>
+</main>
+
+<script>
+// === 足迹数据 ===
+const footprints = [
+  {
+    "name": "济南历城",
+    "lat": 36.6828,
+    "lng": 117.0699,
+    "year": "1140-1161",
+    "yearStart": 1140,
+    "era": "北方成长",
+    "tag": "birth",
+    "tagText": "出生成长",
+    "desc": "绍兴十年（1140）生于金占区济南府历城县四风闸。祖父辛赞仕金却心怀宋室，常带他登高望远、指画山河。两随计吏赴燕京侦察金人形势，自幼立下恢复中原之志。",
+    "work": "今济南遥墙四风闸村有辛弃疾故居纪念馆"
+  },
+  {
+    "name": "济州（巨野）",
+    "lat": 35.393,
+    "lng": 116.086,
+    "year": "1162",
+    "yearStart": 1162,
+    "era": "起义南归",
+    "tag": "battle",
+    "tagText": "五十骑擒叛",
+    "desc": "绍兴三十二年，耿京被叛徒张安国杀害降金。辛弃疾率五十骑突袭济州五万金营，于酒宴中生擒张安国，押解南归，南宋朝野震动，\"壮声英慨，圣天子一见三叹\"。",
+    "work": "《鹧鸪天》：壮岁旌旗拥万夫，锦襜突骑渡江初"
+  },
+  {
+    "name": "建康（南京）",
+    "lat": 32.0603,
+    "lng": 118.7969,
+    "year": "1162·献俘",
+    "yearStart": 1162.3,
+    "era": "起义南归",
+    "tag": "travel",
+    "tagText": "献俘行在",
+    "desc": "将张安国押解至建康献俘，宋高宗亲自接见，授右承务郎、天平军掌书记。后数次任职于此，登赏心亭北望中原，写下千古名篇。",
+    "work": "《水龙吟·登建康赏心亭》：把吴钩看了，栏杆拍遍"
+  },
+  {
+    "name": "临安（杭州）",
+    "lat": 30.2741,
+    "lng": 120.1551,
+    "year": "1162·1170",
+    "yearStart": 1162.6,
+    "era": "仕途辗转",
+    "tag": "travel",
+    "tagText": "献策朝廷",
+    "desc": "南归后数次至临安。乾道元年上《美芹十论》，乾道六年向虞允文上《九议》，系统提出守淮、屯田、进取山东的北伐方略，惜未被采纳。元夕观灯写下传世名篇。",
+    "work": "《青玉案·元夕》：众里寻他千百度，蓦然回首"
+  },
+  {
+    "name": "江阴",
+    "lat": 31.9137,
+    "lng": 120.2954,
+    "year": "1163-1165",
+    "yearStart": 1163,
+    "era": "仕途辗转",
+    "tag": "office",
+    "tagText": "江阴签判",
+    "desc": "南归后首任，任江阴军签判，开始南宋仕宦生涯。时年二十三岁，虽是闲散文职，却日夜筹划北伐，在此开始大量词创作，现存词作始自江阴。",
+    "work": "南宋仕宦起点，现存词创作起点"
+  },
+  {
+    "name": "滁州",
+    "lat": 32.3036,
+    "lng": 118.3173,
+    "year": "1172-1173",
+    "yearStart": 1172,
+    "era": "地方治绩",
+    "tag": "office",
+    "tagText": "知滁州",
+    "desc": "乾道八年出知滁州（宋金边境）。滁州屡经战乱、民生凋敝，到任后减免赋税、招抚流亡、恢复市场、修建奠枕楼，半年之内百废俱兴。",
+    "work": "《声声慢·滁州旅次登奠枕楼作》，治绩斐然"
+  },
+  {
+    "name": "赣州·造口",
+    "lat": 25.8594,
+    "lng": 114.9337,
+    "year": "1175",
+    "yearStart": 1175,
+    "era": "地方治绩",
+    "tag": "travel",
+    "tagText": "江西提刑",
+    "desc": "淳熙二年任江西提点刑狱，平定茶商军赖文政叛乱，展现卓越军事才能。途经赣州造口壁，想起当年金兵追隆祐太后至此，感慨题壁。",
+    "work": "《菩萨蛮·书江西造口壁》：青山遮不住，毕竟东流去"
+  },
+  {
+    "name": "隆兴（南昌）",
+    "lat": 28.682,
+    "lng": 115.8579,
+    "year": "1177·1180",
+    "yearStart": 1177,
+    "era": "地方治绩",
+    "tag": "office",
+    "tagText": "江西安抚使",
+    "desc": "两任隆兴知府兼江西安抚使，处置饥荒，推行\"闭籴者配，强籴者斩\"的铁腕赈灾政策，迅速平息粮荒。登滕王阁怀古，抒家国之思。",
+    "work": "《贺新郎·赋滕王阁》，赈灾救民政绩卓著"
+  },
+  {
+    "name": "江陵（荆州）",
+    "lat": 30.3264,
+    "lng": 112.2408,
+    "year": "1177-1178",
+    "yearStart": 1177.5,
+    "era": "地方治绩",
+    "tag": "office",
+    "tagText": "湖北安抚使",
+    "desc": "淳熙四年任江陵知府兼湖北安抚使，整顿地方吏治，训练民兵，巩固长江中游防务，开始显露出色的军政才能。",
+    "work": "整顿江防，稳固荆襄上游"
+  },
+  {
+    "name": "潭州（长沙）",
+    "lat": 28.2282,
+    "lng": 112.9388,
+    "year": "1179-1181",
+    "yearStart": 1179,
+    "era": "地方治绩",
+    "tag": "office",
+    "tagText": "湖南安抚使",
+    "desc": "淳熙六年知潭州兼湖南安抚使，兴修水利、兴办学校，创建\"飞虎军\"——二千五百精锐，铁甲战马，雄镇一方，成为南宋长江边防劲旅。",
+    "work": "创建飞虎军，'雄镇一方，为江上诸军之冠'"
+  },
+  {
+    "name": "上饶带湖",
+    "lat": 28.4553,
+    "lng": 117.9433,
+    "year": "1182-1192",
+    "yearStart": 1182,
+    "era": "带湖闲居",
+    "tag": "retire",
+    "tagText": "闲居带湖",
+    "desc": "淳熙八年（1181）冬遭弹劾罢官，于上饶带湖新居落成，自号\"稼轩居士\"，开始长达十年首次闲居。此间创作大量田园词与豪放词，词艺达至巅峰。",
+    "work": "《清平乐·村居》《丑奴儿》：却道天凉好个秋"
+  },
+  {
+    "name": "福州",
+    "lat": 26.0745,
+    "lng": 119.2965,
+    "year": "1192-1194",
+    "yearStart": 1192,
+    "era": "短暂复出",
+    "tag": "office",
+    "tagText": "福建安抚使",
+    "desc": "绍熙三年（1192）被起用为福建提点刑狱，后兼福建安抚使。在闽推行经界法、清查土地、抑制豪强、创建\"备安库\"，整顿海防。",
+    "work": "《行香子·三山作》，治闽有政声"
+  },
+  {
+    "name": "铅山瓢泉",
+    "lat": 28.17,
+    "lng": 117.59,
+    "year": "1188·1194-1203",
+    "yearStart": 1188,
+    "era": "瓢泉岁月",
+    "tag": "battle",
+    "tagText": "鹅湖之会",
+    "desc": "淳熙十五年（1188），陈亮自永康冒雪跋涉八百里来会，二人于铅山鹅湖寺同游十日，长歌相答，极论世事，史称\"辛陈鹅湖之会\"。",
+    "work": "《破阵子·为陈同甫赋壮词以寄之》"
+  },
+  {
+    "name": "绍兴",
+    "lat": 30.03,
+    "lng": 120.58,
+    "year": "1203-1204",
+    "yearStart": 1203,
+    "era": "晚年复起",
+    "tag": "office",
+    "tagText": "浙东安抚使",
+    "desc": "嘉泰三年（1203），六十四岁被韩侂胄起用为绍兴知府兼浙东安抚使。虽年逾花甲，仍积极调研军情、探听金国虚实，为北伐做准备。",
+    "work": "晚年复出，烈士暮年壮心不已"
+  },
+  {
+    "name": "镇江（京口）",
+    "lat": 32.2044,
+    "lng": 119.4527,
+    "year": "1204-1205",
+    "yearStart": 1204,
+    "era": "晚年复起",
+    "tag": "office",
+    "tagText": "镇江知府",
+    "desc": "嘉泰四年调任镇江知府，戍守江防前线。在京口招募丁壮、刺探敌情、修建战备，准备北伐。登临北固亭，北望扬州，写下千古绝唱。",
+    "work": "《永遇乐·京口北固亭怀古》《南乡子》"
+  },
+  {
+    "name": "铅山瓢泉（病逝）",
+    "lat": 28.17,
+    "lng": 117.59,
+    "year": "1205-1207",
+    "yearStart": 1205,
+    "era": "英雄遗恨",
+    "tag": "end",
+    "tagText": "临终呼贼",
+    "desc": "开禧北伐失败后再被诬罢职，回铅山瓢泉养病。开禧三年（1207）秋，朝廷任命他为枢密都承旨，诏命至铅山时已病重不起。九月初十病逝，临终前大呼\"杀贼！杀贼！\"数声而卒，享年六十八岁。",
+    "work": "临终三呼杀贼，壮志未酬，含恨而终"
+  }
+];
+
+const startYear = 1140;
+const endYear = 1207;
+const colorMap = {"birth": "#3a7a3a", "office": "#3a6b7a", "battle": "#6b3a6b", "retire": "#8a8a5a", "travel": "#c8a45c", "end": "#6b4a6b"};
+
+document.getElementById('count').textContent = footprints.length;
+
+// 更新进度年份刻度
+document.getElementById('progressYears').innerHTML =
+  `<span>${startYear}</span><span>${Math.round((startYear+endYear)*3/4-startYear/2)}</span><span>${Math.round((startYear+endYear)/2)}</span><span>${Math.round(startYear/4+(startYear+endYear)*3/4)}</span><span>${endYear}</span>`;
+
+// 初始化第一个地点显示
+document.getElementById('placeDisplay').textContent = footprints[0].name;
+
+// === 初始化Leaflet地图（高德瓦片直链，最稳定方式）===
+const map = L.map('map', {
+  center: [30.5, 116.5],
+  zoom: 5,
+  minZoom: 4,
+  maxZoom: 18,
+  zoomControl: true,
+  attributionControl: true
+});
+
+// 高德标准瓦片 - 直链加载，不依赖API key，最稳定
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+  subdomains: ['1','2','3','4'],
+  attribution: '&copy; 高德地图',
+  maxZoom: 18
+}).addTo(map);
+
+// 比例尺
+L.control.scale({imperial:false, position:'bottomleft'}).addTo(map);
+
+// === 创建标记 ===
+const markers = {};
+const markerObjs = {};
+let currentPopup = null;
+
+function createMarkerIcon(color, active) {
+  const rings = active ? '<div class="ring"></div><div class="ring2"></div>' : '';
+  const activeCls = active ? 'active activate' : 'inactive';
+  return L.divIcon({
+    className: '',
+    html: `<div class="custom-marker ${activeCls}"><div class="dot-core" style="background:${color}"></div>${rings}</div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14]
+  });
+}
+
+function createPopupContent(p) {
+  return `<div class="popup-title">${p.name}</div>
+    <div class="popup-period">${p.year} · ${p.era}</div>
+    <div class="popup-desc">${p.desc}</div>
+    <div class="popup-work">▸ ${p.work}</div>`;
+}
+
+footprints.forEach((p, idx) => {
+  const color = colorMap[p.tag];
+  const marker = L.marker([p.lat, p.lng], {
+    icon: createMarkerIcon(color, false),
+    zIndexOffset: 100
+  }).addTo(map);
+  marker.on('click', () => {
+    openInfo(idx, false);
+  });
+  markers[idx] = marker;
+  markerObjs[idx] = p;
+});
+
+// 轨迹线集合
+const polylines = [];
+
+function openInfo(idx, fly) {
+  const p = footprints[idx];
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  const popup = L.popup({offset:[0,-16], closeOnClick:true, autoPan:false, maxWidth:320, minWidth:260})
+    .setLatLng([p.lat, p.lng])
+    .setContent(createPopupContent(p))
+    .openOn(map);
+  currentPopup = popup;
+  if(fly){
+    const targetZoom = idx===0 ? 6 : 8;
+    map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+  }
+}
+
+function setMarkerActive(idx, active) {
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+  markers[idx].setIcon(createMarkerIcon(color, active));
+  markers[idx].setZIndexOffset(active ? 200 : 100);
+}
+
+// === 时间轴渲染 ===
+const tlEl = document.getElementById('timeline');
+let lastEra = '';
+footprints.forEach((p, idx) => {
+  let html = '';
+  if(p.era !== lastEra){
+    html += `<div class="era-label">${p.era}</div>`;
+    lastEra = p.era;
+  }
+  html += `
+    <div class="foot-item" data-idx="${idx}">
+      <div class="foot-name">${p.name}</div>
+      <div class="foot-year">${p.year}</div>
+      <div class="foot-brief">${p.desc.slice(0,48)}${p.desc.length>48?'…':''}</div>
+      <span class="foot-tag tag-${p.tag}">${p.tagText}</span>
+    </div>
+  `;
+  tlEl.insertAdjacentHTML('beforeend', html);
+});
+
+// 点击时间轴项
+tlEl.addEventListener('click', e => {
+  const item = e.target.closest('.foot-item');
+  if(!item) return;
+  const idx = +item.dataset.idx;
+  jumpToFootprint(idx);
+});
+
+// 自适应初始视图
+setTimeout(()=>{
+  const bounds = L.latLngBounds(footprints.map(p=>[p.lat,p.lng]));
+  map.fitBounds(bounds, {padding:[60,60], paddingBottomRight:[380,60]});
+}, 400);
+
+// === 播放动画核心逻辑 ===
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const yearDisplay = document.getElementById('yearDisplay');
+const placeDisplay = document.getElementById('placeDisplay');
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const restartBtn = document.getElementById('restartBtn');
+const speedBtns = document.querySelectorAll('.speed-btn');
+
+let playing = false;
+let currentIdx = -1;
+let playSpeed = 1;
+let playTimer = null;
+let animating = false;
+const STEP_INTERVAL_BASE = 2400;
+
+const PLAY_SVG = '<polygon points="6,4 20,12 6,20"/>';
+const PAUSE_SVG = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
+
+function setPlayIcon(isPlay){playIcon.innerHTML = isPlay ? PLAY_SVG : PAUSE_SVG;}
+
+function drawSegment(from, to, color){
+  const line = L.polyline([[from.lat,from.lng],[to.lat,to.lng]], {
+    color: '#a63a2a',
+    weight: 2.5,
+    opacity: 0.55,
+    dashArray: '6,6',
+    lineJoin: 'round',
+    zIndex: 50
+  }).addTo(map);
+  polylines.push(line);
+}
+
+function clearAllLines(){
+  polylines.forEach(l=>map.removeLayer(l));
+  polylines.length = 0;
+}
+
+function activateMarker(idx, fromPrev){
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+
+  // 激活当前标记
+  setMarkerActive(idx, true);
+
+  // 绘制轨迹段
+  if(fromPrev && idx > 0){
+    const prev = footprints[idx-1];
+    drawSegment(prev, p, color);
+  }else if(idx === 0){
+    clearAllLines();
+  }
+
+  // 更新时间轴高亮
+  document.querySelectorAll('.foot-item').forEach((el,i)=>{
+    el.classList.remove('current');
+    if(i < idx) el.classList.add('visited');
+    else if(i === idx) { el.classList.add('current'); el.classList.add('visited'); }
+  });
+
+  // 自动滚动
+  const currentItem = document.querySelector(`.foot-item[data-idx="${idx}"]`);
+  if(currentItem) currentItem.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  // 更新年份/地点
+  yearDisplay.textContent = Math.floor(p.yearStart);
+  placeDisplay.textContent = p.name;
+
+  // 进度条
+  const totalSpan = endYear - startYear;
+  const progress = ((p.yearStart - startYear) / totalSpan) * 100;
+  progressFill.style.width = Math.min(100, Math.max(0, progress)) + '%';
+
+  // 飞行
+  const targetZoom = idx===0 ? 6 : 8;
+  map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+
+  // 到达后弹出详情
+  setTimeout(()=>{
+    if(playing || animating || fromPrev){
+      if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+      openInfo(idx, false);
+    }
+  }, (1500 / playSpeed) + 200);
+
+  currentIdx = idx;
+}
+
+function resetPlayer(){
+  stopPlay();
+  currentIdx = -1;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, false);
+  });
+  document.querySelectorAll('.foot-item').forEach(el=>{
+    el.classList.remove('current','visited');
+  });
+  yearDisplay.textContent = startYear;
+  placeDisplay.textContent = footprints[0].name;
+  progressFill.style.width = '0%';
+  map.flyTo([30.5, 116.5], 5, {duration:1, animate:true});
+  setPlayIcon(true);
+}
+
+function jumpToFootprint(idx){
+  stopPlay();
+  animating = true;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, i <= idx);
+  });
+  for(let i = 1; i <= idx; i++){
+    drawSegment(footprints[i-1], footprints[i], colorMap[footprints[i].tag]);
+  }
+  activateMarker(idx, false);
+  animating = false;
+}
+
+function nextStep(){
+  const next = currentIdx + 1;
+  if(next >= footprints.length){
+    stopPlay();
+    setPlayIcon(true);
+    yearDisplay.textContent = endYear;
+    placeDisplay.textContent = '毕生足迹遍历完成';
+    progressFill.style.width = '100%';
+    return;
+  }
+  activateMarker(next, true);
+}
+
+function startPlay(){
+  if(currentIdx >= footprints.length - 1){
+    resetPlayer();
+    setTimeout(()=>{
+      currentIdx = -1;
+      playing = true;
+      setPlayIcon(false);
+      nextStep();
+      scheduleNext();
+    }, 800);
+    return;
+  }
+  playing = true;
+  setPlayIcon(false);
+  if(currentIdx < 0) nextStep();
+  scheduleNext();
+}
+
+function scheduleNext(){
+  if(playTimer) clearTimeout(playTimer);
+  playTimer = setTimeout(()=>{
+    if(!playing) return;
+    nextStep();
+    if(currentIdx < footprints.length - 1) scheduleNext();
+    else {
+      playing = false;
+      setPlayIcon(true);
+    }
+  }, STEP_INTERVAL_BASE / playSpeed);
+}
+
+function stopPlay(){
+  playing = false;
+  if(playTimer){ clearTimeout(playTimer); playTimer = null; }
+  setPlayIcon(true);
+}
+
+function togglePlay(){
+  if(playing) stopPlay();
+  else startPlay();
+}
+
+playBtn.addEventListener('click', togglePlay);
+restartBtn.addEventListener('click', resetPlayer);
+
+speedBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    speedBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    playSpeed = parseInt(btn.dataset.speed);
+    if(playing){
+      if(playTimer) clearTimeout(playTimer);
+      scheduleNext();
+    }
+  });
+});
+
+// 进度条点击跳转
+progressTrack.addEventListener('click', e=>{
+  const rect = progressTrack.getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  const targetYear = startYear + ratio * (endYear - startYear);
+  let bestIdx = 0;
+  let bestDiff = Infinity;
+  footprints.forEach((p,i)=>{
+    const diff = Math.abs(p.yearStart - targetYear);
+    if(diff < bestDiff){ bestDiff = diff; bestIdx = i; }
+  });
+  jumpToFootprint(bestIdx);
+});
+
+// 键盘空格键播放/暂停
+document.addEventListener('keydown', e=>{
+  if(e.code === 'Space' && !e.target.matches('input,textarea')){
+    e.preventDefault();
+    togglePlay();
+  }
+});
+</script>
+</body>
+</html>

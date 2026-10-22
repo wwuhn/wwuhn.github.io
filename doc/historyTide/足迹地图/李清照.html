@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李清照一生足迹地图 · 高德地图底图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<style>
+  :root{
+    --ink:#2c2c2c;
+    --ink-light:#5a5a5a;
+    --paper:#f7f2e8;
+    --paper-warm:#fdfaf3;
+    --zhu:#a63a2a;
+    --zhu-deep:#7a2518;
+    --qing:#3a6b7a;
+    --gold:#c8a45c;
+    --line:#d9cfc0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink)}
+  .serif{font-family:'Songti SC','STSong','SimSun',serif}
+  .header-bar{
+    background:linear-gradient(135deg,#fdfaf3 0%,#f2ead9 100%);
+    border-bottom:2px solid var(--zhu);
+    box-shadow:0 2px 12px rgba(122,37,24,.08);
+  }
+  .title-main{
+    font-family:'Songti SC','STSong',serif;
+    font-weight:900;letter-spacing:.12em;color:var(--zhu-deep);
+  }
+  .subtitle{color:var(--ink-light);font-size:13px;letter-spacing:.08em}
+  .map-wrap{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    overflow:hidden;position:relative;
+  }
+  #map{width:100%;height:100%;background:#e8e2d5}
+  .leaflet-control-attribution{background:rgba(253,250,243,.8)!important;font-size:10px!important;color:var(--ink-light)!important}
+  .leaflet-control-zoom a{background:var(--paper-warm)!important;color:var(--zhu-deep)!important;border-color:var(--line)!important}
+  .leaflet-control-zoom a:hover{background:var(--zhu)!important;color:#fff!important}
+  .leaflet-control-scale-line{background:rgba(253,250,243,.8)!important;border-color:var(--line)!important;color:var(--ink)!important}
+
+  /* Popup */
+  .leaflet-popup-content-wrapper{
+    background:var(--paper-warm);border:1px solid var(--line);border-radius:8px;
+    box-shadow:0 6px 24px rgba(0,0,0,.15);color:var(--ink);padding:0;
+  }
+  .leaflet-popup-content{margin:14px 16px!important;min-width:240px}
+  .leaflet-popup-tip{background:var(--paper-warm)!important;border:1px solid var(--line)!important}
+  .leaflet-popup-close-button{color:var(--zhu)!important;font-size:18px!important;font-weight:bold!important;padding:4px 8px!important}
+  .popup-title{font-family:'Songti SC',serif;font-size:17px;font-weight:700;color:var(--zhu-deep);margin-bottom:4px}
+  .popup-period{font-size:12px;color:var(--qing);margin-bottom:6px}
+  .popup-desc{font-size:13px;line-height:1.65;color:var(--ink-light)}
+  .popup-work{font-size:12px;color:var(--gold);margin-top:6px;font-style:italic;border-top:1px dashed var(--line);padding-top:6px}
+
+  .timeline-panel{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    display:flex;flex-direction:column;
+  }
+  .timeline-title{
+    font-family:'Songti SC',serif;font-weight:700;color:var(--zhu-deep);
+    font-size:18px;padding:14px 16px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:8px;
+  }
+  .timeline-scroll{flex:1;overflow-y:auto;padding:8px 0}
+  .timeline-scroll::-webkit-scrollbar{width:6px}
+  .timeline-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .era-group{margin-bottom:4px}
+  .era-label{
+    font-size:12px;font-weight:700;color:#fff;
+    background:var(--zhu);padding:4px 14px;letter-spacing:.1em;
+  }
+  .foot-item{
+    padding:10px 16px;cursor:pointer;border-left:3px solid transparent;
+    transition:all .3s ease;border-bottom:1px dashed var(--line);opacity:.45;
+  }
+  .foot-item.visited{opacity:.8}
+  .foot-item.current{
+    background:rgba(200,164,92,.15);border-left-color:var(--zhu);opacity:1;
+    box-shadow:inset 0 0 12px rgba(166,58,42,.08);
+  }
+  .foot-item:hover{background:rgba(166,58,42,.06);border-left-color:var(--zhu);opacity:1}
+  .foot-name{font-family:'Songti SC',serif;font-weight:700;font-size:15px;color:var(--ink)}
+  .foot-year{font-size:12px;color:var(--qing);margin-top:2px}
+  .foot-brief{font-size:12px;color:var(--ink-light);margin-top:2px;line-height:1.5}
+  .foot-tag{
+    display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;
+    margin-right:4px;margin-top:4px;
+  }
+  .tag-birth{background:#e8f0e8;color:#2d5a2d}
+  .tag-office{background:#e0ecf2;color:var(--qing)}
+  .tag-battle{background:#e8d8e8;color:#6b3a6b}
+  .tag-retire{background:#e8e8e0;color:#5a5a3d}
+  .tag-travel{background:#f5eed8;color:#8a6d2c}
+  .tag-end{background:#e8e0e8;color:#5a3d5a}
+  .tag-youth{background:#f8e8f0;color:#8a3a6a}
+  .tag-husband{background:#e8d0e8;color:#6b3a6b}
+  .tag-refugee{background:#e8d8d0;color:#8a4a3a}
+
+  .legend-box{
+    position:absolute;bottom:28px;right:12px;z-index:500;
+    background:rgba(253,250,243,.95);border:1px solid var(--line);
+    border-radius:6px;padding:10px 14px;font-size:12px;
+    backdrop-filter:blur(4px);
+  }
+  .legend-title{font-weight:700;color:var(--zhu-deep);margin-bottom:6px;font-family:'Songti SC',serif}
+  .legend-item{display:flex;align-items:center;gap:6px;margin:3px 0}
+  .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .seal{
+    display:inline-block;background:var(--zhu);color:#fdfaf3;
+    font-family:'Songti SC',serif;font-weight:900;padding:2px 8px;border-radius:2px;
+    font-size:14px;transform:rotate(-3deg);margin-left:8px;letter-spacing:.2em;
+  }
+  .quote-box{
+    background:linear-gradient(135deg,rgba(200,164,92,.1),rgba(166,58,42,.08));
+    border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 6px 6px 0;
+    font-family:'Songti SC',serif;color:var(--zhu-deep);font-size:14px;
+    line-height:1.7;margin:8px 16px;
+  }
+
+  /* ====== 播放器控制栏 ====== */
+  .player-bar{
+    position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:600;
+    background:rgba(253,250,243,.96);border:1px solid var(--line);border-radius:40px;
+    padding:8px 18px;display:flex;align-items:center;gap:14px;
+    box-shadow:0 4px 20px rgba(0,0,0,.12);backdrop-filter:blur(6px);
+    min-width:460px;max-width:calc(100% - 40px);
+  }
+  .play-btn{
+    width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--zhu);color:#fff;display:flex;align-items:center;justify-content:center;
+    transition:all .2s;flex-shrink:0;box-shadow:0 2px 8px rgba(166,58,42,.3);
+  }
+  .play-btn:hover{background:var(--zhu-deep);transform:scale(1.05)}
+  .play-btn:active{transform:scale(.95)}
+  .play-btn svg{width:18px;height:18px;fill:currentColor}
+  .year-display{
+    font-family:'Songti SC',serif;font-weight:700;font-size:20px;
+    color:var(--zhu-deep);min-width:52px;text-align:center;
+    letter-spacing:.05em;flex-shrink:0;
+  }
+  .place-display{
+    font-size:13px;color:var(--ink-light);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;max-width:150px;flex-shrink:0;
+  }
+  .progress-wrap{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0}
+  .progress-track{
+    width:100%;height:6px;background:var(--line);border-radius:3px;
+    position:relative;cursor:pointer;
+  }
+  .progress-fill{
+    height:100%;background:linear-gradient(90deg,var(--zhu),var(--gold));
+    border-radius:3px;transition:width .3s ease;position:relative;
+  }
+  .progress-fill::after{
+    content:'';position:absolute;right:-6px;top:50%;transform:translateY(-50%);
+    width:12px;height:12px;background:var(--zhu);border:2px solid #fff;
+    border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.2);
+  }
+  .progress-years{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-light)}
+  .speed-btn{
+    font-size:12px;font-weight:700;padding:4px 10px;border-radius:12px;
+    border:1px solid var(--line);background:transparent;cursor:pointer;
+    color:var(--ink-light);transition:all .2s;flex-shrink:0;
+  }
+  .speed-btn:hover{border-color:var(--zhu);color:var(--zhu)}
+  .speed-btn.active{background:var(--zhu);color:#fff;border-color:var(--zhu)}
+  .restart-btn{
+    font-size:12px;padding:4px 10px;border-radius:12px;border:1px solid var(--line);
+    background:transparent;cursor:pointer;color:var(--ink-light);transition:all .2s;
+    flex-shrink:0;display:flex;align-items:center;gap:3px;
+  }
+  .restart-btn:hover{border-color:var(--qing);color:var(--qing)}
+
+  /* 自定义标记 */
+  .custom-marker{
+    position:relative;width:28px;height:28px;
+    display:flex;align-items:center;justify-content:center;
+    pointer-events:auto;cursor:pointer;
+  }
+  .custom-marker .dot-core{
+    width:14px;height:14px;border-radius:50%;
+    border:3px solid #fdfaf3;transition:all .4s cubic-bezier(.34,1.56,.64,1);
+    box-shadow:0 2px 8px rgba(0,0,0,.3);
+  }
+  .custom-marker.inactive .dot-core{
+    width:11px;height:11px;border-width:2px;opacity:.5;
+    background:#b8b0a0!important;box-shadow:0 1px 4px rgba(0,0,0,.2);
+  }
+  .custom-marker.active .dot-core{transform:scale(1)}
+  .custom-marker .ring{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+  }
+  .custom-marker.active .ring{animation:ringPulse 1.6s ease-out infinite}
+  .custom-marker.active .ring2{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+    animation:ringPulse 1.6s ease-out infinite .5s;
+  }
+  @keyframes ringPulse{
+    0%{transform:translate(-50%,-50%) scale(.5);opacity:1}
+    100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}
+  }
+  @keyframes markerPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:1}}
+  .custom-marker.activate .dot-core{animation:markerPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .animate-in{animation:fadeInUp .6s cubic-bezier(.2,.8,.2,1) both}
+
+  @media(max-width:768px){
+    .main-grid{grid-template-columns:1fr!important}
+    #map{height:420px!important}
+    .timeline-scroll{max-height:280px}
+    .player-bar{min-width:auto;padding:6px 12px;gap:8px;top:8px}
+    .year-display{font-size:16px;min-width:42px}
+    .place-display{display:none}
+    .speed-btn,.restart-btn{padding:3px 7px;font-size:11px}
+  }
+</style>
+</head>
+<body class="h-full flex flex-col">
+
+<!-- Header -->
+<header class="header-bar px-4 md:px-8 py-3 md:py-4 flex-shrink-0">
+  <div class="flex items-center justify-between flex-wrap gap-2">
+    <div>
+      <h1 class="title-main text-2xl md:text-3xl animate-in">李清照一生足迹地图<span class="seal">易安</span></h1>
+      <p class="subtitle animate-in mt-1" style="animation-delay:.1s">1084—约1155 · 从章丘明水到临安孤灯 · 千古第一才女 · 半生繁花半生凄凉 · 点击播放随易安走过两宋风华</p>
+    </div>
+    <div class="text-right text-xs text-[var(--ink-light)] hidden md:block">
+      底图：高德地图 · 共标注 <span id="count" class="font-bold text-[var(--zhu)]">0</span> 处重要足迹
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="flex-1 p-3 md:p-5 overflow-hidden">
+  <div class="main-grid grid gap-4 h-full" style="grid-template-columns:1fr 320px">
+
+    <!-- Map -->
+    <div class="flex flex-col min-h-0">
+      <div class="map-wrap flex-1 min-h-[400px]">
+        <div id="map"></div>
+
+        <!-- 播放控制栏 -->
+        <div class="player-bar" id="playerBar">
+          <button class="play-btn" id="playBtn" title="播放/暂停">
+            <svg id="playIcon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+          </button>
+          <div class="year-display" id="yearDisplay">1084</div>
+          <div class="place-display" id="placeDisplay"></div>
+          <div class="progress-wrap">
+            <div class="progress-track" id="progressTrack">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="progress-years" id="progressYears"></div>
+          </div>
+          <button class="speed-btn active" data-speed="1" title="播放速度">1x</button>
+          <button class="speed-btn" data-speed="2">2x</button>
+          <button class="restart-btn" id="restartBtn" title="重新播放">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            重置
+          </button>
+        </div>
+
+        <div class="legend-box">
+          <div class="legend-title">图例说明</div>
+          <div class="legend-item"><span class="dot" style="background:#3a7a3a"></span>出生地 / 少女时期</div>
+          <div class="legend-item"><span class="dot" style="background:#8a3a6a"></span>汴京才华 / 婚姻生活</div>
+          <div class="legend-item"><span class="dot" style="background:#5a5a3d"></span>屏居闲居 / 金石相伴</div>
+          <div class="legend-item"><span class="dot" style="background:#8a4a3a"></span>南渡流离 / 乱世避难</div>
+          <div class="legend-item"><span class="dot" style="background:var(--gold)"></span>重要行经地</div>
+          <div class="legend-item"><span class="dot" style="background:#6b4a6b"></span>终老之地</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Sidebar -->
+    <aside class="timeline-panel flex flex-col min-h-0">
+      <div class="timeline-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        生平时间线
+      </div>
+      <div class="quote-box">"寻寻觅觅，冷冷清清，凄凄惨惨戚戚。乍暖还寒时候，最难将息。"</div>
+      <div class="timeline-scroll" id="timeline"></div>
+    </aside>
+
+  </div>
+</main>
+
+<script>
+// === 李清照足迹数据 ===
+const footprints = [
+  {
+    "name": "章丘明水",
+    "lat": 36.7167,
+    "lng": 117.5333,
+    "year": "1084-1089",
+    "yearStart": 1084,
+    "era": "齐鲁少女",
+    "tag": "birth",
+    "tagText": "出生成长",
+    "desc": "元丰七年（1084）生于齐州章丘明水（今山东济南章丘）。父亲李格非为苏门后四学士之一，母亲出身名门。幼承家学，聪慧颖悟，在百脉泉边、漱玉泉畔度过童年，自少年便有诗名。",
+    "work": "《如梦令》：常记溪亭日暮，沉醉不知归路"
+  },
+  {
+    "name": "汴京（开封）",
+    "lat": 34.7971,
+    "lng": 114.3078,
+    "year": "1089-1102",
+    "yearStart": 1089,
+    "era": "汴京才女",
+    "tag": "youth",
+    "tagText": "文名鹊起",
+    "desc": "约六岁随父迁居汴京（今河南开封），在繁华帝都成长。元符二年（1099）十六岁作《如梦令·昨夜雨疏风骤》，\"绿肥红瘦\"一语轰动京师，文士莫不击节称赏，名动汴京文坛。",
+    "work": "《如梦令》：知否，知否？应是绿肥红瘦"
+  },
+  {
+    "name": "汴京（开封）·成婚",
+    "lat": 34.7971,
+    "lng": 114.3078,
+    "year": "1101-1107",
+    "yearStart": 1101,
+    "era": "汴京才女",
+    "tag": "husband",
+    "tagText": "琴瑟和鸣",
+    "desc": "建中靖国元年（1101），十八岁与太学生赵明诚成婚。夫妇志趣相投，节衣缩食搜集金石书画，常在相国寺市碑文果实归家，相对展玩咀嚼。后因党争牵连，父亲李格非被列元祐党籍，清照上诗赵挺之救父未果。",
+    "work": "《一剪梅》：此情无计可消除，才下眉头，却上心头"
+  },
+  {
+    "name": "青州",
+    "lat": 36.6936,
+    "lng": 118.4797,
+    "year": "1107-1121",
+    "yearStart": 1107,
+    "era": "青州屏居",
+    "tag": "retire",
+    "tagText": "赌书泼茶",
+    "desc": "大观元年（1107）赵挺之遭蔡京诬陷罢相病逝，赵家失势。清照夫妇退居青州故里，取陶渊明\"归去来兮\"意命其室为\"归来堂\"，自号\"易安居士\"。屏居十余年，潜心金石研究，赌书泼茶为乐，是一生最幸福安稳的时光。",
+    "work": "《醉花阴》：莫道不销魂，帘卷西风，人比黄花瘦"
+  },
+  {
+    "name": "莱州",
+    "lat": 37.1778,
+    "lng": 119.9333,
+    "year": "1121-1125",
+    "yearStart": 1121,
+    "era": "随夫宦游",
+    "tag": "office",
+    "tagText": "莱州随任",
+    "desc": "宣和三年（1121）赵明诚起知莱州，清照自青州赴莱州团聚。继续协助丈夫整理金石碑刻，搜集文物。于莱州静治堂校勘《金石录》，夫妇学术合作的黄金时期。",
+    "work": "《金石录》编撰持续推进，夫妇金石学合作巅峰"
+  },
+  {
+    "name": "淄州",
+    "lat": 36.6436,
+    "lng": 117.8678,
+    "year": "1125-1127",
+    "yearStart": 1125,
+    "era": "随夫宦游",
+    "tag": "office",
+    "tagText": "淄州随任",
+    "desc": "宣和七年（1125）赵明诚改知淄州，清照随行。靖康元年（1126）金兵南下，汴京危急。清照在淄州已感受到山雨欲来，开始挑选文物准备南运。次年靖康之变，北宋覆亡，天崩地裂。",
+    "work": "山河破碎前夜，金石藏品面临散佚命运"
+  },
+  {
+    "name": "江宁（南京）",
+    "lat": 32.0603,
+    "lng": 118.7969,
+    "year": "1128-1129",
+    "yearStart": 1128,
+    "era": "靖康南渡",
+    "tag": "refugee",
+    "tagText": "南渡丧夫",
+    "desc": "建炎二年（1128）春抵江宁，赵明诚知江宁府。南渡途中文物大量散失。建炎三年（1129）赵明诚因城中兵变弃城而逃，清照途经乌江作《夏日绝句》讽之。同年八月赵明诚病逝建康，清照四十六岁，孤身一人。",
+    "work": "《夏日绝句》：生当作人杰，死亦为鬼雄"
+  },
+  {
+    "name": "越州（绍兴）",
+    "lat": 30.0300,
+    "lng": 120.5800,
+    "year": "1129-1130",
+    "yearStart": 1129.5,
+    "era": "颠沛流离",
+    "tag": "refugee",
+    "tagText": "追献文物",
+    "desc": "赵明诚病逝后，清照欲将所余文物献于朝廷，追随宋高宗逃亡路线辗转浙东。先至越州，后又赴台州、温州、明州，一路追随御舟，在战火中辗转奔走，文物散失大半。",
+    "work": "《孤雁儿》：藤床纸帐朝眠起，说不尽无佳思"
+  },
+  {
+    "name": "台州·温州",
+    "lat": 28.6614,
+    "lng": 121.4208,
+    "year": "1130",
+    "yearStart": 1130,
+    "era": "颠沛流离",
+    "tag": "refugee",
+    "tagText": "海上避难",
+    "desc": "建炎四年（1130）金兵南下追击宋高宗，高宗泛舟入海逃至温州。清照一路追随御舟自台州入海，经海路至温州，沿途颠沛流离，历尽艰险，金石文物在逃亡中十去七八。",
+    "work": "《渔家傲》：九万里风鹏正举，风休住，蓬舟吹取三山去"
+  },
+  {
+    "name": "越州（绍兴）",
+    "lat": 30.0300,
+    "lng": 120.5800,
+    "year": "1130-1131",
+    "yearStart": 1130.5,
+    "era": "颠沛流离",
+    "tag": "refugee",
+    "tagText": "卜居越州",
+    "desc": "金兵退后，清照卜居越州，寄居钟复之家，所余书画砚墨又被盗去五簏。一生收藏至此大半散佚，身心俱疲。辗转浙东各地，居无定所。",
+    "work": "文物屡遭盗窃，金石收藏十去八九"
+  },
+  {
+    "name": "临安（杭州）",
+    "lat": 30.2741,
+    "lng": 120.1551,
+    "year": "1132",
+    "yearStart": 1132,
+    "era": "再嫁风波",
+    "tag": "travel",
+    "tagText": "再嫁离异",
+    "desc": "绍兴二年（1132）赴临安，年近五十再嫁张汝舟。婚后发现张汝舟实觊觎其残存文物，不堪虐待，决然告发张汝舟\"妄增举数入官\"之罪请离。依宋律妻告夫需徒刑二年，经亲友营救入狱九日方得释，世论哗然。",
+    "work": "毅然诉离，宁为玉碎不为瓦全，展现刚烈性格"
+  },
+  {
+    "name": "金华",
+    "lat": 29.0783,
+    "lng": 119.6472,
+    "year": "1134-1135",
+    "yearStart": 1134,
+    "era": "避难金华",
+    "tag": "refugee",
+    "tagText": "避乱金华",
+    "desc": "绍兴四年（1134）秋金齐联军南下，清照自临安避难金华，卜居陈氏宅。年过半百，孤身漂泊，家国身世之痛集于一身，登临八咏楼，写下沉痛悲凉之作。",
+    "work": "《武陵春》：物是人非事事休，欲语泪先流；《题八咏楼》：千古风流八咏楼"
+  },
+  {
+    "name": "临安（杭州）·晚年",
+    "lat": 30.2741,
+    "lng": 120.1551,
+    "year": "1135-约1155",
+    "yearStart": 1135,
+    "era": "临安晚年",
+    "tag": "end",
+    "tagText": "孤灯终老",
+    "desc": "绍兴五年（1135）后定居临安，约二十年间致力于整理赵明诚遗著《金石录》，绍兴十三年（1143）将《金石录》三十卷表上于朝。晚年无子无女，孤身一人，约在绍兴二十五年（1155）前后于临安寂寞辞世，享年约七十二岁。",
+    "work": "《声声慢》：寻寻觅觅，冷冷清清，凄凄惨惨戚戚；《永遇乐·落日熔金》"
+  }
+];
+
+const startYear = 1084;
+const endYear = 1155;
+const colorMap = {"birth": "#3a7a3a", "office": "#3a6b7a", "battle": "#6b3a6b", "retire": "#5a5a3d", "travel": "#c8a45c", "end": "#6b4a6b", "youth": "#8a3a6a", "husband": "#8a3a6a", "refugee": "#8a4a3a"};
+
+document.getElementById('count').textContent = footprints.length;
+
+// 更新进度年份刻度
+document.getElementById('progressYears').innerHTML =
+  `<span>${startYear}</span><span>${Math.round((startYear+endYear)*3/4-startYear/2)}</span><span>${Math.round((startYear+endYear)/2)}</span><span>${Math.round(startYear/4+(startYear+endYear)*3/4)}</span><span>${endYear}</span>`;
+
+// 初始化第一个地点显示
+document.getElementById('placeDisplay').textContent = footprints[0].name;
+
+// === 初始化Leaflet地图（高德瓦片直链，最稳定方式）===
+const map = L.map('map', {
+  center: [31.5, 117.5],
+  zoom: 5,
+  minZoom: 4,
+  maxZoom: 18,
+  zoomControl: true,
+  attributionControl: true
+});
+
+// 高德标准瓦片 - 直链加载，不依赖API key，最稳定
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+  subdomains: ['1','2','3','4'],
+  attribution: '&copy; 高德地图',
+  maxZoom: 18
+}).addTo(map);
+
+// 比例尺
+L.control.scale({imperial:false, position:'bottomleft'}).addTo(map);
+
+// === 创建标记 ===
+const markers = {};
+const markerObjs = {};
+let currentPopup = null;
+
+function createMarkerIcon(color, active) {
+  const rings = active ? '<div class="ring"></div><div class="ring2"></div>' : '';
+  const activeCls = active ? 'active activate' : 'inactive';
+  return L.divIcon({
+    className: '',
+    html: `<div class="custom-marker ${activeCls}"><div class="dot-core" style="background:${color}"></div>${rings}</div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14]
+  });
+}
+
+function createPopupContent(p) {
+  return `<div class="popup-title">${p.name}</div>
+    <div class="popup-period">${p.year} · ${p.era}</div>
+    <div class="popup-desc">${p.desc}</div>
+    <div class="popup-work">▸ ${p.work}</div>`;
+}
+
+footprints.forEach((p, idx) => {
+  const color = colorMap[p.tag];
+  const marker = L.marker([p.lat, p.lng], {
+    icon: createMarkerIcon(color, false),
+    zIndexOffset: 100
+  }).addTo(map);
+  marker.on('click', () => {
+    openInfo(idx, false);
+  });
+  markers[idx] = marker;
+  markerObjs[idx] = p;
+});
+
+// 轨迹线集合
+const polylines = [];
+
+function openInfo(idx, fly) {
+  const p = footprints[idx];
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  const popup = L.popup({offset:[0,-16], closeOnClick:true, autoPan:false, maxWidth:320, minWidth:260})
+    .setLatLng([p.lat, p.lng])
+    .setContent(createPopupContent(p))
+    .openOn(map);
+  currentPopup = popup;
+  if(fly){
+    const targetZoom = idx===0 ? 6 : 8;
+    map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+  }
+}
+
+function setMarkerActive(idx, active) {
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+  markers[idx].setIcon(createMarkerIcon(color, active));
+  markers[idx].setZIndexOffset(active ? 200 : 100);
+}
+
+// === 时间轴渲染 ===
+const tlEl = document.getElementById('timeline');
+let lastEra = '';
+footprints.forEach((p, idx) => {
+  let html = '';
+  if(p.era !== lastEra){
+    html += `<div class="era-label">${p.era}</div>`;
+    lastEra = p.era;
+  }
+  html += `
+    <div class="foot-item" data-idx="${idx}">
+      <div class="foot-name">${p.name}</div>
+      <div class="foot-year">${p.year}</div>
+      <div class="foot-brief">${p.desc.slice(0,48)}${p.desc.length>48?'…':''}</div>
+      <span class="foot-tag tag-${p.tag}">${p.tagText}</span>
+    </div>
+  `;
+  tlEl.insertAdjacentHTML('beforeend', html);
+});
+
+// 点击时间轴项
+tlEl.addEventListener('click', e => {
+  const item = e.target.closest('.foot-item');
+  if(!item) return;
+  const idx = +item.dataset.idx;
+  jumpToFootprint(idx);
+});
+
+// 自适应初始视图
+setTimeout(()=>{
+  const bounds = L.latLngBounds(footprints.map(p=>[p.lat,p.lng]));
+  map.fitBounds(bounds, {padding:[60,60], paddingBottomRight:[380,60]});
+}, 400);
+
+// === 播放动画核心逻辑 ===
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const yearDisplay = document.getElementById('yearDisplay');
+const placeDisplay = document.getElementById('placeDisplay');
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const restartBtn = document.getElementById('restartBtn');
+const speedBtns = document.querySelectorAll('.speed-btn');
+
+let playing = false;
+let currentIdx = -1;
+let playSpeed = 1;
+let playTimer = null;
+let animating = false;
+const STEP_INTERVAL_BASE = 2400;
+
+const PLAY_SVG = '<polygon points="6,4 20,12 6,20"/>';
+const PAUSE_SVG = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
+
+function setPlayIcon(isPlay){playIcon.innerHTML = isPlay ? PLAY_SVG : PAUSE_SVG;}
+
+function drawSegment(from, to, color){
+  const line = L.polyline([[from.lat,from.lng],[to.lat,to.lng]], {
+    color: '#a63a2a',
+    weight: 2.5,
+    opacity: 0.55,
+    dashArray: '6,6',
+    lineJoin: 'round',
+    zIndex: 50
+  }).addTo(map);
+  polylines.push(line);
+}
+
+function clearAllLines(){
+  polylines.forEach(l=>map.removeLayer(l));
+  polylines.length = 0;
+}
+
+function activateMarker(idx, fromPrev){
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+
+  // 激活当前标记
+  setMarkerActive(idx, true);
+
+  // 绘制轨迹段
+  if(fromPrev && idx > 0){
+    const prev = footprints[idx-1];
+    drawSegment(prev, p, color);
+  }else if(idx === 0){
+    clearAllLines();
+  }
+
+  // 更新时间轴高亮
+  document.querySelectorAll('.foot-item').forEach((el,i)=>{
+    el.classList.remove('current');
+    if(i < idx) el.classList.add('visited');
+    else if(i === idx) { el.classList.add('current'); el.classList.add('visited'); }
+  });
+
+  // 自动滚动
+  const currentItem = document.querySelector(`.foot-item[data-idx="${idx}"]`);
+  if(currentItem) currentItem.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  // 更新年份/地点
+  yearDisplay.textContent = Math.floor(p.yearStart);
+  placeDisplay.textContent = p.name;
+
+  // 进度条
+  const totalSpan = endYear - startYear;
+  const progress = ((p.yearStart - startYear) / totalSpan) * 100;
+  progressFill.style.width = Math.min(100, Math.max(0, progress)) + '%';
+
+  // 飞行
+  const targetZoom = idx===0 ? 6 : 8;
+  map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+
+  // 到达后弹出详情
+  setTimeout(()=>{
+    if(playing || animating || fromPrev){
+      if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+      openInfo(idx, false);
+    }
+  }, (1500 / playSpeed) + 200);
+
+  currentIdx = idx;
+}
+
+function resetPlayer(){
+  stopPlay();
+  currentIdx = -1;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, false);
+  });
+  document.querySelectorAll('.foot-item').forEach(el=>{
+    el.classList.remove('current','visited');
+  });
+  yearDisplay.textContent = startYear;
+  placeDisplay.textContent = footprints[0].name;
+  progressFill.style.width = '0%';
+  map.flyTo([31.5, 117.5], 5, {duration:1, animate:true});
+  setPlayIcon(true);
+}
+
+function jumpToFootprint(idx){
+  stopPlay();
+  animating = true;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, i <= idx);
+  });
+  for(let i = 1; i <= idx; i++){
+    drawSegment(footprints[i-1], footprints[i], colorMap[footprints[i].tag]);
+  }
+  activateMarker(idx, false);
+  animating = false;
+}
+
+function nextStep(){
+  const next = currentIdx + 1;
+  if(next >= footprints.length){
+    stopPlay();
+    setPlayIcon(true);
+    yearDisplay.textContent = endYear;
+    placeDisplay.textContent = '毕生足迹遍历完成';
+    progressFill.style.width = '100%';
+    return;
+  }
+  activateMarker(next, true);
+}
+
+function startPlay(){
+  if(currentIdx >= footprints.length - 1){
+    resetPlayer();
+    setTimeout(()=>{
+      currentIdx = -1;
+      playing = true;
+      setPlayIcon(false);
+      nextStep();
+      scheduleNext();
+    }, 800);
+    return;
+  }
+  playing = true;
+  setPlayIcon(false);
+  if(currentIdx < 0) nextStep();
+  scheduleNext();
+}
+
+function scheduleNext(){
+  if(playTimer) clearTimeout(playTimer);
+  playTimer = setTimeout(()=>{
+    if(!playing) return;
+    nextStep();
+    if(currentIdx < footprints.length - 1) scheduleNext();
+    else {
+      playing = false;
+      setPlayIcon(true);
+    }
+  }, STEP_INTERVAL_BASE / playSpeed);
+}
+
+function stopPlay(){
+  playing = false;
+  if(playTimer){ clearTimeout(playTimer); playTimer = null; }
+  setPlayIcon(true);
+}
+
+function togglePlay(){
+  if(playing) stopPlay();
+  else startPlay();
+}
+
+playBtn.addEventListener('click', togglePlay);
+restartBtn.addEventListener('click', resetPlayer);
+
+speedBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    speedBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    playSpeed = parseInt(btn.dataset.speed);
+    if(playing){
+      if(playTimer) clearTimeout(playTimer);
+      scheduleNext();
+    }
+  });
+});
+
+// 进度条点击跳转
+progressTrack.addEventListener('click', e=>{
+  const rect = progressTrack.getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  const targetYear = startYear + ratio * (endYear - startYear);
+  let bestIdx = 0;
+  let bestDiff = Infinity;
+  footprints.forEach((p,i)=>{
+    const diff = Math.abs(p.yearStart - targetYear);
+    if(diff < bestDiff){ bestDiff = diff; bestIdx = i; }
+  });
+  jumpToFootprint(bestIdx);
+});
+
+// 键盘空格键播放/暂停
+document.addEventListener('keydown', e=>{
+  if(e.code === 'Space' && !e.target.matches('input,textarea')){
+    e.preventDefault();
+    togglePlay();
+  }
+});
+</script>
+</body>
+</html>

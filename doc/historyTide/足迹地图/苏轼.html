@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苏轼一生足迹地图 · 高德瓦片底图</title>
+<link rel="stylesheet" href="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.css">
+<script src="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<style>
+  :root{
+    --ink:#2c2c2c;
+    --ink-light:#5a5a5a;
+    --paper:#f7f2e8;
+    --paper-warm:#fdfaf3;
+    --zhu:#a63a2a;
+    --zhu-deep:#7a2518;
+    --qing:#3a6b7a;
+    --gold:#c8a45c;
+    --line:#d9cfc0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink)}
+  .serif{font-family:'Songti SC','STSong','SimSun',serif}
+  .header-bar{
+    background:linear-gradient(135deg,#fdfaf3 0%,#f2ead9 100%);
+    border-bottom:2px solid var(--zhu);
+    box-shadow:0 2px 12px rgba(122,37,24,.08);
+  }
+  .title-main{
+    font-family:'Songti SC','STSong',serif;
+    font-weight:900;
+    letter-spacing:.12em;
+    color:var(--zhu-deep);
+  }
+  .subtitle{color:var(--ink-light);font-size:13px;letter-spacing:.08em}
+  .map-wrap{
+    background:var(--paper-warm);
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:0 4px 20px rgba(0,0,0,.06);
+    overflow:hidden;
+    position:relative;
+  }
+  #map{width:100%;height:100%;background:#e8e2d5}
+  .leaflet-container{background:#e8e2d5!important;font-family:inherit}
+  .leaflet-popup-content-wrapper{
+    background:var(--paper-warm)!important;
+    border:1px solid var(--line)!important;
+    border-radius:6px!important;
+    box-shadow:0 4px 16px rgba(0,0,0,.12)!important;
+    color:var(--ink)!important;
+  }
+  .leaflet-popup-tip{background:var(--paper-warm)!important;border:1px solid var(--line)!important}
+  .popup-title{font-family:'Songti SC',serif;font-size:18px;font-weight:700;color:var(--zhu-deep);margin-bottom:4px}
+  .popup-period{font-size:12px;color:var(--qing);margin-bottom:6px}
+  .popup-desc{font-size:13px;line-height:1.6;color:var(--ink-light)}
+  .popup-work{font-size:12px;color:var(--gold);margin-top:6px;font-style:italic;border-top:1px dashed var(--line);padding-top:6px}
+  .timeline-panel{
+    background:var(--paper-warm);
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:0 4px 20px rgba(0,0,0,.06);
+    display:flex;flex-direction:column;
+  }
+  .timeline-title{
+    font-family:'Songti SC',serif;
+    font-weight:700;
+    color:var(--zhu-deep);
+    font-size:18px;
+    padding:14px 16px;
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:8px;
+  }
+  .timeline-scroll{flex:1;overflow-y:auto;padding:8px 0}
+  .timeline-scroll::-webkit-scrollbar{width:6px}
+  .timeline-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .era-group{margin-bottom:4px}
+  .era-label{
+    font-size:12px;font-weight:700;color:#fff;
+    background:var(--zhu);
+    padding:4px 14px;
+    letter-spacing:.1em;
+  }
+  .foot-item{
+    padding:10px 16px;
+    cursor:pointer;
+    border-left:3px solid transparent;
+    transition:all .3s ease;
+    border-bottom:1px dashed var(--line);
+    opacity:.45;
+  }
+  .foot-item.visited{opacity:.8}
+  .foot-item.current{
+    background:rgba(200,164,92,.15);
+    border-left-color:var(--zhu);
+    opacity:1;
+    box-shadow:inset 0 0 12px rgba(166,58,42,.08);
+  }
+  .foot-item:hover{background:rgba(166,58,42,.06);border-left-color:var(--zhu);opacity:1}
+  .foot-name{font-family:'Songti SC',serif;font-weight:700;font-size:15px;color:var(--ink)}
+  .foot-year{font-size:12px;color:var(--qing);margin-top:2px}
+  .foot-brief{font-size:12px;color:var(--ink-light);margin-top:2px;line-height:1.5}
+  .foot-tag{
+    display:inline-block;font-size:11px;
+    padding:1px 8px;border-radius:10px;
+    margin-right:4px;margin-top:4px;
+  }
+  .tag-birth{background:#e8f0e8;color:#2d5a2d}
+  .tag-office{background:#e0ecf2;color:var(--qing)}
+  .tag-exile{background:#f0e0d8;color:var(--zhu)}
+  .tag-travel{background:#f5eed8;color:#8a6d2c}
+  .tag-end{background:#e8e0e8;color:#5a3d5a}
+  .legend-box{
+    position:absolute;bottom:12px;right:12px;z-index:500;
+    background:rgba(253,250,243,.95);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:10px 14px;
+    font-size:12px;
+    backdrop-filter:blur(4px);
+  }
+  .legend-title{font-weight:700;color:var(--zhu-deep);margin-bottom:6px;font-family:'Songti SC',serif}
+  .legend-item{display:flex;align-items:center;gap:6px;margin:3px 0}
+  .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .dot-birth{background:#3a7a3a}
+  .dot-office{background:var(--qing)}
+  .dot-exile{background:var(--zhu)}
+  .dot-travel{background:var(--gold)}
+  .dot-end{background:#6b4a6b}
+  .seal{
+    display:inline-block;
+    background:var(--zhu);
+    color:#fdfaf3;
+    font-family:'Songti SC',serif;
+    font-weight:900;
+    padding:2px 8px;
+    border-radius:2px;
+    font-size:14px;
+    transform:rotate(-3deg);
+    margin-left:8px;
+    letter-spacing:.2em;
+  }
+  .quote-box{
+    background:linear-gradient(135deg,rgba(200,164,92,.1),rgba(166,58,42,.08));
+    border-left:3px solid var(--gold);
+    padding:10px 14px;
+    border-radius:0 6px 6px 0;
+    font-family:'Songti SC',serif;
+    color:var(--zhu-deep);
+    font-size:14px;
+    line-height:1.7;
+    margin:8px 16px;
+  }
+
+  /* ====== 播放器控制栏 ====== */
+  .player-bar{
+    position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:600;
+    background:rgba(253,250,243,.96);
+    border:1px solid var(--line);
+    border-radius:40px;
+    padding:8px 18px;
+    display:flex;align-items:center;gap:14px;
+    box-shadow:0 4px 20px rgba(0,0,0,.12);
+    backdrop-filter:blur(6px);
+    min-width:420px;max-width:calc(100% - 40px);
+  }
+  .play-btn{
+    width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--zhu);color:#fff;display:flex;align-items:center;justify-content:center;
+    transition:all .2s;flex-shrink:0;
+    box-shadow:0 2px 8px rgba(166,58,42,.3);
+  }
+  .play-btn:hover{background:var(--zhu-deep);transform:scale(1.05)}
+  .play-btn:active{transform:scale(.95)}
+  .play-btn svg{width:18px;height:18px;fill:currentColor}
+  .year-display{
+    font-family:'Songti SC',serif;font-weight:700;font-size:20px;
+    color:var(--zhu-deep);min-width:52px;text-align:center;
+    letter-spacing:.05em;flex-shrink:0;
+  }
+  .place-display{
+    font-size:13px;color:var(--ink-light);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;max-width:140px;flex-shrink:0;
+  }
+  .progress-wrap{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0}
+  .progress-track{
+    width:100%;height:6px;background:var(--line);border-radius:3px;
+    position:relative;cursor:pointer;
+  }
+  .progress-fill{
+    height:100%;background:linear-gradient(90deg,var(--zhu),var(--gold));
+    border-radius:3px;transition:width .3s ease;
+    position:relative;
+  }
+  .progress-fill::after{
+    content:'';position:absolute;right:-6px;top:50%;transform:translateY(-50%);
+    width:12px;height:12px;background:var(--zhu);border:2px solid #fff;
+    border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.2);
+  }
+  .progress-years{
+    display:flex;justify-content:space-between;font-size:10px;color:var(--ink-light);
+  }
+  .speed-btn{
+    font-size:12px;font-weight:700;padding:4px 10px;border-radius:12px;
+    border:1px solid var(--line);background:transparent;cursor:pointer;
+    color:var(--ink-light);transition:all .2s;flex-shrink:0;
+  }
+  .speed-btn:hover{border-color:var(--zhu);color:var(--zhu)}
+  .speed-btn.active{background:var(--zhu);color:#fff;border-color:var(--zhu)}
+  .restart-btn{
+    font-size:12px;padding:4px 10px;border-radius:12px;
+    border:1px solid var(--line);background:transparent;cursor:pointer;
+    color:var(--ink-light);transition:all .2s;flex-shrink:0;
+    display:flex;align-items:center;gap:3px;
+  }
+  .restart-btn:hover{border-color:var(--qing);color:var(--qing)}
+
+  /* 当前高亮标记点 */
+  .marker-glow{
+    position:absolute;top:50%;left:50%;
+    width:32px;height:32px;border-radius:50%;
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .marker-glow::before,.marker-glow::after{
+    content:'';position:absolute;inset:0;border-radius:50%;
+    border:2px solid var(--gold);
+  }
+  .marker-glow::before{animation:glow-outer 1.5s ease-out infinite}
+  .marker-glow::after{animation:glow-inner 1.5s ease-out infinite .3s}
+  @keyframes glow-outer{0%{transform:scale(.5);opacity:1}100%{transform:scale(3);opacity:0}}
+  @keyframes glow-inner{0%{transform:scale(.5);opacity:1}100%{transform:scale(2.2);opacity:0}}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .animate-in{animation:fadeInUp .6s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes pulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.4);opacity:0}}
+  @keyframes markerPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:1}}
+  .marker-pop{animation:markerPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
+  @media(max-width:768px){
+    .main-grid{grid-template-columns:1fr!important}
+    #map{height:420px!important}
+    .timeline-scroll{max-height:280px}
+    .player-bar{min-width:auto;padding:6px 12px;gap:8px;top:8px}
+    .year-display{font-size:16px;min-width:42px}
+    .place-display{display:none}
+    .speed-btn,.restart-btn{padding:3px 7px;font-size:11px}
+  }
+</style>
+</head>
+<body class="h-full flex flex-col">
+
+<!-- Header -->
+<header class="header-bar px-4 md:px-8 py-3 md:py-4 flex-shrink-0">
+  <div class="flex items-center justify-between flex-wrap gap-2">
+    <div>
+      <h1 class="title-main text-2xl md:text-3xl animate-in">苏轼一生足迹地图<span class="seal">东坡</span></h1>
+      <p class="subtitle animate-in mt-1" style="animation-delay:.1s">1037—1101 · 从眉山到儋州 · 一生颠沛万里 · 点击播放按钮随东坡同游</p>
+    </div>
+    <div class="text-right text-xs text-[var(--ink-light)] hidden md:block">
+      底图：高德地图 · 共标注 <span id="count" class="font-bold text-[var(--zhu)]">0</span> 处重要足迹
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="flex-1 p-3 md:p-5 overflow-hidden">
+  <div class="main-grid grid gap-4 h-full" style="grid-template-columns:1fr 320px">
+
+    <!-- Map -->
+    <div class="map-map flex flex-col min-h-0">
+      <div class="map-wrap flex-1 min-h-[400px]">
+        <div id="map"></div>
+
+        <!-- 播放控制栏 -->
+        <div class="player-bar" id="playerBar">
+          <button class="play-btn" id="playBtn" title="播放/暂停">
+            <svg id="playIcon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+          </button>
+          <div class="year-display" id="yearDisplay">1037</div>
+          <div class="place-display" id="placeDisplay">眉州眉山</div>
+          <div class="progress-wrap">
+            <div class="progress-track" id="progressTrack">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="progress-years">
+              <span>1037</span><span>1057</span><span>1079</span><span>1101</span>
+            </div>
+          </div>
+          <button class="speed-btn active" data-speed="1" title="播放速度">1x</button>
+          <button class="speed-btn" data-speed="2">2x</button>
+          <button class="restart-btn" id="restartBtn" title="重新播放">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            重置
+          </button>
+        </div>
+
+        <div class="legend-box">
+          <div class="legend-title">图例说明</div>
+          <div class="legend-item"><span class="dot dot-birth"></span>出生地 / 成长地</div>
+          <div class="legend-item"><span class="dot dot-office"></span>任职治所</div>
+          <div class="legend-item"><span class="dot dot-exile"></span>贬谪之地</div>
+          <div class="legend-item"><span class="dot dot-travel"></span>重要行经地</div>
+          <div class="legend-item"><span class="dot dot-end"></span>终老之地</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Sidebar -->
+    <aside class="timeline-panel flex flex-col min-h-0">
+      <div class="timeline-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        生平时间线
+      </div>
+      <div class="quote-box">"问汝平生功业，黄州惠州儋州。" ——《自题金山画像》</div>
+      <div class="timeline-scroll" id="timeline"></div>
+    </aside>
+
+  </div>
+</main>
+
+<script>
+// === 足迹数据 ===
+const footprints = [
+  {name:"眉州眉山", lat:30.0762, lng:103.8485, year:"1037-1056", yearStart:1037, era:"早年", tag:"birth", tagText:"出生成长",
+   desc:"景祐三年十二月十九日（1037年1月8日）生于眉州眉山（今四川眉山）。苏洵之子，与弟苏辙同受母程氏教诲，在此度过二十一年读书时光。",
+   work:"出生地，今三苏祠所在地"},
+  {name:"汴京（开封）", lat:34.7971, lng:114.3077, year:"1057", yearStart:1057, era:"出仕", tag:"travel", tagText:"赴京应试",
+   desc:"嘉祐元年首次出蜀赴京应举，嘉祐二年中进士受欧阳修赏识。后数次因守丧往返，熙宁二年第四次返京，开始卷入新旧党争。",
+   work:"《刑赏忠厚之至论》一举成名"},
+  {name:"凤翔府", lat:34.3680, lng:107.2370, year:"1061-1064", yearStart:1061, era:"出仕", tag:"office", tagText:"签判凤翔",
+   desc:"嘉祐六年授大理评事、签书凤翔府判官，为仕途首任。十二月到任，在凤翔四年，写下大量游览与咏史之作。",
+   work:"《喜雨亭记》《凤鸣驿记》"},
+  {name:"杭州（通判）", lat:30.2741, lng:120.1551, year:"1071-1074", yearStart:1071, era:"外任", tag:"office", tagText:"通判杭州",
+   desc:"因与王安石政见不合，自请外任。熙宁四年任杭州通判，在杭三年，沉醉于湖山之美，留下大量西湖诗词。",
+   work:"《饮湖上初晴后雨》：欲把西湖比西子"},
+  {name:"密州（诸城）", lat:35.9940, lng:119.4000, year:"1074-1076", yearStart:1074, era:"外任", tag:"office", tagText:"知密州",
+   desc:"熙宁七年移知密州（今山东诸城），在密州任上灭蝗、救灾、收养弃儿。超然台落成，作《超然台记》。",
+   work:"《水调歌头·明月几时有》《江城子·密州出猎》"},
+  {name:"徐州", lat:34.2044, lng:117.2858, year:"1077-1079", yearStart:1077, era:"外任", tag:"office", tagText:"知徐州",
+   desc:"熙宁十年四月到任，时值黄河决口、洪水围城，亲率军民筑堤守城七十余日。事后建黄楼以镇水患，又勘探煤矿。",
+   work:"《黄楼赋》《放鹤亭记》，人称'苏徐州'"},
+  {name:"湖州", lat:30.8723, lng:120.0900, year:"1079", yearStart:1079, era:"外任", tag:"office", tagText:"知湖州",
+   desc:"元丰二年四月任湖州知州。因《湖州谢上表》被御史弹劾讥讽新法，到任仅三个月即被捕入京，是为'乌台诗案'。",
+   work:"乌台诗案爆发地，人生转折点"},
+  {name:"黄州（黄冈）", lat:30.4537, lng:114.8724, year:"1080-1084", yearStart:1080, era:"贬谪", tag:"exile", tagText:"贬黄州",
+   desc:"乌台诗案后贬为黄州团练副使，不得签书公事。于城东东坡开垦荒地，自号'东坡居士'，创作达到巅峰。",
+   work:"前后《赤壁赋》《念奴娇·赤壁怀古》《定风波》《记承天寺夜游》；发明东坡肉"},
+  {name:"金陵（南京）", lat:32.0603, lng:118.7969, year:"1084", yearStart:1084, era:"贬谪", tag:"travel", tagText:"会晤半山",
+   desc:"元丰七年离黄赴汝途中，专程至金陵会晤已罢相的王安石，二人唱和甚欢，尽释前嫌，传为千古佳话。",
+   work:"《次荆公韵四绝》：'从公已觉十年迟'"},
+  {name:"常州", lat:31.7727, lng:119.9469, year:"1084置田", yearStart:1084.5, era:"归老", tag:"end", tagText:"买田终老",
+   desc:"元丰七年两次上表乞居常州获准，买田阳羡（宜兴）作为归隐之地。建中靖国元年北归途中病逝于此，终年65岁。",
+   work:"《乞常州居住表》，生命最后的栖居地"},
+  {name:"登州（蓬莱）", lat:37.8109, lng:120.7590, year:"1085", yearStart:1085, era:"还朝", tag:"office", tagText:"知登州",
+   desc:"元丰八年十月任登州知州，到任仅五日即被召还朝，然短短时日仍留下海市诗与为民请罢盐税的德政。",
+   work:"《登州海市》《乞罢登莱榷盐状》"},
+  {name:"杭州（知州）", lat:30.2741, lng:120.1551, year:"1089-1091", yearStart:1089, era:"还朝", tag:"office", tagText:"知杭州",
+   desc:"元祐四年以龙图阁学士出知杭州，疏浚西湖，以淤泥筑成长堤，后人称'苏堤'，建六桥九亭。赈灾治病，设安乐坊（中国最早公立医院雏形）。",
+   work:"苏堤春晓、三潭印月，《赠刘景文》"},
+  {name:"颍州（阜阳）", lat:32.8908, lng:115.8142, year:"1091-1092", yearStart:1091, era:"还朝", tag:"office", tagText:"知颍州",
+   desc:"元祐六年八月知颍州（今安徽阜阳），疏浚颍州西湖，拒开八丈沟，上书罢劳民之役。与赵令畤、欧阳修后人交游。",
+   work:"《泛颍》《木兰花令·次欧公西湖韵》"},
+  {name:"扬州", lat:32.3947, lng:119.4127, year:"1092", yearStart:1092, era:"还朝", tag:"office", tagText:"知扬州",
+   desc:"元祐七年三月到任，半年任期内两次上书请免百姓积欠赋税，废止劳民伤财的万花会，疏通漕运。",
+   work:"谷林堂，为纪念恩师欧阳修而建"},
+  {name:"定州", lat:38.8671, lng:114.9885, year:"1093-1094", yearStart:1093, era:"还朝", tag:"office", tagText:"知定州",
+   desc:"元祐八年十月出知定州（今河北定州），整饬军纪，修缮弓箭社，巩固北疆边防。此为苏轼最后一次在朝任职。",
+   work:"《雪浪石》《中山松醪赋》"},
+  {name:"惠州", lat:23.1115, lng:114.4152, year:"1094-1097", yearStart:1094, era:"再贬", tag:"exile", tagText:"贬惠州",
+   desc:"绍圣元年新党再起，被贬宁远军节度副使惠州安置。时年59岁，岭南蛮荒之地，却以豁达处之，修桥、筑堤、推广农具。",
+   work:"《惠州一绝》：日啖荔枝三百颗，不辞长作岭南人"},
+  {name:"儋州（儋县）", lat:19.5176, lng:109.5777, year:"1097-1100", yearStart:1097, era:"再贬", tag:"exile", tagText:"贬儋州",
+   desc:"绍圣四年再贬儋州（今海南儋州），为宋代最重贬谪。在海南开办学堂，传播中原文化，培养海南历史上首位举人姜唐佐。",
+   work:"载酒堂（今东坡书院），《儋耳夜书》《食蚝》"},
+  {name:"常州（病逝）", lat:31.7727, lng:119.9469, year:"1101", yearStart:1101, era:"终老", tag:"end", tagText:"终老常州",
+   desc:"建中靖国元年（1101）遇赦北归，七月二十八日病逝于常州，享年六十五岁。次年葬于河南郏县小峨眉山。",
+   work:"'心似已灰之木，身如不系之舟'——临终绝笔"}
+];
+
+// 计算结束年份用于进度条
+footprints.forEach((p,i)=>{
+  if(i < footprints.length-1) p.yearEnd = footprints[i+1].yearStart;
+  else p.yearEnd = 1101;
+});
+
+document.getElementById('count').textContent = (footprints.length - 1); // 常州算两处但展示为17个点
+// 常州去重：实际上第10个和最后一个都是常州，调整count
+document.getElementById('count').textContent = 17;
+
+// === 初始化地图（高德瓦片）===
+const map = L.map('map', {
+  center: [29.5, 112.5],
+  zoom: 5,
+  minZoom: 4,
+  maxZoom: 17,
+  zoomControl: true,
+  attributionControl: true,
+  fadeAnimation: true,
+  zoomAnimation: true
+});
+
+// 高德标准矢量瓦片
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+  subdomains: ['1','2','3','4'],
+  attribution: '© 高德地图',
+  maxZoom: 18
+}).addTo(map);
+
+// 颜色配置
+const colorMap = {
+  birth:'#3a7a3a',
+  office:'#3a6b7a',
+  exile:'#a63a2a',
+  travel:'#c8a45c',
+  end:'#6b4a6b'
+};
+
+const markerIcons = {};
+const glowMarkers = {};
+const markers = {};
+const lineCoords = footprints.map(p => [p.lat, p.lng]);
+
+// 初始：所有标记用"未激活"样式（灰色半透明）
+function createMarkerIcon(color, active) {
+  const size = active ? 16 : 12;
+  const borderW = active ? 3 : 2;
+  const bg = active ? color : '#b8b0a0';
+  const opacity = active ? 1 : 0.5;
+  const html = active
+    ? `<div style="width:${size}px;height:${size}px;background:${bg};border:${borderW}px solid #fdfaf3;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.35);opacity:${opacity}"></div>`
+    : `<div style="width:${size}px;height:${size}px;background:${bg};border:${borderW}px solid #fdfaf3;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.2);opacity:${opacity}"></div>`;
+  return L.divIcon({
+    className:'',
+    html,
+    iconSize:[size,size],
+    iconAnchor:[size/2,size/2]
+  });
+}
+
+// 创建光晕标记
+function createGlowMarker(color) {
+  return L.divIcon({
+    className:'',
+    html:`<div class="marker-glow" style="border-color:${color}"></div>`,
+    iconSize:[32,32],
+    iconAnchor:[16,16]
+  });
+}
+
+// 初始创建全部标记（灰色未激活态）
+footprints.forEach((p, idx) => {
+  const color = colorMap[p.tag];
+  const marker = L.marker([p.lat, p.lng], {
+    icon: createMarkerIcon(color, false),
+    interactive: true
+  }).addTo(map);
+  marker.bindPopup(`
+    <div class="popup-title">${p.name}</div>
+    <div class="popup-period">${p.year} · ${p.era}</div>
+    <div class="popup-desc">${p.desc}</div>
+    <div class="popup-work">▸ ${p.work}</div>
+  `, {maxWidth:280});
+  markers[idx] = marker;
+});
+
+// 轨迹线（初始不显示，动画中逐段绘制）
+const drawnLines = [];
+function clearAllLines(){
+  drawnLines.forEach(l=>map.removeLayer(l));
+  drawnLines.length = 0;
+}
+
+// 添加脉冲动画CSS
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+@keyframes pulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(2.4);opacity:0}}
+@keyframes glow-outer{0%{transform:scale(.5);opacity:1}100%{transform:scale(3);opacity:0}}
+@keyframes glow-inner{0%{transform:scale(.5);opacity:1}100%{transform:scale(2.2);opacity:0}}
+@keyframes markerPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.4);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes dashMove{to{stroke-dashoffset:-200}}
+`;
+document.head.appendChild(styleEl);
+
+// === 时间轴渲染 ===
+const tlEl = document.getElementById('timeline');
+let lastEra = '';
+footprints.forEach((p, idx) => {
+  let html = '';
+  if(p.era !== lastEra){
+    html += `<div class="era-label">${p.era}</div>`;
+    lastEra = p.era;
+  }
+  html += `
+    <div class="foot-item" data-idx="${idx}">
+      <div class="foot-name">${p.name}</div>
+      <div class="foot-year">${p.year}</div>
+      <div class="foot-brief">${p.desc.slice(0,42)}${p.desc.length>42?'…':''}</div>
+      <span class="foot-tag tag-${p.tag}">${p.tagText}</span>
+    </div>
+  `;
+  tlEl.insertAdjacentHTML('beforeend', html);
+});
+
+// 点击时间轴项 → 飞至并弹出
+tlEl.addEventListener('click', e => {
+  const item = e.target.closest('.foot-item');
+  if(!item) return;
+  const idx = +item.dataset.idx;
+  jumpToFootprint(idx);
+});
+
+// 自适应初始视图
+setTimeout(()=>map.fitBounds(lineCoords, {padding:[60,60]}), 300);
+
+// === 播放动画核心逻辑 ===
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const yearDisplay = document.getElementById('yearDisplay');
+const placeDisplay = document.getElementById('placeDisplay');
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const restartBtn = document.getElementById('restartBtn');
+const speedBtns = document.querySelectorAll('.speed-btn');
+
+let playing = false;
+let currentIdx = -1;
+let playSpeed = 1;
+let playTimer = null;
+let animating = false;
+const STEP_INTERVAL_BASE = 2200; // 毫秒/站
+
+const PLAY_SVG = '<polygon points="6,4 20,12 6,20"/>';
+const PAUSE_SVG = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
+
+function setPlayIcon(isPlay){
+  playIcon.innerHTML = isPlay ? PLAY_SVG : PAUSE_SVG;
+}
+
+// 激活指定足迹点
+function activateMarker(idx, fromPrev){
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+
+  // 更新标记图标为激活态
+  markers[idx].setIcon(createMarkerIcon(color, true));
+
+  // 光晕效果
+  if(glowMarkers[idx]) map.removeLayer(glowMarkers[idx]);
+  const glow = L.marker([p.lat, p.lng], {
+    icon: createGlowMarker(color),
+    interactive: false,
+    keyboard: false
+  }).addTo(map);
+  glowMarkers[idx] = glow;
+
+  // 移除旧光晕
+  if(currentIdx >= 0 && currentIdx !== idx && glowMarkers[currentIdx]){
+    map.removeLayer(glowMarkers[currentIdx]);
+    delete glowMarkers[currentIdx];
+  }
+
+  // 绘制轨迹段（从上一点到这一点的动画）
+  if(fromPrev && idx > 0){
+    const prev = footprints[idx-1];
+    drawAnimatedLine([prev.lat, prev.lng], [p.lat, p.lng], color);
+  }else if(idx === 0){
+    clearAllLines();
+  }
+
+  // 更新时间轴高亮
+  document.querySelectorAll('.foot-item').forEach((el,i)=>{
+    el.classList.remove('current');
+    if(i < idx) el.classList.add('visited');
+    else if(i === idx) { el.classList.add('current'); el.classList.add('visited'); }
+  });
+
+  // 自动滚动时间轴到当前项
+  const currentItem = document.querySelector(`.foot-item[data-idx="${idx}"]`);
+  if(currentItem){
+    currentItem.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  // 更新年份/地点显示
+  yearDisplay.textContent = Math.floor(p.yearStart);
+  placeDisplay.textContent = p.name;
+
+  // 更新进度条
+  const totalSpan = 1101 - 1037;
+  const progress = ((p.yearStart - 1037) / totalSpan) * 100;
+  progressFill.style.width = Math.min(100, Math.max(0, progress)) + '%';
+
+  // 飞行到当前位置
+  map.flyTo([p.lat, p.lng], idx === 0 ? 6 : 8, {
+    duration: 1.5 / playSpeed,
+    easeLinearity: 0.25
+  });
+
+  // 飞行到达后弹出详情
+  setTimeout(()=>{
+    if(playing || animating){
+      markers[idx].openPopup();
+    }
+  }, (1500 / playSpeed) + 200);
+
+  currentIdx = idx;
+}
+
+// 动画绘制连线（"行进"效果）
+function drawAnimatedLine(from, to, color){
+  // 先画一条浅色"将行"路径
+  const ghostLine = L.polyline([from, to], {
+    color: color,
+    weight: 2.5,
+    opacity: 0,
+    dashArray: '8,6',
+    lineJoin:'round'
+  }).addTo(map);
+  drawnLines.push(ghostLine);
+
+  // 用CSS-like动画：从opacity 0到可见
+  let step = 0;
+  const steps = 25;
+  const animInt = setInterval(()=>{
+    step++;
+    const t = step/steps;
+    // 渐显
+    ghostLine.setStyle({opacity: 0.6 * t});
+    if(step >= steps){
+      clearInterval(animInt);
+      ghostLine.setStyle({
+        opacity: 0.65,
+        dashArray: '6,6'
+      });
+    }
+  }, 30 / playSpeed);
+}
+
+// 重置到初始状态
+function resetPlayer(){
+  stopPlay();
+  currentIdx = -1;
+  clearAllLines();
+  // 移除所有光晕
+  Object.values(glowMarkers).forEach(m=>{try{map.removeLayer(m)}catch(e){}});
+  Object.keys(glowMarkers).forEach(k=>delete glowMarkers[k]);
+  // 所有标记恢复未激活
+  footprints.forEach((p,i)=>{
+    markers[i].setIcon(createMarkerIcon(colorMap[p.tag], false));
+    markers[i].closePopup();
+  });
+  // 时间轴重置
+  document.querySelectorAll('.foot-item').forEach(el=>{
+    el.classList.remove('current','visited');
+  });
+  yearDisplay.textContent = '1037';
+  placeDisplay.textContent = '眉州眉山';
+  progressFill.style.width = '0%';
+  map.flyTo([29.5, 112.5], 5, {duration:1});
+  setPlayIcon(true);
+}
+
+// 跳转到指定足迹点
+function jumpToFootprint(idx){
+  stopPlay();
+  animating = true;
+  // 重置所有
+  clearAllLines();
+  Object.values(glowMarkers).forEach(m=>{try{map.removeLayer(m)}catch(e){}});
+  Object.keys(glowMarkers).forEach(k=>delete glowMarkers[k]);
+  footprints.forEach((p,i)=>{
+    if(i <= idx){
+      markers[i].setIcon(createMarkerIcon(colorMap[p.tag], true));
+    }else{
+      markers[i].setIcon(createMarkerIcon(colorMap[p.tag], false));
+    }
+    markers[i].closePopup();
+  });
+  // 绘制已走过的完整路径
+  for(let i = 1; i <= idx; i++){
+    const seg = L.polyline([[footprints[i-1].lat, footprints[i-1].lng], [footprints[i].lat, footprints[i].lng]], {
+      color:'#a63a2a', weight:2, opacity:0.55, dashArray:'6,6', lineJoin:'round'
+    }).addTo(map);
+    drawnLines.push(seg);
+  }
+  // 激活当前
+  activateMarker(idx, false);
+  // 光晕单独加
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+  if(glowMarkers[idx]) map.removeLayer(glowMarkers[idx]);
+  glowMarkers[idx] = L.marker([p.lat, p.lng], {
+    icon: createGlowMarker(color), interactive:false, keyboard:false
+  }).addTo(map);
+  animating = false;
+}
+
+// 播放下一步
+function nextStep(){
+  const next = currentIdx + 1;
+  if(next >= footprints.length){
+    // 播放结束
+    stopPlay();
+    setPlayIcon(true);
+    yearDisplay.textContent = '1101';
+    placeDisplay.textContent = '一生足迹遍历完成';
+    progressFill.style.width = '100%';
+    return;
+  }
+  activateMarker(next, true);
+}
+
+function startPlay(){
+  if(currentIdx >= footprints.length - 1){
+    // 已到末尾，从头开始
+    resetPlayer();
+    setTimeout(()=>{
+      currentIdx = -1;
+      playing = true;
+      setPlayIcon(false);
+      nextStep();
+      scheduleNext();
+    }, 800);
+    return;
+  }
+  playing = true;
+  setPlayIcon(false);
+  if(currentIdx < 0) nextStep();
+  scheduleNext();
+}
+
+function scheduleNext(){
+  if(playTimer) clearTimeout(playTimer);
+  playTimer = setTimeout(()=>{
+    if(!playing) return;
+    nextStep();
+    if(currentIdx < footprints.length - 1) scheduleNext();
+    else {
+      playing = false;
+      setPlayIcon(true);
+    }
+  }, STEP_INTERVAL_BASE / playSpeed);
+}
+
+function stopPlay(){
+  playing = false;
+  if(playTimer){ clearTimeout(playTimer); playTimer = null; }
+  setPlayIcon(true);
+}
+
+function togglePlay(){
+  if(playing) stopPlay();
+  else startPlay();
+}
+
+// 事件绑定
+playBtn.addEventListener('click', togglePlay);
+restartBtn.addEventListener('click', resetPlayer);
+
+speedBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    speedBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    playSpeed = parseInt(btn.dataset.speed);
+    // 若正在播放，重新调度
+    if(playing){
+      if(playTimer) clearTimeout(playTimer);
+      scheduleNext();
+    }
+  });
+});
+
+// 点击进度条跳转
+progressTrack.addEventListener('click', e=>{
+  const rect = progressTrack.getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  const targetYear = 1037 + ratio * (1101 - 1037);
+  // 找到最近的足迹点
+  let bestIdx = 0;
+  let bestDiff = Infinity;
+  footprints.forEach((p,i)=>{
+    const diff = Math.abs(p.yearStart - targetYear);
+    if(diff < bestDiff){ bestDiff = diff; bestIdx = i; }
+  });
+  jumpToFootprint(bestIdx);
+});
+
+// 键盘快捷键
+document.addEventListener('keydown', e=>{
+  if(e.code === 'Space' && !e.target.matches('input,textarea')){
+    e.preventDefault();
+    togglePlay();
+  }
+});
+</script>
+</body>
+</html>

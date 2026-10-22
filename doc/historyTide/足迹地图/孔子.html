@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>孔子一生足迹地图</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "SimSun", "STSong", serif;
+            background: #f5f0e6;
+            overflow: hidden;
+        }
+        #app { display: flex; height: 100vh; }
+        #sidebar {
+            width: 320px;
+            background: #faf6ed;
+            border-right: 1px solid #d4c5a9;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        #sidebar h1 {
+            font-size: 24px;
+            color: #8b2323;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .seal {
+            width: 50px;
+            height: 50px;
+            background: #c11b17;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            border-radius: 4px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        #timeline {
+            flex: 1;
+            overflow-y: auto;
+            border-top: 1px solid #d4c5a9;
+            padding-top: 15px;
+        }
+        .timeline-group { margin-bottom: 15px; }
+        .timeline-group-title {
+            font-size: 13px;
+            color: #8b2323;
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        .timeline-item {
+            padding: 8px 10px;
+            margin-bottom: 5px;
+            background: #f0e9d8;
+            border-left: 3px solid #c11b17;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .timeline-item:hover, .timeline-item.active {
+            background: #e6d9c0;
+            transform: translateX(3px);
+        }
+        .timeline-item .year {
+            font-weight: bold;
+            color: #8b2323;
+            font-size: 12px;
+        }
+        #map { flex: 1; position: relative; }
+        .control-bar {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(250, 246, 237, 0.95);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #d4c5a9;
+        }
+        .control-btn {
+            padding: 6px 12px;
+            background: #c11b17;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        .control-btn:hover { background: #a01814; }
+        .control-btn.speed-btn {
+            background: #8b6914;
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: #e6d9c0;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #c11b17;
+            border-radius: 3px;
+            width: 0;
+            transition: width 0.3s;
+        }
+        .current-info {
+            font-size: 14px;
+            color: #5a3921;
+            min-width: 120px;
+            text-align: center;
+        }
+        .popup-content {
+            font-family: "SimSun", "STSong", serif;
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 8px;
+            max-width: 280px;
+        }
+        .popup-content h3 {
+            color: #8b2323;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+        .popup-content .period {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        .leaflet-popup-content-wrapper {
+            border-radius: 6px;
+            background: #faf6ed;
+        }
+        .leaflet-popup-tip { background: #faf6ed; }
+        .leaflet-control-scale { background: rgba(255,255,255,0.8); padding: 3px 8px; border-radius: 3px; }
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(193, 27, 23, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(193, 27, 23, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(193, 27, 23, 0); }
+        }
+        .travel-line { stroke-dasharray: 8, 8; animation: dash 20s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -1000; } }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="sidebar">
+        <h1>孔子一生足迹</h1>
+        <div class="seal">仲尼</div>
+        <div class="subtitle">有朋自远方来，不亦乐乎<br>——《论语·学而》</div>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#2e8b57"></div>出生成长</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#4169e1"></div>问礼游历</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#daa520"></div>为政讲道</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#8b4513"></div>周游列国</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#9932cc"></div>归鲁著述</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#c11b17"></div>至圣长眠</div>
+        </div>
+        <div id="timeline"></div>
+    </div>
+    <div id="map">
+        <div class="control-bar">
+            <button class="control-btn" id="playBtn">▶ 播放</button>
+            <button class="control-btn speed-btn" id="speedBtn">1x</button>
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="current-info" id="currentInfo">前551年 · 陬邑</div>
+            <button class="control-btn" id="resetBtn">重置</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const footprints = [
+    {
+        name: "鲁国陬邑",
+        pinyin: "曲阜",
+        lat: 35.58,
+        lng: 117.00,
+        year: -551,
+        yearText: "公元前551年",
+        color: "#2e8b57",
+        group: "出生成长",
+        desc: "孔子生于鲁国陬邑昌平乡（今山东曲阜），父母祷于尼丘山而生，生而首上圩顶，故名丘，字仲尼。父叔梁纥，母颜征在。三岁丧父，随母迁居曲阜阙里，年少好礼，为儿嬉戏常陈俎豆、设礼容。"
+    },
+    {
+        name: "洛邑",
+        pinyin: "洛阳",
+        lat: 34.66,
+        lng: 112.45,
+        year: -518,
+        yearText: "公元前518年",
+        color: "#4169e1",
+        group: "问礼游历",
+        desc: "三十三岁时，鲁君赠车马仆役，孔子与南宫敬叔赴周都洛邑问礼于老子。临别老子赠言：'聪明深察而近于死者，好议人者也；博辩广大危其身者，发人之恶者也。为人子者毋以有己，为人臣者毋以有己。'孔子归，谓弟子曰：'鸟吾知其能飞，鱼吾知其能游，兽吾知其能走；至于龙，吾不能知其乘风云而上天。吾今日见老子，其犹龙邪！'"
+    },
+    {
+        name: "临淄",
+        pinyin: "齐国",
+        lat: 36.81,
+        lng: 118.38,
+        year: -517,
+        yearText: "公元前517年",
+        color: "#4169e1",
+        group: "问礼游历",
+        desc: "鲁国内乱，鲁昭公奔齐，孔子适齐。在齐闻《韶》乐，三月不知肉味，曰：'不图为乐之至于斯也。'齐景公问政，孔子答：'君君，臣臣，父父，子子。'景公欲封以尼溪之田，为晏婴所阻，孔子遂返鲁。"
+    },
+    {
+        name: "曲阜",
+        pinyin: "鲁国",
+        lat: 35.58,
+        lng: 117.00,
+        year: -501,
+        yearText: "公元前501年",
+        color: "#daa520",
+        group: "为政讲道",
+        desc: "五十一岁任中都宰，一年四方皆则之。次年升小司空、大司寇，摄行相事。夹谷之会，孔子以礼斥退齐人莱夷之兵，迫使齐国归还侵占鲁国的郓、灌、龟阴之田。后诛乱政大夫少正卯，鲁国大治，道不拾遗。因堕三都失败，与季氏矛盾加深。"
+    },
+    {
+        name: "帝丘",
+        pinyin: "卫国",
+        lat: 35.72,
+        lng: 115.04,
+        year: -497,
+        yearText: "公元前497年",
+        color: "#8b4513",
+        group: "周游列国",
+        desc: "五十五岁，鲁君受齐女乐怠于政事，孔子失望去鲁，开始长达十四年周游列国。首至卫国，主于蘧伯玉家。卫灵公初致粟六万，后因谗言使人监视孔子。孔子见南子，子路不悦，孔子矢之曰：'予所否者，天厌之！天厌之！'后灵公问阵于孔子，孔子对曰：'俎豆之事则尝闻之矣，军旅之事未之学也。'遂去卫。"
+    },
+    {
+        name: "匡城",
+        pinyin: "匡地",
+        lat: 34.47,
+        lng: 114.59,
+        year: -496,
+        yearText: "公元前496年",
+        color: "#8b4513",
+        group: "周游列国",
+        desc: "过匡地，因孔子状类阳虎（阳虎曾暴虐匡人），匡人围困孔子五日。弟子惧，孔子曰：'文王既没，文不在兹乎？天之将丧斯文也，后死者不得与于斯文也；天之未丧斯文也，匡人其如予何！'弦歌不辍，后匡人知非阳虎，解去。"
+    },
+    {
+        name: "商丘",
+        pinyin: "宋国",
+        lat: 34.42,
+        lng: 115.65,
+        year: -495,
+        yearText: "公元前495年",
+        color: "#8b4513",
+        group: "周游列国",
+        desc: "适宋，孔子与弟子习礼大树下。宋司马桓魋欲杀孔子，拔其树。弟子催行，孔子曰：'天生德于予，桓魋其如予何！'微服过宋，逃往郑国。"
+    },
+    {
+        name: "新郑",
+        pinyin: "郑国",
+        lat: 34.38,
+        lng: 113.75,
+        year: -495,
+        yearText: "公元前495年",
+        color: "#8b4513",
+        group: "周游列国",
+        desc: "至郑国，与弟子相失，孔子独立郭东门。郑人谓子贡曰：'东门有人，其颡似尧，其项类皋陶，其肩类子产，然自腰以下不及禹三寸，累累若丧家之狗。'子贡以实告孔子，孔子欣然笑曰：'形状，末也。而谓似丧家之狗，然哉！然哉！'"
+    },
+    {
+        name: "宛丘",
+        pinyin: "陈蔡",
+        lat: 33.65,
+        lng: 114.90,
+        year: -489,
+        yearText: "公元前489年",
+        color: "#8b4513",
+        group: "周游列国",
+        desc: "孔子在陈蔡之间，楚使人聘孔子，陈蔡大夫恐孔子用于楚不利于己，发徒役围孔子于野，不得行，绝粮七日。从者病莫能兴，孔子讲诵弦歌不衰。子路愠见：'君子亦有穷乎？'孔子曰：'君子固穷，小人穷斯滥矣。'后子贡至楚，楚昭王兴师迎孔子，得免。"
+    },
+    {
+        name: "城阳城",
+        pinyin: "负函",
+        lat: 32.20,
+        lng: 114.07,
+        year: -489,
+        yearText: "公元前489年",
+        color: "#8b4513",
+        group: "周游列国",
+        desc: "至楚负函（今河南信阳）见叶公，叶公问政，子曰：'近者悦，远者来。'叶公语孔子曰：'吾党有直躬者，其父攘羊，而子证之。'孔子曰：'吾党之直者异于是：父为子隐，子为父隐，直在其中矣。'楚昭王欲以书社地七百里封孔子，为令尹子西所阻，未封。"
+    },
+    {
+        name: "曲阜",
+        pinyin: "鲁国",
+        lat: 35.58,
+        lng: 117.00,
+        year: -484,
+        yearText: "公元前484年",
+        color: "#9932cc",
+        group: "归鲁著述",
+        desc: "六十八岁，季康子以币迎孔子归鲁，周游列国十四年。鲁终不能用孔子，孔子亦不求仕。晚年专心整理六经：删《诗》《书》，定《礼》《乐》，序《周易》作十翼，修《春秋》笔则笔削则削，以一字寓褒贬。弟子三千，身通六艺者七十二人。"
+    },
+    {
+        name: "曲阜",
+        pinyin: "孔林",
+        lat: 35.62,
+        lng: 117.00,
+        year: -479,
+        yearText: "公元前479年",
+        color: "#c11b17",
+        group: "至圣长眠",
+        desc: "七十三岁，夏四月己丑，孔子病，子贡请见，孔子方负杖逍遥于门，曰：'赐，汝来何其晚也？'因叹歌曰：'泰山坏乎！梁柱摧乎！哲人萎乎！'因以涕下。后七日卒，葬鲁城北泗上（今孔林）。弟子皆服心丧三年，相诀而去，唯子贡庐于冢上凡六年，然后去。后世尊为至圣先师、万世师表。"
+    }
+];
+
+const groups = [
+    {name: "出生成长", color: "#2e8b57"},
+    {name: "问礼游历", color: "#4169e1"},
+    {name: "为政讲道", color: "#daa520"},
+    {name: "周游列国", color: "#8b4513"},
+    {name: "归鲁著述", color: "#9932cc"},
+    {name: "至圣长眠", color: "#c11b17"}
+];
+
+const map = L.map('map', {
+    center: [35.0, 116.0],
+    zoom: 6,
+    zoomControl: true
+});
+
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+    subdomains: ['1', '2', '3', '4'],
+    attribution: '高德地图',
+    maxZoom: 18
+}).addTo(map);
+
+L.control.scale({imperial: false, position: 'bottomleft'}).addTo(map);
+
+let markers = [];
+let line = null;
+let isPlaying = false;
+let currentIndex = 0;
+let speed = 1;
+let playInterval = null;
+
+function createMarker(point, index) {
+    const icon = L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="width:16px;height:16px;background:${point.color};border-radius:50%;border:3px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,0.3);${index === 0 ? '' : 'opacity:0.4'}"></div>`,
+        iconSize: [22, 22],
+        iconAnchor: [11, 11]
+    });
+    const marker = L.marker([point.lat, point.lng], {icon: icon}).addTo(map);
+    marker.bindPopup(`
+        <div class="popup-content">
+            <h3>${point.name}</h3>
+            <div class="period">${point.yearText} · ${point.group}</div>
+            <p>${point.desc}</p>
+        </div>
+    `, {maxWidth: 320});
+    marker.point = point;
+    marker.index = index;
+    return marker;
+}
+
+function initMarkers() {
+    footprints.forEach((point, i) => {
+        const m = createMarker(point, i);
+        markers.push(m);
+    });
+}
+
+function drawLine() {
+    if (line) map.removeLayer(line);
+    const latlngs = footprints.slice(0, currentIndex + 1).map(p => [p.lat, p.lng]);
+    line = L.polyline(latlngs, {
+        color: '#c11b17',
+        weight: 3,
+        opacity: 0.7,
+        className: 'travel-line',
+        dashArray: '8,8'
+    }).addTo(map);
+}
+
+function updateProgress() {
+    const progress = ((currentIndex) / (footprints.length - 1)) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+    document.getElementById('currentInfo').textContent = 
+        `${footprints[currentIndex].yearText} · ${footprints[currentIndex].name}`;
+    
+    document.querySelectorAll('.timeline-item').forEach((el, i) => {
+        el.classList.toggle('active', i === currentIndex);
+    });
+    
+    const activeItem = document.querySelector('.timeline-item.active');
+    if (activeItem) {
+        activeItem.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    }
+}
+
+function flyToPoint(index) {
+    currentIndex = index;
+    const point = footprints[index];
+    markers.forEach((m, i) => {
+        const el = m.getElement();
+        if (el) {
+            const dot = el.querySelector('div');
+            dot.style.opacity = i <= index ? '1' : '0.4';
+            if (i === index) {
+                dot.classList.add('pulse');
+            } else {
+                dot.classList.remove('pulse');
+            }
+        }
+    });
+    drawLine();
+    map.flyTo([point.lat, point.lng], 8, {duration: 1.5});
+    setTimeout(() => markers[index].openPopup(), 1500);
+    updateProgress();
+}
+
+function initTimeline() {
+    const timeline = document.getElementById('timeline');
+    groups.forEach(group => {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'timeline-group';
+        groupDiv.innerHTML = `<div class="timeline-group-title">${group.name}</div>`;
+        const groupPoints = footprints.filter(p => p.group === group.name);
+        groupPoints.forEach(point => {
+            const idx = footprints.indexOf(point);
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+            item.innerHTML = `<div class="year">${point.yearText}</div>${point.name} · ${point.pinyin}`;
+            item.onclick = () => {
+                stopPlay();
+                flyToPoint(idx);
+            };
+            groupDiv.appendChild(item);
+        });
+        timeline.appendChild(groupDiv);
+    });
+}
+
+function togglePlay() {
+    if (isPlaying) {
+        stopPlay();
+    } else {
+        startPlay();
+    }
+}
+
+function startPlay() {
+    isPlaying = true;
+    document.getElementById('playBtn').textContent = '⏸ 暂停';
+    if (currentIndex >= footprints.length - 1) {
+        currentIndex = 0;
+    }
+    playInterval = setInterval(() => {
+        if (currentIndex < footprints.length - 1) {
+            flyToPoint(currentIndex + 1);
+        } else {
+            stopPlay();
+        }
+    }, 3000 / speed);
+    flyToPoint(currentIndex);
+}
+
+function stopPlay() {
+    isPlaying = false;
+    document.getElementById('playBtn').textContent = '▶ 播放';
+    if (playInterval) {
+        clearInterval(playInterval);
+        playInterval = null;
+    }
+}
+
+function reset() {
+    stopPlay();
+    currentIndex = 0;
+    flyToPoint(0);
+    map.flyTo([35.0, 116.0], 6, {duration: 1});
+    setTimeout(() => markers[0].closePopup(), 1500);
+}
+
+function toggleSpeed() {
+    speed = speed === 1 ? 2 : 1;
+    document.getElementById('speedBtn').textContent = speed + 'x';
+    if (isPlaying) {
+        stopPlay();
+        startPlay();
+    }
+}
+
+document.getElementById('playBtn').onclick = togglePlay;
+document.getElementById('resetBtn').onclick = reset;
+document.getElementById('speedBtn').onclick = toggleSpeed;
+
+document.getElementById('progressContainer').onclick = function(e) {
+    const rect = this.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    const idx = Math.round(percent * (footprints.length - 1));
+    stopPlay();
+    flyToPoint(Math.max(0, Math.min(idx, footprints.length - 1)));
+};
+
+document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        e.preventDefault();
+        togglePlay();
+    }
+});
+
+initMarkers();
+initTimeline();
+flyToPoint(0);
+map.closePopup();
+</script>
+</body>
+</html>

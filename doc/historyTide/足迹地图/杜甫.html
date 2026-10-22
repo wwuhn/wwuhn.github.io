@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杜甫一生足迹地图 · 高德地图底图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<style>
+  :root{
+    --ink:#2c2c2c;
+    --ink-light:#5a5a5a;
+    --paper:#f7f2e8;
+    --paper-warm:#fdfaf3;
+    --zhu:#a63a2a;
+    --zhu-deep:#7a2518;
+    --qing:#3a6b7a;
+    --gold:#c8a45c;
+    --line:#d9cfc0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink)}
+  .serif{font-family:'Songti SC','STSong','SimSun',serif}
+  .header-bar{
+    background:linear-gradient(135deg,#fdfaf3 0%,#f2ead9 100%);
+    border-bottom:2px solid var(--zhu);
+    box-shadow:0 2px 12px rgba(122,37,24,.08);
+  }
+  .title-main{
+    font-family:'Songti SC','STSong',serif;
+    font-weight:900;letter-spacing:.12em;color:var(--zhu-deep);
+  }
+  .subtitle{color:var(--ink-light);font-size:13px;letter-spacing:.08em}
+  .map-wrap{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    overflow:hidden;position:relative;
+  }
+  #map{width:100%;height:100%;background:#e8e2d5}
+  .leaflet-control-attribution{background:rgba(253,250,243,.8)!important;font-size:10px!important;color:var(--ink-light)!important}
+  .leaflet-control-zoom a{background:var(--paper-warm)!important;color:var(--zhu-deep)!important;border-color:var(--line)!important}
+  .leaflet-control-zoom a:hover{background:var(--zhu)!important;color:#fff!important}
+  .leaflet-control-scale-line{background:rgba(253,250,243,.8)!important;border-color:var(--line)!important;color:var(--ink)!important}
+
+  /* Popup */
+  .leaflet-popup-content-wrapper{
+    background:var(--paper-warm);border:1px solid var(--line);border-radius:8px;
+    box-shadow:0 6px 24px rgba(0,0,0,.15);color:var(--ink);padding:0;
+  }
+  .leaflet-popup-content{margin:14px 16px!important;min-width:240px}
+  .leaflet-popup-tip{background:var(--paper-warm)!important;border:1px solid var(--line)!important}
+  .leaflet-popup-close-button{color:var(--zhu)!important;font-size:18px!important;font-weight:bold!important;padding:4px 8px!important}
+  .popup-title{font-family:'Songti SC',serif;font-size:17px;font-weight:700;color:var(--zhu-deep);margin-bottom:4px}
+  .popup-period{font-size:12px;color:var(--qing);margin-bottom:6px}
+  .popup-desc{font-size:13px;line-height:1.65;color:var(--ink-light)}
+  .popup-work{font-size:12px;color:var(--gold);margin-top:6px;font-style:italic;border-top:1px dashed var(--line);padding-top:6px}
+
+  .timeline-panel{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    display:flex;flex-direction:column;
+  }
+  .timeline-title{
+    font-family:'Songti SC',serif;font-weight:700;color:var(--zhu-deep);
+    font-size:18px;padding:14px 16px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:8px;
+  }
+  .timeline-scroll{flex:1;overflow-y:auto;padding:8px 0}
+  .timeline-scroll::-webkit-scrollbar{width:6px}
+  .timeline-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .era-group{margin-bottom:4px}
+  .era-label{
+    font-size:12px;font-weight:700;color:#fff;
+    background:var(--zhu);padding:4px 14px;letter-spacing:.1em;
+  }
+  .foot-item{
+    padding:10px 16px;cursor:pointer;border-left:3px solid transparent;
+    transition:all .3s ease;border-bottom:1px dashed var(--line);opacity:.45;
+  }
+  .foot-item.visited{opacity:.8}
+  .foot-item.current{
+    background:rgba(200,164,92,.15);border-left-color:var(--zhu);opacity:1;
+    box-shadow:inset 0 0 12px rgba(166,58,42,.08);
+  }
+  .foot-item:hover{background:rgba(166,58,42,.06);border-left-color:var(--zhu);opacity:1}
+  .foot-name{font-family:'Songti SC',serif;font-weight:700;font-size:15px;color:var(--ink)}
+  .foot-year{font-size:12px;color:var(--qing);margin-top:2px}
+  .foot-brief{font-size:12px;color:var(--ink-light);margin-top:2px;line-height:1.5}
+  .foot-tag{
+    display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;
+    margin-right:4px;margin-top:4px;
+  }
+  .tag-birth{background:#e8f0e8;color:#2d5a2d}
+  .tag-office{background:#e0ecf2;color:var(--qing)}
+  .tag-battle{background:#e8d8e8;color:#6b3a6b}
+  .tag-retire{background:#e8e8e0;color:#5a5a3d}
+  .tag-travel{background:#f5eed8;color:#8a6d2c}
+  .tag-end{background:#e8e0e8;color:#5a3d5a}
+  .tag-youth{background:#e8f0e8;color:#2d5a2d}
+
+  .seal{
+    display:inline-block;background:var(--zhu);color:#fff;
+    font-family:'Songti SC',serif;font-size:14px;font-weight:700;
+    padding:2px 8px;margin-left:10px;border-radius:2px;
+    transform:rotate(-3deg);vertical-align:middle;
+    letter-spacing:2px;border:1.5px solid #fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.15);
+  }
+
+  .quote-box{
+    padding:10px 16px;font-size:12px;line-height:1.7;color:var(--ink-light);
+    font-style:italic;border-bottom:1px dashed var(--line);
+    background:linear-gradient(90deg,rgba(200,164,92,.06),transparent);
+  }
+
+  .player-bar{
+    position:absolute;left:12px;right:12px;top:12px;z-index:500;
+    background:rgba(253,250,243,.92);backdrop-filter:blur(6px);
+    border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;display:flex;align-items:center;gap:12px;
+    box-shadow:0 4px 16px rgba(0,0,0,.12);
+  }
+  .play-btn{
+    width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--zhu);color:#fff;display:flex;align-items:center;justify-content:center;
+    transition:all .2s;flex-shrink:0;
+  }
+  .play-btn:hover{background:var(--zhu-deep);transform:scale(1.08)}
+  .play-btn svg{width:14px;height:14px;fill:currentColor}
+  .year-display{font-family:'Songti SC',serif;font-weight:700;font-size:20px;color:var(--zhu-deep);min-width:48px}
+  .place-display{font-size:12px;color:var(--ink-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+  .progress-wrap{flex:1;min-width:120px}
+  .progress-track{height:5px;background:var(--line);border-radius:3px;cursor:pointer;position:relative;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--zhu),var(--gold));border-radius:3px;width:0%;transition:width .3s ease}
+  .progress-years{display:flex;justify-content:space-between;font-size:9px;color:var(--ink-light);margin-top:3px}
+  .speed-btn{
+    padding:4px 10px;border:1px solid var(--line);border-radius:4px;
+    background:transparent;font-size:11px;cursor:pointer;color:var(--ink-light);
+    transition:all .2s;flex-shrink:0;
+  }
+  .speed-btn.active{background:var(--zhu);color:#fff;border-color:var(--zhu)}
+  .speed-btn:hover{border-color:var(--zhu);color:var(--zhu)}
+  .restart-btn{
+    display:flex;align-items:center;gap:4px;padding:4px 10px;
+    border:1px solid var(--line);border-radius:4px;background:transparent;
+    font-size:11px;cursor:pointer;color:var(--ink-light);transition:all .2s;flex-shrink:0;
+  }
+  .restart-btn:hover{border-color:var(--zhu);color:var(--zhu)}
+
+  .legend-box{
+    position:absolute;left:12px;bottom:24px;z-index:500;
+    background:rgba(253,250,243,.92);backdrop-filter:blur(6px);
+    border:1px solid var(--line);border-radius:8px;
+    padding:10px 14px;font-size:11px;box-shadow:0 4px 16px rgba(0,0,0,.12);
+  }
+  .legend-title{font-weight:700;font-size:12px;color:var(--zhu-deep);margin-bottom:6px;letter-spacing:.08em}
+  .legend-item{display:flex;align-items:center;gap:6px;margin-top:3px;color:var(--ink-light)}
+  .legend-item .dot{width:10px;height:10px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.1)}
+
+  .custom-marker{position:relative;width:28px;height:28px}
+  .custom-marker .dot-core{
+    position:absolute;top:50%;left:50%;width:12px;height:12px;
+    border-radius:50%;border:2px solid #fff;
+    transform:translate(-50%,-50%);
+    box-shadow:0 2px 6px rgba(0,0,0,.35);
+    transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .custom-marker.inactive .dot-core{opacity:.4;transform:translate(-50%,-50%) scale(.7)}
+  .custom-marker.active .dot-core{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .custom-marker .ring{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+    animation:ringPulse 1.6s ease-out infinite;
+  }
+  .custom-marker .ring2{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+    animation:ringPulse 1.6s ease-out infinite .5s;
+  }
+  @keyframes ringPulse{
+    0%{transform:translate(-50%,-50%) scale(.5);opacity:1}
+    100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}
+  }
+  @keyframes markerPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:1}}
+  .custom-marker.activate .dot-core{animation:markerPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .animate-in{animation:fadeInUp .6s cubic-bezier(.2,.8,.2,1) both}
+
+  @media(max-width:768px){
+    .main-grid{grid-template-columns:1fr!important}
+    #map{height:420px!important}
+    .timeline-scroll{max-height:280px}
+    .player-bar{min-width:auto;padding:6px 12px;gap:8px;top:8px}
+    .year-display{font-size:16px;min-width:42px}
+    .place-display{display:none}
+    .speed-btn,.restart-btn{padding:3px 7px;font-size:11px}
+  }
+</style>
+</head>
+<body class="h-full flex flex-col">
+
+<!-- Header -->
+<header class="header-bar px-4 md:px-8 py-3 md:py-4 flex-shrink-0">
+  <div class="flex items-center justify-between flex-wrap gap-2">
+    <div>
+      <h1 class="title-main text-2xl md:text-3xl animate-in">杜甫一生足迹地图<span class="seal">子美</span></h1>
+      <p class="subtitle animate-in mt-1" style="animation-delay:.1s">712—770 · 从巩县到湘江 · 诗中圣哲 · 笔底波澜 · 点击播放随子美漂泊走天涯</p>
+    </div>
+    <div class="text-right text-xs text-[var(--ink-light)] hidden md:block">
+      底图：高德地图 · 共标注 <span id="count" class="font-bold text-[var(--zhu)]">0</span> 处重要足迹
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="flex-1 p-3 md:p-5 overflow-hidden">
+  <div class="main-grid grid gap-4 h-full" style="grid-template-columns:1fr 320px">
+
+    <!-- Map -->
+    <div class="flex flex-col min-h-0">
+      <div class="map-wrap flex-1 min-h-[400px]">
+        <div id="map"></div>
+
+        <!-- 播放控制栏 -->
+        <div class="player-bar" id="playerBar">
+          <button class="play-btn" id="playBtn" title="播放/暂停">
+            <svg id="playIcon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+          </button>
+          <div class="year-display" id="yearDisplay">712</div>
+          <div class="place-display" id="placeDisplay"></div>
+          <div class="progress-wrap">
+            <div class="progress-track" id="progressTrack">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="progress-years" id="progressYears"></div>
+          </div>
+          <button class="speed-btn active" data-speed="1" title="播放速度">1x</button>
+          <button class="speed-btn" data-speed="2">2x</button>
+          <button class="restart-btn" id="restartBtn" title="重新播放">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            重置
+          </button>
+        </div>
+
+        <div class="legend-box">
+          <div class="legend-title">图例说明</div>
+          <div class="legend-item"><span class="dot" style="background:#3a7a3a"></span>出生地 / 成长地</div>
+          <div class="legend-item"><span class="dot" style="background:#5a7a9a"></span>青年漫游地</div>
+          <div class="legend-item"><span class="dot" style="background:var(--qing)"></span>为官仕途地</div>
+          <div class="legend-item"><span class="dot" style="background:#9a4a3a"></span>战乱流离地</div>
+          <div class="legend-item"><span class="dot" style="background:#8a7a3a"></span>草堂寓居地</div>
+          <div class="legend-item"><span class="dot" style="background:var(--gold)"></span>重要行经地</div>
+          <div class="legend-item"><span class="dot" style="background:#6b4a6b"></span>终老之地</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Sidebar -->
+    <aside class="timeline-panel flex flex-col min-h-0">
+      <div class="timeline-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        生平时间线
+      </div>
+      <div class="quote-box">"安得广厦千万间，大庇天下寒士俱欢颜，风雨不动安如山！呜呼！何时眼前突兀见此屋，吾庐独破受冻死亦足！"</div>
+      <div class="timeline-scroll" id="timeline"></div>
+    </aside>
+
+  </div>
+</main>
+
+<script>
+// === 足迹数据 ===
+const footprints = [
+  {
+    "name": "巩县（巩义）",
+    "lat": 34.747,
+    "lng": 113.023,
+    "year": "712-730",
+    "yearStart": 712,
+    "era": "出生成长",
+    "tag": "birth",
+    "tagText": "诗圣诞生",
+    "desc": "太极元年（712）生于河南府巩县瑶湾（今河南巩义南瑶湾村）。十三世祖杜预为晋代名将，祖父杜审言为初唐著名诗人，父亲杜闲曾任兖州司马。书香世家，七岁能诗，'七龄思即壮，开口咏凤凰'。",
+    "work": "今河南巩义站街镇南瑶湾村有杜甫故里纪念馆"
+  },
+  {
+    "name": "兖州",
+    "lat": 35.552,
+    "lng": 116.827,
+    "year": "736-740",
+    "yearStart": 736,
+    "era": "青年漫游",
+    "tag": "youth",
+    "tagText": "齐赵漫游",
+    "desc": "开元二十四年（736）举进士不第后，赴兖州省父（父杜闲时任兖州司马），开始齐赵漫游。登泰山写下千古名篇，过着'放荡齐赵间，裘马颇清狂'的快意生活。",
+    "work": "《望岳》：会当凌绝顶，一览众山小"
+  },
+  {
+    "name": "洛阳",
+    "lat": 34.6197,
+    "lng": 112.454,
+    "year": "741·744",
+    "yearStart": 741,
+    "era": "青年漫游",
+    "tag": "travel",
+    "tagText": "李杜初逢",
+    "desc": "开元二十九年（741）从齐赵归，筑首阳山下陆浑庄，与司农少卿杨怡之女成婚。天宝三载（744），被赐金放还的李白途经洛阳，二人初遇，结下千古忘年交。",
+    "work": "李杜洛阳相会，中国文学史上最伟大的会面"
+  },
+  {
+    "name": "梁宋（开封/商丘）",
+    "lat": 34.434,
+    "lng": 115.65,
+    "year": "744-745",
+    "yearStart": 744.5,
+    "era": "青年漫游",
+    "tag": "travel",
+    "tagText": "梁宋同游",
+    "desc": "天宝三载秋，与李白、高适同游梁宋（今开封、商丘一带），三人登高怀古、饮酒射猎、纵论天下，'醉眠秋共被，携手日同行'，成为文学史上的千古盛会。",
+    "work": "与李白、高适三人同游，盛唐诗坛三位巨擘的壮游"
+  },
+  {
+    "name": "长安（西安）",
+    "lat": 34.2658,
+    "lng": 108.9541,
+    "year": "746-755",
+    "yearStart": 746,
+    "era": "困居长安",
+    "tag": "office",
+    "tagText": "十年困守",
+    "desc": "天宝五载（746）赴长安求仕，困守十年。'朝扣富儿门，暮随肥马尘；残杯与冷炙，到处潜悲辛'。天宝十载献三大礼赋，玄宗奇之，命待制集贤院。天宝十四载授右卫率府兵曹参军。此间目睹朝政腐败，写下大量现实主义名篇。安史乱起，长安陷落，被困城中。",
+    "work": "《兵车行》《丽人行》《自京赴奉先县咏怀五百字》：朱门酒肉臭，路有冻死骨；《春望》：国破山河在，城春草木深"
+  },
+  {
+    "name": "凤翔",
+    "lat": 34.514,
+    "lng": 107.392,
+    "year": "757",
+    "yearStart": 757,
+    "era": "战乱流离",
+    "tag": "battle",
+    "tagText": "麻鞋见天子",
+    "desc": "至德二载（757）四月，冒死逃出长安沦陷区，穿麻着破衣奔赴凤翔行在投奔肃宗。'麻鞋见天子，衣袖露两肘'。肃宗感其忠，授左拾遗（从八品上谏官），世称'杜拾遗'。后因疏救房琯触怒肃宗，幸得张镐营救获免。",
+    "work": "授左拾遗，位卑未敢忘忧国"
+  },
+  {
+    "name": "华州（华县）",
+    "lat": 34.513,
+    "lng": 109.771,
+    "year": "758-759",
+    "yearStart": 758,
+    "era": "战乱流离",
+    "tag": "battle",
+    "tagText": "三吏三别",
+    "desc": "乾元元年（758）六月，被贬为华州司功参军。冬末赴洛阳探亲，乾元二年春从洛阳返华州途中，亲眼目睹相州兵败后官府征兵、百姓流离的惨状，写下不朽的'诗史'名篇。秋，弃官西去，结束仕途。",
+    "work": "新安吏、石壕吏、潼关吏、新婚别、垂老别、无家别——诗史巅峰"
+  },
+  {
+    "name": "秦州（天水）",
+    "lat": 34.5809,
+    "lng": 105.7247,
+    "year": "759",
+    "yearStart": 759.6,
+    "era": "战乱流离",
+    "tag": "battle",
+    "tagText": "陇右漂泊",
+    "desc": "乾元二年（759）秋，弃华州官携家西行，翻越陇山抵达秦州（今甘肃天水）。居秦州三月，衣食无着，采药卖药为生。族侄杜佐与隐士阮昉时有接济，但仍'囊空恐羞涩，留得一钱看'。",
+    "work": "《秦州杂诗二十首》，陇右山水入诗"
+  },
+  {
+    "name": "同谷（成县）",
+    "lat": 33.742,
+    "lng": 105.728,
+    "year": "759",
+    "yearStart": 759.85,
+    "era": "战乱流离",
+    "tag": "battle",
+    "tagText": "岁暮拾橡栗",
+    "desc": "乾元二年十月，应同谷县令之邀赴同谷（今甘肃成县），到任后县令爽约，陷入一生最困顿的境地。天寒地冻，携家人在山谷中拾橡栗、挖黄独充饥，儿女饥寒号哭，几近冻死。",
+    "work": "《乾元中寓居同谷县作歌七首》：男儿生不成名身已老，三年饥走荒山道"
+  },
+  {
+    "name": "成都",
+    "lat": 30.5728,
+    "lng": 104.0668,
+    "year": "759-762·764-765",
+    "yearStart": 759.95,
+    "era": "草堂岁月",
+    "tag": "retire",
+    "tagText": "浣花草堂",
+    "desc": "乾元二年（759）岁末，历经千辛万苦抵达成都。在严武等友人帮助下，于浣花溪畔营建草堂，终于有了安身之所。代宗广德二年（764），严武镇蜀，表荐杜甫为检校工部员外郎（世称'杜工部'）。永泰元年（765）严武病逝，失去依靠，五月离成都东下。",
+    "work": "《春夜喜雨》《茅屋为秋风所破歌》《蜀相》《绝句》：两个黄鹂鸣翠柳"
+  },
+  {
+    "name": "梓州（三台）",
+    "lat": 31.093,
+    "lng": 105.083,
+    "year": "762-764",
+    "yearStart": 762,
+    "era": "草堂岁月",
+    "tag": "travel",
+    "tagText": "闻官军收河南河北",
+    "desc": "宝应元年（762）七月，严武应召入朝，送严武至绵州，剑南兵马使徐知道在成都叛乱，杜甫滞留梓州（今四川三台）、阆州一带近两年。广德元年春，闻官军收复河南河北，大喜若狂。",
+    "work": "《闻官军收河南河北》：白日放歌须纵酒，青春作伴好还乡——杜诗中第一快诗"
+  },
+  {
+    "name": "夔州（奉节）",
+    "lat": 31.026,
+    "lng": 109.468,
+    "year": "766-768",
+    "yearStart": 766,
+    "era": "夔州巅峰",
+    "tag": "office",
+    "tagText": "夔州诗城",
+    "desc": "永泰二年（766）春夏间抵达夔州（今重庆奉节），受都督柏茂琳关照，主管东屯公田一百顷，生活相对安定，寓居近两年。此间创作430余首诗，占传世杜诗近三分之一，艺术造诣炉火纯青，达到一生创作巅峰。",
+    "work": "《登高》：风急天高猿啸哀，渚清沙白鸟飞回——古今七律第一；《秋兴八首》《咏怀古迹五首》"
+  },
+  {
+    "name": "江陵（荆州）",
+    "lat": 30.3264,
+    "lng": 112.2408,
+    "year": "768",
+    "yearStart": 768,
+    "era": "暮年漂泊",
+    "tag": "travel",
+    "tagText": "舟出三峡",
+    "desc": "大历三年（768）正月出峡东下至江陵（今湖北荆州），欲北归洛阳而不得。居江陵数月，依靠从弟杜位（荆南节度使卫伯玉幕府司马）生活，后遇兵变，秋末移居公安，再下岳阳。",
+    "work": "出三峡，漂泊江汉，老病孤舟"
+  },
+  {
+    "name": "岳州（岳阳）",
+    "lat": 29.357,
+    "lng": 113.129,
+    "year": "768-769",
+    "yearStart": 768.8,
+    "era": "暮年漂泊",
+    "tag": "travel",
+    "tagText": "登岳阳楼",
+    "desc": "大历三年冬抵岳州（今湖南岳阳），登岳阳楼远眺洞庭，写下千古名篇。此时杜甫五十七岁，右臂偏枯、耳聋目暗，与家人漂泊湖上，老弱多病，穷困潦倒。",
+    "work": "《登岳阳楼》：吴楚东南坼，乾坤日夜浮。亲朋无一字，老病有孤舟"
+  },
+  {
+    "name": "潭州（长沙）",
+    "lat": 28.2282,
+    "lng": 112.9388,
+    "year": "769-770",
+    "yearStart": 769,
+    "era": "暮年漂泊",
+    "tag": "travel",
+    "tagText": "江南逢李龟年",
+    "desc": "大历四年（769）抵潭州（今湖南长沙），以船为家，靠卖药为生。大历五年春，在潭州偶遇流落江南的开元年间著名乐师李龟年，昔盛今衰，感慨万千。四月，湖南兵马使臧玠叛乱，杜甫仓皇逃难。",
+    "work": "《江南逢李龟年》：正是江南好风景，落花时节又逢君"
+  },
+  {
+    "name": "湘江舟中",
+    "lat": 27.68,
+    "lng": 112.62,
+    "year": "770",
+    "yearStart": 770,
+    "era": "诗圣落幕",
+    "tag": "end",
+    "tagText": "湘江病逝",
+    "desc": "大历五年（770）冬，避难途中病倒在湘江的一叶扁舟上。从潭州往岳阳，舟行至耒阳附近时，贫病交加，病逝于舟中，享年五十九岁。临终作《风疾舟中伏枕书怀三十六韵奉呈湖南亲友》，仍惦念着'战血流依旧，军声动至今'。",
+    "work": "临终绝笔仍忧国伤时，诗圣落幕湘江。四十三年后（813），孙杜嗣业迁其柩归葬河南偃师首阳山前"
+  }
+];
+
+const startYear = 712;
+const endYear = 770;
+const colorMap = {"birth": "#3a7a3a", "youth": "#5a7a9a", "office": "#3a6b7a", "battle": "#9a4a3a", "retire": "#8a7a3a", "travel": "#c8a45c", "end": "#6b4a6b"};
+
+document.getElementById('count').textContent = footprints.length;
+
+// 更新进度年份刻度
+document.getElementById('progressYears').innerHTML =
+  `<span>${startYear}</span><span>${Math.round(startYear + (endYear-startYear)*1/4)}</span><span>${Math.round((startYear+endYear)/2)}</span><span>${Math.round(startYear + (endYear-startYear)*3/4)}</span><span>${endYear}</span>`;
+
+// 初始化第一个地点显示
+document.getElementById('placeDisplay').textContent = footprints[0].name;
+
+// === 初始化Leaflet地图（高德瓦片直链，最稳定方式）===
+const map = L.map('map', {
+  center: [31.0, 111.0],
+  zoom: 5,
+  minZoom: 4,
+  maxZoom: 18,
+  zoomControl: true,
+  attributionControl: true
+});
+
+// 高德标准瓦片 - 直链加载，不依赖API key，最稳定
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+  subdomains: ['1','2','3','4'],
+  attribution: '&copy; 高德地图',
+  maxZoom: 18
+}).addTo(map);
+
+// 比例尺
+L.control.scale({imperial:false, position:'bottomleft'}).addTo(map);
+
+// === 创建标记 ===
+const markers = {};
+const markerObjs = {};
+let currentPopup = null;
+
+function createMarkerIcon(color, active) {
+  const rings = active ? '<div class="ring"></div><div class="ring2"></div>' : '';
+  const activeCls = active ? 'active activate' : 'inactive';
+  return L.divIcon({
+    className: '',
+    html: `<div class="custom-marker ${activeCls}"><div class="dot-core" style="background:${color}"></div>${rings}</div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14]
+  });
+}
+
+function createPopupContent(p) {
+  return `<div class="popup-title">${p.name}</div>
+    <div class="popup-period">${p.year} · ${p.era}</div>
+    <div class="popup-desc">${p.desc}</div>
+    <div class="popup-work">▸ ${p.work}</div>`;
+}
+
+footprints.forEach((p, idx) => {
+  const color = colorMap[p.tag];
+  const marker = L.marker([p.lat, p.lng], {
+    icon: createMarkerIcon(color, false),
+    zIndexOffset: 100
+  }).addTo(map);
+  marker.on('click', () => {
+    openInfo(idx, false);
+  });
+  markers[idx] = marker;
+  markerObjs[idx] = p;
+});
+
+// 轨迹线集合
+const polylines = [];
+
+function openInfo(idx, fly) {
+  const p = footprints[idx];
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  const popup = L.popup({offset:[0,-16], closeOnClick:true, autoPan:false, maxWidth:320, minWidth:260})
+    .setLatLng([p.lat, p.lng])
+    .setContent(createPopupContent(p))
+    .openOn(map);
+  currentPopup = popup;
+  if(fly){
+    const targetZoom = idx===0 ? 6 : 8;
+    map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+  }
+}
+
+function setMarkerActive(idx, active) {
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+  markers[idx].setIcon(createMarkerIcon(color, active));
+  markers[idx].setZIndexOffset(active ? 200 : 100);
+}
+
+// === 时间轴渲染 ===
+const tlEl = document.getElementById('timeline');
+let lastEra = '';
+footprints.forEach((p, idx) => {
+  let html = '';
+  if(p.era !== lastEra){
+    html += `<div class="era-label">${p.era}</div>`;
+    lastEra = p.era;
+  }
+  html += `
+    <div class="foot-item" data-idx="${idx}">
+      <div class="foot-name">${p.name}</div>
+      <div class="foot-year">${p.year}</div>
+      <div class="foot-brief">${p.desc.slice(0,48)}${p.desc.length>48?'…':''}</div>
+      <span class="foot-tag tag-${p.tag}">${p.tagText}</span>
+    </div>
+  `;
+  tlEl.insertAdjacentHTML('beforeend', html);
+});
+
+// 点击时间轴项
+tlEl.addEventListener('click', e => {
+  const item = e.target.closest('.foot-item');
+  if(!item) return;
+  const idx = +item.dataset.idx;
+  jumpToFootprint(idx);
+});
+
+// 自适应初始视图
+setTimeout(()=>{
+  const bounds = L.latLngBounds(footprints.map(p=>[p.lat,p.lng]));
+  map.fitBounds(bounds, {padding:[60,60], paddingBottomRight:[380,60]});
+}, 400);
+
+// === 播放动画核心逻辑 ===
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const yearDisplay = document.getElementById('yearDisplay');
+const placeDisplay = document.getElementById('placeDisplay');
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const restartBtn = document.getElementById('restartBtn');
+const speedBtns = document.querySelectorAll('.speed-btn');
+
+let playing = false;
+let currentIdx = -1;
+let playSpeed = 1;
+let playTimer = null;
+let animating = false;
+const STEP_INTERVAL_BASE = 2400;
+
+const PLAY_SVG = '<polygon points="6,4 20,12 6,20"/>';
+const PAUSE_SVG = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
+
+function setPlayIcon(isPlay){playIcon.innerHTML = isPlay ? PLAY_SVG : PAUSE_SVG;}
+
+function drawSegment(from, to, color){
+  const line = L.polyline([[from.lat,from.lng],[to.lat,to.lng]], {
+    color: '#a63a2a',
+    weight: 2.5,
+    opacity: 0.55,
+    dashArray: '6,6',
+    lineJoin: 'round',
+    zIndex: 50
+  }).addTo(map);
+  polylines.push(line);
+}
+
+function clearAllLines(){
+  polylines.forEach(l=>map.removeLayer(l));
+  polylines.length = 0;
+}
+
+function activateMarker(idx, fromPrev){
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+
+  // 激活当前标记
+  setMarkerActive(idx, true);
+
+  // 绘制轨迹段
+  if(fromPrev && idx > 0){
+    const prev = footprints[idx-1];
+    drawSegment(prev, p, color);
+  }else if(idx === 0){
+    clearAllLines();
+  }
+
+  // 更新时间轴高亮
+  document.querySelectorAll('.foot-item').forEach((el,i)=>{
+    el.classList.remove('current');
+    if(i < idx) el.classList.add('visited');
+    else if(i === idx) { el.classList.add('current'); el.classList.add('visited'); }
+  });
+
+  // 自动滚动
+  const currentItem = document.querySelector(`.foot-item[data-idx="${idx}"]`);
+  if(currentItem) currentItem.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  // 更新年份/地点
+  yearDisplay.textContent = Math.floor(p.yearStart);
+  placeDisplay.textContent = p.name;
+
+  // 进度条
+  const totalSpan = endYear - startYear;
+  const progress = ((p.yearStart - startYear) / totalSpan) * 100;
+  progressFill.style.width = Math.min(100, Math.max(0, progress)) + '%';
+
+  // 飞行
+  const targetZoom = idx===0 ? 6 : 8;
+  map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+
+  // 到达后弹出详情
+  setTimeout(()=>{
+    if(playing || animating || fromPrev){
+      if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+      openInfo(idx, false);
+    }
+  }, (1500 / playSpeed) + 200);
+
+  currentIdx = idx;
+}
+
+function resetPlayer(){
+  stopPlay();
+  currentIdx = -1;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, false);
+  });
+  document.querySelectorAll('.foot-item').forEach(el=>{
+    el.classList.remove('current','visited');
+  });
+  yearDisplay.textContent = startYear;
+  placeDisplay.textContent = footprints[0].name;
+  progressFill.style.width = '0%';
+  map.flyTo([31.0, 111.0], 5, {duration:1, animate:true});
+  setPlayIcon(true);
+}
+
+function jumpToFootprint(idx){
+  stopPlay();
+  animating = true;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, i <= idx);
+  });
+  for(let i = 1; i <= idx; i++){
+    drawSegment(footprints[i-1], footprints[i], colorMap[footprints[i].tag]);
+  }
+  activateMarker(idx, false);
+  animating = false;
+}
+
+function nextStep(){
+  const next = currentIdx + 1;
+  if(next >= footprints.length){
+    stopPlay();
+    setPlayIcon(true);
+    yearDisplay.textContent = endYear;
+    placeDisplay.textContent = '毕生足迹遍历完成';
+    progressFill.style.width = '100%';
+    return;
+  }
+  activateMarker(next, true);
+}
+
+function startPlay(){
+  if(currentIdx >= footprints.length - 1){
+    resetPlayer();
+    setTimeout(()=>{
+      currentIdx = -1;
+      playing = true;
+      setPlayIcon(false);
+      nextStep();
+      scheduleNext();
+    }, 800);
+    return;
+  }
+  playing = true;
+  setPlayIcon(false);
+  if(currentIdx < 0) nextStep();
+  scheduleNext();
+}
+
+function scheduleNext(){
+  if(playTimer) clearTimeout(playTimer);
+  playTimer = setTimeout(()=>{
+    if(!playing) return;
+    nextStep();
+    if(currentIdx < footprints.length - 1) scheduleNext();
+    else {
+      playing = false;
+      setPlayIcon(true);
+    }
+  }, STEP_INTERVAL_BASE / playSpeed);
+}
+
+function stopPlay(){
+  playing = false;
+  if(playTimer){ clearTimeout(playTimer); playTimer = null; }
+  setPlayIcon(true);
+}
+
+function togglePlay(){
+  if(playing) stopPlay();
+  else startPlay();
+}
+
+playBtn.addEventListener('click', togglePlay);
+restartBtn.addEventListener('click', resetPlayer);
+
+speedBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    speedBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    playSpeed = parseInt(btn.dataset.speed);
+    if(playing){
+      if(playTimer) clearTimeout(playTimer);
+      scheduleNext();
+    }
+  });
+});
+
+// 进度条点击跳转
+progressTrack.addEventListener('click', e=>{
+  const rect = progressTrack.getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  const targetYear = startYear + ratio * (endYear - startYear);
+  let bestIdx = 0;
+  let bestDiff = Infinity;
+  footprints.forEach((p,i)=>{
+    const diff = Math.abs(p.yearStart - targetYear);
+    if(diff < bestDiff){ bestDiff = diff; bestIdx = i; }
+  });
+  jumpToFootprint(bestIdx);
+});
+
+// 键盘空格键播放/暂停
+document.addEventListener('keydown', e=>{
+  if(e.code === 'Space' && !e.target.matches('input,textarea')){
+    e.preventDefault();
+    togglePlay();
+  }
+});
+</script>
+</body>
+</html>

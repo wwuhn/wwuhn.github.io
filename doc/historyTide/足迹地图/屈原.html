@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>屈原一生足迹地图 · 高德地图底图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<style>
+  :root{
+    --ink:#2c2c2c;
+    --ink-light:#5a5a5a;
+    --paper:#f7f2e8;
+    --paper-warm:#fdfaf3;
+    --zhu:#a63a2a;
+    --zhu-deep:#7a2518;
+    --qing:#3a6b7a;
+    --gold:#c8a45c;
+    --line:#d9cfc0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink)}
+  .serif{font-family:'Songti SC','STSong','SimSun',serif}
+  .header-bar{
+    background:linear-gradient(135deg,#fdfaf3 0%,#f2ead9 100%);
+    border-bottom:2px solid var(--zhu);
+    box-shadow:0 2px 12px rgba(122,37,24,.08);
+  }
+  .title-main{
+    font-family:'Songti SC','STSong',serif;
+    font-weight:900;letter-spacing:.12em;color:var(--zhu-deep);
+  }
+  .subtitle{color:var(--ink-light);font-size:13px;letter-spacing:.08em}
+  .map-wrap{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    overflow:hidden;position:relative;
+  }
+  #map{width:100%;height:100%;background:#e8e2d5}
+  .leaflet-control-attribution{background:rgba(253,250,243,.8)!important;font-size:10px!important;color:var(--ink-light)!important}
+  .leaflet-control-zoom a{background:var(--paper-warm)!important;color:var(--zhu-deep)!important;border-color:var(--line)!important}
+  .leaflet-control-zoom a:hover{background:var(--zhu)!important;color:#fff!important}
+  .leaflet-control-scale-line{background:rgba(253,250,243,.8)!important;border-color:var(--line)!important;color:var(--ink)!important}
+
+  /* Popup */
+  .leaflet-popup-content-wrapper{
+    background:var(--paper-warm);border:1px solid var(--line);border-radius:8px;
+    box-shadow:0 6px 24px rgba(0,0,0,.15);color:var(--ink);padding:0;
+  }
+  .leaflet-popup-content{margin:14px 16px!important;min-width:240px}
+  .leaflet-popup-tip{background:var(--paper-warm)!important;border:1px solid var(--line)!important}
+  .leaflet-popup-close-button{color:var(--zhu)!important;font-size:18px!important;font-weight:bold!important;padding:4px 8px!important}
+  .popup-title{font-family:'Songti SC',serif;font-size:17px;font-weight:700;color:var(--zhu-deep);margin-bottom:4px}
+  .popup-period{font-size:12px;color:var(--qing);margin-bottom:6px}
+  .popup-desc{font-size:13px;line-height:1.65;color:var(--ink-light)}
+  .popup-work{font-size:12px;color:var(--gold);margin-top:6px;font-style:italic;border-top:1px dashed var(--line);padding-top:6px}
+
+  .timeline-panel{
+    background:var(--paper-warm);border:1px solid var(--line);
+    border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.06);
+    display:flex;flex-direction:column;
+  }
+  .timeline-title{
+    font-family:'Songti SC',serif;font-weight:700;color:var(--zhu-deep);
+    font-size:18px;padding:14px 16px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:8px;
+  }
+  .timeline-scroll{flex:1;overflow-y:auto;padding:8px 0}
+  .timeline-scroll::-webkit-scrollbar{width:6px}
+  .timeline-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .era-group{margin-bottom:4px}
+  .era-label{
+    font-size:12px;font-weight:700;color:#fff;
+    background:var(--zhu);padding:4px 14px;letter-spacing:.1em;
+  }
+  .foot-item{
+    padding:10px 16px;cursor:pointer;border-left:3px solid transparent;
+    transition:all .3s ease;border-bottom:1px dashed var(--line);opacity:.45;
+  }
+  .foot-item.visited{opacity:.8}
+  .foot-item.current{
+    background:rgba(200,164,92,.15);border-left-color:var(--zhu);opacity:1;
+    box-shadow:inset 0 0 12px rgba(166,58,42,.08);
+  }
+  .foot-item:hover{background:rgba(166,58,42,.06);border-left-color:var(--zhu);opacity:1}
+  .foot-name{font-family:'Songti SC',serif;font-weight:700;font-size:15px;color:var(--ink)}
+  .foot-year{font-size:12px;color:var(--qing);margin-top:2px}
+  .foot-brief{font-size:12px;color:var(--ink-light);margin-top:2px;line-height:1.5}
+  .foot-tag{
+    display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;
+    margin-right:4px;margin-top:4px;
+  }
+  .tag-birth{background:#e8f0e8;color:#2d5a2d}
+  .tag-office{background:#e0ecf2;color:var(--qing)}
+  .tag-exile{background:#e8d8e8;color:#6b3a6b}
+  .tag-travel{background:#f5eed8;color:#8a6d2c}
+  .tag-end{background:#e8e0e8;color:#5a3d5a}
+  .tag-youth{background:#e8f0e8;color:#2d5a2d}
+
+  .seal{
+    display:inline-block;background:var(--zhu);color:#fff;
+    font-family:'Songti SC',serif;font-size:14px;font-weight:700;
+    padding:2px 8px;margin-left:10px;border-radius:2px;
+    transform:rotate(-3deg);vertical-align:middle;
+    letter-spacing:2px;border:1.5px solid #fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.15);
+  }
+
+  .quote-box{
+    padding:10px 16px;font-size:12px;line-height:1.7;color:var(--ink-light);
+    font-style:italic;border-bottom:1px dashed var(--line);
+    background:linear-gradient(90deg,rgba(200,164,92,.06),transparent);
+  }
+
+  .player-bar{
+    position:absolute;left:12px;right:12px;top:12px;z-index:500;
+    background:rgba(253,250,243,.92);backdrop-filter:blur(6px);
+    border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;display:flex;align-items:center;gap:12px;
+    box-shadow:0 4px 16px rgba(0,0,0,.12);
+  }
+  .play-btn{
+    width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--zhu);color:#fff;display:flex;align-items:center;justify-content:center;
+    transition:all .2s;flex-shrink:0;
+  }
+  .play-btn:hover{background:var(--zhu-deep);transform:scale(1.08)}
+  .play-btn svg{width:14px;height:14px;fill:currentColor}
+  .year-display{font-family:'Songti SC',serif;font-weight:700;font-size:20px;color:var(--zhu-deep);min-width:48px}
+  .place-display{font-size:12px;color:var(--ink-light);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+  .progress-wrap{flex:1;min-width:120px}
+  .progress-track{height:5px;background:var(--line);border-radius:3px;cursor:pointer;position:relative;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--zhu),var(--gold));border-radius:3px;width:0%;transition:width .3s ease}
+  .progress-years{display:flex;justify-content:space-between;font-size:9px;color:var(--ink-light);margin-top:3px}
+  .speed-btn{
+    padding:4px 10px;border:1px solid var(--line);border-radius:4px;
+    background:transparent;font-size:11px;cursor:pointer;color:var(--ink-light);
+    transition:all .2s;flex-shrink:0;
+  }
+  .speed-btn.active{background:var(--zhu);color:#fff;border-color:var(--zhu)}
+  .speed-btn:hover{border-color:var(--zhu);color:var(--zhu)}
+  .restart-btn{
+    display:flex;align-items:center;gap:4px;padding:4px 10px;
+    border:1px solid var(--line);border-radius:4px;background:transparent;
+    font-size:11px;cursor:pointer;color:var(--ink-light);transition:all .2s;flex-shrink:0;
+  }
+  .restart-btn:hover{border-color:var(--zhu);color:var(--zhu)}
+
+  .legend-box{
+    position:absolute;left:12px;bottom:24px;z-index:500;
+    background:rgba(253,250,243,.92);backdrop-filter:blur(6px);
+    border:1px solid var(--line);border-radius:8px;
+    padding:10px 14px;font-size:11px;box-shadow:0 4px 16px rgba(0,0,0,.12);
+  }
+  .legend-title{font-weight:700;font-size:12px;color:var(--zhu-deep);margin-bottom:6px;letter-spacing:.08em}
+  .legend-item{display:flex;align-items:center;gap:6px;margin-top:3px;color:var(--ink-light)}
+  .legend-item .dot{width:10px;height:10px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.1)}
+
+  .custom-marker{position:relative;width:28px;height:28px}
+  .custom-marker .dot-core{
+    position:absolute;top:50%;left:50%;width:12px;height:12px;
+    border-radius:50%;border:2px solid #fff;
+    transform:translate(-50%,-50%);
+    box-shadow:0 2px 6px rgba(0,0,0,.35);
+    transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .custom-marker.inactive .dot-core{opacity:.4;transform:translate(-50%,-50%) scale(.7)}
+  .custom-marker.active .dot-core{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .custom-marker .ring{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+    animation:ringPulse 1.6s ease-out infinite;
+  }
+  .custom-marker .ring2{
+    position:absolute;top:50%;left:50%;width:28px;height:28px;
+    border-radius:50%;border:2px solid var(--gold);
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+    animation:ringPulse 1.6s ease-out infinite .5s;
+  }
+  @keyframes ringPulse{
+    0%{transform:translate(-50%,-50%) scale(.5);opacity:1}
+    100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}
+  }
+  @keyframes markerPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.3);opacity:1}100%{transform:scale(1);opacity:1}}
+  .custom-marker.activate .dot-core{animation:markerPop .5s cubic-bezier(.34,1.56,.64,1) forwards}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .animate-in{animation:fadeInUp .6s cubic-bezier(.2,.8,.2,1) both}
+
+  @media(max-width:768px){
+    .main-grid{grid-template-columns:1fr!important}
+    #map{height:420px!important}
+    .timeline-scroll{max-height:280px}
+    .player-bar{min-width:auto;padding:6px 12px;gap:8px;top:8px}
+    .year-display{font-size:16px;min-width:42px}
+    .place-display{display:none}
+    .speed-btn,.restart-btn{padding:3px 7px;font-size:11px}
+  }
+</style>
+</head>
+<body class="h-full flex flex-col">
+
+<!-- Header -->
+<header class="header-bar px-4 md:px-8 py-3 md:py-4 flex-shrink-0">
+  <div class="flex items-center justify-between flex-wrap gap-2">
+    <div>
+      <h1 class="title-main text-2xl md:text-3xl animate-in">屈原一生足迹地图<span class="seal">灵均</span></h1>
+      <p class="subtitle animate-in mt-1" style="animation-delay:.1s">约前340—前278 · 从秭归到汨罗 · 楚辞之祖 · 忠魂千古 · 点击播放随灵均行吟泽畔</p>
+    </div>
+    <div class="text-right text-xs text-[var(--ink-light)] hidden md:block">
+      底图：高德地图 · 共标注 <span id="count" class="font-bold text-[var(--zhu)]">0</span> 处重要足迹
+    </div>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="flex-1 p-3 md:p-5 overflow-hidden">
+  <div class="main-grid grid gap-4 h-full" style="grid-template-columns:1fr 320px">
+
+    <!-- Map -->
+    <div class="flex flex-col min-h-0">
+      <div class="map-wrap flex-1 min-h-[400px]">
+        <div id="map"></div>
+
+        <!-- 播放控制栏 -->
+        <div class="player-bar" id="playerBar">
+          <button class="play-btn" id="playBtn" title="播放/暂停">
+            <svg id="playIcon" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+          </button>
+          <div class="year-display" id="yearDisplay">-340</div>
+          <div class="place-display" id="placeDisplay"></div>
+          <div class="progress-wrap">
+            <div class="progress-track" id="progressTrack">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="progress-years" id="progressYears"></div>
+          </div>
+          <button class="speed-btn active" data-speed="1" title="播放速度">1x</button>
+          <button class="speed-btn" data-speed="2">2x</button>
+          <button class="restart-btn" id="restartBtn" title="重新播放">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            重置
+          </button>
+        </div>
+
+        <div class="legend-box">
+          <div class="legend-title">图例说明</div>
+          <div class="legend-item"><span class="dot" style="background:#3a7a3a"></span>出生地 / 成长地</div>
+          <div class="legend-item"><span class="dot" style="background:var(--qing)"></span>入朝为官地</div>
+          <div class="legend-item"><span class="dot" style="background:#9a4a3a"></span>汉北流放地</div>
+          <div class="legend-item"><span class="dot" style="background:var(--gold)"></span>江南漂泊地</div>
+          <div class="legend-item"><span class="dot" style="background:#6b4a6b"></span>投江殉国地</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Sidebar -->
+    <aside class="timeline-panel flex flex-col min-h-0">
+      <div class="timeline-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        生平时间线
+      </div>
+      <div class="quote-box">"路漫漫其修远兮，吾将上下而求索。"</div>
+      <div class="timeline-scroll" id="timeline"></div>
+    </aside>
+
+  </div>
+</main>
+
+<script>
+// === 足迹数据 ===
+const footprints = [
+  {
+    "name": "秭归乐平里",
+    "lat": 30.936,
+    "lng": 110.812,
+    "year": "约前340-前321",
+    "yearStart": -340,
+    "era": "出生成长",
+    "tag": "birth",
+    "tagText": "屈原故里",
+    "desc": "楚宣王三十年（约前340）正月初七，生于楚国丹阳秭归乐平里（今湖北宜昌秭归县屈原乡）。芈姓屈氏，名平字原，又名正则字灵均。楚武王熊通之子屈瑕后裔，与楚王同宗。自幼嗜书成癖，博闻强识，胸怀大志。",
+    "work": "今湖北秭归县有屈原故里景区、屈原祠，乐平里为屈原诞生地"
+  },
+  {
+    "name": "郢都（荆州江陵）",
+    "lat": 30.335,
+    "lng": 112.24,
+    "year": "前319-前313",
+    "yearStart": -319,
+    "era": "入朝为官",
+    "tag": "office",
+    "tagText": "任左徒",
+    "desc": "楚怀王十年（前319）左右，应召入京，任左徒，为楚王近臣。入则与王图议国事，以出号令；出则接遇宾客，应对诸侯。深得楚怀王信任，主持对内变法改革、对外联齐抗秦。主张章明法度，举贤授能，改革政治，东联齐国，西抗强秦。",
+    "work": "参与楚国内政外交，楚国一度出现国富兵强、威震诸侯的局面"
+  },
+  {
+    "name": "郢都（被疏）",
+    "lat": 30.335,
+    "lng": 112.24,
+    "year": "前313-前305",
+    "yearStart": -313,
+    "era": "谗言被疏",
+    "tag": "office",
+    "tagText": "上官大夫进谗",
+    "desc": "楚怀王十六年（前313），上官大夫靳尚因嫉妒屈原才能，在怀王面前进谗言。怀王怒而疏屈原，免去左徒之职，降为三闾大夫，掌管王族昭、屈、景三姓事务，负责宗庙祭祀和贵族子弟教育。屈原政治改革理想受挫。",
+    "work": "首次遭馋被疏，忧愁幽思而作《离骚》——中国最长的抒情诗，楚辞巅峰"
+  },
+  {
+    "name": "汉北（宜城）",
+    "lat": 31.725,
+    "lng": 112.258,
+    "year": "前304-前299",
+    "yearStart": -304,
+    "era": "汉北流放",
+    "tag": "exile",
+    "tagText": "放流汉北",
+    "desc": "楚怀王二十五年（前304）左右，第一次被流放至汉北（今湖北宜城一带，汉水以北）。这是屈原政治生涯第一次重大打击。流放汉北期间，远离政治中心，但仍心系朝廷，忧国忧民，创作了大量诗篇表达忠贞之志与忧愤之情。",
+    "work": "《抽思》《思美人》：心郁郁之忧思兮，独永叹乎增伤"
+  },
+  {
+    "name": "返郢都",
+    "lat": 30.335,
+    "lng": 112.24,
+    "year": "前299",
+    "yearStart": -299,
+    "era": "忠言直谏",
+    "tag": "office",
+    "tagText": "谏怀王入秦",
+    "desc": "楚怀王三十年（前299），秦昭王约楚怀王武关会盟，屈原从汉北返郢，力劝怀王：'秦，虎狼之国，不可信，不如毋行。'怀王幼子子兰力主赴约，怀王不听，执意入秦，果被秦国扣留，三年后客死于秦。楚人皆咎子兰。",
+    "work": "屈原冒死直谏，怀王不听，最终客死秦国，为楚国巨大悲剧"
+  },
+  {
+    "name": "鄂渚（武昌）",
+    "lat": 30.52,
+    "lng": 114.31,
+    "year": "前296",
+    "yearStart": -296,
+    "era": "江南流放",
+    "tag": "travel",
+    "tagText": "再放江南",
+    "desc": "楚顷襄王三年（前296），怀王客死秦国归葬楚国。令尹子兰大怒，指使上官大夫在顷襄王面前再进谗言，顷襄王怒而迁屈原于江南。屈原从郢都出发，沿长江东下，抵达鄂渚（今湖北武昌一带），开始了长达十余年的江南流放生涯。",
+    "work": "《涉江》开篇：乘鄂渚而反顾兮，欸秋冬之绪风"
+  },
+  {
+    "name": "洞庭",
+    "lat": 29.2,
+    "lng": 112.9,
+    "year": "约前295-前290",
+    "yearStart": -295,
+    "era": "江南流放",
+    "tag": "travel",
+    "tagText": "洞庭行吟",
+    "desc": "从鄂渚南下，进入洞庭湖流域。沿沅水、湘水一带行吟泽畔，颜色憔悴，形容枯槁。渔父见而问之曰：'子非三闾大夫欤？何故至于斯？'屈原曰：'举世皆浊我独清，众人皆醉我独醒，是以见放。'宁赴湘流，葬于江鱼之腹中，安能以皓皓之白，而蒙世俗之尘埃乎！",
+    "work": "《渔父》：举世皆浊我独清，众人皆醉我独醒"
+  },
+  {
+    "name": "辰阳（辰溪）",
+    "lat": 28.01,
+    "lng": 110.19,
+    "year": "约前289-前287",
+    "yearStart": -289,
+    "era": "江南流放",
+    "tag": "travel",
+    "tagText": "溯沅入辰",
+    "desc": "沿沅水溯流而上，抵达辰阳（今湖南怀化辰溪县）。地处湘西荒蛮之地，远离中原，环境恶劣。屈原在颠沛流离中仍坚守理想，不改其志。朝发枉渚兮，夕宿辰阳。苟余心其端直兮，虽僻远之何伤！",
+    "work": "《涉江》：朝发枉渚兮，夕宿辰阳。苟余心其端直兮，虽僻远之何伤"
+  },
+  {
+    "name": "溆浦",
+    "lat": 27.91,
+    "lng": 110.58,
+    "year": "约前287-前280",
+    "yearStart": -287,
+    "era": "江南流放",
+    "tag": "travel",
+    "tagText": "入溆浦儃佪",
+    "desc": "继续溯沅水而上，入溆浦（今湖南怀化溆浦县），居此地多年。深林杳以冥冥兮，乃猿狖之所居。山峻高以蔽日兮，下幽晦以多雨。身处蛮荒深山，孤独愁苦，但忠贞爱国之心始终不渝。此间创作大量楚辞作品，表达对故土的思念和对理想的坚守。",
+    "work": "《涉江》：入溆浦余儃佪兮，迷不知吾所如。深林杳以冥冥兮，乃猿狖之所居"
+  },
+  {
+    "name": "汨罗",
+    "lat": 28.81,
+    "lng": 113.07,
+    "year": "前278",
+    "yearStart": -278,
+    "era": "忠魂殉国",
+    "tag": "end",
+    "tagText": "汨罗投江",
+    "desc": "楚顷襄王二十一年（前278），秦将白起攻破楚国郢都，焚毁楚先王陵墓，顷襄王仓皇出逃，迁都陈城。屈原闻讯，悲愤交加，家国破灭，理想彻底粉碎。农历五月初五，作绝笔《怀沙》后，抱石自沉于汨罗江，以身殉国，享年约六十二岁。",
+    "work": "《怀沙》：知死不可让，愿勿爱兮。明告君子，吾将以为类兮。后世端午节即纪念屈原"
+  }
+];
+
+const startYear = -340;
+const endYear = -278;
+const colorMap = {"birth": "#3a7a3a", "youth": "#5a7a9a", "office": "#3a6b7a", "exile": "#9a4a3a", "travel": "#c8a45c", "end": "#6b4a6b"};
+
+document.getElementById('count').textContent = footprints.length;
+
+// 更新进度年份刻度（公元前显示）
+function formatYear(y){return y < 0 ? '前'+Math.abs(y) : y;}
+document.getElementById('progressYears').innerHTML =
+  `<span>${formatYear(startYear)}</span><span>${formatYear(Math.round(startYear + (endYear-startYear)*1/4))}</span><span>${formatYear(Math.round((startYear+endYear)/2))}</span><span>${formatYear(Math.round(startYear + (endYear-startYear)*3/4))}</span><span>${formatYear(endYear)}</span>`;
+
+// 初始化第一个地点显示
+document.getElementById('placeDisplay').textContent = footprints[0].name;
+document.getElementById('yearDisplay').textContent = formatYear(footprints[0].yearStart);
+
+// === 初始化Leaflet地图（高德瓦片直链，最稳定方式）===
+const map = L.map('map', {
+  center: [29.0, 111.5],
+  zoom: 6,
+  minZoom: 4,
+  maxZoom: 18,
+  zoomControl: true,
+  attributionControl: true
+});
+
+// 高德标准瓦片 - 直链加载，不依赖API key，最稳定
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+  subdomains: ['1','2','3','4'],
+  attribution: '&copy; 高德地图',
+  maxZoom: 18
+}).addTo(map);
+
+// 比例尺
+L.control.scale({imperial:false, position:'bottomleft'}).addTo(map);
+
+// === 创建标记 ===
+const markers = {};
+const markerObjs = {};
+let currentPopup = null;
+
+function createMarkerIcon(color, active) {
+  const rings = active ? '<div class="ring"></div><div class="ring2"></div>' : '';
+  const activeCls = active ? 'active activate' : 'inactive';
+  return L.divIcon({
+    className: '',
+    html: `<div class="custom-marker ${activeCls}"><div class="dot-core" style="background:${color}"></div>${rings}</div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14]
+  });
+}
+
+function createPopupContent(p) {
+  return `<div class="popup-title">${p.name}</div>
+    <div class="popup-period">${p.year} · ${p.era}</div>
+    <div class="popup-desc">${p.desc}</div>
+    <div class="popup-work">▸ ${p.work}</div>`;
+}
+
+footprints.forEach((p, idx) => {
+  const color = colorMap[p.tag];
+  const marker = L.marker([p.lat, p.lng], {
+    icon: createMarkerIcon(color, false),
+    zIndexOffset: 100
+  }).addTo(map);
+  marker.on('click', () => {
+    openInfo(idx, false);
+  });
+  markers[idx] = marker;
+  markerObjs[idx] = p;
+});
+
+// 轨迹线集合
+const polylines = [];
+
+function openInfo(idx, fly) {
+  const p = footprints[idx];
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  const popup = L.popup({offset:[0,-16], closeOnClick:true, autoPan:false, maxWidth:320, minWidth:260})
+    .setLatLng([p.lat, p.lng])
+    .setContent(createPopupContent(p))
+    .openOn(map);
+  currentPopup = popup;
+  if(fly){
+    const targetZoom = idx===0 ? 7 : 8;
+    map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+  }
+}
+
+function setMarkerActive(idx, active) {
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+  markers[idx].setIcon(createMarkerIcon(color, active));
+  markers[idx].setZIndexOffset(active ? 200 : 100);
+}
+
+// === 时间轴渲染 ===
+const tlEl = document.getElementById('timeline');
+let lastEra = '';
+footprints.forEach((p, idx) => {
+  let html = '';
+  if(p.era !== lastEra){
+    html += `<div class="era-label">${p.era}</div>`;
+    lastEra = p.era;
+  }
+  html += `
+    <div class="foot-item" data-idx="${idx}">
+      <div class="foot-name">${p.name}</div>
+      <div class="foot-year">${p.year}</div>
+      <div class="foot-brief">${p.desc.slice(0,48)}${p.desc.length>48?'…':''}</div>
+      <span class="foot-tag tag-${p.tag}">${p.tagText}</span>
+    </div>
+  `;
+  tlEl.insertAdjacentHTML('beforeend', html);
+});
+
+// 点击时间轴项
+tlEl.addEventListener('click', e => {
+  const item = e.target.closest('.foot-item');
+  if(!item) return;
+  const idx = +item.dataset.idx;
+  jumpToFootprint(idx);
+});
+
+// 自适应初始视图
+setTimeout(()=>{
+  const bounds = L.latLngBounds(footprints.map(p=>[p.lat,p.lng]));
+  map.fitBounds(bounds, {padding:[60,60], paddingBottomRight:[380,60]});
+}, 400);
+
+// === 播放动画核心逻辑 ===
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const yearDisplay = document.getElementById('yearDisplay');
+const placeDisplay = document.getElementById('placeDisplay');
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const restartBtn = document.getElementById('restartBtn');
+const speedBtns = document.querySelectorAll('.speed-btn');
+
+let playing = false;
+let currentIdx = -1;
+let playSpeed = 1;
+let playTimer = null;
+let animating = false;
+const STEP_INTERVAL_BASE = 2800;
+
+const PLAY_SVG = '<polygon points="6,4 20,12 6,20"/>';
+const PAUSE_SVG = '<rect x="5" y="4" width="4" height="16"/><rect x="15" y="4" width="4" height="16"/>';
+
+function setPlayIcon(isPlay){playIcon.innerHTML = isPlay ? PLAY_SVG : PAUSE_SVG;}
+
+function drawSegment(from, to, color){
+  const line = L.polyline([[from.lat,from.lng],[to.lat,to.lng]], {
+    color: '#a63a2a',
+    weight: 2.5,
+    opacity: 0.55,
+    dashArray: '6,6',
+    lineJoin: 'round',
+    zIndex: 50
+  }).addTo(map);
+  polylines.push(line);
+}
+
+function clearAllLines(){
+  polylines.forEach(l=>map.removeLayer(l));
+  polylines.length = 0;
+}
+
+function activateMarker(idx, fromPrev){
+  const p = footprints[idx];
+  const color = colorMap[p.tag];
+
+  // 激活当前标记
+  setMarkerActive(idx, true);
+
+  // 绘制轨迹段
+  if(fromPrev && idx > 0){
+    const prev = footprints[idx-1];
+    drawSegment(prev, p, color);
+  }else if(idx === 0){
+    clearAllLines();
+  }
+
+  // 更新时间轴高亮
+  document.querySelectorAll('.foot-item').forEach((el,i)=>{
+    el.classList.remove('current');
+    if(i < idx) el.classList.add('visited');
+    else if(i === idx) { el.classList.add('current'); el.classList.add('visited'); }
+  });
+
+  // 自动滚动
+  const currentItem = document.querySelector(`.foot-item[data-idx="${idx}"]`);
+  if(currentItem) currentItem.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  // 更新年份/地点
+  yearDisplay.textContent = formatYear(Math.floor(p.yearStart));
+  placeDisplay.textContent = p.name;
+
+  // 进度条
+  const totalSpan = endYear - startYear;
+  const progress = ((p.yearStart - startYear) / totalSpan) * 100;
+  progressFill.style.width = Math.min(100, Math.max(0, progress)) + '%';
+
+  // 飞行
+  const targetZoom = idx===0 ? 7 : 8;
+  map.flyTo([p.lat, p.lng], targetZoom, {duration: 1.5 / playSpeed, animate:true});
+
+  // 到达后弹出详情
+  setTimeout(()=>{
+    if(playing || animating || fromPrev){
+      if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+      openInfo(idx, false);
+    }
+  }, (1500 / playSpeed) + 200);
+
+  currentIdx = idx;
+}
+
+function resetPlayer(){
+  stopPlay();
+  currentIdx = -1;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, false);
+  });
+  document.querySelectorAll('.foot-item').forEach(el=>{
+    el.classList.remove('current','visited');
+  });
+  yearDisplay.textContent = formatYear(startYear);
+  placeDisplay.textContent = footprints[0].name;
+  progressFill.style.width = '0%';
+  map.flyTo([29.0, 111.5], 6, {duration:1, animate:true});
+  setPlayIcon(true);
+}
+
+function jumpToFootprint(idx){
+  stopPlay();
+  animating = true;
+  clearAllLines();
+  if(currentPopup){map.closePopup(currentPopup);currentPopup=null;}
+  footprints.forEach((p,i)=>{
+    setMarkerActive(i, i <= idx);
+  });
+  for(let i = 1; i <= idx; i++){
+    drawSegment(footprints[i-1], footprints[i], colorMap[footprints[i].tag]);
+  }
+  activateMarker(idx, false);
+  animating = false;
+}
+
+function nextStep(){
+  const next = currentIdx + 1;
+  if(next >= footprints.length){
+    stopPlay();
+    setPlayIcon(true);
+    yearDisplay.textContent = formatYear(endYear);
+    placeDisplay.textContent = '忠魂千古，楚辞流芳';
+    progressFill.style.width = '100%';
+    return;
+  }
+  activateMarker(next, true);
+}
+
+function startPlay(){
+  if(currentIdx >= footprints.length - 1){
+    resetPlayer();
+    setTimeout(()=>{
+      currentIdx = -1;
+      playing = true;
+      setPlayIcon(false);
+      nextStep();
+      scheduleNext();
+    }, 800);
+    return;
+  }
+  playing = true;
+  setPlayIcon(false);
+  if(currentIdx < 0) nextStep();
+  scheduleNext();
+}
+
+function scheduleNext(){
+  if(playTimer) clearTimeout(playTimer);
+  playTimer = setTimeout(()=>{
+    if(!playing) return;
+    nextStep();
+    if(currentIdx < footprints.length - 1) scheduleNext();
+    else {
+      playing = false;
+      setPlayIcon(true);
+    }
+  }, STEP_INTERVAL_BASE / playSpeed);
+}
+
+function stopPlay(){
+  playing = false;
+  if(playTimer){ clearTimeout(playTimer); playTimer = null; }
+  setPlayIcon(true);
+}
+
+function togglePlay(){
+  if(playing) stopPlay();
+  else startPlay();
+}
+
+playBtn.addEventListener('click', togglePlay);
+restartBtn.addEventListener('click', resetPlayer);
+
+speedBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    speedBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    playSpeed = parseInt(btn.dataset.speed);
+    if(playing){
+      if(playTimer) clearTimeout(playTimer);
+      scheduleNext();
+    }
+  });
+});
+
+// 进度条点击跳转
+progressTrack.addEventListener('click', e=>{
+  const rect = progressTrack.getBoundingClientRect();
+  const ratio = (e.clientX - rect.left) / rect.width;
+  const targetYear = startYear + ratio * (endYear - startYear);
+  let bestIdx = 0;
+  let bestDiff = Infinity;
+  footprints.forEach((p,i)=>{
+    const diff = Math.abs(p.yearStart - targetYear);
+    if(diff < bestDiff){ bestDiff = diff; bestIdx = i; }
+  });
+  jumpToFootprint(bestIdx);
+});
+
+// 键盘空格键播放/暂停
+document.addEventListener('keydown', e=>{
+  if(e.code === 'Space' && !e.target.matches('input,textarea')){
+    e.preventDefault();
+    togglePlay();
+  }
+});
+</script>
+</body>
+</html>
