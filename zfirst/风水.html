@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>理气派坤宅砂水交互盘（八宅 + 玄空 + 形峦四象）</title>
+	<link rel="stylesheet" href="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.css">	
+	<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.js"></script>
+	
+	
+	
+	
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -288,6 +295,110 @@
             .four-grid { width: 100%; max-width: 480px; }
         }
     </style>
+	
+	
+	
+	
+<style>
+  :root{
+    --ink:#1c2b2a;
+    --ink-soft:#41534f;
+    --paper:#f6f3ea;
+    --paper-2:#efe9da;
+    --card:#ffffff;
+    --jade:#0f6b5c;
+    --jade-deep:#0a4a40;
+    --cinnabar:#b13a2c;
+    --gold:#a8813c;
+    --line:#ded5c1;
+    --mc-rgb:15,107,92;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 500px at 12% -6%, rgba(15,107,92,.10), transparent 60%),
+      radial-gradient(900px 460px at 96% 8%, rgba(168,129,60,.12), transparent 62%),
+      linear-gradient(180deg,#f8f6f0 0%, #f2ecdd 100%);
+    line-height:1.7;
+  }
+  .serif{font-family:'Songti SC','STSong','SimSun',Georgia,serif;}
+  .mono{font-family:'SF Mono','Menlo','Consolas','Courier New',monospace;}
+  .hero-title{
+    font-family:'Songti SC','STSong','STSongti-SC','SimSun',Georgia,serif;
+    letter-spacing:.06em;
+    line-height:1.12;
+  }
+  .ink-bg{background:linear-gradient(135deg,#123c36 0%,#0a4a40 52%,#0f6b5c 100%);}
+  .paper-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 18px 44px -28px rgba(18,43,40,.5);
+  }
+  .rule{height:1px;background:linear-gradient(90deg,rgba(15,107,92,.55),rgba(168,129,60,.35),transparent);}
+  .tag{
+    display:inline-flex;align-items:center;gap:.34rem;
+    font-size:12px;letter-spacing:.06em;
+    padding:.22rem .6rem;border-radius:999px;
+    border:1px solid rgba(15,107,92,.35);
+    color:var(--jade-deep);background:rgba(15,107,92,.07);
+  }
+  .tag-gold{border-color:rgba(168,129,60,.45);color:#7c5d22;background:rgba(168,129,60,.10);}
+  .tag-red{border-color:rgba(177,58,44,.35);color:#8f2c20;background:rgba(177,58,44,.08);}
+  #map{height:420px;border-radius:14px;z-index:0;}
+  .compass-wrap{position:relative;}
+  .axis-cell{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+    padding:.7rem .5rem;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+    cursor:pointer;
+    text-align:center;
+  }
+  .axis-cell:hover{transform:translateY(-3px);box-shadow:0 12px 26px -18px rgba(15,107,92,.7);}
+  .axis-cell.is-on{outline:2px solid var(--jade);outline-offset:1px;background:rgba(15,107,92,.06);}
+  .axis-cell .dir{font-size:12px;color:var(--ink-soft);letter-spacing:.08em;}
+  .axis-cell .gua{font-size:16px;font-weight:700;color:var(--jade-deep);}
+  .axis-cell .st{font-size:11px;margin-top:.15rem;}
+  .st-good{color:#0f6b5c;}
+  .st-bad{color:#b13a2c;}
+  details{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;}
+  details+details{margin-top:.6rem;}
+  summary{
+    cursor:pointer;list-style:none;
+    padding:.85rem 1rem;font-weight:600;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center;gap:.6rem;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary .plus{color:var(--jade);font-weight:700;transition:transform .25s;flex:0 0 auto;}
+  details[open] summary .plus{transform:rotate(45deg);}
+  .detail-body{padding:0 1rem 1rem;color:var(--ink-soft);font-size:15px;}
+  @keyframes rise{
+    from{opacity:.001;transform:translateY(16px);}
+    to{opacity:1;transform:none;}
+  }
+  .rise{animation:rise .7s cubic-bezier(.2,.8,.2,1) both;}
+  .d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}
+  .d4{animation-delay:.26s}.d5{animation-delay:.33s}.d6{animation-delay:.40s}
+  .anchor-nav a{color:var(--jade-deep);text-decoration:none;border-bottom:1px dashed rgba(15,107,92,.4);}
+  .anchor-nav a:hover{color:var(--cinnabar);}
+  .num-badge{
+    width:30px;height:30px;flex:0 0 auto;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--jade);color:#fff;font-weight:700;font-size:14px;
+  }
+  .kpi{border-left:3px solid var(--jade);background:rgba(15,107,92,.05);}
+  .kpi-warn{border-left:3px solid var(--cinnabar);background:rgba(177,58,44,.06);}
+  .kpi-gold{border-left:3px solid var(--gold);background:rgba(168,129,60,.08);}
+
+
+
+  .leaflet-popup-content{font-family:'PingFang SC','Microsoft YaHei',sans-serif;}
+</style>	
+
+	
 </head>
 <body>
     <div class="container">
@@ -783,6 +894,177 @@
             </div>
         </div>
 
+<main class="max-w-6xl mx-auto px-5 md:px-8 -mt-6 pb-16">
+ <!-- ============ 4 八宫交互盘 ============ -->
+  <section id="luopan" class="mt-12 rise d5">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="num-badge">5</span>
+      <h2 class="serif text-[24px] md:text-[30px] font-bold">八卦九宫“砂水”交互盘</h2>
+    </div>
+    <div class="paper-card rounded-2xl p-5 md:p-7">
+      <p class="text-[15px] text-[var(--ink-soft)] mb-2">
+        依“金锁玉关（过路阴阳）”口诀：<strong>一二三四要砂（宜高），六七八九要水（宜低/动）</strong>。
+        点击各宫查看该方位的判读与本地对应。方位以房宅坐向“坐北朝南”为例排布（上南下北）。
+      </p>
+	          <p class="text-[15px] text-[var(--ink-soft)]">
+          以八卦九宫划分方位：<strong>坎一、坤二、震三、巽四为阳位，宜见高大之“砂”</strong>；
+          <strong>乾六、兑七、艮八、离九为阴位，宜见低洼流动之“水”</strong>。
+          落到本点位：若宅背（北·坎一）紧靠大山、前方（南·离九）临开阔溪谷或缓坡，
+          即为经典的<strong>“一宫见砂、九宫见水”</strong>格局，利于聚气与财运通达。
+          反之则可能出现“砂水颠倒”，需要通过开门立向与人工补砂理水来调整。
+        </p>
+      <div class="grid grid-cols-3 gap-2 md:gap-3 max-w-[560px] mx-auto compass-wrap mt-4">
+        <!-- 上排：东南 南 西南 -->
+        <div class="axis-cell" data-gua="巽" data-num="四" data-want="砂(宜高)">
+          <div class="dir">东南</div><div class="gua">巽 · 四</div><div class="st st-good">宜砂</div>
+        </div>
+        <div class="axis-cell" data-gua="离" data-num="九" data-want="水(宜低)">
+          <div class="dir">正南</div><div class="gua">离 · 九</div><div class="st st-bad">宜水</div>
+        </div>
+        <div class="axis-cell" data-gua="坤" data-num="二" data-want="砂(宜高)">
+          <div class="dir">西南</div><div class="gua">坤 · 二</div><div class="st st-good">宜砂</div>
+        </div>
+        <!-- 中排：东 中 西 -->
+        <div class="axis-cell" data-gua="震" data-num="三" data-want="砂(宜高)">
+          <div class="dir">正东</div><div class="gua">震 · 三</div><div class="st st-good">宜砂</div>
+        </div>
+        <div class="axis-cell" style="background:rgba(168,129,60,.08);border-color:rgba(168,129,60,.4)">
+          <div class="dir">中宫</div><div class="gua serif">宅 心</div><div class="st" style="color:#7c5d22">立向基准</div>
+        </div>
+        <div class="axis-cell" data-gua="兑" data-num="七" data-want="水(宜低)">
+          <div class="dir">正西</div><div class="gua">兑 · 七</div><div class="st st-bad">宜水</div>
+        </div>
+        <!-- 下排：东北 北 西北 -->
+        <div class="axis-cell" data-gua="艮" data-num="八" data-want="水(宜低)">
+          <div class="dir">东北</div><div class="gua">艮 · 八</div><div class="st st-bad">宜水</div>
+        </div>
+        <div class="axis-cell" data-gua="坎" data-num="一" data-want="砂(宜高)">
+          <div class="dir">正北</div><div class="gua">坎 · 一</div><div class="st st-good">宜砂</div>
+        </div>
+        <div class="axis-cell" data-gua="乾" data-num="六" data-want="水(宜低)">
+          <div class="dir">西北</div><div class="gua">乾 · 六</div><div class="st st-bad">宜水</div>
+        </div>
+      </div>
+      <div id="axis-out" class="mt-5 min-h-[74px] rounded-xl border border-[var(--line)] bg-[rgba(15,107,92,.04)] px-4 py-3 text-[15px]">
+        <span class="text-[var(--ink-soft)]">点击上方任意宫位，查看该方位的传统判读与本地的对应情形。</span>
+      </div>
+    </div>
+  </section>
+  <!-- ============ 6 山形水势 ============ -->
+  <section id="terrain" class="mt-12 rise d4">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="num-badge">6</span>
+      <h2 class="serif text-[24px] md:text-[30px] font-bold">周边山形水势（形势判断的地基）</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="paper-card rounded-2xl p-5">
+        <div class="tag mb-3">大势</div>
+        <h3 class="font-bold text-[17px] mb-2">大势西高东低、岭谷相间</h3>
+        <p class="text-[15px] text-[var(--ink-soft)]">
+          湖南整体地势西高东低呈“簸箕状”向洞庭湖倾斜；雪峰山为东北—西南走向巨型山脉，
+          在安化一带是其“最大腹地”，山体庞大绵长，被资水穿切后北段散开渐降为丘陵。
+          该点位正处这一“北段群山—河谷”过渡带。
+        </p>
+      </div>
+      <div class="paper-card rounded-2xl p-5">
+        <div class="tag mb-3">近局</div>
+        <h3 class="font-bold text-[17px] mb-2">近处为支脉缓坡与溪谷</h3>
+        <p class="text-[15px] text-[var(--ink-soft)]">
+          安化境内溪涧极密，多为“盆地+豁口+走廊”的山间小地貌单元，
+          传统聚落多落在<strong>山脚缓坡、河谷阶地与日照较好的南向坡面</strong>；
+          山谷口、陡崖下方与常年阴湿的北向坡则较少建宅。
+        </p>
+      </div>
+      <div class="paper-card rounded-2xl p-5">
+        <div class="tag mb-3">水系</div>
+        <h3 class="font-bold text-[17px] mb-2">资水主干 + 密布支溪</h3>
+        <p class="text-[15px] text-[var(--ink-soft)]">
+          资江自西向东横贯安化，沿途接纳辰溪、大酉溪、思贤溪、柳溪等众多支流；
+          溪水多“曲则有情”，在湾抱处形成缓流与阶地。
+          风水上"山管人丁、水管财"，此即“水”的依据来源。
+        </p>
+      </div>    </div>
+	  <div class="paper-card rounded-2xl p-5">
+        <div class="text-[13px] tracking-widest text-[var(--ink-soft)] mb-3">关 键 词 地 位</div>
+        <ul class="space-y-3 text-[15px]">
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">山</span><span>雪峰山北段，褶皱断块山地，岭谷相间</span></li>
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">水</span><span>资水穿安化全境，支流溪涧极密（全县长逾5km溪河逾170条）</span></li>
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">文</span><span>古称“梅山”，梅山文化发祥地，黑茶故乡</span></li>
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">形</span><span>典型峡谷/盆地地貌，聚落多沿河谷阶地分布</span></li>
+        </ul>
+      </div>
+
+  </section>
+  
+  
+  <!-- ============ 7 实操建议 ============ -->
+  <section id="advice" class="mt-12 rise d6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="num-badge">7</span>
+      <h2 class="serif text-[24px] md:text-[30px] font-bold">建宅实操建议（形理兼顾）</h2>
+    </div>
+    <div class="paper-card rounded-2xl p-5 md:p-6">
+      <details open>
+        <summary><span>A. 选址定位：先看“地”，再看“形”</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          优先选择<strong>山腰缓坡、南向或东南向的阶地</strong>，避开三类位置：
+          ① 山脊/峰顶（雷击、风大、孤立）；
+          ② 紧贴陡峭山脚的坡脚（割脚煞、山洪落石）；
+          ③ 谷底低洼与河谷淹没区（湿气重、涝害）。
+          同时确认土地权属、林权与建设许可等合法性要件。
+        </div>
+      </details>
+      <details>
+        <summary><span>B. 后山与人——“真靠山”三条硬指标</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          ① 山形<strong>圆润饱满、草木繁茂</strong>，无尖峰怪石、无崩裂缺口（“活龙”）；
+          ② 山脉<strong>连绵不孤、不秃</strong>，像太师椅高背兜住宅基；
+          ③ 距房基<strong>约 50–200 m 缓冲</strong>，坡度平缓、土体密实。
+          达不到时：后窗宜小、后墙加实墙/矮挡墙，种一排高大常绿乔木（香樟、桂花）作缓冲。
+        </div>
+      </details>
+      <details>
+        <summary><span>C. 明堂与前方——纳气口要“开”</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          门前宜<strong>平整开阔或缓坡下行</strong>，忌正前方被大山堵死、忌深谷急流直面。
+          若前方有冲射之物（尖角山石、电线杆），在对应方位设照壁、种植阔叶常绿乔木（罗汉松、香樟）挡煞纳气。
+        </div>
+      </details>
+      <details>
+        <summary><span>D. 排水防潮与地基（山区第一安全项）</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          宅基宜<strong>前低后高、地坪抬高</strong>；后山脚开挖截水沟，地基设防潮层，室内加强通风。
+          主屋避开山脚直贴与山脊暴露处，坡脚位置应设挡土墙与护坡植被。
+          <strong>排水与技术安全以自然资源、住建、应急及专业地勘结论为准。</strong>
+        </div>
+      </details>
+      <details>
+        <summary><span>E. 立向与内部格局（形理合参）</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          朝向结合主山走向定，可取南偏东 15° 上下；主门、客厅宜朝开阔之离宫纳气；
+          厨房可置中南/南以助旺阳气；卧室忌贴山岩一侧，床头<strong>靠实墙</strong>，忌背窗、横梁压顶。
+          具体坐向分金与开门放水，宜由当地师傅结合宅主生辰与地形现场核定。
+        </div>
+      </details>
+      <details>
+        <summary><span>F. 现场实勘打分清单（可直接用）</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>后山是否圆润饱满、常绿不秃？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>后山距房基 50–200 m 且坡度平缓？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>前方明堂开阔、无大山压堂？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>左护砂略高环抱、右护砂低伏不探头？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>无割脚、淋头水、反弓、孤峰等形煞？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>地基较高、截水沟与防潮层已规划？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>土体稳定、无滑坡崩塌历史痕迹？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>土地/林权/建设手续齐全？</span></label>
+          </div>
+          <p class="mt-3 text-[13px] text-[var(--ink-soft)]">八项皆过，可视为形峦层面的合格宅基地；有缺项按上文 C/D/E 逐条补救。</p>
+        </div>
+      </details>
+    </div>
+  </section></main>
+
 
         <div class="footer-note">
             <p>本文档基于传统民俗文化资料整理，仅供文化研究与娱乐参考。</p>
@@ -791,5 +1073,39 @@
 			<p>房子位于湖南涟源山区（27.911168°N, 111.640019°E），坐落在山底略靠上的斜坡（坡度约25度，后面有高出地基 3 米左右的一个 10 米见方的坪）上，坐西南朝东北，西南靠山，前面约15米外有其他人家的房（因是斜坡，邻居地基约低3米，屋顶超自家地基约3米），前面斜坡到底有小河（约300米距离），前面约500米处有丘陵（丘陵上有阴宅），右边后方邻居地坪约高出3米左右，右边前方平展10米外是往下的斜坡，左边平展30米外是往下的斜坡，斜坡到底是小河（约100米开外）。这样的房子按现在风水怎么说？</p>
         </div>
     </div>
+	
+	
+	
+	<script>
+/* ---------- 地图 ---------- */
+
+
+/* ---------- 八宫交互 ---------- */
+(function(){
+  var out=document.getElementById('axis-out');
+  var info={
+    '巽':{pos:'东南方',want:'宜见砂（高大）',good:true,text:'巽四为阳位，宜高不宜低。东南若有山脊、密林或较高地形，主生气凝汇、人丁与学业得力。本地山地东南向多连片林坡，天然较易满足。'},
+    '离':{pos:'正南方',want:'宜见水（低洼/开阔）',good:false,text:'离九为阴位，宜低宜动。正南若为开阔溪谷、缓坡或田畴即“水”得体，是纳气口；若正南被高山压堂、或被建筑堵死，则形成“砂水颠倒”，宜以门向调整或前方留出开阔空间化解。' },
+    '坤':{pos:'西南方',want:'宜见砂（高大）',good:true,text:'坤二为阳位，宜高。西南若为低洼水塘或深沟，属“砂水颠倒”，传统认为易影响家中气场与主妇、脾胃。可在该方填高、堆假山或植高大常绿乔木转“砂”。'},
+    '震':{pos:'正东方',want:'宜见砂（高大）',good:true,text:'震三为阳位，宜高。东方有山体或林木屏障为吉，主事业起步与家中长男。本地东向多山地，条件通常有利。'},
+    '兑':{pos:'正西方',want:'宜见水（低洼/路水）',good:false,text:'兑七为阴位，宜低宜动。若正西恰为较高山脊贴身压制，属“砂水颠倒”。可在靠山一侧做实墙、少开大窗、置重家具增“重”感以缓解。'},
+    '艮':{pos:'东北方',want:'宜见水（低洼/路水）',good:false,text:'艮八为阴位，宜低宜动。东北有溪涧、道路、低洼地为吉，主稳定与后辈；若东北被高凸地形堵住，宜以绿化或缓坡手法疏通。'},
+    '坎':{pos:'正北方',want:'宜见砂（高大）',good:true,text:'坎一为阳位，宜高。正北（宅后）有稳固高山为“有靠”，是本地最易得、也最重要的一项，主家宅安稳、得贵人扶助。'},
+    '乾':{pos:'西北方',want:'宜见水（低洼/路水）',good:false,text:'乾六为阴位，宜低宜动。西北（传统“天门”）应疏朗开阔，忌高大实体压迫；若有高墙高楼紧贴，宜留出通透或景观化解。'}
+  };
+  document.querySelectorAll('.axis-cell[data-gua]').forEach(function(el){
+    el.addEventListener('click',function(){
+      document.querySelectorAll('.axis-cell').forEach(function(x){x.classList.remove('is-on');});
+      el.classList.add('is-on');
+      var g=el.getAttribute('data-gua');
+      var d=info[g];
+      out.innerHTML='<div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">'
+        +'<span class="font-bold text-[17px] text-[var(--jade-deep)]">'+d.pos+' · '+g+'宫</span>'
+        +'<span class="'+(d.good?'st-good':'st-bad')+' text-[14px] font-semibold">'+d.want+'</span></div>'
+        +'<div class="text-[15px] text-[var(--ink-soft)]">'+d.text+'</div>';
+    });
+  });
+})();
+</script>
 </body>
 </html>
