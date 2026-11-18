@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>理气派坤宅砂水交互盘（八宅 + 玄空 + 形峦四象）</title>
+	<link rel="stylesheet" href="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.css">	
+	<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<script src="https://aisearch-task.bj.bcebos.com/static/leaflet-1.9.4.js"></script>
+	
+<!--前半部分style-->
+	
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8e0d0 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+            color: #3d3226;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: linear-gradient(135deg, #8b2424 0%, #5c1515 100%);
+            border-radius: 12px;
+            color: #f5e6c8;
+            box-shadow: 0 8px 32px rgba(92,21,21,0.3);
+            border: 2px solid #c9a961;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 10px; letter-spacing: 2px; }
+        .header .subtitle { font-size: 15px; opacity: 0.9; letter-spacing: 1px; }
+        .section {
+            background: #fffdf8;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e8dcc8;
+        }
+        .section-title {
+            font-size: 22px;
+            color: #8b2424;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #c9a961;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::before { content: "◆"; color: #c9a961; font-size: 16px; }
+        .theory-box {
+            background: #faf6ed;
+            border-left: 4px solid #c9a961;
+            padding: 10px 22px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .theory-box p { margin-bottom: 8px; }
+        .theory-box strong { color: #8b2424; }
+        .disclaimer {
+            background: #fff5f5;
+            border-left: 4px solid #d97777;
+            padding: 14px 18px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #7a4444;
+            line-height: 1.7;
+        }
+        .compass-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .compass-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            flex-shrink: 0;
+        }
+        .compass-label {
+            position: absolute;
+            font-weight: bold;
+            font-size: 14px;
+            color: #5c1515;
+            z-index: 10;
+        }
+        /* 上北下南：北在上，南在下，西在左，东在右 */
+        .label-n { top: -28px; left: 50%; transform: translateX(-50%); }
+        .label-s { bottom: -28px; left: 50%; transform: translateX(-50%); }
+        .label-e { right: -40px; top: 50%; transform: translateY(-50%); }
+        .label-w { left: -40px; top: 50%; transform: translateY(-50%); }
+        .grid-9 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            width: 100%;
+            height: 100%;
+            gap: 3px;
+            background: #5c1515;
+            padding: 3px;
+            border-radius: 8px;
+            box-shadow: 0 6px 24px rgba(92,21,21,0.2);
+        }
+        .grid-cell {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+        }
+        .grid-cell:hover {
+            transform: scale(1.02);
+            z-index: 5;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        /* 八宅颜色 */
+        .ji-shengqi { background: linear-gradient(135deg, #d4edda 0%, #b8e6c2 100%); border: 2px solid #28a745; }
+        .ji-yannian { background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%); border: 2px solid #2188e0; }
+        .ji-tianyi { background: linear-gradient(135deg, #e8daef 0%, #d7bde2 100%); border: 2px solid #884ea0; }
+        .ji-fuwei { background: linear-gradient(135deg, #fcf3cf 0%, #f9e79f 100%); border: 2px solid #d4ac0d; }
+        .xiong-jueming { background: linear-gradient(135deg, #fadbd8 0%, #f5b7b1 100%); border: 2px solid #c0392b; }
+        .xiong-wugui { background: linear-gradient(135deg, #f5b7b1 0%, #ec7063 100%); border: 2px solid #a93226; }
+        .xiong-liusha { background: linear-gradient(135deg, #fadbd8 0%, #f1948a 100%); border: 2px solid #cb4335; }
+        .xiong-huohai { background: linear-gradient(135deg, #fdebd0 0%, #f8c471 100%); border: 2px solid #ca6f1e; }
+        .center-cell { background: linear-gradient(135deg, #fef9e7 0%, #fdebd0 100%); border: 2px solid #c9a961; }
+        /* 玄空颜色 */
+        .xk-wang-shan { background: linear-gradient(135deg, #d4edda 0%, #a9dfbf 100%); border: 2px solid #229954; }
+        .xk-wang-xiang { background: linear-gradient(135deg, #d6eaf8 0%, #aed6f1 100%); border: 2px solid #2471a3; }
+        .xk-ji-xing { background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%); border: 2px solid #58d68d; }
+        .xk-xiong-sha { background: linear-gradient(135deg, #fdedec 0%, #fadbd8 100%); border: 2px solid #e74c3c; }
+        .xk-zhong { background: linear-gradient(135deg, #fef9e7 0%, #fdebd0 100%); border: 2px solid #c9a961; }
+        .cell-direction { font-size: 13px; color: #5c1515; font-weight: bold; margin-bottom: 4px; opacity: 0.8; }
+        .cell-gua { font-size: 16px; font-weight: bold; color: #3d3226; margin-bottom: 4px; }
+        .cell-star-name { font-size: 18px; font-weight: bold; margin-bottom: 2px; }
+        .cell-attribute { font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-top: 4px; font-weight: bold; }
+        .attr-ji { background: #28a745; color: white; }
+        .attr-xiong { background: #c0392b; color: white; }
+        .attr-center { background: #c9a961; color: white; }
+        .cell-advice { font-size: 11px; color: #5a4a3a; margin-top: 4px; line-height: 1.4; }
+        /* 玄空山向星 */
+        .star-numbers { display: flex; gap: 8px; margin-bottom: 4px; align-items: center; }
+        .mountain-star, .water-star {
+            font-size: 22px; font-weight: bold; width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center; border-radius: 4px;
+        }
+        .mountain-star { background: rgba(212,237,218,0.7); color: #1e6b35; border: 1px solid #28a745; }
+        .water-star { background: rgba(214,234,248,0.7); color: #1a4a6e; border: 1px solid #2471a3; }
+        .star-label { font-size: 10px; color: #7a6a5a; }
+        .legend {
+            background: #faf6ed;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 280px;
+        }
+        .legend h4 { color: #8b2424; margin-bottom: 12px; font-size: 16px; padding-bottom: 8px; border-bottom: 1px dashed #c9a961; }
+        .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; }
+        .legend-color { width: 28px; height: 20px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+        .advice-list { margin-top: 25px; }
+        .advice-item {
+            background: #faf6ed; padding: 16px 20px; margin-bottom: 12px;
+            border-radius: 8px; border-left: 4px solid #c9a961; line-height: 1.7;
+        }
+        .advice-item h5 { color: #8b2424; font-size: 15px; margin-bottom: 6px; }
+        .special-note {
+            background: #fff8e1; border: 2px dashed #d4a017; padding: 18px;
+            border-radius: 8px; margin-top: 20px; line-height: 1.8;
+        }
+        .special-note h5 { color: #a67c00; margin-bottom: 8px; font-size: 16px; }
+        .compare-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+        .compare-table th, .compare-table td { border: 1px solid #d4c4a8; padding: 12px; text-align: center; }
+        .compare-table th { background: #8b2424; color: #f5e6c8; font-weight: bold; }
+        .compare-table td:first-child { background: #faf6ed; font-weight: bold; }
+        .footer-note {
+            text-align: center; margin-top: 30px; padding: 20px;
+            color: #7a6a5a; font-size: 13px; line-height: 1.8;
+        }
+        .direction-mark {
+            position: absolute; font-size: 11px; font-weight: bold; color: #8b2424;
+            background: #f5e6c8; padding: 2px 6px; border-radius: 3px;
+        }
+        .mark-sitting { background: #d4edda; color: #1e6b35; }
+        .mark-facing { background: #d6eaf8; color: #1a4a6e; }
+
+        /* ========== 形峦派四象盘样式 ========== */
+        .four-direction-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .four-grid {
+            position: relative;
+            width: 720px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 100px 1fr 100px;
+            gap: 10px;
+        }
+        .four-center {
+            grid-column: 2;
+            grid-row: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fef9e7 0%, #fdebd0 100%);
+            border: 3px solid #c9a961;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: bold;
+            color: #8b2424;
+            width: 180px;
+            height: 165px;
+            justify-self: center;
+            align-self: center;
+            flex-direction: column;
+            line-height: 1.6;
+			margin-top:80px;
+        }
+        .four-cell {
+            border-radius: 10px;
+            padding: 8px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+            min-height: 100px;
+        }
+        .four-cell:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            z-index: 5;
+        }
+        /* 四象颜色 */
+        .sha-cell { background: linear-gradient(135deg, #f5e6c8 0%, #e8d5a8 100%); border: 3px solid #c9a961; }
+        .water-cell { background: linear-gradient(135deg, #d6eaf8 0%, #aed6f1 100%); border: 3px solid #2471a3; }
+        /* 方位位置 */
+        .f-before {
+            grid-column: 2; grid-row: 2;
+        }
+        .f-after {
+            grid-column: 2; grid-row: 14;
+        }
+        .f-left {
+            grid-column: 1; grid-row: 3; height:200px;
+        }
+        .f-right {
+            grid-column: 3; grid-row: 3; height:200px;
+        }
+        .xiang-icon { font-size: 32px; margin-bottom: 6px; }
+        .xiang-name {
+            font-size: 20px; font-weight: bold; margin-bottom: 4px;
+        }
+        .xiang-pos {
+            font-size: 13px; color: #5a4a3a; margin-bottom: 6px;
+        }
+        .xiang-attr {
+            font-size: 13px; padding: 3px 10px; border-radius: 12px; font-weight: bold; margin-bottom: 6px;
+        }
+        .attr-sha { background: #8b2424; color: #f5e6c8; }
+        .attr-water { background: #1a5276; color: #d6eaf8; }
+        .xiang-desc { font-size: 12px; line-height: 1.5; color: #4a3a2a; }
+
+        /* 四象坐向方位标注 */
+        .four-compass-label {
+            position: absolute;
+            font-weight: bold;
+            font-size: 13px;
+            color: #5c1515;
+        }
+        .fc-label-n { top: -24px; left: 50%; transform: translateX(-50%); }
+        .fc-label-s { bottom: -24px; left: 50%; transform: translateX(-50%); }
+        .fc-label-e { right: -36px; top: 50%; transform: translateY(-50%); }
+        .fc-label-w { left: -36px; top: 50%; transform: translateY(-50%); }
+
+        @media (max-width: 900px) {
+            .compass-container { width: 100%; max-width: 450px; height: 450px; }
+            .four-grid { width: 100%; max-width: 480px; }
+        }
+    </style>
+	
+	
+<!--后半部分style-->
+	
+<style>
+  :root{
+    --ink:#1c2b2a;
+    --ink-soft:#41534f;
+    --paper:#f6f3ea;
+    --paper-2:#efe9da;
+    --card:#ffffff;
+    --jade:#0f6b5c;
+    --jade-deep:#0a4a40;
+    --cinnabar:#b13a2c;
+    --gold:#a8813c;
+    --line:#ded5c1;
+    --mc-rgb:15,107,92;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 500px at 12% -6%, rgba(15,107,92,.10), transparent 60%),
+      radial-gradient(900px 460px at 96% 8%, rgba(168,129,60,.12), transparent 62%),
+      linear-gradient(180deg,#f8f6f0 0%, #f2ecdd 100%);
+    line-height:1.7;
+  }
+  .serif{font-family:'Songti SC','STSong','SimSun',Georgia,serif;}
+  .mono{font-family:'SF Mono','Menlo','Consolas','Courier New',monospace;}
+  .hero-title{
+    font-family:'Songti SC','STSong','STSongti-SC','SimSun',Georgia,serif;
+    letter-spacing:.06em;
+    line-height:1.12;
+  }
+  .ink-bg{background:linear-gradient(135deg,#123c36 0%,#0a4a40 52%,#0f6b5c 100%);}
+  .paper-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 18px 44px -28px rgba(18,43,40,.5);
+  }
+  .rule{height:1px;background:linear-gradient(90deg,rgba(15,107,92,.55),rgba(168,129,60,.35),transparent);}
+  .tag{
+    display:inline-flex;align-items:center;gap:.34rem;
+    font-size:12px;letter-spacing:.06em;
+    padding:.22rem .6rem;border-radius:999px;
+    border:1px solid rgba(15,107,92,.35);
+    color:var(--jade-deep);background:rgba(15,107,92,.07);
+  }
+  .tag-gold{border-color:rgba(168,129,60,.45);color:#7c5d22;background:rgba(168,129,60,.10);}
+  .tag-red{border-color:rgba(177,58,44,.35);color:#8f2c20;background:rgba(177,58,44,.08);}
+  #map{height:420px;border-radius:14px;z-index:0;}
+  .compass-wrap{position:relative;}
+  .axis-cell{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#fff;
+    padding:.7rem .5rem;
+    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+    cursor:pointer;
+    text-align:center;
+  }
+  .axis-cell:hover{transform:translateY(-3px);box-shadow:0 12px 26px -18px rgba(15,107,92,.7);}
+  .axis-cell.is-on{outline:2px solid var(--jade);outline-offset:1px;background:rgba(15,107,92,.06);}
+  .axis-cell .dir{font-size:12px;color:var(--ink-soft);letter-spacing:.08em;}
+  .axis-cell .gua{font-size:16px;font-weight:700;color:var(--jade-deep);}
+  .axis-cell .st{font-size:11px;margin-top:.15rem;}
+  .st-good{color:#0f6b5c;}
+  .st-bad{color:#b13a2c;}
+  details{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;}
+  details+details{margin-top:.6rem;}
+  summary{
+    cursor:pointer;list-style:none;
+    padding:.85rem 1rem;font-weight:600;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center;gap:.6rem;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary .plus{color:var(--jade);font-weight:700;transition:transform .25s;flex:0 0 auto;}
+  details[open] summary .plus{transform:rotate(45deg);}
+  .detail-body{padding:0 1rem 1rem;color:var(--ink-soft);font-size:15px;}
+  @keyframes rise{
+    from{opacity:.001;transform:translateY(16px);}
+    to{opacity:1;transform:none;}
+  }
+  .rise{animation:rise .7s cubic-bezier(.2,.8,.2,1) both;}
+  .d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}
+  .d4{animation-delay:.26s}.d5{animation-delay:.33s}.d6{animation-delay:.40s}
+  .anchor-nav a{color:var(--jade-deep);text-decoration:none;border-bottom:1px dashed rgba(15,107,92,.4);}
+  .anchor-nav a:hover{color:var(--cinnabar);}
+  .num-badge{
+    width:30px;height:30px;flex:0 0 auto;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--jade);color:#fff;font-weight:700;font-size:14px;
+  }
+  .kpi{border-left:3px solid var(--jade);background:rgba(15,107,92,.05);}
+  .kpi-warn{border-left:3px solid var(--cinnabar);background:rgba(177,58,44,.06);}
+  .kpi-gold{border-left:3px solid var(--gold);background:rgba(168,129,60,.08);}
+
+
+
+  .leaflet-popup-content{font-family:'PingFang SC','Microsoft YaHei',sans-serif;}
+</style>	
+
+	
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>理气派 + 形峦派坤宅砂水交互盘</h1>
+            <div class="subtitle">坐西南（坤）朝东北（艮） · 八宅派 · 玄空飞星派 · 形峦四象派 · 全三盘对照</div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>重要声明：</strong>本文档内容属中国传统民俗文化范畴，仅供文化研究与娱乐参考，不构成任何建筑规划、家居设计或生活决策的专业建议。风水理论无现代科学实证支持，请理性看待，切勿迷信。
+        </div>
+        <!-- ========== 对比总结 ========== -->
+        <div class="section">
+            <h2 class="section-title">三派对照总结：固定方位 vs 随坐向变 vs 随元运变</h2>
+            <table class="compare-table">
+                <tr>
+                    <th>对比维度</th>
+                    <th>形峦·固定八方<br>（金锁玉关口诀）</th>
+                    <th>形峦·四象<br>（前后左右）</th>
+                    <th>八宅派（理气）</th>
+                    <th>玄空飞星（理气）</th>
+                </tr>
+                <tr>
+                    <td>砂水是否随坐向变</td>
+                    <td style="color:#c0392b;">不变<br>八方固定宜砂宜水</td>
+                    <td style="color:#28a745;">随坐向变<br>前朱雀后玄武<br>左青龙右白虎</td>
+                    <td style="color:#28a745;">随坐向变<br>以坐山定宅卦排吉凶</td>
+                    <td style="color:#28a745;">随坐向+元运变<br>坐向+时间双重决定</td>
+                </tr>
+                <tr>
+                    <td>时间因素</td>
+                    <td>不考虑元运</td>
+                    <td>不考虑元运</td>
+                    <td>不考虑元运</td>
+                    <td>三元九运，20年一变</td>
+                </tr>
+                <tr>
+                    <td>判断依据</td>
+                    <td>洛书九宫<br>绝对方位高低虚实</td>
+                    <td>坐向基准<br>四象高低动静关系</td>
+                    <td>坐山卦+大游年歌<br>宅内方位相对吉凶</td>
+                    <td>运星+山星+向星<br>顺逆阴阳飞布</td>
+                </tr>
+                <tr>
+                    <td>坤宅东北<br>向首结论</td>
+                    <td>艮八宫宜水<br>（口诀固定）</td>
+                    <td>朱雀方宜水<br>（前有明堂）</td>
+                    <td>生气上吉，宜开门</td>
+                    <td>上山下水局<br>反宜见砂补之</td>
+                </tr>
+                <tr>
+                    <td>坤宅西南<br>坐山结论</td>
+                    <td>坤二宫宜砂<br>（口诀固定）</td>
+                    <td>玄武方宜砂<br>（后有靠山）</td>
+                    <td>伏位吉方，宜实有靠</td>
+                    <td>双星到坐<br>反宜见水为用</td>
+                </tr>
+            </table>
+
+            <div class="special-note" style="margin-top:20px;">
+                <h5>关于"不科学"的说明</h5>
+                <p>你的质疑完全成立——之前说"理气派八方主水主砂不管朝向都一样"本身就是错的。理气派的立论根基正是<strong>"气随向转、运随世迁"</strong>：八宅以坐向翻卦，玄空更将时间（元运）纳入推演，同一套房子在不同坐向、不同年代，吉凶砂水可能完全相反。</p>
+                <p>真正"不管朝向都一样"的只有金锁玉关的<strong>固定八方口诀</strong>，这是形峦派的一支；但形峦派内部同样有<strong>四象（朱雀玄武青龙白虎）</strong>一套随坐向变化的前后左右判断，不能因为形峦有"固定方位口诀"就说整个形峦派或理气派不随朝向变。</p>
+                <p>风水各流派体系不同、结论常相悖，本身就是其非科学性的体现之一，仅供民俗文化研究参考。请理性看待，家居设计请遵循科学建筑原则与个人实际需求。</p>
+            </div>
+        </div>
+        <!-- ========== 第三部分：形峦派四象砂水盘（新增） ========== -->
+        <div class="section">
+            <h2 class="section-title">形峦派四象砂水盘（以坐向定前后左右 · 随坐向变化）</h2>
+
+            <div class="theory-box">
+                <p><strong>形峦派核心逻辑：</strong>形峦派（以金锁玉关/过路阴阳为代表）有两套砂水判断：</p>
+                <p>①<strong>固定八方口诀</strong>："一二三四宫宜砂，六七八九宫宜水"——基于洛书后天八卦的绝对方位（北一、西南二、东三、东南四宜砂；西北六、西七、东北八、南九宜水），<strong>这套规则确实不随房屋朝向变化</strong>，它看的是客观地形高低虚实。</p>
+                <p>②<strong>四象随向判断</strong>：以坐向为基准，论"前朱雀、后玄武、左青龙、右白虎"——<strong>这套是随坐向变化的</strong>，人站在屋内面朝朝向方向，前后左右的砂水要求各不相同。两套规则并行，共同构成形峦派判断。</p>
+                <p><strong>四象总诀：</strong>"玄武垂头，朱雀翔舞，青龙蜿蜒，白虎驯俯"——后要有靠，前要有水，左要高起，右要低伏。</p>
+				<p>形势派看的是“看得见”的山形水势，核心是<strong>藏风聚气、山环水抱</strong>，</p>
+            </div>
+
+            <div class="four-direction-wrapper" style="margin:-100px 0px;">
+                <div class="four-grid" style="position:relative;">
+                    <!-- 方位标注 -->
+                   <!-- <div class="four-compass-label fc-label-n">▲ 北</div>
+                    <div class="four-compass-label fc-label-s">▼ 南</div>
+                    <div class="four-compass-label fc-label-e">东 ▶</div>
+                    <div class="four-compass-label fc-label-w">◀ 西</div>
+-->
+                    <!-- 前朱雀（朝向方，东北艮位，上排中间） -->
+                    <div class="four-cell f-before water-cell">
+                        <div class="xiang-icon">🔴</div>
+                        <div class="xiang-name" style="color:#1a4a6e">朱雀</div>
+                        <div class="xiang-pos"><strong>前</strong>方 · 东北艮宫（朝向）</div>
+                        <div class="xiang-attr attr-water">主水 · 宜开阔</div>
+                        <div class="xiang-desc"><strong>朱雀翔舞</strong>：明堂开阔有水<br>忌逼压、忌直冲、忌闭塞<br>宜见开阔广场、道路、水景</div>
+                    </div>
+
+                    <!-- 左青龙（面朝东北时左手为西北乾位，中排左） -->
+                    <div class="four-cell f-left sha-cell">
+                        <div class="xiang-icon">🟢</div>
+                        <div class="xiang-name" style="color:#6c4f15">青龙</div>
+                        <div class="xiang-pos"><strong>左</strong>方 · 西北乾宫</div>
+                        <div class="xiang-attr attr-sha">主砂 · 宜高秀</div>
+                        <div class="xiang-desc"><strong>青龙蜿蜒</strong>：宜高、宜动、宜秀<br>宁可青龙高万丈，不可白虎抬头<br>宜有高柜、楼房、树木、动线</div>
+                    </div>
+
+                    <!-- 中心 -->
+                    <div class="four-center">
+                        <div>坤宅</div>
+                        <div style="font-size:12px;color:#8b6f3f;margin-top:4px">坐西南 朝东北</div>
+                        <div style="font-size:11px;color:#8b6f3f;margin-top:2px">面朝中宫立极</div>
+                    </div>
+
+                    <!-- 右白虎（面朝东北时右手为东南巽位，中排右） -->
+                    <div class="four-cell f-right water-cell">
+                        <div class="xiang-icon">⚪</div>
+                        <div class="xiang-name" style="color:#1a4a6e">白虎</div>
+                        <div class="xiang-pos"><strong>右</strong>方 · 东南巽宫</div>
+                        <div class="xiang-attr attr-water">主水 · 宜低伏</div>
+                        <div class="xiang-desc"><strong>白虎驯俯</strong>：宜低、宜静、宜平<br>忌昂头、忌高压、忌嘈杂<br>宜见低矮陈设、空地、静位</div>
+                    </div>
+
+                    <!-- 后玄武（坐山方，西南坤位，下排中间） -->
+                    <div class="four-cell f-after sha-cell">
+                        <div class="xiang-icon">⚫</div>
+                        <div class="xiang-name" style="color:#6c4f15">玄武</div>
+                        <div class="xiang-pos"><strong>后</strong>方 · 西南坤宫（坐山）</div>
+                        <div class="xiang-attr attr-sha">主砂 · 宜有靠</div>
+                        <div class="xiang-desc"><strong>玄武垂头</strong>：背后高大有靠山<br>忌空陷、忌低洼、忌水冲<br>宜有实墙、高楼、主卧室、高柜</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advice-list" style="margin-top:125px;">
+                <div class="advice-item">
+                    <h5>▸ 坤宅形峦四象布局要点（人站屋中面朝东北）</h5>
+                    <p>1. <strong>前朱雀（东北艮方）</strong>：朝向方为明堂，宜开阔明亮，可设大门、客厅，忌高柜、屏风堵死；若有外局见水（池塘、河流、路口）更佳。需注意：此与玄空九运"上山下水"要求"向首宜见砂"形成矛盾，实践中理气与形峦冲突时需综合权衡。</p>
+                    <p>2. <strong>后玄武（西南坤方）</strong>：坐山方宜实、宜高、宜静，最适合设主卧室，床头靠实墙；外局后方宜有楼房、山丘为靠，忌后方见水、见低洼空旷。</p>
+                    <p>3. <strong>左青龙（西北乾方）</strong>：宜高宜动，可有高柜、走动空间、门窗；外局左边宜有略高的建筑或树木，忌左边低洼空陷。</p>
+                    <p>4. <strong>右白虎（东南巽方）</strong>：宜低宜静，不宜放高大柜子，不宜做厨房灶台（火动虎昂），忌外局右边高楼压过左边（白虎抬头）。</p>
+                    <p><strong>口诀总结：</strong>前低后高、左高右低——这才是形峦派"以坐向为基准"判断砂水的核心原则，它是随朝向变化的相对关系，与固定八方口诀互补而非矛盾。</p>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+      <div class="paper-card rounded-2xl p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <h3><span class="tag">玄武 · 后</span><span class="text-[13px] text-[var(--ink-soft)]">靠山</span></h3>
+        </div>
+        <p class="text-[15px]">
+          <strong>理想：</strong>宅后主山浑厚圆润、植被茂密、连绵不断，高度约为房屋 1.5–2 倍，距房基约 50–200 m 最佳。<br>
+          <strong>本地实况：</strong>雪峰山北段山体庞大、林木覆盖率极高（安化森林覆盖率约 77%–86%），
+          后山“有靠”这一条在本地<strong>天然易得</strong>，是本点位的最大优势。<br>
+          <strong>现场要核：</strong>山形是否圆润、有无陡崖危岩/崩裂缺口、山脚与房基有无足够缓冲与排水。
+        </p>
+      </div>
+      <div class="paper-card rounded-2xl p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <h3><span class="tag">朱雀 · 前</span><span class="text-[13px] text-[var(--ink-soft)]">明堂</span></h3>
+        </div>
+        <p class="text-[15px]">
+          <strong>理想：</strong>前方开阔明亮，明堂如掌心，宜有缓坡下行或远山作案，忌被大山正面堵死、忌深谷急流当面。<br>
+          <strong>本地实况：</strong>山区地形起伏大，前方是<strong>开阔溪谷还是贴身绝壁</strong>，完全取决于具体宅基所在坡位，
+          这是本点位<strong>最需要现场验证</strong>的一项。<br>
+          <strong>现场要核：</strong>站在宅基朝向前方，视野是否舒展、有无对山压堂。
+        </p>
+      </div>
+      <div class="paper-card rounded-2xl p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <h3><span class="tag">青龙 · 左</span><span class="text-[13px] text-[var(--ink-soft)]">东侧护砂</span></h3>
+        </div>
+        <p class="text-[15px]">
+          <strong>理想：</strong>左侧山势宜略高、舒展环抱——“宁可青龙高万丈”。<br>
+          <strong>本地实况：</strong>山中溪谷多为东—西或东北—西南向展开，
+          两侧护砂是否“一高一低、环抱有情”需按实际山脊判断。<br>
+          <strong>现场要核：</strong>左侧是否有顺势而下的山脊把宅基“兜住”。
+        </p>
+      </div>
+      <div class="paper-card rounded-2xl p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <h3><span class="tag">白虎 · 右</span><span class="text-[13px] text-[var(--ink-soft)]">西侧护砂</span></h3>
+        </div>
+        <p class="text-[15px]">
+          <strong>理想：</strong>右侧山势宜低伏驯服，不高压、不探头——“不让白虎抬头望”。<br>
+          <strong>本地实况：</strong>山区常见一侧山体骤然逼近、形成压迫，需重点观察右侧是否过高过近。<br>
+          <strong>现场要核：</strong>右侧山体与宅基的距离和相对高度。
+        </p>
+      </div>
+    </div>
+
+ <div class="section">
+      <div class="tag-red tag mb-3">山区建房须避的形煞</div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-[15px]">
+        <div class="kpi-warn rounded-r-lg px-4 py-3"><strong>割脚煞：</strong>宅基紧贴陡峭山脚，气散且易受落石山洪。</div>
+        <div class="kpi-warn rounded-r-lg px-4 py-3"><strong>淋头水：</strong>屋后瀑布/急流直冲而下，潮噪且不稳。</div>
+        <div class="kpi-warn rounded-r-lg px-4 py-3"><strong>反弓煞：</strong>山脊或溪流反弓背对住宅。</div>
+        <div class="kpi-warn rounded-r-lg px-4 py-3"><strong>探头/孤峰：</strong>屋后孤立秃山或背后探头之山，不聚气。</div>
+        <div class="kpi-warn rounded-r-lg px-4 py-3"><strong>前高后低：</strong>“悬阳宅”，主退财失权、人丁不旺。</div>
+        <div class="kpi-warn rounded-r-lg px-4 py-3"><strong>风口/正对山尖：</strong>谷口风煞重、正对尖峰石柱易招是非。</div>
+      </div>
+    </div>
+
+        <!-- ========== 第一部分：八宅派 ========== -->
+        <div class="section">
+            <h2 class="section-title">上半部：八宅派坤宅吉凶盘（以坐向定宅卦 · 上北下南）</h2>
+
+            <div class="theory-box">
+                <p><strong>八宅派核心逻辑：</strong>以房屋坐山定宅卦，再用"大游年歌"从伏位（坐山本位）顺布八星，排出四吉四凶方位。八方吉凶<strong>完全随坐向变化</strong>——坐向一改，全盘皆变，不存在任何朝向都通用的固定砂水口诀。</p>
+                <p><strong>坤宅排盘依据：</strong>坐西南坤山、朝东北艮向，属"坤宅"。大游年歌"坤天延绝生祸五六"——从伏位坤宫起，依次排布天医、延年、绝命、生气、祸害、五鬼、六煞。</p>
+                <p><strong>布局原则：</strong>四吉方（生气、延年、天医、伏位）宜高、宜实、宜动（宜砂），适合设卧室、大门、书房、客厅；四凶方（绝命、五鬼、六煞、祸害）宜低、宜空、宜静（宜水/泄化），适合设厕所、仓库、储藏间。</p>
+            </div>
+
+            <div class="compass-wrapper">
+                <div class="compass-container">
+                    <div class="compass-label label-n">▲ 北（坎）</div>
+                    <div class="compass-label label-s">▼ 南（离）</div>
+                    <div class="compass-label label-e">东（震） ▶</div>
+                    <div class="compass-label label-w">◀ 西（兑）</div>
+                    <div class="grid-9">
+                        <!-- 第一行（上=北）：西北乾、正北坎、东北艮 -->
+                        <div class="grid-cell ji-yannian">
+                            <div class="cell-direction">西北</div>
+                            <div class="cell-gua">乾宫</div>
+                            <div class="cell-star-name" style="color:#1a5276">延年</div>
+                            <div class="cell-attribute attr-ji">吉</div>
+                            <div class="cell-advice">宜砂旺人际夫妻和睦</div>
+                        </div>
+                        <div class="grid-cell xiong-jueming">
+                            <div class="cell-direction">正北</div>
+                            <div class="cell-gua">坎宫</div>
+                            <div class="cell-star-name" style="color:#7b241c">绝命</div>
+                            <div class="cell-attribute attr-xiong">至凶</div>
+                            <div class="cell-advice">宜水泄化，忌开门安床</div>
+                        </div>
+                        <div class="grid-cell ji-shengqi">
+                            <div class="cell-direction">东北（朝向）</div>
+                            <div class="cell-gua">艮宫</div>
+                            <div class="cell-star-name" style="color:#1e6b35">生气</div>
+                            <div class="cell-attribute attr-ji">上吉</div>
+                            <div class="cell-advice">纳气口，宜开门、开阔明亮</div>
+                            <div class="direction-mark mark-facing" style="top:4px;right:4px;">朝向</div>
+                        </div>
+                        <!-- 第二行（中）：正西兑、中宫、正东震 -->
+                        <div class="grid-cell ji-tianyi">
+                            <div class="cell-direction">正西</div>
+                            <div class="cell-gua">兑宫</div>
+                            <div class="cell-star-name" style="color:#6c3483">天医</div>
+                            <div class="cell-attribute attr-ji">吉</div>
+                            <div class="cell-advice">宜砂旺健康，适合卧室厨房</div>
+                        </div>
+                        <div class="grid-cell center-cell">
+                            <div class="cell-gua">中宫</div>
+                            <div class="cell-star-name">五黄</div>
+                            <div class="cell-attribute attr-center">立极点</div>
+                            <div class="cell-advice">宜空宜静，忌堆杂物</div>
+                        </div>
+                        <div class="grid-cell xiong-huohai">
+                            <div class="cell-direction">正东</div>
+                            <div class="cell-gua">震宫</div>
+                            <div class="cell-star-name" style="color:#ca6f1e">祸害</div>
+                            <div class="cell-attribute attr-xiong">小凶</div>
+                            <div class="cell-advice">宜压不宜扬，忌作大门</div>
+                        </div>
+                        <!-- 第三行（下=南）：西南坤、正南离、东南巽 -->
+                        <div class="grid-cell ji-fuwei">
+                            <div class="cell-direction">西南（坐山）</div>
+                            <div class="cell-gua">坤宫</div>
+                            <div class="cell-star-name" style="color:#9a7b0d">伏位</div>
+                            <div class="cell-attribute attr-ji">吉</div>
+                            <div class="cell-advice">宜实靠有砂，设主卧旺丁</div>
+                            <div class="direction-mark mark-sitting" style="bottom:4px;left:4px;">坐山</div>
+                        </div>
+                        <div class="grid-cell xiong-liusha">
+                            <div class="cell-direction">正南</div>
+                            <div class="cell-gua">离宫</div>
+                            <div class="cell-star-name" style="color:#cb4335">六煞</div>
+                            <div class="cell-attribute attr-xiong">次凶</div>
+                            <div class="cell-advice">宜水泄化，忌主卧大床</div>
+                        </div>
+                        <div class="grid-cell xiong-wugui">
+                            <div class="cell-direction">东南</div>
+                            <div class="cell-gua">巽宫</div>
+                            <div class="cell-star-name" style="color:#a93226">五鬼</div>
+                            <div class="cell-attribute attr-xiong">大凶</div>
+                            <div class="cell-advice">宜空宜静，忌卧室炉灶</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <h4>八宅九星图例</h4>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #d4edda 0%, #b8e6c2 100%);"></div>
+                        <span><strong>生气</strong>（上吉）：第一吉星，旺财旺丁，最利大门</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%);"></div>
+                        <span><strong>延年</strong>（吉）：旺人缘、利婚姻、主长寿</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #e8daef 0%, #d7bde2 100%);"></div>
+                        <span><strong>天医</strong>（吉）：旺健康、利医药、主贵人</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #fcf3cf 0%, #f9e79f 100%);"></div>
+                        <span><strong>伏位</strong>（平吉）：坐山本气，主平稳安定</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #fadbd8 0%, #f5b7b1 100%);"></div>
+                        <span><strong>绝命</strong>（至凶）：损丁破财，最忌开门安床</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #f5b7b1 0%, #ec7063 100%);"></div>
+                        <span><strong>五鬼</strong>（大凶）：主是非灾病，忌炉灶卧室</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #fadbd8 0%, #f1948a 100%);"></div>
+                        <span><strong>六煞</strong>（次凶）：主桃花口舌，忌主位</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #fdebd0 0%, #f8c471 100%);"></div>
+                        <span><strong>祸害</strong>（小凶）：主疾病小灾，宜压制</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advice-list">
+                <div class="advice-item">
+                    <h5>▸ 坤宅八宅布局要点</h5>
+                    <p>1. <strong>大门宜开东北艮宫（生气方）</strong>：此为坤宅第一吉位，朝向方恰为生气上吉星，纳气最旺。</p>
+                    <p>2. <strong>主卧室宜选西南坤宫（伏位）或正西兑宫（天医）</strong>：伏位稳宅主根基，天医旺家人健康。</p>
+                    <p>3. <strong>厨房宜压凶方</strong>：灶座压在正北绝命或东南五鬼方，以火气泄化凶性。</p>
+                    <p>4. <strong>厕所、储藏室宜在正北坎宫（绝命）或东南巽宫（五鬼）</strong>：以污秽压凶。</p>
+                    <p>5. <strong>西北乾宫（延年）</strong>利客厅、书房，主家庭和睦、贵人相助。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 第二部分：玄空飞星派 ========== -->
+        <div class="section">
+            <h2 class="section-title">下半部：玄空飞星坤山艮向盘（九运 · 2024-2043 · 上北下南）</h2>
+
+            <div class="theory-box">
+                <p><strong>玄空飞星核心逻辑：</strong>八方旺衰<strong>不仅随坐向变，还随"元运"（时间）变</strong>。以当运星入中，按坐山、朝向的阴阳分别顺飞/逆飞，排出"山星"（管丁贵健康）和"向星"（管财运事业）两套飞星。</p>
+                <p><strong>排盘三要素：</strong>①运星（九运，9紫当旺，2024-2043年）；②坐山坤（天元龙坤，属阴，山星逆飞）；③朝向艮（天元龙艮，属阳，向星顺飞）。</p>
+                <p><strong>砂水总纲：</strong>"山上龙神不下水，水里龙神不上山"——<strong>山星宜砂</strong>（见高大实体为吉），<strong>向星宜水</strong>（见空旷流动为吉）。当旺星（9紫）、生旺星（8白、1白）到方得宜则发，衰死煞星（2黑、5黄、3碧、4绿、6白、7赤）得位反招祸。</p>
+            </div>
+
+            <div class="special-note">
+                <h5>⚠️ 重要格局判定：坤山艮向九运为「上山下水」局</h5>
+                <p>九运当旺星为<strong>9紫</strong>。排盘显示：山星9到坐山坤宫（旺山到位是好的），但向星9<strong>也飞到坐山坤宫而非向首艮宫</strong>——向星旺星"上山"（跑到了该见砂的坐山位），山星衰气3到向首（山上龙神"下水"）。这意味着：</p>
+                <p><strong>常规"坐实朝空"（后有靠前开阔）反主丁财损耗</strong>，需用"颠山倒水"之法——坐山方（西南）反宜见水/空旷，向首方（东北）反宜见砂/有靠，才能化凶为吉。这与八宅派"生气方开门宜开阔"的结论恰好相反，正是玄空"随运而变、无死法"的典型体现。</p>
+            </div>
+
+            <div class="compass-wrapper" style="margin-top:25px;">
+                <div class="compass-container">
+                    <div class="compass-label label-n">▲ 北（坎）</div>
+                    <div class="compass-label label-s">▼ 南（离）</div>
+                    <div class="compass-label label-e">东（震） ▶</div>
+                    <div class="compass-label label-w">◀ 西（兑）</div>
+                    <div class="grid-9">
+                        <!-- 第一行（上=北）：西北乾、正北坎、东北艮 -->
+                        <div class="grid-cell xk-xiong-sha">
+                            <div class="cell-direction">西北·乾宫</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">5</div><div class="star-label">山(煞)</div></div>
+                                <div><div class="water-star">4</div><div class="star-label">向(衰)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-xiong">五黄+四绿</div>
+                            <div class="cell-advice">五黄到山，忌高大重物、忌动土</div>
+                        </div>
+                        <div class="grid-cell xk-ji-xing">
+                            <div class="cell-direction">正北·坎宫</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">1</div><div class="star-label">山(远生)</div></div>
+                                <div><div class="water-star">8</div><div class="star-label">向(近旺)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-ji">一白+八白</div>
+                            <div class="cell-advice">生成之合，山1宜静向8宜水，可旺财</div>
+                        </div>
+                        <div class="grid-cell xk-xiong-sha">
+                            <div class="cell-direction">东北·艮宫（朝向）</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">3</div><div class="star-label">山(煞)</div></div>
+                                <div><div class="water-star">6</div><div class="star-label">向(衰)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-xiong">三碧+六白</div>
+                            <div class="cell-advice">上山下水局，向首反宜见砂/有靠为补</div>
+                            <div class="direction-mark mark-facing" style="top:4px;right:4px;">朝向</div>
+                        </div>
+                        <!-- 第二行（中）：正西兑、中宫、正东震 -->
+                        <div class="grid-cell xk-xiong-sha">
+                            <div class="cell-direction">正西·兑宫</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">4</div><div class="star-label">山(衰)</div></div>
+                                <div><div class="water-star">5</div><div class="star-label">向(煞)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-xiong">四绿+五黄</div>
+                            <div class="cell-advice">五黄大煞到向，最忌动水、红黄之物</div>
+                        </div>
+                        <div class="grid-cell xk-zhong">
+                            <div class="cell-direction">中宫</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">6</div><div class="star-label">山(衰)</div></div>
+                                <div><div class="water-star">3</div><div class="star-label">向(煞)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-center">六白+三碧</div>
+                            <div class="cell-advice">金木相克，宜安静，忌动土装修</div>
+                        </div>
+                        <div class="grid-cell xk-ji-xing">
+                            <div class="cell-direction">正东·震宫</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">8</div><div class="star-label">山(近旺)</div></div>
+                                <div><div class="water-star">1</div><div class="star-label">向(远生)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-ji">八白+一白</div>
+                            <div class="cell-advice">生旺汇聚，山8宜砂向1宜水，可用作书房</div>
+                        </div>
+                        <!-- 第三行（下=南）：西南坤、正南离、东南巽 -->
+                        <div class="grid-cell xk-wang-shan">
+                            <div class="cell-direction">西南·坤宫（坐山）</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">9</div><div class="star-label">山(旺)</div></div>
+                                <div><div class="water-star">9</div><div class="star-label">向(旺)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-ji">双星到坐</div>
+                            <div class="cell-advice">上山下水局，反宜见水/空旷为用</div>
+                            <div class="direction-mark mark-sitting" style="bottom:4px;left:4px;">坐山</div>
+                        </div>
+                        <div class="grid-cell xk-zhong">
+                            <div class="cell-direction">正南·离宫</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">2</div><div class="star-label">山(病)</div></div>
+                                <div><div class="water-star">7</div><div class="star-label">向(退)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-center">二黑+七赤</div>
+                            <div class="cell-advice">病符交会，宜静不宜动，忌红黄色</div>
+                        </div>
+                        <div class="grid-cell xk-xiong-sha">
+                            <div class="cell-direction">东南·巽宫</div>
+                            <div class="star-numbers">
+                                <div><div class="mountain-star">7</div><div class="star-label">山(退)</div></div>
+                                <div><div class="water-star">2</div><div class="star-label">向(病)</div></div>
+                            </div>
+                            <div class="cell-attribute attr-xiong">七赤+二黑</div>
+                            <div class="cell-advice">山星7退气宜水平，向星2病符忌水动</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <h4>玄空九星图例</h4>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #d4edda 0%, #a9dfbf 100%);"></div>
+                        <span><strong>九紫</strong>（当旺）：九运最旺星，主喜庆旺财</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #eafaf1 0%, #d5f5e3 100%);"></div>
+                        <span><strong>八白</strong>（近旺）/ <strong>一白</strong>（远生）：吉星可用</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #fef9e7 0%, #fdebd0 100%);"></div>
+                        <span><strong>中平之星</strong>：六白衰气、二黑病符等，宜静忌动</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #fdedec 0%, #fadbd8 100%);"></div>
+                        <span><strong>五黄大煞</strong>/三碧/七赤：凶星，忌催动忌见水/砂得位</span>
+                    </div>
+                    <div style="margin-top:15px; padding-top:15px; border-top:1px dashed #c9a961;">
+                        <p style="font-size:13px; line-height:1.7;">
+                            <strong>格内数字：</strong><br>
+                            <span style="color:#1e6b35">■ 左为山星</span>（管丁，宜砂）<br>
+                            <span style="color:#1a4a6e">■ 右为向星</span>（管财，宜水）<br><br>
+                            <strong>元运说明：</strong><br>
+                            一运1864-1883 · 二运1884-1903<br>
+                            三运1904-1923 · 四运1924-1943<br>
+                            五运1944-1963 · 六运1964-1983<br>
+                            七运1984-2003 · 八运2004-2023<br>
+                            <strong style="color:#8b2424">九运2024-2043（当前）</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advice-list">
+                <div class="advice-item">
+                    <h5>▸ 九运坤山艮向「上山下水」局布局要点</h5>
+                    <p>1. <strong>西南坤宫（坐山/双星到坐）</strong>：九运旺星9齐聚于此，但"向星上山"属破格——反宜在此方见水（如鱼缸、空旷明堂、落地窗），以"水里龙神上山得水"化解，可旺财；忌高大实体重压。</p>
+                    <p>2. <strong>东北艮宫（向首/三碧六白）</strong>：向首无旺星，"山上龙神下水"——反宜见砂（如屏风、高柜、实墙），以"坐空朝满"补救；忌开门见大水、直路冲射。</p>
+                    <p>3. <strong>正东震宫（八白+一白）</strong>：全盘最吉之位，山星8近旺宜有高柜/靠山，向星1远生宜见水/通路，可做主卧或书房，丁财两利。</p>
+                    <p>4. <strong>正北坎宫（一白+八白）</strong>：与震宫呼应，向星8近旺到位，此方见水（流通空间、水景）最利财运。</p>
+                    <p>5. <strong>正西兑宫（四绿+五黄）、西北乾宫（五黄+四绿）</strong>：五黄大煞所到之处，九运最忌动土、忌红色、忌声响，宜静不宜动，可放铜钟/金属物泄化土气。</p>
+                    <p>6. <strong>正南离宫（二黑+七赤）</strong>：病符交会，不宜作卧室、厨房，宜用铜器、灰色白色装饰化解。</p>
+                </div>
+            </div>
+        </div>
+
+<main class="max-w-6xl mx-auto px-5 md:px-8 -mt-6 pb-16">
+ <!-- ============ 4 八宫交互盘 ============ -->
+  <section id="luopan" class="mt-12 rise d5">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="num-badge">5</span>
+      <h2 class="serif text-[24px] md:text-[30px] font-bold">八卦九宫“砂水”交互盘</h2>
+    </div>
+    <div class="paper-card rounded-2xl p-5 md:p-7">
+      <p class="text-[15px] text-[var(--ink-soft)] mb-2">
+        依“金锁玉关（过路阴阳）”口诀：<strong>一二三四要砂（宜高），六七八九要水（宜低/动）</strong>。
+        点击各宫查看该方位的判读与本地对应。方位以房宅坐向“坐北朝南”为例排布（上南下北）。
+      </p>
+	          <p class="text-[15px] text-[var(--ink-soft)]">
+          以八卦九宫划分方位：<strong>坎一、坤二、震三、巽四为阳位，宜见高大之“砂”</strong>；
+          <strong>乾六、兑七、艮八、离九为阴位，宜见低洼流动之“水”</strong>。
+          落到本点位：若宅背（北·坎一）紧靠大山、前方（南·离九）临开阔溪谷或缓坡，
+          即为经典的<strong>“一宫见砂、九宫见水”</strong>格局，利于聚气与财运通达。
+          反之则可能出现“砂水颠倒”，需要通过开门立向与人工补砂理水来调整。
+        </p>
+      <div class="grid grid-cols-3 gap-2 md:gap-3 max-w-[560px] mx-auto compass-wrap mt-4">
+        <!-- 上排：东南 南 西南 -->
+        <div class="axis-cell" data-gua="巽" data-num="四" data-want="砂(宜高)">
+          <div class="dir">东南</div><div class="gua">巽 · 四</div><div class="st st-good">宜砂</div>
+        </div>
+        <div class="axis-cell" data-gua="离" data-num="九" data-want="水(宜低)">
+          <div class="dir">正南</div><div class="gua">离 · 九</div><div class="st st-bad">宜水</div>
+        </div>
+        <div class="axis-cell" data-gua="坤" data-num="二" data-want="砂(宜高)">
+          <div class="dir">西南</div><div class="gua">坤 · 二</div><div class="st st-good">宜砂</div>
+        </div>
+        <!-- 中排：东 中 西 -->
+        <div class="axis-cell" data-gua="震" data-num="三" data-want="砂(宜高)">
+          <div class="dir">正东</div><div class="gua">震 · 三</div><div class="st st-good">宜砂</div>
+        </div>
+        <div class="axis-cell" style="background:rgba(168,129,60,.08);border-color:rgba(168,129,60,.4)">
+          <div class="dir">中宫</div><div class="gua serif">宅 心</div><div class="st" style="color:#7c5d22">立向基准</div>
+        </div>
+        <div class="axis-cell" data-gua="兑" data-num="七" data-want="水(宜低)">
+          <div class="dir">正西</div><div class="gua">兑 · 七</div><div class="st st-bad">宜水</div>
+        </div>
+        <!-- 下排：东北 北 西北 -->
+        <div class="axis-cell" data-gua="艮" data-num="八" data-want="水(宜低)">
+          <div class="dir">东北</div><div class="gua">艮 · 八</div><div class="st st-bad">宜水</div>
+        </div>
+        <div class="axis-cell" data-gua="坎" data-num="一" data-want="砂(宜高)">
+          <div class="dir">正北</div><div class="gua">坎 · 一</div><div class="st st-good">宜砂</div>
+        </div>
+        <div class="axis-cell" data-gua="乾" data-num="六" data-want="水(宜低)">
+          <div class="dir">西北</div><div class="gua">乾 · 六</div><div class="st st-bad">宜水</div>
+        </div>
+      </div>
+      <div id="axis-out" class="mt-5 min-h-[74px] rounded-xl border border-[var(--line)] bg-[rgba(15,107,92,.04)] px-4 py-3 text-[15px]">
+        <span class="text-[var(--ink-soft)]">点击上方任意宫位，查看该方位的传统判读与本地的对应情形。</span>
+      </div>
+    </div>
+  </section>
+  <!-- ============ 6 山形水势 ============ -->
+  <section id="terrain" class="mt-12 rise d4">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="num-badge">6</span>
+      <h2 class="serif text-[24px] md:text-[30px] font-bold">周边山形水势（形势判断的地基）</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="paper-card rounded-2xl p-5">
+        <div class="tag mb-3">大势</div>
+        <h3 class="font-bold text-[17px] mb-2">大势西高东低、岭谷相间</h3>
+        <p class="text-[15px] text-[var(--ink-soft)]">
+          湖南整体地势西高东低呈“簸箕状”向洞庭湖倾斜；雪峰山为东北—西南走向巨型山脉，
+          在安化一带是其“最大腹地”，山体庞大绵长，被资水穿切后北段散开渐降为丘陵。
+          该点位正处这一“北段群山—河谷”过渡带。
+        </p>
+      </div>
+      <div class="paper-card rounded-2xl p-5">
+        <div class="tag mb-3">近局</div>
+        <h3 class="font-bold text-[17px] mb-2">近处为支脉缓坡与溪谷</h3>
+        <p class="text-[15px] text-[var(--ink-soft)]">
+          安化境内溪涧极密，多为“盆地+豁口+走廊”的山间小地貌单元，
+          传统聚落多落在<strong>山脚缓坡、河谷阶地与日照较好的南向坡面</strong>；
+          山谷口、陡崖下方与常年阴湿的北向坡则较少建宅。
+        </p>
+      </div>
+      <div class="paper-card rounded-2xl p-5">
+        <div class="tag mb-3">水系</div>
+        <h3 class="font-bold text-[17px] mb-2">资水主干 + 密布支溪</h3>
+        <p class="text-[15px] text-[var(--ink-soft)]">
+          资江自西向东横贯安化，沿途接纳辰溪、大酉溪、思贤溪、柳溪等众多支流；
+          溪水多“曲则有情”，在湾抱处形成缓流与阶地。
+          风水上"山管人丁、水管财"，此即“水”的依据来源。
+        </p>
+      </div>    </div>
+	  <div class="paper-card rounded-2xl p-5">
+        <div class="text-[13px] tracking-widest text-[var(--ink-soft)] mb-3">关 键 词 地 位</div>
+        <ul class="space-y-3 text-[15px]">
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">山</span><span>雪峰山北段，褶皱断块山地，岭谷相间</span></li>
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">水</span><span>资水穿安化全境，支流溪涧极密（全县长逾5km溪河逾170条）</span></li>
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">文</span><span>古称“梅山”，梅山文化发祥地，黑茶故乡</span></li>
+          <li class="flex gap-3"><span class="text-[var(--jade)] font-bold">形</span><span>典型峡谷/盆地地貌，聚落多沿河谷阶地分布</span></li>
+        </ul>
+      </div>
+
+  </section>
+  
+  
+  <!-- ============ 7 实操建议 ============ -->
+  <section id="advice" class="mt-12 rise d6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="num-badge">7</span>
+      <h2 class="serif text-[24px] md:text-[30px] font-bold">建宅实操建议（形理兼顾）</h2>
+    </div>
+    <div class="paper-card rounded-2xl p-5 md:p-6">
+      <details open>
+        <summary><span>A. 选址定位：先看“地”，再看“形”</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          优先选择<strong>山腰缓坡、南向或东南向的阶地</strong>，避开三类位置：
+          ① 山脊/峰顶（雷击、风大、孤立）；
+          ② 紧贴陡峭山脚的坡脚（割脚煞、山洪落石）；
+          ③ 谷底低洼与河谷淹没区（湿气重、涝害）。
+          同时确认土地权属、林权与建设许可等合法性要件。
+        </div>
+      </details>
+      <details>
+        <summary><span>B. 后山与人——“真靠山”三条硬指标</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          ① 山形<strong>圆润饱满、草木繁茂</strong>，无尖峰怪石、无崩裂缺口（“活龙”）；
+          ② 山脉<strong>连绵不孤、不秃</strong>，像太师椅高背兜住宅基；
+          ③ 距房基<strong>约 50–200 m 缓冲</strong>，坡度平缓、土体密实。
+          达不到时：后窗宜小、后墙加实墙/矮挡墙，种一排高大常绿乔木（香樟、桂花）作缓冲。
+        </div>
+      </details>
+      <details>
+        <summary><span>C. 明堂与前方——纳气口要“开”</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          门前宜<strong>平整开阔或缓坡下行</strong>，忌正前方被大山堵死、忌深谷急流直面。
+          若前方有冲射之物（尖角山石、电线杆），在对应方位设照壁、种植阔叶常绿乔木（罗汉松、香樟）挡煞纳气。
+        </div>
+      </details>
+      <details>
+        <summary><span>D. 排水防潮与地基（山区第一安全项）</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          宅基宜<strong>前低后高、地坪抬高</strong>；后山脚开挖截水沟，地基设防潮层，室内加强通风。
+          主屋避开山脚直贴与山脊暴露处，坡脚位置应设挡土墙与护坡植被。
+          <strong>排水与技术安全以自然资源、住建、应急及专业地勘结论为准。</strong>
+        </div>
+      </details>
+      <details>
+        <summary><span>E. 立向与内部格局（形理合参）</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          朝向结合主山走向定，可取南偏东 15° 上下；主门、客厅宜朝开阔之离宫纳气；
+          厨房可置中南/南以助旺阳气；卧室忌贴山岩一侧，床头<strong>靠实墙</strong>，忌背窗、横梁压顶。
+          具体坐向分金与开门放水，宜由当地师傅结合宅主生辰与地形现场核定。
+        </div>
+      </details>
+      <details>
+        <summary><span>F. 现场实勘打分清单（可直接用）</span><span class="plus">＋</span></summary>
+        <div class="detail-body">
+          <div class="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>后山是否圆润饱满、常绿不秃？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>后山距房基 50–200 m 且坡度平缓？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>前方明堂开阔、无大山压堂？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>左护砂略高环抱、右护砂低伏不探头？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>无割脚、淋头水、反弓、孤峰等形煞？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>地基较高、截水沟与防潮层已规划？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>土体稳定、无滑坡崩塌历史痕迹？</span></label>
+            <label class="flex items-start gap-2 text-[15px]"><input type="checkbox" class="mt-1 accent-[var(--jade)]"><span>土地/林权/建设手续齐全？</span></label>
+          </div>
+          <p class="mt-3 text-[13px] text-[var(--ink-soft)]">八项皆过，可视为形峦层面的合格宅基地；有缺项按上文 C/D/E 逐条补救。</p>
+        </div>
+      </details>
+    </div>
+	
+	
+
+	
+  </section></main>
+ <p>风水养的就是人的心。干净、和气、少怨气，就是最好的格局。</p> 
+  <p>1．不管住哪，要说房子好。</p>
+<p>心里总嫌弃自家屋子，处处挑毛病，怨气就聚在家里。你嘴里夸房子敞亮暖和，家宅才有生气，人住着顺心，日子自然慢慢兴旺。</p>
+<p> </p>
+<p>2、家里别总冷冷清清。</p>
+<p>不是要天天宾客满堂，烟火气最重要。常开火做饭，多开窗通风，屋里有人说话走动，阳气才足。长久空着的房子，最容易发沉。</p>
+<p> </p>
+<p>3、杂物不要堆门口。</p>
+<p>大门是进气的口子，纸箱、旧家具、破烂堵在门边，好的气进不来，烦心事反倒容易找上门。门口干干净净，路顺了，财运和人缘才顺。</p>
+<p> </p>
+<p>4、卧室镜子别对着床。</p>
+<p>倒不是什么鬼神，夜里迷迷糊糊看见影子，容易受惊睡不安稳。觉睡不好，人就烦躁，身体和运气跟着受影响。</p>
+<p> </p>
+<p>5、屋宽不如心宽。</p>
+<p>豪宅大院，若是天天吵架算计，也是凶宅；房子不大，一家人互相体谅，和和气气，就是上等好风水。</p>
+<p> </p>
+
+
+
+  <br>
+
+  
+	<p>房子位于湖南涟源山区（27.911168°N, 111.640019°E），坐落在山底略靠上的斜坡（坡度约25度，后面有高出地基 3 米左右的一个 10 米见方的坪）上，坐西南朝东北，西南靠山，前面约15米外有其他人家的房（因是斜坡，邻居地基约低3米，屋顶超自家地基约3米），前面斜坡到底有小河（约300米距离），前面约500米处有丘陵（丘陵上有阴宅），右边后方邻居地坪约高出3米左右，右边前方平展10米外是往下的斜坡，左边平展30米外是往下的斜坡，斜坡到底是小河（约100米开外）。这样的房子按现在风水怎么说？</p>
+
+        <div class="footer-note">
+            <p>本文档基于传统民俗文化资料整理，仅供文化研究与娱乐参考。</p>
+            <p>请理性看待传统民俗，家居设计请遵循科学建筑原则与个人实际需求。</p>
+			
+		
+        </div>
+    </div>
+	
+	
+	
+	<script>
+/* ---------- 地图 ---------- */
+
+
+/* ---------- 八宫交互 ---------- */
+(function(){
+  var out=document.getElementById('axis-out');
+  var info={
+    '巽':{pos:'东南方',want:'宜见砂（高大）',good:true,text:'巽四为阳位，宜高不宜低。东南若有山脊、密林或较高地形，主生气凝汇、人丁与学业得力。本地山地东南向多连片林坡，天然较易满足。'},
+    '离':{pos:'正南方',want:'宜见水（低洼/开阔）',good:false,text:'离九为阴位，宜低宜动。正南若为开阔溪谷、缓坡或田畴即“水”得体，是纳气口；若正南被高山压堂、或被建筑堵死，则形成“砂水颠倒”，宜以门向调整或前方留出开阔空间化解。' },
+    '坤':{pos:'西南方',want:'宜见砂（高大）',good:true,text:'坤二为阳位，宜高。西南若为低洼水塘或深沟，属“砂水颠倒”，传统认为易影响家中气场与主妇、脾胃。可在该方填高、堆假山或植高大常绿乔木转“砂”。'},
+    '震':{pos:'正东方',want:'宜见砂（高大）',good:true,text:'震三为阳位，宜高。东方有山体或林木屏障为吉，主事业起步与家中长男。本地东向多山地，条件通常有利。'},
+    '兑':{pos:'正西方',want:'宜见水（低洼/路水）',good:false,text:'兑七为阴位，宜低宜动。若正西恰为较高山脊贴身压制，属“砂水颠倒”。可在靠山一侧做实墙、少开大窗、置重家具增“重”感以缓解。'},
+    '艮':{pos:'东北方',want:'宜见水（低洼/路水）',good:false,text:'艮八为阴位，宜低宜动。东北有溪涧、道路、低洼地为吉，主稳定与后辈；若东北被高凸地形堵住，宜以绿化或缓坡手法疏通。'},
+    '坎':{pos:'正北方',want:'宜见砂（高大）',good:true,text:'坎一为阳位，宜高。正北（宅后）有稳固高山为“有靠”，是本地最易得、也最重要的一项，主家宅安稳、得贵人扶助。'},
+    '乾':{pos:'西北方',want:'宜见水（低洼/路水）',good:false,text:'乾六为阴位，宜低宜动。西北（传统“天门”）应疏朗开阔，忌高大实体压迫；若有高墙高楼紧贴，宜留出通透或景观化解。'}
+  };
+  document.querySelectorAll('.axis-cell[data-gua]').forEach(function(el){
+    el.addEventListener('click',function(){
+      document.querySelectorAll('.axis-cell').forEach(function(x){x.classList.remove('is-on');});
+      el.classList.add('is-on');
+      var g=el.getAttribute('data-gua');
+      var d=info[g];
+      out.innerHTML='<div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">'
+        +'<span class="font-bold text-[17px] text-[var(--jade-deep)]">'+d.pos+' · '+g+'宫</span>'
+        +'<span class="'+(d.good?'st-good':'st-bad')+' text-[14px] font-semibold">'+d.want+'</span></div>'
+        +'<div class="text-[15px] text-[var(--ink-soft)]">'+d.text+'</div>';
+    });
+  });
+})();
+</script>
+</body>
+</html>

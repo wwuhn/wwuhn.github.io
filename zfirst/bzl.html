@@ -120,6 +120,7 @@ height: calc(100vh);
 
 a:link {/*tool bar and ones*/
 	text-decoration: none;
+	color:white;
     font-size:1em;
 }
 a:visited {/*tool bar and ones*/
@@ -176,12 +177,15 @@ height:1.5em;
   <div class="legend-item" data-target="27.699426, 111.656671" data-zoom="16"><span class="legend-dot" style="background:blue"></span> 涟源一中</div>
   <div class="legend-item" data-target="27.743290,112.010604" data-zoom="16"><span class="legend-dot" style="background:yellow"></span> 娄底职院 <a href="https://www.ldzy.edu.cn/" target="_blank">官网</a></div>
   <div class="legend-item" data-target="23.267059,113.236107" data-zoom="16"><span class="legend-dot" style="background:#00ff00"></span> 白云唐阁</div>
-      <div class="legend-item" ><span class="legend-dot" style="background:white"></span><a href="..\witisoPC\23\selfrecords\bzltx.html" target="_blank">腾讯</a></div>
-	        <div class="legend-item" ><span class="legend-dot" style="background:white"></span><a href="http://localhost:8088/bzlbd.html" target="_blank">百度</a></div>
+  <div class="legend-item" data-target="30.524265, 114.346948" data-zoom="17"><span class="legend-dot" style="background:#ff9f1c"></span> 武理微电 <a href="http://sic.whut.edu.cn/" target="_blank">官网</a></div>
+      <div class="legend-item" ><span class="legend-dot" style="background:white"></span>
+	  
+	  <a href="http://localhost:8088/bzltx.html" target="_blank">腾讯bzl</a></div>
+	        <div class="legend-item" ><span class="legend-dot" style="background:white"></span><a href="http://localhost:8088/bzlbd.html" target="_blank">百度bzl</a></div>
       <div class="legend-item" ><span class="legend-dot" style="background:white"></span><a href="https://www.mapchaxun.cn/jingweidu" target="_blank">经纬度查询</a></div>			
 </div>
 
-<!--<div class="scale-info">
+<!--<div class="scale-info"> //<a href="..\witisoPC\23\selfrecords\bzltx.html" target="_blank">腾讯</a>
   比例尺: <span class="val" id="scaleValue">—</span> &nbsp;|&nbsp; 当前视图范围: <span class="val" id="boundsInfo">—</span>
 </div>-->
 
@@ -198,6 +202,10 @@ const gzbytg = [23.267059,113.236107];
 
 // 娄底供校27.743290°N, 112.010604°E
 const ldgx = [27.743290,112.010604];
+// 武汉理工大学集成电路学院（马房山校区西院，珞狮路122号）
+// ⚠ 30.524265°N, 114.346948°E 为校区参考坐标（据马房山校区西院位置推算），
+//   学校未公开该学院精确经纬度；若要定位到具体楼栋，可用左下角"经纬度查询"取点后替换此值
+const whut_ic = [30.524265, 114.346948];
 // ===== 底图图层 =====
 // Esri World_Imagery（带标注）
 const esriImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -308,6 +316,28 @@ L.marker(gzbytg, {
     <span style="color:#aaa;">距白竹岭村约645.3km（南稍偏东方向）</span>
   </div>
 `);
+// 武汉理工大学集成电路学院（橙色标记，便于和其他点位区分）
+const markerWhutIc = L.marker(whut_ic, {
+  title: '武理集成电路学院',
+  icon: L.divIcon({
+    className: 'custom-marker',
+    html: '<div style="width:14px;height:14px;background:#ff9f1c;border-radius:50%;border:2px solid #fff;box-shadow:0 0 10px rgba(255,159,28,0.6);"></div>',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7]
+  })
+}).addTo(map);
+
+markerWhutIc.bindPopup(`
+  <div style="font-family:Microsoft YaHei;min-width:190px;">
+    <b style="font-size:14px;color:#ff9f1c;">武汉理工大学集成电路学院</b><br/>
+    <span style="color:#666;">湖北省武汉市洪山区珞狮路122号（马房山校区西院）</span><br/>
+    <span style="color:#4fc3f7;">坐标: 30.524265°N, 114.346948°E（校区参考位置）</span><br/>
+    <span style="color:#aaa;">距白竹岭村约391km（东北方向）</span><br/>
+    <span style="color:#aaa;">2026年5月组建，前身为材料与微电子学院，10月17日揭牌</span><br/>
+    <a href="http://sic.whut.edu.cn/" target="_blank">学院官网</a>
+  </div>
+`);
+
 // ===== 底图切换 =====
 function switchBase(type) {
   // 移除所有 TileLayer
@@ -317,18 +347,9 @@ function switchBase(type) {
     }
   });
 
-  // 重新添加标记
-  L.marker(BAIZHULING, {
-    icon: L.divIcon({
-      className: 'custom-marker',
-      html: '<div style="width:16px;height:16px;background:#e94560;border-radius:50%;border:2px solid #fff;box-shadow:0 0 10px rgba(233,69,96,0.6);"></div>',
-      iconSize: [16, 16],
-      iconAnchor: [8, 8]
-    })
-  }).addTo(map);
-
-  L.marker(GUTANG_TOWN).addTo(map);
-  L.marker(LIANYUAN_CENTER).addTo(map);
+  // 标记点说明：切换底图时只移除了 TileLayer，所有标记点（白竹岭村、古塘中学、涟源一中、
+  // 娄底职院、白云唐阁、武理集成电路学院）本身没有被移除，无需重建；
+  // 原先此处重建三个标记的代码会漏掉其余点位（并导致弹框信息丢失），已删除。
 
   switch(type) {
     case 'sat':
@@ -341,7 +362,7 @@ function switchBase(type) {
       }).addTo(map);
       document.getElementById('btnSat').classList.add('active');
       document.getElementById('btnSatPure').classList.remove('active');
-      document.getElementById('btnStreet').classList.remove('active');
+      (document.getElementById('btnStreet')||{classList:{remove(){},add(){}}}).classList.remove('active');
       break;
 
     case 'satPure':
@@ -351,7 +372,7 @@ function switchBase(type) {
       }).addTo(map);
       document.getElementById('btnSat').classList.remove('active');
       document.getElementById('btnSatPure').classList.add('active');
-      document.getElementById('btnStreet').classList.remove('active');
+      (document.getElementById('btnStreet')||{classList:{remove(){},add(){}}}).classList.remove('active');
       break;
 
     case 'street':
@@ -362,7 +383,7 @@ function switchBase(type) {
       }).addTo(map);
       document.getElementById('btnSat').classList.remove('active');
       document.getElementById('btnSatPure').classList.remove('active');
-      document.getElementById('btnStreet').classList.add('active');
+      (document.getElementById('btnStreet')||{classList:{remove(){},add(){}}}).classList.add('active');
       break;
   }
 }
@@ -371,7 +392,9 @@ function switchBase(type) {
 // ===== 图例点击跳转到对应位置 =====
 document.querySelectorAll('.legend-item').forEach(function(item) {
   item.addEventListener('click', function() {
-    var coords = this.getAttribute('data-target').split(',');
+    var t = this.getAttribute('data-target');
+    if (!t) return;   // 纯链接类图例项不做跳转
+    var coords = t.split(',');
     var lat = parseFloat(coords[0]);
     var lng = parseFloat(coords[1]);
     var zoom = parseInt(this.getAttribute('data-zoom')) || 16;
