@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐工具集 · 民族乐器模拟 + 乐理速查 + 五线谱音符位置</title>
+<script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+<style>
+  :root{
+    --brand:#c0392b; --brand2:#e67e22; --card:#fffdf8;
+    --bg1:#fdf6ee; --bg2:#fef9f2; --ink:#2c1810; --muted:#8a7a6c;
+  }
+  html,body{background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);font-family:'PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;color:var(--ink);}
+  .brand{font-family:'Songti SC','STSong','SimSun',serif;}
+  .tab-btn{transition:all .25s ease;border:1px solid transparent;}
+  .tab-btn.active{background:var(--brand);color:#fff;border-color:var(--brand);box-shadow:0 4px 14px rgba(192,57,43,.35);}
+  .subtab-btn{transition:all .2s ease;}
+  .subtab-btn.active{background:#fff;color:var(--brand);border-color:var(--brand);font-weight:600;}
+  .piano-key{cursor:pointer;transition:background .1s;user-select:none;}
+  .piano-key:active,.piano-key.playing{background:#ffe0b2 !important;transform:translateY(2px);}
+  .piano-black{cursor:pointer;transition:background .1s;user-select:none;}
+  .piano-black:active,.piano-black.playing{background:#5d4037 !important;}
+  .string-hit{animation:pluck .3s ease-out;}
+  @keyframes pluck{0%{stroke:#e74c3c;stroke-width:5}100%{stroke:#aaa;stroke-width:2}}
+  .note-dot{transition:all .15s;cursor:pointer;}
+  .note-dot:hover,.note-dot.active{fill:#e74c3c;r:9;}
+  .hole{cursor:pointer;transition:fill .15s;}
+  .hole.closed{fill:#2c1810;}
+  .hole.open{fill:#f5deb3;stroke:#8b6914;}
+  .section{display:none;}
+  .section.active{display:block;animation:fadeIn .35s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .ext-frame{width:100%;height:720px;border:none;border-radius:16px;background:#fff;}
+  .key-btn{cursor:pointer;transition:all .15s;user-select:none;}
+  .key-btn:active{transform:scale(.95);}
+  .key-btn.playing{background:var(--brand)!important;color:#fff!important;box-shadow:0 6px 20px rgba(192,57,43,.4);}
+  .info-badge{background:rgba(192,57,43,.08);color:var(--brand);border:1px solid rgba(192,57,43,.2);}
+
+  /* ===== 五线谱音符位置 小工具 ===== */
+  .staff-card{background:#f5f6f8;border:1px solid #eaecf0;border-radius:18px;max-width:660px;margin:0 auto;overflow:hidden;}
+  .staff-head{display:flex;align-items:center;gap:7px;padding:15px 20px 14px;border-bottom:1px solid #e8eaee;}
+  .staff-head h3{font-size:17px;font-weight:400;color:#8f959e;margin:0;letter-spacing:.3px;}
+  .staff-i{width:17px;height:17px;border-radius:50%;border:1.5px solid #a9afb9;color:#a9afb9;font-size:11px;font-style:italic;font-weight:700;display:inline-flex;align-items:center;justify-content:center;line-height:1;cursor:default;}
+  .staff-icons{margin-left:auto;display:flex;align-items:center;gap:16px;}
+  .staff-icons button{background:none;border:none;padding:0;margin:0;cursor:pointer;color:#6b7280;display:flex;align-items:center;line-height:0;}
+  .staff-icons button:hover{color:#3b6ef5;}
+  .staff-body{padding:16px 20px 2px;}
+  .staff-clef-label{font-size:13px;color:#9aa0a6;margin:0 0 2px;}
+  .staff-svg{display:block;width:100%;height:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+  .staff-caption{text-align:center;font-size:14px;color:#9aa0a6;margin:0 0 2px;}
+  .staff-hint{text-align:center;font-size:12px;color:#b6bbc2;margin:0 0 14px;}
+  .staff-tabs{display:flex;background:#fff;border-radius:14px;margin:0 16px 16px;padding:5px;gap:4px;}
+  .staff-tab{flex:1;border:none;background:transparent;padding:11px 6px;border-radius:10px;font-size:15px;color:#3d4147;cursor:pointer;transition:all .18s;}
+  .staff-tab:hover{background:#f2f4f7;}
+  .staff-tab.active{background:#ecedf1;color:#3b6ef5;font-weight:600;}
+</style>
+</head>
+<body class="min-h-screen pb-10">
+
+<!-- 顶部标题 -->
+<header class="max-w-6xl mx-auto px-4 pt-8 pb-4">
+  <div class="flex items-center gap-3 mb-2">
+    <span class="text-4xl">🎵</span>
+    <h1 class="brand text-3xl md:text-4xl font-black tracking-tight">音乐工具集</h1>
+  </div>
+  <p class="text-[var(--muted)] text-base md:text-lg">民族乐器实时模拟 · 互动乐理速查 · 五度圈工具 · 五线谱音符位置</p>
+</header>
+
+<!-- 主标签切换 -->
+<nav class="max-w-6xl mx-auto px-4 mb-6">
+  <div class="flex flex-wrap gap-2 bg-white/60 backdrop-blur p-2 rounded-2xl shadow-sm border border-orange-100">
+    <button class="tab-btn active px-5 py-2.5 rounded-xl font-medium text-sm md:text-base" data-tab="instr">🎻 民族乐器模拟</button>
+    <button class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm md:text-base text-gray-600 hover:bg-orange-50" data-tab="cheatsheet">📋 乐理速查表</button>
+    <button class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm md:text-base text-gray-600 hover:bg-orange-50" data-tab="circle">🔄 五度圈工具</button>
+    <button class="tab-btn px-5 py-2.5 rounded-xl font-medium text-sm md:text-base text-gray-600 hover:bg-orange-50" data-tab="staff">🎼 五线谱音符位置</button>
+  </div>
+</nav>
+
+<main class="max-w-6xl mx-auto px-4">
+
+  <!-- ============ 乐器模拟区 ============ -->
+  <section id="tab-instr" class="section active">
+
+    <!-- 子标签：乐器切换 -->
+    <div class="flex flex-wrap gap-2 mb-5">
+      <button class="subtab-btn active px-4 py-2 rounded-lg border-2 border-gray-200 text-sm md:text-base" data-instr="erhu">🎻 二胡</button>
+      <button class="subtab-btn px-4 py-2 rounded-lg border-2 border-gray-200 text-sm md:text-base" data-instr="suona">🎷 唢呐</button>
+      <button class="subtab-btn px-4 py-2 rounded-lg border-2 border-gray-200 text-sm md:text-base" data-instr="hulusi">🎶 葫芦丝</button>
+      <button class="subtab-btn px-4 py-2 rounded-lg border-2 border-gray-200 text-sm md:text-base" data-instr="piano">🎹 钢琴</button>
+      <button class="subtab-btn px-4 py-2 rounded-lg border-2 border-gray-200 text-sm md:text-base" data-instr="guzheng">🎼 古筝</button>
+      <button class="subtab-btn px-4 py-2 rounded-lg border-2 border-gray-200 text-sm md:text-base" data-instr="guitar">🎸 吉他</button>
+    </div>
+
+    <!-- 乐器状态条 -->
+    <div id="status-bar" class="flex flex-wrap items-center gap-3 mb-5 text-sm md:text-base text-[var(--muted)]">
+      <span class="info-badge px-3 py-1 rounded-full text-xs md:text-sm" id="origin-badge">唐朝起源</span>
+      <span class="px-3 py-1" id="mode-text">点按琴弦演奏</span>
+      <span class="px-3 py-1" id="play-text">等待演奏</span>
+    </div>
+
+    <!-- 乐器舞台 -->
+    <div class="bg-[var(--card)] rounded-3xl shadow-lg border border-orange-100 p-4 md:p-8 mb-6 min-h-[440px] flex items-center justify-center relative overflow-hidden">
+      <div id="stage"></div>
+    </div>
+
+    <!-- 演奏键盘 -->
+    <div class="bg-[var(--card)] rounded-2xl shadow border border-orange-100 p-4 mb-6">
+      <p class="text-sm text-[var(--muted)] mb-3">🎹 演奏键盘（或按键盘数字键 1-8）</p>
+      <div id="keyboard" class="grid grid-cols-4 md:grid-cols-8 gap-2"></div>
+    </div>
+
+    <!-- 曲目按钮 -->
+    <div class="bg-[var(--card)] rounded-2xl shadow border border-orange-100 p-4 mb-6">
+      <p class="text-sm text-[var(--muted)] mb-3">🎶 经典曲目演示</p>
+      <div id="songs" class="flex flex-wrap gap-2"></div>
+      <button id="stop-btn" class="mt-3 px-4 py-2 rounded-lg bg-gray-100 text-gray-600 text-sm hover:bg-gray-200">⏹ 停止播放</button>
+    </div>
+
+    <!-- 乐理说明 -->
+    <div id="info-panel" class="bg-[var(--card)] rounded-2xl shadow border border-orange-100 p-5 md:p-6">
+    </div>
+
+  </section>
+
+  <!-- ============ 乐理速查表（嵌入 muted.io） ============ -->
+  <section id="tab-cheatsheet" class="section">
+    <div class="bg-[var(--card)] rounded-3xl shadow-lg border border-orange-100 p-4 md:p-6 mb-4">
+      <h2 class="brand text-2xl font-bold mb-2">📋 音乐理论速查表</h2>
+      <p class="text-[var(--muted)] text-sm md:text-base mb-1">包含调式、音阶、和弦、音程、音符等完整参考，来自 muted.io</p>
+      <p class="text-xs text-[var(--muted)]">提示：如嵌入页面无法加载，可 <a href="https://muted.io/cheat-sheet/" target="_blank" class="text-[var(--brand)] underline">在新窗口打开</a></p>
+    </div>
+    <iframe class="ext-frame" src="https://muted.io/cheat-sheet/" title="Music Theory Cheat Sheet" loading="lazy"></iframe>
+  </section>
+
+  <!-- ============ 五度圈（嵌入 circleoffifths.io） ============ -->
+  <section id="tab-circle" class="section">
+    <div class="bg-[var(--card)] rounded-3xl shadow-lg border border-orange-100 p-4 md:p-6 mb-4">
+      <h2 class="brand text-2xl font-bold mb-2">🔄 互动五度圈</h2>
+      <p class="text-[var(--muted)] text-sm md:text-base mb-1">中文互动版五度圈工具，可以查看大小调、调号、和弦关系，来自 circleoffifths.io</p>
+      <p class="text-xs text-[var(--muted)]">提示：如嵌入页面无法加载，可 <a href="https://circleoffifths.io/zh" target="_blank" class="text-[var(--brand)] underline">在新窗口打开</a></p>
+    </div>
+    <iframe class="ext-frame" src="https://circleoffifths.io/zh" title="Circle of Fifths 互动五度圈" loading="lazy"></iframe>
+  </section>
+
+  <!-- ============ 五线谱音符位置 ============ -->
+  <section id="tab-staff" class="section">
+    <div class="staff-card">
+      <div class="staff-head">
+        <h3>小工具 · 五线谱音符位置</h3>
+        <span class="staff-i">i</span>
+        <div class="staff-icons">
+          <button id="staffMute" type="button" title="静音 / 取消静音"></button>
+          <button id="staffReset" type="button" title="复位"></button>
+        </div>
+      </div>
+      <div class="staff-body">
+        <p class="staff-clef-label" id="staffClefLabel">高音谱号</p>
+        <svg class="staff-svg" id="staffSvg" viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" aria-label="五线谱音符位置演示"></svg>
+        <p class="staff-caption" id="staffCaption">Do (C4) · 第一加线</p>
+        <p class="staff-hint">点击谱面任意位置选择音符，切换谱号即可查看同一音符在不同谱号下的音名与线间位置</p>
+      </div>
+      <div class="staff-tabs">
+        <button class="staff-tab active" type="button" data-clef="treble">高音谱号（G谱）</button>
+        <button class="staff-tab" type="button" data-clef="bass">低音谱号（F谱）</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ============ 音频引擎 ============ */
+let audioCtx;
+function ac(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); return audioCtx; }
+
+// 通用音色合成
+function playNote(freq, dur=1.2, type='sine', vol=.25, attack=.02, decay=.15){
+  const ctx = ac();
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  const f = ctx.createBiquadFilter();
+  o.type = type;
+  o.frequency.value = freq;
+  f.type = 'lowpass';
+  f.frequency.value = 3500;
+  g.gain.setValueAtTime(0, ctx.currentTime);
+  g.gain.linearRampToValueAtTime(vol, ctx.currentTime + attack);
+  g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + dur);
+  o.connect(f); f.connect(g); g.connect(ctx.destination);
+  o.start();
+  o.stop(ctx.currentTime + dur);
+}
+
+// 各乐器专用音色
+const INSTRUMENTS = {
+  erhu:{
+    name:'二胡', origin:'唐朝起源', mode:'点按琴弦演奏',
+    notes:[
+      {n:'D',  f:293.66,l:'D 内空'},{n:'E', f:329.63,l:'E 1指'},{n:'#F',f:369.99,l:'F#2指'},
+      {n:'G',  f:392.00,l:'G 3指'},{n:'A', f:440.00,l:'A 外空'},{n:'B', f:493.88,l:'B 1指'},
+      {n:"C#",f:554.37,l:'C#2指'},{n:'D', f:587.33,l:'D 3指'}
+    ],
+    info:`<h3 class="brand text-xl font-bold mb-2">🎻 二胡小知识</h3>
+      <ul class="text-[15px] leading-relaxed space-y-1.5 list-disc list-inside text-gray-700">
+        <li><b>起源</b>：唐朝，前身名"奚琴"，至今已有千余年历史，是中国民族管弦乐中最具歌唱性的拉弦乐器</li>
+        <li><b>定音</b>：内弦 D（294Hz）、外弦 A（440Hz），常用D调15弦指法</li>
+        <li><b>构造</b>：两根钢丝缠弦、六角蟒皮琴筒、马尾弓、红丝千斤</li>
+        <li><b>名曲</b>：《二泉映月》（阿炳代表作，被称为"中国的命运交响曲"）、《良宵》《赛马》《江河水》</li>
+        <li><b>演奏提示</b>：左手按弦掌心虚空如握鸡蛋，右手运弓平稳贴弦，新手先练空弦长弓熟悉音色</li>
+      </ul>`,
+    play:(f)=>{ // 二胡：接近正弦+偶次谐波，揉弦感
+      const ctx=ac();
+      [1,2,3,4].forEach((h,i)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain(),filt=ctx.createBiquadFilter();
+        o.type=i%2?'triangle':'sine';
+        o.frequency.value=f*h;
+        filt.type='lowpass';filt.frequency.value=i?2200:4000;
+        g.gain.setValueAtTime(0,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(.2/(h*1.3),ctx.currentTime+.05);
+        g.gain.linearRampToValueAtTime(.12/(h*1.3),ctx.currentTime+.3);
+        g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.8);
+        // 揉弦
+        const lfo=ctx.createOscillator(),lfog=ctx.createGain();
+        lfo.frequency.value=5;lfog.gain.value=f*0.01;
+        lfo.connect(lfog);lfog.connect(o.frequency);lfo.start();
+        o.connect(filt);filt.connect(g);g.connect(ctx.destination);
+        o.start();o.stop(ctx.currentTime+1.8);lfo.stop(ctx.currentTime+1.8);
+      });
+    },
+    songs:[
+      {name:'二泉映月', seq:[[0,600],[2,400],[3,800],[2,400],[1,600],[0,800],[3,600],[4,800],[3,400],[2,400],[1,800]]},
+      {name:'良宵',     seq:[[4,400],[5,400],[6,400],[7,800],[6,400],[5,400],[4,800],[3,400],[4,400],[5,800]]},
+      {name:'赛马',     seq:[[4,200],[5,200],[4,200],[3,200],[4,400],[7,400],[6,200],[5,200],[4,400],[3,400]]}
+    ]
+  },
+  suona:{
+    name:'唢呐', origin:'波斯传入', mode:'点按音孔演奏',
+    notes:[
+      {n:'sol',f:392.00,l:'筒音作sol(G)'},{n:'la', f:440.00,l:'la(A)'},{n:'si', f:493.88,l:'si(B)'},
+      {n:"do", f:523.25,l:'高音do(C)'},{n:'re', f:587.33,l:'re(D)'},{n:'mi', f:659.25,l:'mi(E)'},
+      {n:"fa", f:698.46,l:'fa(F)'},{n:'sol',f:783.99,l:'高音sol(G)'}
+    ],
+    info:`<h3 class="brand text-xl font-bold mb-2">🎷 唢呐小知识</h3>
+      <ul class="text-[15px] leading-relaxed space-y-1.5 list-disc list-inside text-gray-700">
+        <li><b>命名</b>：来自波斯语 Surnā 的音译，金元时期经丝绸之路传入中国，和唱名 sol/la 发音相似纯属巧合</li>
+        <li><b>指法</b>：民间最常用"筒音作sol"入门指法，鲁西南经典曲牌《二八调开门》用"筒音作la"</li>
+        <li><b>音色</b>：高亢嘹亮、穿透力极强，号称"乐器界的流氓"，红白喜事都离不开它</li>
+        <li><b>名曲</b>：《百鸟朝凤》（最负盛名，模仿百鸟争鸣）、《二八调开门》《一枝花》《喇叭调》</li>
+        <li><b>构造</b>：芦苇哨片、锥形木管、铜碗喇叭口，八孔设计（前七后一）</li>
+      </ul>`,
+    play:(f)=>{ // 唢呐：明亮双簧音色
+      const ctx=ac();
+      [1,2,3,4,5,6].forEach((h,i)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain(),filt=ctx.createBiquadFilter();
+        o.type='sawtooth';o.frequency.value=f*h;
+        filt.type='bandpass';filt.frequency.value=f*3;filt.Q.value=2;
+        const vol=[.25,.15,.12,.08,.05,.03][i];
+        g.gain.setValueAtTime(0,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(vol,ctx.currentTime+.03);
+        g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.0);
+        o.connect(filt);filt.connect(g);g.connect(ctx.destination);
+        o.start();o.stop(ctx.currentTime+1.0);
+      });
+    },
+    songs:[
+      {name:'百鸟朝凤', seq:[[0,200],[1,200],[3,300],[2,200],[1,200],[0,300],[3,200],[4,200],[5,400],[3,200],[1,200],[0,600]]},
+      {name:'二八调开门',seq:[[1,400],[3,400],[4,400],[3,400],[1,400],[0,400],[1,800],[4,400],[3,400],[1,800]]},
+      {name:'喇叭调',    seq:[[0,300],[3,300],[4,300],[3,300],[0,300],[0,600],[3,300],[4,300],[5,600],[3,300],[0,600]]}
+    ]
+  },
+  hulusi:{
+    name:'葫芦丝', origin:'云南傣族', mode:'点按音孔演奏',
+    notes:[
+      {n:'sol',f:392.00,l:'低音sol'},{n:'la', f:440.00,l:'la'},{n:'si', f:493.88,l:'si'},
+      {n:'do', f:523.25,l:'do'},{n:'re', f:587.33,l:'re'},{n:'mi', f:659.25,l:'mi'},
+      {n:'fa', f:698.46,l:'fa'},{n:'sol',f:783.99,l:'sol'}
+    ],
+    info:`<h3 class="brand text-xl font-bold mb-2">🎶 葫芦丝小知识</h3>
+      <ul class="text-[15px] leading-relaxed space-y-1.5 list-disc list-inside text-gray-700">
+        <li><b>起源</b>：云南傣族、阿昌族等少数民族乐器，又称"葫芦箫"，已有上千年历史</li>
+        <li><b>构造</b>：天然葫芦做气箱，插三根紫竹管（一根主管+两根副管），装铜质簧片</li>
+        <li><b>音色</b>：轻柔、细腻、圆润、含蓄，像在倾诉，被誉为"东方萨克斯"</li>
+        <li><b>名曲</b>：《月光下的凤尾竹》（施光南作曲，葫芦丝代名词）、《婚誓》《有一个美丽的地方》</li>
+        <li><b>音域</b>：相对较窄，常用筒音作sol指法，适合演奏抒情悠扬的旋律</li>
+      </ul>`,
+    play:(f)=>{ // 葫芦丝：纯净+微弱气声
+      const ctx=ac();
+      [1,2,3].forEach((h,i)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain(),filt=ctx.createBiquadFilter();
+        o.type='sine';o.frequency.value=f*h;
+        filt.type='lowpass';filt.frequency.value=2000;
+        // 气声
+        const n=ctx.createBufferSource(),nb=ctx.createBuffer(1,ctx.sampleRate*.1,ctx.sampleRate);
+        const d=nb.getChannelData(0);for(let k=0;k<d.length;k++)d[k]=(Math.random()*2-1)*.02;
+        n.buffer=nb;n.loop=true;
+        const nf=ctx.createBiquadFilter();nf.type='bandpass';nf.frequency.value=f*1.2;nf.Q.value=5;
+        const ng=ctx.createGain();ng.gain.value=.08;
+        n.connect(nf);nf.connect(ng);ng.connect(ctx.destination);
+        g.gain.setValueAtTime(0,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(.3/(h*1.5),ctx.currentTime+.08);
+        g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+1.5);
+        o.connect(filt);filt.connect(g);g.connect(ctx.destination);
+        o.start();n.start();o.stop(ctx.currentTime+1.5);n.stop(ctx.currentTime+1.5);
+      });
+    },
+    songs:[
+      {name:'月光下的凤尾竹',seq:[[3,600],[2,300],[1,300],[0,600],[1,300],[2,300],[3,600],[5,600],[4,300],[3,300],[2,600],[3,900]]},
+      {name:'婚誓',          seq:[[3,400],[5,400],[4,400],[3,800],[1,400],[0,400],[1,800],[3,400],[2,400],[1,800]]},
+      {name:'有一个美丽的地方',seq:[[0,400],[2,400],[3,400],[5,400],[4,400],[3,400],[2,400],[0,800],[3,400],[2,400],[1,800]]}
+    ]
+  },
+  piano:{
+    name:'钢琴', origin:'意大利发明', mode:'点击琴键演奏',
+    notes:[
+      {n:'C4',f:261.63,l:'中央C'},{n:'D4',f:293.66,l:'D'},{n:'E4',f:329.63,l:'E'},
+      {n:'F4',f:349.23,l:'F'},{n:'G4',f:392.00,l:'G'},{n:'A4',f:440.00,l:'A（标准音）'},
+      {n:'B4',f:493.88,l:'B'},{n:'C5',f:523.25,l:'高音C'}
+    ],
+    info:`<h3 class="brand text-xl font-bold mb-2">🎹 钢琴小知识</h3>
+      <ul class="text-[15px] leading-relaxed space-y-1.5 list-disc list-inside text-gray-700">
+        <li><b>发明</b>：1709年由意大利人克里斯托弗里发明，全称"pianoforte"（强弱琴）</li>
+        <li><b>音域</b>：现代钢琴共88键（52白+36黑），音域从 A2 到 c5，覆盖几乎所有人耳可辨的乐音</li>
+        <li><b>标准音</b>：A4 = 440Hz 是国际通用的调音标准</li>
+        <li><b>分类</b>：三角钢琴（演奏会用）和立式钢琴（家用练习）</li>
+        <li><b>地位</b>：被称为"乐器之王"，音域最广、表现力最丰富，是学习音乐理论和其他乐器的最佳起点</li>
+      </ul>`,
+    play:(f)=>{ // 钢琴：打击感+快速衰减+多谐波
+      const ctx=ac();
+      [1,2,3,4,5,6].forEach((h,i)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain(),filt=ctx.createBiquadFilter();
+        o.type=i<3?'triangle':'sine';o.frequency.value=f*h;
+        filt.type='lowpass';filt.frequency.value=5000;
+        const vol=[.3,.15,.08,.05,.03,.02][i];
+        g.gain.setValueAtTime(0,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(vol,ctx.currentTime+.005);
+        g.gain.exponentialRampToValueAtTime(vol*.3,ctx.currentTime+.2);
+        g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+2.0);
+        o.connect(filt);filt.connect(g);g.connect(ctx.destination);
+        o.start();o.stop(ctx.currentTime+2.0);
+      });
+    },
+    songs:[
+      {name:'小星星',  seq:[[0,400],[0,400],[4,400],[4,400],[5,400],[5,400],[4,800],[3,400],[3,400],[2,400],[2,400],[1,400],[1,400],[0,800]]},
+      {name:'欢乐颂',  seq:[[2,400],[2,400],[3,400],[4,400],[4,400],[3,400],[2,400],[1,400],[0,400],[0,400],[1,400],[2,400],[2,600],[1,200],[1,800]]},
+      {name:'生日快乐',seq:[[0,300],[0,300],[1,600],[0,600],[3,600],[2,1200],[0,300],[0,300],[1,600],[0,600],[4,600],[3,1200]]}
+    ]
+  },
+  guzheng:{
+    name:'古筝', origin:'战国时期', mode:'点击琴弦演奏',
+    notes:[
+      {n:'do',f:261.63,l:'宫(do)'},{n:'re',f:293.66,l:'商(re)'},{n:'mi',f:329.63,l:'角(mi)'},
+      {n:'sol',f:392.00,l:'徵(sol)'},{n:'la',f:440.00,l:'羽(la)'},{n:'do',f:523.25,l:'高音do'},
+      {n:'re',f:587.33,l:'高音re'},{n:'mi',f:659.25,l:'高音mi'}
+    ],
+    info:`<h3 class="brand text-xl font-bold mb-2">🎼 古筝小知识</h3>
+      <ul class="text-[15px] leading-relaxed space-y-1.5 list-disc list-inside text-gray-700">
+        <li><b>起源</b>：战国时期秦国（今陕西），又称"秦筝"，距今2500多年，是中国最古老的弹拨乐器之一</li>
+        <li><b>形制</b>：传统21弦古筝最为常用，五声音阶定弦（宫商角徵羽），无fa、si两音</li>
+        <li><b>音色</b>：清亮、圆润、典雅，右手拨弦、左手按颤揉滑，极具东方韵味</li>
+        <li><b>名曲</b>：《渔舟唱晚》（最知名，描绘夕阳渔归）、《高山流水》（知音典故）、《战台风》《出水莲》</li>
+        <li><b>流派</b>：山东筝、河南筝、潮州筝、客家筝、浙江筝、陕西筝等多个流派</li>
+      </ul>`,
+    play:(f)=>{ // 古筝：拨弦+余韵+颤音
+      const ctx=ac();
+      [1,2.01,3.01,4.01,5.02].forEach((h,i)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain(),filt=ctx.createBiquadFilter();
+        o.type=i===0?'triangle':'sine';o.frequency.value=f*h;
+        filt.type='lowpass';filt.frequency.value=4000;
+        const vol=[.28,.12,.06,.04,.02][i];
+        g.gain.setValueAtTime(0,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(vol,ctx.currentTime+.01);
+        g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+2.8);
+        o.connect(filt);filt.connect(g);g.connect(ctx.destination);
+        o.start();o.stop(ctx.currentTime+2.8);
+      });
+    },
+    songs:[
+      {name:'渔舟唱晚',seq:[[7,500],[6,250],[5,250],[4,500],[3,250],[2,250],[1,500],[0,250],[1,250],[2,250],[3,250],[4,1000]]},
+      {name:'高山流水',seq:[[0,600],[2,400],[4,400],[5,800],[4,400],[2,400],[0,800],[3,600],[4,600],[5,1200]]},
+      {name:'战台风',  seq:[[4,200],[5,200],[7,200],[6,200],[5,200],[4,200],[3,200],[4,400],[7,200],[6,200],[5,200],[4,400]]}
+    ]
+  },
+  guitar:{
+    name:'吉他', origin:'西班牙', mode:'点击琴弦演奏',
+    notes:[
+      {n:'E', f:329.63,l:'E(1弦空)'},{n:'B', f:246.94,l:'B(2弦空)'},{n:'G', f:196.00,l:'G(3弦空)'},
+      {n:'D', f:146.83,l:'D(4弦空)'},{n:'A', f:110.00,l:'A(5弦空)'},{n:'E', f:82.41,l:'E(6弦空)'},
+      {n:'C', f:261.63,l:'C和弦音'},{n:'G',f:392.00,l:'G和弦音'}
+    ],
+    info:`<h3 class="brand text-xl font-bold mb-2">🎸 吉他小知识</h3>
+      <ul class="text-[15px] leading-relaxed space-y-1.5 list-disc list-inside text-gray-700">
+        <li><b>起源</b>：其祖先可追溯到古西班牙的维维拉琴，现代古典吉他定型于19世纪西班牙</li>
+        <li><b>定弦</b>：从6弦到1弦依次为 E A D G B E，相邻弦除G-B为大三度外均为纯四度</li>
+        <li><b>分类</b>：古典吉他（尼龙弦）、民谣吉他（钢弦）、电吉他、弗拉门戈吉他等</li>
+        <li><b>名曲</b>：《爱的罗曼史》（古典吉他入门必弹）、《阿尔罕布拉宫的回忆》（轮指名曲）、《阿斯图里亚斯》</li>
+        <li><b>地位</b>：世界上最普及的乐器之一，是流行、民谣、摇滚、古典等几乎所有音乐风格的核心乐器</li>
+      </ul>`,
+    play:(f)=>{ // 吉他：钢弦拨弹+长余韵
+      const ctx=ac();
+      [1,2,3,4,5,6].forEach((h,i)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain(),filt=ctx.createBiquadFilter();
+        o.type='sawtooth';o.frequency.value=f*h;
+        filt.type='lowpass';filt.frequency.value=3000/(h*.5+1);
+        const vol=[.3,.12,.07,.04,.02,.01][i];
+        g.gain.setValueAtTime(0,ctx.currentTime);
+        g.gain.linearRampToValueAtTime(vol,ctx.currentTime+.005);
+        g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+3.0);
+        o.connect(filt);filt.connect(g);g.connect(ctx.destination);
+        o.start();o.stop(ctx.currentTime+3.0);
+      });
+    },
+    songs:[
+      {name:'爱的罗曼史',seq:[[0,500],[1,500],[0,500],[6,500],[0,500],[1,500],[0,1000],[2,500],[1,500],[0,500],[6,500],[0,1000]]},
+      {name:'小星星',    seq:[[6,400],[6,400],[7,400],[7,400],[0,800],[7,400],[7,400],[6,400],[6,400],[2,800]]},
+      {name:'欢乐颂',    seq:[[6,400],[7,400],[0,400],[6,400],[6,400],[7,400],[0,800],[6,400],[2,400],[6,800]]}
+    ]
+  }
+};
+
+/* ============ SVG 乐器图 ============ */
+function renderInstrument(key){
+  const stage = document.getElementById('stage');
+  let svg='';
+  if(key==='erhu'){
+    svg = `<svg viewBox="0 0 400 600" class="w-[240px] md:w-[300px]" xmlns="http://www.w3.org/2000/svg">
+      <!-- 琴弓 -->
+      <line x1="60" y1="290" x2="340" y2="290" stroke="#8b5a2b" stroke-width="5" stroke-linecap="round"/>
+      <line x1="60" y1="300" x2="340" y2="300" stroke="#f5deb3" stroke-width="6" stroke-linecap="round"/>
+      <rect x="48" y="280" width="22" height="28" rx="4" fill="#3e2723"/>
+      <rect x="330" y="280" width="22" height="28" rx="4" fill="#3e2723"/>
+      <rect x="340" y="284" width="14" height="20" rx="2" fill="#f5deb3" stroke="#3e2723"/>
+      <!-- 琴筒 -->
+      <polygon points="160,350 240,350 260,390 240,450 160,450 140,390" fill="#5d3a1a" stroke="#3e2723" stroke-width="2"/>
+      <polygon points="165,355 235,355 253,390 235,445 165,445 147,390" fill="#d4a76a"/>
+      <!-- 蟒皮花纹（六边形网格） -->
+      <g stroke="#8b6914" stroke-width="0.8" fill="none" opacity="0.5">
+        ${Array.from({length:8}).map((_,r)=>Array.from({length:6}).map((_,c)=>{
+          const cx=155+c*17+(r%2?8.5:0), cy=360+r*12;
+          return `<polygon points="${cx},${cy-5} ${cx+7.5},${cy-2.5} ${cx+7.5},${cy+2.5} ${cx},${cy+5} ${cx-7.5},${cy+2.5} ${cx-7.5},${cy-2.5}"/>`;
+        }).join('')).join('')}
+      </g>
+      <!-- 琴码 -->
+      <rect x="188" y="385" width="24" height="18" rx="2" fill="#3e2723"/>
+      <!-- 琴杆 -->
+      <rect x="185" y="80" width="30" height="280" rx="6" fill="#5d3a1a"/>
+      <rect x="190" y="80" width="20" height="280" fill="#6d4c2a"/>
+      <!-- 千斤红丝 -->
+      ${Array.from({length:7}).map((_,i)=>`<ellipse cx="200" cy="${180+i*4}" rx="22" ry="2.5" fill="#c0392b"/>`).join('')}
+      <!-- 琴轴 -->
+      <ellipse cx="200" cy="80" rx="28" ry="22" fill="#5d3a1a"/>
+      <circle cx="200" cy="70" r="5" fill="#d4a76a"/>
+      <rect x="140" y="105" width="55" height="16" rx="8" fill="#5d3a1a"/>
+      <circle cx="140" cy="113" r="10" fill="#5d3a1a"/>
+      <circle cx="136" cy="113" r="4" fill="#d4a76a"/>
+      <rect x="205" y="120" width="55" height="16" rx="8" fill="#5d3a1a"/>
+      <circle cx="260" cy="128" r="10" fill="#5d3a1a"/>
+      <circle cx="264" cy="128" r="4" fill="#d4a76a"/>
+      <!-- 两根琴弦 -->
+      <line x1="195" y1="100" x2="195" y2="440" stroke="#ccc" stroke-width="1.5"/>
+      <line x1="205" y1="100" x2="205" y2="440" stroke="#ccc" stroke-width="1.5"/>
+      <!-- 按音点 -->
+      ${INSTRUMENTS.erhu.notes.map((n,i)=>{
+        const y = 200 + i*28;
+        return `<g><circle class="note-dot" data-note="${i}" cx="200" cy="${y}" r="7" fill="rgba(231,76,60,.3)" stroke="#c0392b" stroke-width="1.5"/>
+          <text x="230" y="${y+4}" font-size="11" fill="#8a7a6c">${n.n}</text></g>`;
+      }).join('')}
+      <!-- 琴托 -->
+      <rect x="170" y="450" width="60" height="14" rx="6" fill="#3e2723"/>
+    </svg>`;
+  } else if(key==='suona'){
+    svg = `<svg viewBox="0 0 400 600" class="w-[220px] md:w-[280px]" xmlns="http://www.w3.org/2000/svg">
+      <!-- 哨片 -->
+      <path d="M200,60 Q195,40 200,30 Q205,40 200,60" fill="#d4a76a" stroke="#8b6914"/>
+      <rect x="195" y="55" width="10" height="15" fill="#b8860b"/>
+      <!-- 芯子 -->
+      <rect x="196" y="70" width="8" height="30" fill="#c0a060"/>
+      <!-- 气牌 -->
+      <ellipse cx="200" cy="105" rx="20" ry="6" fill="#8b4513"/>
+      <!-- 木管（锥形） -->
+      <polygon points="188,110 212,110 222,420 178,420" fill="#c8884a" stroke="#8b4513" stroke-width="2"/>
+      <polygon points="193,115 207,115 216,415 184,415" fill="#d4956a"/>
+      <!-- 8个音孔（前7后1） -->
+      ${[0,1,2,3,4,5,6].map(i=>{
+        const y=150+i*35;
+        return `<circle class="hole closed" data-hole="${i}" cx="200" cy="${y}" r="9" fill="#2c1810" stroke="#5d3a1a" stroke-width="2"/>`;
+      }).join('')}
+      <circle cx="200" cy="135" r="6" fill="#2c1810" stroke="#5d3a1a" stroke-width="1.5"/>
+      <!-- 铜碗喇叭 -->
+      <path d="M170,420 Q150,440 130,480 Q150,485 200,488 Q250,485 270,480 Q250,440 230,420 Z" fill="#d4a040" stroke="#b8860b" stroke-width="2"/>
+      <ellipse cx="200" cy="485" rx="75" ry="12" fill="#f0c060" stroke="#b8860b"/>
+      <text x="200" y="510" text-anchor="middle" font-size="12" fill="#8a7a6c">点击音孔开合 · 键1=全按筒音</text>
+    </svg>`;
+  } else if(key==='hulusi'){
+    svg = `<svg viewBox="0 0 400 600" class="w-[220px] md:w-[280px]" xmlns="http://www.w3.org/2000/svg">
+      <!-- 葫芦主体 -->
+      <ellipse cx="200" cy="120" rx="45" ry="55" fill="#8db560"/>
+      <ellipse cx="200" cy="80" rx="30" ry="35" fill="#a5c873"/>
+      <rect x="192" y="50" width="16" height="20" rx="3" fill="#6b4423"/>
+      <!-- 吹嘴 -->
+      <rect x="196" y="35" width="8" height="20" rx="2" fill="#8b6914"/>
+      <!-- 三根竹管 -->
+      <rect x="130" y="170" width="20" height="280" rx="8" fill="#c9b280" stroke="#8b7355"/>
+      <rect x="190" y="170" width="20" height="310" rx="8" fill="#d4bc8a" stroke="#8b7355"/>
+      <rect x="250" y="170" width="20" height="280" rx="8" fill="#c9b280" stroke="#8b7355"/>
+      <!-- 竹节纹 -->
+      ${[0,1,2,3].map(i=>`<line x1="130" y1="${220+i*60}" x2="150" y2="${220+i*60}" stroke="#8b7355" stroke-width="1"/>
+        <line x1="250" y1="${220+i*60}" x2="270" y2="${220+i*60}" stroke="#8b7355" stroke-width="1"/>`).join('')}
+      ${[0,1,2,3,4].map(i=>`<line x1="190" y1="${210+i*55}" x2="210" y2="${210+i*55}" stroke="#8b7355" stroke-width="1"/>`).join('')}
+      <!-- 主管音孔 -->
+      ${[0,1,2,3,4,5,6].map(i=>{
+        const y=240+i*32;
+        return `<circle class="hole closed" data-hole="${i}" cx="200" cy="${y}" r="8" fill="#2c1810" stroke="#5d3a1a" stroke-width="2"/>`;
+      }).join('')}
+      <!-- 副管音孔 -->
+      <circle cx="140" cy="380" r="5" fill="#2c1810"/>
+      <circle cx="260" cy="380" r="5" fill="#2c1810"/>
+      <!-- 底部装饰 -->
+      <rect x="125" y="445" width="30" height="12" rx="3" fill="#6b4423"/>
+      <rect x="185" y="475" width="30" height="12" rx="3" fill="#6b4423"/>
+      <rect x="245" y="445" width="30" height="12" rx="3" fill="#6b4423"/>
+      <text x="200" y="510" text-anchor="middle" font-size="12" fill="#8a7a6c">云南葫芦丝 · 空灵柔美</text>
+    </svg>`;
+  } else if(key==='piano'){
+    svg = `<svg viewBox="0 0 400 260" class="w-[340px] md:w-[420px]" xmlns="http://www.w3.org/2000/svg">
+      <!-- 钢琴外壳 -->
+      <rect x="10" y="30" width="380" height="200" rx="8" fill="#3e2723"/>
+      <rect x="20" y="40" width="360" height="180" rx="4" fill="#1a0f0a"/>
+      <!-- 白键 C D E F G A B C -->
+      ${['C4','D4','E4','F4','G4','A4','B4','C5'].map((n,i)=>{
+        const x=30+i*43;
+        return `<rect class="piano-key" data-note="${i}" x="${x}" y="50" width="40" height="160" rx="3" fill="#faf5ee" stroke="#ccc" stroke-width="1"/>
+          <text x="${x+20}" y="195" text-anchor="middle" font-size="10" fill="#888">${n}</text>`;
+      }).join('')}
+      <!-- 黑键（C# D# F# G# A#） -->
+      ${[60,103,189,232,275].map((x,i)=>{
+        const noteMap={0:2,1:3,2:5,3:6,4:7};
+        return `<rect class="piano-black" data-note="${noteMap[i]}" x="${x}" y="50" width="26" height="95" rx="3" fill="#1a0f0a" stroke="#000"/>`;
+      }).join('')}
+    </svg>`;
+  } else if(key==='guzheng'){
+    svg = `<svg viewBox="0 0 500 300" class="w-[380px] md:w-[460px]" xmlns="http://www.w3.org/2000/svg">
+      <!-- 古筝琴身 -->
+      <path d="M50,60 Q80,40 200,50 Q350,60 450,80 Q470,150 450,220 Q350,240 200,230 Q80,220 50,200 Z" fill="#d4a76a" stroke="#8b6914" stroke-width="3"/>
+      <path d="M60,70 Q90,55 200,62 Q340,72 440,90 Q455,150 440,210 Q340,228 200,220 Q90,212 60,195 Z" fill="#e8c88a"/>
+      <!-- 岳山 -->
+      <rect x="55" y="55" width="10" height="160" rx="3" fill="#6b4423"/>
+      <rect x="435" y="75" width="10" height="160" rx="3" fill="#6b4423"/>
+      <!-- 8根琴弦（宫商角徵羽+高三个） -->
+      ${INSTRUMENTS.guzheng.notes.map((n,i)=>{
+        const y=80+i*17;
+        return `<line class="zheng-string" data-note="${i}" x1="65" y1="${y}" x2="440" y2="${y+5}" stroke="#b0a090" stroke-width="1.8" style="cursor:pointer"/>
+          <circle cx="${65+i*46}" cy="${y-3}" r="4" fill="#fff" stroke="#8b6914"/>
+          <text x="${65+i*46}" y="270" text-anchor="middle" font-size="10" fill="#8a7a6c">${n.n}</text>`;
+      }).join('')}
+      <!-- 琴码位置 -->
+      ${[0,1,2,3,4,5,6,7].map(i=>{
+        const x=120+i*38, y=80+i*17;
+        return `<polygon points="${x-5},${y+3} ${x+5},${y+3} ${x},${y+12}" fill="#6b4423"/>`;
+      }).join('')}
+    </svg>`;
+  } else if(key==='guitar'){
+    svg = `<svg viewBox="0 0 400 500" class="w-[220px] md:w-[280px]" xmlns="http://www.w3.org/2000/svg">
+      <!-- 琴头 -->
+      <rect x="170" y="20" width="60" height="80" rx="8" fill="#3e2723"/>
+      <!-- 琴钮 -->
+      ${[0,1,2].map(i=>`<circle cx="162" cy="${40+i*22}" r="7" fill="#c0c0c0"/>`).join('')}
+      ${[0,1,2].map(i=>`<circle cx="238" cy="${51+i*22}" r="7" fill="#c0c0c0"/>`).join('')}
+      <!-- 琴颈 -->
+      <rect x="180" y="100" width="40" height="220" fill="#5d3a1a"/>
+      <rect x="185" y="100" width="30" height="220" fill="#6d4c2a"/>
+      <!-- 品丝 -->
+      ${Array.from({length:12}).map((_,i)=>`<line x1="180" y1="${120+i*17}" x2="220" y2="${120+i*17}" stroke="#c0c0c0" stroke-width="1"/>`).join('')}
+      <!-- 琴身 -->
+      <ellipse cx="200" cy="380" rx="90" ry="100" fill="#c8884a"/>
+      <ellipse cx="200" cy="380" rx="80" ry="90" fill="#d4956a"/>
+      <!-- 音孔 -->
+      <circle cx="200" cy="370" r="28" fill="#1a0f0a"/>
+      <circle cx="200" cy="370" r="30" fill="none" stroke="#f0e080" stroke-width="2"/>
+      <circle cx="200" cy="370" r="33" fill="none" stroke="#8b6914" stroke-width="1"/>
+      <!-- 琴桥 -->
+      <rect x="165" y="440" width="70" height="6" rx="2" fill="#3e2723"/>
+      <!-- 6根琴弦 -->
+      ${[0,1,2,3,4,5].map(i=>{
+        const x=186+i*5;
+        return `<line x1="${x}" y1="25" x2="${x}" y2="443" stroke="#d0d0d0" stroke-width="${.8+i*.2}" style="cursor:pointer" class="guitar-string" data-note="${i}"/>`;
+      }).join('')}
+      <!-- C/G 按钮区 -->
+      <g style="cursor:pointer">
+        <circle class="note-dot" data-note="6" cx="150" cy="420" r="12" fill="rgba(231,76,60,.3)" stroke="#c0392b"/>
+        <text x="150" y="424" text-anchor="middle" font-size="10" fill="#c0392b">C</text>
+        <circle class="note-dot" data-note="7" cx="250" cy="420" r="12" fill="rgba(231,76,60,.3)" stroke="#c0392b"/>
+        <text x="250" y="424" text-anchor="middle" font-size="10" fill="#c0392b">G</text>
+      </g>
+    </svg>`;
+  }
+  stage.innerHTML = svg;
+}
+
+/* ============ 键盘与状态渲染 ============ */
+let currentInstr = 'erhu';
+let playingTimer = null;
+
+function renderKeyboard(key){
+  const kb = document.getElementById('keyboard');
+  const notes = INSTRUMENTS[key].notes;
+  kb.innerHTML = notes.map((n,i)=>`
+    <button class="key-btn bg-white border-2 border-gray-200 rounded-xl p-3 text-center hover:border-[var(--brand)]" data-note="${i}">
+      <div class="text-lg md:text-xl font-bold">${n.n}</div>
+      <div class="text-[11px] md:text-xs text-gray-500">${n.l}</div>
+      <div class="text-[10px] text-gray-400 mt-1">键${i+1}</div>
+    </button>`).join('');
+  kb.querySelectorAll('.key-btn').forEach(b=>{
+    b.addEventListener('click',()=>playKey(+b.dataset.note));
+  });
+}
+
+function renderSongs(key){
+  const box = document.getElementById('songs');
+  box.innerHTML = INSTRUMENTS[key].songs.map((s,i)=>`
+    <button class="song-btn px-4 py-2 rounded-lg bg-orange-50 text-[var(--brand)] border border-orange-200 text-sm hover:bg-orange-100" data-song="${i}">▶ ${s.name}</button>
+  `).join('');
+  box.querySelectorAll('.song-btn').forEach(b=>{
+    b.addEventListener('click',()=>playSong(+b.dataset.song));
+  });
+}
+
+function renderInfo(key){
+  document.getElementById('info-panel').innerHTML = INSTRUMENTS[key].info;
+  document.getElementById('origin-badge').textContent = INSTRUMENTS[key].origin;
+  document.getElementById('mode-text').textContent = INSTRUMENTS[key].mode;
+}
+
+function updateStatus(text){
+  document.getElementById('play-text').textContent = text;
+}
+
+function playKey(i){
+  const instr = INSTRUMENTS[currentInstr];
+  if(!instr.notes[i]) return;
+  instr.play(instr.notes[i].f);
+  updateStatus(`正在演奏 ${instr.notes[i].l}`);
+  // 按钮反馈
+  const btn=document.querySelector(`.key-btn[data-note="${i}"]`);
+  if(btn){btn.classList.add('playing');setTimeout(()=>btn.classList.remove('playing'),200);}
+  // 舞台反馈
+  const dot=document.querySelector(`.note-dot[data-note="${i}"],.piano-key[data-note="${i}"],.zheng-string[data-note="${i}"],.guitar-string[data-note="${i}"]`);
+  if(dot){dot.classList.add('playing','string-hit');setTimeout(()=>{dot.classList.remove('playing','string-hit');},300);}
+}
+
+function playSong(i){
+  stopSong();
+  const song = INSTRUMENTS[currentInstr].songs[i];
+  updateStatus(`正在播放：${song.name}`);
+  let t=0;
+  song.seq.forEach(([n,d])=>{
+    setTimeout(()=>playKey(n),t);
+    t+=d;
+  });
+  playingTimer=setTimeout(()=>{updateStatus('播放完成');playingTimer=null;},t+200);
+}
+function stopSong(){
+  if(playingTimer){clearTimeout(playingTimer);playingTimer=null;}
+  updateStatus('已停止');
+}
+
+/* ============ 切换乐器 ============ */
+function switchInstr(key){
+  currentInstr = key;
+  document.querySelectorAll('.subtab-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.instr===key);
+  });
+  stopSong();
+  renderInstrument(key);
+  renderKeyboard(key);
+  renderSongs(key);
+  renderInfo(key);
+  updateStatus('等待演奏');
+  bindStageEvents(key);
+}
+
+function bindStageEvents(key){
+  document.querySelectorAll('.note-dot,.piano-key,.piano-black,.zheng-string,.guitar-string').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const n=+el.dataset.note;
+      playKey(n);
+    });
+  });
+  // 唢呐/葫芦丝音孔开合
+  document.querySelectorAll('.hole').forEach(h=>{
+    h.addEventListener('click',()=>h.classList.toggle('closed'));
+  });
+}
+
+/* ============ 主标签切换 ============ */
+document.querySelectorAll('.tab-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(x=>{x.classList.remove('active');x.classList.add('text-gray-600');});
+    b.classList.add('active');b.classList.remove('text-gray-600');
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.getElementById('tab-'+b.dataset.tab).classList.add('active');
+  });
+});
+
+document.querySelectorAll('.subtab-btn').forEach(b=>{
+  b.addEventListener('click',()=>switchInstr(b.dataset.instr));
+});
+
+document.getElementById('stop-btn').addEventListener('click',stopSong);
+
+// 键盘快捷键 1-8
+document.addEventListener('keydown',e=>{
+  if(e.key>='1'&&e.key<='8'){
+    const n=parseInt(e.key)-1;
+    if(document.getElementById('tab-instr').classList.contains('active')) playKey(n);
+  }
+});
+
+/* ============ 五线谱音符位置 小工具 ============ */
+(function(){
+  const CLEF_PATHS = {
+  treble: "M314 801Q300 854 291.0 906.0Q282 958 282 1012Q282 1059 288.5 1100.5Q295 1142 307 1177Q320 1217 341.0 1252.5Q362 1288 385.5 1311.0Q409 1334 427 1334Q451 1334 493 1249Q514 1206 524.0 1156.0Q534 1106 534 1049Q534 978 515.0 907.5Q496 837 459.5 775.0Q423 713 372 666L407 498Q422 500 432.0 501.0Q442 502 447 502Q508 502 556.0 467.5Q604 433 632.5 377.0Q661 321 661 254Q661 177 621.5 115.5Q582 54 503 25Q508 8 532 -117Q538 -147 541.0 -164.5Q544 -182 545.0 -195.0Q546 -208 546 -225Q546 -275 521.5 -314.5Q497 -354 455.5 -376.0Q414 -398 363 -398Q311 -398 271.0 -378.5Q231 -359 208.0 -324.5Q185 -290 185 -245Q185 -197 211.5 -165.0Q238 -133 287 -133Q329 -133 355.5 -163.5Q382 -194 382 -236Q382 -272 357.0 -299.0Q332 -326 292 -326H282Q308 -365 364 -365Q433 -365 472.0 -320.0Q511 -275 511 -205Q511 -188 507.0 -159.5Q503 -131 493 -91Q483 -51 477.5 -25.0Q472 1 470 12Q436 2 390 2Q304 2 222 52Q142 102 96.0 184.0Q50 266 50 361Q50 451 91 530Q132 609 192.5 675.0Q253 741 314 801ZM341 826Q364 838 390.0 870.5Q416 903 440.0 945.0Q464 987 479.0 1029.5Q494 1072 494 1106Q494 1142 483.0 1163.0Q472 1184 445 1184Q421 1184 398.5 1162.0Q376 1140 358.5 1103.5Q341 1067 331.0 1022.0Q321 977 321 930Q321 898 327.5 872.0Q334 846 341 826ZM398 379Q371 373 347.0 353.5Q323 334 308.5 306.5Q294 279 294 248Q294 223 307.0 196.5Q320 170 339 154Q352 142 365 136Q380 129 380 123Q380 120 370 117Q332 126 301.5 151.0Q271 176 253.5 211.5Q236 247 236 287Q236 330 253.5 370.0Q271 410 302.5 442.0Q334 474 374 490L345 641Q229 547 174.5 456.5Q120 366 120 277Q120 212 154.0 156.0Q188 100 247.0 65.5Q306 31 380 31Q400 31 420.5 35.0Q441 39 464 45ZM495 55Q593 97 593 227Q593 270 571.0 305.5Q549 341 512.0 362.0Q475 383 429 383Z",
+  bass: "M50 123Q216 231 288 301Q336 348 373.0 408.5Q410 469 431.5 536.0Q453 603 453 669Q453 728 435.0 773.5Q417 819 383.0 845.0Q349 871 302 871Q284 871 264.5 867.0Q245 863 224 855Q181 839 158.0 813.5Q135 788 135 765Q135 756 143.0 752.0Q151 748 158 748Q168 748 183 752Q190 754 196.5 755.0Q203 756 210 756Q248 756 272.0 733.5Q296 711 296 674Q296 638 266.0 612.0Q236 586 195 586Q146 586 111.0 617.0Q76 648 76 697Q76 756 109.0 802.0Q142 848 198.5 874.0Q255 900 324 900Q400 900 460.0 867.0Q520 834 555.5 776.5Q591 719 591 646Q591 551 538 464Q511 419 476.5 379.0Q442 339 389.0 297.5Q336 256 256.0 208.0Q176 160 57 101ZM687 809Q710 809 726.0 793.0Q742 777 742 754Q742 731 726.0 715.5Q710 700 687 700Q664 700 648.0 715.5Q632 731 632 754Q632 777 648.0 793.0Q664 809 687 809ZM687 589Q710 589 726.0 573.0Q742 557 742 534Q742 511 726.0 495.5Q710 480 687 480Q664 480 648.0 495.5Q632 511 632 534Q632 557 648.0 573.0Q664 589 687 589Z",
+};
+
+  var S = 22;                 // 线间距
+  var L1 = 170;               // 第1线 Y
+  var K = S / 250;            // 字形缩放（字形 1 线距 = 250 单位）
+  var TY = L1 - 100 * K;      // 字形第1线位于 font y = -100
+  var TX = 42 - 50 * K;
+  var VB_W = 600, VB_H = 280;
+  var X0 = 130, X1 = 480, LABEL_X = 488, NOTE_X = 305;
+
+  var LINE1_DIA = { treble: 30, bass: 18 };     // 第1线对应全音阶序号（C0=0）
+  var LETTERS = ['C','D','E','F','G','A','B'];
+  var SOLFEGE = { C:'Do', D:'Re', E:'Mi', F:'Fa', G:'Sol', A:'La', B:'Si' };
+  var SEMI = { C:0, D:2, E:4, F:5, G:7, A:9, B:11 };
+  var CN = ['','一','二','三','四','五','六','七','八','九','十','十一','十二'];
+  var S_MIN = -8, S_MAX = 12;
+
+  var clef = 'treble', dia = 28, muted = true;   // C4 = 4*7+0
+
+  var svg = document.getElementById('staffSvg');
+  var cap = document.getElementById('staffCaption');
+  var lbl = document.getElementById('staffClefLabel');
+  var muteBtn = document.getElementById('staffMute');
+  var resetBtn = document.getElementById('staffReset');
+  if(!svg){ return; }
+
+  function yOf(s){ return L1 - s * (S / 2); }
+  function clampS(s){ return Math.max(S_MIN, Math.min(S_MAX, s)); }
+
+  function posLabel(s){
+    if(s < 0){ var k = -s;
+      return (k % 2 === 0) ? ('第' + CN[k/2] + '加线') : ('第' + CN[(k+1)/2] + '加间'); }
+    if(s <= 8){
+      return (s % 2 === 0) ? ('线' + (s/2 + 1)) : ('间' + ((s-1)/2 + 1)); }
+    var m = s - 8;
+    return (s % 2 === 0) ? ('上加' + CN[m/2] + '线') : ('上加' + CN[(m+1)/2] + '间');
+  }
+  function noteInfo(){
+    var letter = LETTERS[((dia % 7) + 7) % 7];
+    var oct = Math.floor(dia / 7);
+    return { letter: letter, oct: oct };
+  }
+  function freq(){
+    var inf = noteInfo();
+    var midi = (inf.oct + 1) * 12 + SEMI[inf.letter];
+    return 440 * Math.pow(2, (midi - 69) / 12);
+  }
+
+  function render(){
+    var s = dia - LINE1_DIA[clef];
+    var ny = yOf(s);
+    var h = '';
+    // 五线
+    for(var i = 0; i < 5; i++){ var y = L1 - i * S;
+      h += '<line x1="' + X0 + '" y1="' + y + '" x2="' + X1 + '" y2="' + y + '" stroke="#c3c7cd" stroke-width="1.1"/>';
+    }
+    // 右侧线号
+    for(var j = 5; j >= 1; j--){ var ly = L1 - (j - 1) * S;
+      h += '<text x="' + LABEL_X + '" y="' + (ly + 4) + '" font-size="13" fill="#9aa0a6" font-family="inherit">线' + j + '</text>';
+    }
+    // 谱号
+    h += '<g transform="translate(' + TX + ',' + TY + ') scale(' + K + ',' + (-K) + ')"><path d="' +
+         CLEF_PATHS[clef] + '" fill="#2b2f36"/></g>';
+    // 加线
+    if(s < 0){
+      var n = Math.ceil((-s) / 2);
+      for(var a = 1; a <= n; a++){ var ya = L1 + a * S;
+        h += '<line x1="' + (NOTE_X-26) + '" y1="' + ya + '" x2="' + (NOTE_X+26) + '" y2="' + ya + '" stroke="#3b6ef5" stroke-width="1.5"/>'; }
+    } else if(s > 8){
+      var m = Math.ceil((s - 8) / 2);
+      for(var b = 1; b <= m; b++){ var yb = yOf(8 + 2 * b);
+        h += '<line x1="' + (NOTE_X-26) + '" y1="' + yb + '" x2="' + (NOTE_X+26) + '" y2="' + yb + '" stroke="#3b6ef5" stroke-width="1.5"/>'; }
+    }
+    // 符干
+    if(ny > yOf(4)){
+      h += '<line x1="' + (NOTE_X+7.6) + '" y1="' + (ny-2) + '" x2="' + (NOTE_X+7.6) + '" y2="' + (ny - 3.5*S) + '" stroke="#3b6ef5" stroke-width="1.7"/>';
+    } else {
+      h += '<line x1="' + (NOTE_X-7.6) + '" y1="' + (ny+2) + '" x2="' + (NOTE_X-7.6) + '" y2="' + (ny + 3.5*S) + '" stroke="#3b6ef5" stroke-width="1.7"/>';
+    }
+    // 符头
+    h += '<ellipse cx="' + NOTE_X + '" cy="' + ny + '" rx="8.6" ry="6.4" fill="#3b6ef5" transform="rotate(-18 ' + NOTE_X + ' ' + ny + ')"/>';
+    // 点击层
+    h += '<rect x="0" y="0" width="' + VB_W + '" height="' + VB_H + '" fill="transparent" pointer-events="all"/>';
+    svg.innerHTML = h;
+
+    var inf = noteInfo();
+    cap.textContent = SOLFEGE[inf.letter] + ' (' + inf.letter + inf.oct + ') · ' + posLabel(s);
+    lbl.textContent = (clef === 'treble') ? '高音谱号' : '低音谱号';
+  }
+
+  function play(f){
+    if(muted || !f){ return; }
+    var ctx;
+    try{
+      if(typeof ac === 'function'){ ctx = ac(); }
+      else { if(!window.__staffCtx){ window.__staffCtx = new (window.AudioContext || window.webkitAudioContext)(); } ctx = window.__staffCtx; }
+      if(ctx.state === 'suspended'){ ctx.resume(); }
+    }catch(e){ return; }
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = f;
+    var t = ctx.currentTime;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.22, t + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 1.1);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t); o.stop(t + 1.2);
+  }
+
+  function icons(){
+    var sp = '<path d="M11 5 6 9H3v6h3l5 4V5z"/>';
+    var wv = '<path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18.3 6.2a8 8 0 0 1 0 11.6"/>';
+    muteBtn.innerHTML = muted
+      ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + sp + '<line x1="3.6" y1="3.6" x2="20.4" y2="20.4"/></svg>'
+      : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + sp + wv + '</svg>';
+    resetBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>';
+  }
+
+  svg.addEventListener('click', function(e){
+    var r = svg.getBoundingClientRect();
+    var sc = Math.min(r.width / VB_W, r.height / VB_H) || 1;
+    var offY = (r.height - VB_H * sc) / 2;
+    var y = (e.clientY - r.top - offY) / sc;
+    var s = clampS(Math.round((L1 - y) / (S / 2)));
+    dia = LINE1_DIA[clef] + s;
+    render(); play(freq());
+  });
+
+  document.querySelectorAll('.staff-tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.staff-tab').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      clef = b.getAttribute('data-clef');
+      var s = dia - LINE1_DIA[clef];
+      if(s < S_MIN || s > S_MAX){ s = clampS(s); dia = LINE1_DIA[clef] + s; }
+      render();
+    });
+  });
+
+  muteBtn.addEventListener('click', function(){ muted = !muted; icons(); });
+
+  resetBtn.addEventListener('click', function(){
+    clef = 'treble'; dia = 28; muted = true;
+    document.querySelectorAll('.staff-tab').forEach(function(x){
+      x.classList.toggle('active', x.getAttribute('data-clef') === 'treble');
+    });
+    icons(); render();
+  });
+
+  icons(); render();
+})();
+
+// 初始化
+switchInstr('erhu');
+</script>
+</body>
+</html>

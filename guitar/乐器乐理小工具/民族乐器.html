@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国民族乐器模拟实验室</title>
+    <script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+    <style>
+        :root {
+            --brand-rgb: 194, 65, 12;
+            --brand-color: rgb(var(--brand-rgb));
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --wood-brown: #8B4513;
+            --wood-light: #D2B48C;
+            --wood-dark: #654321;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 25%, #fcd34d 50%, #fbbf24 75%, #f59e0b 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        
+        .wood-texture {
+            background: linear-gradient(90deg, 
+                #8B4513 0%, #A0522D 10%, #8B4513 20%, #CD853F 30%, 
+                #8B4513 40%, #A0522D 50%, #8B4513 60%, #CD853F 70%, 
+                #8B4513 80%, #A0522D 90%, #8B4513 100%);
+        }
+        
+        .erhu-string {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(90deg, #C0C0C0, #E8E8E8, #C0C0C0);
+            transform-origin: top center;
+        }
+        
+        .erhu-finger-mark {
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .erhu-finger-mark:hover, .erhu-finger-mark.active {
+            fill: #dc2626;
+            r: 10;
+        }
+        
+        .suona-hole {
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .suona-hole.closed {
+            fill: #1f2937;
+        }
+        .suona-hole.open {
+            fill: #fbbf24;
+            stroke: #92400e;
+            stroke-width: 2;
+        }
+        
+        .piano-key-white {
+            cursor: pointer;
+            transition: all 0.08s ease;
+            fill: white;
+            stroke: #374151;
+            stroke-width: 1;
+        }
+        .piano-key-white:active, .piano-key-white.active {
+            fill: #fde68a;
+        }
+        .piano-key-black {
+            cursor: pointer;
+            transition: all 0.08s ease;
+            fill: #1f2937;
+        }
+        .piano-key-black:active, .piano-key-black.active {
+            fill: #92400e;
+        }
+        
+        .guzheng-string {
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+        .guzheng-string:active, .guzheng-string.active {
+            stroke: #dc2626;
+            stroke-width: 3;
+        }
+        
+        .hulusi-pipe {
+            fill: linear-gradient(180deg, #D2B48C, #8B4513);
+        }
+        
+        .tab-btn {
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            background: var(--brand-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(194, 65, 12, 0.4);
+        }
+        
+        .note-btn {
+            transition: all 0.15s cubic-bezier(.2,.8,.2,1);
+        }
+        .note-btn.playing {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(194, 65, 12, 0.4);
+            background: linear-gradient(to bottom, #fbbf24, #f59e0b) !important;
+            color: #7c2d12 !important;
+        }
+        
+        @keyframes pluck {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(1.05); }
+            100% { transform: scaleY(1); }
+        }
+        .pluck-anim {
+            animation: pluck 0.15s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0.95; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .instrument-panel {
+            animation: fadeInUp 0.4s cubic-bezier(.2,.8,.2,1);
+        }
+        
+        .info-card {
+            backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.85);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body class="pb-16">
+    <!-- 顶部标题区 -->
+    <header class="pt-8 pb-6 px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-black text-amber-900 mb-2 tracking-tight" style="font-family: 'Songti SC', 'STSong', serif;">
+            🎵 中国民族乐器模拟实验室
+        </h1>
+        <p class="text-lg text-amber-800/80 max-w-2xl mx-auto">
+            点击乐器即可演奏，体验六种民族乐器的独特音色
+        </p>
+    </header>
+
+    <!-- 乐器切换标签栏 -->
+    <div class="max-w-5xl mx-auto px-4 mb-6">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-3" id="instrumentTabs">
+            <button class="tab-btn active px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base bg-white/70 text-amber-900 shadow-md" data-instrument="erhu">
+                🎻 二胡
+            </button>
+            <button class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base bg-white/70 text-amber-900 shadow-md" data-instrument="suona">
+                🎷 唢呐
+            </button>
+            <button class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base bg-white/70 text-amber-900 shadow-md" data-instrument="hulusi">
+                🎶 葫芦丝
+            </button>
+            <button class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base bg-white/70 text-amber-900 shadow-md" data-instrument="guzheng">
+                🎼 古筝
+            </button>
+            <button class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base bg-white/70 text-amber-900 shadow-md" data-instrument="pipa">
+                🪕 琵琶
+            </button>
+            <button class="tab-btn px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold text-sm md:text-base bg-white/70 text-amber-900 shadow-md" data-instrument="dizi">
+                🎵 竹笛
+            </button>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <main class="max-w-5xl mx-auto px-4">
+        <!-- 状态显示栏 -->
+        <div class="info-card rounded-2xl p-4 mb-6 shadow-lg">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse" id="statusIndicator"></div>
+                    <span class="font-semibold text-amber-900" id="statusText">当前乐器：二胡 | 模式：点击演奏</span>
+                </div>
+                <div class="text-sm text-amber-700/70">支持键盘快捷键 1-8</div>
+            </div>
+        </div>
+
+        <!-- 乐器可视化区域 -->
+        <div class="info-card rounded-3xl p-6 md:p-8 shadow-xl mb-6">
+            <div id="instrumentContainer" class="flex justify-center items-center min-h-[300px] md:min-h-[400px]">
+                <!-- 乐器SVG将在这里动态渲染 -->
+            </div>
+        </div>
+
+        <!-- 演奏键盘区域 -->
+        <div class="info-card rounded-2xl p-4 md:p-6 shadow-lg mb-6">
+            <h3 class="text-lg font-bold text-amber-900 mb-4 text-center">🎹 演奏键盘</h3>
+            <div class="flex flex-wrap justify-center gap-2 md:gap-3" id="noteKeyboard">
+                <!-- 音符按钮将动态生成 -->
+            </div>
+        </div>
+
+        <!-- 经典曲目演示 -->
+        <div class="info-card rounded-2xl p-4 md:p-6 shadow-lg mb-6">
+            <h3 class="text-lg font-bold text-amber-900 mb-4 text-center">🎶 经典曲目演示</h3>
+            <div class="flex flex-wrap justify-center gap-3" id="demoSongs">
+                <!-- 曲目按钮将动态生成 -->
+            </div>
+        </div>
+
+        <!-- 乐器介绍卡片 -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="info-card rounded-2xl p-5 shadow-lg">
+                <h3 class="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2">
+                    <span>📜</span> 乐器介绍
+                </h3>
+                <div class="text-[15px] text-gray-700 leading-relaxed space-y-2" id="instrumentInfo">
+                    <!-- 介绍内容动态生成 -->
+                </div>
+            </div>
+            <div class="info-card rounded-2xl p-5 shadow-lg">
+                <h3 class="text-lg font-bold text-amber-900 mb-3 flex items-center gap-2">
+                    <span>💡</span> 演奏小知识
+                </h3>
+                <div class="text-[15px] text-gray-700 leading-relaxed space-y-2" id="instrumentTips">
+                    <!-- 技巧内容动态生成 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ========== 音频引擎 ==========
+        let audioCtx = null;
+        
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        // 音符频率映射（D调基准）
+        const noteFrequencies = {
+            'do_low': 293.66,   // D
+            're_low': 329.63,   // E
+            'mi_low': 369.99,   // F#
+            'fa_low': 392.00,   // G
+            'sol': 392.00,      // G (sol)
+            'la': 440.00,       // A (la)
+            'do': 523.25,       // C
+            're': 587.33,       // D
+            'mi': 659.25,       // E
+            'fa': 698.46,       // F
+            'sol_high': 783.99, // G
+            'la_high': 880.00,  // A
+            'si': 493.88        // B
+        };
+
+        // 不同乐器的音色合成
+        function playNote(freq, instrument = 'erhu', duration = 0.8) {
+            const ctx = initAudio();
+            if (ctx.state === 'suspended') ctx.resume();
+            
+            const masterGain = ctx.createGain();
+            masterGain.connect(ctx.destination);
+            masterGain.gain.setValueAtTime(0, ctx.currentTime);
+            
+            let oscillators = [];
+            let harmonicGains = [];
+            
+            switch(instrument) {
+                case 'erhu':
+                    // 二胡音色：锯齿波+谐波，模拟擦弦质感
+                    const o1 = ctx.createOscillator();
+                    o1.type = 'sawtooth';
+                    o1.frequency.value = freq;
+                    const g1 = ctx.createGain();
+                    g1.gain.value = 0.3;
+                    o1.connect(g1).connect(masterGain);
+                    oscillators.push(o1);
+                    harmonicGains.push(g1);
+                    
+                    // 2次谐波
+                    const o2 = ctx.createOscillator();
+                    o2.type = 'sawtooth';
+                    o2.frequency.value = freq * 2;
+                    const g2 = ctx.createGain();
+                    g2.gain.value = 0.15;
+                    o2.connect(g2).connect(masterGain);
+                    oscillators.push(o2);
+                    harmonicGains.push(g2);
+                    
+                    // 低通滤波模拟柔和感
+                    const filter = ctx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.value = 2000;
+                    filter.Q.value = 1;
+                    masterGain.disconnect();
+                    masterGain.connect(filter).connect(ctx.destination);
+                    
+                    masterGain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + 0.05);
+                    masterGain.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime + duration * 0.7);
+                    masterGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                    break;
+                    
+                case 'suona':
+                    // 唢呐音色：方波+高频，明亮尖锐
+                    const so1 = ctx.createOscillator();
+                    so1.type = 'square';
+                    so1.frequency.value = freq;
+                    const sg1 = ctx.createGain();
+                    sg1.gain.value = 0.25;
+                    so1.connect(sg1).connect(masterGain);
+                    oscillators.push(so1);
+                    
+                    const so2 = ctx.createOscillator();
+                    so2.type = 'sawtooth';
+                    so2.frequency.value = freq * 3;
+                    const sg2 = ctx.createGain();
+                    sg2.gain.value = 0.1;
+                    so2.connect(sg2).connect(masterGain);
+                    oscillators.push(so2);
+                    
+                    const suonaFilter = ctx.createBiquadFilter();
+                    suonaFilter.type = 'bandpass';
+                    suonaFilter.frequency.value = freq * 2;
+                    suonaFilter.Q.value = 0.8;
+                    masterGain.disconnect();
+                    masterGain.connect(suonaFilter).connect(ctx.destination);
+                    
+                    masterGain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.02);
+                    masterGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                    break;
+                    
+                case 'hulusi':
+                    // 葫芦丝音色：正弦波+少量谐波，空灵柔和
+                    const ho1 = ctx.createOscillator();
+                    ho1.type = 'sine';
+                    ho1.frequency.value = freq;
+                    const hg1 = ctx.createGain();
+                    hg1.gain.value = 0.35;
+                    ho1.connect(hg1).connect(masterGain);
+                    oscillators.push(ho1);
+                    
+                    const ho2 = ctx.createOscillator();
+                    ho2.type = 'triangle';
+                    ho2.frequency.value = freq * 2;
+                    const hg2 = ctx.createGain();
+                    hg2.gain.value = 0.08;
+                    ho2.connect(hg2).connect(masterGain);
+                    oscillators.push(ho2);
+                    
+                    masterGain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.08);
+                    masterGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                    break;
+                    
+                case 'guzheng':
+                    // 古筝音色：拨弦指数衰减
+                    const zo1 = ctx.createOscillator();
+                    zo1.type = 'triangle';
+                    zo1.frequency.value = freq;
+                    const zg1 = ctx.createGain();
+                    zg1.gain.value = 0.4;
+                    zo1.connect(zg1).connect(masterGain);
+                    oscillators.push(zo1);
+                    
+                    // 拨弦噪声瞬态
+                    const noise = ctx.createBufferSource();
+                    const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 0.05, ctx.sampleRate);
+                    const noiseData = noiseBuffer.getChannelData(0);
+                    for (let i = 0; i < noiseData.length; i++) {
+                        noiseData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (noiseData.length * 0.3));
+                    }
+                    noise.buffer = noiseBuffer;
+                    const noiseGain = ctx.createGain();
+                    noiseGain.gain.value = 0.1;
+                    noise.connect(noiseGain).connect(masterGain);
+                    noise.start();
+                    
+                    masterGain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.01);
+                    masterGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                    break;
+                    
+                case 'pipa':
+                    // 琵琶音色：更清脆的拨弦
+                    const po1 = ctx.createOscillator();
+                    po1.type = 'sawtooth';
+                    po1.frequency.value = freq;
+                    const pg1 = ctx.createGain();
+                    pg1.gain.value = 0.3;
+                    po1.connect(pg1).connect(masterGain);
+                    oscillators.push(po1);
+                    
+                    const po2 = ctx.createOscillator();
+                    po2.type = 'triangle';
+                    po2.frequency.value = freq * 4;
+                    const pg2 = ctx.createGain();
+                    pg2.gain.value = 0.05;
+                    po2.connect(pg2).connect(masterGain);
+                    oscillators.push(po2);
+                    
+                    masterGain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.005);
+                    masterGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration * 0.6);
+                    break;
+                    
+                case 'dizi':
+                    // 竹笛音色：正弦波+气声，明亮通透
+                    const dio1 = ctx.createOscillator();
+                    dio1.type = 'sine';
+                    dio1.frequency.value = freq;
+                    const dig1 = ctx.createGain();
+                    dig1.gain.value = 0.3;
+                    dio1.connect(dig1).connect(masterGain);
+                    oscillators.push(dio1);
+                    
+                    const dio2 = ctx.createOscillator();
+                    dio2.type = 'sine';
+                    dio2.frequency.value = freq * 2;
+                    const dig2 = ctx.createGain();
+                    dig2.gain.value = 0.12;
+                    dio2.connect(dig2).connect(masterGain);
+                    oscillators.push(dio2);
+                    
+                    masterGain.gain.linearRampToValueAtTime(0.28, ctx.currentTime + 0.03);
+                    masterGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+                    break;
+            }
+            
+            oscillators.forEach(o => {
+                o.start(ctx.currentTime);
+                o.stop(ctx.currentTime + duration + 0.1);
+            });
+        }
+
+        // 播放旋律序列
+        async function playMelody(notes, instrument, tempo = 0.4) {
+            updateStatus('正在演奏...', 'playing');
+            for (const [noteName, dur] of notes) {
+                const freq = noteFrequencies[noteName];
+                if (freq) {
+                    playNote(freq, instrument, dur * tempo * 1.5);
+                    highlightNote(noteName);
+                    await new Promise(r => setTimeout(r, dur * tempo * 1000));
+                }
+            }
+            updateStatus(`当前乐器：${instrumentData[currentInstrument].name} | 模式：点击演奏`, 'ready');
+        }
+
+        function highlightNote(noteName) {
+            document.querySelectorAll('.note-btn').forEach(btn => {
+                btn.classList.remove('playing');
+                if (btn.dataset.note === noteName) {
+                    btn.classList.add('playing');
+                    setTimeout(() => btn.classList.remove('playing'), 200);
+                }
+            });
+        }
+
+        function updateStatus(text, state) {
+            document.getElementById('statusText').textContent = text;
+            const indicator = document.getElementById('statusIndicator');
+            indicator.className = 'w-3 h-3 rounded-full animate-pulse';
+            indicator.classList.add(state === 'playing' ? 'bg-red-500' : 'bg-green-500');
+        }
+
+        // ========== 乐器数据配置 ==========
+        const instrumentData = {
+            erhu: {
+                name: '二胡',
+                notes: [
+                    { key: '1', note: 'do_low', label: '内弦空弦 D' },
+                    { key: '2', note: 're_low', label: '内弦2指 E' },
+                    { key: '3', note: 'mi_low', label: '内弦3指 F#' },
+                    { key: '4', note: 'fa_low', label: '内弦4指 G' },
+                    { key: '5', note: 'sol', label: '外弦空弦 A' },
+                    { key: '6', note: 'la', label: '外弦2指 B' },
+                    { key: '7', note: 'do', label: '外弦3指 D' },
+                    { key: '8', note: 're', label: '外弦4指 E' }
+                ],
+                songs: [
+                    { name: '二泉映月', notes: [['sol',1],['mi_low',1],['sol',2],['re_low',1],['mi_low',1],['sol',2],['la',1],['sol',1],['mi_low',2],['re_low',2]], tempo: 0.6 },
+                    { name: '良宵', notes: [['do',0.5],['re',0.5],['mi',0.5],['sol',1],['la',0.5],['sol',0.5],['mi',1],['re',0.5],['do',0.5],['la',1]], tempo: 0.4 },
+                    { name: '赛马', notes: [['mi_low',0.25],['sol',0.25],['mi_low',0.25],['sol',0.25],['la',0.25],['sol',0.25],['mi_low',0.25],['re_low',0.25],['mi_low',0.5],['sol',0.5]], tempo: 0.25 }
+                ],
+                info: [
+                    '起源于唐朝，前身名为"奚琴"，至今已有一千多年历史',
+                    '核心构造：琴杆、六角琴筒、两根钢丝缠弦、马尾琴弓、蟒皮共鸣面',
+                    '定音标准：内弦定D音，外弦定A音，是中国民族管弦乐中最具歌唱性的拉弦乐器',
+                    '音色特点：接近人声，既能演奏柔美抒情的旋律，也能表现气势磅礴的激昂段落'
+                ],
+                tips: [
+                    '二胡没有品丝，音准完全依靠手指按弦位置控制，新手建议先从空弦音阶开始练习',
+                    '正确手型要保持掌心虚空，像握着一颗鸡蛋，手指自然弯曲用指腹前端触弦',
+                    '《二泉映月》是阿炳的代表作，被国际乐坛誉为"中国的命运交响曲"'
+                ]
+            },
+            suona: {
+                name: '唢呐',
+                notes: [
+                    { key: '1', note: 'sol', label: '筒音 Sol (5)' },
+                    { key: '2', note: 'la', label: '6孔 La (6)' },
+                    { key: '3', note: 'si', label: '5孔 Si (7)' },
+                    { key: '4', note: 'do', label: '4孔 Do (1)' },
+                    { key: '5', note: 're', label: '3孔 Re (2)' },
+                    { key: '6', note: 'mi', label: '2孔 Mi (3)' },
+                    { key: '7', note: 'fa', label: '1孔 Fa (4)' },
+                    { key: '8', note: 'sol_high', label: '高八度 Sol' }
+                ],
+                songs: [
+                    { name: '百鸟朝凤', notes: [['sol',0.3],['la',0.3],['do',0.6],['re',0.3],['mi',0.3],['sol_high',0.6],['mi',0.3],['re',0.3],['do',0.6],['la',0.3],['sol',0.6]], tempo: 0.4 },
+                    { name: '二八调开门', notes: [['la',0.5],['sol',0.5],['mi',0.5],['sol',0.5],['la',0.5],['do',0.5],['la',1],['sol',0.5],['mi',0.5],['sol',1]], tempo: 0.5 },
+                    { name: '喇叭调', notes: [['sol',0.5],['do',0.5],['re',0.5],['sol',0.5],['mi',0.5],['re',0.5],['do',0.5],['la',0.5],['sol',1]], tempo: 0.4 }
+                ],
+                info: [
+                    '名称来自古代波斯语Surnā（祖尔纳）的音译，金元时期经丝绸之路传入中原',
+                    '民间俗称"喇叭"，是中国各地广泛流传的双簧气鸣乐器',
+                    '音色高亢明亮，穿透力极强，是民间婚丧嫁娶、节庆吹打班的核心乐器',
+                    '传统唢呐为8孔，常用指法有筒音作sol、筒音作la等'
+                ],
+                tips: [
+                    '"唢呐一响，全剧终"——唢呐音量大、音色突出，在民族乐队中常担任领奏',
+                    '筒音作sol是最常用的入门指法，适合演奏大多数民间小曲和流行曲调',
+                    '唢呐的循环换气法可以让乐手连续演奏几分钟而不中断，是核心技巧之一'
+                ]
+            },
+            hulusi: {
+                name: '葫芦丝',
+                notes: [
+                    { key: '1', note: 'sol', label: '低音 Sol' },
+                    { key: '2', note: 'la', label: 'La' },
+                    { key: '3', note: 'si', label: 'Si' },
+                    { key: '4', note: 'do', label: 'Do' },
+                    { key: '5', note: 're', label: 'Re' },
+                    { key: '6', note: 'mi', label: 'Mi' },
+                    { key: '7', note: 'fa', label: 'Fa' },
+                    { key: '8', note: 'sol_high', label: '高音 Sol' }
+                ],
+                songs: [
+                    { name: '月光下的凤尾竹', notes: [['sol',0.5],['la',0.5],['do',1],['re',0.5],['mi',0.5],['do',1],['mi',0.5],['re',0.5],['do',0.5],['la',0.5],['sol',1]], tempo: 0.5 },
+                    { name: '婚誓', notes: [['la',0.5],['do',0.5],['re',1],['mi',0.5],['re',0.5],['do',0.5],['la',0.5],['sol',1]], tempo: 0.5 },
+                    { name: '有一个美丽的地方', notes: [['do',0.5],['re',0.5],['mi',0.5],['sol',0.5],['mi',0.5],['re',0.5],['do',1],['la',0.5],['sol',1]], tempo: 0.45 }
+                ],
+                info: [
+                    '云南少数民族乐器，主要流传于傣、彝、阿昌、德昂等民族中',
+                    '由葫芦、三根竹管和金属簧片组成，音色轻柔细腻，圆润质朴',
+                    '常用于独奏或合奏，是傣族泼水节等民族节日的必备乐器',
+                    '又称"葫芦箫"，傣语称"筚郎叨"，意为"带葫芦直吹的箫"'
+                ],
+                tips: [
+                    '吹奏时气息要平缓均匀，避免过猛吹气导致簧片损坏',
+                    '葫芦丝音域较窄，通常只有一个八度多一点，但极具民族特色',
+                    '《月光下的凤尾竹》是葫芦丝最具代表性的经典曲目'
+                ]
+            },
+            guzheng: {
+                name: '古筝',
+                notes: [
+                    { key: '1', note: 'do_low', label: '宫 Do' },
+                    { key: '2', note: 're_low', label: '商 Re' },
+                    { key: '3', note: 'mi_low', label: '角 Mi' },
+                    { key: '4', note: 'sol', label: '徵 Sol' },
+                    { key: '5', note: 'la', label: '羽 La' },
+                    { key: '6', note: 'do', label: '高宫 Do' },
+                    { key: '7', note: 're', label: '高商 Re' },
+                    { key: '8', note: 'mi', label: '高角 Mi' }
+                ],
+                songs: [
+                    { name: '渔舟唱晚', notes: [['do_low',0.5],['re_low',0.5],['mi_low',0.5],['sol',0.5],['la',0.5],['sol',0.5],['mi_low',0.5],['re_low',0.5],['do_low',1]], tempo: 0.4 },
+                    { name: '高山流水', notes: [['do',0.5],['mi',0.5],['sol',1],['la',0.5],['sol',0.5],['mi',1],['re',0.5],['do',0.5],['la',1]], tempo: 0.5 },
+                    { name: '战台风', notes: [['la',0.25],['sol',0.25],['mi',0.25],['sol',0.25],['la',0.25],['do',0.25],['la',0.25],['sol',0.25],['mi',0.5],['sol',0.5]], tempo: 0.25 }
+                ],
+                info: [
+                    '中国传统弹拨弦鸣乐器，已有2500年以上历史，战国时期已广泛流行',
+                    '现代古筝通常为21弦，按五声音阶定弦，音色优美，表现力丰富',
+                    '是中国独特的民族乐器之一，常用于独奏、重奏、器乐合奏和歌舞伴奏',
+                    '传统流派有河南筝、山东筝、潮州筝、客家筝、浙江筝等'
+                ],
+                tips: [
+                    '右手用义甲拨弦，左手按弦改变音高和音色，形成独特的"以韵补声"',
+                    '古筝没有4和7两个音，需要通过左手按mi和la弦获得',
+                    '《渔舟唱晚》是古筝最著名的独奏曲之一，描绘夕阳下渔民满载而归的场景'
+                ]
+            },
+            pipa: {
+                name: '琵琶',
+                notes: [
+                    { key: '1', note: 'do_low', label: '一弦 Do' },
+                    { key: '2', note: 're_low', label: '二弦 Re' },
+                    { key: '3', note: 'mi_low', label: '三弦 Mi' },
+                    { key: '4', note: 'sol', label: '四弦 Sol' },
+                    { key: '5', note: 'la', label: '一弦 La' },
+                    { key: '6', note: 'do', label: '二弦 Do' },
+                    { key: '7', note: 're', label: '三弦 Re' },
+                    { key: '8', note: 'mi', label: '四弦 Mi' }
+                ],
+                songs: [
+                    { name: '十面埋伏', notes: [['la',0.2],['do',0.2],['re',0.2],['mi',0.2],['re',0.2],['do',0.2],['la',0.4],['sol',0.2],['la',0.6]], tempo: 0.3 },
+                    { name: '春江花月夜', notes: [['do',0.5],['re',0.5],['mi',0.5],['sol',0.5],['la',1],['sol',0.5],['mi',0.5],['re',0.5],['do',1]], tempo: 0.5 },
+                    { name: '阳春白雪', notes: [['mi',0.3],['sol',0.3],['la',0.3],['do',0.6],['re',0.3],['mi',0.3],['sol',0.6],['mi',0.3],['re',0.3],['do',0.6]], tempo: 0.4 }
+                ],
+                info: [
+                    '琵琶是中国传统弹拨乐器，已有两千多年历史，最早从西域传入',
+                    '名称来源于演奏手法："琵"是右手向前弹，"琶"是右手向后挑',
+                    '四弦十二柱，现代琵琶发展为六相二十四品，音域宽广，技巧丰富',
+                    '被称为"民乐之王"，既能演奏武曲的气势磅礴，也能表现文曲的细腻柔美'
+                ],
+                tips: [
+                    '琵琶演奏技巧极其丰富，右手有弹、挑、轮、扫等几十种技法',
+                    '《十面埋伏》是著名武曲，描绘楚汉相争垓下之战的宏大场面',
+                    '初学者建议先练习弹挑基础，再逐步学习轮指等高级技巧'
+                ]
+            },
+            dizi: {
+                name: '竹笛',
+                notes: [
+                    { key: '1', note: 'sol', label: '筒音 Sol' },
+                    { key: '2', note: 'la', label: '一孔 La' },
+                    { key: '3', note: 'si', label: '二孔 Si' },
+                    { key: '4', note: 'do', label: '三孔 Do' },
+                    { key: '5', note: 're', label: '四孔 Re' },
+                    { key: '6', note: 'mi', label: '五孔 Mi' },
+                    { key: '7', note: 'fa', label: '六孔 Fa' },
+                    { key: '8', note: 'sol_high', label: '高八度 Sol' }
+                ],
+                songs: [
+                    { name: '姑苏行', notes: [['sol',0.5],['la',0.5],['do',1],['re',0.5],['mi',0.5],['sol_high',0.5],['mi',0.5],['re',0.5],['do',1]], tempo: 0.5 },
+                    { name: '牧民新歌', notes: [['mi',0.3],['sol',0.3],['la',0.3],['do',0.6],['re',0.3],['mi',0.3],['sol',0.6],['la',0.3],['sol',0.3],['mi',0.6]], tempo: 0.35 },
+                    { name: '扬鞭催马运粮忙', notes: [['re',0.2],['mi',0.2],['sol',0.2],['la',0.2],['sol_high',0.4],['la',0.2],['sol',0.2],['mi',0.2],['re',0.4]], tempo: 0.25 }
+                ],
+                info: [
+                    '中国最具特色的吹奏乐器之一，用天然竹材制成，已有七千多年历史',
+                    '分为梆笛和曲笛两大类，梆笛高亢明亮，曲笛浑厚圆润',
+                    '笛膜是竹笛独特音色的关键，贴在膜孔上振动发声',
+                    '是中国民族乐队中重要的旋律乐器，也常用于独奏和合奏'
+                ],
+                tips: [
+                    '吹奏时口风要集中，风门大小随音高变化，高音口风急、低音口风缓',
+                    '贴笛膜是初学者的第一道关，皱纹要均匀，松紧适度才能发出好音色',
+                    '竹笛常用筒音作sol和筒音作re两种指法，分别适用于不同调式的乐曲'
+                ]
+            }
+        };
+
+        let currentInstrument = 'erhu';
+
+        // ========== 乐器SVG渲染 ==========
+        function renderInstrument(type) {
+            const container = document.getElementById('instrumentContainer');
+            container.innerHTML = '';
+            
+            switch(type) {
+                case 'erhu':
+                    renderErhu(container);
+                    break;
+                case 'suona':
+                    renderSuona(container);
+                    break;
+                case 'hulusi':
+                    renderHulusi(container);
+                    break;
+                case 'guzheng':
+                    renderGuzheng(container);
+                    break;
+                case 'pipa':
+                    renderPipa(container);
+                    break;
+                case 'dizi':
+                    renderDizi(container);
+                    break;
+            }
+        }
+
+        function renderErhu(container) {
+            container.innerHTML = `
+                <svg viewBox="0 0 300 450" class="w-full max-w-[280px] h-auto">
+                    <!-- 琴头 -->
+                    <ellipse cx="150" cy="35" rx="18" ry="25" fill="#654321"/>
+                    <rect x="142" y="50" width="16" height="20" fill="#654321"/>
+                    
+                    <!-- 琴轴 -->
+                    <ellipse cx="125" cy="70" rx="22" ry="8" fill="#8B4513"/>
+                    <ellipse cx="175" cy="90" rx="22" ry="8" fill="#8B4513"/>
+                    
+                    <!-- 琴杆 -->
+                    <rect x="143" y="70" width="14" height="280" fill="url(#woodGradient)"/>
+                    
+                    <!-- 千斤（红丝线） -->
+                    <rect x="130" y="130" width="40" height="8" rx="2" fill="#dc2626"/>
+                    
+                    <!-- 琴弦 -->
+                    <line x1="146" y1="70" x2="146" y2="350" stroke="#C0C0C0" stroke-width="1.5"/>
+                    <line x1="154" y1="90" x2="154" y2="350" stroke="#C0C0C0" stroke-width="1.5"/>
+                    
+                    <!-- 按音点 -->
+                    <circle class="erhu-finger-mark" cx="150" cy="180" r="8" fill="#fbbf24" fill-opacity="0.7" data-note="do_low"/>
+                    <circle class="erhu-finger-mark" cx="150" cy="210" r="8" fill="#fbbf24" fill-opacity="0.7" data-note="re_low"/>
+                    <circle class="erhu-finger-mark" cx="150" cy="240" r="8" fill="#fbbf24" fill-opacity="0.7" data-note="mi_low"/>
+                    <circle class="erhu-finger-mark" cx="150" cy="270" r="8" fill="#fbbf24" fill-opacity="0.7" data-note="fa_low"/>
+                    <circle class="erhu-finger-mark" cx="150" cy="195" r="8" fill="#f97316" fill-opacity="0.7" data-note="sol"/>
+                    <circle class="erhu-finger-mark" cx="150" cy="230" r="8" fill="#f97316" fill-opacity="0.7" data-note="la"/>
+                    <circle class="erhu-finger-mark" cx="150" cy="265" r="8" fill="#f97316" fill-opacity="0.7" data-note="do"/>
+                    <circle class="erhu-finger-mark" cx="150" cy="295" r="8" fill="#f97316" fill-opacity="0.7" data-note="re"/>
+                    
+                    <!-- 琴筒（六角蟒皮） -->
+                    <polygon points="110,340 130,330 170,330 190,340 190,390 170,400 130,400 110,390" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+                    <polygon points="115,345 132,337 168,337 185,345 185,385 168,393 132,393 115,385" fill="#f5f5dc" stroke="#d4d4aa" stroke-width="1"/>
+                    <!-- 蟒皮纹理 -->
+                    <g fill="#a3a380" fill-opacity="0.3">
+                        <circle cx="135" cy="355" r="3"/><circle cx="150" cy="350" r="3"/><circle cx="165" cy="355" r="3"/>
+                        <circle cx="140" cy="370" r="3"/><circle cx="160" cy="370" r="3"/>
+                        <circle cx="150" cy="380" r="3"/>
+                    </g>
+                    
+                    <!-- 琴码 -->
+                    <rect x="145" y="345" width="10" height="6" fill="#654321"/>
+                    
+                    <!-- 琴弓 -->
+                    <path d="M 80 200 Q 100 350 220 380" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M 85 205 Q 105 345 215 375" stroke="#f5f5dc" stroke-width="1" fill="none" stroke-dasharray="2,1"/>
+                    
+                    <defs>
+                        <linearGradient id="woodGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#654321"/>
+                            <stop offset="50%" stop-color="#8B4513"/>
+                            <stop offset="100%" stop-color="#654321"/>
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 音名标注 -->
+                    <text x="210" y="183" font-size="12" fill="#92400e" font-weight="bold">D</text>
+                    <text x="210" y="198" font-size="12" fill="#c2410c" font-weight="bold">Sol</text>
+                    <text x="210" y="233" font-size="12" fill="#c2410c" font-weight="bold">La</text>
+                </svg>
+                <p class="text-center text-amber-800/70 text-sm mt-3">点击黄色/橙色音位即可演奏 · 黄色为内弦，橙色为外弦</p>
+            `;
+            
+            // 绑定音位点击事件
+            container.querySelectorAll('.erhu-finger-mark').forEach(mark => {
+                mark.addEventListener('click', () => {
+                    const note = mark.dataset.note;
+                    playNote(noteFrequencies[note], 'erhu');
+                    mark.classList.add('active');
+                    setTimeout(() => mark.classList.remove('active'), 200);
+                    highlightNote(note);
+                });
+            });
+        }
+
+        function renderSuona(container) {
+            container.innerHTML = `
+                <svg viewBox="0 0 400 250" class="w-full max-w-[400px] h-auto">
+                    <!-- 哨片 -->
+                    <ellipse cx="40" cy="125" rx="12" ry="8" fill="#fcd34d"/>
+                    <!-- 芯子 -->
+                    <rect x="50" y="120" width="25" height="10" fill="#b45309"/>
+                    <!-- 气牌 -->
+                    <circle cx="80" cy="125" r="15" fill="#92400e"/>
+                    
+                    <!-- 唢呐杆 -->
+                    <rect x="90" y="105" width="200" height="40" rx="5" fill="url(#suonaWood)"/>
+                    
+                    <!-- 音孔 -->
+                    <circle class="suona-hole closed" cx="120" cy="125" r="10" data-note="sol_high"/>
+                    <circle class="suona-hole closed" cx="150" cy="125" r="10" data-note="fa"/>
+                    <circle class="suona-hole closed" cx="180" cy="125" r="10" data-note="mi"/>
+                    <circle class="suona-hole closed" cx="210" cy="125" r="10" data-note="re"/>
+                    <circle class="suona-hole closed" cx="240" cy="125" r="10" data-note="do"/>
+                    <circle class="suona-hole closed" cx="270" cy="125" r="10" data-note="si"/>
+                    <circle class="suona-hole closed" cx="300" cy="125" r="10" data-note="la"/>
+                    
+                    <!-- 唢呐碗 -->
+                    <path d="M 290 90 L 370 70 L 380 125 L 370 180 L 290 160 Z" fill="#b45309" stroke="#92400e" stroke-width="2"/>
+                    <ellipse cx="370" cy="125" rx="15" ry="55" fill="#78350f" stroke="#451a03" stroke-width="2"/>
+                    
+                    <!-- 音孔标注 -->
+                    <text x="118" y="160" font-size="11" fill="#78350f" text-anchor="middle">1</text>
+                    <text x="148" y="160" font-size="11" fill="#78350f" text-anchor="middle">2</text>
+                    <text x="178" y="160" font-size="11" fill="#78350f" text-anchor="middle">3</text>
+                    <text x="208" y="160" font-size="11" fill="#78350f" text-anchor="middle">4</text>
+                    <text x="238" y="160" font-size="11" fill="#78350f" text-anchor="middle">5</text>
+                    <text x="268" y="160" font-size="11" fill="#78350f" text-anchor="middle">6</text>
+                    <text x="298" y="160" font-size="11" fill="#78350f" text-anchor="middle">7</text>
+                    
+                    <defs>
+                        <linearGradient id="suonaWood" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#D97706"/>
+                            <stop offset="50%" stop-color="#B45309"/>
+                            <stop offset="100%" stop-color="#92400e"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <p class="text-center text-amber-800/70 text-sm mt-3">点击音孔切换开/闭状态 · 筒音（全按）为Sol</p>
+            `;
+            
+            // 唢呐音孔交互
+            const holes = container.querySelectorAll('.suona-hole');
+            holes.forEach(hole => {
+                hole.addEventListener('click', () => {
+                    hole.classList.toggle('open');
+                    hole.classList.toggle('closed');
+                    
+                    // 计算当前音高（简化逻辑）
+                    let openCount = 0;
+                    holes.forEach(h => { if (h.classList.contains('open')) openCount++; });
+                    const notes = ['sol', 'la', 'si', 'do', 're', 'mi', 'fa', 'sol_high'];
+                    const noteIndex = Math.min(openCount, 7);
+                    playNote(noteFrequencies[notes[noteIndex]], 'suona');
+                    highlightNote(notes[noteIndex]);
+                });
+            });
+        }
+
+        function renderHulusi(container) {
+            container.innerHTML = `
+                <svg viewBox="0 0 300 400" class="w-full max-w-[260px] h-auto">
+                    <!-- 葫芦 -->
+                    <ellipse cx="150" cy="100" rx="45" ry="60" fill="#84cc16"/>
+                    <ellipse cx="150" cy="80" rx="30" ry="35" fill="#a3e635"/>
+                    <ellipse cx="150" cy="120" rx="35" ry="25" fill="#65a30d"/>
+                    <!-- 葫芦吹嘴 -->
+                    <rect x="143" y="40" width="14" height="25" rx="5" fill="#4d7c0f"/>
+                    
+                    <!-- 副管（左右） -->
+                    <rect x="95" y="150" width="15" height="200" rx="5" fill="#a16207"/>
+                    <rect x="190" y="150" width="15" height="200" rx="5" fill="#a16207"/>
+                    
+                    <!-- 主管 -->
+                    <rect x="130" y="150" width="40" height="220" rx="8" fill="url(#bambooGrad)"/>
+                    
+                    <!-- 主管音孔 -->
+                    <circle class="cursor-pointer transition-all hover:fill-amber-400" cx="150" cy="200" r="8" fill="#451a03" data-note="sol"/>
+                    <circle class="cursor-pointer transition-all hover:fill-amber-400" cx="150" cy="230" r="8" fill="#451a03" data-note="la"/>
+                    <circle class="cursor-pointer transition-all hover:fill-amber-400" cx="150" cy="260" r="8" fill="#451a03" data-note="si"/>
+                    <circle class="cursor-pointer transition-all hover:fill-amber-400" cx="150" cy="290" r="8" fill="#451a03" data-note="do"/>
+                    <circle class="cursor-pointer transition-all hover:fill-amber-400" cx="150" cy="320" r="8" fill="#451a03" data-note="re"/>
+                    <circle class="cursor-pointer transition-all hover:fill-amber-400" cx="150" cy="350" r="8" fill="#451a03" data-note="mi"/>
+                    
+                    <!-- 竹节 -->
+                    <line x1="130" y1="190" x2="170" y2="190" stroke="#78350f" stroke-width="2"/>
+                    <line x1="130" y1="250" x2="170" y2="250" stroke="#78350f" stroke-width="2"/>
+                    <line x1="130" y1="310" x2="170" y2="310" stroke="#78350f" stroke-width="2"/>
+                    
+                    <defs>
+                        <linearGradient id="bambooGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#a16207"/>
+                            <stop offset="30%" stop-color="#ca8a04"/>
+                            <stop offset="70%" stop-color="#ca8a04"/>
+                            <stop offset="100%" stop-color="#a16207"/>
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 装饰中国结 -->
+                    <path d="M 150 370 Q 140 380 150 390 Q 160 380 150 370" fill="#dc2626"/>
+                </svg>
+                <p class="text-center text-amber-800/70 text-sm mt-3">点击主管音孔即可演奏 · 音色轻柔细腻</p>
+            `;
+            
+            container.querySelectorAll('[data-note]').forEach(hole => {
+                hole.addEventListener('click', () => {
+                    const note = hole.dataset.note;
+                    playNote(noteFrequencies[note], 'hulusi', 1.2);
+                    hole.setAttribute('fill', '#fbbf24');
+                    setTimeout(() => hole.setAttribute('fill', '#451a03'), 300);
+                    highlightNote(note);
+                });
+            });
+        }
+
+        function renderGuzheng(container) {
+            const stringCount = 13;
+            let strings = '';
+            for (let i = 0; i < stringCount; i++) {
+                const y = 80 + i * 18;
+                const noteIndex = i % 8;
+                const notes = ['do_low','re_low','mi_low','sol','la','do','re','mi'];
+                strings += `<line class="guzheng-string" x1="60" y1="${y}" x2="540" y2="${y}" stroke="#d4d4d4" stroke-width="2" data-note="${notes[noteIndex]}"/>`;
+                strings += `<rect x="${120 + i * 30}" y="${y-6}" width="12" height="12" fill="#374151" rx="2"/>`;
+            }
+            
+            container.innerHTML = `
+                <svg viewBox="0 0 600 320" class="w-full max-w-[550px] h-auto">
+                    <!-- 筝体 -->
+                    <rect x="40" y="50" width="520" height="240" rx="15" fill="url(#guzhengWood)"/>
+                    <!-- 筝头筝尾装饰 -->
+                    <rect x="40" y="50" width="60" height="240" rx="10" fill="#451a03"/>
+                    <rect x="500" y="50" width="60" height="240" rx="10" fill="#451a03"/>
+                    
+                    <!-- 琴弦 -->
+                    ${strings}
+                    
+                    <!-- 雁柱标注 -->
+                    <text x="70" y="290" font-size="11" fill="#fef3c7" text-anchor="middle">筝头</text>
+                    <text x="530" y="290" font-size="11" fill="#fef3c7" text-anchor="middle">筝尾</text>
+                    
+                    <defs>
+                        <linearGradient id="guzhengWood" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#78350f"/>
+                            <stop offset="50%" stop-color="#92400e"/>
+                            <stop offset="100%" stop-color="#78350f"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <p class="text-center text-amber-800/70 text-sm mt-3">点击琴弦即可拨弦演奏 · 五声音阶定弦</p>
+            `;
+            
+            container.querySelectorAll('.guzheng-string').forEach(str => {
+                str.addEventListener('click', () => {
+                    const note = str.dataset.note;
+                    playNote(noteFrequencies[note], 'guzheng', 1.5);
+                    str.classList.add('active', 'pluck-anim');
+                    setTimeout(() => str.classList.remove('active', 'pluck-anim'), 200);
+                    highlightNote(note);
+                });
+            });
+        }
+
+        function renderPipa(container) {
+            container.innerHTML = `
+                <svg viewBox="0 0 250 450" class="w-full max-w-[240px] h-auto">
+                    <!-- 琴头 -->
+                    <rect x="105" y="20" width="40" height="50" rx="8" fill="#78350f"/>
+                    <!-- 琴轴 -->
+                    <ellipse cx="90" cy="40" rx="18" ry="6" fill="#92400e"/>
+                    <ellipse cx="160" cy="40" rx="18" ry="6" fill="#92400e"/>
+                    <ellipse cx="90" cy="60" rx="18" ry="6" fill="#92400e"/>
+                    <ellipse cx="160" cy="60" rx="18" ry="6" fill="#92400e"/>
+                    
+                    <!-- 琴颈 -->
+                    <rect x="112" y="70" width="26" height="150" fill="#92400e"/>
+                    
+                    <!-- 相 -->
+                    <rect x="108" y="100" width="34" height="12" rx="3" fill="#451a03"/>
+                    <rect x="108" y="120" width="34" height="12" rx="3" fill="#451a03"/>
+                    <rect x="108" y="140" width="34" height="12" rx="3" fill="#451a03"/>
+                    
+                    <!-- 琴身（梨形） -->
+                    <path d="M 112 220 Q 60 260 60 330 Q 60 400 125 420 Q 190 400 190 330 Q 190 260 138 220 Z" fill="url(#pipaWood)" stroke="#451a03" stroke-width="2"/>
+                    
+                    <!-- 品 -->
+                    <rect x="80" y="230" width="90" height="5" fill="#451a03"/>
+                    <rect x="85" y="250" width="80" height="5" fill="#451a03"/>
+                    <rect x="90" y="270" width="70" height="5" fill="#451a03"/>
+                    <rect x="95" y="290" width="60" height="5" fill="#451a03"/>
+                    <rect x="95" y="310" width="60" height="5" fill="#451a03"/>
+                    <rect x="95" y="330" width="60" height="5" fill="#451a03"/>
+                    
+                    <!-- 琴弦 -->
+                    <line x1="118" y1="70" x2="118" y2="420" stroke="#e5e5e5" stroke-width="1"/>
+                    <line x1="125" y1="70" x2="125" y2="420" stroke="#e5e5e5" stroke-width="1"/>
+                    <line x1="132" y1="70" x2="132" y2="420" stroke="#e5e5e5" stroke-width="1"/>
+                    <line x1="139" y1="70" x2="139" y2="420" stroke="#e5e5e5" stroke-width="1"/>
+                    
+                    <!-- 拨弦点 -->
+                    <circle class="cursor-pointer hover:fill-red-500 transition-all" cx="105" cy="370" r="12" fill="#fbbf24" fill-opacity="0.6" data-note="sol"/>
+                    <circle class="cursor-pointer hover:fill-red-500 transition-all" cx="120" cy="370" r="12" fill="#fbbf24" fill-opacity="0.6" data-note="la"/>
+                    <circle class="cursor-pointer hover:fill-red-500 transition-all" cx="135" cy="370" r="12" fill="#fbbf24" fill-opacity="0.6" data-note="do"/>
+                    <circle class="cursor-pointer hover:fill-red-500 transition-all" cx="150" cy="370" r="12" fill="#fbbf24" fill-opacity="0.6" data-note="mi"/>
+                    
+                    <!-- 覆手 -->
+                    <rect x="100" y="395" width="50" height="10" rx="2" fill="#451a03"/>
+                    
+                    <defs>
+                        <linearGradient id="pipaWood" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#b45309"/>
+                            <stop offset="50%" stop-color="#92400e"/>
+                            <stop offset="100%" stop-color="#78350f"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <p class="text-center text-amber-800/70 text-sm mt-3">点击琴身下部黄色区域即可弹拨 · 民乐之王</p>
+            `;
+            
+            container.querySelectorAll('[data-note]').forEach(point => {
+                point.addEventListener('click', () => {
+                    const note = point.dataset.note;
+                    playNote(noteFrequencies[note], 'pipa', 1);
+                    point.setAttribute('fill', '#dc2626');
+                    setTimeout(() => point.setAttribute('fill', '#fbbf24'), 200);
+                    highlightNote(note);
+                });
+            });
+        }
+
+        function renderDizi(container) {
+            container.innerHTML = `
+                <svg viewBox="0 0 500 200" class="w-full max-w-[480px] h-auto">
+                    <!-- 笛身 -->
+                    <rect x="50" y="75" width="400" height="50" rx="20" fill="url(#diziBamboo)"/>
+                    
+                    <!-- 竹节 -->
+                    <ellipse cx="130" cy="100" rx="5" ry="28" fill="#854d0e"/>
+                    <ellipse cx="250" cy="100" rx="5" ry="28" fill="#854d0e"/>
+                    <ellipse cx="370" cy="100" rx="5" ry="28" fill="#854d0e"/>
+                    
+                    <!-- 吹孔 -->
+                    <ellipse cx="90" cy="100" rx="8" ry="10" fill="#1c1917"/>
+                    <text x="90" y="145" font-size="11" fill="#78350f" text-anchor="middle">吹孔</text>
+                    
+                    <!-- 膜孔 -->
+                    <ellipse cx="160" cy="100" rx="9" ry="11" fill="#fef3c7" stroke="#78350f" stroke-width="1"/>
+                    <text x="160" y="145" font-size="11" fill="#78350f" text-anchor="middle">膜孔</text>
+                    
+                    <!-- 音孔 -->
+                    <ellipse class="cursor-pointer hover:fill-amber-400 transition-all" cx="210" cy="100" rx="8" ry="10" fill="#1c1917" data-note="sol_high"/>
+                    <ellipse class="cursor-pointer hover:fill-amber-400 transition-all" cx="245" cy="100" rx="8" ry="10" fill="#1c1917" data-note="fa"/>
+                    <ellipse class="cursor-pointer hover:fill-amber-400 transition-all" cx="280" cy="100" rx="8" ry="10" fill="#1c1917" data-note="mi"/>
+                    <ellipse class="cursor-pointer hover:fill-amber-400 transition-all" cx="315" cy="100" rx="8" ry="10" fill="#1c1917" data-note="re"/>
+                    <ellipse class="cursor-pointer hover:fill-amber-400 transition-all" cx="350" cy="100" rx="8" ry="10" fill="#1c1917" data-note="do"/>
+                    <ellipse class="cursor-pointer hover:fill-amber-400 transition-all" cx="385" cy="100" rx="8" ry="10" fill="#1c1917" data-note="si"/>
+                    
+                    <!-- 基音孔 -->
+                    <ellipse cx="430" cy="90" rx="6" ry="7" fill="#1c1917"/>
+                    <ellipse cx="430" cy="110" rx="6" ry="7" fill="#1c1917"/>
+                    
+                    <!-- 笛塞 -->
+                    <rect x="60" y="85" width="15" height="30" rx="3" fill="#451a03"/>
+                    
+                    <!-- 中国结装饰 -->
+                    <path d="M 450 95 Q 465 100 450 115 Q 465 130 450 145" stroke="#dc2626" stroke-width="3" fill="none"/>
+                    <circle cx="450" cy="150" r="6" fill="#dc2626"/>
+                    
+                    <defs>
+                        <linearGradient id="diziBamboo" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#ca8a04"/>
+                            <stop offset="30%" stop-color="#eab308"/>
+                            <stop offset="70%" stop-color="#eab308"/>
+                            <stop offset="100%" stop-color="#a16207"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <p class="text-center text-amber-800/70 text-sm mt-3">点击音孔即可演奏 · 笛膜是竹笛音色的灵魂</p>
+            `;
+            
+            container.querySelectorAll('[data-note]').forEach(hole => {
+                hole.addEventListener('click', () => {
+                    const note = hole.dataset.note;
+                    playNote(noteFrequencies[note], 'dizi', 0.9);
+                    hole.setAttribute('fill', '#fbbf24');
+                    setTimeout(() => hole.setAttribute('fill', '#1c1917'), 200);
+                    highlightNote(note);
+                });
+            });
+        }
+
+        // ========== 键盘与UI渲染 ==========
+        function renderKeyboard(type) {
+            const keyboard = document.getElementById('noteKeyboard');
+            const data = instrumentData[type];
+            keyboard.innerHTML = '';
+            
+            data.notes.forEach(n => {
+                const btn = document.createElement('button');
+                btn.className = 'note-btn px-4 py-3 md:px-6 md:py-4 bg-gradient-to-b from-amber-100 to-amber-200 hover:from-amber-200 hover:to-amber-300 rounded-xl shadow-md border border-amber-300/50 font-semibold text-amber-900 text-sm md:text-base min-w-[80px]';
+                btn.dataset.note = n.note;
+                btn.dataset.key = n.key;
+                btn.innerHTML = `<div class="text-xs text-amber-600/70 mb-1">键${n.key}</div>${n.label}`;
+                
+                btn.addEventListener('click', () => {
+                    playNote(noteFrequencies[n.note], type);
+                    btn.classList.add('playing');
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = btn.innerHTML + ' <span class="playing-indicator ml-1">♪ 演奏中</span>';
+                    setTimeout(() => {
+                        btn.classList.remove('playing');
+                        const indicator = btn.querySelector('.playing-indicator');
+                        if (indicator) indicator.remove();
+                    }, 800);
+                });
+                
+                keyboard.appendChild(btn);
+            });
+        }
+
+        function renderSongs(type) {
+            const songsContainer = document.getElementById('demoSongs');
+            const data = instrumentData[type];
+            songsContainer.innerHTML = '';
+            
+            data.songs.forEach(song => {
+                const btn = document.createElement('button');
+                btn.className = 'note-btn px-5 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-full shadow-lg font-semibold text-sm md:text-base';
+                btn.textContent = '▶ ' + song.name;
+                
+                btn.addEventListener('click', () => {
+                    // 立即显示反馈
+                    btn.textContent = '♫ 演奏中...';
+                    btn.disabled = true;
+                    btn.classList.add('opacity-70', 'scale-95');
+                    
+                    const totalDuration = Math.max(song.notes.reduce((sum, n) => sum + n[1] * song.tempo * 1000, 0), 1000);
+                    setTimeout(() => {
+                        btn.textContent = '▶ ' + song.name;
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-70', 'scale-95');
+                    }, totalDuration + 500);
+                    playMelody(song.notes, type, song.tempo);
+                });
+                
+                songsContainer.appendChild(btn);
+            });
+        }
+
+        function renderInfo(type) {
+            const data = instrumentData[type];
+            document.getElementById('instrumentInfo').innerHTML = data.info.map(t => `<p>• ${t}</p>`).join('');
+            document.getElementById('instrumentTips').innerHTML = data.tips.map(t => `<p>• ${t}</p>`).join('');
+        }
+
+        // ========== 乐器切换 ==========
+        function switchInstrument(type) {
+            currentInstrument = type;
+            
+            // 更新标签状态
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.instrument === type) btn.classList.add('active');
+            });
+            
+            // 更新容器动画类
+            const container = document.getElementById('instrumentContainer');
+            container.classList.remove('instrument-panel');
+            void container.offsetWidth; // 触发重绘
+            container.classList.add('instrument-panel');
+            
+            // 重新渲染所有内容
+            renderInstrument(type);
+            renderKeyboard(type);
+            renderSongs(type);
+            renderInfo(type);
+            updateStatus(`当前乐器：${instrumentData[type].name} | 模式：点击演奏`, 'ready');
+        }
+
+        // ========== 键盘快捷键 ==========
+        document.addEventListener('keydown', (e) => {
+            const key = e.key;
+            if (key >= '1' && key <= '8') {
+                const note = instrumentData[currentInstrument].notes.find(n => n.key === key);
+                if (note) {
+                    playNote(noteFrequencies[note.note], currentInstrument);
+                    highlightNote(note.note);
+                    
+                    document.querySelectorAll('.note-btn').forEach(btn => {
+                        if (btn.dataset.key === key) {
+                            btn.classList.add('playing');
+                            setTimeout(() => btn.classList.remove('playing'), 200);
+                        }
+                    });
+                }
+            }
+        });
+
+        // ========== 初始化 ==========
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => switchInstrument(btn.dataset.instrument));
+        });
+
+        // 首次渲染
+        switchInstrument('erhu');
+        
+        // 确保音频在用户交互后启动
+        document.addEventListener('click', () => initAudio(), { once: true });
+    </script>
+</body>
+</html>

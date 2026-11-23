@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唢呐音乐实验室</title>
+    <script src="https://aisearch-task.bj.bcebos.com/static/tailwindcss-3.4.17.js"></script>
+    <script src="https://aisearch-task.bj.bcebos.com/static/gsap-3.12.7.min.js"></script>
+    <style>
+        :root {
+            --theme-rgb: 194, 65, 12;
+            --card-bg: #ffffff;
+            --primary-color: #c2410c;
+            --accent-gold: #d97706;
+            --accent-red: #dc2626;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'HarmonyOS Sans SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fed7aa 100%);
+            min-height: 100vh;
+        }
+        
+        .suona-hole {
+            transition: all 0.2s cubic-bezier(.2,.8,.2,1);
+            cursor: pointer;
+        }
+        
+        .suona-hole.covered {
+            fill: #1f2937;
+            transform: scale(0.95);
+        }
+        
+        .suona-hole:hover {
+            filter: brightness(1.2);
+        }
+        
+        .key-btn {
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+        
+        .key-btn:active, .key-btn.active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #92400e;
+        }
+        
+        .tab-btn.active {
+            background: rgb(var(--theme-rgb));
+            color: white;
+        }
+        
+        .note-pill {
+            transition: all 0.3s ease;
+        }
+        
+        .note-pill.playing {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(194, 65, 12, 0.5);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        
+        .chinese-title {
+            font-family: 'Songti SC', 'STSong', 'SimSun', serif;
+        }
+    </style>
+</head>
+<body class="pb-12">
+    <!-- Header -->
+    <header class="pt-8 pb-6 px-4 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="chinese-title text-4xl md:text-6xl font-black text-[#7c2d12] mb-2 leading-tight">
+                唢呐音乐实验室
+            </h1>
+            <p class="text-[#9a3412] text-base md:text-lg font-medium">探索传统民乐的乐理奥秘 · Sol & La 深度体验</p>
+        </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="max-w-5xl mx-auto px-4 mb-6">
+        <div class="flex flex-wrap justify-center gap-2 glass-card rounded-2xl p-2 shadow-lg">
+            <button class="tab-btn active px-4 py-2 rounded-xl font-semibold text-sm md:text-base" data-tab="suona">🎷 唢呐模拟器</button>
+            <button class="tab-btn px-4 py-2 rounded-xl font-semibold text-sm md:text-base text-[#7c2d12]" data-tab="sol-la">🎵 Sol & La 演示</button>
+            <button class="tab-btn px-4 py-2 rounded-xl font-semibold text-sm md:text-base text-[#7c2d12]" data-tab="scales">🎼 五声音阶</button>
+            <button class="tab-btn px-4 py-2 rounded-xl font-semibold text-sm md:text-base text-[#7c2d12]" data-tab="songs">🎶 名曲片段</button>
+            <button class="tab-btn px-4 py-2 rounded-xl font-semibold text-sm md:text-base text-[#7c2d12]" data-tab="knowledge">📚 乐理小知识</button>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4">
+        
+        <!-- Tab 1: 唢呐模拟器 -->
+        <div id="tab-suona" class="tab-content">
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 唢呐可视化 -->
+                <div class="glass-card rounded-2xl p-6 shadow-xl">
+                    <h2 class="chinese-title text-2xl font-bold text-[#7c2d12] mb-4">8孔唢呐指法演示</h2>
+                    <p class="text-[#78350f] text-sm mb-4">点击音孔切换开闭状态，体验唢呐指法</p>
+                    
+                    <div class="relative bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl p-4">
+                        <svg viewBox="0 0 300 500" class="w-full max-w-[240px] mx-auto">
+                            <!-- 唢呐杆 -->
+                            <rect x="110" y="80" width="80" height="320" rx="10" fill="#8B4513" />
+                            <rect x="115" y="80" width="10" height="320" fill="#A0522D" />
+                            <rect x="175" y="80" width="15" height="320" fill="#654321" />
+                            
+                            <!-- 唢呐碗 -->
+                            <path d="M90 400 L110 380 L190 380 L210 400 L220 480 L80 480 Z" fill="#B8860B" />
+                            <ellipse cx="150" cy="480" rx="70" ry="15" fill="#DAA520" />
+                            
+                            <!-- 哨片 -->
+                            <rect x="135" y="50" width="30" height="35" rx="5" fill="#D2B48C" />
+                            <rect x="140" y="45" width="20" height="10" rx="3" fill="#F5DEB3" />
+                            
+                            <!-- 音孔 (从下往上: 1-7孔 + 背孔) -->
+                            <circle class="suona-hole covered" cx="150" cy="350" r="12" data-hole="1" />
+                            <circle class="suona-hole covered" cx="150" cy="310" r="12" data-hole="2" />
+                            <circle class="suona-hole covered" cx="150" cy="270" r="12" data-hole="3" />
+                            <circle class="suona-hole covered" cx="150" cy="230" r="12" data-hole="4" />
+                            <circle class="suona-hole covered" cx="150" cy="190" r="12" data-hole="5" />
+                            <circle class="suona-hole covered" cx="150" cy="150" r="12" data-hole="6" />
+                            <circle class="suona-hole covered" cx="150" cy="110" r="12" data-hole="7" />
+                            <!-- 背孔 -->
+                            <circle class="suona-hole covered" cx="200" cy="170" r="10" data-hole="0" />
+                        </svg>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-[#92400e]">当前指法: <span id="current-note" class="font-bold text-[#c2410c] text-lg">筒音 Sol (5)</span></p>
+                    </div>
+                </div>
+                
+                <!-- 音键控制 -->
+                <div class="glass-card rounded-2xl p-6 shadow-xl">
+                    <h2 class="chinese-title text-2xl font-bold text-[#7c2d12] mb-4">演奏键盘</h2>
+                    <p class="text-[#78350f] text-sm mb-4">点击按键或使用键盘 1-7 演奏</p>
+                    
+                    <div class="grid grid-cols-4 gap-3 mb-6">
+                        <button class="key-btn bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold py-4 rounded-xl shadow-md" data-note="do" data-freq="261.63">
+                            <div class="text-xl">Do</div>
+                            <div class="text-xs opacity-80">1 宫</div>
+                        </button>
+                        <button class="key-btn bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold py-4 rounded-xl shadow-md" data-note="re" data-freq="293.66">
+                            <div class="text-xl">Re</div>
+                            <div class="text-xs opacity-80">2 商</div>
+                        </button>
+                        <button class="key-btn bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold py-4 rounded-xl shadow-md" data-note="mi" data-freq="329.63">
+                            <div class="text-xl">Mi</div>
+                            <div class="text-xs opacity-80">3 角</div>
+                        </button>
+                        <button class="key-btn bg-gradient-to-b from-yellow-400 to-yellow-600 text-white font-bold py-4 rounded-xl shadow-md" data-note="fa" data-freq="349.23">
+                            <div class="text-xl">Fa</div>
+                            <div class="text-xs opacity-80">4</div>
+                        </button>
+                        <button class="key-btn bg-gradient-to-b from-red-500 to-red-700 text-white font-bold py-4 rounded-xl shadow-lg ring-4 ring-red-300" data-note="sol" data-freq="392.00">
+                            <div class="text-xl">Sol</div>
+                            <div class="text-xs opacity-90">5 徵 ⭐</div>
+                        </button>
+                        <button class="key-btn bg-gradient-to-b from-red-500 to-red-700 text-white font-bold py-4 rounded-xl shadow-lg ring-4 ring-red-300" data-note="la" data-freq="440.00">
+                            <div class="text-xl">La</div>
+                            <div class="text-xs opacity-90">6 羽 ⭐</div>
+                        </button>
+                        <button class="key-btn bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold py-4 rounded-xl shadow-md" data-note="si" data-freq="493.88">
+                            <div class="text-xl">Si</div>
+                            <div class="text-xs opacity-80">7</div>
+                        </button>
+                        <button class="key-btn bg-gradient-to-b from-orange-400 to-orange-600 text-white font-bold py-4 rounded-xl shadow-md" data-note="do2" data-freq="523.25">
+                            <div class="text-xl">Do·</div>
+                            <div class="text-xs opacity-80">高音1</div>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                        <h3 class="font-bold text-[#92400e] mb-2">💡 指法提示</h3>
+                        <ul class="text-sm text-[#78350f] space-y-1">
+                            <li><strong class="text-red-600">Sol (5)</strong>: 全部按孔 = 筒音，最基础的入门指法</li>
+                            <li><strong class="text-red-600">La (6)</strong>: 开最下一孔，《二八调开门》定调指法</li>
+                            <li>传统唢呐曲牌大多以 Sol 或 La 作为主音</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Sol & La 演示 -->
+        <div id="tab-sol-la" class="tab-content hidden">
+            <div class="glass-card rounded-2xl p-6 md:p-8 shadow-xl mb-6">
+                <h2 class="chinese-title text-2xl md:text-3xl font-bold text-[#7c2d12] mb-6 text-center">Sol & La 音高对比演示</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="text-center">
+                        <button id="play-sol" class="note-pill w-full bg-gradient-to-br from-red-500 to-red-700 text-white rounded-2xl py-8 shadow-lg hover:shadow-xl transition-all">
+                            <div class="text-5xl font-black mb-2">Sol</div>
+                            <div class="text-xl">5 (徵)</div>
+                            <div class="text-sm mt-2 opacity-80">392 Hz · G4</div>
+                            <div class="mt-4 text-lg">点击播放 ▶</div>
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <button id="play-la" class="note-pill w-full bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-2xl py-8 shadow-lg hover:shadow-xl transition-all">
+                            <div class="text-5xl font-black mb-2">La</div>
+                            <div class="text-xl">6 (羽)</div>
+                            <div class="text-sm mt-2 opacity-80">440 Hz · A4 (标准音)</div>
+                            <div class="mt-4 text-lg">点击播放 ▶</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-6 border border-red-200">
+                    <h3 class="font-bold text-lg text-[#991b1b] mb-4">🔊 连续试听：Sol → La → Sol</h3>
+                    <button id="play-sl-interval" class="w-full md:w-auto bg-gradient-to-r from-red-600 to-orange-600 text-white font-bold px-8 py-3 rounded-xl shadow-md hover:shadow-lg transition-all mb-4">
+                        播放 Sol-La 音程
+                    </button>
+                    <p class="text-sm text-[#7c2d12]">Sol到La是一个<strong>全音</strong>（大二度），这是唢呐指孔间距设计的核心依据之一，也是民族调式中最常用的音程进行。</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-2xl p-6 shadow-lg">
+                    <h3 class="font-bold text-xl text-[#7c2d12] mb-4">🎵 徵调式 (Sol为主音)</h3>
+                    <p class="text-[#78350f] mb-4">以Sol为主音的五声调式，明亮开阔，是北方唢呐最常用的调式。</p>
+                    <button id="play-zheng" class="bg-red-600 text-white font-semibold px-6 py-3 rounded-xl w-full mb-2">播放徵调式音阶: Sol La Do Re Mi</button>
+                    <p class="text-xs text-[#92400e]">代表曲目：《百鸟朝凤》《一枝花》</p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 shadow-lg">
+                    <h3 class="font-bold text-xl text-[#7c2d12] mb-4">🎵 羽调式 (La为主音)</h3>
+                    <p class="text-[#78350f] mb-4">以La为主音的五声调式，婉转苍凉，鲁西南鼓吹乐核心调式。</p>
+                    <button id="play-yu" class="bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl w-full mb-2">播放羽调式音阶: La Do Re Mi Sol</button>
+                    <p class="text-xs text-[#92400e]">代表曲目：《二八调开门》《抬花轿》</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: 五声音阶 -->
+        <div id="tab-scales" class="tab-content hidden">
+            <div class="glass-card rounded-2xl p-6 md:p-8 shadow-xl">
+                <h2 class="chinese-title text-2xl md:text-3xl font-bold text-[#7c2d12] mb-6">中国传统五声音阶</h2>
+                <p class="text-[#78350f] mb-6">唢呐演奏最核心的五个音：宫、商、角、徵、羽，对应简谱1 2 3 5 6</p>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center gap-4 bg-gradient-to-r from-orange-50 to-transparent p-4 rounded-xl">
+                        <button class="scale-note w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 text-white rounded-full font-bold text-xl shadow-lg shrink-0" data-note="do" data-freq="261.63">宫</button>
+                        <div>
+                            <div class="font-bold text-[#7c2d12]">Do (1) · 宫音</div>
+                            <div class="text-sm text-[#92400e]">五声音阶的主心骨，调式基准音</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-gradient-to-r from-orange-50 to-transparent p-4 rounded-xl">
+                        <button class="scale-note w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 text-white rounded-full font-bold text-xl shadow-lg shrink-0" data-note="re" data-freq="293.66">商</button>
+                        <div>
+                            <div class="font-bold text-[#7c2d12]">Re (2) · 商音</div>
+                            <div class="text-sm text-[#92400e]">刚劲有力，常用于旋律进行</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-gradient-to-r from-orange-50 to-transparent p-4 rounded-xl">
+                        <button class="scale-note w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 text-white rounded-full font-bold text-xl shadow-lg shrink-0" data-note="mi" data-freq="329.63">角</button>
+                        <div>
+                            <div class="font-bold text-[#7c2d12]">Mi (3) · 角音</div>
+                            <div class="text-sm text-[#92400e]">柔和婉转，富有抒情性</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-gradient-to-r from-red-100 to-transparent p-4 rounded-xl ring-2 ring-red-300">
+                        <button class="scale-note w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 text-white rounded-full font-bold text-xl shadow-lg shrink-0" data-note="sol" data-freq="392.00">徵</button>
+                        <div>
+                            <div class="font-bold text-[#991b1b]">Sol (5) · 徵音 ⭐ 唢呐最核心音</div>
+                            <div class="text-sm text-[#991b1b]">明亮高亢，唢呐入门筒音就是Sol</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 bg-gradient-to-r from-red-100 to-transparent p-4 rounded-xl ring-2 ring-red-300">
+                        <button class="scale-note w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 text-white rounded-full font-bold text-xl shadow-lg shrink-0" data-note="la" data-freq="440.00">羽</button>
+                        <div>
+                            <div class="font-bold text-[#991b1b]">La (6) · 羽音 ⭐ 唢呐最核心音</div>
+                            <div class="text-sm text-[#991b1b]">苍凉优美，《二八调开门》筒音作La</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="play-pentatonic" class="w-full bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white font-bold py-4 rounded-xl text-lg shadow-lg">
+                    🎵 播放完整五声音阶上行 + 下行
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab 4: 名曲片段 -->
+        <div id="tab-songs" class="tab-content hidden">
+            <div class="glass-card rounded-2xl p-6 md:p-8 shadow-xl">
+                <h2 class="chinese-title text-2xl md:text-3xl font-bold text-[#7c2d12] mb-6">唢呐经典名曲片段演示</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-5 border border-red-200">
+                        <h3 class="font-bold text-xl text-[#991b1b] mb-2">🎺 《百鸟朝凤》片段</h3>
+                        <p class="text-sm text-[#78350f] mb-3">徵调式代表作，以Sol为核心音，模仿百鸟和鸣</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">La</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Mi</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Re</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Do</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Re</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                        </div>
+                        <button id="play-bainiao" class="song-btn w-full bg-red-600 text-white font-semibold py-3 rounded-xl" data-song="bainiao">播放片段 ▶</button>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-5 border border-amber-200">
+                        <h3 class="font-bold text-xl text-[#92400e] mb-2">🎺 《二八调开门》片段</h3>
+                        <p class="text-sm text-[#78350f] mb-3">鲁西南经典曲牌，筒音作La（羽调式）</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">La</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Do</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Re</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Mi</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">La</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Mi</span>
+                        </div>
+                        <button id="play-erbamen" class="song-btn w-full bg-amber-600 text-white font-semibold py-3 rounded-xl" data-song="erbamen">播放片段 ▶</button>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-5 border border-orange-200">
+                        <h3 class="font-bold text-xl text-[#9a3412] mb-2">🎺 《喇叭调》民歌旋律</h3>
+                        <p class="text-sm text-[#78350f] mb-3">民间民歌，核心骨架音就是Sol、Do、Re</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Do</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Re</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Sol</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Mi</span>
+                            <span class="px-3 py-1 bg-white rounded-lg text-sm font-mono">Re</span>
+                        </div>
+                        <button id="play-laba" class="song-btn w-full bg-orange-600 text-white font-semibold py-3 rounded-xl" data-song="laba">播放片段 ▶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 5: 乐理小知识 -->
+        <div id="tab-knowledge" class="tab-content hidden">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-2xl p-6 shadow-xl">
+                    <h2 class="chinese-title text-2xl font-bold text-[#7c2d12] mb-4">📜 唢呐名称由来</h2>
+                    <div class="space-y-4 text-[#78350f]">
+                        <p>"唢呐"一词是古代波斯语 <strong class="text-[#c2410c]">Surnā（祖尔纳）</strong> 的音译，原意是"庆典管"。</p>
+                        <p>金元时期经丝绸之路传入中国，先后记作"苏尔奈""琐嘹""锁呐"，明代以后固定为"唢呐"写法。</p>
+                        <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 mt-4">
+                            <p class="font-bold text-[#92400e] mb-2">❓ 那为什么听起来像 Sol-La？</p>
+                            <p class="text-sm">这是<strong>发音巧合</strong>！现代简谱传入中国后，人们才发现"唢(Suǒ)""呐(Nà)"和 Sol、La 发音近似；加之唢呐最常用的两个音刚好就是Sol和La，才产生了这种有趣的联想。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 shadow-xl">
+                    <h2 class="chinese-title text-2xl font-bold text-[#7c2d12] mb-4">🎷 为什么Sol和La最重要？</h2>
+                    <ul class="space-y-3 text-[#78350f]">
+                        <li class="flex gap-3">
+                            <span class="text-2xl">1️⃣</span>
+                            <span><strong>入门指法基础：</strong>初学者最先学的就是"筒音作Sol"，全部按孔吹出的最低音就是Sol。</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-2xl">2️⃣</span>
+                            <span><strong>传统曲牌核心：</strong>鲁西南鼓吹乐经典"二八调"就是筒音作La，是民间最主流的定调方式之一。</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-2xl">3️⃣</span>
+                            <span><strong>调式主音：</strong>徵调式(Sol为主)明亮高亢、羽调式(La为主)苍凉婉转，覆盖了唢呐90%的传统曲目。</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-2xl">4️⃣</span>
+                            <span><strong>指孔设计依据：</strong>8孔唢呐前6孔正好对应do-re-mi-fa-sol-la，Sol-La是全音，孔距正好对应一个全音的长度。</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-6 shadow-xl md:col-span-2">
+                    <h2 class="chinese-title text-2xl font-bold text-[#7c2d12] mb-4">🎵 基础音程对照表</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-[#78350f]">
+                            <thead>
+                                <tr class="border-b-2 border-amber-200">
+                                    <th class="text-left py-3 px-2">简谱</th>
+                                    <th class="text-left py-3 px-2">唱名</th>
+                                    <th class="text-left py-3 px-2">五声名</th>
+                                    <th class="text-left py-3 px-2">频率(Hz)</th>
+                                    <th class="text-left py-3 px-2">音名</th>
+                                    <th class="text-left py-3 px-2">唢呐指法</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-amber-100">
+                                    <td class="py-3 px-2 font-mono">1</td>
+                                    <td class="py-3 px-2">Do</td>
+                                    <td class="py-3 px-2">宫</td>
+                                    <td class="py-3 px-2">261.6</td>
+                                    <td class="py-3 px-2">C4</td>
+                                    <td class="py-3 px-2">开上3孔</td>
+                                </tr>
+                                <tr class="border-b border-amber-100">
+                                    <td class="py-3 px-2 font-mono">2</td>
+                                    <td class="py-3 px-2">Re</td>
+                                    <td class="py-3 px-2">商</td>
+                                    <td class="py-3 px-2">293.7</td>
+                                    <td class="py-3 px-2">D4</td>
+                                    <td class="py-3 px-2">开上2孔</td>
+                                </tr>
+                                <tr class="border-b border-amber-100">
+                                    <td class="py-3 px-2 font-mono">3</td>
+                                    <td class="py-3 px-2">Mi</td>
+                                    <td class="py-3 px-2">角</td>
+                                    <td class="py-3 px-2">329.6</td>
+                                    <td class="py-3 px-2">E4</td>
+                                    <td class="py-3 px-2">开上1孔</td>
+                                </tr>
+                                <tr class="border-b border-amber-100">
+                                    <td class="py-3 px-2 font-mono">4</td>
+                                    <td class="py-3 px-2">Fa</td>
+                                    <td class="py-3 px-2">-</td>
+                                    <td class="py-3 px-2">349.2</td>
+                                    <td class="py-3 px-2">F4</td>
+                                    <td class="py-3 px-2">按半孔</td>
+                                </tr>
+                                <tr class="border-b border-red-200 bg-red-50">
+                                    <td class="py-3 px-2 font-mono font-bold text-red-600">5</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">Sol</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">徵 ⭐</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">392.0</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">G4</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">筒音(全按)</td>
+                                </tr>
+                                <tr class="border-b border-red-200 bg-red-50">
+                                    <td class="py-3 px-2 font-mono font-bold text-red-600">6</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">La</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">羽 ⭐</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">440.0</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">A4</td>
+                                    <td class="py-3 px-2 font-bold text-red-600">开最下一孔</td>
+                                </tr>
+                                <tr class="border-b border-amber-100">
+                                    <td class="py-3 px-2 font-mono">7</td>
+                                    <td class="py-3 px-2">Si</td>
+                                    <td class="py-3 px-2">-</td>
+                                    <td class="py-3 px-2">493.9</td>
+                                    <td class="py-3 px-2">B4</td>
+                                    <td class="py-3 px-2">开下2孔</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-2 font-mono">1·</td>
+                                    <td class="py-3 px-2">Do</td>
+                                    <td class="py-3 px-2">宫</td>
+                                    <td class="py-3 px-2">523.3</td>
+                                    <td class="py-3 px-2">C5</td>
+                                    <td class="py-3 px-2">开下3孔</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Audio Context
+        let audioCtx = null;
+        
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        // 播放唢呐音色
+        function playSuonaNote(frequency, duration = 0.8) {
+            initAudio();
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            const filter = audioCtx.createBiquadFilter();
+            
+            // 唢呐音色模拟：锯齿波 + 带通滤波 + 泛音
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            
+            // 添加一点颤音
+            const vibrato = audioCtx.createOscillator();
+            const vibratoGain = audioCtx.createGain();
+            vibrato.frequency.value = 5;
+            vibratoGain.gain.value = 3;
+            vibrato.connect(vibratoGain);
+            vibratoGain.connect(oscillator.frequency);
+            vibrato.start();
+            
+            filter.type = 'bandpass';
+            filter.frequency.value = frequency * 2;
+            filter.Q.value = 2;
+            
+            // ADSR包络
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.02);
+            gainNode.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.15);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + duration);
+            vibrato.stop(audioCtx.currentTime + duration);
+        }
+        
+        // 播放音符序列
+        function playSequence(notes, tempo = 300) {
+            initAudio();
+            notes.forEach((freq, i) => {
+                setTimeout(() => playSuonaNote(freq, tempo/1000 * 0.9), i * tempo);
+            });
+        }
+        
+        // 通用播放反馈函数
+        function setPlayingFeedback(btn, duration = 800) {
+            const originalText = btn.innerHTML;
+            btn.classList.add('ring-4', 'ring-orange-300');
+            btn.innerHTML = originalText.replace('▶', '🔊 播放中...');
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.classList.remove('ring-4', 'ring-orange-300');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, duration);
+        }
+        
+        // Tab 切换
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('text-[#7c2d12]');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('text-[#7c2d12]');
+                
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+            });
+        });
+        
+        // 音孔点击
+        document.querySelectorAll('.suona-hole').forEach(hole => {
+            hole.addEventListener('click', () => {
+                hole.classList.toggle('covered');
+                updateCurrentNote();
+            });
+        });
+        
+        function updateCurrentNote() {
+            const covered = document.querySelectorAll('.suona-hole.covered').length;
+            const noteEl = document.getElementById('current-note');
+            if (covered === 8) {
+                noteEl.textContent = '筒音 Sol (5)';
+                playSuonaNote(392);
+            } else if (covered === 7) {
+                noteEl.textContent = 'La (6)';
+                playSuonaNote(440);
+            } else if (covered === 6) {
+                noteEl.textContent = 'Si (7)';
+                playSuonaNote(493.88);
+            } else if (covered === 5) {
+                noteEl.textContent = 'Do (高音1)';
+                playSuonaNote(523.25);
+            } else if (covered === 4) {
+                noteEl.textContent = 'Re (高音2)';
+                playSuonaNote(587.33);
+            } else if (covered === 3) {
+                noteEl.textContent = 'Mi (高音3)';
+                playSuonaNote(659.25);
+            } else {
+                noteEl.textContent = '开放音 · 请按孔';
+            }
+        }
+        
+        // 键盘按键演奏
+        document.querySelectorAll('.key-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const freq = parseFloat(btn.dataset.freq);
+                playSuonaNote(freq);
+                
+                btn.classList.add('active');
+                setTimeout(() => btn.classList.remove('active'), 150);
+            });
+        });
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            const keyMap = {'1':'do','2':'re','3':'mi','4':'fa','5':'sol','6':'la','7':'si','8':'do2'};
+            const note = keyMap[e.key];
+            if (note) {
+                const btn = document.querySelector(`[data-note="${note}"]`);
+                if (btn) btn.click();
+            }
+        });
+        
+        // Sol/La单独播放
+        document.getElementById('play-sol').addEventListener('click', function() {
+            playSuonaNote(392, 1.2);
+            setPlayingFeedback(this, 1200);
+        });
+        
+        document.getElementById('play-la').addEventListener('click', function() {
+            playSuonaNote(440, 1.2);
+            setPlayingFeedback(this, 1200);
+        });
+        
+        // Sol-La音程
+        document.getElementById('play-sl-interval').addEventListener('click', function() {
+            playSequence([392, 440, 392], 500);
+            setPlayingFeedback(this, 1600);
+        });
+        
+        // 徵调式
+        document.getElementById('play-zheng').addEventListener('click', function() {
+            playSequence([392, 440, 523.25, 587.33, 659.25], 350);
+            setPlayingFeedback(this, 2000);
+        });
+        
+        // 羽调式
+        document.getElementById('play-yu').addEventListener('click', function() {
+            playSequence([440, 523.25, 587.33, 659.25, 783.99], 350);
+            setPlayingFeedback(this, 2000);
+        });
+        
+        // 五声音阶圆球
+        document.querySelectorAll('.scale-note').forEach(btn => {
+            btn.addEventListener('click', function() {
+                playSuonaNote(parseFloat(this.dataset.freq));
+                this.style.transform = 'scale(0.9)';
+                this.style.boxShadow = '0 0 20px rgba(194,65,12,0.6)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                }, 300);
+            });
+        });
+        
+        // 完整五声音阶
+        document.getElementById('play-pentatonic').addEventListener('click', function() {
+            const up = [261.63, 293.66, 329.63, 392, 440, 523.25];
+            const down = [523.25, 440, 392, 329.63, 293.66, 261.63];
+            playSequence([...up, ...down], 300);
+            setPlayingFeedback(this, 3800);
+        });
+        
+        // 名曲播放
+        document.getElementById('play-bainiao').addEventListener('click', function() {
+            playSequence([392, 440, 392, 329.63, 293.66, 261.63, 293.66, 392], 280);
+            setPlayingFeedback(this, 2500);
+        });
+        
+        document.getElementById('play-erbamen').addEventListener('click', function() {
+            playSequence([440, 523.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25], 300);
+            setPlayingFeedback(this, 2600);
+        });
+        
+        document.getElementById('play-laba').addEventListener('click', function() {
+            playSequence([392, 392, 523.25, 587.33, 392, 392, 659.25, 587.33], 280);
+            setPlayingFeedback(this, 2500);
+        });
+        
+        // 入场动画
+        gsap.from('.glass-card', {
+            y: 30,
+            opacity: 0.95,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power2.out',
+            clearProps: 'all'
+        });
+    </script>
+</body>
+</html>
