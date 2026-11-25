@@ -1,0 +1,40 @@
+https://edson.tw/child/001/clock_t.htm访问此网站，提示不支持此插件
+
+千问回答：
+已完成工作 用时20分
+查清了，这页根本不是"你电脑缺插件"，是整个行业的插件能力被砍掉了。
+原因
+源码里写死了 Flash：
+html
+
+预览
+
+
+
+
+<object classid=clsid:D27CDB6E-AE6D-11cf-96B8-444553540000 ...>   ← Adobe Flash Player 的 ActiveX CLSID
+<param name=SRC value=clock.swf>
+<embed src=clock.swf type=application/x-shockwave-flash ...>
+D27CDB6E-AE6D-11cf-96B8-444553540000 就是 Flash 的注册标识。Flash 在 2020-12-31 正式停止维护，Adobe 从 2021-01-12 起让播放器自己拒绝播放，Chrome / Edge / Firefox / Safari 随后彻底移除了 NPAPI/PPAPI 插件通道。所以现在任何现代浏览器打开这个页面都会报"不支持此插件"，重装 Flash 也没用。国内那个"Flash 中心"是 Windows 专供的定制版，带弹窗推广，教学机我不建议装。
+我给你解决好了
+我把 Flash 本体抓下来了——clock.swf，263,180 字节，Macromedia Flash 7 压缩格式——然后用 Ruffle（开源的 Flash 模拟器，用 WebAssembly 在浏览器里重新实现 Flash 虚拟机）把它跑起来了。2005 年的 ActionScript 2 小课件，Ruffle 支持得很好。
+验证过程（无头 Chrome 实测）：加载后触发了 loadedmetadata，页面状态显示"课件已就绪"；渲染截图里能清楚看到繁体标题「認識時鐘」，以及原作者水印「王建忍 製作 版權所有 2005.9.30」。下面那张预览图就是实际跑出来的画面。
+用法：把第一个文件下载后双击打开即可。课件数据已经 base64 内嵌在 HTML 里，不需要额外放 swf 文件，也不需要起本地服务器；运行环境走三个 CDN 地址自动降级（jsDelivr 备用域名 → unpkg），失败会红字提示原因。
+唯一要记得的：打开后先点一下画面中间。浏览器有强制策略，没听到用户点击就不允许播放声音，点一下就解除静音。
+第二个文件是 swf 原件，方便你接进自己已有的页面（用 Ruffle 三行代码就能替换）；第三个是效果预览。
+现在这版仍需要联网取 Ruffle 引擎（约 14MB，走 CDN）。要不要我再打一个完全离线包，把引擎一起放进去，断网、装到没外网的教学电脑上也能直接用？
+以下文件未能传输到千问 APP：
+clock.swf：文件生成失败，请重新尝试一下
+建议接管云设备，使用浏览器上传文件到云盘。
+
+课件运行效果预览.png
+创建于 刚刚
+
+
+
+
+认识时钟-Flash课件-浏览器直开版.html
+版本1
+创建于 刚刚 · 348KB
+
+预览
